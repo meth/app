@@ -1,0 +1,12 @@
+doctype
+html
+  head
+    meta(charset="UTF-8")
+    title Meth dapp browser
+    link(rel="styleSheet", href="./css/global.css")
+  body
+    main#react-root
+    script(type="text/javascript", src="./js/globals.js")
+    script(type="text/javascript", src="./js/app.js")
+    if BUILD_MODE == 'development'
+      script(type="text/javascript", src="http://localhost:53456/livereload.js")

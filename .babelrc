@@ -1,0 +1,23 @@
+{
+  "presets": [
+    "react",
+    "es2015"
+  ],
+  "plugins": [
+    "external-helpers",
+    "transform-react-display-name",
+    "transform-decorators-legacy"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        ["react-transform", {
+          "transforms": [{
+            "transform": "livereactload/babel-transform",
+            "imports": ["react"]
+          }]
+        }]
+      ]
+    }
+  }
+}
