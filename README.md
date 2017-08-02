@@ -18,14 +18,14 @@ Once Node is installed, install the dependencies:
 $ yarn
 ```
 
-To build for development (with watcher):
+To build frontend for development (with watcher):
 
 ```shell
-$ gulp
+$ npm run frontend
 ```
 
-To start the app UI:
+To start the electron backend and full UI:
 
 ```shell
-$ npm run electron
+$ npm run backend
 ```

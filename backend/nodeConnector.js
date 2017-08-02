@@ -12,11 +12,10 @@ const _ = require('lodash'),
 class NodeConnector {
   constructor () {
     this._connectedTo = null
-    this._isConnected = false
   }
 
   get isConnected () {
-    return this._isConnected
+    return null !== this._connectedTo
   }
 
   /**
