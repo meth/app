@@ -1,5 +1,3 @@
-"use strict";
-
 const _ = require('lodash'),
   electron = require('electron'),
   app = electron.app,

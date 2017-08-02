@@ -1,15 +1,11 @@
-"use strict";
-
-const electron = require('electron'),
-  app = electron.app,
-  BrowserWindow = electron.BrowserWindow,
+const { app, BrowserWindow } = require('electron'),
   Settings = require('./backend/settings'),
   Windows = require('./backend/windows'),
   IpcManager = require('./backend/ipc'),
   log = require('./backend/logger').create('main');
 
 
-var mainWindow;
+let mainWindow;
 
 
 function createMainWindow () {
@@ -60,22 +56,6 @@ app.on('window-all-closed', function () {
   }
 });
 
-// Before quit
-app.on('before-quit', function(e) {
-  if (ClientNode.isRunning) {
-    try {
-      e.preventDefault();
-
-      ClientNode.shutdown().finally(() => {
-        app.quit();
-      });
-    } catch (err) {
-      log.error('before-quit hook error'. err);
-
-      process.exit();
-    }
-  }
-});
 
 // activate
 app.on('activate', function () {
