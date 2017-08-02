@@ -1,21 +1,22 @@
 const _ = require('lodash'),
-  electron = require('electron'),
-  app = electron.app,
+  { app } = require('electron'),
   path = require('path'),
   Q = require('bluebird'),
   EventEmitter = require('eventemitter3'),
-  ClientManager = require('ethereum-client-binaries').Manager,
-  geth = require('geth-private'),
-  clientBinariesConfig = require('../config/clientBinaries.json'),
+  nodesConfig = require('./config/nodes.json'),
   Settings = require('./settings'),
-  log = require('./logger').create('ClientNode');
+  log = require('./logger').create('NodeConnector')
 
 
 
+class NodeConnector {
+  constructor () {
+    this._connectedTo = null
+    this._isConnected = false
+  }
 
-class ClientNode {
-  get isRunning () {
-    return this._inst && this._inst.isRunning;
+  get isConnected () {
+    return this._isConnected
   }
 
   /**
@@ -23,11 +24,11 @@ class ClientNode {
    *
    * @return {Promise}
    */
-  startup (ev) {
+  connect (ev) {
     ev = ev || new EventEmitter();
 
-    if (this.isRunning) {
-      ev.emit('started');
+    if (this.isConnected) {
+      ev.emit('connected');
 
       return Q.resolve();
     }
@@ -146,4 +147,4 @@ class ClientNode {
 }
 
 
-module.exports = new ClientNode();
+module.exports = new NodeConnector();

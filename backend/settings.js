@@ -2,20 +2,18 @@ const _ = require('lodash'),
   electron = require('electron'),
   app = electron.app,
   path = require('path'),
-  packageJson = require('../package.json');
+  packageJson = require('../package.json')
 
 
 let CONFIG = {
   mode: 'development',
-};
+}
+
 try {
-  _.extend(CONFIG, require('../config.json'));
+  _.extend(CONFIG, require('./config/appConfig.json'))
 } catch (err) {}
 
-
-const MODE_IS_PRODUCTION = (CONFIG.mode==='production');
-const MODE_IS_DEVELOPMENT = (CONFIG.mode==='development');
-
+const MODE_IS_PRODUCTION = (CONFIG.mode==='production')
 
 const argv = require('yargs')
   .usage('Usage: $0 [Meth options]')
@@ -50,40 +48,40 @@ const argv = require('yargs')
   })
   .help('h')
   .alias('h', 'help')
-  .parse(process.argv.slice(1));
+  .parse(process.argv.slice(1))
 
 
 
 class Settings {
   constructor () {
     // the only globals permitted (for use in preload scripts)
-    global.appConfig = this.appConfig;
+    global.appConfig = this.appConfig
   }
 
   get userDataDir() {
     // Application Support/Meth
-    return app.getPath('userData');
+    return app.getPath('userData')
   }
 
   get logLevel () {
-    return argv.loglevel;
+    return argv.loglevel
   }
 
   get appVersion () {
-    return packageJson.version;
+    return packageJson.version
   }
 
   get appName() {
-    return 'Meth';
+    return 'Meth'
   }
 
   get appConfig() {
-    return CONFIG;
+    return CONFIG
   }
 
   get inProductionMode() {
-    return MODE_IS_PRODUCTION;
+    return MODE_IS_PRODUCTION
   }
 }
 
-module.exports = new Settings();
+module.exports = new Settings()

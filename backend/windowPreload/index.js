@@ -1,1 +1,1 @@
-window.appConfig = global.appConfig;
+window.appConfig = global.appConfig
