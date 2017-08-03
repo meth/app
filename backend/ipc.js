@@ -5,12 +5,12 @@ const _ = require('lodash'),
   EventEmitter = require('eventemitter3'),
   { IPC } = require('../common/constants'),
   Windows = require('./windows'),
-  log = require('./logger').create('IpcManager');
+  log = require('./logger').create('BackendIpc');
 
 
 
 
-class IpcManager {
+class BackendIpc {
   constructor () {
     ipc.on(IPC.BACKEND_TASK, this._receiveIpcFromUi.bind(this));
   }
@@ -32,4 +32,4 @@ class IpcManager {
 }
 
 
-module.exports = new IpcManager();
+module.exports = new BackendIpc();

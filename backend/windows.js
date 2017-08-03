@@ -138,8 +138,7 @@ class Window extends EventEmitter {
       acceptFirstMouse: true,
       darkTheme: true,
       webPreferences: {
-        preload: path.join(__dirname, 'windowPreload', 'index.js'),
-        nodeIntegration: false,
+        preload: path.join(__dirname, 'windowPreload', 'browser.js'),
         webaudio: true,
         webgl: false,
         webSecurity: false, // necessary to make routing work on file:// protocol
@@ -148,6 +147,11 @@ class Window extends EventEmitter {
     }
 
     _.extend(electronOptions, config.electronOptions)
+
+    // for security and safety we enforce certain things
+    // (https://github.com/electron/electron/pull/8348)
+    electronOptions.webPreferences.nodeIntegration = false
+    electronOptions.webPreferences.contextIsolation = true
 
     this._log.debug('Creating browser window')
 

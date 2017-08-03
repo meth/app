@@ -6,7 +6,8 @@
   "plugins": [
     "external-helpers",
     "transform-react-display-name",
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    "styled-components"
   ],
   "env": {
     "development": {

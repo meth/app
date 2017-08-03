@@ -3,9 +3,9 @@ html
   head
     meta(charset="UTF-8")
     title Meth dapp browser
-  body
-    main#react-root
     script(type="text/javascript", src="./js/globals.js")
     script(type="text/javascript", src="./js/app.js")
+  body
+    main#react-root
     if BUILD_MODE == 'development'
       script(type="text/javascript", src="http://localhost:53456/livereload.js")
