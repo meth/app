@@ -42,7 +42,7 @@ class Windows {
     // url
     config.url = Settings.inProductionMode
       ? 'file://' + Settings.appResDir() + '/index.html#Main'
-      : 'http://localhost:3456#Main'
+      : 'http://localhost:3456/#Main'
 
     let wnd = new Window(`${type}-${Math.random() * 100000}`, type, config)
 
