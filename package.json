@@ -57,7 +57,7 @@
     "gulp-server-livereload": "^1.9.2",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
-    "i21n": "^1.0.2",
+    "i21n": "1.1.0",
     "immutable": "^3.8.1",
     "immutable-state-machine": "^1.2.0",
     "livereactload": "^3.3.0",

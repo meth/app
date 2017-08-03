@@ -8,11 +8,10 @@ const locales = {
 
 const i21n = new I21n({}, { defaultLocale: 'en-gb' })
 
-_.each(locales, ({ strings }, locale) => {
-  i21n.loadLocale(locale, strings)
+_.each(locales, (data, locale) => {
+  i21n.loadLocale(locale, data.strings)
 })
 
+exports.languages = _.mapValues(locales, data => data.label)
 
-export const languages = _.mapValues(locales, ({ label }) => label)
-
-export const t = (id, args) => i21n.t(id, args, { locale })
+exports.t = (id, args) => i21n.t(id, args)

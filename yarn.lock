@@ -2953,9 +2953,9 @@ https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
 
-i21n@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/i21n/-/i21n-1.0.2.tgz#1ffbb7e391fcaf2404b33bcb784fafa5044dab2f"
+i21n@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/i21n/-/i21n-1.1.0.tgz#e8a1f0d34aa52ff6c0b36f4fa66843b2f651f8bf"
 
 iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   version "0.4.18"

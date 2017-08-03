@@ -17,7 +17,7 @@ class Dispatcher {
 
   init () {
     this._stateAction(TYPES.INIT, 'in_progress');
-    this._sendIpcToBackend(IPC.BACKEND_INIT);
+    this._sendIpcToBackend(IPC.BACKEND_TASKS.INIT);
   }
 
   _connectWeb3 () {
@@ -118,7 +118,7 @@ class Dispatcher {
   }
 
   _sendIpcToBackend = (task, params) => {
-    ipc.send(task, params);
+    ipc.send(IPC.BACKEND_TASK, task, params);
   }
 
   _receivedIpcFromBackend = (e, task, state, data) => {

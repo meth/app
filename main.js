@@ -4,32 +4,31 @@ const { app, BrowserWindow } = require('electron'),
   IpcManager = require('./backend/ipc'),
   log = require('./backend/logger').create('main')
 
+const isOSX = 'darwin' === process.platform
 
 let mainWindow
 
 
-function createMainWindow () {
+const createMainWindow = () => {
   log.info('Creating main window ...')
 
-  // url
-  const url = Settings.inProductionMode
-    ? 'file://' + __dirname + '/index.html#Main'
-    : 'http://localhost:3456#Main'
-
   // Create the browser window.
-  mainWindow = Windows.create('main', {
-    isMain: true
+  mainWindow = Windows.create('Main', {
+    isMain: true,
+    unique: true,
   })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {
     log.info('Window closed')
 
-    mainWindow = null
+    // On OS X it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    // Hence we shall nullify the reference when the window is closed
+    if (isOSX) {
+      mainWindow = null
+    }
   })
-
-  // load URL
-  mainWindow.load(url)
 
   require('./backend/menu').setup(mainWindow)
 }
@@ -49,7 +48,7 @@ app.on('window-all-closed', function () {
 
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
+  if (!isOSX) {
     log.debug('Exit app')
 
     app.quit()
@@ -61,8 +60,7 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
   log.info('App activated')
 
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
+  // if reference was previously nullified we need to recreate the window
   if (!mainWindow) {
     createMainWindow()
   } else {

@@ -63,6 +63,10 @@ class Settings {
     return app.getPath('userData')
   }
 
+  get appResDir () {
+    return path.resolve(path.join(__dirname, '..'))
+  }
+
   get logLevel () {
     return argv.loglevel
   }

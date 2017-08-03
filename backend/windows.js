@@ -3,7 +3,7 @@ const _ = require('lodash'),
   { app, BrowserWindow, ipcMain: ipc } = require('electron'),
   EventEmitter = require('events').EventEmitter,
   Settings = require('./settings'),
-  { ICP } = require('../common/constants'),
+  { IPC } = require('../common/constants'),
   log = require('./logger').create('Windows')
 
 
@@ -13,50 +13,74 @@ const _ = require('lodash'),
  */
 class Windows {
   constructor () {
-    this._windows = {};
+    this._windowsById = {}
+    this._windowsByType = {}
   }
 
   /**
    * Create window.
    *
-   * @param {String} id Unique window id
+   * @param {String} type UI type - tells frontend which specifically UI to display.
    * @param {String} config.browserWindow Options to pass to `BrowserWindow` constructor.
-   * @param {Boolean} [config.isMain] If set then marks this as a main window.
-   * @param {String} [config.url] URL to load.
+   * @param {Boolean} [config.isMain] If true then marks this as a main window.
+   * @param {String} [config.unique] If true then only one window of this `uiName` is allowed at a time, and thus any existing window will be returned.
    * @return {Window}
    */
-  create (id, config) {
-    log.info(`Create window ${id}`);
+  create (type, config) {
+    log.info(`Create window: ${type}`)
 
-    if (this._windows[id]) {
-      log.debug(`Window already created`);
+    if (config.unique) {
+      const existing = this._windowsByType[type]
 
-      return this._windows[id];
+      if (existing && existing.length) {
+        log.debug(`Window already created`)
+
+        return existing[0]
+      }
     }
 
-    let wnd = new Window(id, config);
+    // url
+    config.url = Settings.inProductionMode
+      ? 'file://' + Settings.appResDir() + '/index.html#Main'
+      : 'http://localhost:3456#Main'
 
-    this._windows[id] = wnd;
+    let wnd = new Window(`${type}-${Math.random() * 100000}`, type, config)
+
+    // save by id
+    this._windowsById[wnd.id] = wnd
+    // save by type
+    this._windowsByType[type] = this._windowsByType[type] || []
+    this._windowsByType[type].push(wnd)
 
     wnd.on('closed', () => {
-      this._onWindowClosed(id);
-    });
+      this._onWindowClosed(wnd.id)
+    })
 
-    return wnd;
+    return wnd
   }
 
 
   /**
    * Get window by id.
    *
-   * @param {String} type Window id.
+   * @param {String} id Window id.
    *
    * @param {Window} null if not found.
    */
-  get(id) {
-    return _.find(this._windows, (w) => {
-      return w.id === id;
-    });
+  getById (id) {
+    return this._windowsById[id]
+  }
+
+
+  /**
+   * Get window by type
+   *
+   * @param {String} type Window type.
+   *
+   * @param {Array} list of `Window` instances which match.
+   */
+  getByType (type) {
+    return this._windowsByType[type]
   }
 
 
@@ -66,32 +90,40 @@ class Windows {
   * @param {String} window id
   */
   _onWindowClosed (id) {
-    log.debug(`Window closed: ${id}`);
+    const type = this._windowsById[id].type
 
-    delete this._windows[id];
+    log.debug(`Window closed: ${id} (${type})`)
 
-    const anyOpen = _.find(this._windows, (wnd) => {
-      return wnd.config.isMain && wnd.isShown;
-    });
+    // remove references
+    delete this._windowsById[id]
+    const typePos = this._windowsByType[type].findIndex(a => a.id === id)
+    this._windowsByType[type].splice(typePos, 1)
 
+    // check if any main windows are still shown
+    const anyOpen = _.find(this._windows, (wnd) => (
+      wnd.config.isMain && wnd.isShown
+    ))
+
+    // if no main windows are showing then quit
     if (!anyOpen && process.platform !== 'darwin') {
-      log.info('All primary windows closed/invisible, so quitting app...');
+      log.info('All primary windows closed/invisible, so quitting app...')
 
-      app.quit();
+      app.quit()
     }
   }
 }
 
 
 class Window extends EventEmitter {
-  constructor (id, config) {
-    super();
+  constructor (id, type, config) {
+    super()
 
-    this._id = id;
-    this._config = config;
-    this._isShown = false;
-    this._isDestroyed = false;
-    this._log = log.create(id);
+    this._id = id
+    this._type = type
+    this._config = config
+    this._isShown = false
+    this._isDestroyed = false
+    this._log = log.create(id)
 
     let electronOptions = {
       title: Settings.appName,
@@ -107,143 +139,147 @@ class Window extends EventEmitter {
       darkTheme: true,
       webPreferences: {
         preload: path.join(__dirname, 'windowPreload', 'index.js'),
-        nodeIntegration: true,
+        nodeIntegration: false,
         webaudio: true,
         webgl: false,
         webSecurity: false, // necessary to make routing work on file:// protocol
         textAreasAreResizable: true,
       },
-    };
+    }
 
-    _.extend(electronOptions, config.electronOptions);
+    _.extend(electronOptions, config.electronOptions)
 
-    this._log.debug('Creating browser window');
+    this._log.debug('Creating browser window')
 
-    this._window = new BrowserWindow(electronOptions);
-    this._webContents = this._window.webContents;
+    this._window = new BrowserWindow(electronOptions)
+    this._webContents = this._window.webContents
 
     this._webContents.once('did-finish-load', () => {
-      this._isContentReady = true;
+      this._isContentReady = true
 
-      this._log.debug(`Content loaded, id: ${this.id}`);
+      this._log.debug(`Content loaded, id: ${this.id}`)
 
-      this.show();
+      this.show()
 
-      this.emit('ready');
-    });
+      this.emit('ready')
+    })
 
     this._window.once('closed', () => {
-      this._log.debug(`Destroyed`);
+      this._log.debug(`Destroyed`)
 
-      this._isShown = false;
-      this._isDestroyed = true;
-      this._isContentReady = false;
+      this._isShown = false
+      this._isDestroyed = true
+      this._isContentReady = false
 
-      this.emit('closed');
-    });
+      this.emit('closed')
+    })
 
     this._window.on('show', (e) => {
-      this._log.debug(`Shown`);
+      this._log.debug(`Shown`)
 
-      this._isShown = true;
+      this._isShown = true
 
-      this.emit('show', e);
-    });
+      this.emit('show', e)
+    })
 
     this._window.on('hide', (e) => {
-      this._log.debug(`Hidden`);
+      this._log.debug(`Hidden`)
 
-      this._isShown = false;
+      this._isShown = false
 
-      this.emit('hide', e);
-    });
+      this.emit('hide', e)
+    })
 
     if (config.url) {
-      this.load(config.url);
+      this.load(config.url)
     }
   }
 
   get id () {
-    return this._id;
+    return this._id
+  }
+
+  get type () {
+    return this._type
   }
 
   get config () {
-    return this._config;
+    return this._config
   }
 
   get isShown () {
-    return this._isShown;
+    return this._isShown
   }
 
   get isDestroyed () {
-    return this._isDestroyed;
+    return this._isDestroyed
   }
 
-  get browserWindow () {
-    return this._window;
+  get nativeBrowserWindow () {
+    return this._window
   }
 
   load (url) {
     if (this._isDestroyed) {
-      return;
+      return
     }
 
-    this._log.info(`Load URL: ${url}`);
+    this._log.info(`Load URL: ${url}`)
 
-    this._window.loadURL(url);
+    this._window.loadURL(url)
   }
 
   send () {
     if (this._isDestroyed || !this._isContentReady) {
-      this._log.trace(`Unable to send data, window destroyed or content not yet ready`);
+      this._log.trace(`Unable to send data, window destroyed or content not yet ready`)
 
-      return;
+      return
     }
 
-    this._log.trace(`Sending data`, arguments);
+    this._log.trace(`Sending data`, arguments)
 
     this._webContents.send.apply(
       this._webContents,
       arguments
-    );
+    )
   }
 
 
   hide () {
     if (this._isDestroyed) {
-      return;
+      return
     }
 
-    this._log.debug(`Hide`);
+    this._log.debug(`Hide`)
 
-    this._window.hide();
+    this._window.hide()
   }
 
 
   show () {
     if (this._isDestroyed) {
-      return;
+      return
     }
 
-    this._log.debug(`Show`);
+    this._log.debug(`Show`)
 
-    this._window.show();
+    this._window.show()
   }
 
 
   destroy () {
     if (this._isDestroyed) {
-      return;
+      return
     }
 
-    this._log.debug(`Destroy`);
+    this._log.debug(`Destroy`)
 
-    this._window.close();
+    this._window.close()
   }
 
 
   openDevTools () {
-    this._window.openDevTools();
+    this._window.openDevTools()
   }
 
   reload () {
@@ -253,4 +289,4 @@ class Window extends EventEmitter {
 
 
 
-module.exports = new Windows();
+module.exports = new Windows()
