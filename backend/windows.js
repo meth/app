@@ -1,4 +1,5 @@
 const _ = require('lodash'),
+  Q = require('bluebird'),
   path = require('path'),
   { app, BrowserWindow, ipcMain: ipc } = require('electron'),
   EventEmitter = require('events').EventEmitter,
@@ -13,6 +14,7 @@ const _ = require('lodash'),
  */
 class Windows {
   constructor () {
+    this._windows = []
     this._windowsById = {}
     this._windowsByType = {}
   }
@@ -46,14 +48,14 @@ class Windows {
 
     let wnd = new Window(`${type}-${Math.random() * 100000}`, type, config)
 
-    // save by id
-    this._windowsById[wnd.id] = wnd
+    // save to list
+    this._windows.push(wnd)
     // save by type
     this._windowsByType[type] = this._windowsByType[type] || []
     this._windowsByType[type].push(wnd)
 
     wnd.on('closed', () => {
-      this._onWindowClosed(wnd.id)
+      this._onWindowClosed(wnd)
     })
 
     return wnd
@@ -73,6 +75,18 @@ class Windows {
 
 
   /**
+   * Get window by IPC sender reference.
+   *
+   * @param {Object} sender IPC sender.
+   *
+   * @param {Window} null if not found.
+   */
+  getByIpcSender (sender) {
+    return this._windowsById[sender.id]
+  }
+
+
+  /**
    * Get window by type
    *
    * @param {String} type Window type.
@@ -85,19 +99,42 @@ class Windows {
 
 
   /**
+   * Set window id from IPC sender
+   *
+   * @return {String} the window id which can be passed to `getById()`
+   */
+  setWindowIdFromIpcSender (sender) {
+    const browserWindow = BrowserWindow.fromWebContents(sender)
+    const wnd = this._windows.find(w => w.nativeBrowserWindow === browserWindow)
+
+    if (wnd) {
+      wnd.setId(sender.id)
+      this._windowsById[wnd.id] = wnd
+
+      return wnd.id
+    }
+  }
+
+
+  /**
   * Handle a window being closed.
   *
   * @param {String} window id
   */
-  _onWindowClosed (id) {
-    const type = this._windowsById[id].type
+  _onWindowClosed (wnd) {
+    const id = wnd.id
+    const type = wnd.type
 
     log.debug(`Window closed: ${id} (${type})`)
 
     // remove references
     delete this._windowsById[id]
+
     const typePos = this._windowsByType[type].findIndex(a => a.id === id)
     this._windowsByType[type].splice(typePos, 1)
+
+    const listPos = this._windows.findIndex(a => a.id === id)
+    this._windows.splice(typePos, 1)
 
     // check if any main windows are still shown
     const anyOpen = _.find(this._windows, (wnd) => (
@@ -124,6 +161,10 @@ class Window extends EventEmitter {
     this._isShown = false
     this._isDestroyed = false
     this._log = log.create(id)
+    // promise to track when content is ready
+    this._onContentReady = new Q(resolve => {
+      this._onContentReadyCallback = resolve
+    })
 
     let electronOptions = {
       title: Settings.appName,
@@ -159,9 +200,9 @@ class Window extends EventEmitter {
     this._webContents = this._window.webContents
 
     this._webContents.once('did-finish-load', () => {
-      this._isContentReady = true
+      this._log.debug(`Content loaded`)
 
-      this._log.debug(`Content loaded, id: ${this.id}`)
+      this._onContentReadyCallback()
 
       this.show()
 
@@ -199,6 +240,21 @@ class Window extends EventEmitter {
     }
   }
 
+  /**
+   * Set IPC sender
+   *
+   * Can only be called once.
+   */
+  setId (id) {
+    if (undefined !== this._id && null !== this._id) {
+      this._log.debug('Id already set, skipping')
+    }
+
+    this._log.debug(`Set id: ${id}`)
+
+    this._id = id
+  }
+
   get id () {
     return this._id
   }
@@ -234,18 +290,20 @@ class Window extends EventEmitter {
   }
 
   send () {
-    if (this._isDestroyed || !this._isContentReady) {
-      this._log.trace(`Unable to send data, window destroyed or content not yet ready`)
+    if (this._isDestroyed) {
+      this._log.debug(`Unable to send data, window destroyed`)
 
       return
     }
 
-    this._log.trace(`Sending data`, arguments)
+    this._onContentReady.then(() => {
+      this._log.trace(`Sending data`, arguments)
 
-    this._webContents.send.apply(
-      this._webContents,
-      arguments
-    )
+      this._webContents.send.apply(
+        this._webContents,
+        arguments
+      )
+    })
   }
 
 

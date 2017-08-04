@@ -8,11 +8,28 @@
  * browser page that is loaded in the window.
  */
 const { ipcRenderer } = require('electron')
-const { IPC } = require('../../common/constants')
+const { IPC, BACKEND_TASKS } = require('../../common/constants')
 
+// fn: send IPC to backend
+const sendIpcToBackend = (task, params) => {
+  ipcRenderer.send(IPC.BACKEND_TASK, task, params)
+}
+
+// handle frontend message
 window.addEventListener('message', (event) => {
-  // IPC to back onto backend?
+  // send IPC to backend
   if (IPC.BACKEND_TASK === event.data.ipc) {
-    ipcRenderer.send(IPC.BACKEND_TASK, event.data.task, event.data.params)
+    sendIpcToBackend(event.data.task, event.data.params)
   }
 })
+
+// handle backend ipc: reload page
+ipcRenderer.on(IPC.UI_RELOAD, () => window.location.reload())
+
+// handle backend ipc: notify UI
+ipcRenderer.on(IPC.UI_TASK_NOTIFY, (e, task, status, data) => {
+  // TODO: inject into actual window
+})
+
+// tell backend we have initialized
+sendIpcToBackend(BACKEND_TASKS.SET_WINDOW_ID)

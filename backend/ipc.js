@@ -3,7 +3,7 @@ const _ = require('lodash'),
   app = electron.app,
   ipc = electron.ipcMain,
   EventEmitter = require('eventemitter3'),
-  { IPC } = require('../common/constants'),
+  { IPC, BACKEND_TASKS, EVENT } = require('../common/constants'),
   Windows = require('./windows'),
   log = require('./logger').create('BackendIpc');
 
@@ -17,17 +17,38 @@ class BackendIpc {
 
   _receiveIpcFromUi (e, task, params) {
     switch (task) {
-      case IPC.BACKEND_TASKS.INIT:
-        log.info('Initialize backend ...');
-        break;
+      case BACKEND_TASKS.SET_WINDOW_ID:
+        log.info(`Window intialized with id: ${e.sender.id}`)
+        Windows.setWindowIdFromIpcSender(e.sender)
+        break
+
+      case BACKEND_TASKS.INIT:
+        log.info('Initialize backend...');
+
+        const ev = new EventEmitter()
+
+        const wnd = Windows.getByIpcSender(e.sender)
+
+        ev.on(EVENT.CONNECTING, () => {
+          this._sendToFrontend(wnd, BACKEND_TASKS.CONNECT_TO_NODE, EVENT.CONNECTING)
+        })
+
+        ev.on(EVENT.CONNECTED, () => {
+          this._sendToFrontend(wnd, BACKEND_TASKS.CONNECT_TO_NODE, EVENT.CONNECTED)
+        })
+
+        this._sendToFrontend(wnd, BACKEND_TASKS.CONNECT_TO_NODE, EVENT.CONNECTED)
+        break
+
       default:
         log.error(`Unrecognized task: ${task}`)
     }
   }
 
+  _sendToFrontend (wnd, task, status, data) {
+    log.debug(`Send UI task to ${wnd.id}, ${task}, ${status}`)
 
-  _notifyUi (task, status, data) {
-    Windows.getByType('Main').send(IPC.UI_TASK_NOTIFY, task, status, data);
+    wnd.send(IPC.UI_TASK_NOTIFY, task, status, data);
   }
 }
 
