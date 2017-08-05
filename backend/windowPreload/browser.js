@@ -7,7 +7,7 @@
  * The code in this file runs in a separate "context" to the code in the actual
  * browser page that is loaded in the window.
  */
-const { ipcRenderer } = require('electron')
+const { ipcRenderer, webFrame } = require('electron')
 const { IPC, BACKEND_TASKS } = require('../../common/constants')
 
 // fn: send IPC to backend
@@ -28,7 +28,17 @@ ipcRenderer.on(IPC.UI_RELOAD, () => window.location.reload())
 
 // handle backend ipc: notify UI
 ipcRenderer.on(IPC.UI_TASK_NOTIFY, (e, task, status, data) => {
-  // TODO: inject into actual window
+  webFrame.executeJavaScript(`
+    var event = new CustomEvent('ipc', {
+      detail: {
+        task: "${task}",
+        status: "${status}",
+        data: JSON.parse("${JSON.stringify(data)}")
+      }
+    });
+
+    window.dispatchEvent(event);
+  `)
 })
 
 // tell backend we have initialized

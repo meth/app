@@ -7,6 +7,10 @@ import { inProgress } from '../../../utils/stateMachines'
  * Action dispatcher.
  */
 class Dispatcher {
+  constructor () {
+    window.addEventListener('ipc', this._receivedIpcFromBackend.bind(this))
+  }
+
   setStore (store) {
     this._dispatch = store.dispatch
     this._getState = (name) => store.getState()[name].toObject()
@@ -36,8 +40,10 @@ class Dispatcher {
     window.postMessage({ ipc: IPC.BACKEND_TASK, task, params }, '*')
   }
 
-  _receivedIpcFromBackend (e, task, state, data) {
-    console.debug(`Recv IPC: task:${task} state:${state} data:${typeof data}`)
+  _receivedIpcFromBackend (e) {
+    const { detail: { task, status, data } } = e
+
+    console.debug(`Recv IPC: task:${task} status:${status} data:${JSON.stringify(data)}`)
   }
 }
 
