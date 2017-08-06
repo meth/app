@@ -13,4 +13,7 @@ module.exports = {
     UI_RELOAD: 'ui-reload',
     UI_TASK_NOTIFY: 'ui-task-notify',
   },
+  ERROR: {
+    METHOD_NOT_ALLOWED: 'METHOD_NOT_ALLOWED'
+  },
 };

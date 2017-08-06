@@ -3,8 +3,9 @@ const _ = require('lodash'),
   path = require('path'),
   Q = require('bluebird'),
   EventEmitter = require('eventemitter3'),
-  nodesConfig = require('./config/nodes.json'),
   Settings = require('./settings'),
+  { loadConfig } = require('./config'),
+  BackendIpc = require('./ipc'),
   log = require('./logger').create('NodeConnector')
 
 
@@ -16,6 +17,16 @@ class NodeConnector {
 
   get isConnected () {
     return null !== this._connectedTo
+  }
+
+  /**
+   * Initialise the node connector.
+   * @return {Promise}
+   */
+  init () {
+    if (!this._nodes) {}
+
+
   }
 
   /**

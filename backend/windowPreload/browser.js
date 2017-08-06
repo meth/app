@@ -20,6 +20,8 @@ window.addEventListener('message', (event) => {
   // send IPC to backend
   if (IPC.BACKEND_TASK === event.data.ipc) {
     sendIpcToBackend(event.data.task, event.data.params)
+  } else {
+    console.warn(`Unrecognized frontend message: ${event.data}`)
   }
 })
 

@@ -3,6 +3,7 @@ const _ = require('lodash'),
   app = electron.app,
   ipc = electron.ipcMain,
   EventEmitter = require('eventemitter3'),
+  NodeConnector = require('./NodeConnector'),
   { IPC, BACKEND_TASKS, EVENT } = require('../common/constants'),
   Windows = require('./windows'),
   log = require('./logger').create('BackendIpc');
@@ -25,19 +26,8 @@ class BackendIpc {
       case BACKEND_TASKS.INIT:
         log.info('Initialize backend...');
 
-        const ev = new EventEmitter()
+        NodeConnector.init()
 
-        const wnd = Windows.getByIpcSender(e.sender)
-
-        ev.on(EVENT.CONNECTING, () => {
-          this._sendToFrontend(wnd, BACKEND_TASKS.CONNECT_TO_NODE, EVENT.CONNECTING)
-        })
-
-        ev.on(EVENT.CONNECTED, () => {
-          this._sendToFrontend(wnd, BACKEND_TASKS.CONNECT_TO_NODE, EVENT.CONNECTED)
-        })
-
-        this._sendToFrontend(wnd, BACKEND_TASKS.CONNECT_TO_NODE, EVENT.CONNECTED)
         break
 
       default:
@@ -45,8 +35,8 @@ class BackendIpc {
     }
   }
 
-  _sendToFrontend (wnd, task, status, data) {
-    log.debug(`Send UI task to ${wnd.id}, ${task}, ${status}`)
+  notifyAllUis (task, status, data) {
+    log.debug(`Send UI task to all windows, ${task}, ${status}`)
 
     wnd.send(IPC.UI_TASK_NOTIFY, task, status, data);
   }
