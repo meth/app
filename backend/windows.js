@@ -74,6 +74,7 @@ class Windows {
       resizable: false,
       minimizable: false,
       maximizable: false,
+      fullscreenable: false,
       center: true,
       // useContentSize: true,
       titleBarStyle: 'hidden',

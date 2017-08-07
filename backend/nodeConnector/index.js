@@ -35,7 +35,9 @@ class NodeConnector {
         unique: true,
         electronOptions: {
           width: 580,
-          height: 250,
+          height: 350,
+          titleBarStyle: 'default',
+          alwaysOnTop: true,
         },
       })
 

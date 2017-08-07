@@ -38,6 +38,6 @@ if (!matched) {
     <Provider store={store}>
       <RootComponent />
     </Provider>,
-    document.getElementById('react-root')
+    document.querySelector('#react-root')
   )
 }
