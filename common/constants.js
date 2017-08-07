@@ -1,5 +1,7 @@
 module.exports = {
-  EVENT: {
+  STATUS: {
+    ERROR: 'error',
+    PREPARE: 'prepare',
     CONNECTING: 'connecting',
     CONNECTED: 'connected',
   },

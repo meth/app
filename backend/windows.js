@@ -1,8 +1,9 @@
-const _ = require('lodash'),
-  Q = require('bluebird'),
+const Q = require('bluebird'),
   path = require('path'),
   { app, BrowserWindow, ipcMain: ipc } = require('electron'),
-  EventEmitter = require('events').EventEmitter,
+  EventEmitter = require('eventemitter3')
+
+const _ = require('./underscore'),
   Settings = require('./settings'),
   { IPC } = require('../common/constants'),
   log = require('./logger').create('Windows')
@@ -43,8 +44,8 @@ class Windows {
 
     // url
     config.url = Settings.inProductionMode
-      ? 'file://' + Settings.appResDir() + '/index.html#Main'
-      : 'http://localhost:3456/#Main'
+      ? `file://${Settings.appResDir()}/index.html#${type}`
+      : `http://localhost:3456/#${type}`
 
     let wnd = new Window(`${type}-${Math.random() * 100000}`, type, config)
 
@@ -60,6 +61,39 @@ class Windows {
 
     return wnd
   }
+
+  /**
+   * Create a popup window
+   */
+  createPopup(type, config) {
+    log.info(`Create popup window: ${type}`)
+
+    let electronOptions = {
+      width: 400,
+      height: 400,
+      resizable: false,
+      minimizable: false,
+      maximizable: false,
+      center: true,
+      // useContentSize: true,
+      titleBarStyle: 'hidden',
+      autoHideMenuBar: true,
+      webPreferences: {
+        textAreasAreResizable: false,
+      }
+    }
+
+    config.electronOptions = _.deepExtend(electronOptions, config.electronOptions || {})
+
+    // always show on top of main window
+    const mainWindow = this.getByType('Main')
+    if (mainWindow && mainWindow.length) {
+      config.electronOptions.parent = mainWindow[0].nativeBrowserWindow
+    }
+
+    return this.create(type, config)
+  }
+
 
 
   /**
@@ -113,6 +147,15 @@ class Windows {
 
       return wnd.id
     }
+  }
+
+  /**
+   * Broadcast to all windows
+   */
+  broadcast (...args) {
+    log.debug('Broadcast', args)
+
+    _.each(this._windows, (wnd) => wnd.send(...args))
   }
 
 
@@ -187,7 +230,7 @@ class Window extends EventEmitter {
       },
     }
 
-    _.extend(electronOptions, config.electronOptions)
+    _.deepExtend(electronOptions, config.electronOptions || {})
 
     // for security and safety we enforce certain things
     // (https://github.com/electron/electron/pull/8348)
@@ -279,6 +322,10 @@ class Window extends EventEmitter {
     return this._window
   }
 
+  onceReady () {
+    return this._onContentReady
+  }
+
   load (url) {
     if (this._isDestroyed) {
       return
@@ -289,20 +336,17 @@ class Window extends EventEmitter {
     this._window.loadURL(url)
   }
 
-  send () {
+  send (...args) {
     if (this._isDestroyed) {
       this._log.debug(`Unable to send data, window destroyed`)
 
       return
     }
 
-    this._onContentReady.then(() => {
-      this._log.trace(`Sending data`, arguments)
+    this.onceReady().then(() => {
+      this._log.trace(`Sending data`, args)
 
-      this._webContents.send.apply(
-        this._webContents,
-        arguments
-      )
+      this._webContents.send(...args)
     })
   }
 

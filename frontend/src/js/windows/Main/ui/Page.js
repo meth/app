@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Dispatcher } from '../data/dispatcher'
+import Dispatcher from '../data/dispatcher'
 
 export default class Page extends Component {
   render () {

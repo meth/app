@@ -4,13 +4,13 @@
       "name": "Localhost 8545",
       "url": "http://127.0.0.1:8545",
       "type": "rpc",
-      "blockExplorerUrl": null,
-      "txViewerUrl": null,
+      "network": null
     },
     {
       "name": "Infura.io",
       "url": "https://mainnet.infura.io/zdqWKkUgyPz8uUjp47FK",
       "type": "infura",
+      "network": "mainnet"
     }
-  ],
+  ]
 }

@@ -10,46 +10,47 @@ class RpcAdapter extends Adapter {
     this._url = nodeConfig.url
   }
 
-  _connect () {
+  async _connect () {
     this._log.trace('Connect...', this._url)
 
-    return this.call('eth_blockNumber')
-      .then(data => {
-        this._log.trace('Connection successful')
-      })
-      .catch(err => {
-        this._log.trace('Connection failed', err)
+    try {
+      const data = await this.call('eth_blockNumber')
 
-        throw err
-      })
+      this._log.trace('Connection successful')
+
+      return data
+    } catch (err) {
+      this._log.trace('Connection failed', err)
+
+      throw err
+    }
   }
 
-  _disconnect () {
+  async _disconnect () {
     this._log.debug('Disconnected')
 
     return Q.resolve()
   }
 
-  call (method, params = []) {
-    return this._approveMethod(method)
-      .then(() => got.post(this._url, {
+  async call (method, params = []) {
+    try {
+      await this._approveMethod(method)
+
+      return await got.post(this._url, {
         encoding: 'utf8',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+        json: true,
+        body: {
           jsonrpc: '2.0',
           id: 0,
           method,
           params,
-        }),
-      }))
-      .then(res => res.body)
-      .catch(err => {
-        this._log.trace(`Call failed: ${method}`, err)
-
-        throw err
+        },
       })
+    } catch (err) {
+      this._log.trace(`Call failed: ${method}`, err)
+
+      throw err
+    }
   }
 }
 

@@ -1,7 +1,7 @@
-const _ = require('lodash'),
-  electron = require('electron'),
-  app = electron.app,
-  path = require('path'),
+const { app } = require('electron'),
+  path = require('path')
+
+const _ = require('./settings'),
   packageJson = require('../package.json')
 
 

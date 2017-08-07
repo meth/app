@@ -1,12 +1,9 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import dispatcher from './data/dispatcher'
+import RootComponent from './ui/Page'
 
 module.exports = {
-  NAME: 'ConnectToNode',
-  show: () => {
-    ReactDOM.render(
-      <div>connect to node</div>,
-      document.getElementById('react-root')
-    )
-  }
+  name: 'ConnectToNode',
+  reducers: require('./data/reducers'),
+  dispatcher,
+  RootComponent,
 }

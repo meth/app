@@ -16,12 +16,12 @@ const sendIpcToBackend = (task, params) => {
 }
 
 // handle frontend message
-window.addEventListener('message', (event) => {
+window.addEventListener('message', ({ data }) => {
   // send IPC to backend
-  if (IPC.BACKEND_TASK === event.data.ipc) {
-    sendIpcToBackend(event.data.task, event.data.params)
+  if (IPC.BACKEND_TASK === data.ipc) {
+    sendIpcToBackend(data.task, data.params)
   } else {
-    console.warn(`Unrecognized frontend message: ${event.data}`)
+    console.warn(`Unrecognized frontend message`, data)
   }
 })
 

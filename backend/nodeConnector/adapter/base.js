@@ -41,14 +41,14 @@ class Adapter extends EventEmitter {
    * Connect.
    * @return {Promise}
    */
-  connect () {
+  async connect () {
     if (STATE.CONNECTED === this._state) {
       this._log.trace('Already connected')
 
       return Q.resolve()
     }
 
-    if (STATE.CONNECTING === this._state) {
+    if (STATE.CONNECTING === this._state && this._connectPromise) {
       this._log.trace('Already connecting')
 
       return this._connectPromise
@@ -56,22 +56,23 @@ class Adapter extends EventEmitter {
 
     this._log.trace('Connecting...')
     this._state = STATE.CONNECTING
+
     this._connectPromise = this._connect()
 
-    return this._connectPromise
-      .then(() => {
-        this._log.trace('Connected')
+    try {
+      await this._connectPromise
 
-        this._connectPromise = null
-        this._state = STATE.CONNECTED
-      })
-      .catch(err => {
-        this._log.trace('Connection error', err)
+      this._log.trace('Connected')
 
-        this._state = STATE.DISCONNECTED
+      this._connectPromise = null
+      this._state = STATE.CONNECTED
+    } catch (err) {
+      this._log.trace('Connection error', err)
 
-        throw err
-      })
+      this._state = STATE.DISCONNECTED
+
+      throw err
+    }
   }
 
   /**
@@ -79,14 +80,14 @@ class Adapter extends EventEmitter {
    *
    * @return {Promise}
    */
-  disconnect () {
+  async disconnect () {
     if (STATE.DISCONNECTED === this._state) {
       this._log.trace('Already disconnected')
 
       return Q.resolve()
     }
 
-    if (STATE.DISCONNECTING === this._state) {
+    if (STATE.DISCONNECTING === this._state && this._disconnectPromise) {
       this._log.trace('Already disconnecting')
 
       return this._disconnectPromise
@@ -96,18 +97,18 @@ class Adapter extends EventEmitter {
     this._state = STATE.DISCONNECTING
     this._disconnectPromise = this._disconnect()
 
-    return this._disconnectPromise
-      .then(() => {
-        this._log.trace('Disconnected')
+    try {
+      await this._disconnectPromise
 
-        this._disconnectPromise = null
-        this._state = STATE.DISCONNECTED
-      })
-      .catch(err => {
-        this._log.trace('Disconnection error', err)
+      this._log.trace('Disconnected')
 
-        throw err
-      })
+      this._disconnectPromise = null
+      this._state = STATE.DISCONNECTED
+    } catch (err) {
+      this._log.trace('Disconnection error', err)
+
+      throw err
+    }
   }
 
   /**
@@ -115,7 +116,7 @@ class Adapter extends EventEmitter {
    * @param  {String} method
    * @return {Promise}
    */
-  _approveMethod (method) {
+  async _approveMethod (method) {
     if (true !== this._methods[method]) {
       throw new Error(ERROR.METHOD_NOT_ALLOWED)
     }
@@ -125,16 +126,16 @@ class Adapter extends EventEmitter {
    * Connect implementation.
    * @return {Promise}
    */
-  _connect () {
-    return Q.reject(new Error('Not yet implemented'))
+  async _connect () {
+    throw new Error('Not yet implemented')
   }
 
   /**
    * Disconnect implementation.
    * @return {Promise}
    */
-  _disconnect () {
-    return Q.reject(new Error('Not yet implemented'))
+  async _disconnect () {
+    throw new Error('Not yet implemented')
   }
 }
 

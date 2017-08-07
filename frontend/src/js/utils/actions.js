@@ -10,3 +10,8 @@ export const buildAction = (type, payload = {}) => {
     payload: payload,
   }
 }
+
+export const define = (arr) => arr.reduce((m, v) => {
+  m[v] = v
+  return m
+}, {})

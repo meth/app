@@ -1,8 +1,8 @@
-const { app, BrowserWindow } = require('electron'),
-  Settings = require('./backend/settings'),
-  Windows = require('./backend/windows'),
-  IpcManager = require('./backend/ipc'),
-  log = require('./backend/logger').create('main')
+const { app } = require('electron')
+
+global.Ipc = new (require('./backend/ipc'))
+const Windows = require('./backend/windows')
+const log = require('./backend/logger').create('main')
 
 const isOSX = 'darwin' === process.platform
 
