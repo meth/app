@@ -13,7 +13,10 @@ class Dispatcher extends DispatcherBase {
     if (CONNECT_TO_NODE === task) {
       switch (status) {
         case STATUS.PREPARE:
-          this._action(Actions.NODES)
+          this._action(Actions.NODES, data)
+          break
+        case STATUS.ERROR:
+          this._action(Actions.ERROR, data)
           break
       }
     }

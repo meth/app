@@ -1,50 +1,24 @@
-import _ from 'lodash';
-import React from 'react';
-import { connect } from 'react-redux';
-import { Dispatcher } from '../../data/actions';
+import _ from 'lodash'
+import { connect } from 'react-redux'
 
 
-/**
- * Connect a component to the Redux store and dispatcher.
- */
-export function connectRedux() {
-  return function decorator(Component) {
-    return connect(
-      function mapStateToProps(state) {
-        return {
-          data: state,
-          web3: state.app.get('web3'),
-          dispatcher: Dispatcher,
-        };
-      },
-      null,
-      null,
-      { withRef: true }
-    )(Component);
-  }
-}
 
 /**
- * Connect a component to router.
+ * Connect a component to the Redux store
  */
-export function connectRouter() {
-  return function decorator(Component) {
-    return React.createClass({
-      contextTypes: {
-        router: React.PropTypes.object.isRequired,
-        location: React.PropTypes.object.isRequired,
-        routeParams: React.PropTypes.object,
-      },
+export const connectRedux = () => (Component) => connect(
+  // mapStateToProps
+  (state) => {
+    const stateAsObject = _.reduce(state, (m, item, key) => {
+      m[key] = item.toObject ? item.toObject() : item
+      return m
+    }, {})
 
-      render: function() {
-        let props = _.extend({}, this.props, this.context);
-
-        return (
-          <Component {...props} />
-        );
-      }
-    });
-  };
-}
-
-
+    return {
+      store: stateAsObject,
+    }
+  },
+  null,
+  null,
+  { withRef: true }
+)(Component)

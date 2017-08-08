@@ -1,15 +1,16 @@
 const { Menu, app } = require('electron')
+const Windows = require('./windows')
 const { t } = require('../common/strings')
 
 
-exports.setup = (mainWindow) => {
+exports.setup = () => {
   var template = [{
     label: t('menu.application'),
     submenu: [
       { label: t('menu.about'), selector: "orderFrontStandardAboutPanel:" },
       { type: "separator" },
-      { label: t('menu.devTools'), accelerator: "Alt+Command+I", click: () => mainWindow.openDevTools() },
-      { label: t('menu.reload'), accelerator: "Command+R", click: () => mainWindow.reload() },
+      { label: t('menu.devTools'), accelerator: "Alt+Command+I", click: () => Windows.openDevTools() },
+      { label: t('menu.reload'), accelerator: "Command+R", click: () => Windows.reload() },
       { type: "separator" },
       { label: t('menu.quit'), accelerator: "Command+Q", click: () => app.quit() }
     ]}, {

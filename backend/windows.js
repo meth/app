@@ -159,6 +159,14 @@ class Windows {
     _.each(this._windows, (wnd) => wnd.send(...args))
   }
 
+  openDevTools () {
+    _.each(this._windows, (wnd) => wnd.openDevTools())
+  }
+
+  reload () {
+    _.each(this._windows, (wnd) => wnd.reload())
+  }
+
 
   /**
   * Handle a window being closed.

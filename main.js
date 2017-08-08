@@ -30,7 +30,7 @@ const createMainWindow = () => {
     }
   })
 
-  require('./backend/menu').setup(mainWindow)
+  require('./backend/menu').setup()
 }
 
 // This method will be called when Electron has finished
