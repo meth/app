@@ -13,6 +13,6 @@ const colorMap = {
 module.exports = new Logger('Meth-Backend', {
   minLevel: Settings.logLevel,
   output: (level, tag, msg) => {
-    console.log( chalk[colorMap[level]](`${tag}: ${msg}`) )
+    console.log(chalk[colorMap[level]](`${tag}: ${msg}`))
   }
 })

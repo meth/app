@@ -1,10 +1,14 @@
-import { IPC, BACKEND_TASKS } from '../../../../common/constants'
-import { buildAction } from './actions'
+import { IPC, BACKEND_TASKS, STATUS } from '../../../../common/constants'
+import { buildAction, Actions } from './actions'
+import { inProgress } from '../utils/stateMachines'
+
+
+
 
 /**
- * Action dispatcher.
+ * Action dispatcher base
  */
-export default class Dispatcher {
+class Dispatcher {
   constructor () {
     window.addEventListener('ipc', (e) => {
       const { detail: { task, status, data } } = e
@@ -18,6 +22,11 @@ export default class Dispatcher {
   setStore (store) {
     this._dispatch = store.dispatch
     this._getState = (name) => store.getState()[name].toObject()
+  }
+
+  init () {
+    this._action(Actions.INIT, inProgress)
+    this._runBackendTask(BACKEND_TASKS.INIT)
   }
 
   _action (type, payload) {
@@ -40,6 +49,19 @@ export default class Dispatcher {
   }
 
   _handleIpcFromBackend (task, status, data) {
-    // override in subclass
+    if (BACKEND_TASKS.CONNECT_TO_NODE === task) {
+      switch (status) {
+        case STATUS.PREPARE:
+          this._action(Actions.NODES, data)
+          break
+        case STATUS.ERROR:
+          // TODO: show node selector dialog again
+          break
+      }
+    }
   }
 }
+
+
+
+export default new Dispatcher()

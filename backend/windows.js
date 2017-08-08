@@ -1,6 +1,6 @@
 const Q = require('bluebird'),
   path = require('path'),
-  { app, BrowserWindow, ipcMain: ipc } = require('electron'),
+  { BrowserWindow } = require('electron'),
   EventEmitter = require('eventemitter3')
 
 const _ = require('./underscore'),
@@ -9,210 +9,16 @@ const _ = require('./underscore'),
   log = require('./logger').create('Windows')
 
 
-
-/**
- * Window manager.
- */
-class Windows {
-  constructor () {
-    this._windows = []
-    this._windowsById = {}
-    this._windowsByType = {}
-  }
-
-  /**
-   * Create window.
-   *
-   * @param {String} type UI type - tells frontend which specifically UI to display.
-   * @param {String} config.browserWindow Options to pass to `BrowserWindow` constructor.
-   * @param {Boolean} [config.isMain] If true then marks this as a main window.
-   * @param {String} [config.unique] If true then only one window of this `uiName` is allowed at a time, and thus any existing window will be returned.
-   * @return {Window}
-   */
-  create (type, config) {
-    log.info(`Create window: ${type}`)
-
-    if (config.unique) {
-      const existing = this._windowsByType[type]
-
-      if (existing && existing.length) {
-        log.debug(`Window already created`)
-
-        return existing[0]
-      }
-    }
-
-    // url
-    config.url = Settings.inProductionMode
-      ? `file://${Settings.appResDir()}/index.html#${type}`
-      : `http://localhost:3456/#${type}`
-
-    let wnd = new Window(`${type}-${Math.random() * 100000}`, type, config)
-
-    // save to list
-    this._windows.push(wnd)
-    // save by type
-    this._windowsByType[type] = this._windowsByType[type] || []
-    this._windowsByType[type].push(wnd)
-
-    wnd.on('closed', () => {
-      this._onWindowClosed(wnd)
-    })
-
-    return wnd
-  }
-
-  /**
-   * Create a popup window
-   */
-  createPopup(type, config) {
-    log.info(`Create popup window: ${type}`)
-
-    let electronOptions = {
-      width: 400,
-      height: 400,
-      resizable: false,
-      minimizable: false,
-      maximizable: false,
-      fullscreenable: false,
-      center: true,
-      // useContentSize: true,
-      titleBarStyle: 'hidden',
-      autoHideMenuBar: true,
-      webPreferences: {
-        textAreasAreResizable: false,
-      }
-    }
-
-    config.electronOptions = _.deepExtend(electronOptions, config.electronOptions || {})
-
-    // always show on top of main window
-    const mainWindow = this.getByType('Main')
-    if (mainWindow && mainWindow.length) {
-      config.electronOptions.parent = mainWindow[0].nativeBrowserWindow
-    }
-
-    return this.create(type, config)
-  }
-
-
-
-  /**
-   * Get window by id.
-   *
-   * @param {String} id Window id.
-   *
-   * @param {Window} null if not found.
-   */
-  getById (id) {
-    return this._windowsById[id]
-  }
-
-
-  /**
-   * Get window by IPC sender reference.
-   *
-   * @param {Object} sender IPC sender.
-   *
-   * @param {Window} null if not found.
-   */
-  getByIpcSender (sender) {
-    return this._windowsById[sender.id]
-  }
-
-
-  /**
-   * Get window by type
-   *
-   * @param {String} type Window type.
-   *
-   * @param {Array} list of `Window` instances which match.
-   */
-  getByType (type) {
-    return this._windowsByType[type]
-  }
-
-
-  /**
-   * Set window id from IPC sender
-   *
-   * @return {String} the window id which can be passed to `getById()`
-   */
-  setWindowIdFromIpcSender (sender) {
-    const browserWindow = BrowserWindow.fromWebContents(sender)
-    const wnd = this._windows.find(w => w.nativeBrowserWindow === browserWindow)
-
-    if (wnd) {
-      wnd.setId(sender.id)
-      this._windowsById[wnd.id] = wnd
-
-      return wnd.id
-    }
-  }
-
-  /**
-   * Broadcast to all windows
-   */
-  broadcast (...args) {
-    log.debug('Broadcast', args)
-
-    _.each(this._windows, (wnd) => wnd.send(...args))
-  }
-
-  openDevTools () {
-    _.each(this._windows, (wnd) => wnd.openDevTools())
-  }
-
-  reload () {
-    _.each(this._windows, (wnd) => wnd.reload())
-  }
-
-
-  /**
-  * Handle a window being closed.
-  *
-  * @param {String} window id
-  */
-  _onWindowClosed (wnd) {
-    const id = wnd.id
-    const type = wnd.type
-
-    log.debug(`Window closed: ${id} (${type})`)
-
-    // remove references
-    delete this._windowsById[id]
-
-    const typePos = this._windowsByType[type].findIndex(a => a.id === id)
-    this._windowsByType[type].splice(typePos, 1)
-
-    const listPos = this._windows.findIndex(a => a.id === id)
-    this._windows.splice(typePos, 1)
-
-    // check if any main windows are still shown
-    const anyOpen = _.find(this._windows, (wnd) => (
-      wnd.config.isMain && wnd.isShown
-    ))
-
-    // if no main windows are showing then quit
-    if (!anyOpen && process.platform !== 'darwin') {
-      log.info('All primary windows closed/invisible, so quitting app...')
-
-      app.quit()
-    }
-  }
-}
-
-
 class Window extends EventEmitter {
-  constructor (id, type, config) {
+  constructor (type, config = {}) {
     super()
 
-    this._id = id
     this._type = type
     this._config = config
     this._isShown = false
     this._isDestroyed = false
-    this._log = log.create(id)
+    this._log = log.create(this._type)
+
     // promise to track when content is ready
     this._onContentReady = new Q(resolve => {
       this._onContentReadyCallback = resolve
@@ -246,7 +52,7 @@ class Window extends EventEmitter {
     electronOptions.webPreferences.nodeIntegration = false
     electronOptions.webPreferences.contextIsolation = true
 
-    this._log.debug('Creating browser window')
+    this._log.debug('Creating window')
 
     this._window = new BrowserWindow(electronOptions)
     this._webContents = this._window.webContents
@@ -287,9 +93,12 @@ class Window extends EventEmitter {
       this.emit('hide', e)
     })
 
-    if (config.url) {
-      this.load(config.url)
-    }
+    const url = config.url || (Settings.inProductionMode
+      ? `file://${Settings.appResDir()}/index.html#${type}`
+      : `http://localhost:3456/#${type}`
+    )
+
+    this.load(url)
   }
 
   /**
@@ -302,9 +111,9 @@ class Window extends EventEmitter {
       this._log.debug('Id already set, skipping')
     }
 
-    this._log.debug(`Set id: ${id}`)
-
     this._id = id
+    this._log.debug(`Set id: ${this._id}`)
+    this._log = log.create(`${this._type}-${this._id}`)
   }
 
   get id () {
@@ -402,6 +211,14 @@ class Window extends EventEmitter {
   }
 }
 
+exports.Window = Window
 
+let mainWindow
 
-module.exports = new Windows()
+exports.setupMainWindow = () => {
+  mainWindow = new Window('Main')
+
+  return mainWindow
+}
+
+exports.getMainWindow = () => mainWindow

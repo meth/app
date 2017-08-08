@@ -1,7 +1,7 @@
 const { app } = require('electron')
 
-global.Ipc = new (require('./backend/ipc'))
-const Windows = require('./backend/windows')
+global.Ipc = new (require('./backend/ipc'))()
+const { setupMainWindow } = require('./backend/windows')
 const log = require('./backend/logger').create('main')
 
 const isOSX = 'darwin' === process.platform
@@ -13,13 +13,10 @@ const createMainWindow = () => {
   log.info('Creating main window ...')
 
   // Create the browser window.
-  mainWindow = Windows.create('Main', {
-    isMain: true,
-    unique: true,
-  })
+  mainWindow = setupMainWindow()
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function() {
+  mainWindow.on('closed', function () {
     log.info('Window closed')
 
     // On OS X it's common to re-create a window in the app when the

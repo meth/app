@@ -1,3 +1,9 @@
+const define = (arr) => arr.reduce((m, v) => {
+  m[v] = v
+  return m
+}, {})
+
+
 export const buildAction = (type, payload = {}) => {
   if (payload && payload instanceof Error) {
     payload = {
@@ -11,7 +17,8 @@ export const buildAction = (type, payload = {}) => {
   }
 }
 
-export const define = (arr) => arr.reduce((m, v) => {
-  m[v] = v
-  return m
-}, {})
+
+export const Actions = define([
+  'INIT',
+  'NODES',
+])

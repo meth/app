@@ -2,11 +2,11 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 import { ThemeProvider } from 'styled-components'
 
-import dispatcher from '../data/dispatcher'
-import { connectRedux } from '../../../ui/helpers/decorators'
+import dispatcher from '../../../data/dispatcher'
+import { connectRedux } from '../../helpers/decorators'
 import theme from './theme'
 import styles from './styles'
-import ErrorBox from '../../../ui/components/ErrorBox'
+import ErrorBox from '../../components/ErrorBox'
 
 @connectRedux()
 export default class Page extends Component {

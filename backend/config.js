@@ -1,9 +1,7 @@
 const got = require('got'),
-  Q = require('bluebird'),
   path = require('path')
 
-const _ = require('./underscore'),
-  log = require('./logger').create('ConfigLoader')
+const log = require('./logger').create('ConfigLoader')
 
 
 const Cache = {}

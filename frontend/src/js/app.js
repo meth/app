@@ -2,42 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
-import { create as createStore } from './utils/store'
+import MainPage from './ui/pages/Main'
+import { create as createStore } from './data/store'
+import dispatcher from './data/dispatcher'
 
-const WINDOWS = [
-  require('./windows/ConnectToNode'),
-  require('./windows/Main'),
-]
+const store = createStore()
+dispatcher.setStore(store)
 
-// get hash
-let hash = window.location.hash.match(/#([a-zA-Z0-9]*)/)
-hash = (hash && 1 < hash.length) ? hash[1] : 'Main'
-
-// calculate match
-let matched = false
-
-for (const wnd of WINDOWS) {
-  if (hash === wnd.name) {
-    matched = wnd
-
-    break
-  }
-}
-
-if (!matched) {
-  console.error(`No window matching hash: ${hash}`)
-} else {
-  console.log(`Window matched: ${matched.name}`)
-
-  const { reducers, dispatcher, RootComponent } = matched
-
-  const store = createStore(reducers)
-  dispatcher.setStore(store)
-
-  ReactDOM.render(
-    <Provider store={store}>
-      <RootComponent />
-    </Provider>,
-    document.querySelector('#react-root')
-  )
-}
+ReactDOM.render(
+  <Provider store={store}>
+    <MainPage />
+  </Provider>,
+  document.querySelector('#react-root')
+)

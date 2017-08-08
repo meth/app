@@ -13,7 +13,7 @@ try {
   _.extend(CONFIG, require('./config/appConfig.json'))
 } catch (err) {}
 
-const MODE_IS_PRODUCTION = (CONFIG.mode==='production')
+const MODE_IS_PRODUCTION = ('production' === CONFIG.mode)
 
 const argv = require('yargs')
   .usage('Usage: $0 [Meth options]')
@@ -58,7 +58,7 @@ class Settings {
     global.appConfig = this.appConfig
   }
 
-  get userDataDir() {
+  get userDataDir () {
     // Application Support/Meth
     return app.getPath('userData')
   }
@@ -75,15 +75,15 @@ class Settings {
     return packageJson.version
   }
 
-  get appName() {
+  get appName () {
     return 'Meth'
   }
 
-  get appConfig() {
+  get appConfig () {
     return CONFIG
   }
 
-  get inProductionMode() {
+  get inProductionMode () {
     return MODE_IS_PRODUCTION
   }
 }

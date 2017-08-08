@@ -6,7 +6,7 @@ class StateActionMachine extends Machine {
     super(cfg, StateActionMachine)
   }
 
-  update(fluxAction) {
+  update (fluxAction) {
     let payload = fluxAction.payload || fluxAction,
       state = payload.state || payload,
       data = payload.data || null

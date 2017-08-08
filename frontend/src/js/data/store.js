@@ -1,8 +1,9 @@
 import { applyMiddleware, compose, combineReducers, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
+import * as reducers from './reducers'
+// import createLogger from 'redux-logger'
 
-export const create = (reducers) => {
+export const create = () => {
   let combinedReducer = combineReducers(reducers)
 
   const middleware = [

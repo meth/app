@@ -1,8 +1,6 @@
-const { app, ipcMain: ipc } = require('electron'),
-  EventEmitter = require('eventemitter3')
+const { ipcMain: ipc } = require('electron')
 
-const _ = require('./underscore'),
-  NodeConnector = require('./nodeConnector'),
+const NodeConnector = require('./nodeConnector'),
   Windows = require('./windows'),
   log = require('./logger').create('BackendIpc')
 
@@ -22,7 +20,7 @@ class BackendIpc {
     switch (task) {
       case BACKEND_TASKS.SET_WINDOW_ID:
         log.info(`Task: Set window id: ${sender.id}`)
-        Windows.setWindowIdFromIpcSender(sender)
+        Windows.getMainWindow().setId(sender.id)
         break
 
       case BACKEND_TASKS.INIT:
@@ -46,16 +44,10 @@ class BackendIpc {
     }
   }
 
-  notifyAllUis (task, status, data) {
-    log.debug(`Send UI task to all windows: ${task}, ${status}`)
+  notifyMainUi (task, status, data) {
+    log.debug(`Send UI task to window: ${task}, ${status}`)
 
-    Windows.broadcast(IPC.UI_TASK_NOTIFY, task, status, data)
-  }
-
-  notifyUi (wnd, task, status, data) {
-    log.debug(`Send UI task to window ${wnd.id}: ${task}, ${status}`)
-
-    wnd.send(IPC.UI_TASK_NOTIFY, task, status, data)
+    Windows.getMainWindow().send(IPC.UI_TASK_NOTIFY, task, status, data)
   }
 }
 
