@@ -8,4 +8,10 @@ export default {
     margin: 0;
     background-color: ${props => props.theme.page.bgColor}
   `,
+  listSelect: () => styled.select`
+    margin-top: 10px;
+  `,
+  listOption: () => styled.option`
+    padding: 0.1em;
+  `
 }

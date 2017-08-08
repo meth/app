@@ -31,15 +31,13 @@ ipcRenderer.on(IPC.UI_RELOAD, () => window.location.reload())
 // handle backend ipc: notify UI
 ipcRenderer.on(IPC.UI_TASK_NOTIFY, (e, task, status, data) => {
   webFrame.executeJavaScript(`
-    var event = new CustomEvent('ipc', {
+    window.dispatchEvent(new CustomEvent('ipc', {
       detail: {
         task: "${task}",
         status: "${status}",
-        data: JSON.parse("${JSON.stringify(data)}")
+        data: ${JSON.stringify(data)}
       }
-    });
-
-    window.dispatchEvent(event);
+    }));
   `)
 })
 

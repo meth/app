@@ -60,8 +60,14 @@ class NodeConnector {
 
     this._networks = networks
     this._nodes = nodes
+  }
 
-    this._notifyUi(STATUS.PREPARE, this._nodes)
+  handleIpcFromUi (params) {
+    switch (params) {
+      case STATUS.PREPARE:
+        this._notifyUi(STATUS.PREPARE, this._nodes)
+        break
+    }
   }
 
   _notifyUi (status, data) {

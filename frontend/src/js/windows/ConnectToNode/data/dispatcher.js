@@ -9,6 +9,10 @@ const { CONNECT_TO_NODE } = BACKEND_TASKS
  * Action dispatcher.
  */
 class Dispatcher extends DispatcherBase {
+  init () {
+    this._runBackendTask(CONNECT_TO_NODE, STATUS.PREPARE)
+  }
+
   _handleIpcFromBackend (task, status, data) {
     if (CONNECT_TO_NODE === task) {
       switch (status) {

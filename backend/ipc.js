@@ -15,22 +15,29 @@ const {
 
 class BackendIpc {
   constructor () {
-    ipc.on(IPC.BACKEND_TASK, this._receiveIpcFromUi.bind(this));
+    ipc.on(IPC.BACKEND_TASK, this._receiveIpcFromUi.bind(this))
   }
 
   _receiveIpcFromUi ({ sender }, task, params) {
     switch (task) {
       case BACKEND_TASKS.SET_WINDOW_ID:
-        log.info(`Window intialized with id: ${sender.id}`)
+        log.info(`Task: Set window id: ${sender.id}`)
         Windows.setWindowIdFromIpcSender(sender)
         break
 
       case BACKEND_TASKS.INIT:
-        log.info('Initialize backend...');
+        log.info('Task: Initialize backend...')
 
         NodeConnector.init().catch(err => {
           log.error('Error initializing node connector', err)
         })
+
+        break
+
+      case BACKEND_TASKS.CONNECT_TO_NODE:
+        log.info('Task: Connect to node...')
+
+        NodeConnector.handleIpcFromUi(params)
 
         break
 
