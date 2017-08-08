@@ -15,3 +15,9 @@ ReactDOM.render(
   </Provider>,
   document.querySelector('#react-root')
 )
+
+// security check
+if (window.require || window.exports || window.module) {
+  console.error('Node integration is active! This is a dangerous security leak!!')
+  window.alert('Node integration is active! This is a dangerous security leak!!')
+}
