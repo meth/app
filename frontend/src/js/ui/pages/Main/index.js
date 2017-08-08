@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { ThemeProvider } from 'styled-components'
 
 import dispatcher from '../../../data/dispatcher'
 import { connectRedux } from '../../helpers/decorators'
@@ -13,9 +12,7 @@ export default class Page extends Component {
   render () {
     const {
       store: {
-        app: {
-          error, nodes
-        }
+        config: { nodes }
       }
     } = this.props
 
@@ -36,16 +33,15 @@ export default class Page extends Component {
     })
 
     return (
-      <ThemeProvider theme={theme}>
-        <PageDiv>
-          {(!error) ? null : (
-            <ErrorBox text={error} />
-          )}
-          <ListSelect>
-            {options}
-          </ListSelect>
-        </PageDiv>
-      </ThemeProvider>
+      <PageDiv>
+        {(!error) ? null : (
+          <ErrorBox text={error} />
+        )}
+        <ListSelect>
+          {options}
+        </ListSelect>
+        <webview id="foo" src="https://www.github.com/" style="display:inline-flex; width:640px; height:480px"></webview>
+      </PageDiv>
     )
   }
 

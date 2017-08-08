@@ -31,7 +31,7 @@ module.exports = (params) ->
   # processing method
   _build = ->
     bundle = b.bundle()
-    
+
     b.exclude('electron')
 
     if options.dontExitOnError
@@ -43,7 +43,7 @@ module.exports = (params) ->
       .pipe gulpIf(options.minifiedBuild, uglify())
       .pipe gulp.dest(outputDir)
 
-  
+
   if options.watchForChanges
     # From http://christianalfoni.github.io/javascript/2014/08/15/react-js-workflow.html
     b.on 'update', ->
@@ -51,10 +51,7 @@ module.exports = (params) ->
       updateStart = Date.now()
       _build().on 'end', ->
         gutil.log '...Done (' + (Date.now() - updateStart) + 'ms)'
-        
+
 
   # kick-off
   _build()
-
-
-

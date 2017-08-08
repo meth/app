@@ -53,6 +53,17 @@ app.on('window-all-closed', function () {
 })
 
 
+// Extra security, see https://github.com/electron/electron/blob/master/docs/tutorial/security.md
+app.on('web-contents-created', (event, contents) => {
+  contents.on('will-attach-webview', (event, webPreferences, params) => {
+    // only allow our custom preload script - disable all others
+    console.log('will-attach-webview', JSON.stringify(webPreferences))
+    // disable nodeIntegration
+    webPreferences.nodeIntegration = false
+  })
+})
+
+
 // activate
 app.on('activate', function () {
   log.info('App activated')

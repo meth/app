@@ -37,6 +37,13 @@ class Window extends EventEmitter {
       acceptFirstMouse: true,
       darkTheme: true,
       webPreferences: {
+        /*
+        Security:
+        https://github.com/electron/electron/pull/8348
+        https://github.com/electron/electron/blob/master/docs/tutorial/security.md
+         */
+        nodeIntegration: false,
+        contextIsolation: true,
         preload: path.join(__dirname, 'windowPreload', 'browser.js'),
         webaudio: true,
         webgl: false,
@@ -46,11 +53,6 @@ class Window extends EventEmitter {
     }
 
     _.deepExtend(electronOptions, config.electronOptions || {})
-
-    // for security and safety we enforce certain things
-    // (https://github.com/electron/electron/pull/8348)
-    electronOptions.webPreferences.nodeIntegration = false
-    electronOptions.webPreferences.contextIsolation = true
 
     this._log.debug('Creating window')
 
@@ -216,7 +218,16 @@ exports.Window = Window
 let mainWindow
 
 exports.setupMainWindow = () => {
-  mainWindow = new Window('Main')
+  mainWindow = new Window('Main', {
+    electronOptions: {
+      webPreferences: {
+        webviewTag: true,
+        // Gotta turn off security - https://github.com/electron/electron/issues/9736
+        nodeIntegration: true,
+        contextIsolation: false,
+      }
+    }
+  })
 
   return mainWindow
 }

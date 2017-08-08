@@ -1,10 +1,9 @@
 import { applyMiddleware, compose, combineReducers, createStore } from 'redux'
 import thunkMiddleware from 'redux-thunk'
-import * as reducers from './reducers'
 // import createLogger from 'redux-logger'
 
 export const create = () => {
-  let combinedReducer = combineReducers(reducers)
+  let combinedReducer = combineReducers(require('./reducers'))
 
   const middleware = [
     thunkMiddleware,
@@ -18,7 +17,7 @@ export const create = () => {
   // Livereactload
   if (module.onReload) {
     module.onReload(() => {
-      store.replaceReducer(combineReducers(reducers))
+      store.replaceReducer(combineReducers(require('./reducers')))
       // return true to indicate that this module is accepted and
       // there is no need to reload its parent modules
       return true

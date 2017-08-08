@@ -1,5 +1,5 @@
 /*
- * The default preload script for all windows of the Meth browser
+ * The default preload script for all native windows of the Meth browser
  *
  * We use context isolation to ensure the browser SPA cannot access anything
  * unauthorized, see https://github.com/electron/electron/pull/8348
@@ -43,3 +43,11 @@ ipcRenderer.on(IPC.UI_TASK_NOTIFY, (e, task, status, data) => {
 
 // tell backend we have initialized
 sendIpcToBackend(BACKEND_TASKS.SET_WINDOW_ID)
+
+// Nullify globals inserted by node integration
+// see https://electron.atom.io/docs/faq/#i-can-not-use-jqueryrequirejsmeteorangularjs-in-electron
+webFrame.executeJavaScript(`
+  delete window.require;
+  delete window.exports;
+  delete window.module;
+`)
