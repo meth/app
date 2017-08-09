@@ -18,7 +18,6 @@ class Layout extends Component {
   render () {
     const RootDiv = styled.div`
       display: 'block',
-      height: 100vh;
       padding: 1em;
       margin: 0;
       background-color: ${props => props.theme.page.bgColor};

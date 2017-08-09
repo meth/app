@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import dispatcher from '../../../redux/dispatcher'
 import { connectRedux } from '../../helpers/decorators'
+import Loading from '../../components/Loading'
 import styles from './styles'
 
 @connectRedux()
@@ -10,7 +11,7 @@ export default class Page extends Component {
     const PageDiv = styles.pageDiv()
     return (
       <PageDiv>
-        Loading...
+        <Loading />
       </PageDiv>
     )
   }

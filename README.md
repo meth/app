@@ -18,6 +18,13 @@ Once Node is installed, install the dependencies:
 $ yarn
 ```
 
+Start a local Geth dev instance:
+
+```shell
+$ geth --dev --rpc
+```
+
+
 To build frontend for development (with watcher):
 
 ```shell

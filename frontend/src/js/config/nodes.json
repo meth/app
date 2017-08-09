@@ -1,7 +1,7 @@
 {
   "Mainnet": [
     {
-      "name": "Localhost 8545",
+      "name": "Local client (8545)",
       "url": "http://127.0.0.1:8545",
       "type": "rpc",
       "network": null
