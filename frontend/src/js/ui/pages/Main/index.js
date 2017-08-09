@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 
-import dispatcher from '../../../data/dispatcher'
+import dispatcher from '../../../redux/dispatcher'
 import { connectRedux } from '../../helpers/decorators'
 import theme from './theme'
 import styles from './styles'

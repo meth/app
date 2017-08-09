@@ -8,7 +8,8 @@ const InitialState = {
     Router.getActionForPathAndParams('')
   ),
   config: Immutable.Map({
-    nodes: {},
+    nodes: null,
+    networks: null,
     isConnected: false,
   }),
 }
@@ -36,8 +37,9 @@ export function nav (state = InitialState.nav, action) {
 
 export function config (state = InitialState.config, { type, payload }) {
   switch (type) {
-    case Actions.NODES:
-      state = state.set('nodes', payload)
+    case Actions.CONFIG:
+      state = state.set('nodes', payload.nodes)
+      state = state.set('networks', payload.networks)
       break
     case Actions.NODE_CONNECTED:
       state = state.set('isConnected', payload)

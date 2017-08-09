@@ -20,5 +20,6 @@ export const buildAction = (type, payload = {}) => {
 
 export const Actions = define([
   'NODES',
+  'CONFIG',
   'NODE_CONNECTED',
 ])

@@ -4,6 +4,7 @@ module.exports = {
     PREPARE: 'prepare',
     CONNECTING: 'connecting',
     CONNECTED: 'connected',
+    TIMEOUT: 'timeout',
   },
   BACKEND_TASKS: {
     INIT: 'backend-init',

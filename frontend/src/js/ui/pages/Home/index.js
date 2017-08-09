@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import dispatcher from '../../../data/dispatcher'
+import dispatcher from '../../../redux/dispatcher'
 import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
 
@@ -16,8 +16,8 @@ export default class Page extends Component {
   }
 
   componentDidUpdate () {
-    if (this.props.store.config.isConnected) {
-      dispatcher.navReset('login')
+    if (this.props.store.config.nodes) {
+      dispatcher.nav.reset('login')
     }
   }
 }
