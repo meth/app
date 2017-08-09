@@ -1,6 +1,6 @@
 import { IPC, BACKEND_TASKS, STATUS } from '../../../../common/constants'
 import { buildAction, Actions } from './actions'
-import { inProgress } from '../utils/stateMachines'
+import { NavActions } from '../ui/nav'
 
 
 
@@ -25,8 +25,18 @@ class Dispatcher {
   }
 
   init () {
-    this._action(Actions.INIT, inProgress)
-    this._runBackendTask(BACKEND_TASKS.INIT)
+    // this._runBackendTask(BACKEND_TASKS.INIT)
+    setTimeout(() => {
+      this._action(Actions.NODE_CONNECTED, true)
+    }, 4000)
+  }
+
+  navPush (pathName, params = {}) {
+    this._dispatch(NavActions.navigate({ pathName, params }))
+  }
+
+  navReset (pathName, params = {}) {
+    this._dispatch(NavActions.reset({ pathName, params }))
   }
 
   _action (type, payload) {

@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 
 import { Actions } from './actions'
-import { Router, NavActions } from '../ui/nav'
+import { Router } from '../ui/nav'
 
 const InitialState = {
   nav: Router.getStateForAction(
@@ -9,6 +9,7 @@ const InitialState = {
   ),
   config: Immutable.Map({
     nodes: {},
+    isConnected: false,
   }),
 }
 
@@ -19,14 +20,13 @@ export function nav (state = InitialState.nav, action) {
 
   switch (type) {
     case 'Navigation/RESET':
+      const { pathName, params } = action
+      nextState = Router.getStateForAction(
+        Router.getActionForPathAndParams(pathName, params)
+      )
+      break
     case 'Navigation/NAVIGATE':
       nextState = Router.getStateForAction(action, state)
-      break
-    case 'Navigation/BACK':
-      nextState = Router.getStateForAction(
-        NavActions.back(),
-        state
-      )
       break
   }
 
@@ -38,6 +38,9 @@ export function config (state = InitialState.config, { type, payload }) {
   switch (type) {
     case Actions.NODES:
       state = state.set('nodes', payload)
+      break
+    case Actions.NODE_CONNECTED:
+      state = state.set('isConnected', payload)
       break
   }
 

@@ -19,6 +19,6 @@ export const buildAction = (type, payload = {}) => {
 
 
 export const Actions = define([
-  'INIT',
   'NODES',
+  'NODE_CONNECTED',
 ])

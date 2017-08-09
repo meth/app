@@ -1,12 +1,9 @@
 import styled from 'styled-components'
 
 export default {
-  overlayDiv: () => styled.div`
-    position: absolute;
-    top: 100px;
-    left: 100px;
-    height: 50px;
-    padding: 50px;
-    background-color: #f00;
+  pageDiv: () => styled.div`
+    height: 100vh;
+    width: 100vw;
+    background-color: ${props => props.theme.page.bgColor};
   `,
 }

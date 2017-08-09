@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
+import { alertUser } from './utils/alert'
 import { create as createStore } from './data/store'
 import dispatcher from './data/dispatcher'
 import Root from './ui/Root'
@@ -18,6 +19,8 @@ ReactDOM.render(
 
 // security check
 if (window.require || window.exports || window.module) {
-  console.error('Node integration is active! This is a dangerous security leak!!')
-  window.alert('Node integration is active! This is a dangerous security leak!!')
+  alertUser('Node integration is active! This is a dangerous security leak!!')
 }
+
+// initialize the app!
+dispatcher.init()

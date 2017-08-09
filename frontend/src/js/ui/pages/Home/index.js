@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
 
-// import dispatcher from '../../../data/dispatcher'
+import dispatcher from '../../../data/dispatcher'
+import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
 
+@connectRedux()
 export default class Page extends Component {
   render () {
-    const OverlayDiv = styles.overlayDiv()
+    const PageDiv = styles.pageDiv()
     return (
-      <div>
-        <p>test</p>
-        <OverlayDiv />
-        <webview src="https://github.com" style={{
-          display: 'inline-flex',
-          width: '640px',
-          height: '480px',
-          border: '1px solid #000',
-        }} />
-      </div>
+      <PageDiv>
+        Loading...
+      </PageDiv>
     )
+  }
+
+  componentDidUpdate () {
+    if (this.props.store.config.isConnected) {
+      dispatcher.navReset('login')
+    }
   }
 }
