@@ -16,8 +16,8 @@ export default class Page extends Component {
   }
 
   componentDidUpdate () {
-    if (this.props.store.config.nodes) {
-      dispatcher.nav.reset('login')
-    }
+    // if (this.props.store.config.nodes) {
+    //   dispatcher.nav.reset('login')
+    // }
   }
 }

@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { buildAction } from '../actions'
-
+import log from '../../utils/log'
 
 
 /**
@@ -8,8 +8,11 @@ import { buildAction } from '../actions'
  */
 class Dispatcher {
   constructor () {
+    this._log = log.create('dispatcher')
+
     this._loadMixin('init', require('./mixins/init'))
     this._loadMixin('nav', require('./mixins/nav'))
+    this._loadMixin('modals', require('./mixins/modals'))
   }
 
   setStore (store) {
