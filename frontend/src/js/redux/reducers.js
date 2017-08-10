@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 
-import { Actions } from './actions'
+import { Actions, StateActions } from './actions'
+import { createStateActionMachine } from '../utils/stateMachines'
 import { Router } from '../ui/nav'
 import MODALS from '../utils/modals'
 
@@ -12,7 +13,12 @@ const InitialState = {
   config: Immutable.Map({
     nodes: null,
     networks: null,
+  }),
+
+  node: Immutable.Map({
+    [StateActions.CONNECT_NODE]: createStateActionMachine(),
     isConnected: false,
+    disconnectReason: null,
   }),
 
   modals: Immutable.Map(Object.keys(MODALS).reduce((m, k) => {
@@ -53,6 +59,29 @@ export function config (state = InitialState.config, { type, payload }) {
     case Actions.NODE_CONNECTED:
       state = state.set('isConnected', payload)
       break
+    case Actions.RECONNECT_NODE:
+      state = state.set('isConnected', false)
+      state = state.set('disconnectReason', payload)
+      break
+  }
+
+  return state
+}
+
+
+export function node (state = InitialState.node, { type, payload }) {
+  switch (type) {
+    case StateActions.CONNECT_NODE:
+      state = state.set(
+        StateActions.CONNECT_NODE,
+        state.get(StateActions.CONNECT_NODE).update({ payload })
+      )
+      break
+
+    case Actions.NODE_DISCONNECTED:
+      state = state.set('isConnected', false)
+      state = state.set('disconnectReason', payload)
+      break
   }
 
   return state
@@ -61,6 +90,10 @@ export function config (state = InitialState.config, { type, payload }) {
 
 export function modals (state = InitialState.modals, { type, payload }) {
   switch (type) {
+    case Actions.NODE_DISCONNECTED:
+      state = state.set(MODALS.CONNECT_NODE, true)
+      break
+
     case Actions.SHOW_MODAL:
       state = state.set(payload, true)
       break

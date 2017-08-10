@@ -16,5 +16,8 @@ module.exports = {
       paste: 'Paste',
       selectAll: 'Select all',
     },
+    error: {
+      unknownConnectionError: 'Sorry, there was an unexpected connection error'
+    }
   }
 }

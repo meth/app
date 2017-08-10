@@ -2,8 +2,13 @@ import _ from 'lodash'
 import React, { Component } from 'react'
 
 import { connectRedux } from '../../../helpers/decorators'
+import dispatcher from '../../../../redux/dispatcher'
+import { t } from '../../../../../../../common/strings'
+import { CONNECT_NODE } from '../../../../utils/asyncEvents'
+import { error } from '../../../../utils/stateMachines'
 import Modal from '../'
 import Loading from '../../Loading'
+import ErrorBox from '../../ErrorBox'
 import styles from './styles'
 
 @connectRedux()
@@ -38,6 +43,7 @@ export default class ConnectNode extends Component {
   renderSelector () {
     const {
       store: {
+        node: { [CONNECT_NODE]: connectEvent },
         config: { nodes }
       }
     } = this.props
@@ -66,8 +72,13 @@ export default class ConnectNode extends Component {
       )
     })
 
+    const errorBox = (error !== connectEvent.getState()) ? null : (
+      <ErrorBox error={connectEvent.getData() || t('error.unknownConnectionError')} />
+    )
+
     return (
       <div>
+        {errorBox}
         <ListSelect onChange={this.onChange} value={selected}>
           {options}
         </ListSelect>
@@ -91,6 +102,6 @@ export default class ConnectNode extends Component {
 
     const [ group, idx ] = selected.split('|')
 
-    console.log(nodes[group][idx])
+    dispatcher.nodes.connect(nodes[group][idx])
   }
 }

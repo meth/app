@@ -13,6 +13,7 @@ class Dispatcher {
     this._loadMixin('init', require('./mixins/init'))
     this._loadMixin('nav', require('./mixins/nav'))
     this._loadMixin('modals', require('./mixins/modals'))
+    this._loadMixin('nodes', require('./mixins/nodes'))
   }
 
   setStore (store) {

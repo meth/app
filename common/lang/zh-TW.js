@@ -16,5 +16,8 @@ module.exports = {
       paste: '中文Paste',
       selectAll: '中文Select all',
     },
+    error: {
+      unknownConnectionError: '中文Sorry, there was an unexpected connection error'
+    }
   }
 }

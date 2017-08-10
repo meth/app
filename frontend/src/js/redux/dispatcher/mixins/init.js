@@ -9,9 +9,11 @@ module.exports = async function () {
   if (!nodes) {
     this.modals.show(MODALS.CONNECT_NODE)
 
-    this._action(Actions.CONFIG, await Q.props({
+    const config = await Q.props({
       networks: loadConfig('networks'),
       nodes: loadConfig('nodes')
-    }))
+    })
+
+    this._action(Actions.CONFIG, config)
   }
 }

@@ -1,21 +1,15 @@
-import Q = from 'bluebird'
+import EventEmitter from 'eventemitter3'
 
-const { loadConfig } = require('../config'),
-  log = require('../logger').create('NodeConnector')
-
-const {
-  STATUS,
-  BACKEND_TASKS: {
-    CONNECT_TO_NODE
-  }
-} = require('../../common/constants')
+const log = require('../utils/log').create('NodeConnector')
 
 
 
-class NodeConnector {
-  constructor () {
+export default class NodeConnector extends EventEmitter {
+  constructor ({ networks }) {
+    super()
+
+    this._networks = networks
     this._adapter = null
-    this._window = null
   }
 
   get isConnected () {
@@ -23,40 +17,14 @@ class NodeConnector {
   }
 
   /**
-   * Initialise the node connector.
+   * Connect to given node.
+   * @type {Promise}
    */
-  async init () {
-    if (!this._nodes) {
-      try {
-        await this._loadConfig()
-      } catch (err) {
-        log.error('Error intializing node connector', err)
+  async connect (cfg) {
+    const { name, url, type } = cfg
 
-        this._notifyUi(STATUS.ERROR, err.toString())
-      }
-    }
-  }
+    log.info(`Connecting to ${name} at ${url} of type ${type}`)
 
-  async _loadConfig () {
-    log.info('Load config...')
-
-    const { networks, nodes } = await Q.props({
-      networks: loadConfig('networks'),
-      nodes: loadConfig('nodes'),
-    })
-
-    this._networks = networks
-    this._nodes = nodes
-
-    this._notifyUi(STATUS.PREPARE, this._nodes)
-  }
-
-  _notifyUi (status, data) {
-    log.debug('Notify main UI', status)
-
-    global.Ipc.notifyMainUi(CONNECT_TO_NODE, status, data)
+    throw new Error('blah: ' + Math.random(1000))
   }
 }
-
-
-module.exports = new NodeConnector()
