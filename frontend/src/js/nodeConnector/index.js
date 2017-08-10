@@ -1,5 +1,6 @@
 import EventEmitter from 'eventemitter3'
 
+import RpcAdapter from './rpc'
 const log = require('../utils/log').create('NodeConnector')
 
 
@@ -25,6 +26,22 @@ export default class NodeConnector extends EventEmitter {
 
     log.info(`Connecting to ${name} at ${url} of type ${type}`)
 
-    throw new Error('blah: ' + Math.random(1000))
+    let adapter
+
+    switch (type) {
+      case 'rpc':
+        adapter = new RpcAdapter({ url })
+        break
+      default:
+        throw new Error(`Unrecognized adapter type: ${type}`)
+    }
+
+    await adapter.connect()
+
+    // work out what network we're on
+    const block = await adapter.call('eth_getBlockByNumber', [0])
+
+    console.log(block)
+
   }
 }

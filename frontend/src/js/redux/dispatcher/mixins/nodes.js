@@ -24,6 +24,12 @@ module.exports = {
 
     const connector = initNodeConnector.call(this)
 
+    // keep track of what's going on in connector
+    const onConnectingUpdate = (msg) => {
+      this._stateAction(StateActions.CONNECT_NODE, inProgress, msg)
+    }
+    connector.on(STATUS.CONNECTING, onConnectingUpdate)
+
     try {
       await connector.connect(nodeConfig)
 
@@ -34,6 +40,9 @@ module.exports = {
       this._log.warn('Node connection failed', err)
 
       this._stateAction(StateActions.CONNECT_NODE, error, err.toString())
+    } finally {
+      // remove previously set event listener
+      connector.removeListener(STATUS.CONNECTING, onConnectingUpdate)
     }
   },
 }

@@ -1,7 +1,8 @@
-const Q = require('bluebird')
-const got = require('got')
+import Q from 'bluebird'
 
-const { Adapter } = require('./base')
+import { loadJSON } from '../../utils/fetch'
+import { Adapter } from './base'
+
 
 class RpcAdapter extends Adapter {
   constructor (nodeConfig) {
@@ -36,15 +37,11 @@ class RpcAdapter extends Adapter {
     try {
       await this._approveMethod(method)
 
-      return await got.post(this._url, {
-        encoding: 'utf8',
-        json: true,
-        body: {
-          jsonrpc: '2.0',
-          id: 0,
-          method,
-          params,
-        },
+      return await loadJSON(this._url, 'GET', {}, {
+        jsonrpc: '2.0',
+        id: 0,
+        method,
+        params,
       })
     } catch (err) {
       this._log.trace(`Call failed: ${method}`, err)

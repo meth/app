@@ -1,12 +1,9 @@
-/**
- * Base adapter class
- */
+import Q from 'bluebird'
+import EventEmitter from 'eventemitter3'
 
-const Q = require('bluebird')
-const EventEmitter = require('eventemitter3')
+import { ERROR } from '../../../../../common/constants'
 
-const { ERROR } = require('../../../common/constants')
-const log = require('../../logger').create('NodeAdapter')
+const log = require('../../logger').create('Adapter')
 
 
 
@@ -22,15 +19,15 @@ class Adapter extends EventEmitter {
    * @param  {String} adapterType
    * @param  {Object} availableMethods (String method_name => Boolean allowed)
    */
-  constructor (nodeConfig, name, availableMethods) {
+  constructor (nodeConfig, adapterType, availableMethods) {
     super()
 
-    this._name = name
+    this._adapterType = adapterType
     this._nodeConfig = nodeConfig
     this._methods = availableMethods
-    this._state =
+    this._state = STATE.DISCONNECTED
 
-    this._log = log.create(name)
+    this._log = log.create(adapterType)
   }
 
   get state () {
