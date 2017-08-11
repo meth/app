@@ -58,7 +58,7 @@ export const loadJSON = async (url, method = 'GET', query = {}, body = {}, heade
   } else {
     const json = res.json()
 
-    this.log.debug('JSON', json)
+    log.debug('JSON', json)
 
     return json
   }

@@ -7,13 +7,13 @@ module.exports = async function () {
   const { nodes } = this._getState('config')
 
   if (!nodes) {
-    this.modals.show(MODALS.CONNECT_NODE)
-
     const config = await Q.props({
       networks: loadConfig('networks'),
       nodes: loadConfig('nodes')
     })
 
     this._action(Actions.CONFIG, config)
+
+    this.nodes.showConnectionModal()
   }
 }

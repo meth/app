@@ -17,7 +17,8 @@ module.exports = {
       selectAll: 'Select all',
     },
     error: {
-      unknownConnectionError: 'Sorry, there was an unexpected connection error'
+      unknownConnection: 'Sorry, there was an unexpected connection error',
+      methodCall: 'Error calling method: {method}',
     }
   }
 }

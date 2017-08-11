@@ -1,6 +1,7 @@
 import { STATUS } from '../../../../../../common/constants'
 import { Actions, StateActions } from '../../actions'
 import { inProgress, success, error } from '../../../utils/stateMachines'
+import { CONNECT_NODE } from '../../../utils/modals'
 import NodeConnector from '../../../nodeConnector'
 
 function initNodeConnector () {
@@ -17,6 +18,18 @@ function initNodeConnector () {
 }
 
 module.exports = {
+  setSelected: function (nodeKey) {
+    this._action(Actions.SET_SELECTED_NODE, nodeKey)
+  },
+
+  showConnectionModal: function () {
+    this.modals.show(CONNECT_NODE)
+  },
+
+  hideConnectionModal: function () {
+    this.modals.hide(CONNECT_NODE)
+  },
+
   connect: async function (nodeConfig) {
     this._log.info('Connecting to node...')
 
@@ -31,15 +44,15 @@ module.exports = {
     connector.on(STATUS.CONNECTING, onConnectingUpdate)
 
     try {
-      await connector.connect(nodeConfig)
+      const genesisBlock = await connector.connect(nodeConfig)
 
       this._log.info('Node connection succeeded!')
 
-      this._stateAction(StateActions.CONNECT_NODE, success)
+      this._stateAction(StateActions.CONNECT_NODE, success, genesisBlock)
     } catch (err) {
       this._log.warn('Node connection failed', err)
 
-      this._stateAction(StateActions.CONNECT_NODE, error, err.toString())
+      this._stateAction(StateActions.CONNECT_NODE, error, err)
     } finally {
       // remove previously set event listener
       connector.removeListener(STATUS.CONNECTING, onConnectingUpdate)

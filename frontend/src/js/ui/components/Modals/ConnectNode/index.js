@@ -55,7 +55,7 @@ export default class ConnectNode extends Component {
 
     const options = _.map(nodes, (group, label) => {
       const items = _.map(group, ({ name }, idx) => {
-        const val = `${label}|${idx}`
+        const val = `${label}.${idx}`
 
         // select first by default
         if (!selected) {
@@ -73,16 +73,16 @@ export default class ConnectNode extends Component {
     })
 
     const errorBox = (error !== connectEvent.getState()) ? null : (
-      <ErrorBox error={connectEvent.getData() || t('error.unknownConnectionError')} />
+      <ErrorBox error={connectEvent.getData() || t('error.unknownConnection')} />
     )
 
     return (
       <div>
-        {errorBox}
         <ListSelect onChange={this.onChange} value={selected}>
           {options}
         </ListSelect>
         <button onClick={() => this.onSubmit(selected)}>Go</button>
+        {errorBox}
       </div>
     )
   }
@@ -100,8 +100,11 @@ export default class ConnectNode extends Component {
       }
     } = this.props
 
-    const [ group, idx ] = selected.split('|')
+    const node = _.get(nodes, selected)
 
-    dispatcher.nodes.connect(nodes[group][idx])
+    dispatcher.nodes.connect(node)
+      .then(() => {
+        dispatcher.nodes.hideConnectionModal()
+      })
   }
 }

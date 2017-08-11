@@ -17,7 +17,8 @@ module.exports = {
       selectAll: '中文Select all',
     },
     error: {
-      unknownConnectionError: '中文Sorry, there was an unexpected connection error'
+      unknownConnection: '中文Sorry, there was an unexpected connection error',
+      methodCall: '中文Error calling method: {method}',
     }
   }
 }

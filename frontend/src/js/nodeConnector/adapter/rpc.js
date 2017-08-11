@@ -2,6 +2,7 @@ import Q from 'bluebird'
 
 import { loadJSON } from '../../utils/fetch'
 import { Adapter } from './base'
+import { ERROR } from '../../../../../common/constants'
 
 
 class RpcAdapter extends Adapter {
@@ -9,17 +10,16 @@ class RpcAdapter extends Adapter {
     super(nodeConfig, 'rpc', METHODS)
 
     this._url = nodeConfig.url
+    this._callId = 0 // 'id' incremental counter
   }
 
   async _connect () {
     this._log.trace('Connect...', this._url)
 
     try {
-      const data = await this.call('eth_blockNumber')
+      await this.call('eth_blockNumber')
 
       this._log.trace('Connection successful')
-
-      return data
     } catch (err) {
       this._log.trace('Connection failed', err)
 
@@ -37,12 +37,23 @@ class RpcAdapter extends Adapter {
     try {
       await this._approveMethod(method)
 
-      return await loadJSON(this._url, 'GET', {}, {
+      this._log.trace(`Calling ${this._url} with method ${method}`)
+
+      const json = await loadJSON(this._url, 'POST', {}, {
         jsonrpc: '2.0',
-        id: 0,
+        id: ++this._callId,
         method,
         params,
       })
+
+      if (json.error) {
+        const e = new Error(ERROR.METHOD_CALL_ERROR)
+        e.method = method
+        e.details = json.error
+        throw e
+      } else {
+        return json.result
+      }
     } catch (err) {
       this._log.trace(`Call failed: ${method}`, err)
 

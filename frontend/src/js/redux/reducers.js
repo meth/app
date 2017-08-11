@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 
 import { Actions, StateActions } from './actions'
-import { createStateActionMachine } from '../utils/stateMachines'
+import { success, createStateActionMachine } from '../utils/stateMachines'
 import { Router } from '../ui/nav'
 import MODALS from '../utils/modals'
 
@@ -19,6 +19,7 @@ const InitialState = {
     [StateActions.CONNECT_NODE]: createStateActionMachine(),
     isConnected: false,
     disconnectReason: null,
+    genesisBlock: null,
   }),
 
   modals: Immutable.Map(Object.keys(MODALS).reduce((m, k) => {
@@ -72,15 +73,19 @@ export function config (state = InitialState.config, { type, payload }) {
 export function node (state = InitialState.node, { type, payload }) {
   switch (type) {
     case StateActions.CONNECT_NODE:
-      state = state.set(
-        StateActions.CONNECT_NODE,
-        state.get(StateActions.CONNECT_NODE).update({ payload })
-      )
+      const machine = state.get(StateActions.CONNECT_NODE).update({ payload })
+
+      state = state.set(StateActions.CONNECT_NODE, machine)
+
+      // in success state we expect to have genesis block info
+      if (success === machine.getState()) {
+        state = state.set('genesisBlock', machine.getData())
+      }
+
       break
 
     case Actions.NODE_DISCONNECTED:
-      state = state.set('isConnected', false)
-      state = state.set('disconnectReason', payload)
+      state = InitialState.node
       break
   }
 

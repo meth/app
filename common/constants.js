@@ -18,6 +18,7 @@ module.exports = {
     UI_TASK_NOTIFY: 'ui-task-notify',
   },
   ERROR: {
-    METHOD_NOT_ALLOWED: 'METHOD_NOT_ALLOWED'
+    METHOD_NOT_ALLOWED: 'METHOD_NOT_ALLOWED',
+    METHOD_CALL_ERROR: 'METHOD_CALL_ERROR',
   },
 }

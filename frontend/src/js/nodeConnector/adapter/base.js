@@ -3,7 +3,7 @@ import EventEmitter from 'eventemitter3'
 
 import { ERROR } from '../../../../../common/constants'
 
-const log = require('../../logger').create('Adapter')
+const log = require('../../utils/log').create('Adapter')
 
 
 

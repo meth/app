@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3'
 
-import RpcAdapter from './rpc'
+import RpcAdapter from './adapter/rpc'
 const log = require('../utils/log').create('NodeConnector')
 
 
@@ -38,10 +38,7 @@ export default class NodeConnector extends EventEmitter {
 
     await adapter.connect()
 
-    // work out what network we're on
-    const block = await adapter.call('eth_getBlockByNumber', [0])
-
-    console.log(block)
-
+    // get genesis block
+    return adapter.call('eth_getBlockByNumber', ['0x0', false])
   }
 }
