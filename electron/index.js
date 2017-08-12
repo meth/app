@@ -1,8 +1,8 @@
 const { app } = require('electron')
 
-global.Ipc = new (require('./backend/ipc'))()
-const { setupMainWindow } = require('./backend/windows')
-const log = require('./backend/logger').create('main')
+global.Ipc = new (require('./ipc'))()
+const { setupMainWindow } = require('./windows')
+const log = require('./logger').create('main')
 
 const isOSX = 'darwin' === process.platform
 
@@ -56,8 +56,7 @@ app.on('window-all-closed', function () {
 // Extra security, see https://github.com/electron/electron/blob/master/docs/tutorial/security.md
 app.on('web-contents-created', (event, contents) => {
   contents.on('will-attach-webview', (event, webPreferences, params) => {
-    // only allow our custom preload script - disable all others
-    console.log('will-attach-webview', JSON.stringify(webPreferences))
+    // TODO: only allow our custom preload script - disable all others
     // disable nodeIntegration
     webPreferences.nodeIntegration = false
   })

@@ -2,10 +2,12 @@
   "name": "meth-browser",
   "version": "1.0.0",
   "description": "Meth Dapp browser",
-  "main": "main.js",
+  "main": "electron/index.js",
   "scripts": {
-    "frontend": "gulp",
-    "backend": "electron ."
+    "electron": "electron ./electron",
+    "web": "webpack --env.development --env.vendor && webpack-dev-server --env.development",
+    "web:prod": "webpack --env.production --env.vendor && webpack --env.production --progress",
+    "web:serve": "http-serve -p 3001 --gzip true ./build"
   },
   "repository": {
     "type": "git",
@@ -14,9 +16,15 @@
   "keywords": [
     "ethereum",
     "solidity",
+    "wallet",
+    "dapp",
+    "browser",
+    "react",
+    "react-native",
     "contracts",
     "blockchain",
     "electron",
+    "electronjs",
     "geth",
     "parity"
   ],
