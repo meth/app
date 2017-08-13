@@ -26,3 +26,13 @@ if (module.hot) {
 AppRegistry.runApplication('Meth', {
   rootTag: document.getElementById('react-root')
 })
+
+export const alertUser = (msg) => {
+  console.error(msg)
+  window.alert(msg)
+}
+
+// security check
+if (window.require || window.exports || window.module) {
+  alertUser('Node integration is active! This is a dangerous security leak!!')
+}
