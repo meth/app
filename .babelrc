@@ -1,23 +1,16 @@
 {
   "presets": [
-    "react",
-    "es2015"
+    "react-native",
   ],
   "plugins": [
-    "external-helpers",
     "transform-react-display-name",
     "transform-decorators-legacy",
-    "styled-components"
   ],
   "env": {
     "development": {
       "plugins": [
-        ["react-transform", {
-          "transforms": [{
-            "transform": "livereactload/babel-transform",
-            "imports": ["react"]
-          }]
-        }]
+        "transform-react-jsx-source",
+        "react-hot-loader/babel",
       ]
     }
   }

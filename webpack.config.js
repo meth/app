@@ -13,6 +13,9 @@ const ifTest = (env, plugin) => (env.test === true ? plugin : () => undefined)
 const ifProd = (env, plugin) => (env.production === true ? plugin : () => undefined)
 // we use JSON.stringify for env strings as webpack will think it is a code fragment otherwise
 
+const vendorBuildFolder = path.join(__dirname, 'build', 'vendor')
+const productionBuildFolder = path.join(__dirname, 'build', 'web')
+
 const plugins = (env) => [
   ifDev(env, new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development'),
@@ -105,11 +108,10 @@ const VendorConfig = (env) => ({
       'immutable-state-machine',
       'i21n',
       'lodash',
-      'web3'
     ],
   },
   output: {
-    path: path.join(__dirname, 'vendor'),
+    path: vendorBuildFolder,
     filename: '[name]-[hash:16].dll.js',
     library: '[name]',
   },
@@ -119,7 +121,7 @@ const VendorConfig = (env) => ({
   },
   plugins: [
     new CleanWebpackPlugin([
-      path.join(__dirname, 'vendor')
+      vendorBuildFolder
     ], {
       root: __dirname,
       verbose: true
@@ -134,7 +136,7 @@ const VendorConfig = (env) => ({
 
     new webpack.DllPlugin({
       name: '[name]',
-      path: path.join(path.join(__dirname, 'vendor'), '[name]-manifest.json'),
+      path: path.join(vendorBuildFolder, '[name]-manifest.json'),
     }),
   ],
   resolve: resolve,
@@ -157,7 +159,7 @@ const addAssetHtmlFiles = (env) => {
 
 const BuildConfig = (env = { development: false }) => ({
   devServer: {
-    contentBase: path.join(__dirname, '/build/'),
+    contentBase: productionBuildFolder,
     // enable HMR
     hot: true,
     // serve index.html in place of 404 responses to allow HTML5 history
@@ -190,12 +192,12 @@ const BuildConfig = (env = { development: false }) => ({
     ]
   },
   output: {
-    path: path.join(__dirname, '/build/'),
+    path: productionBuildFolder,
     filename: 'js/[name]-[hash:16].js',
     publicPath: '/'
   },
   plugins: [
-    new CleanWebpackPlugin([path.join(__dirname, '/build/')], { root: __dirname, verbose: true }),
+    new CleanWebpackPlugin([productionBuildFolder], { root: __dirname, verbose: true }),
     ...Object.keys(VendorConfig(env).entry).map(name =>
       new webpack.DllReferencePlugin({
         context: process.cwd(),

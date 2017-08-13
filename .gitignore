@@ -6,8 +6,9 @@ node_modules
 # testing
 coverage
 
-# production
-build
+# build
+vendor/
+build/
 
 # misc
 .DS_Store
