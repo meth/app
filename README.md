@@ -24,15 +24,16 @@ Start a local Geth dev instance:
 $ geth --dev --rpc
 ```
 
+### Electron desktop app
 
-To build frontend for development (with watcher):
+To build frontend for development:
 
 ```shell
-$ npm run frontend
+$ npm run web
 ```
 
 To start the electron backend and full UI:
 
 ```shell
-$ npm run backend
+$ npm run electron
 ```
