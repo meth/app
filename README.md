@@ -21,7 +21,7 @@ $ yarn
 Start a local Geth dev instance:
 
 ```shell
-$ geth --dev --rpc
+$ geth --dev --rpc --rpccorsdomain "*"
 ```
 
 ### Electron desktop app

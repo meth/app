@@ -51,15 +51,19 @@ export const loadJSON = async (url, method = 'GET', query = {}, body = {}, heade
 
   logRequestDuration(startTime)
 
-  log.debug(`Got response: ${JSON.stringify(res)}`)
+  log.debug(`Got response: ${res.status}`)
 
   if (400 <= res.status) {
     throw new Error(`HTTP status: ${res.status}`)
   } else {
-    const json = res.json()
+    try {
+      const json = await res.json()
 
-    log.debug('JSON', json)
+      log.debug('JSON', json)
 
-    return json
+      return json
+    } catch (err) {
+      throw new Error(STATUS.CORRUPT)
+    }
   }
 }

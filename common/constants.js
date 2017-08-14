@@ -6,6 +6,7 @@ module.exports = {
     CONNECTED: 'connected',
     DISCONNECTED: 'disconnected',
     TIMEOUT: 'timeout',
+    CORRUPT: 'corrupt',
   },
   BACKEND_TASKS: {
     INIT: 'backend-init',

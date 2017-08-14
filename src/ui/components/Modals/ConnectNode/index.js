@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Button } from 'react-native'
 
 import { connectRedux } from '../../../helpers/decorators'
 import dispatcher from '../../../../redux/dispatcher'
@@ -27,7 +27,7 @@ export default class ConnectNode extends Component {
       }
     } = this.props
 
-    const content = (!nodes) ? <Loading /> : <Text>todo</Text>
+    const content = (!nodes) ? <Loading /> : this.renderSelector()
 
     return (
       <Modal>
@@ -36,7 +36,7 @@ export default class ConnectNode extends Component {
     )
   }
 
-  // renderSelector () {
+  renderSelector () {
   //   const {
   //     store: {
   //       node: { [CONNECT_NODE]: connectEvent },
@@ -72,16 +72,17 @@ export default class ConnectNode extends Component {
   //     <ErrorBox error={connectEvent.getData() || t('error.unknownConnection')} />
   //   )
   //
-  //   return (
+    return (
+      <Button onPress={() => this.onSubmit('Mainnet.0')} title="Go" />
+    )
   //     <div>
   //       <ListSelect onChange={this.onChange} value={selected}>
   //         {options}
   //       </ListSelect>
-  //       <button onClick={() => this.onSubmit(selected)}>Go</button>
   //       {errorBox}
   //     </div>
-  //   )
-  // }
+    // )
+  }
 
   onChange = (e) => {
     this.setState({
