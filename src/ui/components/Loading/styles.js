@@ -1,7 +1,7 @@
-import styled from 'styled-components/native'
+import { create } from '../../styles'
 
-export default {
-  loadingText: () => styled.Text`
-    color: '#fff';
-  `,
-}
+export default create({
+  text: {
+    color: '$content_textColor'
+  },
+})

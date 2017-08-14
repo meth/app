@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { View } from 'react-native'
 
 // import dispatcher from '../../../redux/dispatcher'
 import { connectRedux } from '../../helpers/decorators'
@@ -8,12 +9,10 @@ import styles from './styles'
 @connectRedux()
 export default class Page extends Component {
   render () {
-    const PageView = styles.pageView()
-
     return (
-      <PageView>
+      <View style={styles.container}>
         <Loading />
-      </PageView>
+      </View>
     )
   }
 

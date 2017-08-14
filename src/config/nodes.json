@@ -3,12 +3,12 @@
     {
       "name": "Local client (8545)",
       "url": "http://127.0.0.1:8545",
-      "type": "rpc",
+      "type": "rpc"
     },
     {
       "name": "Infura.io",
       "url": "https://mainnet.infura.io/zdqWKkUgyPz8uUjp47FK",
-      "type": "infura",
+      "type": "infura"
     }
   ]
 }

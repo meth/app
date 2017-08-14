@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
+import { View } from 'react-native'
 
 import styles from './styles'
 
 export default class Modal extends Component {
   render () {
-    const OverlayView = styles.overlayView()
-
     return (
-      <OverlayView>
+      <View style={styles.overlay}>
         {this.props.children}
-      </OverlayView>
+      </View>
     )
   }
 }

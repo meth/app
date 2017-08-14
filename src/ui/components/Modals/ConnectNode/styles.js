@@ -1,17 +1,13 @@
-import styled from 'styled-components/native'
+import { create } from '../../../styles'
 
-export default {
-  containerView: () => styled.View`
-    padding: 1em;
-    margin: 0;
-    background-color: #fff;
-    width: 50%;
-    min-width: 640px;
-    height: 50%;
-    min-height: 480px;
-    border-radius: 10px;
-  `,
-  todoText: () => styled.Text`
-    color: '#000';
-  `,
-}
+export default create({
+  container: {
+    flex: 0,
+    padding: 20,
+    backgroundColor: '$modal_content_backgroundColor',
+    width: 640,
+    height: 480,
+    borderRadius: 10,
+    zIndex: 1,
+  }
+})

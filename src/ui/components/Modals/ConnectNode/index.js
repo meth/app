@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
+import { View, Text } from 'react-native'
 
 import { connectRedux } from '../../../helpers/decorators'
 import dispatcher from '../../../../redux/dispatcher'
@@ -26,14 +27,11 @@ export default class ConnectNode extends Component {
       }
     } = this.props
 
-    const ContainerView = styles.containerView()
-    const TodoText = styles.todoText()
-
-    const content = (!nodes) ? <Loading /> : <TodoText />
+    const content = (!nodes) ? <Loading /> : <Text>todo</Text>
 
     return (
       <Modal>
-        <ContainerView>{content}</ContainerView>
+        <View style={styles.container}>{content}</View>
       </Modal>
     )
   }

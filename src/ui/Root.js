@@ -1,32 +1,34 @@
 import React, { Component } from 'react'
-import styled, { ThemeProvider } from 'styled-components/native'
+import { View } from 'react-native'
 
 import MODALS from '../utils/modals'
-import theme from './theme'
+import { create } from './styles'
 import { Navigator } from './nav'
 import { connectRedux } from './helpers/decorators'
 import ConnectNodeModal from './components/Modals/ConnectNode'
-
 
 const MODAL_COMPONENTS = {
   [MODALS.CONNECT_NODE]: ConnectNodeModal
 }
 
+const styles = create({
+  container: {
+    flex: 1,
+    backgroundColor: '$content_backgroundColor',
+    padding: 20,
+    margin: 0,
+  },
+})
+
 
 @connectRedux()
-class Layout extends Component {
+export default class Layout extends Component {
   render () {
-    const RootView = styled.View`
-      padding: 1em;
-      margin: 0;
-      background-color: ${props => props.theme.page.bgColor};
-    `
-
     return (
-      <RootView>
+      <View style={styles.container}>
         <Navigator />
         {this.showModal()}
-      </RootView>
+      </View>
     )
   }
 
@@ -46,16 +48,5 @@ class Layout extends Component {
     }
 
     return Component ? <Component /> : null
-  }
-}
-
-
-export default class Root extends Component {
-  render () {
-    return (
-      <ThemeProvider theme={theme}>
-        <Layout />
-      </ThemeProvider>
-    )
   }
 }

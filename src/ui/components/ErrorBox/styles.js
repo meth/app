@@ -1,12 +1,12 @@
-import styled from 'styled-components/native'
+import { create } from '../../styles'
 
-export default {
-  containerView: () => styled.View`
-    padding: 1em;
-    margin: 0;
-    background-color: ${props => props.theme.error.bgColor};
-  `,
-  text: () => styled.Text`
-    color: ${props => props.theme.error.txtColor};
-  `,
-}
+export default create({
+  container: {
+    padding: 10,
+    margin: 0,
+    backgroundColor: '$error_backgroundColor'
+  },
+  errorText: {
+    color: '$error_textColor'
+  },
+})
