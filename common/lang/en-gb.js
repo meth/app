@@ -16,6 +16,10 @@ module.exports = {
       paste: 'Paste',
       selectAll: 'Select all',
     },
+    connector: {
+      connectToNetwork: 'Connect to network',
+      pleaseChooseNode: 'Please choose a node to connect to',
+    },
     error: {
       unknownConnection: 'Sorry, there was an unexpected connection error',
       methodCall: 'Error calling method: {method}',

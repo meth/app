@@ -1,13 +1,14 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
-import { View, Button } from 'react-native'
+import { Text, View, Button } from 'react-native'
 
 import { connectRedux } from '../../../helpers/decorators'
 import dispatcher from '../../../../redux/dispatcher'
-// import { t } from '../../../../../../../common/strings'
-// import { CONNECT_NODE } from '../../../../utils/asyncEvents'
-// import { error } from '../../../../utils/stateMachines'
-// import ErrorBox from '../../ErrorBox'
+import { t } from '../../../../../common/strings'
+import { CONNECT_NODE } from '../../../../utils/asyncEvents'
+import { error } from '../../../../utils/stateMachines'
+import ErrorBox from '../../ErrorBox'
+import AlertBox from '../../AlertBox'
 import Modal from '../'
 import Loading from '../../Loading'
 import styles from './styles'
@@ -23,11 +24,26 @@ export default class ConnectNode extends Component {
   render () {
     const {
       store: {
-        config: { nodes }
-      }
+        config: { nodes },
+        node: { disconnectReason },
+      },
     } = this.props
 
-    const content = (!nodes) ? <Loading /> : this.renderSelector()
+    const diconnectContent = (disconnectReason) ? (
+      <ErrorBox error={disconnectReason} />
+    ) : (
+      <AlertBox type="info" text={t('connector.pleaseChooseNode')} />
+    )
+
+    const content = (!nodes) ? <Loading /> : (
+      <View>
+        <Text style={styles.title}>{t('connector.connectToNetwork')}</Text>
+        <View style={styles.alert}>
+          {diconnectContent}
+        </View>
+        {this.renderSelector()}
+      </View>
+    )
 
     return (
       <Modal>
@@ -37,51 +53,47 @@ export default class ConnectNode extends Component {
   }
 
   renderSelector () {
-  //   const {
-  //     store: {
-  //       node: { [CONNECT_NODE]: connectEvent },
-  //       config: { nodes }
-  //     }
-  //   } = this.props
-  //
-  //   let { selected } = this.state
-  //
-  //   const ListSelect = styles.listSelect()
-  //   const ListOption = styles.listOption()
-  //
-  //   const options = _.map(nodes, (group, label) => {
-  //     const items = _.map(group, ({ name }, idx) => {
-  //       const val = `${label}.${idx}`
-  //
-  //       // select first by default
-  //       if (!selected) {
-  //         selected = val
-  //       }
-  //
-  //       return <ListOption key={idx} value={val}>{name}</ListOption>
-  //     })
-  //
-  //     return (
-  //       <optgroup key={label} label={label}>
-  //         {items}
-  //       </optgroup>
-  //     )
-  //   })
-  //
-  //   const errorBox = (error !== connectEvent.getState()) ? null : (
-  //     <ErrorBox error={connectEvent.getData() || t('error.unknownConnection')} />
-  //   )
-  //
-    return (
-      <Button onPress={() => this.onSubmit('Mainnet.0')} title="Go" />
+    const {
+      store: {
+        node: { [CONNECT_NODE]: connectEvent },
+        config: { nodes }
+      }
+    } = this.props
+
+    let { selected } = this.state
+
+    const options = _.map(nodes, (group, label) => {
+      const items = _.map(group, ({ name }, idx) => {
+        const val = `${label}.${idx}`
+
+        // select first by default
+        if (!selected) {
+          selected = val
+        }
+
+        return <option key={idx} value={val}>{name}</option>
+      })
+
+      return (
+        <optgroup key={label} label={label}>
+          {items}
+        </optgroup>
+      )
+    })
+
+    const errorBox = (error !== connectEvent.getState()) ? null : (
+      <ErrorBox error={connectEvent.getData() || t('error.unknownConnection')} />
     )
-  //     <div>
-  //       <ListSelect onChange={this.onChange} value={selected}>
-  //         {options}
-  //       </ListSelect>
-  //       {errorBox}
-  //     </div>
-    // )
+
+    return (
+      <div>
+        <select onChange={this.onChange} value={selected}>
+          {options}
+        </select>
+        <Button onPress={() => this.onSubmit(selected)} title="Go" />
+        {errorBox}
+      </div>
+    )
   }
 
   onChange = (e) => {

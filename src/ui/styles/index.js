@@ -36,6 +36,15 @@ export const dropShadower = (level = 1, width = 0, height = 0, color = '#000') =
   elevation: Math.min(level, SHADOW_MAX_LEVEL) * 7
 })
 
-export const fontMaker = () => ({
-  ...transparentBg,
-})
+export const fontMaker = (options = {}) => {
+  let { weight, style } = Object.assign({
+    weight: null,
+    style: null,
+  }, options)
+
+  return {
+    fontWeight: weight,
+    fontStyle: style,
+    ...transparentBg
+  }
+}

@@ -4,6 +4,7 @@ import { View, Text } from 'react-native'
 
 import { ERROR } from '../../../../common/constants'
 import { t } from '../../../../common/strings'
+import AlertBox from '../AlertBox'
 import styles from './styles'
 
 export default class ErrorBox extends Component {
@@ -28,9 +29,9 @@ export default class ErrorBox extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <AlertBox type="error">
         {renderedError}
-      </View>
+      </AlertBox>
     )
   }
 }
