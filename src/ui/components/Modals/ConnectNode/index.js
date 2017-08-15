@@ -11,6 +11,7 @@ import ErrorBox from '../../ErrorBox'
 import AlertBox from '../../AlertBox'
 import Modal from '../'
 import Loading from '../../Loading'
+import Picker from '../../Picker'
 import styles from './styles'
 
 @connectRedux()
@@ -62,23 +63,22 @@ export default class ConnectNode extends Component {
 
     let { selected } = this.state
 
-    const options = _.map(nodes, (group, label) => {
-      const items = _.map(group, ({ name }, idx) => {
-        const val = `${label}.${idx}`
+    const options = []
+    _.each(nodes, (group, category) => {
+      _.each(group, ({name}, idx) => {
+        const val = `${category}.${idx}`
 
         // select first by default
         if (!selected) {
           selected = val
         }
 
-        return <option key={idx} value={val}>{name}</option>
+        options.push({
+          value: val,
+          label: name,
+          category,
+        })
       })
-
-      return (
-        <optgroup key={label} label={label}>
-          {items}
-        </optgroup>
-      )
     })
 
     const errorBox = (error !== connectEvent.getState()) ? null : (
@@ -87,9 +87,7 @@ export default class ConnectNode extends Component {
 
     return (
       <div>
-        <select onChange={this.onChange} value={selected}>
-          {options}
-        </select>
+        <Picker options={options} selected={selected} onChange={this.onChange} />
         <Button onPress={() => this.onSubmit(selected)} title="Go" />
         {errorBox}
       </div>

@@ -5,8 +5,6 @@ module.exports = {
     CONNECTING: 'connecting',
     CONNECTED: 'connected',
     DISCONNECTED: 'disconnected',
-    TIMEOUT: 'timeout',
-    CORRUPT: 'corrupt',
   },
   BACKEND_TASKS: {
     INIT: 'backend-init',
@@ -21,5 +19,8 @@ module.exports = {
   ERROR: {
     METHOD_NOT_ALLOWED: 'METHOD_NOT_ALLOWED',
     METHOD_CALL_ERROR: 'METHOD_CALL_ERROR',
+    REQUEST_TIMEOUT: 'REQUEST_TIMEOUT',
+    UNABLE_TO_CONNECT: 'UNABLE_TO_CONNECT',
+    CORRUPT_DATA: 'CORRUPT_DATA',
   },
 }

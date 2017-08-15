@@ -53,6 +53,8 @@ module.exports = {
       this._log.warn('Node connection failed', err)
 
       this._stateAction(StateActions.CONNECT_NODE, error, err)
+
+      throw err
     } finally {
       // remove previously set event listener
       connector.removeListener(STATUS.CONNECTING, onConnectingUpdate)

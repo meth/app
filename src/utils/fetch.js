@@ -1,7 +1,7 @@
 import Q from 'bluebird'
 import { stringify } from 'query-string'
 
-import { STATUS } from '../../common/constants'
+import { ERROR } from '../../common/constants'
 const log = require('./log').create('fetch')
 
 const TIMEOUT = 10
@@ -38,15 +38,20 @@ export const loadJSON = async (url, method = 'GET', query = {}, body = {}, heade
       Q.cast(fetch(url, req)).then(resolve, reject)
 
       setTimeout(() => {
-        reject(new Error(STATUS.TIMEOUT))
+        reject(new Error(ERROR.REQUEST_TIMEOUT))
       }, TIMEOUT * 1000)
     })
   } catch (err) {
-    logRequestDuration(startTime, Date.now())
+    // basic error parsing
+    const err2 = (0 <= err.toString().toLowerCase().indexOf('failed to fetch')) ? (
+      new Error(ERROR.UNABLE_TO_CONNECT)
+    ) : err
 
-    log.debug(`Got error`, err)
+    logRequestDuration(startTime)
 
-    throw err
+    log.debug(`Got error`, err2)
+
+    throw err2
   }
 
   logRequestDuration(startTime)
@@ -63,7 +68,7 @@ export const loadJSON = async (url, method = 'GET', query = {}, body = {}, heade
 
       return json
     } catch (err) {
-      throw new Error(STATUS.CORRUPT)
+      throw new Error(ERROR.CORRUPT_DATA)
     }
   }
 }
