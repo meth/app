@@ -2,17 +2,12 @@ import React, { Component } from 'react'
 import { NavigationActions, addNavigationHelpers, createNavigator, TabRouter } from 'react-navigation'
 
 import { connectRedux } from './helpers/decorators'
-import Home from './pages/Home'
-import UserLogin from './pages/UserLogin'
+import Mnemonic from './pages/Mnemonic'
 
 const routes = {
-  Home: {
-    screen: Home,
+  Mnemonic: {
+    screen: Mnemonic,
     path: ''
-  },
-  UserLogin: {
-    screen: UserLogin,
-    path: 'login'
   },
 }
 

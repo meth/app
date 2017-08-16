@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 // import dispatcher from '../../../redux/dispatcher'
 import { connectRedux } from '../../helpers/decorators'
-import Loading from '../../components/Loading'
 import styles from './styles'
 
 @connectRedux()
@@ -11,7 +10,13 @@ export default class Page extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <Loading />
+        <View style={styles.enterContainer}>
+          <Text>Enter mnemonic</Text>
+        </View>
+        <View style={styles.divider} />
+        <View style={styles.generateContainer}>
+          <Text>Generate mnemonic</Text>
+        </View>
       </View>
     )
   }

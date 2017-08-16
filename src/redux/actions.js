@@ -21,6 +21,8 @@ export const buildAction = (type, payload = {}) => {
 
 
 export const Actions = define([
+  'SET_MNEMONIC',
+
   'CONFIG',
 
   'NODE_DISCONNECTED',

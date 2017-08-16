@@ -112,6 +112,6 @@ export default class ConnectNode extends Component {
     dispatcher.nodes.connect(node)
       .then(() => {
         dispatcher.nodes.hideConnectionModal()
-      })
+      }, () => {})
   }
 }
