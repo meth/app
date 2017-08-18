@@ -1,19 +1,21 @@
+import Q from 'bluebird'
 import _ from 'lodash'
 import { buildAction } from '../actions'
 import log from '../../utils/log'
 
 
 /**
- * Action dispatcher base
+ * Controller/controller
  */
-class Dispatcher {
+class Controller {
   constructor () {
-    this._log = log.create('dispatcher')
+    this._log = log.create('controller')
 
     this._loadMixin('init', require('./mixins/init'))
     this._loadMixin('nav', require('./mixins/nav'))
     this._loadMixin('modals', require('./mixins/modals'))
     this._loadMixin('nodes', require('./mixins/nodes'))
+    this._loadMixin('mnemonic', require('./mixins/mnemonic'))
   }
 
   setStore (store) {
@@ -28,7 +30,7 @@ class Dispatcher {
       this[namespace] = {}
 
       _.each(methods, (body, key) => {
-        this[namespace][key] = body.bind(this)
+        this[namespace][key] = Q.method(body).bind(this)
       })
     }
   }
@@ -51,4 +53,4 @@ class Dispatcher {
 
 
 
-export default new Dispatcher()
+export default new Controller()

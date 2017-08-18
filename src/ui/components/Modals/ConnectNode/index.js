@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Text, View, Button } from 'react-native'
 
 import { connectRedux } from '../../../helpers/decorators'
-import dispatcher from '../../../../redux/dispatcher'
+import controller from '../../../../redux/controller'
 import { t } from '../../../../../common/strings'
 import { CONNECT_NODE } from '../../../../utils/asyncEvents'
 import { error } from '../../../../utils/stateMachines'
@@ -109,9 +109,8 @@ export default class ConnectNode extends Component {
 
     const node = _.get(nodes, selected)
 
-    dispatcher.nodes.connect(node)
-      .then(() => {
-        dispatcher.nodes.hideConnectionModal()
-      }, () => {})
+    controller.nodes.connect(node)
+      .then(() => controller.nodes.hideConnectionModal())
+      .catch(() => {})
   }
 }

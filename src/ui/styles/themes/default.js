@@ -24,7 +24,12 @@ module.exports = {
       backgroundColor: '#fff',
     },
     overlay: {
-      backgroundColor: '#000',
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    },
+  },
+  form: {
+    textInput: {
+      borderColor: '#999',
     },
   },
 }

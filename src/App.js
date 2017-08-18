@@ -2,11 +2,11 @@ import React from 'react'
 import { Provider } from 'react-redux'
 
 import { create as createStore } from './redux/store'
-import dispatcher from './redux/dispatcher'
+import controller from './redux/controller'
 import Root from './ui/Root'
 
 const store = createStore()
-dispatcher.setStore(store)
+controller.setStore(store)
 
 export default () => (
   <Provider store={store}>
@@ -15,4 +15,4 @@ export default () => (
 )
 
 // initialize the app!
-dispatcher.init()
+controller.init()

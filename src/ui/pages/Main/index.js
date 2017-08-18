@@ -1,11 +1,9 @@
 import _ from 'lodash'
 import React, { Component } from 'react'
 
-import dispatcher from '../../../redux/dispatcher'
+import controller from '../../../redux/controller'
 import { connectRedux } from '../../helpers/decorators'
-import theme from './theme'
 import styles from './styles'
-import ErrorBox from '../../components/ErrorBox'
 
 @connectRedux()
 export default class Page extends Component {
@@ -34,9 +32,6 @@ export default class Page extends Component {
 
     return (
       <PageDiv>
-        {(!error) ? null : (
-          <ErrorBox text={error} />
-        )}
         <ListSelect>
           {options}
         </ListSelect>
@@ -46,6 +41,7 @@ export default class Page extends Component {
   }
 
   componentDidMount () {
-    dispatcher.init()
+    controller.init()
+      .catch(() => {})
   }
 }
