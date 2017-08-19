@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 
 import { t } from '../../../../common/strings'
+import controller from '../../../redux/controller'
 import { connectRedux } from '../../helpers/decorators'
+import TouchableView from '../../components/TouchableView'
 import styles from './styles'
+
 
 @connectRedux()
 export default class Layout extends Component {
@@ -18,7 +21,9 @@ export default class Layout extends Component {
           </View>
           <View style={styles.headerRight}>
             <Text style={styles.headerBalanceText}>0.0001 ETH</Text>
-            <Text style={styles.headerConnectionText}>Localhost (Mainnet)</Text>
+            <TouchableView onPress={this.onPressConnectionInfo}>
+              <Text style={styles.headerConnectionText}>Localhost (Mainnet)</Text>
+            </TouchableView>
           </View>
         </View>
         <View style={[styles.content, contentStyle]}>
@@ -26,5 +31,9 @@ export default class Layout extends Component {
         </View>
       </View>
     )
+  }
+
+  onPressConnectionInfo = () => {
+    controller.nodes.showConnectionModal()
   }
 }

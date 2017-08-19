@@ -10,6 +10,21 @@ module.exports = {
     backgroundColor: '#fff',
     textColor: '#000',
   },
+  browser: {
+    tabBar: {
+      backgroundColor: '#ccc',
+      tab: {
+        inactive: {
+          borderColor: '#999',
+          backgroundColor: '#ccc',
+        },
+        active: {
+          borderColor: '#666',
+          backgroundColor: '#fff',
+        },
+      },
+    },
+  },
   alert: {
     error: {
       backgroundColor: '#f00',
