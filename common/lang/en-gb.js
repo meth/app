@@ -1,6 +1,7 @@
 module.exports = {
   label: 'English',
   strings: {
+    appName: 'Meth',
     initializing: 'Initializing',
     menu: {
       application: 'Application',

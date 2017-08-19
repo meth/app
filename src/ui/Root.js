@@ -14,9 +14,6 @@ const MODAL_COMPONENTS = {
 const styles = create({
   container: {
     flex: 1,
-    backgroundColor: '$content_backgroundColor',
-    padding: 20,
-    margin: 0,
   },
 })
 

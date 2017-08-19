@@ -1,9 +1,6 @@
 import { create } from '../../styles'
 
 export default create({
-  container: {
-    backgroundColor: '$content_backgroundColor'
-  },
   divider: {
     marginVertical: 20,
     borderWidth: 1,

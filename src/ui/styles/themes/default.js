@@ -2,6 +2,10 @@ export const ROOT_FONT_SIZE = 18
 
 module.exports = {
   rem: ROOT_FONT_SIZE,
+  header: {
+    backgroundColor: '#000',
+    textColor: '#fff',
+  },
   content: {
     backgroundColor: '#fff',
     textColor: '#000',

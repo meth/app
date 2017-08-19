@@ -9,14 +9,16 @@ Branches:
  * `master` - Production branch. Clean code, only approved pull requests allowed.
 
 Requirements:
-  * [Node.js 8+](http://nodejs.org)
+  * [Node.js 8+, NPM 5+](http://nodejs.org)
   * [Yarn](yarnpkg.com)
 
 Once Node is installed, install the dependencies:
 
 ```shell
-$ yarn
+$ npm install
 ```
+
+_Note: Yarn is not currently supported, use NPM 5+ instead_
 
 Start a local Geth dev instance:
 

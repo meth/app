@@ -7,6 +7,8 @@ import { t } from '../../../../common/strings'
 import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
 import ErrorBox from '../../components/ErrorBox'
+import Layout from '../Layout'
+
 
 @connectRedux()
 export default class Page extends Component {
@@ -18,11 +20,11 @@ export default class Page extends Component {
 
   render () {
     return (
-      <View style={styles.container}>
+      <Layout>
         {this.renderInputExisting()}
         <View style={styles.divider} />
         {this.renderGenerateNew()}
-      </View>
+      </Layout>
     )
   }
 
