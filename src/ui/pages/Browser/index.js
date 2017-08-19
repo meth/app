@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
 
 import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
@@ -14,11 +13,15 @@ export default class Page extends Component {
       {
         active: true,
         label: 'Wallet',
-        url: 'https://meth-wallet.surge.sh/'
+        url: 'https://wallet.ethereum.org/'
       },
       {
         label: 'Contracts',
-        url: 'https://meth-wallet.surge.sh/'
+        url: 'https://contracts.com/'
+      },
+      {
+        label: 'Addresses',
+        url: 'https://addresses.com/'
       }
     ],
   }
@@ -28,8 +31,31 @@ export default class Page extends Component {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <BrowserTabBar tabs={tabs} />
+        <BrowserTabBar
+          tabs={tabs}
+          onSort={this.onSortTabs}
+          onSelect={this.onSelectTab} />
       </Layout>
     )
+  }
+
+  onSortTabs = (tabs) => {
+    this.setState({ tabs })
+  }
+
+  onSelectTab = (index) => {
+    const { tabs } = this.state
+
+    tabs.forEach(t => {
+      t.active = false
+    })
+
+    tabs[index].active = true
+
+    this.setState({
+      tabs: [
+        ...tabs
+      ]
+    })
   }
 }
