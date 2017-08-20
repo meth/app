@@ -48,3 +48,23 @@ export const fontMaker = (options = {}) => {
     ...transparentBg
   }
 }
+
+export const addWebFont = (fontName, fontUrl) => {
+  // Generate required css
+  const iconFontStyles = `@font-face {
+    src: url(${fontUrl});
+    font-family: FontAwesome;
+  }`
+
+  // Create stylesheet
+  const style = document.createElement('style')
+  style.type = 'text/css'
+  if (style.styleSheet) {
+    style.styleSheet.cssText = iconFontStyles
+  } else {
+    style.appendChild(document.createTextNode(iconFontStyles))
+  }
+
+  // Inject stylesheet
+  document.head.appendChild(style)
+}

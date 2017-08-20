@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, View, Text, TextInput } from 'react-native'
+import { View, Text } from 'react-native'
 
 import { routes } from '../../nav'
 import controller from '../../../redux/controller'
@@ -7,6 +7,8 @@ import { t } from '../../../../common/strings'
 import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
 import ErrorBox from '../../components/ErrorBox'
+import Button from '../../components/Button'
+import TextInput from '../../components/TextInput'
 import Layout from '../Layout'
 
 
@@ -41,10 +43,6 @@ export default class Page extends Component {
         <TextInput
           style={styles.textInput}
           defaultValue={mnemonic}
-          autoCapitalize={'none'}
-          autoCorrect={false}
-          autoFocus={false}
-          autoFocus={true}
           onChange={this.onChange}
           onSubmitEditing={this.onSubmit}
         />

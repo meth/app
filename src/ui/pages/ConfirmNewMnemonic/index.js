@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Text } from 'react-native'
+import { Text } from 'react-native'
 
 import { routes } from '../../nav'
 import controller from '../../../redux/controller'
@@ -7,6 +7,7 @@ import { t } from '../../../../common/strings'
 import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
 import Layout from '../Layout'
+import Button from '../../components/Button'
 
 
 

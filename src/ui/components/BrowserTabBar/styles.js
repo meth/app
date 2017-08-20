@@ -16,9 +16,9 @@ export default create({
     borderWidth: 1,
     borderColor: '$browser_tabBar_tab_inactive_borderColor',
     backgroundColor: '$browser_tabBar_tab_inactive_backgroundColor',
-    // borderTopLeftRadius: 5,
-    // borderTopRightRadius: 5,
-    transform: [{ perspective: 50, rotateX: '40deg' }],
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    // transform: [{ perspective: 50, rotateX: '40deg' }],
   },
   activeTab: {
     borderBottomWidth: 0,

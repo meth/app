@@ -6,13 +6,34 @@ import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-ho
 import styles from './styles'
 import TouchableView from '../TouchableView'
 
+const MAX_LABEL_LENGTH = 20
+
+
+const sanitizeLabel = (label) => {
+  // trim / and whitespace
+  label = _.trim(label, '/')
+
+  // https://abc -> abc
+  const protPos = label.indexOf('://')
+  if (0 <= protPos) {
+    label = label.substr(protPos + 3)
+  }
+
+  // limit length
+  return (MAX_LABEL_LENGTH > label.length)
+    ? label
+    : `${label.substr(0, MAX_LABEL_LENGTH - 3)}...`
+}
+
 
 const Tab = SortableElement(({ label, active, index, onSelect }) => (
   <TouchableView
     style={[styles.tab, active ? styles.activeTab : null]}
     onPress={active ? null : onSelect}
   >
-    <Text style={[styles.tabText, active ? styles.activeTabText : null]}>{label}</Text>
+    <Text style={[styles.tabText, active ? styles.activeTabText : null]}>
+      {sanitizeLabel(label)}
+    </Text>
   </TouchableView>
 ))
 

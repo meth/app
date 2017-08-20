@@ -20,7 +20,7 @@ module.exports = {
         },
         active: {
           borderColor: '#666',
-          backgroundColor: '#fff',
+          backgroundColor: '#eee',
         },
       },
     },
@@ -51,4 +51,18 @@ module.exports = {
       borderColor: '#999',
     },
   },
+  button: {
+    default: {
+      enabled: {
+        borderColor: '#22f',
+        backgroundColor: '#22f',
+        textColor: '#fff',
+      },
+      disabled: {
+        borderColor: '#ccc',
+        backgroundColor: '#ccc',
+        textColor: '#fff',
+      },
+    }
+  }
 }

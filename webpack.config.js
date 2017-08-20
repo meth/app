@@ -57,8 +57,8 @@ const plugins = (env) => [
 const loaders = (env) => ([
   {
     test: /\.ttf$/,
-    loader: 'url-loader',
-    include: path.resolve(__dirname, '../node_modules/react-native-vector-icons'),
+    loader: 'file-loader',
+    include: path.resolve(__dirname, 'node_modules', 'react-native-vector-icons'),
   },
   {
     // Many react-native libraries do not compile their ES6 JS.
