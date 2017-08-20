@@ -9,8 +9,16 @@ import WebView from '../WebView'
 
 
 export default class TabView extends Component {
+  constructor (props, ctx) {
+    super(props, ctx)
+
+    this.state = {
+      url: props.url
+    }
+  }
+
   render () {
-    const { url } = this.props
+    const { url } = this.state
 
     return (
       <View style={styles.container}>
@@ -20,6 +28,7 @@ export default class TabView extends Component {
           <IconButton icon={{ name: 'refresh' }} style={styles.navIconButton} />
           <TextInput
             value={url}
+            onChange={this.onChangeUrl}
             onSubmitEditing={this.onEnterUrl}
             style={styles.navUrlInput}
           />
@@ -34,6 +43,20 @@ export default class TabView extends Component {
         </View>
       </View>
     )
+  }
+
+  componentWillReceiveProps (newProps) {
+    const { url } = newProps
+
+    if (url !== this.state.url) {
+      this.setState({ url })
+    }
+  }
+
+  onChangeUrl = (e) => {
+    this.setState({
+      url: e.target.value,
+    })
   }
 
   onEnterUrl = (e) => {
