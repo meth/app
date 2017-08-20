@@ -24,6 +24,9 @@ module.exports = {
         },
       },
     },
+    navBar: {
+      borderBottomColor: '#ccc',
+    },
   },
   alert: {
     error: {

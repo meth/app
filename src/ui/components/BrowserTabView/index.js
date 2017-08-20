@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { View } from 'react-native'
 
 import styles from './styles'
+import { addProtocol } from '../../../utils/url'
 import IconButton from '../IconButton'
 import TextInput from '../TextInput'
+import WebView from '../WebView'
 
 
 export default class TabView extends Component {
@@ -17,18 +19,24 @@ export default class TabView extends Component {
           <IconButton icon={{ name: 'chevron-right' }} style={styles.navIconButton} />
           <IconButton icon={{ name: 'refresh' }} style={styles.navIconButton} />
           <TextInput
-            defaultValue={url}
-            onSubmitEditing={this.onSubmitUrl}
+            value={url}
+            onSubmitEditing={this.onEnterUrl}
             style={styles.navUrlInput}
+          />
+        </View>
+        <View style={styles.webView}>
+          <WebView
+            {...this.props}
+            onRedirect={this.props.onUrlChange}
+            onNewTitle={this.props.onTitleChange}
+            ref={v => { this.webView = v }}
           />
         </View>
       </View>
     )
   }
 
-  onSubmitUrl = (e) => {
-    const { onUrlChange } = this.props
-
-    onUrlChange(e.target.value)
+  onEnterUrl = (e) => {
+    this.webView.openUrl(addProtocol(e.target.value))
   }
 }

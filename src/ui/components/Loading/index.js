@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-import { Text } from 'react-native'
-
-import styles from './styles'
+import { ActivityIndicator } from 'react-native'
 
 export default class Loading extends Component {
   render () {
     return (
-      <Text style={styles.text}>Loading...</Text>
+      <ActivityIndicator size='small' />
     )
   }
 }

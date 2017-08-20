@@ -1,6 +1,8 @@
+import _ from 'lodash'
 import React, { Component } from 'react'
 import { View } from 'react-native'
 
+import { STATUS } from '../../../../common/constants'
 import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
 import Layout from '../Layout'
@@ -15,16 +17,16 @@ export default class Page extends Component {
       {
         active: true,
         label: 'Wallet',
-        url: 'https://wallet.ethereum.org/'
+        url: 'https://google.com/'
       },
-      {
-        label: 'Contracts',
-        url: 'https://contracts.com/'
-      },
-      {
-        label: 'Addresses',
-        url: 'https://addresses.com/'
-      }
+      // {
+      //   label: 'Contracts',
+      //   url: 'https://google.com/'
+      // },
+      // {
+      //   label: 'Addresses',
+      //   url: 'https://google.com/'
+      // }
     ],
   }
 
@@ -42,6 +44,11 @@ export default class Page extends Component {
           <BrowserTabView
             {...tab}
             onUrlChange={url => this.onTabUrlChange(index, url)}
+            onLoading={() => this.onTabStatusChange(index, STATUS.LOADING)}
+            onLoaded={() => this.onTabStatusChange(index, STATUS.LOADED)}
+            onLoadingError={() => this.onTabStatusChange(index, STATUS.ERROR)}
+            onTitleChange={title => this.onTabTitleChange(index, title)}
+            onOpenNewWindow={this.onNewTab}
           />
         </View>
       )
@@ -64,12 +71,29 @@ export default class Page extends Component {
     const { tabs } = this.state
 
     tabs[index].url = url
-    tabs[index].label = url
 
     this.setState({
-      tabs: [
-        ...tabs
-      ]
+      tabs: [ ...tabs ]
+    })
+  }
+
+  onTabTitleChange = (index, title) => {
+    const { tabs } = this.state
+
+    tabs[index].label = _.trim(title || '')
+
+    this.setState({
+      tabs: [ ...tabs ]
+    })
+  }
+
+  onTabStatusChange = (index, status) => {
+    const { tabs } = this.state
+
+    tabs[index].status = status
+
+    this.setState({
+      tabs: [ ...tabs ]
     })
   }
 
@@ -87,9 +111,26 @@ export default class Page extends Component {
     tabs[index].active = true
 
     this.setState({
-      tabs: [
-        ...tabs
-      ]
+      tabs: [ ...tabs ]
+    })
+  }
+
+  onNewTab = (url) => {
+    const { tabs } = this.state
+
+    tabs.forEach(t => {
+      t.active = false
+    })
+
+    tabs.push({
+      label: url,
+      url,
+      active: true,
+      status: STATUS.LOADING,
+    })
+
+    this.setState({
+      tabs: [ ...tabs ]
     })
   }
 }

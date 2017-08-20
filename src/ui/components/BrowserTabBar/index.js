@@ -3,21 +3,20 @@ import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { SortableContainer, SortableElement, arrayMove } from 'react-sortable-hoc'
 
+import { STATUS } from '../../../../common/constants'
 import styles from './styles'
 import TouchableView from '../TouchableView'
+import Icon from '../Icon'
+import Loading from '../Loading'
+import { trimProtocol } from '../../../utils/url'
 
 const MAX_LABEL_LENGTH = 20
 
 
-const sanitizeLabel = (label) => {
-  // trim / and whitespace
-  label = _.trim(label, '/')
 
-  // https://abc -> abc
-  const protPos = label.indexOf('://')
-  if (0 <= protPos) {
-    label = label.substr(protPos + 3)
-  }
+const sanitizeLabel = (label) => {
+  // trim
+  label = trimProtocol(_.trim(label, '/'))
 
   // limit length
   return (MAX_LABEL_LENGTH > label.length)
@@ -26,16 +25,47 @@ const sanitizeLabel = (label) => {
 }
 
 
-const Tab = SortableElement(({ label, active, index, onSelect }) => (
-  <TouchableView
-    style={[styles.tab, active ? styles.activeTab : null]}
-    onPress={active ? null : onSelect}
-  >
-    <Text style={[styles.tabText, active ? styles.activeTabText : null]}>
-      {sanitizeLabel(label)}
-    </Text>
-  </TouchableView>
-))
+
+const Tab = SortableElement(tab => {
+  const { label: defaultLabel, url, active, onSelect, status } = tab
+
+  // status icon
+  let statusIcon = null
+  let label = defaultLabel
+  switch (status) {
+    case STATUS.LOADING:
+      statusIcon = <Loading />
+      label = url
+      break
+    case STATUS.ERROR:
+      statusIcon = <Icon name='exclamation-circle' />
+      label = url
+      break
+  }
+  if (statusIcon) {
+    statusIcon = (
+      <View style={styles.tabStatus}>
+        {statusIcon}
+      </View>
+    )
+  }
+
+  return (
+    <TouchableView
+      style={[styles.tab, active ? styles.activeTab : null]}
+      onPress={active ? null : onSelect}
+    >
+      <View style={styles.tabContent}>
+        {statusIcon}
+        <Text style={[styles.tabText, active ? styles.activeTabText : null]}>
+          {sanitizeLabel(label)}
+        </Text>
+      </View>
+    </TouchableView>
+  )
+})
+
+
 
 const TabList = SortableContainer(({ tabs, onSelect }) => {
   const items = _.map(tabs, (tab, index) => (

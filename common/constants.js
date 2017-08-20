@@ -5,6 +5,8 @@ module.exports = {
     CONNECTING: 'connecting',
     CONNECTED: 'connected',
     DISCONNECTED: 'disconnected',
+    LOADING: 'LOADING',
+    LOADED: 'LOADED',
   },
   BACKEND_TASKS: {
     INIT: 'backend-init',

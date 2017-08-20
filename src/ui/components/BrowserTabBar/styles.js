@@ -24,5 +24,13 @@ export default create({
     borderBottomWidth: 0,
     borderColor: '$browser_tabBar_tab_active_borderColor',
     backgroundColor: '$browser_tabBar_tab_active_backgroundColor',
-  }
+  },
+  tabContent: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  tabStatus: {
+    marginRight: 10,
+  },
 })
