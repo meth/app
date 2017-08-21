@@ -10,44 +10,41 @@ import BrowserTabBar from '../../components/BrowserTabBar'
 import BrowserTabView from '../../components/BrowserTabView'
 
 
+const newTabId = () => _.random(1, 1000000000)
+
+
+
 @connectRedux()
 export default class Page extends Component {
   state = {
     tabs: [
       {
+        id: newTabId(),
         active: true,
         label: 'Wallet',
         url: 'https://google.com/'
       },
-      // {
-      //   label: 'Contracts',
-      //   url: 'https://google.com/'
-      // },
-      // {
-      //   label: 'Addresses',
-      //   url: 'https://google.com/'
-      // }
     ],
   }
 
   render () {
     const { tabs } = this.state
 
-    const browserViews = tabs.map((tab, index) => {
-      const { active } = tab
+    const browserViews = tabs.map((tab) => {
+      const { id, active } = tab
 
       return (
         <View
-          key={index}
+          key={id}
           style={active ? styles.activeView : styles.inactiveView}
         >
           <BrowserTabView
             {...tab}
-            onUrlChange={url => this.onTabUrlChange(index, url)}
-            onLoading={() => this.onTabStatusChange(index, STATUS.LOADING)}
-            onLoaded={() => this.onTabStatusChange(index, STATUS.LOADED)}
-            onLoadingError={() => this.onTabStatusChange(index, STATUS.ERROR)}
-            onTitleChange={title => this.onTabTitleChange(index, title)}
+            onUrlChange={url => this.onTabUrlChange(id, url)}
+            onLoading={() => this.onTabStatusChange(id, STATUS.LOADING)}
+            onLoaded={() => this.onTabStatusChange(id, STATUS.LOADED)}
+            onLoadingError={() => this.onTabStatusChange(id, STATUS.ERROR)}
+            onTitleChange={title => this.onTabTitleChange(id, title)}
             onOpenNewWindow={this.onNewTab}
           />
         </View>
@@ -59,7 +56,10 @@ export default class Page extends Component {
         <BrowserTabBar
           tabs={tabs}
           onSort={this.onSortTabs}
-          onSelect={this.onSelectTab} />
+          onSelect={this.onSelectTab}
+          onClose={this.onCloseTab}
+          onNewTab={this.onNewTab}
+        />
         <View style={styles.browserViews}>
           {browserViews}
         </View>
@@ -67,33 +67,28 @@ export default class Page extends Component {
     )
   }
 
-  onTabUrlChange = (index, url) => {
-    const { tabs } = this.state
 
-    tabs[index].url = url
-
-    this.setState({
-      tabs: [ ...tabs ]
+  onTabUrlChange = (id, url) => {
+    this._forEachTab(t => {
+      if (t.id === id) {
+        t.url = url
+      }
     })
   }
 
-  onTabTitleChange = (index, title) => {
-    const { tabs } = this.state
-
-    tabs[index].label = _.trim(title || '')
-
-    this.setState({
-      tabs: [ ...tabs ]
+  onTabTitleChange = (id, title) => {
+    this._forEachTab(t => {
+      if (t.id === id) {
+        t.label = title
+      }
     })
   }
 
-  onTabStatusChange = (index, status) => {
-    const { tabs } = this.state
-
-    tabs[index].status = status
-
-    this.setState({
-      tabs: [ ...tabs ]
+  onTabStatusChange = (id, status) => {
+    this._forEachTab(t => {
+      if (t.id === id) {
+        t.status = status
+      }
     })
   }
 
@@ -101,33 +96,46 @@ export default class Page extends Component {
     this.setState({ tabs })
   }
 
-  onSelectTab = (index) => {
-    const { tabs } = this.state
+  onSelectTab = (id) => {
+    this._forEachTab(t => {
+      t.active = (t.id === id)
+    })
+  }
 
-    tabs.forEach(t => {
-      t.active = false
+  onCloseTab = (id) => {
+    this._filterTabs(t => t.id !== id)
+  }
+
+  onNewTab = (url) => {
+    const id = newTabId()
+
+    this.state.tabs.push({
+      id,
+      label: url,
+      url,
+      active: true,
+      status: STATUS.LOADING,
     })
 
-    tabs[index].active = true
+    this.onSelectTab(id)
+  }
+
+
+  _forEachTab = (cb) => {
+    const { tabs } = this.state
+
+    tabs.forEach(cb)
 
     this.setState({
       tabs: [ ...tabs ]
     })
   }
 
-  onNewTab = (url) => {
-    const { tabs } = this.state
 
-    tabs.forEach(t => {
-      t.active = false
-    })
+  _filterTabs = (cb) => {
+    let { tabs } = this.state
 
-    tabs.push({
-      label: url,
-      url,
-      active: true,
-      status: STATUS.LOADING,
-    })
+    tabs = tabs.filter(t => cb(t))
 
     this.setState({
       tabs: [ ...tabs ]

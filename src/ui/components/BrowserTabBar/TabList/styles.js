@@ -1,8 +1,8 @@
-import { create } from '../../styles'
+import { create } from '../../../styles'
 
 export default create({
-  container: {
-    backgroundColor: '$browser_tabBar_backgroundColor',
+  tabs: {
+    flex: 0,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'stretch',

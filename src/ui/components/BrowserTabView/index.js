@@ -23,9 +23,21 @@ export default class TabView extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.navBar}>
-          <IconButton icon={{ name: 'chevron-left' }} style={styles.navIconButton} />
-          <IconButton icon={{ name: 'chevron-right' }} style={styles.navIconButton} />
-          <IconButton icon={{ name: 'refresh' }} style={styles.navIconButton} />
+          <IconButton
+            icon={{ name: 'chevron-left' }}
+            style={styles.navIconButton}
+            onPress={this.onBack}
+          />
+          <IconButton
+            icon={{ name: 'chevron-right' }}
+            style={styles.navIconButton}
+            onPress={this.onForward}
+          />
+          <IconButton
+            icon={{ name: 'refresh' }}
+            style={styles.navIconButton}
+            onPress={this.onRefresh}
+          />
           <TextInput
             value={url}
             onChange={this.onChangeUrl}
@@ -61,5 +73,17 @@ export default class TabView extends Component {
 
   onEnterUrl = (e) => {
     this.webView.openUrl(addProtocol(e.target.value))
+  }
+
+  onBack = () => {
+    this.webView.goBack()
+  }
+
+  onForward = () => {
+    this.webView.goForward()
+  }
+
+  onRefresh = () => {
+    this.webView.refresh()
   }
 }

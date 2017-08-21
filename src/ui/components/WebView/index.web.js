@@ -72,4 +72,16 @@ export default class WebView extends Component {
   openUrl = (url) => {
     this.webView.loadURL(url)
   }
+
+  goBack = () => {
+    this.webView.goBack()
+  }
+
+  goForward = () => {
+    this.webView.goForward()
+  }
+
+  refresh = () => {
+    this.webView.reload()
+  }
 }
