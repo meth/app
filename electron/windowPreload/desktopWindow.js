@@ -1,5 +1,5 @@
 /*
- * The default preload script for all native windows of the Meth browser
+ * The preload script for any desktop window.
  *
  * We use context isolation to ensure the browser SPA cannot access anything
  * unauthorized, see https://github.com/electron/electron/pull/8348
@@ -9,6 +9,7 @@
  */
 const { ipcRenderer, webFrame } = require('electron')
 const { IPC, BACKEND_TASKS } = require('../../common/constants')
+const Settings = require('../settings')
 
 // fn: send IPC to backend
 const sendIpcToBackend = (task, params) => {
@@ -50,4 +51,5 @@ webFrame.executeJavaScript(`
   delete window.require;
   delete window.exports;
   delete window.module;
+  window.preloadBasePath = "${Settings.preloadBasePath}";
 `)

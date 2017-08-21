@@ -1,5 +1,6 @@
 const { app } = require('electron')
 
+const Settings = require('./settings')
 global.Ipc = new (require('./ipc'))()
 const { setupMainWindow } = require('./windows')
 const log = require('./logger').create('main')
@@ -56,9 +57,14 @@ app.on('window-all-closed', function () {
 // Extra security, see https://github.com/electron/electron/blob/master/docs/tutorial/security.md
 app.on('web-contents-created', (event, contents) => {
   contents.on('will-attach-webview', (event, webPreferences, params) => {
-    // TODO: only allow our custom preload script - disable all others
     // disable nodeIntegration
     webPreferences.nodeIntegration = false
+    // only allow our custom preload script - disable all others
+    if (0 > webPreferences.preloadURL.indexOf(Settings.preloadBasePath)) {
+      log.error('WebView started with disallowed preload script: ' + webPreferences.preloadURL)
+
+      event.preventDefault()
+    }
   })
 })
 

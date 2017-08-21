@@ -86,6 +86,10 @@ class Settings {
   get inProductionMode () {
     return MODE_IS_PRODUCTION
   }
+
+  get preloadBasePath () {
+    return path.resolve(path.join(__dirname, 'windowPreload'))
+  }
 }
 
 module.exports = new Settings()

@@ -31,6 +31,7 @@ export default class WebView extends Component {
           width: '100%',
           height: '100%',
         }}
+        preload={`file://${window.preloadBasePath}/browserTab.js`}
       />
     )
   }
