@@ -9,7 +9,7 @@ Branches:
  * `master` - Production branch. Clean code, only approved pull requests allowed.
 
 Requirements:
-  * [Node.js 8+, NPM 5+](http://nodejs.org)
+  * [Node.js 8.0.0](http://nodejs.org) **<- we recommend using this exact version!**
   * [Yarn](yarnpkg.com)
 
 Once Node is installed, install the dependencies:

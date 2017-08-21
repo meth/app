@@ -44,6 +44,11 @@ export default class TabView extends Component {
             onSubmitEditing={this.onEnterUrl}
             style={styles.navUrlInput}
           />
+          <IconButton
+            icon={{ name: 'plus' }}
+            style={styles.navIconButton}
+            onPress={this.onOpenDevTools}
+          />
         </View>
         <View style={styles.webView}>
           <WebView
@@ -85,5 +90,9 @@ export default class TabView extends Component {
 
   onRefresh = () => {
     this.webView.refresh()
+  }
+
+  onOpenDevTools = () => {
+    this.webView.openDevTools()
   }
 }

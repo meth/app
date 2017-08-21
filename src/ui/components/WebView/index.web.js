@@ -17,6 +17,7 @@ export default class WebView extends Component {
       'plugin-crashed': this.onLoadingError,
       'page-title-updated': this.onNewTitle,
       'new-window': this.onNewWindow,
+      'ipc-message': this.onWeb3Request,
     }
   }
 
@@ -68,6 +69,12 @@ export default class WebView extends Component {
   onNewTitle = ({ title }) => this.props.onNewTitle(title)
   onNewWindow = ({ url }) => this.props.onOpenNewWindow(url)
 
+  onWeb3Request = ({ channel, args }) => {
+    if ('web3' === channel) {
+      console.log(args)
+    }
+  }
+
   /* public methods */
 
   openUrl = (url) => {
@@ -84,5 +91,9 @@ export default class WebView extends Component {
 
   refresh = () => {
     this.webView.reload()
+  }
+
+  openDevTools = () => {
+    this.webView.openDevTools()
   }
 }

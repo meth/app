@@ -44,7 +44,7 @@ class Window extends EventEmitter {
          */
         nodeIntegration: false,
         contextIsolation: true,
-        preload: path.join(__dirname, 'windowPreload', 'desktopWindow.js'),
+        preload: path.join(Settings.preloadBasePath, 'desktopWindow.js'),
         webaudio: true,
         webgl: false,
         webSecurity: false, // necessary to make routing work on file:// protocol
