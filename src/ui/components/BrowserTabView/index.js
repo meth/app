@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
 import styles from './styles'
@@ -8,7 +8,7 @@ import TextInput from '../TextInput'
 import WebView from '../WebView'
 
 
-export default class TabView extends Component {
+export default class TabView extends PureComponent {
   constructor (props, ctx) {
     super(props, ctx)
 

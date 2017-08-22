@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 
-import { connectRedux } from '../../../helpers/decorators'
+import { connectStore, mutable } from '../../../helpers/redux'
 import controller from '../../../../redux/controller'
 import { t } from '../../../../../common/strings'
 import { CONNECT_NODE } from '../../../../utils/asyncEvents'
@@ -15,21 +15,16 @@ import Loading from '../../Loading'
 import Picker from '../../Picker'
 import styles from './styles'
 
-@connectRedux()
-export default class ConnectNode extends Component {
-  constructor (props, ctx) {
-    super(props, ctx)
 
-    this.state = {}
-  }
+@connectStore('config', 'node')
+export default class ConnectNode extends PureComponent {
+  state = {}
 
   render () {
     const {
-      store: {
-        config: { nodes },
-        node: { disconnectReason },
-      },
-    } = this.props
+      config: { nodes },
+      node: { disconnectReason },
+    } = mutable(this.props)
 
     const diconnectContent = (disconnectReason) ? (
       <ErrorBox error={disconnectReason} />
@@ -56,11 +51,9 @@ export default class ConnectNode extends Component {
 
   renderSelector () {
     const {
-      store: {
-        node: { [CONNECT_NODE]: connectEvent },
-        config: { nodes }
-      }
-    } = this.props
+      node: { [CONNECT_NODE]: connectEvent },
+      config: { nodes }
+    } = mutable(this.props)
 
     let { selected } = this.state
 
@@ -103,10 +96,8 @@ export default class ConnectNode extends Component {
 
   onSubmit = (selected) => {
     const {
-      store: {
-        config: { nodes }
-      }
-    } = this.props
+      config: { nodes }
+    } = mutable(this.props)
 
     const node = _.get(nodes, selected)
 

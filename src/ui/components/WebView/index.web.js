@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 
-export default class WebView extends Component {
+export default class WebView extends PureComponent {
   constructor (props, ctx) {
     super(props, ctx)
 

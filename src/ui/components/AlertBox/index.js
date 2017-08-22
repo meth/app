@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
 import createStyles from './styles'
 
-export default class AlertBox extends Component {
+export default class AlertBox extends PureComponent {
   render () {
     const { type, text } = this.props
 

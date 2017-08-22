@@ -1,15 +1,17 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
 import MODALS from '../utils/modals'
 import { create } from './styles'
 import { Navigator } from './nav'
-import { connectRedux } from './helpers/decorators'
+import { connectStore, mutable } from './helpers/redux'
 import ConnectNodeModal from './components/Modals/ConnectNode'
+
 
 const MODAL_COMPONENTS = {
   [MODALS.CONNECT_NODE]: ConnectNodeModal
 }
+
 
 const styles = create({
   container: {
@@ -18,8 +20,8 @@ const styles = create({
 })
 
 
-@connectRedux()
-export default class Layout extends Component {
+@connectStore('modals')
+export default class Layout extends PureComponent {
   render () {
     return (
       <View style={styles.container}>
@@ -31,8 +33,8 @@ export default class Layout extends Component {
 
   showModal () {
     const {
-      store: { modals }
-    } = this.props
+      modals
+    } = mutable(this.props)
 
     let Component
 

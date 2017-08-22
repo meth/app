@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { NavigationActions, addNavigationHelpers, createNavigator, TabRouter } from 'react-navigation'
 
-import { connectRedux } from './helpers/decorators'
+import { connectStore, mutable } from './helpers/redux'
 
 import LoginMnemonic from './pages/LoginMnemonic'
 import ConfirmNewMnemonic from './pages/ConfirmNewMnemonic'
@@ -30,12 +30,14 @@ export const Router = TabRouter(routes, {
 })
 
 // custom navigator - see https://reactnavigation.org/docs/navigators/custom
-@connectRedux()
-class NavigatorView extends Component {
+@connectStore('nav')
+class NavigatorView extends PureComponent {
   render () {
-    const { router, dispatch } = this.props
-
-    const state = this.props.store.nav
+    const {
+      nav: state,
+      router,
+      dispatch,
+    } = mutable(this.props)
 
     const Component = router.getComponentForState(state)
 

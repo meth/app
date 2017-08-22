@@ -1,9 +1,8 @@
 import _ from 'lodash'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
 import { STATUS } from '../../../../common/constants'
-import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
 import Layout from '../Layout'
 import BrowserTabBar from '../../components/BrowserTabBar'
@@ -14,8 +13,7 @@ const newTabId = () => _.random(1, 1000000000)
 
 
 
-@connectRedux()
-export default class Page extends Component {
+export default class Page extends PureComponent {
   state = {
     tabs: [
       {

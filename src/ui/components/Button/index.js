@@ -1,10 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PureComponent, PropTypes } from 'react'
 import { Text } from 'react-native'
 
 import TouchableView from '../TouchableView'
 import createStyles from './styles'
 
-export default class Button extends Component {
+export default class Button extends PureComponent {
   render () {
     const {
       disabled,

@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
 import { routes } from '../../nav'
 import controller from '../../../redux/controller'
 import { t } from '../../../../common/strings'
-import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
 import Layout from '../Layout'
 import Button from '../../components/Button'
 
 
 
-@connectRedux()
-export default class Page extends Component {
+export default class Page extends PureComponent {
   render () {
     const {
       navigation: {

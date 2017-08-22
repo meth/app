@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { TextInput } from 'react-native'
 
-export default class CustomTextInput extends Component {
+export default class CustomTextInput extends PureComponent {
   render () {
     return (
       <TextInput

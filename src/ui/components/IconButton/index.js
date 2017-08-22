@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 import Button from '../Button'
 import Icon from '../Icon'
 import createStyles from './styles'
 
 
-export default class IconButton extends Component {
+export default class IconButton extends PureComponent {
   render () {
     const { icon, ...props } = this.props
 

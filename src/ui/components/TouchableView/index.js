@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { TouchableOpacity } from 'react-native'
 
-export default class TouchableView extends Component {
+export default class TouchableView extends PureComponent {
   static defaultProps = {
     activeOpacity: 1.0
   }

@@ -1,18 +1,17 @@
 import _ from 'lodash'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 import controller from '../../../redux/controller'
-import { connectRedux } from '../../helpers/decorators'
+import { connectStore, mutable } from '../../helpers/redux'
 import styles from './styles'
 
-@connectRedux()
-export default class Page extends Component {
+
+@connectStore('config')
+export default class Page extends PureComponent {
   render () {
     const {
-      store: {
-        config: { nodes }
-      }
-    } = this.props
+      config: { nodes }
+    } = mutable(this.props)
 
     const PageDiv = styles.pageDiv()
     const ListSelect = styles.listSelect()

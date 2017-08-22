@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
 import { ERROR } from '../../../../common/constants'
@@ -7,7 +7,7 @@ import { t } from '../../../../common/strings'
 import AlertBox from '../AlertBox'
 import styles from './styles'
 
-export default class ErrorBox extends Component {
+export default class ErrorBox extends PureComponent {
   render () {
     const {
       error

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import { arrayMove } from 'react-sortable-hoc'
 
@@ -7,7 +7,7 @@ import IconButton from '../IconButton'
 import TabList from './TabList'
 
 
-export default class BrowserTabBar extends Component {
+export default class BrowserTabBar extends PureComponent {
   render () {
     const { tabs, onSelect, onClose } = this.props
 

@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
 import { routes } from '../../nav'
 import controller from '../../../redux/controller'
 import { t } from '../../../../common/strings'
-import { connectRedux } from '../../helpers/decorators'
 import styles from './styles'
 import ErrorBox from '../../components/ErrorBox'
 import Button from '../../components/Button'
@@ -12,8 +11,7 @@ import TextInput from '../../components/TextInput'
 import Layout from '../Layout'
 
 
-@connectRedux()
-export default class Page extends Component {
+export default class Page extends PureComponent {
   state = {
     mnemonic: '',
     generateNewError: null,

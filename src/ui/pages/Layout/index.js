@@ -1,15 +1,13 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
 import { t } from '../../../../common/strings'
 import controller from '../../../redux/controller'
-import { connectRedux } from '../../helpers/decorators'
 import TouchableView from '../../components/TouchableView'
 import styles from './styles'
 
 
-@connectRedux()
-export default class Layout extends Component {
+export default class Layout extends PureComponent {
   render () {
     const { children, contentStyle } = this.props
 

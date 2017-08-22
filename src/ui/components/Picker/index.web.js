@@ -1,9 +1,9 @@
 import _ from 'lodash'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
 
-export default class Select extends Component {
+export default class Select extends PureComponent {
   render () {
     const {
       selected,
