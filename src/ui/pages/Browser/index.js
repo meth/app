@@ -19,7 +19,12 @@ export default class Page extends PureComponent {
       {
         id: newTabId(),
         active: true,
-        label: 'Wallet',
+        label: 'Mist Wallet',
+        url: 'https://wallet.ethereum.org/'
+      },
+      {
+        id: newTabId(),
+        label: 'Google',
         url: 'https://google.com/'
       },
     ],

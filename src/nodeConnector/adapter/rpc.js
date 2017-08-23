@@ -64,6 +64,11 @@ class RpcAdapter extends Adapter {
 
 module.exports = RpcAdapter
 
+
+/**
+ * Approved/disapproved methods
+ * @type {Object}
+ */
 const METHODS = {
   net_version: true,
   net_listening: true,

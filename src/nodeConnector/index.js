@@ -5,7 +5,7 @@ const log = require('../utils/log').create('NodeConnector')
 
 
 
-export default class NodeConnector extends EventEmitter {
+export class NodeConnector extends EventEmitter {
   constructor ({ networks }) {
     super()
 
@@ -40,5 +40,30 @@ export default class NodeConnector extends EventEmitter {
 
     // get genesis block
     return adapter.call('eth_getBlockByNumber', ['0x0', false])
+  }
+}
+
+
+
+
+/**
+ * Connection for an individual dapp.
+ *
+ * This piggy backs on a `NodeConnector`.
+ */
+export class DappConnection {
+  constructor (nodeConnector, id) {
+    this._nodeConnector = nodeConnector
+
+    this._log = log.create(`dapp-${id}`)
+  }
+
+  /**
+   * Make a request
+   * @param  {Object|Array} payload Either a single or batch request
+   * @return {Promise}
+   */
+  async request (payload) {
+
   }
 }

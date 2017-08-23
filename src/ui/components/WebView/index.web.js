@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
 
+import controller from '../../../redux/controller'
+
 
 export default class WebView extends PureComponent {
   constructor (props, ctx) {
@@ -41,12 +43,19 @@ export default class WebView extends PureComponent {
     _.map(this.webViewEventHandlers, (f, e) => {
       this.webView.removeEventListener(e, f)
     })
+
+    // destroy connection to node
   }
 
   componentDidMount () {
+    const { id } = this.props
+
     _.map(this.webViewEventHandlers, (f, e) => {
       this.webView.addEventListener(e, f)
     })
+
+    // create connection to node
+    this.nodeConnection = controller.nodes.newDappConnection(id)
   }
 
   /* event handlers */
@@ -70,8 +79,10 @@ export default class WebView extends PureComponent {
   onNewWindow = ({ url }) => this.props.onOpenNewWindow(url)
 
   onWeb3Request = ({ channel, args }) => {
+    // if it's a web3 request
     if ('web3' === channel) {
-      console.log(args)
+
+      console.log(args[0])
     }
   }
 

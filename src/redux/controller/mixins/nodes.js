@@ -2,7 +2,7 @@ import { STATUS } from '../../../../common/constants'
 import { Actions, StateActions } from '../../actions'
 import { inProgress, success, error } from '../../../utils/stateMachines'
 import { CONNECT_NODE } from '../../../utils/modals'
-import NodeConnector from '../../../nodeConnector'
+import { NodeConnector, DappConnection } from '../../../nodeConnector'
 
 function initNodeConnector () {
   if (!this._nodeConnector) {
@@ -60,4 +60,8 @@ module.exports = {
       connector.removeListener(STATUS.CONNECTING, onConnectingUpdate)
     }
   },
+
+  newDappConnection (id) {
+    return new DappConnection(this._nodeConnector, id)
+  }
 }
