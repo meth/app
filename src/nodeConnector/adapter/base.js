@@ -115,7 +115,7 @@ class Adapter extends EventEmitter {
    */
   async execMethod (method, params) {
     try {
-      await this._execMethod(++this._callId, method, params)
+      return this._doExecMethod(++this._callId, method, params)
     } catch (err) {
       this._log.debug('Method exec error', err)
 
@@ -131,7 +131,7 @@ class Adapter extends EventEmitter {
    * Execute a method, to be implemented by subclasses
    * @return {Promise}
    */
-  async _execMethod (requestId, method, params) {
+  async _doExecMethod (requestId, method, params) {
     throw new Error('Not yet implemented')
   }
 

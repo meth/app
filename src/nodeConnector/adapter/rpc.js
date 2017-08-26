@@ -31,7 +31,7 @@ class RpcAdapter extends Adapter {
     return Q.resolve()
   }
 
-  async _execMethod (id, method, params = []) {
+  async _doExecMethod (id, method, params = []) {
     try {
       await this._approveMethod(method)
 

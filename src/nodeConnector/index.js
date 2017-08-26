@@ -1,9 +1,9 @@
 import EventEmitter from 'eventemitter3'
 
+import { Web3MethodFactory } from './web3Methods'
 import { ERROR } from '../../common/constants'
 import RpcAdapter from './adapter/rpc'
 const log = require('../utils/log').create('NodeConnector')
-
 
 
 export class NodeConnector extends EventEmitter {
@@ -14,6 +14,8 @@ export class NodeConnector extends EventEmitter {
     this._adapter = null
 
     this._wrapResponse = this._wrapResponse.bind(this)
+
+    this._methodFactory = new Web3MethodFactory(this)
   }
 
   get isConnected () {
@@ -47,7 +49,7 @@ export class NodeConnector extends EventEmitter {
     this._adapter = adapter
 
     // get genesis block
-    return this._execMethod('eth_getBlockByNumber', ['0x0', false])
+    return this._callMethod('eth_getBlockByNumber', ['0x0', false])
   }
 
   /**
@@ -67,10 +69,12 @@ export class NodeConnector extends EventEmitter {
   /**
    * Make a web3 JSON RPC request
    *
-   * @param  {Object|Array} payload Either a single or batch request
+   * @param {Object|Array} payload Either a single or batch request
+   * @param {Object} context Context in which method is being called
+   * @param {String} [context.dappUrl] URL of dapp which is calling this method
    * @return {Promise}
    */
-  async request (payload) {
+  async request (payload, context) {
     log.debug('Request', payload)
 
     const isBatch = (payload instanceof Array)
@@ -92,7 +96,7 @@ export class NodeConnector extends EventEmitter {
 
         result.push({
           id,
-          result: await this._execMethod(method, params)
+          result: await this._methodFactory.getHandler(method).run(params)
         })
       } catch (err) {
         result.push({
@@ -113,7 +117,7 @@ export class NodeConnector extends EventEmitter {
   }
 
 
-  _execMethod (method, params) {
+  _callMethod (method, params) {
     return this._adapter.execMethod(method, params)
   }
 

@@ -15,7 +15,7 @@ class Controller {
     this._loadMixin('nav', require('./mixins/nav'))
     this._loadMixin('modals', require('./mixins/modals'))
     this._loadMixin('nodes', require('./mixins/nodes'))
-    this._loadMixin('mnemonic', require('./mixins/mnemonic'))
+    this._loadMixin('wallet', require('./mixins/wallet'))
   }
 
   setStore (store) {

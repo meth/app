@@ -74,7 +74,7 @@ export default class Page extends PureComponent {
     this.setState({
       inputExistingError: null,
     }, () => {
-      controller.mnemonic.loginWith(this.state.mnemonic)
+      controller.wallet.openWithMnemonic(this.state.mnemonic)
         .then(() => controller.nav.push(routes.Browser.path))
         .catch(inputExistingError => this.setState({ inputExistingError }))
     })
@@ -84,7 +84,7 @@ export default class Page extends PureComponent {
     this.setState({
       generateNewError: null,
     }, () => {
-      controller.mnemonic.generateNew()
+      controller.wallet.generateNewMnemonic()
         .then(mnemonic => controller.nav.push(routes.ConfirmNewMnemonic.path, { mnemonic }))
         .catch(generateNewError => this.setState({ generateNewError }))
     })
