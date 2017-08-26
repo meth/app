@@ -105,7 +105,7 @@ export class NodeConnector extends EventEmitter {
     // process results
     const responses = result.map(this._wrapResponse)
 
-    const ret = isBatch ? responses[0] : responses
+    const ret = isBatch ? responses : responses[0]
 
     log.trace('Response', ret)
 

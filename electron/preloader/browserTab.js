@@ -10,17 +10,21 @@ class Web3IpcProvider {
   constructor () {
     this._requests = {}
 
-    ipc.on('web3', (a) => {
-      // take into account batch requests
-      const firstRequest = (a instanceof Array) ? a[0] : a
+    ipc.on('web3', (e, response) => {
+      const isBatch = (response instanceof Array)
 
+      // find original request
+      const firstRequest = isBatch ? response[0] : response
       const req = this._requests[firstRequest.id]
 
       if (req) {
-        if (a.error) {
-          req.reject(a)
+        // see if there was an error (for both batch and single)
+        const hasError = [].concat(response).find(r => !!r.error)
+
+        if (hasError) {
+          req.reject(response)
         } else {
-          req.resolve(a)
+          req.resolve(response)
         }
       }
     })

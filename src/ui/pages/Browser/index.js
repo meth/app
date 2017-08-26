@@ -16,13 +16,14 @@ const newTabId = () => _.random(1, 1000000000)
 export default class Page extends PureComponent {
   state = {
     tabs: [
+      // {
+      //   id: newTabId(),
+      //   active: true,
+      //   label: 'Mist Wallet',
+      //   url: 'https://wallet.ethereum.org/'
+      // },
       {
-        id: newTabId(),
         active: true,
-        label: 'Mist Wallet',
-        url: 'https://wallet.ethereum.org/'
-      },
-      {
         id: newTabId(),
         label: 'Google',
         url: 'https://google.com/'
@@ -136,12 +137,37 @@ export default class Page extends PureComponent {
 
 
   _filterTabs = (cb) => {
-    let { tabs } = this.state
+    const { tabs } = this.state
 
-    tabs = tabs.filter(t => cb(t))
+    let final = []
+    let newActiveIndex = -1
+    for (const index in tabs) {
+      const tab = tabs[index]
+
+      // if tab should be removed
+      if (!cb(tab)) {
+        // if it was active then next active tab is one before it
+        if (tab.active) {
+          newActiveIndex = index - 1
+        }
+      } else {
+        // tab shouldn' be removed, add it to final list
+        final.push(tab)
+      }
+    }
+
+    // if another tab should be made "active"
+    if (-1 < newActiveIndex) {
+      // ensure index of new tab to be made active is valid
+      while (newActiveIndex >= tabs.length) {
+        newActiveIndex--
+      }
+      // make new tab active
+      final[newActiveIndex].active = true
+    }
 
     this.setState({
-      tabs: [ ...tabs ]
+      tabs: [ ...final ]
     })
   }
 }
