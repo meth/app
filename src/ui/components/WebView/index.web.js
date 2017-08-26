@@ -43,19 +43,12 @@ export default class WebView extends PureComponent {
     _.map(this.webViewEventHandlers, (f, e) => {
       this.webView.removeEventListener(e, f)
     })
-
-    // destroy connection to node
   }
 
   componentDidMount () {
-    const { id } = this.props
-
     _.map(this.webViewEventHandlers, (f, e) => {
       this.webView.addEventListener(e, f)
     })
-
-    // create connection to node
-    this.nodeConnection = controller.nodes.newDappConnection(id)
   }
 
   /* event handlers */
@@ -81,8 +74,9 @@ export default class WebView extends PureComponent {
   onWeb3Request = ({ channel, args }) => {
     // if it's a web3 request
     if ('web3' === channel) {
-
-      console.log(args[0])
+      // do request-response
+      controller.nodes.sendRequest(args[0])
+        .then(response => this.webView.send('web3', response))
     }
   }
 

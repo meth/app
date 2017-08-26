@@ -26,6 +26,7 @@ class Adapter extends EventEmitter {
     this._nodeConfig = nodeConfig
     this._methods = availableMethods
     this._state = STATE.DISCONNECTED
+    this._callId = 0 // 'id' incremental counter
 
     this._log = log.create(adapterType)
   }
@@ -109,6 +110,33 @@ class Adapter extends EventEmitter {
   }
 
   /**
+   * Execute a method
+   * @return {Promise}
+   */
+  async execMethod (method, params) {
+    try {
+      await this._execMethod(++this._callId, method, params)
+    } catch (err) {
+      this._log.debug('Method exec error', err)
+
+      // augment the error
+      err.method = method
+      err.params = params
+      throw err
+    }
+  }
+
+
+  /**
+   * Execute a method, to be implemented by subclasses
+   * @return {Promise}
+   */
+  async _execMethod (requestId, method, params) {
+    throw new Error('Not yet implemented')
+  }
+
+
+  /**
    * Approve given method call
    * @param  {String} method
    * @return {Promise}
@@ -133,6 +161,19 @@ class Adapter extends EventEmitter {
    */
   async _disconnect () {
     throw new Error('Not yet implemented')
+  }
+
+
+  /**
+   * Construct and throw an error
+   * @param  {String} errMsg  [description]
+   * @param  {Object} details [description]
+   * @throws {Error}
+   */
+  _throwError (errMsg, details) {
+    const e = new Error(errMsg)
+    e.details = details
+    throw e
   }
 }
 

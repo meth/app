@@ -11,7 +11,10 @@ class Web3IpcProvider {
     this._requests = {}
 
     ipc.on('web3', (a) => {
-      const req = this._requests[a.id]
+      // take into account batch requests
+      const firstRequest = (a instanceof Array) ? a[0] : a
+
+      const req = this._requests[firstRequest.id]
 
       if (req) {
         if (a.error) {
@@ -32,8 +35,11 @@ class Web3IpcProvider {
   }
 
   sendAsync (payload, callback) {
+    // take into account batch requests
+    const firstRequest = (payload instanceof Array) ? payload[0] : payload
+
     new Promise((resolve, reject) => {
-      this._requests[payload.id] = { resolve, reject }
+      this._requests[firstRequest.id] = { resolve, reject }
     })
       .then(result => { callback(null, result) })
       .catch(callback)
