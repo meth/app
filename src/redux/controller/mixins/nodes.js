@@ -49,6 +49,10 @@ module.exports = {
       this._log.info('Node connection succeeded!')
 
       this._stateAction(StateActions.CONNECT_NODE, success, genesisBlock)
+
+      // reload wallet for new network
+      this._log.debug('Reload wallet, now that we have a new connection ...')
+      await this.wallet.reloadCurrent()
     } catch (err) {
       this._log.warn('Node connection failed', err)
 
@@ -61,7 +65,11 @@ module.exports = {
     }
   },
 
-  sendRequest (payload) {
+  getCurrentConnection: function () {
+    return this._nodeConnector
+  },
+
+  sendRequest: async function (payload) {
     const connector = initNodeConnector.call(this)
 
     return connector.request(payload)

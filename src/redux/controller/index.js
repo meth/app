@@ -25,7 +25,7 @@ class Controller {
 
   _loadMixin (namespace, methods) {
     if (_.isFunction(methods)) {
-      this[namespace] = methods.bind(this)
+      this[namespace] = Q.method(methods).bind(this)
     } else {
       this[namespace] = {}
 

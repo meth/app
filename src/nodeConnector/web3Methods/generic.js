@@ -11,6 +11,6 @@ export default class GenericMethod {
   async run (params) {
     this._log.trace(`Call`, params)
 
-    return this._connector._callMethod(this._method, params)
+    return this._connector.rawCall(this._method, params)
   }
 }

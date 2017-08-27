@@ -49,7 +49,7 @@ export class NodeConnector extends EventEmitter {
     this._adapter = adapter
 
     // get genesis block
-    return this._callMethod('eth_getBlockByNumber', ['0x0', false])
+    return this.rawCall('eth_getBlockByNumber', ['0x0', false])
   }
 
   /**
@@ -117,7 +117,13 @@ export class NodeConnector extends EventEmitter {
   }
 
 
-  _callMethod (method, params) {
+  /**
+   * Make a raw method call.
+   * @param  {String} method web3 method
+   * @param  {Array} [params]
+   * @return {Promise}
+   */
+  async rawCall (method, params = []) {
     return this._adapter.execMethod(method, params)
   }
 
