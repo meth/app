@@ -1,8 +1,7 @@
 import Q from 'bluebird'
 import EventEmitter from 'eventemitter3'
 
-import { ERROR } from '../../../common/constants'
-
+import { EVENT, STATE, ERROR } from '../../../common/constants'
 const log = require('../../utils/log').create('Adapter')
 
 
@@ -25,14 +24,24 @@ class Adapter extends EventEmitter {
     this._adapterType = adapterType
     this._nodeConfig = nodeConfig
     this._methods = availableMethods
-    this._state = STATE.DISCONNECTED
     this._callId = 0 // 'id' incremental counter
+    this._state = STATE.DISCONNECTED
 
     this._log = log.create(adapterType)
   }
 
+  get isConnected () {
+    return STATE.CONNECTED === this._state
+  }
+
   get state () {
     return this._state
+  }
+
+  _updateState (state) {
+    this._state = state
+
+    this.emit(EVENT.STATE_CHANGE, state)
   }
 
   /**
@@ -53,7 +62,7 @@ class Adapter extends EventEmitter {
     }
 
     this._log.trace('Connecting...')
-    this._state = STATE.CONNECTING
+    this._updateState(STATE.CONNECTING, 'Connecting...')
 
     this._connectPromise = this._connect()
 
@@ -63,11 +72,11 @@ class Adapter extends EventEmitter {
       this._log.trace('Connected')
 
       this._connectPromise = null
-      this._state = STATE.CONNECTED
+      this._updateState(STATE.CONNECTED)
     } catch (err) {
       this._log.trace('Connection error', err)
 
-      this._state = STATE.DISCONNECTED
+      this._updateState(STATE.DISCONNECTED)
 
       throw err
     }
@@ -92,7 +101,7 @@ class Adapter extends EventEmitter {
     }
 
     this._log.trace('Disconnecting...')
-    this._state = STATE.DISCONNECTING
+    this._updateState(STATE.DISCONNECTING)
     this._disconnectPromise = this._disconnect()
 
     try {
@@ -101,7 +110,7 @@ class Adapter extends EventEmitter {
       this._log.trace('Disconnected')
 
       this._disconnectPromise = null
-      this._state = STATE.DISCONNECTED
+      this._updateState(STATE.DISCONNECTED)
     } catch (err) {
       this._log.trace('Disconnection error', err)
 
@@ -178,10 +187,3 @@ class Adapter extends EventEmitter {
 }
 
 exports.Adapter = Adapter
-
-const STATE = exports.STATE = {
-  DISCONNECTED: 1,
-  DISCONNECTING: 2,
-  CONNECTING: 3,
-  CONNECTED: 4,
-}

@@ -1,6 +1,7 @@
 import GenericMethod from './generic'
 import controller from '../../redux/controller'
 
+
 export default class EthGetAccounts extends GenericMethod {
   constructor (nodeConnector) {
     super(nodeConnector, 'eth_accounts')
@@ -11,6 +12,6 @@ export default class EthGetAccounts extends GenericMethod {
 
     const wallet = await controller.wallet.getCurrent()
 
-    return wallet.getAddresses()
+    return wallet.addresses
   }
 }

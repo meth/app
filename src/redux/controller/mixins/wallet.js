@@ -1,7 +1,7 @@
 import Mnemonic from 'bitcore-mnemonic'
 
 import { Actions } from '../../actions'
-import { createWalletFromMnemonic } from '../../../wallet'
+import Wallet from '../../../wallet'
 
 module.exports = {
   generateNewMnemonic: function () {
@@ -15,7 +15,7 @@ module.exports = {
 
     this._action(Actions.SET_MNEMONIC, mnemonic)
 
-    this._wallet = createWalletFromMnemonic(mnemonic)
+    this._wallet = Wallet.createFromMnemonic(mnemonic)
   },
 
   closeCurrent: async function () {
@@ -31,7 +31,7 @@ module.exports = {
     if (mnemonic && this._wallet) {
       this._log.debug(`Reload current wallet`)
 
-      this._wallet = createWalletFromMnemonic(mnemonic)
+      this._wallet = Wallet.createFromMnemonic(mnemonic)
     }
   },
 

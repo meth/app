@@ -1,4 +1,4 @@
-import { STATUS } from '../../../../common/constants'
+import { EVENT, STATE } from '../../../../common/constants'
 import { Actions, StateActions } from '../../actions'
 import { inProgress, success, error } from '../../../utils/stateMachines'
 import { CONNECT_NODE } from '../../../utils/modals'
@@ -9,8 +9,10 @@ function initNodeConnector () {
     this._nodeConnector = new NodeConnector(this._getState('config').networks)
 
     // when node disconnects let's show the node connector
-    this._nodeConnector.on(STATUS.DISCONNECTED, reason => {
-      this._action(Actions.NODE_DISCONNECTED, reason)
+    this._nodeConnector.on(EVENT.STATE_CHANGE, (newState, reason) => {
+      if (STATE.DISCONNECTED === newState) {
+        this._action(Actions.NODE_DISCONNECTED, reason)
+      }
     })
   }
 
@@ -41,7 +43,12 @@ module.exports = {
     const onConnectingUpdate = (msg) => {
       this._stateAction(StateActions.CONNECT_NODE, inProgress, msg)
     }
-    connector.on(STATUS.CONNECTING, onConnectingUpdate)
+    // event listener
+    connector.on(EVENT.STATE_CHANGE, (newState, msg) => {
+      if (STATE.CONNECTING === newState) {
+        onConnectingUpdate(msg)
+      }
+    })
 
     try {
       const genesisBlock = await connector.connect(nodeConfig)
@@ -61,7 +68,7 @@ module.exports = {
       throw err
     } finally {
       // remove previously set event listener
-      connector.removeListener(STATUS.CONNECTING, onConnectingUpdate)
+      connector.removeListener(EVENT.STATE_CHANGE, onConnectingUpdate)
     }
   },
 

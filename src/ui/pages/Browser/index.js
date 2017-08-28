@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
-import { STATUS } from '../../../../common/constants'
+import { STATE } from '../../../../common/constants'
 import styles from './styles'
 import Layout from '../Layout'
 import BrowserTabBar from '../../components/BrowserTabBar'
@@ -45,9 +45,9 @@ export default class Page extends PureComponent {
           <BrowserTabView
             {...tab}
             onUrlChange={url => this.onTabUrlChange(id, url)}
-            onLoading={() => this.onTabStatusChange(id, STATUS.LOADING)}
-            onLoaded={() => this.onTabStatusChange(id, STATUS.LOADED)}
-            onLoadingError={() => this.onTabStatusChange(id, STATUS.ERROR)}
+            onLoading={() => this.onTabStatusChange(id, STATE.LOADING)}
+            onLoaded={() => this.onTabStatusChange(id, STATE.LOADED)}
+            onLoadingError={() => this.onTabStatusChange(id, STATE.ERROR)}
             onTitleChange={title => this.onTabTitleChange(id, title)}
             onOpenNewWindow={this.onNewTab}
           />
@@ -118,7 +118,7 @@ export default class Page extends PureComponent {
       label: url,
       url,
       active: true,
-      status: STATUS.LOADING,
+      status: STATE.LOADING,
     })
 
     this.onSelectTab(id)

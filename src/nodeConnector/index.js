@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3'
 
 import { Web3MethodFactory } from './web3Methods'
-import { ERROR } from '../../common/constants'
+import { EVENT, ERROR } from '../../common/constants'
 import RpcAdapter from './adapter/rpc'
 const log = require('../utils/log').create('NodeConnector')
 
@@ -19,7 +19,7 @@ export class NodeConnector extends EventEmitter {
   }
 
   get isConnected () {
-    return null !== this._adapter
+    return null !== this._adapter && this._adapter.isConnected
   }
 
   /**
@@ -34,19 +34,21 @@ export class NodeConnector extends EventEmitter {
 
     log.info(`Connecting to ${name} at ${url} of type ${type} ...`)
 
-    let adapter
-
     switch (type) {
       case 'rpc':
-        adapter = new RpcAdapter({ url })
+        this._adapter = new RpcAdapter({ url })
         break
       default:
         throw new Error(`Unrecognized adapter type: ${type}`)
     }
 
-    await adapter.connect()
+    // event propagation
+    this._adapter.on(EVENT.STATE_CHANGE, (...args) => {
+      this.emit(EVENT.STATE_CHANGE, ...args)
+    })
 
-    this._adapter = adapter
+    // connect
+    await this._adapter.connect()
 
     // get genesis block
     return this.rawCall('eth_getBlockByNumber', ['0x0', false])
@@ -61,9 +63,9 @@ export class NodeConnector extends EventEmitter {
       log.info(`Disconnecting current connection ...`)
 
       await this._adapter.disconnect()
-
-      this._adapter = null
     }
+
+    this._adapter = null
   }
 
   /**

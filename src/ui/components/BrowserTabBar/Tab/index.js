@@ -3,7 +3,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { SortableElement } from 'react-sortable-hoc'
 
-import { STATUS } from '../../../../../common/constants'
+import { STATE } from '../../../../../common/constants'
 import { trimProtocol } from '../../../../utils/url'
 import styles from './styles'
 import TouchableView from '../../TouchableView'
@@ -34,11 +34,11 @@ export default SortableElement(tab => {
   let statusIcon = null
   let label = defaultLabel
   switch (status) {
-    case STATUS.LOADING:
+    case STATE.LOADING:
       statusIcon = <Loading />
       label = url
       break
-    case STATUS.ERROR:
+    case STATE.ERROR:
       statusIcon = <Icon name='exclamation-circle' />
       label = url
       break
