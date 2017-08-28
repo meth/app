@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
-import { STATE } from '../../../../common/constants'
+import { DAPP_PERMISSIONS, STATE } from '../../../../common/constants'
 import styles from './styles'
 import Layout from '../Layout'
 import BrowserTabBar from '../../components/BrowserTabBar'
@@ -26,7 +26,10 @@ export default class Page extends PureComponent {
         active: true,
         id: newTabId(),
         label: 'Google',
-        url: 'https://google.com/'
+        url: 'https://google.com/',
+        permissions: [
+          DAPP_PERMISSIONS.CREATE_ACCOUNT
+        ]
       },
     ],
   }

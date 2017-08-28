@@ -75,7 +75,16 @@ export default class Wallet {
     return this._hdWallet.getAddresses()
   }
 
+  generateNextAddress () {
+    const addr = this._hdWallet.generateAddresses(1).pop()
+
+    log.info(`Generated new address: ${addr}`)
+
+    return addr
+  }
+
   _onNodeConnectionStateChange (newState) {
+    // TODO: start/stop timer which constantly fetches address balances
     console.warn(1234, newState)
   }
 }

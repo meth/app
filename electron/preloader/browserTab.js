@@ -4,32 +4,53 @@
  * This will setup the web3 instance for any Dapp running in the page.
  */
 const { ipcRenderer: ipc } = require('electron')
+const { IPC, API_COMMAND } = require('../../common/constants')
+
+
+/* Setup generic IPC request-response mechanism */
+
+
+const pendingRequests = {}
+
+/**
+ * Send an IPC request.
+ * @param {String} type Payload type
+ * @param  {Object} payload Payload to send
+ * @return {Promise} resolves once response is received
+ */
+const sendIpc = (type, payload) => {
+  const id = `${Date.now()}-${Math.random()}`
+
+  const promise = new Promise((resolve, reject) => {
+    pendingRequests[id] = { resolve, reject }
+  })
+
+  ipc.sendToHost(IPC.WEBVIEW, { id, type, payload })
+
+  return promise
+}
+
+// When we receive an IPC request
+ipc.on(IPC.WEBVIEW, (e, { id, error, response }) => {
+  const req = pendingRequests[id]
+
+  if (req) {
+    pendingRequests[id] = null
+
+    if (error) {
+      req.reject(error)
+    } else {
+      req.resolve(response)
+    }
+  }
+})
+
+
+/* Setup web3 */
+
 const Web3 = require('web3')
 
 class Web3IpcProvider {
-  constructor () {
-    this._requests = {}
-
-    ipc.on('web3', (e, response) => {
-      const isBatch = (response instanceof Array)
-
-      // find original request
-      const firstRequest = isBatch ? response[0] : response
-      const req = this._requests[firstRequest.id]
-
-      if (req) {
-        // see if there was an error (for both batch and single)
-        const hasError = [].concat(response).find(r => !!r.error)
-
-        if (hasError) {
-          req.reject(response)
-        } else {
-          req.resolve(response)
-        }
-      }
-    })
-  }
-
   isConnected () {
     return true
   }
@@ -39,17 +60,25 @@ class Web3IpcProvider {
   }
 
   sendAsync (payload, callback) {
-    // take into account batch requests
-    const firstRequest = (payload instanceof Array) ? payload[0] : payload
+    sendIpc(IPC.WEB3, payload)
+      .then(response => {
+        const hasError = [].concat(response).find(r => !!r.error)
 
-    new Promise((resolve, reject) => {
-      this._requests[firstRequest.id] = { resolve, reject }
-    })
-      .then(result => { callback(null, result) })
-      .catch(callback)
-
-    ipc.sendToHost('web3', payload)
+        if (hasError) {
+          callback(response)
+        } else {
+          callback(null, response)
+        }
+      })
   }
 }
 
 window.web3 = new Web3(new Web3IpcProvider())
+
+/* Setup Meth API */
+
+window.Meth = {
+  createAccount: () => sendIpc(IPC.API, {
+    command: API_COMMAND.CREATE_ACCOUNT
+  }),
+}

@@ -1,8 +1,8 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
 
-import controller from '../../../redux/controller'
-
+import { IPC } from '../../../../common/constants'
+import { handleWebViewIpcRequest } from './ipcHandlers'
 
 export default class WebView extends PureComponent {
   constructor (props, ctx) {
@@ -73,10 +73,13 @@ export default class WebView extends PureComponent {
 
   onWeb3Request = ({ channel, args }) => {
     // if it's a web3 request
-    if ('web3' === channel) {
-      // do request-response
-      controller.nodes.sendRequest(args[0])
-        .then(response => this.webView.send('web3', response))
+    if (IPC.WEBVIEW === channel) {
+      const { permissions } = this.props
+      const { id, type, payload } = args[0]
+
+      handleWebViewIpcRequest(type, payload, permissions)
+        .then(response => this.webView.send(IPC.WEBVIEW, { id, response }))
+        .catch(err => this.webView.send(IPC.WEBVIEW, { id, error: err.toString() }))
     }
   }
 

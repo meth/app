@@ -15,10 +15,19 @@ module.exports = {
   BACKEND_TASKS: {
     SET_WINDOW_ID: 'backend-set-window-id',
   },
+  API_COMMAND: {
+    CREATE_ACCOUNT: 'CREATE_ACCOUNT',
+  },
+  DAPP_PERMISSIONS: {
+    CREATE_ACCOUNT: 'CREATE_ACCOUNT',
+  },
   IPC: {
     BACKEND_TASK: 'backend-task',
     UI_RELOAD: 'ui-reload',
     UI_TASK_NOTIFY: 'ui-task-notify',
+    WEBVIEW: 'WEBVIEW',
+    WEB3: 'WEB3',
+    API: 'API',
   },
   ERROR: {
     METHOD_NOT_ALLOWED: 'METHOD_NOT_ALLOWED',

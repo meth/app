@@ -3,6 +3,14 @@ import Mnemonic from 'bitcore-mnemonic'
 import { Actions } from '../../actions'
 import Wallet from '../../../wallet'
 
+
+const _ensureWallet = (instance) => {
+  if (!instance._wallet) {
+    throw new Error('Wallet not yet initialized!')
+  }
+}
+
+
 module.exports = {
   generateNewMnemonic: function () {
     this._log.debug('Generate new mnemonic')
@@ -15,7 +23,7 @@ module.exports = {
 
     this._action(Actions.SET_MNEMONIC, mnemonic)
 
-    this._wallet = Wallet.createFromMnemonic(mnemonic)
+    this._wallet = await Wallet.createFromMnemonic(mnemonic)
   },
 
   closeCurrent: async function () {
@@ -31,8 +39,16 @@ module.exports = {
     if (mnemonic && this._wallet) {
       this._log.debug(`Reload current wallet`)
 
-      this._wallet = Wallet.createFromMnemonic(mnemonic)
+      this._wallet = await Wallet.createFromMnemonic(mnemonic)
     }
+  },
+
+  createAccount: function () {
+    _ensureWallet(this)
+
+    // TODO: popup dialog to confirm with user prior to taking action
+
+    return this._wallet.generateNextAddress()
   },
 
   getCurrent: function () {
