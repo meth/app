@@ -11,6 +11,7 @@ module.exports = {
   },
   EVENT: {
     STATE_CHANGE: 'state_change',
+    NEW_BLOCK: 'new_block',
   },
   BACKEND_TASKS: {
     SET_WINDOW_ID: 'backend-set-window-id',

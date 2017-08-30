@@ -1,5 +1,3 @@
-import Q from 'bluebird'
-
 import { loadJSON } from '../../utils/fetch'
 import { Adapter } from './base'
 
@@ -9,26 +7,6 @@ class RpcAdapter extends Adapter {
     super(nodeConfig, 'rpc', METHODS)
 
     this._url = nodeConfig.url
-  }
-
-  async _connect () {
-    this._log.trace('Connect...', this._url)
-
-    try {
-      await this.execMethod('eth_blockNumber')
-
-      this._log.trace('Connection successful')
-    } catch (err) {
-      this._log.trace('Connection failed', err)
-
-      throw err
-    }
-  }
-
-  async _disconnect () {
-    this._log.debug('Disconnected')
-
-    return Q.resolve()
   }
 
   async _doExecMethod (id, method, params = []) {

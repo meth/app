@@ -4,13 +4,6 @@ import { Actions } from '../../actions'
 import Wallet from '../../../wallet'
 
 
-const _ensureWallet = (instance) => {
-  if (!instance._wallet) {
-    throw new Error('Wallet not yet initialized!')
-  }
-}
-
-
 module.exports = {
   generateNewMnemonic: function () {
     this._log.debug('Generate new mnemonic')
@@ -41,14 +34,6 @@ module.exports = {
 
       this._wallet = await Wallet.createFromMnemonic(mnemonic)
     }
-  },
-
-  createAccount: function () {
-    _ensureWallet(this)
-
-    // TODO: popup dialog to confirm with user prior to taking action
-
-    return this._wallet.generateNextAddress()
   },
 
   getCurrent: function () {

@@ -14,7 +14,7 @@ export default ({ command }, permissions) => {
     case API_COMMAND.CREATE_ACCOUNT:
       _ensurePermission(permissions, DAPP_PERMISSIONS.CREATE_ACCOUNT)
 
-      return controller.wallet.createAccount()
+      return controller.wallet.getCurrent().generateNextAddress()
     default:
       return new Error('Unrecognized API command')
   }

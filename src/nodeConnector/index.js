@@ -43,8 +43,11 @@ export class NodeConnector extends EventEmitter {
     }
 
     // event propagation
-    this._adapter.on(EVENT.STATE_CHANGE, (...args) => {
-      this.emit(EVENT.STATE_CHANGE, ...args)
+    ;[
+      EVENT.STATE_CHANGE,
+      EVENT.NEW_BLOCK
+    ].forEach(e => {
+      this._adapter.on(e, (...args) => this.emit(e, ...args))
     })
 
     // connect

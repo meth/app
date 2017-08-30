@@ -11,7 +11,7 @@ const logRequestDuration = (startTime) => {
 }
 
 export const loadJSON = async (url, method = 'GET', query = {}, body = {}, headers = {}) => {
-  log.info(`${method.toUpperCase()} [${url}] headers=${JSON.stringify(headers)}`)
+  log.debug(`${method.toUpperCase()} [${url}] headers=${JSON.stringify(headers)}`)
 
   headers['Content-Type'] = 'application/json'
 

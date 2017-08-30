@@ -26,6 +26,7 @@ class Adapter extends EventEmitter {
     this._methods = availableMethods
     this._callId = 0 // 'id' incremental counter
     this._state = STATE.DISCONNECTED
+    this._blockPollEnabled = true
 
     this._log = log.create(adapterType)
   }
@@ -73,6 +74,8 @@ class Adapter extends EventEmitter {
 
       this._connectPromise = null
       this._updateState(STATE.CONNECTED)
+
+      this._startBlockPoll()
     } catch (err) {
       this._log.trace('Connection error', err)
 
@@ -101,6 +104,7 @@ class Adapter extends EventEmitter {
     }
 
     this._log.trace('Disconnecting...')
+    this._stopBlockPoll()
     this._updateState(STATE.DISCONNECTING)
     this._disconnectPromise = this._disconnect()
 
@@ -118,6 +122,7 @@ class Adapter extends EventEmitter {
     }
   }
 
+
   /**
    * Execute a method
    * @return {Promise}
@@ -133,6 +138,41 @@ class Adapter extends EventEmitter {
       err.params = params
       throw err
     }
+  }
+
+
+  /**
+   * Actual connect method.
+   *
+   * Subclasses may override this.
+   *
+   * @return {Promise}
+   */
+  async _connect () {
+    this._log.trace('Connect...', this._url)
+
+    try {
+      await this.execMethod('eth_blockNumber')
+
+      this._log.trace('Connection successful')
+    } catch (err) {
+      this._log.trace('Connection failed', err)
+
+      throw err
+    }
+  }
+
+  /**
+   * Actual disconnect method.
+   *
+   * Subclasses may override this.
+   *
+   * @return {Promise}
+   */
+  async _disconnect () {
+    this._log.debug('Disconnected')
+
+    return Q.resolve()
   }
 
 
@@ -156,22 +196,56 @@ class Adapter extends EventEmitter {
     }
   }
 
+
   /**
-   * Connect implementation.
-   * @return {Promise}
+   * Poll for latest block.
+   *
+   * Subclasses may override this.
    */
-  async _connect () {
-    throw new Error('Not yet implemented')
+  async _doBlockPoll () {
+    if (!this._blockPollEnabled) {
+      return
+    }
+
+    const block = await this.execMethod(
+      'eth_getBlockByNumber', ['latest', false]
+    )
+
+    if (block.number !== this._lastBlockNumber) {
+      this._log.info(`Got new block ${block.number}`)
+
+      this._lastBlockNumber = block.number
+
+      this.emit(EVENT.NEW_BLOCK, block)
+    }
+
+    if (this._blockPollEnabled) {
+      // every 10 seconds
+      setTimeout(() => this._doBlockPoll, 5000)
+    }
   }
 
   /**
-   * Disconnect implementation.
-   * @return {Promise}
+   * Start polling for latest block.
+   *
+   * Subclasses may override this.
    */
-  async _disconnect () {
-    throw new Error('Not yet implemented')
+  _startBlockPoll () {
+    this._log.info(`Start polling for blocks`)
+
+    this._doBlockPoll()
   }
 
+  /**
+   * Stop polling for latest block.
+   *
+   * Subclasses may override this.
+   */
+  _stopBlockPoll () {
+    this._log.info(`Stop polling for blocks`)
+
+    this._blockPollEnabled = false
+  }
 
   /**
    * Construct and throw an error
