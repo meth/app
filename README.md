@@ -24,10 +24,13 @@ forth with the main browser window via asynchronous IPC.
 Each browser tab has the following Javascript globals made available (via the
   [preload script](electron/preloader/browserTab.js)):
 
-  * `web3` - a web3 connection to the Ethereum network. Every tab gets
+  * `web3` - a [web3](https://github.com/ethereum/web3.js) connection to the Ethereum network. Every tab gets
  its own connection instance. _Note: due to the security architecture,
  synchronous web3 calls are not supported_.
   * `Meth` - access to custom Meth APIs, e.g. creating a new account.
+
+The web3 connections available to browser tabs is always connected, since any
+node issues will be handled within the Browser app itself.
 
 ## Development
 
