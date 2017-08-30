@@ -29,8 +29,6 @@ Each browser tab has the following Javascript globals made available (via the
  synchronous web3 calls are not supported_.
   * `Meth` - access to custom Meth APIs, e.g. creating a new account.
 
-
-
 ## Development
 
 Branches:
