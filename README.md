@@ -32,9 +32,10 @@ Each browser tab has the following Javascript globals made available (via the
 The web3 connections available to browser tabs is always connected, since any
 node issues will be handled within the Browser app itself.
 
-## Development
+## Developer guide
 
 Branches:
+
  * `dev` - Dev branch (default). Bleeding-edge code.
  * `master` - Production branch. Clean code, only approved pull requests allowed.
 
