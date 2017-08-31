@@ -1,5 +1,6 @@
 import Q from 'bluebird'
 import EventEmitter from 'eventemitter3'
+import { hexToNumber } from 'web3-utils'
 
 import { EVENT, STATE, ERROR } from '../../../common/constants'
 const log = require('../../utils/log').create('Adapter')
@@ -26,7 +27,6 @@ class Adapter extends EventEmitter {
     this._methods = availableMethods
     this._callId = 0 // 'id' incremental counter
     this._state = STATE.DISCONNECTED
-    this._blockPollEnabled = true
 
     this._log = log.create(adapterType)
   }
@@ -211,17 +211,19 @@ class Adapter extends EventEmitter {
       'eth_getBlockByNumber', ['latest', false]
     )
 
-    if (block.number !== this._lastBlockNumber) {
-      this._log.info(`Got new block ${block.number}`)
+    const newBlockNumber = hexToNumber(block.number)
 
-      this._lastBlockNumber = block.number
+    if (newBlockNumber !== this._lastBlockNumber) {
+      this._log.info(`Got new block: ${newBlockNumber}`)
+
+      this._lastBlockNumber = newBlockNumber
 
       this.emit(EVENT.NEW_BLOCK, block)
     }
 
     if (this._blockPollEnabled) {
       // every 10 seconds
-      setTimeout(() => this._doBlockPoll, 5000)
+      setTimeout(() => this._doBlockPoll(), 5000)
     }
   }
 
@@ -233,6 +235,7 @@ class Adapter extends EventEmitter {
   _startBlockPoll () {
     this._log.info(`Start polling for blocks`)
 
+    this._blockPollEnabled = true
     this._doBlockPoll()
   }
 

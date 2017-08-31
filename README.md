@@ -51,10 +51,10 @@ $ npm install
 
 _Note: Yarn is not currently supported, use NPM 5+ instead_
 
-Start a local Geth dev instance:
+Start a local Geth private network. We recommend using [geth-private](https://github.com/hiddentao/geth-private):
 
 ```shell
-$ geth --dev --rpc --rpccorsdomain "*"
+$ geth-private
 ```
 
 ### Electron desktop app
