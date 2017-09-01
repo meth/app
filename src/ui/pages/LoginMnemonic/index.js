@@ -74,7 +74,7 @@ export default class Page extends PureComponent {
     this.setState({
       inputExistingError: null,
     }, () => {
-      controller.wallet.openWithMnemonic(this.state.mnemonic)
+      controller.wallet.loadUsingMnemonic(this.state.mnemonic)
         .then(() => controller.nav.push(routes.Browser.path))
         .catch(inputExistingError => this.setState({ inputExistingError }))
     })

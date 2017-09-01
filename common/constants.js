@@ -6,6 +6,7 @@ module.exports = {
     CONNECTED: 'connected',
     DISCONNECTING: 'disconnecting',
     DISCONNECTED: 'disconnected',
+    CONNECTON_ERROR: 'connection_error',
     LOADING: 'LOADING',
     LOADED: 'LOADED',
   },
@@ -36,5 +37,6 @@ module.exports = {
     REQUEST_TIMEOUT: 'REQUEST_TIMEOUT',
     UNABLE_TO_CONNECT: 'UNABLE_TO_CONNECT',
     CORRUPT_DATA: 'CORRUPT_DATA',
+    WALLET_NOT_LOADED: 'WALLET_NOT_LOADED',
   },
 }

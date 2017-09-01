@@ -1,5 +1,5 @@
 import GenericMethod from './generic'
-import controller from '../../redux/controller'
+import Wallet from '../../wallet'
 
 
 export default class EthGetAccounts extends GenericMethod {
@@ -10,8 +10,6 @@ export default class EthGetAccounts extends GenericMethod {
   async run (method, params) {
     this._log.trace('Ask ', params)
 
-    const wallet = await controller.wallet.getCurrent()
-
-    return wallet.addresses
+    return Wallet.getAddresses()
   }
 }

@@ -43,7 +43,7 @@ export default class Page extends PureComponent {
 
   onProceed = () => {
     this.setState({ error: null }, () => {
-      controller.wallet.openWithMnemonic(this.state.mnemonic)
+      controller.wallet.loadUsingMnemonic(this.state.mnemonic)
         .then(() => controller.nav.push(routes.Browser.path))
         .catch(error => this.setState({ error }))
     })

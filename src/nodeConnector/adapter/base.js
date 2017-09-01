@@ -40,9 +40,11 @@ class Adapter extends EventEmitter {
   }
 
   _updateState (state) {
-    this._state = state
+    if (this._state !== state) {
+      this._state = state
 
-    this.emit(EVENT.STATE_CHANGE, state)
+      this.emit(EVENT.STATE_CHANGE, state)
+    }
   }
 
   /**
@@ -129,13 +131,28 @@ class Adapter extends EventEmitter {
    */
   async execMethod (method, params) {
     try {
-      return this._doExecMethod(++this._callId, method, params)
+      const ret = await this._doExecMethod(++this._callId, method, params)
+
+      this._updateState(STATE.CONNECTED)
+
+      return ret
     } catch (err) {
       this._log.debug('Method exec error', err)
 
       // augment the error
       err.method = method
       err.params = params
+
+      // if connection error then update state
+      switch (err.message) {
+        case ERROR.UNABLE_TO_CONNECT:
+        case ERROR.CORRUPT_DATA:
+          this._updateState(STATE.CONNECTON_ERROR)
+          break
+        default:
+          this._updateState(STATE.CONNECTED)
+      }
+
       throw err
     }
   }
@@ -197,35 +214,6 @@ class Adapter extends EventEmitter {
   }
 
 
-  /**
-   * Poll for latest block.
-   *
-   * Subclasses may override this.
-   */
-  async _doBlockPoll () {
-    if (!this._blockPollEnabled) {
-      return
-    }
-
-    const block = await this.execMethod(
-      'eth_getBlockByNumber', ['latest', false]
-    )
-
-    const newBlockNumber = hexToNumber(block.number)
-
-    if (newBlockNumber !== this._lastBlockNumber) {
-      this._log.info(`Got new block: ${newBlockNumber}`)
-
-      this._lastBlockNumber = newBlockNumber
-
-      this.emit(EVENT.NEW_BLOCK, block)
-    }
-
-    if (this._blockPollEnabled) {
-      // every 10 seconds
-      setTimeout(() => this._doBlockPoll(), 5000)
-    }
-  }
 
   /**
    * Start polling for latest block.
@@ -249,6 +237,39 @@ class Adapter extends EventEmitter {
 
     this._blockPollEnabled = false
   }
+
+  /**
+   * Poll for latest block.
+   *
+   * Subclasses may override this.
+   */
+  async _doBlockPoll () {
+    if (!this._blockPollEnabled) {
+      return
+    }
+
+    this._log.debug(`Polling for blocks ...`)
+
+    const block = await this.execMethod(
+      'eth_getBlockByNumber', ['latest', false]
+    )
+
+    const newBlockNumber = hexToNumber(block.number)
+
+    if (newBlockNumber !== this._lastBlockNumber) {
+      this._log.info(`Got new block: ${newBlockNumber}`)
+
+      this._lastBlockNumber = newBlockNumber
+
+      this.emit(EVENT.NEW_BLOCK, block)
+    }
+
+    if (this._blockPollEnabled) {
+      // every 10 seconds
+      setTimeout(() => this._doBlockPoll(), 5000)
+    }
+  }
+
 
   /**
    * Construct and throw an error

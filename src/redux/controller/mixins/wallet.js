@@ -11,32 +11,19 @@ module.exports = {
     return new Mnemonic(Mnemonic.Words.ENGLISH).toString()
   },
 
-  openWithMnemonic: async function (mnemonic) {
-    this._log.debug('Create wallet using mnemonic')
+  loadUsingMnemonic: async function (mnemonic) {
+    this._log.debug('Load wallet using mnemonic')
 
     this._action(Actions.SET_MNEMONIC, mnemonic)
 
-    this._wallet = await Wallet.createFromMnemonic(mnemonic)
+    Wallet.load(mnemonic)
   },
 
-  closeCurrent: async function () {
-    this._log.debug('Close current wallet')
+  unload: async function () {
+    this._log.debug('Unload current wallet')
 
-    this._wallet = null
+    await Wallet.unload()
+
     this._action(Actions.SET_MNEMONIC, null)
   },
-
-  reloadCurrent: async function () {
-    const { mnemonic } = this._getState('wallet')
-
-    if (mnemonic && this._wallet) {
-      this._log.debug(`Reload current wallet`)
-
-      this._wallet = await Wallet.createFromMnemonic(mnemonic)
-    }
-  },
-
-  getCurrent: function () {
-    return this._wallet
-  }
 }

@@ -9,9 +9,9 @@ function initNodeConnector () {
     this._nodeConnector = new NodeConnector(this._getState('config').networks)
 
     // when node disconnects let's show the node connector
-    this._nodeConnector.on(EVENT.STATE_CHANGE, (newState, reason) => {
-      if (STATE.DISCONNECTED === newState) {
-        this._action(Actions.NODE_DISCONNECTED, reason)
+    this._nodeConnector.on(EVENT.STATE_CHANGE, (newState) => {
+      if (STATE.CONNECTON_ERROR === newState) {
+        this._action(Actions.NODE_DISCONNECTED, STATE.CONNECTON_ERROR)
       }
     })
   }
@@ -59,7 +59,6 @@ module.exports = {
 
       // reload wallet for new network
       this._log.debug('Reload wallet, now that we have a new connection ...')
-      await this.wallet.reloadCurrent()
     } catch (err) {
       this._log.warn('Node connection failed', err)
 
