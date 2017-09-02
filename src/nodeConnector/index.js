@@ -104,6 +104,9 @@ export class NodeConnector extends EventEmitter {
           result: await this._methodFactory.getHandler(method).run(params)
         })
       } catch (err) {
+        err.method = method
+        err.params = params
+
         result.push({
           id,
           error: err

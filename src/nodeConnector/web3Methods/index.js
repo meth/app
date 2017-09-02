@@ -1,5 +1,6 @@
 const MAPPING = {
   eth_accounts: require('./eth_accounts').default,
+  eth_sendTransaction: require('./eth_sendTransaction').default,
   generic: require('./generic').default
 }
 

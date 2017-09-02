@@ -23,6 +23,7 @@ export const buildAction = (type, payload = {}) => {
 export const Actions = define([
   'SET_MNEMONIC',
   'CONFIG',
+  'SEND_TRANSACTION',
   'NODE_DISCONNECTED',
   'ACCOUNT_BALANCES',
   'SHOW_MODAL',

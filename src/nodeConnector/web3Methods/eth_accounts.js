@@ -8,7 +8,7 @@ export default class EthGetAccounts extends GenericMethod {
   }
 
   async run (method, params) {
-    this._log.trace('Ask ', params)
+    this._log.trace('Get accounts', params)
 
     return Wallet.getAccounts()
   }

@@ -5,6 +5,7 @@ import { Actions } from '../actions'
 const InitialState = Immutable.Map({
   mnemonic: undefined,
   accountBalances: {},
+  sendTransaction: null,
 })
 
 export default function (state = InitialState, { type, payload }) {
@@ -14,6 +15,9 @@ export default function (state = InitialState, { type, payload }) {
       break
     case Actions.ACCOUNT_BALANCES:
       state = state.set('accountBalances', payload)
+      break
+    case Actions.SEND_TRANSACTION:
+      state = state.set('sendTransaction', payload)
       break
   }
 
