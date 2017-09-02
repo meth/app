@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import { EthHdWallet } from 'eth-hd-wallet'
 import EventEmitter from 'eventemitter3'
+import { hexToNumber } from 'web3-utils'
 
 import { ERROR, EVENT, STATE } from '../../common/constants'
 import controller from '../redux/controller'
@@ -51,18 +52,18 @@ class Wallet extends EventEmitter {
   }
 
   /**
-   * Get all generated addresses.
+   * Get all generated accounts.
    * @return {Array}
    */
-  getAddresses () {
+  getAccounts () {
     return this._hdWallet ? this._hdWallet.getAddresses() : []
   }
 
   /**
-   * Get all generated addresses along with their balances.
+   * Get all generated accounts along with their balances.
    * @return {Object}
    */
-  getAddressBalances () {
+  getAccountBalances () {
     return this._hdWallet
       ? _.zipObject(this._hdWallet.getAddresses(), this._balances)
       : {}
@@ -70,10 +71,10 @@ class Wallet extends EventEmitter {
 
 
   /**
-   * Generate next address.
+   * Generate next account.
    * @return {String} address generated
    */
-  generateNextAddress () {
+  generateAccount () {
     this._ensureLoaded()
 
     const addr = this._hdWallet.generateAddresses(1).pop()
@@ -110,6 +111,8 @@ class Wallet extends EventEmitter {
    * Handler for node connection state change event
    */
   _onNodeConnectionStateChange (newState) {
+    log.debug('Node connection state changed')
+
     if (!this._hdWallet) {
       return
     }
@@ -137,17 +140,17 @@ class Wallet extends EventEmitter {
   }
 
   _updateBalances () {
-    log.debug('Update account balances ...')
+    log.debug('Update address balances ...')
 
-    const addresses = this.getAddresses()
+    const addresses = this._hdWallet.getAddresses()
 
     Promise.all(addresses.map(a => (
       this._getBalance(a)
     )))
       .then(balances => {
-        this._balances = balances
+        this._balances = balances.map(hexToNumber)
 
-        // TODO: broadcast to everyone
+        this.emit(EVENT.NEW_BALANCES, this.getAccountBalances())
       })
       .catch(err => {
         log.debug('Balance query error', err)
@@ -208,8 +211,6 @@ class Wallet extends EventEmitter {
 
       const balance = await this._getBalance(nextAddress)
 
-      log.debug('Address Balance', balance)
-
       if (0 < balance) {
         checked = 0
       } else {
@@ -223,7 +224,7 @@ class Wallet extends EventEmitter {
       totalAddresses = 1
     }
 
-    log.debug(`Discovered addresses: ${totalAddresses}`)
+    log.info(`Discovered addresses: ${totalAddresses}`)
 
     // regenerate wallet and initial addresses
     const finalWallet = EthHdWallet.fromMnemonic(this._mnemonic)

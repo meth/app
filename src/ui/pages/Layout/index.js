@@ -1,15 +1,28 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
+import { fromWei } from 'web3-utils'
 
 import { t } from '../../../../common/strings'
+import { connectStore, mutable } from '../../helpers/redux'
 import controller from '../../../redux/controller'
 import TouchableView from '../../components/TouchableView'
 import styles from './styles'
 
 
+@connectStore('wallet')
 export default class Layout extends PureComponent {
   render () {
-    const { children, contentStyle } = this.props
+    const {
+      children,
+      contentStyle,
+      wallet: {
+        accountBalances
+      }
+    } = mutable(this.props)
+
+    const totalWei = _.reduce(accountBalances, (m, v) => m + v, 0)
+    const totalEth = fromWei(totalWei, 'ether')
 
     return (
       <View style={styles.container}>
@@ -18,7 +31,7 @@ export default class Layout extends PureComponent {
             <Text style={styles.headerAppNameText}>{t('appName')}</Text>
           </View>
           <View style={styles.headerRight}>
-            <Text style={styles.headerBalanceText}>0.0001 ETH</Text>
+            <Text style={styles.headerBalanceText}>{totalEth} ETH</Text>
             <TouchableView onPress={this.onPressConnectionInfo}>
               <Text style={styles.headerConnectionText}>Localhost (Mainnet)</Text>
             </TouchableView>

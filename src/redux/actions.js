@@ -22,11 +22,9 @@ export const buildAction = (type, payload = {}) => {
 
 export const Actions = define([
   'SET_MNEMONIC',
-
   'CONFIG',
-
   'NODE_DISCONNECTED',
-
+  'ACCOUNT_BALANCES',
   'SHOW_MODAL',
   'HIDE_MODAL',
 ])

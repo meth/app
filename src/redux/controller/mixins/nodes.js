@@ -56,9 +56,6 @@ module.exports = {
       this._log.info('Node connection succeeded!')
 
       this._stateAction(StateActions.CONNECT_NODE, success, genesisBlock)
-
-      // reload wallet for new network
-      this._log.debug('Reload wallet, now that we have a new connection ...')
     } catch (err) {
       this._log.warn('Node connection failed', err)
 

@@ -1,5 +1,6 @@
 import Mnemonic from 'bitcore-mnemonic'
 
+import { EVENT } from '../../../../common/constants'
 import { Actions } from '../../actions'
 import Wallet from '../../../wallet'
 
@@ -16,14 +17,26 @@ module.exports = {
 
     this._action(Actions.SET_MNEMONIC, mnemonic)
 
+    Wallet.on(EVENT.NEW_BALANCES, this.wallet._onNewAccountBalances)
     Wallet.load(mnemonic)
   },
 
   unload: async function () {
     this._log.debug('Unload current wallet')
 
+    Wallet.removeListener(EVENT.NEW_BALANCES, this.wallet._onNewAccountBalances)
     await Wallet.unload()
 
     this._action(Actions.SET_MNEMONIC, null)
+  },
+
+  /**
+   * Handler for new address balances event from wallet
+   * @param  {Object} accountBalances
+   */
+  _onNewAccountBalances (accountBalances) {
+    this._log.debug('Account balances updated')
+
+    this._action(Actions.ACCOUNT_BALANCES, accountBalances)
   },
 }

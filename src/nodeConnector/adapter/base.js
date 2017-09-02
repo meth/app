@@ -147,6 +147,7 @@ class Adapter extends EventEmitter {
       switch (err.message) {
         case ERROR.UNABLE_TO_CONNECT:
         case ERROR.CORRUPT_DATA:
+        case ERROR.REQUEST_TIMEOUT:
           this._updateState(STATE.CONNECTON_ERROR)
           break
         default:
@@ -244,7 +245,7 @@ class Adapter extends EventEmitter {
    * Subclasses may override this.
    */
   async _doBlockPoll () {
-    if (!this._blockPollEnabled) {
+    if (!this._blockPollEnabled || STATE.CONNECTED !== this.state) {
       return
     }
 
