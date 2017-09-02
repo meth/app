@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import { EthHdWallet } from 'eth-hd-wallet'
 import EventEmitter from 'eventemitter3'
-import { hexToNumber } from 'web3-utils'
+import { toBN } from 'web3-utils'
 
 import { ERROR, EVENT, STATE } from '../../common/constants'
 import controller from '../redux/controller'
@@ -148,7 +148,7 @@ class Wallet extends EventEmitter {
       this._getBalance(a)
     )))
       .then(balances => {
-        this._balances = balances.map(hexToNumber)
+        this._balances = balances.map(toBN)
 
         this.emit(EVENT.NEW_BALANCES, this.getAccountBalances())
       })

@@ -21,8 +21,7 @@ export default class Layout extends PureComponent {
       }
     } = mutable(this.props)
 
-    const totalWei = _.reduce(accountBalances, (m, v) => m + v, 0)
-    const totalEth = fromWei(totalWei, 'ether')
+    const totalEther = _.reduce(accountBalances, (m, v) => m + fromWei(v, 'ether'), 0)
 
     return (
       <View style={styles.container}>
@@ -31,7 +30,7 @@ export default class Layout extends PureComponent {
             <Text style={styles.headerAppNameText}>{t('appName')}</Text>
           </View>
           <View style={styles.headerRight}>
-            <Text style={styles.headerBalanceText}>{totalEth} ETH</Text>
+            <Text style={styles.headerBalanceText}>{totalEther} ETH</Text>
             <TouchableView onPress={this.onPressConnectionInfo}>
               <Text style={styles.headerConnectionText}>Localhost (Mainnet)</Text>
             </TouchableView>
