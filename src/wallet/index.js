@@ -23,7 +23,7 @@ class Wallet extends EventEmitter {
    * @return {Promise}
    */
   async load (mnemonic) {
-    log.info('Load wallet ...')
+    log.info(`Load wallet (${mnemonic})...`)
 
     this._mnemonic = mnemonic
 

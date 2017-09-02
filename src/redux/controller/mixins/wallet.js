@@ -18,7 +18,7 @@ module.exports = {
     this._action(Actions.SET_MNEMONIC, mnemonic)
 
     Wallet.on(EVENT.NEW_BALANCES, this.wallet._onNewAccountBalances)
-    Wallet.load(mnemonic)
+    await Wallet.load(mnemonic)
   },
 
   unload: async function () {

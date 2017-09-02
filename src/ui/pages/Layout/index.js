@@ -1,3 +1,4 @@
+import BN from 'bn.js'
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
@@ -21,7 +22,8 @@ export default class Layout extends PureComponent {
       }
     } = mutable(this.props)
 
-    const totalEther = _.reduce(accountBalances, (m, v) => m + fromWei(v, 'ether'), 0)
+    const totalWei = _.reduce(accountBalances, (m, v) => m.add(v), new BN(0, 2))
+    const totalEther = fromWei(totalWei, 'ether')
 
     return (
       <View style={styles.container}>
