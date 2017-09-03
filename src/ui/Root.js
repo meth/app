@@ -6,10 +6,12 @@ import { create } from './styles'
 import { Navigator } from './nav'
 import { connectStore, mutable } from './helpers/redux'
 import ConnectNodeModal from './components/Modals/ConnectNode'
+import SendTransactionModal from './components/Modals/SendTransaction'
 
 
 const MODAL_COMPONENTS = {
-  [MODALS.CONNECT_NODE]: ConnectNodeModal
+  [MODALS.CONNECT_NODE]: ConnectNodeModal,
+  [MODALS.SEND_TRANSACTION]: SendTransactionModal,
 }
 
 

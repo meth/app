@@ -42,7 +42,7 @@ const define = (ClassName) => {
 
 export const instanceOfError = (e, ...args) => {
   for (let eK of args) {
-    if (e.type === eK.type || e instanceof eK) {
+    if (e.type === eK.type) {
       return true
     }
   }

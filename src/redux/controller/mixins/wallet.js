@@ -1,7 +1,7 @@
 import Mnemonic from 'bitcore-mnemonic'
 
 import { EVENT } from '../../../../common/constants'
-import { MODALS } from '../../../utils/modals'
+import MODALS from '../../../utils/modals'
 import { Actions } from '../../actions'
 import Wallet from '../../../wallet'
 
