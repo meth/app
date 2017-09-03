@@ -76,7 +76,7 @@ export default class ConnectNode extends PureComponent {
     })
 
     const errorBox = (error !== connectEvent.getState()) ? null : (
-      <ErrorBox error={connectEvent.getData() || t('error.unknownConnection')} />
+      <ErrorBox error={connectEvent.getData() || t('error.unexpected')} />
     )
 
     return (

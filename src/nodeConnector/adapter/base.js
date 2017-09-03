@@ -3,7 +3,7 @@ import EventEmitter from 'eventemitter3'
 import { hexToNumber } from 'web3-utils'
 
 import { EVENT, STATE } from '../../../common/constants'
-import { UnableToConnectError, RequestTimeoutError, CorruptDataError, MethodNotAllowedError } from '../../utils/errors'
+import { instanceOfError, UnableToConnectError, RequestTimeoutError, CorruptDataError, MethodNotAllowedError } from '../../utils/errors'
 const log = require('../../utils/log').create('Adapter')
 
 
@@ -145,14 +145,10 @@ class Adapter extends EventEmitter {
       err.params = params
 
       // if connection error then update state
-      switch (err.name) {
-        case UnableToConnectError.name:
-        case CorruptDataError.name:
-        case RequestTimeoutError.name:
-          this._updateState(STATE.CONNECTON_ERROR)
-          break
-        default:
-          this._updateState(STATE.CONNECTED)
+      if (instanceOfError(err, UnableToConnectError, CorruptDataError, RequestTimeoutError)) {
+        this._updateState(STATE.CONNECTON_ERROR)
+      } else {
+        this._updateState(STATE.CONNECTED)
       }
 
       throw err

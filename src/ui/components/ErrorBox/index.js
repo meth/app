@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
 import { t } from '../../../../common/strings'
+import { instanceOfError, UnableToConnectError, RequestTimeoutError } from '../../../utils/errors'
 import AlertBox from '../AlertBox'
 import styles from './styles'
 
@@ -12,9 +13,19 @@ export default class ErrorBox extends PureComponent {
       error
     } = this.props
 
-    let renderedError = '' + error
+    let couldBeMethodCallError = false
+    let renderedError
 
-    if (_.get(error, 'method')) {
+    if (instanceOfError(error, UnableToConnectError)) {
+      renderedError = t('error.unableToConnect')
+    } else if (instanceOfError(error, RequestTimeoutError)) {
+      renderedError = t('error.requestTimeout')
+    } else {
+      couldBeMethodCallError = true
+      renderedError = '' + error
+    }
+
+    if (couldBeMethodCallError && _.get(error, 'method')) {
       const { method, details } = error
 
       renderedError = (

@@ -5,6 +5,7 @@ const define = (ClassName) => {
 
       Error.captureStackTrace(this, A)
       this.name = ClassName
+      this.type = ClassName
     }
 
     toJSON () {
@@ -21,7 +22,7 @@ const define = (ClassName) => {
     }
   }
 
-  A.name = ClassName
+  A.type = ClassName
 
   return A
 }
@@ -38,3 +39,13 @@ const define = (ClassName) => {
 
   exports[n] = define(n)
 })
+
+export const instanceOfError = (e, ...args) => {
+  for (let eK of args) {
+    if (e.type === eK.type || e instanceof eK) {
+      return true
+    }
+  }
+
+  return false
+}
