@@ -9,6 +9,7 @@ import ConnectNodeModal from './components/Modals/ConnectNode'
 import SendTransactionModal from './components/Modals/SendTransaction'
 
 
+// modals - in order of importance
 const MODAL_COMPONENTS = {
   [MODALS.CONNECT_NODE]: ConnectNodeModal,
   [MODALS.SEND_TRANSACTION]: SendTransactionModal,
@@ -38,16 +39,21 @@ export default class Layout extends PureComponent {
       modals
     } = mutable(this.props)
 
-    let Component
+    const components = []
 
-    for (const k in modals) {
-      if (modals[k]) {
-        Component = MODAL_COMPONENTS[k]
-
-        break
+    // connect modal overrides all others
+    if (modals[MODALS.CONNECT_NODE]) {
+      const Component = MODAL_COMPONENTS[MODALS.CONNECT_NODE]
+      components.push(<Component key={MODALS.CONNECT_NODE} />)
+    } else {
+      for (const key in modals) {
+        if (modals[key]) {
+          const Component = MODAL_COMPONENTS[key]
+          components.push(<Component key={key} />)
+        }
       }
     }
 
-    return Component ? <Component /> : null
+    return components.length ? components : null
   }
 }
