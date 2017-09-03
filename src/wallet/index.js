@@ -3,7 +3,8 @@ import { EthHdWallet } from 'eth-hd-wallet'
 import EventEmitter from 'eventemitter3'
 import { toBN } from 'web3-utils'
 
-import { ERROR, EVENT, STATE } from '../../common/constants'
+import { WalletNotLoadedError } from '../utils/errors'
+import { EVENT, STATE } from '../../common/constants'
 import controller from '../redux/controller'
 const log = require('../utils/log').create('Wallet')
 
@@ -164,7 +165,7 @@ class Wallet extends EventEmitter {
    */
   _ensureLoaded () {
     if (!this._hdWallet) {
-      throw new Error(ERROR.WALLET_NOT_LOADED)
+      throw new WalletNotLoadedError('Wallet data not yet loaded')
     }
   }
 

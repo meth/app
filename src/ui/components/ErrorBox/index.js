@@ -2,7 +2,6 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
-import { ERROR } from '../../../../common/constants'
 import { t } from '../../../../common/strings'
 import AlertBox from '../AlertBox'
 import styles from './styles'
@@ -15,7 +14,7 @@ export default class ErrorBox extends PureComponent {
 
     let renderedError = '' + error
 
-    if (_.get(error, 'message') === ERROR.METHOD_CALL_ERROR) {
+    if (_.get(error, 'method')) {
       const { method, details } = error
 
       renderedError = (

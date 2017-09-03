@@ -1,7 +1,8 @@
 import EventEmitter from 'eventemitter3'
 
 import { Web3MethodFactory } from './web3Methods'
-import { EVENT, ERROR } from '../../common/constants'
+import { EVENT } from '../../common/constants'
+import { UnableToConnectError } from '../utils/errors'
 import RpcAdapter from './adapter/rpc'
 const log = require('../utils/log').create('NodeConnector')
 
@@ -39,7 +40,7 @@ export class NodeConnector extends EventEmitter {
         this._adapter = new RpcAdapter({ url })
         break
       default:
-        throw new Error(`Unrecognized adapter type: ${type}`)
+        throw new UnableToConnectError(`Unrecognized adapter type: ${type}`)
     }
 
     // event propagation
@@ -96,7 +97,7 @@ export class NodeConnector extends EventEmitter {
 
       try {
         if (!this.isConnected) {
-          throw new Error(ERROR.UNABLE_TO_CONNECT)
+          throw new UnableToConnectError('Adapter disconnected')
         }
 
         result.push({
@@ -105,7 +106,6 @@ export class NodeConnector extends EventEmitter {
         })
       } catch (err) {
         err.method = method
-        err.params = params
 
         result.push({
           id,
