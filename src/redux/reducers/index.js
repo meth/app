@@ -4,4 +4,4 @@ import wallet from './wallet'
 import config from './config'
 import node from './node'
 
-module.exports = { nav, modals, wallet, config, node }
+export default { nav, modals, wallet, config, node }

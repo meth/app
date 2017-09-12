@@ -10,6 +10,7 @@ import {
   CorruptDataError,
   MethodNotAllowedError
 } from '../../utils/errors'
+
 const log = require('../../utils/log').create('Adapter')
 
 /**
@@ -90,6 +91,8 @@ class Adapter extends EventEmitter {
 
       throw err
     }
+
+    return true
   }
 
   /**
@@ -127,6 +130,8 @@ class Adapter extends EventEmitter {
 
       throw err
     }
+
+    return true
   }
 
   /**
@@ -135,7 +140,8 @@ class Adapter extends EventEmitter {
    */
   async execMethod(method, params) {
     try {
-      const ret = await this._doExecMethod(++this._callId, method, params)
+      this._callId += 1
+      const ret = await this._doExecMethod(this._callId, method, params)
 
       this._updateState(STATE.CONNECTED)
 
@@ -203,7 +209,7 @@ class Adapter extends EventEmitter {
    * Execute a method, to be implemented by subclasses
    * @return {Promise}
    */
-  async _doExecMethod(requestId, method, params) {
+  async _doExecMethod() {
     throw new Error('Not yet implemented')
   }
 

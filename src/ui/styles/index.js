@@ -2,8 +2,11 @@ import flatten from 'flat'
 import { Dimensions } from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
-export const theme = require('./themes')
-EStyleSheet.build(flatten(theme, { delimiter: '_' }))
+import defaultTheme from './themes'
+
+EStyleSheet.build(flatten(defaultTheme, { delimiter: '_' }))
+
+export const theme = defaultTheme
 
 export const screen = Dimensions.get('window')
 
@@ -42,7 +45,7 @@ export const dropShadower = (
 })
 
 export const fontMaker = (options = {}) => {
-  let { weight, style } = Object.assign(
+  const { weight, style } = Object.assign(
     {
       weight: null,
       style: null

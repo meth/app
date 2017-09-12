@@ -6,6 +6,7 @@ import {
   UnableToConnectError,
   RequestTimeoutError
 } from './errors'
+
 const log = require('./log').create('fetch')
 
 const TIMEOUT = 10
@@ -25,21 +26,24 @@ export const loadJSON = async (
     `${method.toUpperCase()} [${url}] headers=${JSON.stringify(headers)}`
   )
 
-  headers['Content-Type'] = 'application/json'
+  const myHeaders = {
+    ...headers,
+    'Content-Type': 'application/json'
+  }
 
   const req = {
     cache: 'no-cache',
     method,
-    headers
+    headers: myHeaders
   }
 
   if ('GET' !== method) {
     req.body = JSON.stringify(body)
   }
 
-  url = `${url}?${stringify(query)}`
+  const myUrl = `${url}?${stringify(query)}`
 
-  log.debug(`${method.toUpperCase()}`, url, req)
+  log.debug(`${method.toUpperCase()}`, myUrl, req)
 
   const startTime = Date.now()
 
@@ -47,7 +51,7 @@ export const loadJSON = async (
 
   try {
     res = await new Q((resolve, reject) => {
-      Q.cast(fetch(url, req)).then(resolve, reject)
+      Q.cast(fetch(myUrl, req)).then(resolve, reject)
 
       setTimeout(() => {
         reject(new RequestTimeoutError('Fetch timed out'))

@@ -33,6 +33,9 @@ export const Router = TabRouter(routes, {
   })
 })
 
+export const NavActions = NavigationActions
+export const addNavHelpers = addNavigationHelpers
+
 // custom navigator - see https://reactnavigation.org/docs/navigators/custom
 @connectStore('nav')
 class NavigatorView extends PureComponent {
@@ -50,6 +53,3 @@ class NavigatorView extends PureComponent {
 }
 
 export const Navigator = createNavigator(Router)(NavigatorView)
-
-export const NavActions = NavigationActions
-export const addNavHelpers = addNavigationHelpers

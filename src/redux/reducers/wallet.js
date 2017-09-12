@@ -9,17 +9,24 @@ const InitialState = Immutable.Map({
 })
 
 export default function(state = InitialState, { type, payload }) {
+  let newState = state
+
   switch (type) {
     case Actions.SET_MNEMONIC:
-      state = state.set('mnemonic', payload)
+      newState = newState.set('mnemonic', payload)
       break
+
     case Actions.ACCOUNT_BALANCES:
-      state = state.set('accountBalances', payload)
+      newState = newState.set('accountBalances', payload)
       break
+
     case Actions.SEND_TRANSACTION:
-      state = state.set('sendTransaction', payload)
+      newState = newState.set('sendTransaction', payload)
+      break
+
+    default:
       break
   }
 
-  return state
+  return newState
 }

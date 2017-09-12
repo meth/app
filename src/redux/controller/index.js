@@ -1,7 +1,13 @@
 import Q from 'bluebird'
 import _ from 'lodash'
+
 import { buildAction } from '../actions'
-import log from '../../utils/log'
+import * as log from '../../utils/log'
+import * as init from './mixins/init'
+import * as nav from './mixins/nav'
+import * as modals from './mixins/modals'
+import * as nodes from './mixins/nodes'
+import * as wallet from './mixins/wallet'
 
 /**
  * Controller/controller
@@ -10,11 +16,11 @@ class Controller {
   constructor() {
     this._log = log.create('controller')
 
-    this._loadMixin('init', require('./mixins/init'))
-    this._loadMixin('nav', require('./mixins/nav'))
-    this._loadMixin('modals', require('./mixins/modals'))
-    this._loadMixin('nodes', require('./mixins/nodes'))
-    this._loadMixin('wallet', require('./mixins/wallet'))
+    this._loadMixin('init', init)
+    this._loadMixin('nav', nav)
+    this._loadMixin('modals', modals)
+    this._loadMixin('nodes', nodes)
+    this._loadMixin('wallet', wallet)
   }
 
   setStore(store) {
@@ -43,12 +49,7 @@ class Controller {
       throw new Error('State must be a string')
     }
 
-    this._dispatch(
-      buildAction(type, {
-        state: state,
-        data: data
-      })
-    )
+    this._dispatch(buildAction(type, { state, data }))
   }
 }
 

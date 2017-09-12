@@ -19,62 +19,60 @@ function initNodeConnector() {
   return this._nodeConnector
 }
 
-module.exports = {
-  setSelected: function(nodeKey) {
-    this._action(Actions.SET_SELECTED_NODE, nodeKey)
-  },
+export function setSelected(nodeKey) {
+  this._action(Actions.SET_SELECTED_NODE, nodeKey)
+}
 
-  showConnectionModal: function() {
-    this.modals.show(CONNECT_NODE)
-  },
+export function showConnectionModal() {
+  this.modals.show(CONNECT_NODE)
+}
 
-  hideConnectionModal: function() {
-    this.modals.hide(CONNECT_NODE)
-  },
+export function hideConnectionModal() {
+  this.modals.hide(CONNECT_NODE)
+}
 
-  connect: async function(nodeConfig) {
-    this._log.info('Connecting to node...')
+export async function connect(nodeConfig) {
+  this._log.info('Connecting to node...')
 
-    this._stateAction(StateActions.CONNECT_NODE, inProgress)
+  this._stateAction(StateActions.CONNECT_NODE, inProgress)
 
-    const connector = initNodeConnector.call(this)
+  const connector = initNodeConnector.call(this)
 
-    // keep track of what's going on in connector
-    const onConnectingUpdate = msg => {
-      this._stateAction(StateActions.CONNECT_NODE, inProgress, msg)
-    }
-    // event listener
-    connector.on(EVENT.STATE_CHANGE, (newState, msg) => {
-      if (STATE.CONNECTING === newState) {
-        onConnectingUpdate(msg)
-      }
-    })
-
-    try {
-      const genesisBlock = await connector.connect(nodeConfig)
-
-      this._log.info('Node connection succeeded!')
-
-      this._stateAction(StateActions.CONNECT_NODE, success, genesisBlock)
-    } catch (err) {
-      this._log.warn('Node connection failed', err)
-
-      this._stateAction(StateActions.CONNECT_NODE, error, err)
-
-      throw err
-    } finally {
-      // remove previously set event listener
-      connector.removeListener(EVENT.STATE_CHANGE, onConnectingUpdate)
-    }
-  },
-
-  getCurrentConnection: function() {
-    return this._nodeConnector
-  },
-
-  sendRequest: async function(payload) {
-    const connector = initNodeConnector.call(this)
-
-    return connector.request(payload)
+  // keep track of what's going on in connector
+  const onConnectingUpdate = msg => {
+    this._stateAction(StateActions.CONNECT_NODE, inProgress, msg)
   }
+  // event listener
+  connector.on(EVENT.STATE_CHANGE, (newState, msg) => {
+    if (STATE.CONNECTING === newState) {
+      onConnectingUpdate(msg)
+    }
+  })
+
+  try {
+    const genesisBlock = await connector.connect(nodeConfig)
+
+    this._log.info('Node connection succeeded!')
+
+    this._stateAction(StateActions.CONNECT_NODE, success, genesisBlock)
+  } catch (err) {
+    this._log.warn('Node connection failed', err)
+
+    this._stateAction(StateActions.CONNECT_NODE, error, err)
+
+    throw err
+  } finally {
+    // remove previously set event listener
+    connector.removeListener(EVENT.STATE_CHANGE, onConnectingUpdate)
+  }
+}
+
+export function getCurrentConnection() {
+  return this._nodeConnector
+}
+
+export async function sendRequest(payload) {
+  const connector = initNodeConnector.call(this)
+
+  return connector.request(payload)
 }

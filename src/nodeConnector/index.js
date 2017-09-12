@@ -4,6 +4,7 @@ import { Web3MethodFactory } from './web3Methods'
 import { EVENT } from '../../common/constants'
 import { UnableToConnectError } from '../utils/errors'
 import RpcAdapter from './adapter/rpc'
+
 const log = require('../utils/log').create('NodeConnector')
 
 export class NodeConnector extends EventEmitter {
@@ -77,18 +78,17 @@ export class NodeConnector extends EventEmitter {
    * @return {Promise}
    */
   async request(payload, context) {
-    log.debug('Request', payload)
+    log.debug('Request', payload, context)
 
     const isBatch = payload instanceof Array
 
-    if (!isBatch) {
-      payload = [payload]
-    }
+    const finalPayload = !isBatch ? [payload] : payload
 
     // we will serially process the requests (as expected with batch requests)
     const result = []
 
-    for (const { id, method, params } of payload) {
+    /* eslint-disable no-restricted-syntax */
+    for (const { id, method, params } of finalPayload) {
       log.trace('Request', { id, method, params })
 
       try {
@@ -98,6 +98,7 @@ export class NodeConnector extends EventEmitter {
 
         result.push({
           id,
+          /* eslint-disable no-await-in-loop */
           result: await this._methodFactory.getHandler(method).run(params)
         })
       } catch (err) {
@@ -137,12 +138,12 @@ export class NodeConnector extends EventEmitter {
         id,
         error: error.toString()
       }
-    } else {
-      return {
-        jsonrpc: '2.0',
-        id,
-        result
-      }
+    }
+
+    return {
+      jsonrpc: '2.0',
+      id,
+      result
     }
   }
 }

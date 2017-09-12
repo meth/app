@@ -6,6 +6,7 @@ import { toBN } from 'web3-utils'
 import { WalletNotLoadedError } from '../utils/errors'
 import { EVENT, STATE } from '../../common/constants'
 import controller from '../redux/controller'
+
 const log = require('../utils/log').create('Wallet')
 
 class Wallet extends EventEmitter {
@@ -125,6 +126,9 @@ class Wallet extends EventEmitter {
         log.info('Node connection re-established, reloading wallet data ...')
         this._reload()
         break
+
+      default:
+        break
     }
   }
 
@@ -207,12 +211,13 @@ class Wallet extends EventEmitter {
     while (20 > checked) {
       const [nextAddress] = wallet.generateAddresses(1)
 
+      /* eslint-disable no-await-in-loop */
       const balance = await this._getBalance(nextAddress)
 
       if (0 < balance) {
         checked = 0
       } else {
-        checked++
+        checked += 1
       }
     }
 

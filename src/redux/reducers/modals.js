@@ -11,18 +11,24 @@ const InitialState = Immutable.Map(
 )
 
 export default function(state = InitialState, { type, payload }) {
+  let newState = state
+
   switch (type) {
     case Actions.NODE_DISCONNECTED:
-      state = state.set(MODALS.CONNECT_NODE, true)
+      newState = newState.set(MODALS.CONNECT_NODE, true)
       break
 
     case Actions.SHOW_MODAL:
-      state = state.set(payload, true)
+      newState = newState.set(payload, true)
       break
+
     case Actions.HIDE_MODAL:
-      state = state.set(payload, false)
+      newState = newState.set(payload, false)
+      break
+
+    default:
       break
   }
 
-  return state
+  return newState
 }

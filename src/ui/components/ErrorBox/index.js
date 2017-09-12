@@ -24,7 +24,7 @@ export default class ErrorBox extends PureComponent {
       renderedError = t('error.requestTimeout')
     } else {
       couldBeMethodCallError = true
-      renderedError = '' + error
+      renderedError = String(error)
     }
 
     if (couldBeMethodCallError && _.get(error, 'method')) {

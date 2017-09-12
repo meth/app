@@ -6,17 +6,13 @@ const define = arr =>
     return m
   }, {})
 
-export const buildAction = (type, payload = {}) => {
-  if (payload && payload instanceof Error) {
-    payload = {
-      error: payload
-    }
-  }
+export const buildAction = (type, originalPayload = {}) => {
+  const payload =
+    originalPayload && originalPayload instanceof Error
+      ? { error: originalPayload }
+      : originalPayload
 
-  return {
-    type: type,
-    payload: payload
-  }
+  return { type, payload }
 }
 
 export const Actions = define([

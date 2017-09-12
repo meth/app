@@ -11,24 +11,29 @@ const InitialState = Immutable.Map({
 })
 
 export default function(state = InitialState, { type, payload }) {
+  let newState = state
+
+  const machine = newState.get(StateActions.CONNECT_NODE)
+
   switch (type) {
     case StateActions.CONNECT_NODE:
-      const machine = state.get(StateActions.CONNECT_NODE).update({ payload })
-
-      state = state.set(StateActions.CONNECT_NODE, machine)
-
-      // in success state we expect to have genesis block info
+      machine.update({ payload })
+      newState = newState.set(StateActions.CONNECT_NODE, machine)
+      // in success newState we expect to have genesis block info
       if (success === machine.getState()) {
-        state = state.set('genesisBlock', machine.getData())
-        state = state.set('isConnected', payload)
+        newState = newState.set('genesisBlock', machine.getData())
+        newState = newState.set('isConnected', payload)
       }
-
       break
+
     case Actions.NODE_DISCONNECTED:
-      state = state.set('isConnected', false)
-      state = state.set('disconnectReason', payload)
+      newState = newState.set('isConnected', false)
+      newState = newState.set('disconnectReason', payload)
+      break
+
+    default:
       break
   }
 
-  return state
+  return newState
 }

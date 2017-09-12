@@ -1,8 +1,9 @@
-const MAPPING = {
-  eth_accounts: require('./eth_accounts').default,
-  eth_sendTransaction: require('./eth_sendTransaction').default,
-  generic: require('./generic').default
-}
+/* eslint-disable camelcase */
+import eth_accounts from './eth_accounts'
+import eth_sendTransaction from './eth_sendTransaction'
+import generic from './generic'
+
+const MAPPING = { eth_accounts, eth_sendTransaction, generic }
 
 export class Web3MethodFactory {
   constructor(nodeConnector) {

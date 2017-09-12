@@ -15,12 +15,12 @@ const MAX_LABEL_LENGTH = 20
 
 const sanitizeLabel = label => {
   // trim
-  label = trimProtocol(_.trim(label, '/'))
+  const myLabel = trimProtocol(_.trim(label, '/'))
 
   // limit length
-  return MAX_LABEL_LENGTH > label.length
-    ? label
-    : `${label.substr(0, MAX_LABEL_LENGTH - 3)}...`
+  return MAX_LABEL_LENGTH > myLabel.length
+    ? myLabel
+    : `${myLabel.substr(0, MAX_LABEL_LENGTH - 3)}...`
 }
 
 export default SortableElement(tab => {
@@ -37,6 +37,8 @@ export default SortableElement(tab => {
     case STATE.ERROR:
       statusIcon = <Icon name="exclamation-circle" />
       label = url
+      break
+    default:
       break
   }
   if (statusIcon) {

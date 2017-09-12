@@ -1,6 +1,6 @@
 export const ROOT_FONT_SIZE = 18
 
-module.exports = {
+export default {
   rem: ROOT_FONT_SIZE,
   header: {
     backgroundColor: '#000',

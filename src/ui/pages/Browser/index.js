@@ -129,9 +129,10 @@ export default class Page extends PureComponent {
   _filterTabs = cb => {
     const { tabs } = this.state
 
-    let final = []
+    const final = []
     let newActiveIndex = -1
-    for (const index in tabs) {
+
+    Object.keys(tabs).forEach(index => {
       const tab = tabs[index]
 
       // if tab should be removed
@@ -144,13 +145,13 @@ export default class Page extends PureComponent {
         // tab shouldn' be removed, add it to final list
         final.push(tab)
       }
-    }
+    })
 
     // if another tab should be made "active"
     if (-1 < newActiveIndex) {
       // ensure index of new tab to be made active is valid
       while (newActiveIndex >= tabs.length) {
-        newActiveIndex--
+        newActiveIndex -= 1
       }
       // make new tab active
       final[newActiveIndex].active = true

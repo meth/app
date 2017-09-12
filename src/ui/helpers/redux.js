@@ -7,8 +7,8 @@ import { connect } from 'react-redux'
 export const connectStore = (...storeSubParts) => Component =>
   connect(
     // mapStateToProps
-    state => {
-      return _.reduce(
+    state =>
+      _.reduce(
         state,
         (m, item, key) => {
           if (!storeSubParts.length || storeSubParts.includes(key)) {
@@ -18,8 +18,7 @@ export const connectStore = (...storeSubParts) => Component =>
           return m
         },
         {}
-      )
-    },
+      ),
     null,
     null,
     { withRef: true }
@@ -29,8 +28,8 @@ export const connectStore = (...storeSubParts) => Component =>
  * Helper to extract Redux store values from this.props, ensure all immutables
  * are converted into mutables
  */
-export const mutable = props => {
-  return _.reduce(
+export const mutable = props =>
+  _.reduce(
     props,
     (m, v, k) => {
       m[k] = _.isFunction(v.toObject) ? v.toObject() : v
@@ -39,4 +38,3 @@ export const mutable = props => {
     },
     {}
   )
-}

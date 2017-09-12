@@ -7,23 +7,27 @@ const InitialState = Router.getStateForAction(
 export default function(state = InitialState, action) {
   const { type, pathName, params } = action
 
-  let nextState
+  let newState = state
 
   switch (type) {
     // TODO: replace strings with react-navigation constant references
     case 'Navigation/RESET':
-      nextState = Router.getStateForAction(
+      newState = Router.getStateForAction(
         Router.getActionForPathAndParams(pathName, params)
       )
       break
+
     // TODO: replace strings with react-navigation constant references
     case 'Navigation/NAVIGATE':
-      nextState = Router.getStateForAction(
+      newState = Router.getStateForAction(
         Router.getActionForPathAndParams(pathName, params),
         state
       )
       break
+
+    default:
+      break
   }
 
-  return nextState || state
+  return newState
 }

@@ -10,12 +10,17 @@ const InitialState = Immutable.Map({
 })
 
 export default function(state = InitialState, { type, payload }) {
+  let newState = state
+
   switch (type) {
     case Actions.CONFIG:
-      state = state.set('nodes', payload.nodes)
-      state = state.set('networks', payload.networks)
+      newState = newState.set('nodes', payload.nodes)
+      newState = newState.set('networks', payload.networks)
+      break
+
+    default:
       break
   }
 
-  return state
+  return newState
 }

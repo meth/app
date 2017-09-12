@@ -41,12 +41,12 @@ export default class Layout extends PureComponent {
       const Component = MODAL_COMPONENTS[MODALS.CONNECT_NODE]
       components.push(<Component key={MODALS.CONNECT_NODE} />)
     } else {
-      for (const key in modals) {
+      Object.keys(modals).forEach(key => {
         if (modals[key]) {
           const Component = MODAL_COMPONENTS[key]
           components.push(<Component key={key} />)
         }
-      }
+      })
     }
 
     return components.length ? components : null

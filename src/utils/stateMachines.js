@@ -6,7 +6,7 @@ class StateActionMachine extends Machine {
   }
 
   update(fluxAction) {
-    let payload = fluxAction.payload || fluxAction,
+    const payload = fluxAction.payload || fluxAction,
       state = payload.state || payload,
       data = payload.data || null
 
@@ -19,8 +19,8 @@ export const inProgress = 'inProgress'
 export const success = 'success'
 export const error = 'error'
 
-export const createStateActionMachine = () => {
-  return new StateActionMachine([
+export const createStateActionMachine = () =>
+  new StateActionMachine([
     {
       id: ready,
       from: [success, error],
@@ -42,4 +42,3 @@ export const createStateActionMachine = () => {
       to: [ready, inProgress]
     }
   ])
-}
