@@ -13,7 +13,7 @@
   },
   "lint-staged": {
     "*.{js}": [
-      "eslint --fix",
+      "eslint --fix src/",
       "git add"
     ]
   },
