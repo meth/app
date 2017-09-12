@@ -11,12 +11,12 @@ export default create({
     zIndex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'flex-start'
   },
   title: {
     ...fontMaker({ weight: 'Bold' }),
     color: '$modal_title_textColor',
     fontSize: '0.6rem',
-    textTransform: 'uppercase',
-  },
+    textTransform: 'uppercase'
+  }
 })

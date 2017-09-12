@@ -5,10 +5,10 @@ import { Actions } from '../actions'
 const InitialState = Immutable.Map({
   mnemonic: undefined,
   accountBalances: {},
-  sendTransaction: null,
+  sendTransaction: null
 })
 
-export default function (state = InitialState, { type, payload }) {
+export default function(state = InitialState, { type, payload }) {
   switch (type) {
     case Actions.SET_MNEMONIC:
       state = state.set('mnemonic', payload)

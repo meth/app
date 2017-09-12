@@ -4,14 +4,13 @@ const MAPPING = {
   generic: require('./generic').default
 }
 
-
 export class Web3MethodFactory {
-  constructor (nodeConnector) {
+  constructor(nodeConnector) {
     this._connector = nodeConnector
     this._handlers = {}
   }
 
-  getHandler (method) {
+  getHandler(method) {
     if (!this._handlers[method]) {
       const Klass = MAPPING[method] || MAPPING.generic
 

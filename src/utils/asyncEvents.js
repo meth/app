@@ -1,8 +1,7 @@
-const define = (arr) => arr.reduce((m, v) => {
-  m[v] = v
-  return m
-}, {})
+const define = arr =>
+  arr.reduce((m, v) => {
+    m[v] = v
+    return m
+  }, {})
 
-module.exports = define([
-  'CONNECT_NODE'
-])
+module.exports = define(['CONNECT_NODE'])

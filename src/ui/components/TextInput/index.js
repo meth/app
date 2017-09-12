@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { TextInput } from 'react-native'
 
 export default class CustomTextInput extends PureComponent {
-  render () {
+  render() {
     return (
       <TextInput
         autoCapitalize={'none'}

@@ -7,7 +7,15 @@
     "electron": "electron ./electron",
     "web": "webpack --env.development --env.vendor && webpack-dev-server --env.development",
     "web:prod": "webpack --env.production --env.vendor && webpack --env.production --progress",
-    "web:serve": "http-serve -p 3001 --gzip true ./build/web"
+    "web:serve": "http-serve -p 3001 --gzip true ./build/web",
+    "precommit": "lint:staged",
+    "lint:js": "eslint src/"
+  },
+  "lint:staged": {
+    "*.{js,json}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -53,9 +61,11 @@
     "clockmaker": "^2.0.0",
     "electron": "^1.7.5",
     "eslint": "^4.3.0",
+    "eslint-config-prettier": "^2.4.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-prettier": "^2.2.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
@@ -74,6 +84,7 @@
     "lodash": "^4.17.4",
     "lodash-webpack-plugin": "^0.11.4",
     "logarama": "^3.1.1",
+    "prettier": "^1.6.1",
     "query-string": "^5.0.0",
     "react": "15.6",
     "react-dom": "15.6",
@@ -87,6 +98,7 @@
     "react-redux": "^5.0.5",
     "react-sortable-hoc": "^0.6.7",
     "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
     "redux-logger": "^3.0.6",
     "underscore-deep-extend": "^1.1.5",
     "web3": "^0.20.1",

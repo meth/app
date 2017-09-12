@@ -9,33 +9,28 @@ import Layout from '../Layout'
 import Button from '../../components/Button'
 import ErrorBox from '../../components/ErrorBox'
 
-
-
 export default class Page extends PureComponent {
   state = {
-    error: '',
+    error: ''
   }
 
-  render () {
+  render() {
     const {
-      navigation: {
-        currentRoute: {
-          params: { mnemonic }
-        }
-      }
+      navigation: { currentRoute: { params: { mnemonic } } }
     } = this.props
 
     const { error } = this.state
 
-    const errorBox = (!error) ? null : (
-      <ErrorBox error={error} />
-    )
+    const errorBox = !error ? null : <ErrorBox error={error} />
 
     return (
       <Layout>
         <Text>{t('mnemonic.pleaseNoteDownThisMnemonicOnPaperOffline')}</Text>
         <Text style={styles.mnemonic}>{mnemonic}</Text>
-        <Button onPress={this.onProceed} title={t('button.iHaveNotedDownMyMnemonicAndWishToProceed')} />
+        <Button
+          onPress={this.onProceed}
+          title={t('button.iHaveNotedDownMyMnemonicAndWishToProceed')}
+        />
         {errorBox}
       </Layout>
     )
@@ -43,15 +38,12 @@ export default class Page extends PureComponent {
 
   onProceed = () => {
     const {
-      navigation: {
-        currentRoute: {
-          params: { mnemonic }
-        }
-      }
+      navigation: { currentRoute: { params: { mnemonic } } }
     } = this.props
 
     this.setState({ error: null }, () => {
-      controller.wallet.loadUsingMnemonic(mnemonic)
+      controller.wallet
+        .loadUsingMnemonic(mnemonic)
         .then(() => controller.nav.push(routes.Browser.path))
         .catch(error => this.setState({ error }))
     })

@@ -5,6 +5,6 @@ export default create({
     backgroundColor: '$browser_tabBar_backgroundColor',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'stretch',
-  },
+    alignItems: 'stretch'
+  }
 })

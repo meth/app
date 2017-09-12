@@ -1,12 +1,11 @@
 import Machine from 'immutable-state-machine'
 
-
 class StateActionMachine extends Machine {
-  constructor (cfg) {
+  constructor(cfg) {
     super(cfg, StateActionMachine)
   }
 
-  update (fluxAction) {
+  update(fluxAction) {
     let payload = fluxAction.payload || fluxAction,
       state = payload.state || payload,
       data = payload.data || null

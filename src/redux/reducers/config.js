@@ -6,10 +6,10 @@ const InitialState = Immutable.Map({
   nodes: undefined,
   networks: undefined,
   isConnected: false,
-  disconnectReason: undefined,
+  disconnectReason: undefined
 })
 
-export default function (state = InitialState, { type, payload }) {
+export default function(state = InitialState, { type, payload }) {
   switch (type) {
     case Actions.CONFIG:
       state = state.set('nodes', payload.nodes)

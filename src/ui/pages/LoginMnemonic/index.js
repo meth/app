@@ -10,15 +10,14 @@ import Button from '../../components/Button'
 import TextInput from '../../components/TextInput'
 import Layout from '../Layout'
 
-
 export default class Page extends PureComponent {
   state = {
     mnemonic: '',
     generateNewError: null,
-    inputExistingError: null,
+    inputExistingError: null
   }
 
-  render () {
+  render() {
     return (
       <Layout>
         {this.renderInputExisting()}
@@ -31,7 +30,7 @@ export default class Page extends PureComponent {
   renderInputExisting = () => {
     const { mnemonic, inputExistingError } = this.state
 
-    const errorBox = (!inputExistingError) ? null : (
+    const errorBox = !inputExistingError ? null : (
       <ErrorBox error={inputExistingError} />
     )
 
@@ -52,41 +51,54 @@ export default class Page extends PureComponent {
   renderGenerateNew = () => {
     const { generateNewError } = this.state
 
-    const errorBox = (!generateNewError) ? null : (
+    const errorBox = !generateNewError ? null : (
       <ErrorBox error={generateNewError} />
     )
 
     return (
       <View>
-        <Button onPress={this.onGenerate} title={t('button.generateNewMnemonic')} />
+        <Button
+          onPress={this.onGenerate}
+          title={t('button.generateNewMnemonic')}
+        />
         {errorBox}
       </View>
     )
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       mnemonic: e.target.value
     })
   }
 
   onSubmit = () => {
-    this.setState({
-      inputExistingError: null,
-    }, () => {
-      controller.wallet.loadUsingMnemonic(this.state.mnemonic)
-        .then(() => controller.nav.push(routes.Browser.path))
-        .catch(inputExistingError => this.setState({ inputExistingError }))
-    })
+    this.setState(
+      {
+        inputExistingError: null
+      },
+      () => {
+        controller.wallet
+          .loadUsingMnemonic(this.state.mnemonic)
+          .then(() => controller.nav.push(routes.Browser.path))
+          .catch(inputExistingError => this.setState({ inputExistingError }))
+      }
+    )
   }
 
   onGenerate = () => {
-    this.setState({
-      generateNewError: null,
-    }, () => {
-      controller.wallet.generateNewMnemonic()
-        .then(mnemonic => controller.nav.push(routes.ConfirmNewMnemonic.path, { mnemonic }))
-        .catch(generateNewError => this.setState({ generateNewError }))
-    })
+    this.setState(
+      {
+        generateNewError: null
+      },
+      () => {
+        controller.wallet
+          .generateNewMnemonic()
+          .then(mnemonic =>
+            controller.nav.push(routes.ConfirmNewMnemonic.path, { mnemonic })
+          )
+          .catch(generateNewError => this.setState({ generateNewError }))
+      }
+    )
   }
 }

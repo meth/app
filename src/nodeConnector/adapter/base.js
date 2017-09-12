@@ -3,10 +3,14 @@ import EventEmitter from 'eventemitter3'
 import { hexToNumber } from 'web3-utils'
 
 import { EVENT, STATE } from '../../../common/constants'
-import { instanceOfError, UnableToConnectError, RequestTimeoutError, CorruptDataError, MethodNotAllowedError } from '../../utils/errors'
+import {
+  instanceOfError,
+  UnableToConnectError,
+  RequestTimeoutError,
+  CorruptDataError,
+  MethodNotAllowedError
+} from '../../utils/errors'
 const log = require('../../utils/log').create('Adapter')
-
-
 
 /**
  * Base node connection adapter
@@ -20,7 +24,7 @@ class Adapter extends EventEmitter {
    * @param  {String} adapterType
    * @param  {Object} availableMethods (String method_name => Boolean allowed)
    */
-  constructor (nodeConfig, adapterType, availableMethods) {
+  constructor(nodeConfig, adapterType, availableMethods) {
     super()
 
     this._adapterType = adapterType
@@ -32,15 +36,15 @@ class Adapter extends EventEmitter {
     this._log = log.create(adapterType)
   }
 
-  get isConnected () {
+  get isConnected() {
     return STATE.CONNECTED === this._state
   }
 
-  get state () {
+  get state() {
     return this._state
   }
 
-  _updateState (state) {
+  _updateState(state) {
     if (this._state !== state) {
       this._state = state
 
@@ -52,7 +56,7 @@ class Adapter extends EventEmitter {
    * Connect.
    * @return {Promise}
    */
-  async connect () {
+  async connect() {
     if (STATE.CONNECTED === this._state) {
       this._log.trace('Already connected')
 
@@ -93,7 +97,7 @@ class Adapter extends EventEmitter {
    *
    * @return {Promise}
    */
-  async disconnect () {
+  async disconnect() {
     if (STATE.DISCONNECTED === this._state) {
       this._log.trace('Already disconnected')
 
@@ -125,12 +129,11 @@ class Adapter extends EventEmitter {
     }
   }
 
-
   /**
    * Execute a method
    * @return {Promise}
    */
-  async execMethod (method, params) {
+  async execMethod(method, params) {
     try {
       const ret = await this._doExecMethod(++this._callId, method, params)
 
@@ -145,7 +148,14 @@ class Adapter extends EventEmitter {
       err.params = params
 
       // if connection error then update state
-      if (instanceOfError(err, UnableToConnectError, CorruptDataError, RequestTimeoutError)) {
+      if (
+        instanceOfError(
+          err,
+          UnableToConnectError,
+          CorruptDataError,
+          RequestTimeoutError
+        )
+      ) {
         this._updateState(STATE.CONNECTON_ERROR)
       } else {
         this._updateState(STATE.CONNECTED)
@@ -155,7 +165,6 @@ class Adapter extends EventEmitter {
     }
   }
 
-
   /**
    * Actual connect method.
    *
@@ -163,7 +172,7 @@ class Adapter extends EventEmitter {
    *
    * @return {Promise}
    */
-  async _connect () {
+  async _connect() {
     this._log.trace('Connect...', this._url)
 
     try {
@@ -184,41 +193,37 @@ class Adapter extends EventEmitter {
    *
    * @return {Promise}
    */
-  async _disconnect () {
+  async _disconnect() {
     this._log.debug('Disconnected')
 
     return Q.resolve()
   }
 
-
   /**
    * Execute a method, to be implemented by subclasses
    * @return {Promise}
    */
-  async _doExecMethod (requestId, method, params) {
+  async _doExecMethod(requestId, method, params) {
     throw new Error('Not yet implemented')
   }
-
 
   /**
    * Approve given method call
    * @param  {String} method
    * @return {Promise}
    */
-  async _approveMethod (method) {
+  async _approveMethod(method) {
     if (true !== this._methods[method]) {
       throw new MethodNotAllowedError(method)
     }
   }
-
-
 
   /**
    * Start polling for latest block.
    *
    * Subclasses may override this.
    */
-  _startBlockPoll () {
+  _startBlockPoll() {
     this._log.info(`Start polling for blocks`)
 
     this._blockPollEnabled = true
@@ -230,7 +235,7 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  _stopBlockPoll () {
+  _stopBlockPoll() {
     this._log.info(`Stop polling for blocks`)
 
     this._blockPollEnabled = false
@@ -241,16 +246,17 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  async _doBlockPoll () {
+  async _doBlockPoll() {
     if (!this._blockPollEnabled || STATE.CONNECTED !== this.state) {
       return
     }
 
     this._log.debug(`Polling for blocks ...`)
 
-    const block = await this.execMethod(
-      'eth_getBlockByNumber', ['latest', false]
-    )
+    const block = await this.execMethod('eth_getBlockByNumber', [
+      'latest',
+      false
+    ])
 
     const newBlockNumber = hexToNumber(block.number)
 
@@ -268,14 +274,13 @@ class Adapter extends EventEmitter {
     }
   }
 
-
   /**
    * Construct and throw an error
    * @param  {String} errMsg  [description]
    * @param  {Object} details [description]
    * @throws {Error}
    */
-  _throwError (errMsg, details) {
+  _throwError(errMsg, details) {
     const e = new Error(errMsg)
     e.details = details
     throw e

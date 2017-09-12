@@ -5,7 +5,7 @@ export default create({
     marginVertical: 20,
     borderWidth: 1,
     borderColor: '#000',
-    height: 1,
+    height: 1
   },
   textInput: {
     borderWidth: 1,

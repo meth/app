@@ -1,18 +1,29 @@
 import Q from 'bluebird'
 import { stringify } from 'query-string'
 
-import { CorruptDataError, UnableToConnectError, RequestTimeoutError } from './errors'
+import {
+  CorruptDataError,
+  UnableToConnectError,
+  RequestTimeoutError
+} from './errors'
 const log = require('./log').create('fetch')
-
 
 const TIMEOUT = 10
 
-const logRequestDuration = (startTime) => {
+const logRequestDuration = startTime => {
   log.debug(`Request took: ${Date.now() - startTime}ms`)
 }
 
-export const loadJSON = async (url, method = 'GET', query = {}, body = {}, headers = {}) => {
-  log.debug(`${method.toUpperCase()} [${url}] headers=${JSON.stringify(headers)}`)
+export const loadJSON = async (
+  url,
+  method = 'GET',
+  query = {},
+  body = {},
+  headers = {}
+) => {
+  log.debug(
+    `${method.toUpperCase()} [${url}] headers=${JSON.stringify(headers)}`
+  )
 
   headers['Content-Type'] = 'application/json'
 
@@ -44,9 +55,14 @@ export const loadJSON = async (url, method = 'GET', query = {}, body = {}, heade
     })
   } catch (err) {
     // basic error parsing
-    const err2 = (0 <= err.toString().toLowerCase().indexOf('failed to fetch')) ? (
-      new UnableToConnectError('Fetch failed')
-    ) : err
+    const err2 =
+      0 <=
+      err
+        .toString()
+        .toLowerCase()
+        .indexOf('failed to fetch')
+        ? new UnableToConnectError('Fetch failed')
+        : err
 
     logRequestDuration(startTime)
 

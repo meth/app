@@ -8,10 +8,7 @@ import Layout from '../Layout'
 import BrowserTabBar from '../../components/BrowserTabBar'
 import BrowserTabView from '../../components/BrowserTabView'
 
-
 const newTabId = () => _.random(1, 1000000000)
-
-
 
 export default class Page extends PureComponent {
   state = {
@@ -27,24 +24,19 @@ export default class Page extends PureComponent {
         id: newTabId(),
         label: 'Google',
         url: 'https://google.com/',
-        permissions: [
-          DAPP_PERMISSIONS.CREATE_ACCOUNT
-        ]
-      },
-    ],
+        permissions: [DAPP_PERMISSIONS.CREATE_ACCOUNT]
+      }
+    ]
   }
 
-  render () {
+  render() {
     const { tabs } = this.state
 
-    const browserViews = tabs.map((tab) => {
+    const browserViews = tabs.map(tab => {
       const { id, active } = tab
 
       return (
-        <View
-          key={id}
-          style={active ? styles.activeView : styles.inactiveView}
-        >
+        <View key={id} style={active ? styles.activeView : styles.inactiveView}>
           <BrowserTabView
             {...tab}
             onUrlChange={url => this.onTabUrlChange(id, url)}
@@ -67,13 +59,10 @@ export default class Page extends PureComponent {
           onClose={this.onCloseTab}
           onNewTab={this.onNewTab}
         />
-        <View style={styles.browserViews}>
-          {browserViews}
-        </View>
+        <View style={styles.browserViews}>{browserViews}</View>
       </Layout>
     )
   }
-
 
   onTabUrlChange = (id, url) => {
     this._forEachTab(t => {
@@ -99,21 +88,21 @@ export default class Page extends PureComponent {
     })
   }
 
-  onSortTabs = (tabs) => {
+  onSortTabs = tabs => {
     this.setState({ tabs })
   }
 
-  onSelectTab = (id) => {
+  onSelectTab = id => {
     this._forEachTab(t => {
-      t.active = (t.id === id)
+      t.active = t.id === id
     })
   }
 
-  onCloseTab = (id) => {
+  onCloseTab = id => {
     this._filterTabs(t => t.id !== id)
   }
 
-  onNewTab = (url) => {
+  onNewTab = url => {
     const id = newTabId()
 
     this.state.tabs.push({
@@ -121,25 +110,23 @@ export default class Page extends PureComponent {
       label: url,
       url,
       active: true,
-      status: STATE.LOADING,
+      status: STATE.LOADING
     })
 
     this.onSelectTab(id)
   }
 
-
-  _forEachTab = (cb) => {
+  _forEachTab = cb => {
     const { tabs } = this.state
 
     tabs.forEach(cb)
 
     this.setState({
-      tabs: [ ...tabs ]
+      tabs: [...tabs]
     })
   }
 
-
-  _filterTabs = (cb) => {
+  _filterTabs = cb => {
     const { tabs } = this.state
 
     let final = []
@@ -170,7 +157,7 @@ export default class Page extends PureComponent {
     }
 
     this.setState({
-      tabs: [ ...final ]
+      tabs: [...final]
     })
   }
 }

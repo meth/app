@@ -26,7 +26,12 @@ export const coverParent = {
 }
 
 const SHADOW_MAX_LEVEL = 6
-export const dropShadower = (level = 1, width = 0, height = 0, color = '#000') => ({
+export const dropShadower = (
+  level = 1,
+  width = 0,
+  height = 0,
+  color = '#000'
+) => ({
   /* ios */
   shadowColor: color,
   shadowOffset: { width, height },
@@ -37,10 +42,13 @@ export const dropShadower = (level = 1, width = 0, height = 0, color = '#000') =
 })
 
 export const fontMaker = (options = {}) => {
-  let { weight, style } = Object.assign({
-    weight: null,
-    style: null,
-  }, options)
+  let { weight, style } = Object.assign(
+    {
+      weight: null,
+      style: null
+    },
+    options
+  )
 
   return {
     fontWeight: weight,

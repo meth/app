@@ -8,9 +8,9 @@ export const create = () => {
     // createLogger(),
   ]
 
-  let store = compose(
-    applyMiddleware(...middleware)
-  )(createStore)(combinedReducer)
+  let store = compose(applyMiddleware(...middleware))(createStore)(
+    combinedReducer
+  )
 
   // Livereactload
   if (module.onReload) {

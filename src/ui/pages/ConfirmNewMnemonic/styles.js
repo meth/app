@@ -7,6 +7,6 @@ export default create({
   mnemonic: {
     ...fontMaker({ weight: 'bold' }),
     fontSize: '2rem',
-    marginVertical: 30,
-  },
+    marginVertical: 30
+  }
 })

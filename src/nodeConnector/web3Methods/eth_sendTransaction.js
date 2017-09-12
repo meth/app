@@ -4,13 +4,12 @@ import GenericMethod from './generic'
 import { InvalidParamsError } from '../../utils/errors'
 import controller from '../../redux/controller'
 
-
 export default class EthSendTransaction extends GenericMethod {
-  constructor (nodeConnector) {
+  constructor(nodeConnector) {
     super(nodeConnector, 'eth_sendTransaction')
   }
 
-  async run (params) {
+  async run(params) {
     this._log.trace('Send tx', params)
 
     const tx = params[0]

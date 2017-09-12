@@ -5,7 +5,7 @@ import { IPC } from '../../../../common/constants'
 import { handleWebViewIpcRequest } from './ipcHandlers'
 
 export default class WebView extends PureComponent {
-  constructor (props, ctx) {
+  constructor(props, ctx) {
     super(props, ctx)
 
     this.webViewEventHandlers = {
@@ -14,38 +14,40 @@ export default class WebView extends PureComponent {
       'did-navigate': this.onNavigate,
       'did-stop-loading': this.onLoaded,
       'did-fail-load': this.onLoadingError,
-      'crashed': this.onLoadingError,
+      crashed: this.onLoadingError,
       'gpu-crashed': this.onLoadingError,
       'plugin-crashed': this.onLoadingError,
       'page-title-updated': this.onNewTitle,
       'new-window': this.onNewWindow,
-      'ipc-message': this.onWeb3Request,
+      'ipc-message': this.onWeb3Request
     }
   }
 
-  render () {
+  render() {
     const { url } = this.props
 
     return (
       <webview
-        ref={v => { this.webView = v }}
+        ref={v => {
+          this.webView = v
+        }}
         src={url}
         style={{
           width: '100%',
-          height: '100%',
+          height: '100%'
         }}
         preload={`file://${window.preloadBasePath}/browserTab.js`}
       />
     )
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     _.map(this.webViewEventHandlers, (f, e) => {
       this.webView.removeEventListener(e, f)
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     _.map(this.webViewEventHandlers, (f, e) => {
       this.webView.addEventListener(e, f)
     })
@@ -79,13 +81,15 @@ export default class WebView extends PureComponent {
 
       handleWebViewIpcRequest(type, payload, permissions)
         .then(response => this.webView.send(IPC.WEBVIEW, { id, response }))
-        .catch(err => this.webView.send(IPC.WEBVIEW, { id, error: err.toString() }))
+        .catch(err =>
+          this.webView.send(IPC.WEBVIEW, { id, error: err.toString() })
+        )
     }
   }
 
   /* public methods */
 
-  openUrl = (url) => {
+  openUrl = url => {
     this.webView.loadURL(url)
   }
 

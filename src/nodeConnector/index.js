@@ -6,9 +6,8 @@ import { UnableToConnectError } from '../utils/errors'
 import RpcAdapter from './adapter/rpc'
 const log = require('../utils/log').create('NodeConnector')
 
-
 export class NodeConnector extends EventEmitter {
-  constructor ({ networks }) {
+  constructor({ networks }) {
     super()
 
     this._networks = networks
@@ -19,7 +18,7 @@ export class NodeConnector extends EventEmitter {
     this._methodFactory = new Web3MethodFactory(this)
   }
 
-  get isConnected () {
+  get isConnected() {
     return null !== this._adapter && this._adapter.isConnected
   }
 
@@ -27,7 +26,7 @@ export class NodeConnector extends EventEmitter {
    * Connect to given node.
    * @type {Promise}
    */
-  async connect (cfg) {
+  async connect(cfg) {
     const { name, url, type } = cfg
 
     // disconnect first
@@ -44,10 +43,7 @@ export class NodeConnector extends EventEmitter {
     }
 
     // event propagation
-    ;[
-      EVENT.STATE_CHANGE,
-      EVENT.NEW_BLOCK
-    ].forEach(e => {
+    ;[EVENT.STATE_CHANGE, EVENT.NEW_BLOCK].forEach(e => {
       this._adapter.on(e, (...args) => this.emit(e, ...args))
     })
 
@@ -62,7 +58,7 @@ export class NodeConnector extends EventEmitter {
    * Disconnect current adapter.
    * @return {Promise}
    */
-  async disconnect () {
+  async disconnect() {
     if (this.isConnected) {
       log.info(`Disconnecting current connection ...`)
 
@@ -80,10 +76,10 @@ export class NodeConnector extends EventEmitter {
    * @param {String} [context.dappUrl] URL of dapp which is calling this method
    * @return {Promise}
    */
-  async request (payload, context) {
+  async request(payload, context) {
     log.debug('Request', payload)
 
-    const isBatch = (payload instanceof Array)
+    const isBatch = payload instanceof Array
 
     if (!isBatch) {
       payload = [payload]
@@ -124,30 +120,28 @@ export class NodeConnector extends EventEmitter {
     return ret
   }
 
-
   /**
    * Make a raw method call.
    * @param  {String} method web3 method
    * @param  {Array} [params]
    * @return {Promise}
    */
-  async rawCall (method, params = []) {
+  async rawCall(method, params = []) {
     return this._adapter.execMethod(method, params)
   }
 
-
-  _wrapResponse ({ id, result, error }) {
+  _wrapResponse({ id, result, error }) {
     if (error) {
       return {
         jsonrpc: '2.0',
         id,
-        error: error.toString(),
+        error: error.toString()
       }
     } else {
       return {
         jsonrpc: '2.0',
         id,
-        result,
+        result
       }
     }
   }

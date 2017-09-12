@@ -11,21 +11,17 @@ import IconButton from '../../IconButton'
 import Icon from '../../Icon'
 import Loading from '../../Loading'
 
-
 const MAX_LABEL_LENGTH = 20
 
-
-
-const sanitizeLabel = (label) => {
+const sanitizeLabel = label => {
   // trim
   label = trimProtocol(_.trim(label, '/'))
 
   // limit length
-  return (MAX_LABEL_LENGTH > label.length)
+  return MAX_LABEL_LENGTH > label.length
     ? label
     : `${label.substr(0, MAX_LABEL_LENGTH - 3)}...`
 }
-
 
 export default SortableElement(tab => {
   const { label: defaultLabel, url, active, onSelect, onClose, status } = tab
@@ -39,24 +35,19 @@ export default SortableElement(tab => {
       label = url
       break
     case STATE.ERROR:
-      statusIcon = <Icon name='exclamation-circle' />
+      statusIcon = <Icon name="exclamation-circle" />
       label = url
       break
   }
   if (statusIcon) {
-    statusIcon = (
-      <View style={styles.status}>
-        {statusIcon}
-      </View>
-    )
+    statusIcon = <View style={styles.status}>{statusIcon}</View>
   }
 
   return (
     <TouchableView
       style={[styles.tab, active ? styles.activeTab : null]}
       onPress={active ? null : onSelect}
-      title={label}
-    >
+      title={label}>
       <View style={styles.content}>
         <View style={styles.leftContent}>
           {statusIcon}
@@ -65,12 +56,7 @@ export default SortableElement(tab => {
           </Text>
         </View>
         <View style={styles.rightContent}>
-          {(!onClose) ? null : (
-            <IconButton
-              name='close'
-              onPress={onClose}
-            />
-          )}
+          {!onClose ? null : <IconButton name="close" onPress={onClose} />}
         </View>
       </View>
     </TouchableView>

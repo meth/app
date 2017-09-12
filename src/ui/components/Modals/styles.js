@@ -5,6 +5,6 @@ export default create({
     ...coverParent,
     backgroundColor: '$modal_overlay_backgroundColor',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   }
 })

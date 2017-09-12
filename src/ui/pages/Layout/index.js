@@ -10,17 +10,12 @@ import controller from '../../../redux/controller'
 import TouchableView from '../../components/TouchableView'
 import styles from './styles'
 
-
 @connectStore('wallet')
 export default class Layout extends PureComponent {
-  render () {
-    const {
-      children,
-      contentStyle,
-      wallet: {
-        accountBalances
-      }
-    } = mutable(this.props)
+  render() {
+    const { children, contentStyle, wallet: { accountBalances } } = mutable(
+      this.props
+    )
 
     const totalWei = _.reduce(accountBalances, (m, v) => m.add(v), new BN(0, 2))
     const totalEther = fromWei(totalWei, 'ether')
@@ -34,13 +29,13 @@ export default class Layout extends PureComponent {
           <View style={styles.headerRight}>
             <Text style={styles.headerBalanceText}>{totalEther} ETH</Text>
             <TouchableView onPress={this.onPressConnectionInfo}>
-              <Text style={styles.headerConnectionText}>Localhost (Mainnet)</Text>
+              <Text style={styles.headerConnectionText}>
+                Localhost (Mainnet)
+              </Text>
             </TouchableView>
           </View>
         </View>
-        <View style={[styles.content, contentStyle]}>
-          {children}
-        </View>
+        <View style={[styles.content, contentStyle]}>{children}</View>
       </View>
     )
   }

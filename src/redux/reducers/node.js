@@ -7,10 +7,10 @@ const InitialState = Immutable.Map({
   [StateActions.CONNECT_NODE]: createStateActionMachine(),
   isConnected: false,
   disconnectReason: undefined,
-  genesisBlock: null,
+  genesisBlock: null
 })
 
-export default function (state = InitialState, { type, payload }) {
+export default function(state = InitialState, { type, payload }) {
   switch (type) {
     case StateActions.CONNECT_NODE:
       const machine = state.get(StateActions.CONNECT_NODE).update({ payload })

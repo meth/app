@@ -70,3 +70,12 @@ To start the electron backend and full UI:
 ```shell
 $ npm run electron
 ```
+
+### ESLint
+
+We use eslint to enforce a strict coding style. We've set it up to use prettier
+to autoformat code upon Git commit. You can manually run the linter at any time using:
+
+```shell
+$ npm run precommit
+```

@@ -8,24 +8,21 @@ import { connectStore, mutable } from './helpers/redux'
 import ConnectNodeModal from './components/Modals/ConnectNode'
 import SendTransactionModal from './components/Modals/SendTransaction'
 
-
 // modals - in order of importance
 const MODAL_COMPONENTS = {
   [MODALS.CONNECT_NODE]: ConnectNodeModal,
-  [MODALS.SEND_TRANSACTION]: SendTransactionModal,
+  [MODALS.SEND_TRANSACTION]: SendTransactionModal
 }
-
 
 const styles = create({
   container: {
-    flex: 1,
-  },
+    flex: 1
+  }
 })
-
 
 @connectStore('modals')
 export default class Layout extends PureComponent {
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <Navigator />
@@ -34,10 +31,8 @@ export default class Layout extends PureComponent {
     )
   }
 
-  showModal () {
-    const {
-      modals
-    } = mutable(this.props)
+  showModal() {
+    const { modals } = mutable(this.props)
 
     const components = []
 

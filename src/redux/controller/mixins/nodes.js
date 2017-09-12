@@ -4,12 +4,12 @@ import { inProgress, success, error } from '../../../utils/stateMachines'
 import { CONNECT_NODE } from '../../../utils/modals'
 import { NodeConnector } from '../../../nodeConnector'
 
-function initNodeConnector () {
+function initNodeConnector() {
   if (!this._nodeConnector) {
     this._nodeConnector = new NodeConnector(this._getState('config').networks)
 
     // when node disconnects let's show the node connector
-    this._nodeConnector.on(EVENT.STATE_CHANGE, (newState) => {
+    this._nodeConnector.on(EVENT.STATE_CHANGE, newState => {
       if (STATE.CONNECTON_ERROR === newState) {
         this._action(Actions.NODE_DISCONNECTED, STATE.CONNECTON_ERROR)
       }
@@ -20,19 +20,19 @@ function initNodeConnector () {
 }
 
 module.exports = {
-  setSelected: function (nodeKey) {
+  setSelected: function(nodeKey) {
     this._action(Actions.SET_SELECTED_NODE, nodeKey)
   },
 
-  showConnectionModal: function () {
+  showConnectionModal: function() {
     this.modals.show(CONNECT_NODE)
   },
 
-  hideConnectionModal: function () {
+  hideConnectionModal: function() {
     this.modals.hide(CONNECT_NODE)
   },
 
-  connect: async function (nodeConfig) {
+  connect: async function(nodeConfig) {
     this._log.info('Connecting to node...')
 
     this._stateAction(StateActions.CONNECT_NODE, inProgress)
@@ -40,7 +40,7 @@ module.exports = {
     const connector = initNodeConnector.call(this)
 
     // keep track of what's going on in connector
-    const onConnectingUpdate = (msg) => {
+    const onConnectingUpdate = msg => {
       this._stateAction(StateActions.CONNECT_NODE, inProgress, msg)
     }
     // event listener
@@ -68,11 +68,11 @@ module.exports = {
     }
   },
 
-  getCurrentConnection: function () {
+  getCurrentConnection: function() {
     return this._nodeConnector
   },
 
-  sendRequest: async function (payload) {
+  sendRequest: async function(payload) {
     const connector = initNodeConnector.call(this)
 
     return connector.request(payload)

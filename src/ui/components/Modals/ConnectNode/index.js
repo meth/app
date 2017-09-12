@@ -15,29 +15,27 @@ import Loading from '../../Loading'
 import Picker from '../../Picker'
 import styles from './styles'
 
-
 @connectStore('config', 'node')
 export default class ConnectNode extends PureComponent {
   state = {}
 
-  render () {
-    const {
-      config: { nodes },
-      node: { disconnectReason },
-    } = mutable(this.props)
+  render() {
+    const { config: { nodes }, node: { disconnectReason } } = mutable(
+      this.props
+    )
 
-    const diconnectContent = (disconnectReason) ? (
+    const diconnectContent = disconnectReason ? (
       <ErrorBox error={disconnectReason} />
     ) : (
       <AlertBox type="info" text={t('connector.pleaseChooseNode')} />
     )
 
-    const content = (!nodes) ? <Loading /> : (
+    const content = !nodes ? (
+      <Loading />
+    ) : (
       <View>
         <Text style={styles.title}>{t('connector.connectToNetwork')}</Text>
-        <View style={styles.alert}>
-          {diconnectContent}
-        </View>
+        <View style={styles.alert}>{diconnectContent}</View>
         {this.renderSelector()}
       </View>
     )
@@ -49,7 +47,7 @@ export default class ConnectNode extends PureComponent {
     )
   }
 
-  renderSelector () {
+  renderSelector() {
     const {
       node: { [CONNECT_NODE]: connectEvent },
       config: { nodes }
@@ -59,7 +57,7 @@ export default class ConnectNode extends PureComponent {
 
     const options = []
     _.each(nodes, (group, category) => {
-      _.each(group, ({name}, idx) => {
+      _.each(group, ({ name }, idx) => {
         const val = `${category}.${idx}`
 
         // select first by default
@@ -70,38 +68,42 @@ export default class ConnectNode extends PureComponent {
         options.push({
           value: val,
           label: name,
-          category,
+          category
         })
       })
     })
 
-    const errorBox = (error !== connectEvent.getState()) ? null : (
-      <ErrorBox error={connectEvent.getData() || t('error.unexpected')} />
-    )
+    const errorBox =
+      error !== connectEvent.getState() ? null : (
+        <ErrorBox error={connectEvent.getData() || t('error.unexpected')} />
+      )
 
     return (
       <div>
-        <Picker options={options} selected={selected} onChange={this.onChange} />
+        <Picker
+          options={options}
+          selected={selected}
+          onChange={this.onChange}
+        />
         <Button onPress={() => this.onSubmit(selected)} title="Go" />
         {errorBox}
       </div>
     )
   }
 
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
-      selected: e.target.value,
+      selected: e.target.value
     })
   }
 
-  onSubmit = (selected) => {
-    const {
-      config: { nodes }
-    } = mutable(this.props)
+  onSubmit = selected => {
+    const { config: { nodes } } = mutable(this.props)
 
     const node = _.get(nodes, selected)
 
-    controller.nodes.connect(node)
+    controller.nodes
+      .connect(node)
       .then(() => controller.nodes.hideConnectionModal())
       .catch(() => {})
   }

@@ -1,10 +1,10 @@
 import AsyncEvents from '../utils/asyncEvents'
 
-const define = (arr) => arr.reduce((m, v) => {
-  m[v] = v
-  return m
-}, {})
-
+const define = arr =>
+  arr.reduce((m, v) => {
+    m[v] = v
+    return m
+  }, {})
 
 export const buildAction = (type, payload = {}) => {
   if (payload && payload instanceof Error) {
@@ -15,10 +15,9 @@ export const buildAction = (type, payload = {}) => {
 
   return {
     type: type,
-    payload: payload,
+    payload: payload
   }
 }
-
 
 export const Actions = define([
   'SET_MNEMONIC',
@@ -27,8 +26,7 @@ export const Actions = define([
   'NODE_DISCONNECTED',
   'ACCOUNT_BALANCES',
   'SHOW_MODAL',
-  'HIDE_MODAL',
+  'HIDE_MODAL'
 ])
-
 
 export const StateActions = AsyncEvents

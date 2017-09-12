@@ -3,7 +3,7 @@ import { create, fontMaker } from '../../styles'
 const textStyles = {
   ...fontMaker(),
   color: '$header_textColor',
-  fontSize: '0.8rem',
+  fontSize: '0.8rem'
 }
 
 export default create({
@@ -11,7 +11,7 @@ export default create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'stretch',
+    alignItems: 'stretch'
   },
 
   /* header */
@@ -22,26 +22,26 @@ export default create({
     height: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   headerLeft: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   headerRight: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   headerAppNameText: {
-    ...textStyles,
+    ...textStyles
   },
   headerBalanceText: {
-    ...textStyles,
+    ...textStyles
   },
   headerConnectionText: {
-    ...textStyles,
+    ...textStyles
   },
 
   /* content */
@@ -49,6 +49,6 @@ export default create({
   content: {
     flex: 1,
     backgroundColor: '$content_backgroundColor',
-    padding: 20,
-  },
+    padding: 20
+  }
 })

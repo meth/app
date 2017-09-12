@@ -1,12 +1,16 @@
 import React, { PureComponent } from 'react'
-import { NavigationActions, addNavigationHelpers, createNavigator, TabRouter } from 'react-navigation'
+import {
+  NavigationActions,
+  addNavigationHelpers,
+  createNavigator,
+  TabRouter
+} from 'react-navigation'
 
 import { connectStore, mutable } from './helpers/redux'
 
 import LoginMnemonic from './pages/LoginMnemonic'
 import ConfirmNewMnemonic from './pages/ConfirmNewMnemonic'
 import Browser from './pages/Browser'
-
 
 export const routes = {
   Home: {
@@ -15,12 +19,12 @@ export const routes = {
   },
   ConfirmNewMnemonic: {
     screen: ConfirmNewMnemonic,
-    path: 'confirmNewMnemonic',
+    path: 'confirmNewMnemonic'
   },
   Browser: {
     screen: Browser,
-    path: 'browser',
-  },
+    path: 'browser'
+  }
 }
 
 export const Router = TabRouter(routes, {
@@ -32,12 +36,8 @@ export const Router = TabRouter(routes, {
 // custom navigator - see https://reactnavigation.org/docs/navigators/custom
 @connectStore('nav')
 class NavigatorView extends PureComponent {
-  render () {
-    const {
-      nav: state,
-      router,
-      dispatch,
-    } = mutable(this.props)
+  render() {
+    const { nav: state, router, dispatch } = mutable(this.props)
 
     const Component = router.getComponentForState(state)
 
@@ -48,7 +48,6 @@ class NavigatorView extends PureComponent {
     return <Component navigation={navProps} />
   }
 }
-
 
 export const Navigator = createNavigator(Router)(NavigatorView)
 

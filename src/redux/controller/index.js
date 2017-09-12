@@ -3,12 +3,11 @@ import _ from 'lodash'
 import { buildAction } from '../actions'
 import log from '../../utils/log'
 
-
 /**
  * Controller/controller
  */
 class Controller {
-  constructor () {
+  constructor() {
     this._log = log.create('controller')
 
     this._loadMixin('init', require('./mixins/init'))
@@ -18,12 +17,12 @@ class Controller {
     this._loadMixin('wallet', require('./mixins/wallet'))
   }
 
-  setStore (store) {
+  setStore(store) {
     this._dispatch = store.dispatch
-    this._getState = (name) => store.getState()[name].toObject()
+    this._getState = name => store.getState()[name].toObject()
   }
 
-  _loadMixin (namespace, methods) {
+  _loadMixin(namespace, methods) {
     if (_.isFunction(methods)) {
       this[namespace] = Q.method(methods).bind(this)
     } else {
@@ -35,22 +34,22 @@ class Controller {
     }
   }
 
-  _action (type, payload) {
+  _action(type, payload) {
     this._dispatch(buildAction(type, payload))
   }
 
-  _stateAction (type, state, data) {
+  _stateAction(type, state, data) {
     if (typeof state !== 'string') {
       throw new Error('State must be a string')
     }
 
-    this._dispatch(buildAction(type, {
-      state: state,
-      data: data,
-    }))
+    this._dispatch(
+      buildAction(type, {
+        state: state,
+        data: data
+      })
+    )
   }
 }
-
-
 
 export default new Controller()

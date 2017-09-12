@@ -1,6 +1,6 @@
-const define = (ClassName) => {
+const define = ClassName => {
   class A extends Error {
-    constructor (...args) {
+    constructor(...args) {
       super(...args)
 
       Error.captureStackTrace(this, A)
@@ -8,10 +8,10 @@ const define = (ClassName) => {
       this.type = ClassName
     }
 
-    toJSON () {
+    toJSON() {
       const ret = {
         name: this.name,
-        message: this.message,
+        message: this.message
       }
 
       if (this.method) {
@@ -26,14 +26,13 @@ const define = (ClassName) => {
 
   return A
 }
-
 ;[
   'InvalidParams',
   'MethodNotAllowed',
   'RequestTimeout',
   'UnableToConnect',
   'CorruptData',
-  'WalletNotLoaded',
+  'WalletNotLoaded'
 ].forEach(e => {
   const n = `${e}Error`
 
