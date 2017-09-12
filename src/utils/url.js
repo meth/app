@@ -8,8 +8,5 @@ export const trimProtocol = url => {
 export const addProtocol = (url, protocol = 'http') => {
   const protPos = url.indexOf('://')
 
-  return 0 > protPos ? `${protocol}://${url}` : url;
-
-
-
+  return 0 > protPos ? `${protocol}://${url}` : url
 }
