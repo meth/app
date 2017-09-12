@@ -71,11 +71,23 @@ To start the electron backend and full UI:
 $ npm run electron
 ```
 
-### ESLint
+### Code style (ESLint)
 
-We use eslint to enforce a strict coding style. We've set it up to use prettier
-to autoformat code upon Git commit. You can manually run the linter at any time using:
+We use [eslint](http://eslint.org/) to enforce a strict coding style. We've set
+it up to auto-lint code upon Git commit. You can manually run the linter
+at any time using:
 
 ```shell
-$ npm run precommit
+$ npm run lint:js
 ```
+
+To auto-fix any issues, run:
+
+```shell
+$ npm run lint:js:fix
+```
+
+_Note: not all issues are automatically fixable_.
+
+It's worth installing the `prettier-atom` and `linter-eslint` plugins for Atom if
+that's your editor - it will make your life easier.

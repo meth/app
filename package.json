@@ -8,8 +8,9 @@
     "web": "webpack --env.development --env.vendor && webpack-dev-server --env.development",
     "web:prod": "webpack --env.production --env.vendor && webpack --env.production --progress",
     "web:serve": "http-serve -p 3001 --gzip true ./build/web",
-    "precommit": "eslint --fix src/ && git add .",
-    "lint:js": "eslint src/"
+    "precommit": "npm run lint:js",
+    "lint:js": "eslint src/",
+    "lint:js:fix": "eslint --fix src/"
   },
   "repository": {
     "type": "git",
