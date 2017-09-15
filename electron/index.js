@@ -39,9 +39,13 @@ const createMainWindow = () => {
 app.on('ready', () => {
   log.info('App ready')
 
-  // BrowserTools.installDefaultExtensions().finally(() => {
+  if (!Settings.inProductionMode) {
     createMainWindow()
-  // })
+  } else {
+    // BrowserTools.installDefaultExtensions().finally(() => {
+      createMainWindow()
+    // })
+  }
 })
 
 // Quit when all windows are closed.
