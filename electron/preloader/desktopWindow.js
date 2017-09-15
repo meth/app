@@ -52,4 +52,5 @@ webFrame.executeJavaScript(`
   delete window.exports;
   delete window.module;
   window.preloadBasePath = "${Settings.preloadBasePath}";
+  window.isElectron = true;
 `)

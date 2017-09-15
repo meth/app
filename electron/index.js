@@ -1,14 +1,16 @@
 const { app } = require('electron')
 
+const IpcImpl = require('./ipc')
 const Settings = require('./settings')
-global.Ipc = new (require('./ipc'))()
+const BrowserTools = require('./browserTools')
 const { setupMainWindow } = require('./windows')
 const log = require('./logger').create('main')
+
+global.Ipc = new IpcImpl()
 
 const isOSX = 'darwin' === process.platform
 
 let mainWindow
-
 
 const createMainWindow = () => {
   log.info('Creating main window ...')
@@ -37,7 +39,9 @@ const createMainWindow = () => {
 app.on('ready', () => {
   log.info('App ready')
 
-  createMainWindow()
+  // BrowserTools.installDefaultExtensions().finally(() => {
+    createMainWindow()
+  // })
 })
 
 // Quit when all windows are closed.
@@ -67,7 +71,6 @@ app.on('web-contents-created', (event, contents) => {
     }
   })
 })
-
 
 // activate
 app.on('activate', function () {
