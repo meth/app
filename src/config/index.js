@@ -1,8 +1,9 @@
 import { loadJSON } from '../utils/fetch'
 import networks from './networks.json'
 import nodes from './nodes.json'
+import logger from '../utils/log'
 
-const log = require('../utils/log').create('config')
+const log = logger.create('config')
 
 const BUNDLES = { networks, nodes }
 

@@ -3,9 +3,10 @@ import EventEmitter from 'eventemitter3'
 import { Web3MethodFactory } from './web3Methods'
 import { EVENT } from '../../common/constants'
 import { UnableToConnectError } from '../utils/errors'
+import logger from '../utils/log'
 import RpcAdapter from './adapter/rpc'
 
-const log = require('../utils/log').create('NodeConnector')
+const log = logger.create('NodeConnector')
 
 export class NodeConnector extends EventEmitter {
   constructor({ networks }) {

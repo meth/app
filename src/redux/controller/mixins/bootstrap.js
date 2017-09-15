@@ -2,7 +2,7 @@ import Q from 'bluebird'
 import { Actions } from '../../actions'
 import { load as loadConfig } from '../../../config'
 
-export default async function init() {
+export async function init() {
   const { nodes } = this._getState('config')
 
   if (!nodes) {

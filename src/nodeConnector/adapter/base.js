@@ -3,6 +3,7 @@ import EventEmitter from 'eventemitter3'
 import { hexToNumber } from 'web3-utils'
 
 import { EVENT, STATE } from '../../../common/constants'
+import logger from '../../utils/log'
 import {
   instanceOfError,
   UnableToConnectError,
@@ -11,7 +12,7 @@ import {
   MethodNotAllowedError
 } from '../../utils/errors'
 
-const log = require('../../utils/log').create('Adapter')
+const log = logger.create('Adapter')
 
 /**
  * Base node connection adapter

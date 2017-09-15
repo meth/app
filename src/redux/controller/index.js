@@ -2,8 +2,8 @@ import Q from 'bluebird'
 import _ from 'lodash'
 
 import { buildAction } from '../actions'
-import * as log from '../../utils/log'
-import * as init from './mixins/init'
+import log from '../../utils/log'
+import * as bootstrap from './mixins/bootstrap'
 import * as nav from './mixins/nav'
 import * as modals from './mixins/modals'
 import * as nodes from './mixins/nodes'
@@ -16,7 +16,7 @@ class Controller {
   constructor() {
     this._log = log.create('controller')
 
-    this._loadMixin('init', init)
+    this._loadMixin('bootstrap', bootstrap)
     this._loadMixin('nav', nav)
     this._loadMixin('modals', modals)
     this._loadMixin('nodes', nodes)
@@ -29,15 +29,11 @@ class Controller {
   }
 
   _loadMixin(namespace, methods) {
-    if (_.isFunction(methods)) {
-      this[namespace] = Q.method(methods).bind(this)
-    } else {
-      this[namespace] = {}
+    this[namespace] = {}
 
-      _.each(methods, (body, key) => {
-        this[namespace][key] = Q.method(body).bind(this)
-      })
-    }
+    _.each(methods, (body, key) => {
+      this[namespace][key] = Q.method(body).bind(this)
+    })
   }
 
   _action(type, payload) {

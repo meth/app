@@ -15,4 +15,4 @@ export default () => (
 )
 
 // initialize the app!
-controller.init()
+controller.bootstrap.init()

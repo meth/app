@@ -1,5 +1,5 @@
 import Logger from 'logarama'
 
-module.exports = new Logger('Browser', {
+export default new Logger('Browser', {
   minLevel: 'debug'
 })

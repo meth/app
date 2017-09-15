@@ -1,13 +1,14 @@
 import Q from 'bluebird'
 import { stringify } from 'query-string'
 
+import logger from './log'
 import {
   CorruptDataError,
   UnableToConnectError,
   RequestTimeoutError
 } from './errors'
 
-const log = require('./log').create('fetch')
+const log = logger.create('fetch')
 
 const TIMEOUT = 10
 

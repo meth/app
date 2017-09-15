@@ -1,4 +1,6 @@
-const log = require('../../utils/log').create('web3Method')
+import logger from '../../utils/log'
+
+const log = logger.create('web3Method')
 
 export default class GenericMethod {
   constructor(nodeConnector, method) {
