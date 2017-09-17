@@ -16,7 +16,7 @@ export async function loadUsingMnemonic(mnemonic) {
 
   this._action(Actions.SET_MNEMONIC, mnemonic)
 
-  Wallet.on(EVENT.NEW_BALANCES, this.wallet._onNewAccountBalances)
+  Wallet.addListener(EVENT.NEW_BALANCES, this.wallet._onNewAccountBalances)
   await Wallet.load(mnemonic)
 }
 

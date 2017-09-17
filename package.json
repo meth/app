@@ -10,7 +10,8 @@
     "web:serve": "http-serve -p 3001 --gzip true ./build/web",
     "precommit": "npm run lint:js",
     "lint:js": "eslint src/",
-    "lint:js:fix": "eslint --fix src/"
+    "lint:js:fix": "eslint --fix src/",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
   "homepage": "https://github.com/meth-project/meth-browser#readme",
   "dependencies": {
     "add-asset-html-webpack-plugin": "^2.1.0",
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
     "babel-plugin-react-transform": "^2.0.2",
@@ -78,6 +80,7 @@
     "immutable": "^3.8.1",
     "immutable-state-machine": "^1.2.0",
     "interpolate-html-plugin": "^2.0.0",
+    "jest": "^21.1.0",
     "lodash": "^4.17.4",
     "lodash-webpack-plugin": "^0.11.4",
     "logarama": "^3.1.1",
