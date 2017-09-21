@@ -26,7 +26,7 @@ class Adapter extends EventEmitter {
    * @param  {String} adapterType
    * @param  {Object} availableMethods (String method_name => Boolean allowed)
    */
-  constructor(nodeConfig, adapterType, availableMethods) {
+  constructor (nodeConfig, adapterType, availableMethods) {
     super()
 
     this._adapterType = adapterType
@@ -38,15 +38,15 @@ class Adapter extends EventEmitter {
     this._log = log.create(adapterType)
   }
 
-  get isConnected() {
+  get isConnected () {
     return STATE.CONNECTED === this._state
   }
 
-  get state() {
+  get state () {
     return this._state
   }
 
-  _updateState(state) {
+  _updateState (state) {
     if (this._state !== state) {
       this._state = state
 
@@ -58,7 +58,7 @@ class Adapter extends EventEmitter {
    * Connect.
    * @return {Promise}
    */
-  async connect() {
+  async connect () {
     if (STATE.CONNECTED === this._state) {
       this._log.trace('Already connected')
 
@@ -101,7 +101,7 @@ class Adapter extends EventEmitter {
    *
    * @return {Promise}
    */
-  async disconnect() {
+  async disconnect () {
     if (STATE.DISCONNECTED === this._state) {
       this._log.trace('Already disconnected')
 
@@ -139,7 +139,7 @@ class Adapter extends EventEmitter {
    * Execute a method
    * @return {Promise}
    */
-  async execMethod(method, params) {
+  async execMethod (method, params) {
     try {
       this._callId += 1
       const ret = await this._doExecMethod(this._callId, method, params)
@@ -179,7 +179,7 @@ class Adapter extends EventEmitter {
    *
    * @return {Promise}
    */
-  async _connect() {
+  async _connect () {
     this._log.trace('Connect...', this._url)
 
     try {
@@ -200,7 +200,7 @@ class Adapter extends EventEmitter {
    *
    * @return {Promise}
    */
-  async _disconnect() {
+  async _disconnect () {
     this._log.debug('Disconnected')
 
     return Q.resolve()
@@ -210,7 +210,7 @@ class Adapter extends EventEmitter {
    * Execute a method, to be implemented by subclasses
    * @return {Promise}
    */
-  async _doExecMethod() {
+  async _doExecMethod () {
     throw new Error('Not yet implemented')
   }
 
@@ -219,7 +219,7 @@ class Adapter extends EventEmitter {
    * @param  {String} method
    * @return {Promise}
    */
-  async _approveMethod(method) {
+  async _approveMethod (method) {
     if (true !== this._methods[method]) {
       throw new MethodNotAllowedError(method)
     }
@@ -230,7 +230,7 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  _startBlockPoll() {
+  _startBlockPoll () {
     this._log.info(`Start polling for blocks`)
 
     this._blockPollEnabled = true
@@ -242,7 +242,7 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  _stopBlockPoll() {
+  _stopBlockPoll () {
     this._log.info(`Stop polling for blocks`)
 
     this._blockPollEnabled = false
@@ -253,7 +253,7 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  async _doBlockPoll() {
+  async _doBlockPoll () {
     if (!this._blockPollEnabled || STATE.CONNECTED !== this.state) {
       return
     }
@@ -287,7 +287,7 @@ class Adapter extends EventEmitter {
    * @param  {Object} details [description]
    * @throws {Error}
    */
-  _throwError(errMsg, details) {
+  _throwError (errMsg, details) {
     const e = new Error(errMsg)
     e.details = details
     throw e

@@ -39,7 +39,7 @@ export const addNavHelpers = addNavigationHelpers
 // custom navigator - see https://reactnavigation.org/docs/navigators/custom
 @connectStore('nav')
 class NavigatorView extends PureComponent {
-  render() {
+  render () {
     const { nav: state, router, dispatch } = mutable(this.props)
 
     const Component = router.getComponentForState(state)

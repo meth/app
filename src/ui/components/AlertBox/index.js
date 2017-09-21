@@ -4,7 +4,7 @@ import { View, Text } from 'react-native'
 import createStyles from './styles'
 
 export default class AlertBox extends PureComponent {
-  render() {
+  render () {
     const { type, text } = this.props
 
     const styles = createStyles(type)

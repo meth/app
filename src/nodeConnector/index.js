@@ -8,8 +8,9 @@ import RpcAdapter from './adapter/rpc'
 
 const log = logger.create('NodeConnector')
 
+// eslint-disable-next-line import/prefer-default-export
 export class NodeConnector extends EventEmitter {
-  constructor({ networks }) {
+  constructor ({ networks }) {
     super()
 
     this._networks = networks
@@ -20,7 +21,7 @@ export class NodeConnector extends EventEmitter {
     this._methodFactory = new Web3MethodFactory(this)
   }
 
-  get isConnected() {
+  get isConnected () {
     return null !== this._adapter && this._adapter.isConnected
   }
 
@@ -28,7 +29,7 @@ export class NodeConnector extends EventEmitter {
    * Connect to given node.
    * @type {Promise}
    */
-  async connect(cfg) {
+  async connect (cfg) {
     const { name, url, type } = cfg
 
     // disconnect first
@@ -45,7 +46,7 @@ export class NodeConnector extends EventEmitter {
     }
 
     // event propagation
-    ;[EVENT.STATE_CHANGE, EVENT.NEW_BLOCK].forEach(e => {
+    ;[ EVENT.STATE_CHANGE, EVENT.NEW_BLOCK ].forEach(e => {
       this._adapter.on(e, (...args) => this.emit(e, ...args))
     })
 
@@ -53,14 +54,14 @@ export class NodeConnector extends EventEmitter {
     await this._adapter.connect()
 
     // get genesis block
-    return this.rawCall('eth_getBlockByNumber', ['0x0', false])
+    return this.rawCall('eth_getBlockByNumber', [ '0x0', false ])
   }
 
   /**
    * Disconnect current adapter.
    * @return {Promise}
    */
-  async disconnect() {
+  async disconnect () {
     if (this.isConnected) {
       log.info(`Disconnecting current connection ...`)
 
@@ -78,17 +79,17 @@ export class NodeConnector extends EventEmitter {
    * @param {String} [context.dappUrl] URL of dapp which is calling this method
    * @return {Promise}
    */
-  async request(payload, context) {
+  async request (payload, context) {
     log.debug('Request', payload, context)
 
     const isBatch = payload instanceof Array
 
-    const finalPayload = !isBatch ? [payload] : payload
+    const finalPayload = !isBatch ? [ payload ] : payload
 
     // we will serially process the requests (as expected with batch requests)
     const result = []
 
-    /* eslint-disable no-restricted-syntax */
+    // eslint-disable-next-line no-restricted-syntax
     for (const { id, method, params } of finalPayload) {
       log.trace('Request', { id, method, params })
 
@@ -99,7 +100,7 @@ export class NodeConnector extends EventEmitter {
 
         result.push({
           id,
-          /* eslint-disable no-await-in-loop */
+          // eslint-disable-next-line no-await-in-loop
           result: await this._methodFactory.getHandler(method).run(params)
         })
       } catch (err) {
@@ -128,11 +129,11 @@ export class NodeConnector extends EventEmitter {
    * @param  {Array} [params]
    * @return {Promise}
    */
-  async rawCall(method, params = []) {
+  async rawCall (method, params = []) {
     return this._adapter.execMethod(method, params)
   }
 
-  _wrapResponse({ id, result, error }) {
+  _wrapResponse ({ id, result, error }) {
     if (error) {
       return {
         jsonrpc: '2.0',

@@ -5,7 +5,7 @@ import { IPC } from '../../../../common/constants'
 import { handleWebViewIpcRequest } from './ipcHandlers'
 
 export default class WebView extends PureComponent {
-  constructor(props, ctx) {
+  constructor (props, ctx) {
     super(props, ctx)
 
     this.webViewEventHandlers = {
@@ -23,7 +23,7 @@ export default class WebView extends PureComponent {
     }
   }
 
-  render() {
+  render () {
     const { url } = this.props
 
     return (
@@ -41,13 +41,13 @@ export default class WebView extends PureComponent {
     )
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     _.map(this.webViewEventHandlers, (f, e) => {
       this.webView.removeEventListener(e, f)
     })
   }
 
-  componentDidMount() {
+  componentDidMount () {
     _.map(this.webViewEventHandlers, (f, e) => {
       this.webView.addEventListener(e, f)
     })

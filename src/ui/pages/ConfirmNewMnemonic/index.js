@@ -14,7 +14,7 @@ export default class Page extends PureComponent {
     error: ''
   }
 
-  render() {
+  render () {
     const {
       navigation: { currentRoute: { params: { mnemonic } } }
     } = this.props

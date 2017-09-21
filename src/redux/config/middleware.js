@@ -2,6 +2,7 @@ import Q from 'bluebird'
 
 import { INIT } from './actions'
 
+// eslint-disable-next-line consistent-return
 export default ({ config }) => store => next => async action => {
   if (INIT !== action.type) {
     return next(action)

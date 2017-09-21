@@ -12,11 +12,8 @@ const InitialState = Immutable.Map({
 
 export default handleActions(
   {
-    [INIT]: (state, { payload }) => {
-      state = state.set('nodes', payload.nodes)
-      state = state.set('networks', payload.networks)
-      return state
-    }
+    [INIT]: (state, { payload: { nodes, networks } }) =>
+      state.set('nodes', nodes).set('networks', networks)
   },
   InitialState
 )

@@ -19,7 +19,7 @@ import styles from './styles'
 export default class ConnectNode extends PureComponent {
   state = {}
 
-  render() {
+  render () {
     const { config: { nodes }, node: { disconnectReason } } = mutable(
       this.props
     )
@@ -47,7 +47,7 @@ export default class ConnectNode extends PureComponent {
     )
   }
 
-  renderSelector() {
+  renderSelector () {
     const {
       node: { [CONNECT_NODE]: connectEvent },
       config: { nodes }

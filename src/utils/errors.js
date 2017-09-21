@@ -1,6 +1,6 @@
 const define = ClassName => {
   class A extends Error {
-    constructor(...args) {
+    constructor (...args) {
       super(...args)
 
       Error.captureStackTrace(this, A)
@@ -8,7 +8,7 @@ const define = ClassName => {
       this.type = ClassName
     }
 
-    toJSON() {
+    toJSON () {
       const ret = {
         name: this.name,
         message: this.message

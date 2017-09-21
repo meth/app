@@ -17,7 +17,7 @@ export default class Page extends PureComponent {
     inputExistingError: null
   }
 
-  render() {
+  render () {
     return (
       <Layout>
         {this.renderInputExisting()}

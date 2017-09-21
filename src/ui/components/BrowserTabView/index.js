@@ -8,7 +8,7 @@ import TextInput from '../TextInput'
 import WebView from '../WebView'
 
 export default class TabView extends PureComponent {
-  constructor(props, ctx) {
+  constructor (props, ctx) {
     super(props, ctx)
 
     this.state = {
@@ -16,7 +16,7 @@ export default class TabView extends PureComponent {
     }
   }
 
-  render() {
+  render () {
     const { url } = this.state
 
     return (
@@ -63,7 +63,7 @@ export default class TabView extends PureComponent {
     )
   }
 
-  componentWillReceiveProps(newProps) {
+  componentWillReceiveProps (newProps) {
     const { url } = newProps
 
     if (url !== this.state.url) {

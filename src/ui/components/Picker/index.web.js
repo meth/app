@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
 export default class Select extends PureComponent {
-  render() {
+  render () {
     const { selected, options, onChange } = this.props
 
     const cat = {}

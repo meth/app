@@ -9,7 +9,7 @@ import styles from './styles'
 export default class SendTransaction extends PureComponent {
   state = {}
 
-  render() {
+  render () {
     return (
       <Modal>
         <View style={styles.container}>

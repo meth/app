@@ -11,8 +11,8 @@ export const create = () => {
   // hot module reload
   if (__DEV__) {
     if (module.hot) {
-      /* eslint-disable global-require */
       module.hot.accept('./reducers', () =>
+        // eslint-disable-next-line global-require
         store.replaceReducer(require('./reducers').default)
       )
     }
@@ -26,6 +26,7 @@ export const create = () => {
     const state = store.getState()
 
     return Object.keys(state).reduce((m, key) => {
+      // eslint-disable-next-line no-param-reassign
       m[key] = state[key].toObject ? state[key].toObject() : state[key]
       return m
     }, {})

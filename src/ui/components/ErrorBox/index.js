@@ -12,7 +12,7 @@ import AlertBox from '../AlertBox'
 import styles from './styles'
 
 export default class ErrorBox extends PureComponent {
-  render() {
+  render () {
     const { error } = this.props
 
     let couldBeMethodCallError = false

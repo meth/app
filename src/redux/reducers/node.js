@@ -10,7 +10,7 @@ const InitialState = Immutable.Map({
   genesisBlock: null
 })
 
-export default function(state = InitialState, { type, payload }) {
+export default function (state = InitialState, { type, payload }) {
   let newState = state
 
   const machine = newState.get(StateActions.CONNECT_NODE)

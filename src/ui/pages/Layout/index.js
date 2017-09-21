@@ -12,7 +12,7 @@ import styles from './styles'
 
 @connectStore('wallet')
 export default class Layout extends PureComponent {
-  render() {
+  render () {
     const { children, contentStyle, wallet: { accountBalances } } = mutable(
       this.props
     )
@@ -35,7 +35,7 @@ export default class Layout extends PureComponent {
             </TouchableView>
           </View>
         </View>
-        <View style={[styles.content, contentStyle]}>{children}</View>
+        <View style={[ styles.content, contentStyle ]}>{children}</View>
       </View>
     )
   }

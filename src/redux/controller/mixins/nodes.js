@@ -4,7 +4,7 @@ import { inProgress, success, error } from '../../../utils/stateMachines'
 import { CONNECT_NODE } from '../../../utils/modals'
 import { NodeConnector } from '../../../nodeConnector'
 
-function initNodeConnector() {
+function initNodeConnector () {
   if (!this._nodeConnector) {
     this._nodeConnector = new NodeConnector(this._getState('config').networks)
 
@@ -19,19 +19,19 @@ function initNodeConnector() {
   return this._nodeConnector
 }
 
-export function setSelected(nodeKey) {
+export function setSelected (nodeKey) {
   this._action(Actions.SET_SELECTED_NODE, nodeKey)
 }
 
-export function showConnectionModal() {
+export function showConnectionModal () {
   this.modals.show(CONNECT_NODE)
 }
 
-export function hideConnectionModal() {
+export function hideConnectionModal () {
   this.modals.hide(CONNECT_NODE)
 }
 
-export async function connect(nodeConfig) {
+export async function connect (nodeConfig) {
   this._log.info('Connecting to node...')
 
   this._stateAction(StateActions.CONNECT_NODE, inProgress)
@@ -67,11 +67,11 @@ export async function connect(nodeConfig) {
   }
 }
 
-export function getCurrentConnection() {
+export function getCurrentConnection () {
   return this._nodeConnector
 }
 
-export async function sendRequest(payload) {
+export async function sendRequest (payload) {
   const connector = initNodeConnector.call(this)
 
   return connector.request(payload)

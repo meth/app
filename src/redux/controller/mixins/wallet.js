@@ -5,13 +5,13 @@ import MODALS from '../../../utils/modals'
 import { Actions } from '../../actions'
 import Wallet from '../../../wallet'
 
-export function generateNewMnemonic() {
+export function generateNewMnemonic () {
   this._log.debug('Generate new mnemonic')
 
   return new Mnemonic(Mnemonic.Words.ENGLISH).toString()
 }
 
-export async function loadUsingMnemonic(mnemonic) {
+export async function loadUsingMnemonic (mnemonic) {
   this._log.debug('Load wallet using mnemonic')
 
   this._action(Actions.SET_MNEMONIC, mnemonic)
@@ -20,7 +20,7 @@ export async function loadUsingMnemonic(mnemonic) {
   await Wallet.load(mnemonic)
 }
 
-export async function unload() {
+export async function unload () {
   this._log.debug('Unload current wallet')
 
   Wallet.removeListener(EVENT.NEW_BALANCES, this.wallet._onNewAccountBalances)
@@ -34,7 +34,7 @@ export async function unload() {
  * @param  {Object} tx Tx params
  * @return {Promise} Resolves once successfully sent
  */
-export function sendTransaction(tx) {
+export function sendTransaction (tx) {
   let promiseResolver
 
   const promise = new Promise((resolve, reject) => {

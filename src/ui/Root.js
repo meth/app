@@ -22,7 +22,7 @@ const styles = create({
 
 @connectStore('modals')
 export default class Layout extends PureComponent {
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Navigator />
@@ -31,7 +31,7 @@ export default class Layout extends PureComponent {
     )
   }
 
-  showModal() {
+  showModal () {
     const { modals } = mutable(this.props)
 
     const components = []

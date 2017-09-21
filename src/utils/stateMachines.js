@@ -1,14 +1,14 @@
 import Machine from 'immutable-state-machine'
 
 class StateActionMachine extends Machine {
-  constructor(cfg) {
+  constructor (cfg) {
     super(cfg, StateActionMachine)
   }
 
-  update(fluxAction) {
-    const payload = fluxAction.payload || fluxAction,
-      state = payload.state || payload,
-      data = payload.data || null
+  update (fluxAction) {
+    const payload = fluxAction.payload || fluxAction
+    const state = payload.state || payload
+    const data = payload.data || null
 
     return this.goto(state, data)
   }
@@ -23,22 +23,22 @@ export const createStateActionMachine = () =>
   new StateActionMachine([
     {
       id: ready,
-      from: [success, error],
-      to: [inProgress, success, error]
+      from: [ success, error ],
+      to: [ inProgress, success, error ]
     },
     {
       id: inProgress,
-      from: [ready, success, error],
-      to: [success, error]
+      from: [ ready, success, error ],
+      to: [ success, error ]
     },
     {
       id: success,
-      from: [ready, inProgress],
-      to: [ready, inProgress]
+      from: [ ready, inProgress ],
+      to: [ ready, inProgress ]
     },
     {
       id: error,
-      from: [ready, inProgress],
-      to: [ready, inProgress]
+      from: [ ready, inProgress ],
+      to: [ ready, inProgress ]
     }
   ])

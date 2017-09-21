@@ -5,7 +5,7 @@ import TouchableView from '../TouchableView'
 import createStyles from './styles'
 
 export default class Button extends PureComponent {
-  render() {
+  render () {
     const { disabled, title, type, style, textStyle, children } = this.props
 
     const styles = createStyles({ type, disabled })
@@ -14,11 +14,11 @@ export default class Button extends PureComponent {
       0 < React.Children.count(children) ? (
         children
       ) : (
-        <Text style={[styles.text, textStyle]}>{title}</Text>
+        <Text style={[ styles.text, textStyle ]}>{title}</Text>
       )
 
     return (
-      <TouchableView onPress={this.onPress} style={[styles.box, style]}>
+      <TouchableView onPress={this.onPress} style={[ styles.box, style ]}>
         {content}
       </TouchableView>
     )
@@ -28,8 +28,10 @@ export default class Button extends PureComponent {
     const { disabled, onPress, onDisabledPress } = this.props
 
     if (!disabled) {
+      // eslint-disable-next-line no-unused-expressions
       onPress && onPress()
     } else {
+      // eslint-disable-next-line no-unused-expressions
       onDisabledPress && onDisabledPress()
     }
   }

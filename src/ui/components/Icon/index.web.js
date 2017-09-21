@@ -7,7 +7,7 @@ import { addWebFont } from '../../styles'
 addWebFont('FontAwesome', faFontUrl)
 
 export default class Icon extends PureComponent {
-  render() {
+  render () {
     return <FAIcon {...this.props} />
   }
 }

@@ -37,13 +37,13 @@ const METHODS = {
 }
 
 class RpcAdapter extends Adapter {
-  constructor(nodeConfig) {
+  constructor (nodeConfig) {
     super(nodeConfig, 'rpc', METHODS)
 
     this._url = nodeConfig.url
   }
 
-  async _doExecMethod(id, method, params = []) {
+  async _doExecMethod (id, method, params = []) {
     try {
       await this._approveMethod(method)
 

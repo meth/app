@@ -12,6 +12,11 @@
         "transform-react-jsx-source",
         "react-hot-loader/babel",
       ]
+    },
+    "test": {
+      "plugins": [
+        "babel-jest-assertions"
+      ]
     }
   }
 }

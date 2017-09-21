@@ -24,12 +24,12 @@ export default class Page extends PureComponent {
         id: newTabId(),
         label: 'Google',
         url: 'https://google.com/',
-        permissions: [DAPP_PERMISSIONS.CREATE_ACCOUNT]
+        permissions: [ DAPP_PERMISSIONS.CREATE_ACCOUNT ]
       }
     ]
   }
 
-  render() {
+  render () {
     const { tabs } = this.state
 
     const browserViews = tabs.map(tab => {
@@ -67,6 +67,7 @@ export default class Page extends PureComponent {
   onTabUrlChange = (id, url) => {
     this._forEachTab(t => {
       if (t.id === id) {
+        // eslint-disable-next-line no-param-reassign
         t.url = url
       }
     })
@@ -75,6 +76,7 @@ export default class Page extends PureComponent {
   onTabTitleChange = (id, title) => {
     this._forEachTab(t => {
       if (t.id === id) {
+        // eslint-disable-next-line no-param-reassign
         t.label = title
       }
     })
@@ -83,6 +85,7 @@ export default class Page extends PureComponent {
   onTabStatusChange = (id, status) => {
     this._forEachTab(t => {
       if (t.id === id) {
+        // eslint-disable-next-line no-param-reassign
         t.status = status
       }
     })
@@ -94,6 +97,7 @@ export default class Page extends PureComponent {
 
   onSelectTab = id => {
     this._forEachTab(t => {
+      // eslint-disable-next-line no-param-reassign
       t.active = t.id === id
     })
   }
@@ -122,7 +126,7 @@ export default class Page extends PureComponent {
     tabs.forEach(cb)
 
     this.setState({
-      tabs: [...tabs]
+      tabs: [ ...tabs ]
     })
   }
 
@@ -158,7 +162,7 @@ export default class Page extends PureComponent {
     }
 
     this.setState({
-      tabs: [...final]
+      tabs: [ ...final ]
     })
   }
 }

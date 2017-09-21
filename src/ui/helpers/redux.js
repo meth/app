@@ -12,7 +12,10 @@ export const connectStore = (...storeSubParts) => Component =>
         state,
         (m, item, key) => {
           if (!storeSubParts.length || storeSubParts.includes(key)) {
-            m[key] = item
+            return {
+              ...m,
+              [key]: item
+            }
           }
 
           return m
@@ -31,10 +34,9 @@ export const connectStore = (...storeSubParts) => Component =>
 export const mutable = props =>
   _.reduce(
     props,
-    (m, v, k) => {
-      m[k] = _.isFunction(v.toObject) ? v.toObject() : v
-
-      return m
-    },
+    (m, v, k) => ({
+      ...m,
+      [k]: _.isFunction(v.toObject) ? v.toObject() : v
+    }),
     {}
   )

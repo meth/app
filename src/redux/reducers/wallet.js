@@ -8,7 +8,7 @@ const InitialState = Immutable.Map({
   sendTransaction: null
 })
 
-export default function(state = InitialState, { type, payload }) {
+export default function (state = InitialState, { type, payload }) {
   let newState = state
 
   switch (type) {

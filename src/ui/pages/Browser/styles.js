@@ -14,6 +14,6 @@ export default create({
   inactiveView: {
     height: 0,
     width: 0,
-    transform: [{ translateX: -5000 }, { translateY: -5000 }]
+    transform: [ { translateX: -5000 }, { translateY: -5000 } ]
   }
 })

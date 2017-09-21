@@ -4,4 +4,4 @@ import configMiddleware from './config/middleware'
 // parameter to pass to middleware setup functions
 const params = { config }
 
-export default [configMiddleware(params)]
+export default [ configMiddleware(params) ]

@@ -11,7 +11,7 @@ import controller from '../redux/controller'
 const log = logger.create('Wallet')
 
 class Wallet extends EventEmitter {
-  constructor() {
+  constructor () {
     super()
 
     this._onNodeConnectionStateChange = this._onNodeConnectionStateChange.bind(
@@ -26,7 +26,7 @@ class Wallet extends EventEmitter {
    * @param  {String}  mnemonic
    * @return {Promise}
    */
-  async load(mnemonic) {
+  async load (mnemonic) {
     log.info(`Load wallet (${mnemonic})...`)
 
     this._mnemonic = mnemonic
@@ -43,7 +43,7 @@ class Wallet extends EventEmitter {
    * Unload current wallet data.
    * @return {Promise}
    */
-  async unload() {
+  async unload () {
     log.info('Unload wallet ...')
 
     const NodeConnector = await this._getNodeConnection()
@@ -62,7 +62,7 @@ class Wallet extends EventEmitter {
    * Get all generated accounts.
    * @return {Array}
    */
-  getAccounts() {
+  getAccounts () {
     return this._hdWallet ? this._hdWallet.getAddresses() : []
   }
 
@@ -70,7 +70,7 @@ class Wallet extends EventEmitter {
    * Get all generated accounts along with their balances.
    * @return {Object}
    */
-  getAccountBalances() {
+  getAccountBalances () {
     return this._hdWallet
       ? _.zipObject(this._hdWallet.getAddresses(), this._balances)
       : {}
@@ -80,7 +80,7 @@ class Wallet extends EventEmitter {
    * Generate next account.
    * @return {String} address generated
    */
-  generateAccount() {
+  generateAccount () {
     this._ensureLoaded()
 
     const addr = this._hdWallet.generateAddresses(1).pop()
@@ -97,7 +97,7 @@ class Wallet extends EventEmitter {
    * Get node connection
    * @return {Promise}
    */
-  async _getNodeConnection() {
+  async _getNodeConnection () {
     return controller.nodes.getCurrentConnection()
   }
 
@@ -105,16 +105,16 @@ class Wallet extends EventEmitter {
    * Get balance of address
    * @return {Promise}
    */
-  async _getBalance(address) {
+  async _getBalance (address) {
     const NodeConnector = await this._getNodeConnection()
 
-    return NodeConnector.rawCall('eth_getBalance', [address, 'latest'])
+    return NodeConnector.rawCall('eth_getBalance', [ address, 'latest' ])
   }
 
   /**
    * Handler for node connection state change event
    */
-  _onNodeConnectionStateChange(newState) {
+  _onNodeConnectionStateChange (newState) {
     log.debug('Node connection state changed')
 
     if (!this._hdWallet) {
@@ -136,7 +136,7 @@ class Wallet extends EventEmitter {
   /**
    * Handler for new block event
    */
-  _onNewBlock() {
+  _onNewBlock () {
     if (!this._hdWallet) {
       return
     }
@@ -146,7 +146,7 @@ class Wallet extends EventEmitter {
     this._updateBalances()
   }
 
-  _updateBalances() {
+  _updateBalances () {
     log.debug('Update address balances ...')
 
     const addresses = this._hdWallet.getAddresses()
@@ -167,7 +167,7 @@ class Wallet extends EventEmitter {
    *
    * @throws {Error} if wallet not loaded
    */
-  _ensureLoaded() {
+  _ensureLoaded () {
     if (!this._hdWallet) {
       throw new WalletNotLoadedError('Wallet data not yet loaded')
     }
@@ -177,7 +177,7 @@ class Wallet extends EventEmitter {
    * Reload wallet data.
    * @return {Promise}
    */
-  async _reload() {
+  async _reload () {
     log.debug('Reload wallet ...')
 
     this._hdWallet = null
@@ -201,7 +201,7 @@ class Wallet extends EventEmitter {
    *
    * @return {Promise}
    */
-  async _load() {
+  async _load () {
     log.debug('Load wallet from mnemonic ...')
 
     const wallet = EthHdWallet.fromMnemonic(this._mnemonic)
@@ -210,9 +210,9 @@ class Wallet extends EventEmitter {
 
     let checked = 0
     while (20 > checked) {
-      const [nextAddress] = wallet.generateAddresses(1)
+      const [ nextAddress ] = wallet.generateAddresses(1)
 
-      /* eslint-disable no-await-in-loop */
+      // eslint-disable-next-line no-await-in-loop
       const balance = await this._getBalance(nextAddress)
 
       if (0 < balance) {

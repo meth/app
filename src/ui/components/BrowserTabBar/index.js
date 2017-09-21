@@ -7,7 +7,7 @@ import IconButton from '../IconButton'
 import TabList from './TabList'
 
 export default class BrowserTabBar extends PureComponent {
-  render() {
+  render () {
     const { tabs, onSelect, onClose } = this.props
 
     return (

@@ -61,11 +61,7 @@ export const loadJSON = async (
   } catch (err) {
     // basic error parsing
     const err2 =
-      0 <=
-      err
-        .toString()
-        .toLowerCase()
-        .indexOf('failed to fetch')
+      0 <= err.toString().toLowerCase().indexOf('failed to fetch')
         ? new UnableToConnectError('Fetch failed')
         : err
 

@@ -47,13 +47,14 @@ export default SortableElement(tab => {
 
   return (
     <TouchableView
-      style={[styles.tab, active ? styles.activeTab : null]}
+      style={[ styles.tab, active ? styles.activeTab : null ]}
       onPress={active ? null : onSelect}
       title={label}>
       <View style={styles.content}>
         <View style={styles.leftContent}>
           {statusIcon}
-          <Text style={[styles.tabText, active ? styles.activeTabText : null]}>
+          <Text
+            style={[ styles.tabText, active ? styles.activeTabText : null ]}>
             {sanitizeLabel(label)}
           </Text>
         </View>
