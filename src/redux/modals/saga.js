@@ -3,8 +3,14 @@ import { put, takeLatest } from 'redux-saga/effects'
 import { INIT } from '../config/actions'
 import { showConnectionModal } from './actionCreators'
 
-export default function* () {
-  yield takeLatest(INIT, function* onInit () {
-    yield put(showConnectionModal())
-  })
+function* onInit () {
+  yield put(showConnectionModal())
+}
+
+export default function* saga () {
+  yield takeLatest(INIT, onInit)
+}
+
+export const _privateFunctions = {
+  onInit
 }
