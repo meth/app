@@ -1,25 +1,24 @@
-import { NavigationActions } from 'react-navigation'
 import { handleActions } from 'redux-actions'
 
-import { Router } from '../../ui/nav'
+import { PUSH, RESET } from './actions'
 
-const { RESET, NAVIGATE } = NavigationActions
+export default ({ router }) => {
+  const InitialState = router.getStateForAction(
+    router.getActionForPathAndParams('')
+  )
 
-const InitialState = Router.getStateForAction(
-  Router.getActionForPathAndParams('')
-)
-
-export default handleActions(
-  {
-    [RESET]: (state, { pathName, params }) =>
-      Router.getStateForAction(
-        Router.getActionForPathAndParams(pathName, params)
-      ),
-    [NAVIGATE]: (state, { pathName, params }) =>
-      Router.getStateForAction(
-        Router.getActionForPathAndParams(pathName, params),
-        state
-      )
-  },
-  InitialState
-)
+  return handleActions(
+    {
+      [RESET]: (state, { pathName, params }) =>
+        router.getStateForAction(
+          router.getActionForPathAndParams(pathName, params)
+        ),
+      [PUSH]: (state, { pathName, params }) =>
+        router.getStateForAction(
+          router.getActionForPathAndParams(pathName, params),
+          state
+        )
+    },
+    InitialState
+  )
+}

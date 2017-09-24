@@ -1,9 +1,8 @@
-import { NavigationActions } from 'react-navigation'
 import { createAction } from 'redux-actions'
 
-const { RESET, NAVIGATE } = NavigationActions
+import { PUSH, RESET } from './actions'
 
-export const push = createAction(NAVIGATE, (pathName, params = {}) => ({
+export const push = createAction(PUSH, (pathName, params = {}) => ({
   pathName,
   params
 }))

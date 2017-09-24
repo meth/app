@@ -7,7 +7,9 @@ describe('INIT', () => {
   it('updates the nodes and networks', () => {
     const state = Immutable.Map({})
 
-    const newState = reducer(state, {
+    const reduce = reducer()
+
+    const newState = reduce(state, {
       type: INIT,
       payload: {
         networks: 1,

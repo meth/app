@@ -5,12 +5,14 @@ import { SHOW, HIDE } from './actions'
 
 describe('SHOW', () => {
   it('shows a modal', () => {
+    const reduce = reducer()
+
     const state = Immutable.Map({
       modal1: false,
       modal2: false
     })
 
-    const newState = reducer(state, {
+    const newState = reduce(state, {
       type: SHOW,
       payload: 'modal1'
     })
@@ -22,12 +24,14 @@ describe('SHOW', () => {
 
 describe('HIDE', () => {
   it('hides a modal', () => {
+    const reduce = reducer()
+
     const state = Immutable.Map({
       modal1: true,
       modal2: true
     })
 
-    const newState = reducer(state, {
+    const newState = reduce(state, {
       type: HIDE,
       payload: 'modal1'
     })
