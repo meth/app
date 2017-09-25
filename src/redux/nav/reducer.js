@@ -9,13 +9,13 @@ export default ({ router }) => {
 
   return handleActions(
     {
-      [RESET]: (state, { pathName, params }) =>
+      [RESET]: (state, { payload: { path, params } }) =>
         router.getStateForAction(
-          router.getActionForPathAndParams(pathName, params)
+          router.getActionForPathAndParams(path, params)
         ),
-      [PUSH]: (state, { pathName, params }) =>
+      [PUSH]: (state, { payload: { path, params } }) =>
         router.getStateForAction(
-          router.getActionForPathAndParams(pathName, params),
+          router.getActionForPathAndParams(path, params),
           state
         )
     },

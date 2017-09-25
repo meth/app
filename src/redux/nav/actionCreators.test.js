@@ -6,7 +6,7 @@ describe('push()', () => {
     expect(push('test')).toEqual({
       type: PUSH,
       payload: {
-        pathName: 'test',
+        path: 'test',
         params: {}
       }
     })
@@ -16,7 +16,7 @@ describe('push()', () => {
     expect(push('test', { dummy: false })).toEqual({
       type: PUSH,
       payload: {
-        pathName: 'test',
+        path: 'test',
         params: { dummy: false }
       }
     })
@@ -28,7 +28,7 @@ describe('reset()', () => {
     expect(reset('test')).toEqual({
       type: RESET,
       payload: {
-        pathName: 'test',
+        path: 'test',
         params: {}
       }
     })
@@ -38,7 +38,7 @@ describe('reset()', () => {
     expect(reset('test', { dummy: false })).toEqual({
       type: RESET,
       payload: {
-        pathName: 'test',
+        path: 'test',
         params: { dummy: false }
       }
     })

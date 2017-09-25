@@ -42,7 +42,7 @@
     "add-asset-html-webpack-plugin": "^2.1.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
-    "babel-jest-assertions": "0.0.1",
+    "babel-jest-assertions": "0.0.2",
     "babel-loader": "^7.1.1",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-styled-components": "^1.1.7",
