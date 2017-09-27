@@ -1,24 +1,48 @@
 import EventEmitter from 'eventemitter3'
 
 import { Web3MethodFactory } from './web3Methods'
-import { EVENT } from '../../common/constants'
+import { EVENT, STATE } from '../../common/constants'
 import { UnableToConnectError } from '../utils/errors'
+import {
+  connectNodeInProgress,
+  nodeDisconnected
+} from '../redux/node/actionCreators'
 import logger from '../utils/log'
 import RpcAdapter from './adapter/rpc'
 
 const log = logger.create('NodeConnector')
 
-// eslint-disable-next-line import/prefer-default-export
-export class NodeConnector extends EventEmitter {
-  constructor ({ networks }) {
+class NodeConnector extends EventEmitter {
+  constructor () {
     super()
 
-    this._networks = networks
     this._adapter = null
-
     this._wrapResponse = this._wrapResponse.bind(this)
-
     this._methodFactory = new Web3MethodFactory(this)
+  }
+
+  setStore (store) {
+    this._store = store
+
+    // keep track of what's going on in connector
+    this.on(EVENT.STATE_CHANGE, (newState, msg) => {
+      switch (newState) {
+        case STATE.CONNECTING: {
+          store.dispatch(connectNodeInProgress(msg))
+          break
+        }
+        case STATE.CONNECTON_ERROR: {
+          store.dispatch(nodeDisconnected(STATE.CONNECTON_ERROR))
+          break
+        }
+        default:
+          break
+      }
+    })
+  }
+
+  setNetworks (networks) {
+    this._networks = networks
   }
 
   get isConnected () {
@@ -149,3 +173,5 @@ export class NodeConnector extends EventEmitter {
     }
   }
 }
+
+export default new NodeConnector()

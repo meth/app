@@ -3,9 +3,6 @@ import _ from 'lodash'
 
 import { buildAction } from '../actions'
 import log from '../../utils/log'
-import * as nav from './mixins/nav'
-import * as modals from './mixins/modals'
-import * as nodes from './mixins/nodes'
 import * as wallet from './mixins/wallet'
 
 /**
@@ -15,9 +12,6 @@ class Controller {
   constructor () {
     this._log = log.create('controller')
 
-    this._loadMixin('nav', nav)
-    this._loadMixin('modals', modals)
-    this._loadMixin('nodes', nodes)
     this._loadMixin('wallet', wallet)
   }
 

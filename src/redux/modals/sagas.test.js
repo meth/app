@@ -1,7 +1,7 @@
 import { takeLatest, put } from 'redux-saga/effects'
 
 import { INIT } from '../config/actions'
-import saga, { _privateFunctions } from './saga'
+import saga, { _privateFunctions } from './sagas'
 import { showConnectionModal } from './actionCreators'
 
 describe('modal saga', () => {

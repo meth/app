@@ -1,16 +1,12 @@
 import { applyMiddleware, compose, combineReducers, createStore } from 'redux'
-import { createSagaMiddleware } from 'redux-saga'
 
 import reducers from './reducers'
 import middleware from './middleware'
-import sagas from './sagas'
 
-export const create = () => {
-  const sagaMiddleware = createSagaMiddleware()
-
-  const store = compose(applyMiddleware([ ...middleware, sagaMiddleware ]))(
-    createStore
-  )(combineReducers(reducers))
+export const createReduxStore = () => {
+  const store = compose(applyMiddleware(...middleware))(createStore)(
+    combineReducers(reducers)
+  )
 
   // hot module reload
   if (__DEV__) {
@@ -35,9 +31,6 @@ export const create = () => {
       return m
     }, {})
   }
-
-  // kick-off sagas
-  sagaMiddleware.run(sagas)
 
   return store
 }

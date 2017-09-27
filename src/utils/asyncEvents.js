@@ -5,4 +5,4 @@ const define = arr =>
     return m
   }, {})
 
-module.exports = define([ 'CONNECT_NODE' ])
+module.exports = define([ 'NODE_IS_CONNECTING' ])
