@@ -5,8 +5,9 @@ import { createReduxStore } from './redux'
 import * as config from './config'
 import nodeConnector from './nodeConnector'
 import Root from './ui/Root'
+import { router } from './ui/nav'
 
-const store = createReduxStore({ config, nodeConnector })
+const store = createReduxStore({ config, nodeConnector, router })
 
 nodeConnector.setStore(store)
 

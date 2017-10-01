@@ -27,7 +27,7 @@ export const routes = {
   }
 }
 
-export const Router = TabRouter(routes, {
+export const router = TabRouter(routes, {
   navigationOptions: () => ({
     tabBarVisible: false
   })
@@ -40,9 +40,9 @@ export const addNavHelpers = addNavigationHelpers
 @connectStore('nav')
 class NavigatorView extends PureComponent {
   render () {
-    const { nav: state, router, dispatch } = mutable(this.props)
+    const { nav: state, router: navRouter, dispatch } = mutable(this.props)
 
-    const Component = router.getComponentForState(state)
+    const Component = navRouter.getComponentForState(state)
 
     const currentRoute = state.routes[state.index]
 
@@ -52,4 +52,4 @@ class NavigatorView extends PureComponent {
   }
 }
 
-export const Navigator = createNavigator(Router)(NavigatorView)
+export const Navigator = createNavigator(router)(NavigatorView)

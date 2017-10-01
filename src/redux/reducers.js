@@ -4,4 +4,13 @@ import modals from './modals/reducer'
 import node from './node/reducer'
 // import wallet from './wallet/reducer'
 
-export default { config, nav, modals, node }
+const reducers = { config, nav, modals, node }
+
+export const createReducers = app =>
+  Object.keys(reducers).reduce(
+    (m, key) => ({
+      ...m,
+      [key]: reducers[key](app)
+    }),
+    {}
+  )
