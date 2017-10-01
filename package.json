@@ -8,11 +8,12 @@
     "web": "webpack --env.development --env.vendor && webpack-dev-server --env.development",
     "web:prod": "webpack --env.production --env.vendor && webpack --env.production --progress",
     "web:serve": "http-serve -p 3001 --gzip true ./build/web",
-    "precommit": "npm run prettier",
-    "prettier": "prettier",
+    "precommit": "npm run prettier && npm run lint:js:fix",
+    "prettier": "prettier --config ./.prettierrc --write src/**/*.js",
     "lint:js": "eslint src/",
     "lint:js:fix": "eslint --fix src/",
-    "test": "lint:js && jest"
+    "test": "jest",
+    "build": "npm run lint:js && npm test"
   },
   "repository": {
     "type": "git",

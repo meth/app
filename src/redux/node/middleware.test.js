@@ -27,7 +27,7 @@ describe('node middleware', () => {
         getStateObject: () => ({})
       }
 
-      const handler = fn()(store)(next)
+      const handler = fn({})(store)(next)
 
       let action = createAction(NODE_IS_CONNECTING)({
         state: inProgress
@@ -100,7 +100,7 @@ describe('node middleware', () => {
         handler = fn({ nodeConnector })(store)(next)
       })
 
-      it('and dispatches the success action if connection succeeds', async () => {
+      it('and dispatches the success state if connecting succeeds', async () => {
         const mockConnect = jest.fn(data => Promise.resolve({ config: data }))
 
         nodeConnector.connect = mockConnect
@@ -121,6 +121,34 @@ describe('node middleware', () => {
           data: {
             config: 123
           }
+        }))
+      })
+
+      it('and dispatches the error state if connecting fails', async () => {
+        const err = 123
+
+        const mockConnect = jest.fn(() => Promise.reject(err))
+
+        nodeConnector.connect = mockConnect
+
+        const action = createAction(NODE_IS_CONNECTING)({
+          state: ready,
+          data: 123
+        })
+
+        try {
+          await handler(action)
+        } catch (err2) {
+          expect(err).toEqual(err)
+        }
+
+        expect(store.dispatch).toHaveBeenCalledTimes(2)
+        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_IS_CONNECTING)({
+          state: inProgress
+        }))
+        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_IS_CONNECTING)({
+          state: error,
+          data: err
         }))
       })
     })

@@ -25,8 +25,7 @@ const define = ClassName => {
   A.type = ClassName
 
   return A
-}
-
+};
 [
   'InvalidParams',
   'MethodNotAllowed',
