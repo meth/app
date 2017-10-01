@@ -81,9 +81,9 @@ export default class WebView extends PureComponent {
 
       handleWebViewIpcRequest(type, payload, permissions)
         .then(response => this.webView.send(IPC.WEBVIEW, { id, response }))
-        .catch(err =>
+        .catch(err => {
           this.webView.send(IPC.WEBVIEW, { id, error: err.toString() })
-        )
+        })
     }
   }
 

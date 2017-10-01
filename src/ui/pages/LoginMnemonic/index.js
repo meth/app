@@ -94,9 +94,9 @@ export default class Page extends PureComponent {
       () => {
         controller.wallet
           .generateNewMnemonic()
-          .then(mnemonic =>
+          .then(mnemonic => (
             controller.nav.push(routes.ConfirmNewMnemonic.path, { mnemonic })
-          )
+          ))
           .catch(generateNewError => this.setState({ generateNewError }))
       }
     )

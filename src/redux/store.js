@@ -2,23 +2,24 @@ import { applyMiddleware, compose, combineReducers, createStore } from 'redux'
 import { createSagaMiddleware } from 'redux-saga'
 
 import reducers from './reducers'
-import middleware from './middleware'
+import { createMiddleware } from './middleware'
 import sagas from './sagas'
 
-export const create = () => {
+export const create = app => {
   const sagaMiddleware = createSagaMiddleware()
+  const appMiddleware = createMiddleware(app)
 
-  const store = compose(applyMiddleware([ ...middleware, sagaMiddleware ]))(
+  const store = compose(applyMiddleware([ ...appMiddleware, sagaMiddleware ]))(
     createStore
   )(combineReducers(reducers))
 
   // hot module reload
   if (__DEV__) {
     if (module.hot) {
-      module.hot.accept('./reducers', () =>
+      module.hot.accept('./reducers', () => (
         // eslint-disable-next-line global-require
         store.replaceReducer(require('./reducers').default)
-      )
+      ))
     }
   }
 

@@ -26,7 +26,8 @@ const define = ClassName => {
 
   return A
 }
-;[
+
+[
   'InvalidParams',
   'MethodNotAllowed',
   'RequestTimeout',

@@ -38,7 +38,7 @@ export const dropShadower = (
   /* ios */
   shadowColor: color,
   shadowOffset: { width, height },
-  shadowOpacity: 0.3 + 0.1 * Math.min(level, SHADOW_MAX_LEVEL),
+  shadowOpacity: 0.3 + (0.1 * Math.min(level, SHADOW_MAX_LEVEL)),
   shadowRadius: Math.min(level, SHADOW_MAX_LEVEL) * 2,
   /* android */
   elevation: Math.min(level, SHADOW_MAX_LEVEL) * 7

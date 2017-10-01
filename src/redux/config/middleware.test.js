@@ -15,21 +15,9 @@ describe('config middleware', () => {
 
     expect(next).toHaveBeenCalledTimes(1)
     expect(next).toHaveBeenCalledWith(action)
-
-    expect(INIT).toBeDefined()
   })
 
   describe('processes the INIT action', () => {
-    beforeEach(() => {
-      jest.doMock('../../config', () => ({
-        load: cfg => `${cfg} loaded`
-      }))
-    })
-
-    afterEach(() => {
-      jest.dontMock('../../config')
-    })
-
     it('by loading the config', async () => {
       const next = jest.fn()
 

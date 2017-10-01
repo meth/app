@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb-base", "prettier"],
+  "extends": ["airbnb-base"],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 6
@@ -7,8 +7,16 @@
   "env": {
     "jest": true
   },
-  "plugins": [ "react", "prettier" ],
+  "plugins": [ "react" ],
   "rules": {
+    "semi": ["error", "never"],
+    "comma-dangle": ["error", "never"],
+    "space-before-function-paren": ["error", "always"],
+    "arrow-parens": ["error", "as-needed"],
+    "array-bracket-spacing": ["error", "always"],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "object-curly-newline": ["error", { "consistent": true }],
+    "function-paren-newline": ["error", "consistent"],
     "class-methods-use-this": 0,
     "no-underscore-dangle": 0,
     "import/prefer-default-export": 0,
@@ -17,23 +25,7 @@
     "yoda": 0,
     "brace-style": 0,
     "react/jsx-uses-vars": 2,
-    "react/jsx-uses-react": 2,
-    "prettier/prettier": [
-      "error",
-      {
-        bracketSpacing: true,
-        jsxBracketSameLine: true,
-        printWidth: 80,
-        semi: false,
-        singleQuote: true,
-        tabWidth: 2,
-        trailingComma: "none",
-        useTabs: false,
-        spaceBeforeFunctionParen: true
-      },
-      null,
-      "prettier-miscellaneous"
-    ]
+    "react/jsx-uses-react": 2
   },
   "settings": {
     "import/resolver": {

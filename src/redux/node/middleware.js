@@ -5,10 +5,9 @@ import {
   connectNodeSuccess
 } from './actionCreators'
 import { ready } from '../../utils/stateMachines'
-import NodeConnector from '../../nodeConnector'
 
 // eslint-disable-next-line consistent-return
-export default () => store => next => async action => {
+export default ({ nodeConnector }) => store => next => async action => {
   if (NODE_IS_CONNECTING !== action.type) {
     return next(action)
   }
@@ -19,12 +18,12 @@ export default () => store => next => async action => {
     return next(action)
   }
 
-  store.dispatch(connectNodeInProgress())
+  await store.dispatch(connectNodeInProgress())
 
   try {
-    store.dispatch(connectNodeSuccess(await NodeConnector.connect(data)))
+    await store.dispatch(connectNodeSuccess(await nodeConnector.connect(data)))
   } catch (err) {
-    store.dispatch(connectNodeError(err))
+    await store.dispatch(connectNodeError(err))
 
     throw err
   }

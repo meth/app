@@ -2,12 +2,13 @@ import React from 'react'
 import { Provider } from 'react-redux'
 
 import { createReduxStore } from './redux'
-import NodeConnector from './nodeConnector'
+import * as config from './config'
+import nodeConnector from './nodeConnector'
 import Root from './ui/Root'
 
-const store = createReduxStore()
+const store = createReduxStore({ config, nodeConnector })
 
-NodeConnector.setStore(store)
+nodeConnector.setStore(store)
 
 export default () => (
   <Provider store={store}>

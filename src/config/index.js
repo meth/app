@@ -20,7 +20,7 @@ const CACHE = {}
  * @param  {String} fileName name of config file
  * @return {Promise}
  */
-exports.load = async fileName => {
+export const load = async fileName => {
   log.info(`Load config: ${fileName}`)
 
   if (CACHE[fileName]) {

@@ -11,10 +11,10 @@ export const createReduxStore = () => {
   // hot module reload
   if (__DEV__) {
     if (module.hot) {
-      module.hot.accept('./reducers', () =>
+      module.hot.accept('./reducers', () => (
         // eslint-disable-next-line global-require
         store.replaceReducer(require('./reducers').default)
-      )
+      ))
     }
   }
 
