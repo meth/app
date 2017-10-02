@@ -5,54 +5,54 @@ import { toBN } from 'web3-utils'
 
 import logger from '../utils/log'
 import { WalletNotLoadedError } from '../utils/errors'
+import { updateBalances } from '../redux/wallet/actionCreators'
 import { EVENT, STATE } from '../../common/constants'
-import controller from '../redux/controller'
 
 const log = logger.create('Wallet')
 
 class Wallet extends EventEmitter {
-  constructor () {
+  constructor ({ store, nodeConnector }, mnemonic) {
     super()
 
-    this._onNodeConnectionStateChange = this._onNodeConnectionStateChange.bind(
-      this
-    )
-    this._onNewBlock = this._onNewBlock.bind(this)
+    this._nodeConnector = nodeConnector
+    this._store = store
+    this._mnemonic = mnemonic
   }
 
   /**
-   * Load wallet data using mnemonic.
+   * Initialize this wallet.
    *
-   * @param  {String}  mnemonic
+   * Should be called after construction.
+   *
    * @return {Promise}
    */
-  async load (mnemonic) {
-    log.info(`Load wallet (${mnemonic})...`)
-
-    this._mnemonic = mnemonic
+  async init () {
+    log.info(`Initialzie wallet ...`)
 
     await this._load()
 
-    const NodeConnector = await this._getNodeConnection()
-
-    NodeConnector.on(EVENT.STATE_CHANGE, this._onNodeConnectionStateChange)
-    NodeConnector.on(EVENT.NEW_BLOCK, this._onNewBlock)
+    this._nodeConnector.on(
+      EVENT.STATE_CHANGE,
+      this._onNodeConnectionStateChange.bind(this)
+    )
+    this._nodeConnector.on(EVENT.NEW_BLOCK, this._onNewBlock.bind(this))
   }
 
   /**
-   * Unload current wallet data.
+   * Reset this wallet.
+   *
+   * `init()` will need to be called to again use this wallet.
+   *
    * @return {Promise}
    */
-  async unload () {
+  async destroy () {
     log.info('Unload wallet ...')
 
-    const NodeConnector = await this._getNodeConnection()
-
-    NodeConnector.removeListener(
+    this.nodeConnector.removeListener(
       EVENT.STATE_CHANGE,
       this._onNodeConnectionStateChange
     )
-    NodeConnector.removeListener(EVENT.NEW_BLOCK, this._onNewBlock)
+    this.nodeConnector.removeListener(EVENT.NEW_BLOCK, this._onNewBlock)
 
     this._hdWallet = null
     this._balances = []
@@ -94,21 +94,11 @@ class Wallet extends EventEmitter {
   }
 
   /**
-   * Get node connection
-   * @return {Promise}
-   */
-  async _getNodeConnection () {
-    return controller.nodes.getCurrentConnection()
-  }
-
-  /**
    * Get balance of address
    * @return {Promise}
    */
   async _getBalance (address) {
-    const NodeConnector = await this._getNodeConnection()
-
-    return NodeConnector.rawCall('eth_getBalance', [ address, 'latest' ])
+    return this.nodeConnector.rawCall('eth_getBalance', [ address, 'latest' ])
   }
 
   /**
@@ -122,9 +112,10 @@ class Wallet extends EventEmitter {
     }
 
     switch (newState) {
-      // once reconnected, re-init the wallet
+      // once reconnected
       case STATE.CONNECTED:
         log.info('Node connection re-established, reloading wallet data ...')
+        // re-load the wallet data
         this._reload()
         break
 
@@ -141,25 +132,30 @@ class Wallet extends EventEmitter {
       return
     }
 
-    log.debug('New block received ...')
+    log.debug('New block received, update balances ...')
 
     this._updateBalances()
   }
 
-  _updateBalances () {
+  /**
+   * Update account balances\
+   */
+  async _updateBalances () {
     log.debug('Update address balances ...')
 
     const addresses = this._hdWallet.getAddresses()
 
-    Promise.all(addresses.map(a => this._getBalance(a)))
-      .then(balances => {
-        this._balances = balances.map(toBN)
+    try {
+      const balances = await Promise.all(
+        addresses.map(a => this._getBalance(a))
+      )
 
-        this.emit(EVENT.NEW_BALANCES, this.getAccountBalances())
-      })
-      .catch(err => {
-        log.debug('Balance query error', err)
-      })
+      this._balances = balances.map(toBN)
+
+      this._store.dispatch(updateBalances(this.getAccountBalances()))
+    } catch (err) {
+      log.debug('Balance query error', err)
+    }
   }
 
   /**
@@ -240,4 +236,4 @@ class Wallet extends EventEmitter {
   }
 }
 
-export default new Wallet()
+export default Wallet
