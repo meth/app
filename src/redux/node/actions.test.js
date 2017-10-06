@@ -1,4 +1,4 @@
-import { NODE_DISCONNECTED, NODE_IS_CONNECTING } from './actions'
+import { NODE_DISCONNECTED, NODE_CONNECTED, NODE_CONNECTING, NODE_CONNECT_ERROR } from './actions'
 
 describe('NODE_DISCONNECTED', () => {
   it('is defined', () => {
@@ -6,8 +6,20 @@ describe('NODE_DISCONNECTED', () => {
   })
 })
 
-describe('NODE_IS_CONNECTING', () => {
+describe('NODE_CONNECTED', () => {
   it('is defined', () => {
-    expect(NODE_IS_CONNECTING).toBeDefined()
+    expect(NODE_CONNECTED).toBeDefined()
+  })
+})
+
+describe('NODE_CONNECTING', () => {
+  it('is defined', () => {
+    expect(NODE_CONNECTING).toBeDefined()
+  })
+})
+
+describe('NODE_CONNECT_ERROR', () => {
+  it('is defined', () => {
+    expect(NODE_CONNECT_ERROR).toBeDefined()
   })
 })

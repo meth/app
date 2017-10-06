@@ -1,8 +1,9 @@
 import Immutable from 'immutable'
 
 import reducer from './reducer'
-import { NODE_IS_CONNECTING, NODE_DISCONNECTED } from './actions'
-import { success } from '../../utils/stateMachines'
+import { NODE_CONNECTED, NODE_CONNECTING, NODE_CONNECT_ERROR, NODE_DISCONNECTED } from './actions'
+import { CONNECT_NODE_EVENT } from '../../utils/asyncEvents'
+import { inProgress, error, success } from '../../utils/stateMachines'
 
 describe('NODE_DISCONNECTED', () => {
   it('updates the connection status', () => {
@@ -22,113 +23,163 @@ describe('NODE_DISCONNECTED', () => {
   })
 })
 
-describe('NODE_IS_CONNECTING', () => {
-  it('updates the state machine', () => {
-    const machine = {
-      update: jest.fn(() => machine),
+describe('NODE_CONNECTING', () => {
+  let event
+  let state
+  let reduce
+
+  beforeEach(() => {
+    event = {
+      update: jest.fn(() => event),
       getState: () => null
     }
 
-    const state = Immutable.Map({
-      [NODE_IS_CONNECTING]: machine
+    state = Immutable.Map({
+      [CONNECT_NODE_EVENT]: event
     })
 
-    const reduce = reducer()
+    reduce = reducer()
+  })
 
+  it('updates the connect event', () => {
     const newState = reduce(state, {
-      type: NODE_IS_CONNECTING,
+      type: NODE_CONNECTING,
       payload: 'whatever'
     })
 
-    expect(machine.update).toHaveBeenCalledWith({ payload: 'whatever' })
-    expect(newState.get(NODE_IS_CONNECTING)).toEqual(machine)
+    expect(event.update).toHaveBeenCalledWith({
+      state: inProgress,
+      data: 'whatever'
+    })
+    expect(newState.get(CONNECT_NODE_EVENT)).toEqual(event)
   })
 
   it('normally disables the isConnected flag', () => {
-    const machine = {
-      update: jest.fn(() => machine),
-      getState: () => null
-    }
-
-    const state = Immutable.Map({
-      [NODE_IS_CONNECTING]: machine,
-      isConnected: true
-    })
-
-    const reduce = reducer()
+    state = state.set('isConnected', true)
 
     const newState = reduce(state, {
-      type: NODE_IS_CONNECTING,
+      type: NODE_CONNECTING,
       payload: 'whatever'
     })
 
     expect(newState.get('isConnected')).toEqual(false)
   })
 
-  it('normally does not update the genesis block', () => {
-    const machine = {
-      update: jest.fn(() => machine),
-      getState: () => null
-    }
-
-    const state = Immutable.Map({
-      [NODE_IS_CONNECTING]: machine,
-      genesisBlock: 123
-    })
-
-    const reduce = reducer()
+  it('normally clears the genesis block', () => {
+    state = state.set('genesisBlock', 123)
 
     const newState = reduce(state, {
-      type: NODE_IS_CONNECTING,
+      type: NODE_CONNECTING,
       payload: 'whatever'
     })
 
-    expect(newState.get('genesisBlock')).toEqual(123)
+    expect(newState.get('genesisBlock')).toEqual(null)
+  })
+})
+
+describe('NODE_CONNECT_ERROR', () => {
+  let event
+  let state
+  let reduce
+
+  beforeEach(() => {
+    event = {
+      update: jest.fn(() => event),
+      getState: () => null
+    }
+
+    state = Immutable.Map({
+      [CONNECT_NODE_EVENT]: event
+    })
+
+    reduce = reducer()
   })
 
-  describe('must represent a successful connection', () => {
-    it('to enable the isConnected flag', () => {
-      const machine = {
-        update: jest.fn(() => machine),
-        getState: () => success,
-        getData: () => ({ blockNumber: 1 })
-      }
-
-      const state = Immutable.Map({
-        [NODE_IS_CONNECTING]: machine,
-        isConnected: false
-      })
-
-      const reduce = reducer()
-
-      const newState = reduce(state, {
-        type: NODE_IS_CONNECTING,
-        payload: 'whatever'
-      })
-
-      expect(newState.get('isConnected')).toEqual(true)
+  it('updates the connect event', () => {
+    const newState = reduce(state, {
+      type: NODE_CONNECT_ERROR,
+      payload: 'whatever'
     })
 
-    it('to update the genesis block', () => {
-      const machine = {
-        update: jest.fn(() => machine),
-        getState: () => success,
-        getData: () => ({ blockNumber: 1 })
-      }
-
-      const state = Immutable.Map({
-        [NODE_IS_CONNECTING]: machine,
-        genesisBlock: 123
-      })
-
-      const reduce = reducer()
-
-      const newState = reduce(state, {
-        type: NODE_IS_CONNECTING,
-        payload: 'whatever'
-      })
-
-      expect(newState.get('genesisBlock')).toEqual({ blockNumber: 1 })
+    expect(event.update).toHaveBeenCalledWith({
+      state: error,
+      data: 'whatever'
     })
+    expect(newState.get(CONNECT_NODE_EVENT)).toEqual(event)
+  })
+
+  it('normally disables the isConnected flag', () => {
+    state = state.set('isConnected', true)
+
+    const newState = reduce(state, {
+      type: NODE_CONNECT_ERROR,
+      payload: 'whatever'
+    })
+
+    expect(newState.get('isConnected')).toEqual(false)
+  })
+
+  it('normally clears the genesis block', () => {
+    state = state.set('genesisBlock', 123)
+
+    const newState = reduce(state, {
+      type: NODE_CONNECT_ERROR,
+      payload: 'whatever'
+    })
+
+    expect(newState.get('genesisBlock')).toEqual(null)
+  })
+})
+
+describe('NODE_CONNECTED', () => {
+  let event
+  let state
+  let reduce
+
+  beforeEach(() => {
+    event = {
+      update: jest.fn(() => event),
+      getState: () => null
+    }
+
+    state = Immutable.Map({
+      [CONNECT_NODE_EVENT]: event
+    })
+
+    reduce = reducer()
+  })
+
+  it('updates the connect event', () => {
+    const newState = reduce(state, {
+      type: NODE_CONNECTED,
+      payload: 'whatever'
+    })
+
+    expect(event.update).toHaveBeenCalledWith({
+      state: success
+    })
+    expect(newState.get(CONNECT_NODE_EVENT)).toEqual(event)
+  })
+
+  it('normally enables the isConnected flag', () => {
+    state = state.set('isConnected', false)
+
+    const newState = reduce(state, {
+      type: NODE_CONNECTED,
+      payload: 'whatever'
+    })
+
+    expect(newState.get('isConnected')).toEqual(true)
+  })
+
+  it('normally sets the genesis block', () => {
+    state = state.set('genesisBlock', null)
+
+    const newState = reduce(state, {
+      type: NODE_CONNECTED,
+      payload: 123
+    })
+
+    expect(newState.get('genesisBlock')).toEqual(123)
   })
 })

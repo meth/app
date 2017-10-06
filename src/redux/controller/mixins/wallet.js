@@ -1,15 +1,7 @@
-import Mnemonic from 'bitcore-mnemonic'
-
 import { EVENT } from '../../../../common/constants'
 import MODALS from '../../../utils/modals'
 import { Actions } from '../../actions'
-import Wallet from '../../../wallet'
 
-export function generateNewMnemonic () {
-  this._log.debug('Generate new mnemonic')
-
-  return new Mnemonic(Mnemonic.Words.ENGLISH).toString()
-}
 
 export async function loadUsingMnemonic (mnemonic) {
   this._log.debug('Load wallet using mnemonic')

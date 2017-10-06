@@ -1,9 +1,10 @@
 import { createAction } from 'redux-actions'
 
 import fn from './middleware'
-import { INIT } from './actions'
 
-describe('config middleware', () => {
+import { REQUEST } from './actions'
+
+describe('web3 middleware', () => {
   it('passes actions through', async () => {
     const next = jest.fn()
 
@@ -17,47 +18,27 @@ describe('config middleware', () => {
     expect(next).toHaveBeenCalledWith(action)
   })
 
-  describe('processes the INIT action', () => {
-    it('by loading the config', async () => {
+  describe('processes the REQUEST action', () => {
+    it('by passing on the request to the node connector', async () => {
       const next = jest.fn()
 
-      const store = {
-        getStateObject: () => ({})
+      const nodeConnector = {
+        request: jest.fn(() => Promise.resolve(123))
       }
 
-      const config = {
-        load: arg => `${arg} loaded`
-      }
+      const handler = fn({ nodeConnector })({})(next)
 
-      const handler = fn({ config })(store)(next)
+      const res = await handler(createAction(REQUEST)({
+        master: 'blaster'
+      }))
 
-      await handler(createAction(INIT)())
-
-      expect(next).toHaveBeenCalledTimes(1)
-      expect(next).toHaveBeenCalledWith(
-        createAction(INIT, () => ({
-          networks: 'networks loaded',
-          nodes: 'nodes loaded'
-        }))()
-      )
-    })
-
-    it('unless config is already loaded', async () => {
-      const next = jest.fn()
-
-      const store = {
-        getStateObject: () => ({
-          nodes: 23
-        })
-      }
-
-      const handler = fn({})(store)(next)
-
-      await handler(createAction(INIT)())
-      await handler(createAction(INIT)())
-      await handler(createAction(INIT)())
+      expect(res).toEqual(123)
 
       expect(next).not.toHaveBeenCalled()
+
+      expect(nodeConnector.request).toHaveBeenCalledWith({
+        master: 'blaster'
+      })
     })
   })
 })
