@@ -1,8 +1,2 @@
-const define = arr =>
-  arr.reduce((m, v) => {
-    // eslint-disable-next-line no-param-reassign
-    m[v] = v
-    return m
-  }, {})
-
-module.exports = define([ 'NODE_IS_CONNECTING' ])
+export const CONNECT_NODE_EVENT = 'CONNECT_NODE_EVENT'
+export const SEND_TX_EVENT = 'SEND_TX_EVENT'

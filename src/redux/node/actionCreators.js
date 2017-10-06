@@ -1,27 +1,14 @@
 import { createAction } from 'redux-actions'
 
-import { ready, inProgress, error, success } from '../../utils/stateMachines'
-import { NODE_IS_CONNECTING, NODE_DISCONNECTED } from './actions'
+import { NODE_CONNECTED, NODE_CONNECT_ERROR, NODE_CONNECTING, CONNECT_NODE, NODE_DISCONNECTED } from './actions'
 
-export const connectNode = createAction(NODE_IS_CONNECTING, data => ({
-  state: ready,
-  data
-}))
+export const connectNode = createAction(CONNECT_NODE)
 
-export const connectNodeInProgress = createAction(NODE_IS_CONNECTING, data => ({
-  state: inProgress,
-  data
-}))
+export const nodeConnectError = createAction(NODE_CONNECT_ERROR)
 
-export const connectNodeError = createAction(NODE_IS_CONNECTING, data => ({
-  state: error,
-  data
-}))
+export const nodeConnected = createAction(NODE_CONNECTED)
 
-export const connectNodeSuccess = createAction(NODE_IS_CONNECTING, data => ({
-  state: success,
-  data
-}))
+export const nodeConnecting = createAction(NODE_CONNECTING)
 
 export const nodeDisconnected = createAction(NODE_DISCONNECTED, reason => ({
   reason

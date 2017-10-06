@@ -1,56 +1,55 @@
 import {
   connectNode,
-  connectNodeInProgress,
-  connectNodeError,
-  connectNodeSuccess
+  nodeDisconnected,
+  nodeConnecting,
+  nodeConnected,
+  nodeConnectError
 } from './actionCreators'
-import { NODE_IS_CONNECTING } from './actions'
-import { ready, inProgress, error, success } from '../../utils/stateMachines'
+import { NODE_DISCONNECTED, CONNECT_NODE, NODE_CONNECT_ERROR, NODE_CONNECTING, NODE_CONNECTED } from './actions'
+
+describe('nodeDisconnected()', () => {
+  it('returns action', () => {
+    expect(nodeDisconnected(123)).toEqual({
+      type: NODE_DISCONNECTED,
+      payload: {
+        reason: 123
+      }
+    })
+  })
+})
 
 describe('connectNode()', () => {
   it('returns action', () => {
     expect(connectNode(123)).toEqual({
-      type: NODE_IS_CONNECTING,
-      payload: {
-        state: ready,
-        data: 123
-      }
+      type: CONNECT_NODE,
+      payload: 123
     })
   })
 })
 
-describe('connectNodeInProgress()', () => {
+describe('nodeConnecting()', () => {
   it('returns action', () => {
-    expect(connectNodeInProgress(123)).toEqual({
-      type: NODE_IS_CONNECTING,
-      payload: {
-        state: inProgress,
-        data: 123
-      }
+    expect(nodeConnecting(123)).toEqual({
+      type: NODE_CONNECTING,
+      payload: 123
     })
   })
 })
 
-describe('connectNodeError()', () => {
+describe('nodeConnectError()', () => {
   it('returns action', () => {
-    expect(connectNodeError(123)).toEqual({
-      type: NODE_IS_CONNECTING,
-      payload: {
-        state: error,
-        data: 123
-      }
+    expect(nodeConnectError(123)).toEqual({
+      type: NODE_CONNECT_ERROR,
+      payload: 123
     })
   })
 })
 
-describe('connectNodeSuccess()', () => {
+describe('nodeConnected()', () => {
   it('returns action', () => {
-    expect(connectNodeSuccess(123)).toEqual({
-      type: NODE_IS_CONNECTING,
-      payload: {
-        state: success,
-        data: 123
-      }
+    expect(nodeConnected(123)).toEqual({
+      type: NODE_CONNECTED,
+      payload: 123
     })
   })
 })

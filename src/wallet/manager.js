@@ -7,6 +7,8 @@ const app = {
   nodeConnector: null
 }
 
+let currentWallet
+
 export const init = ({ store, nodeConnector }) => {
   Object.assign(app, { store, nodeConnector })
 }
@@ -19,23 +21,32 @@ export const generateNewMnemonic = () =>
   new Mnemonic(Mnemonic.Words.ENGLISH).toString()
 
 /**
+ * Get current wallet
+ */
+export const wallet = () => currentWallet
+
+/**
+ * Unload current wallet.
+ * @return {Promise}
+ */
+export const unload = async () => {
+  await currentWallet.destroy()
+  currentWallet = null
+}
+
+/**
  * Load wallet using given mnemonic
  * @param {String} mnemonic
  * @return {Promise}
  */
 export const load = async mnemonic => {
-  const wallet = new Wallet(app, mnemonic)
+  if (currentWallet) {
+    await unload()
+  }
 
-  await wallet.init()
+  currentWallet = new Wallet(app, mnemonic)
 
-  return wallet
-}
+  await currentWallet.init()
 
-/**
- * Unload given wallet.
- * @param {Wallet} wallet
- * @return {Promise}
- */
-export const unload = async wallet => {
-  await wallet.destroy()
+  return currentWallet
 }

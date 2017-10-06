@@ -5,8 +5,8 @@ import { InvalidParamsError } from '../../utils/errors'
 import controller from '../../redux/controller'
 
 export default class EthSendTransaction extends GenericMethod {
-  constructor (nodeConnector) {
-    super(nodeConnector, 'eth_sendTransaction')
+  constructor (config) {
+    super(config, 'eth_sendTransaction')
   }
 
   async run (params) {

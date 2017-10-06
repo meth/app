@@ -1,11 +1,13 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
-import { BALANCES } from './actions'
+import { BALANCES, SENDING_TRANSACTION } from './actions'
+import { createStateActionMachine } from '../../utils/stateMachines'
 
 export default () => {
   const InitialState = Immutable.Map({
-    balances: {}
+    balances: {},
+    [SENDING_TRANSACTION]: createStateActionMachine()
   })
 
   return handleActions(
