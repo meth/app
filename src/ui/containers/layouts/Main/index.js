@@ -11,7 +11,7 @@ import TouchableView from '../../components/TouchableView'
 import styles from './styles'
 
 @connectStore('wallet')
-export default class Layout extends PureComponent {
+export default class MainLayout extends PureComponent {
   render () {
     const { children, contentStyle, wallet: { accountBalances } } = mutable(
       this.props

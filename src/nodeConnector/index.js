@@ -68,7 +68,7 @@ class NodeConnector extends EventEmitter {
     }
 
     // event propagation
-    [ EVENT.STATE_CHANGE, EVENT.NEW_BLOCK ].forEach(e => {
+    ;[ EVENT.STATE_CHANGE, EVENT.NEW_BLOCK ].forEach(e => {
       this._adapter.on(e, (...args) => this.emit(e, ...args))
     })
 
