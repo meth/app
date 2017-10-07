@@ -2,9 +2,9 @@ import config from './config/reducer'
 import nav from './nav/reducer'
 import modals from './modals/reducer'
 import node from './node/reducer'
-// import wallet from './wallet/reducer'
+import wallet from './wallet/reducer'
 
-const reducers = { config, nav, modals, node }
+const reducers = { config, nav, modals, node, wallet }
 
 export const createReducers = app =>
   Object.keys(reducers).reduce(

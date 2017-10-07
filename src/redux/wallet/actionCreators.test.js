@@ -27,7 +27,7 @@ describe('transactionSending()', () => {
   })
 })
 
-describe('transactionSent(123)', () => {
+describe('transactionSent()', () => {
   it('returns action', () => {
     expect(transactionSent(123)).toEqual({
       type: TX_SENT,

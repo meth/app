@@ -2,7 +2,6 @@ import _ from 'lodash'
 
 import GenericMethod from './generic'
 import { InvalidParamsError } from '../../utils/errors'
-import controller from '../../redux/controller'
 
 export default class EthSendTransaction extends GenericMethod {
   constructor (config) {
@@ -29,6 +28,6 @@ export default class EthSendTransaction extends GenericMethod {
       tx.value = 0
     }
 
-    await controller.wallet.sendTransaction(tx)
+    return this._walletManager.wallet().sendTransaction(tx)
   }
 }

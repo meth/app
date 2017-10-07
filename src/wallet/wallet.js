@@ -5,7 +5,7 @@ import { toBN } from 'web3-utils'
 
 import logger from '../utils/log'
 import { WalletNotLoadedError } from '../utils/errors'
-import { updateBalances } from '../redux/wallet/actionCreators'
+import { updateBalances, sendTransaction } from '../redux/wallet/actionCreators'
 import { EVENT, STATE } from '../../common/constants'
 
 const log = logger.create('Wallet')
@@ -91,6 +91,16 @@ class Wallet extends EventEmitter {
     this._updateBalances()
 
     return addr
+  }
+
+  /**
+   * Send a transaction.
+   * @return {Object} tx Transaction payload
+   */
+  async sendTransaction (tx) {
+    this._ensureLoaded()
+
+    return this._store.dispatch(sendTransaction(tx))
   }
 
   /**

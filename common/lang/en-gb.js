@@ -26,6 +26,7 @@ module.exports = {
       requestTimeout: 'Request timed out',
       methodCall: 'Error calling method: {method}',
       unexpected: 'An unexpected error occurred',
+      transactionAlreadyInProgress: 'A transaction is already in progress'
     },
     mnemonic: {
       enterYourMnemonic: 'Enter your mnemonic',

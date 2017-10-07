@@ -25,14 +25,15 @@ const define = ClassName => {
   A.type = ClassName
 
   return A
-}
-;[
+};
+[
   'InvalidParams',
   'MethodNotAllowed',
   'RequestTimeout',
   'UnableToConnect',
   'CorruptData',
-  'WalletNotLoaded'
+  'WalletNotLoaded',
+  'SendTransactionError'
 ].forEach(e => {
   const n = `${e}Error`
 

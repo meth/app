@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 
 import { connectStore, mutable } from '../../../helpers/redux'
-import controller from '../../../../redux/controller'
 import { t } from '../../../../../common/strings'
 import { CONNECT_NODE } from '../../../../utils/asyncEvents'
 import { error } from '../../../../utils/stateMachines'
@@ -102,8 +101,7 @@ export default class ConnectNode extends PureComponent {
 
     const node = _.get(nodes, selected)
 
-    controller.nodes
-      .connect(node)
+    connectNode(node)
       .then(() => controller.nodes.hideConnectionModal())
       .catch(() => {})
   }
