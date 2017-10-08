@@ -84,7 +84,11 @@ export default class Page extends PureComponent {
       () => {
         loadWallet(this.state.mnemonic)
           .then(() => navPush(routes.Browser.path))
-          .catch(inputExistingError => this.setState({ inputExistingError }))
+          .catch(inputExistingError => {
+            console.warn(inputExistingError)
+
+            this.setState({ inputExistingError })
+          })
       }
     )
   }
@@ -101,7 +105,11 @@ export default class Page extends PureComponent {
           .then(mnemonic => (
             navPush(routes.ConfirmNewMnemonic.path, { mnemonic })
           ))
-          .catch(generateNewError => this.setState({ generateNewError }))
+          .catch(generateNewError => {
+            console.warn(generateNewError)
+
+            this.setState({ generateNewError })
+          })
       }
     )
   }

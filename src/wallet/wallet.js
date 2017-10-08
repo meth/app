@@ -48,11 +48,11 @@ class Wallet extends EventEmitter {
   async destroy () {
     log.info('Unload wallet ...')
 
-    this.nodeConnector.removeListener(
+    this._nodeConnector.removeListener(
       EVENT.STATE_CHANGE,
       this._onNodeConnectionStateChange
     )
-    this.nodeConnector.removeListener(EVENT.NEW_BLOCK, this._onNewBlock)
+    this._nodeConnector.removeListener(EVENT.NEW_BLOCK, this._onNewBlock)
 
     this._hdWallet = null
     this._balances = []
@@ -98,7 +98,7 @@ class Wallet extends EventEmitter {
    * @return {Promise}
    */
   async _getBalance (address) {
-    return this.nodeConnector.rawCall('eth_getBalance', [ address, 'latest' ])
+    return this._nodeConnector.rawCall('eth_getBalance', [ address, 'latest' ])
   }
 
   /**

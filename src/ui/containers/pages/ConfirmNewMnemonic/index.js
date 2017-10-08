@@ -47,7 +47,11 @@ export default class Page extends PureComponent {
     this.setState({ error: null }, () => {
       loadWallet(mnemonic)
         .then(() => navPush(routes.Browser.path))
-        .catch(error => this.setState({ error }))
+        .catch(error => {
+          console.warn(error)
+
+          this.setState({ error })
+        })
     })
   }
 }
