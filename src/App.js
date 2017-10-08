@@ -8,7 +8,7 @@ import * as walletManager from './wallet/manager'
 import Root from './ui/Root'
 import { router } from './ui/nav'
 
-const store = createReduxStore({ config, nodeConnector, router })
+const store = createReduxStore({ config, nodeConnector, walletManager, router })
 nodeConnector.init({ store, walletManager })
 walletManager.init({ store, nodeConnector })
 

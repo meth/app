@@ -2,9 +2,9 @@ import { createAction } from 'redux-actions'
 
 import fn from './middleware'
 
-import { REQUEST } from './actions'
+import { WEB3_REQUEST, GENERATE_ACCOUNT } from './actions'
 
-describe('web3 middleware', () => {
+describe('api middleware', () => {
   it('passes actions through', async () => {
     const next = jest.fn()
 
@@ -18,7 +18,7 @@ describe('web3 middleware', () => {
     expect(next).toHaveBeenCalledWith(action)
   })
 
-  describe('processes the REQUEST action', () => {
+  describe('processes the WEB3_REQUEST action', () => {
     it('by passing on the request to the node connector', async () => {
       const next = jest.fn()
 
@@ -28,7 +28,7 @@ describe('web3 middleware', () => {
 
       const handler = fn({ nodeConnector })({})(next)
 
-      const res = await handler(createAction(REQUEST)({
+      const res = await handler(createAction(WEB3_REQUEST)({
         master: 'blaster'
       }))
 
@@ -39,6 +39,26 @@ describe('web3 middleware', () => {
       expect(nodeConnector.request).toHaveBeenCalledWith({
         master: 'blaster'
       })
+    })
+  })
+
+  describe('processes the GENERATE_ACCOUNT action', () => {
+    it('by passing on the request to the wallet', async () => {
+      const next = jest.fn()
+
+      const walletManager = {
+        wallet: () => ({
+          generateAccount: () => 123
+        })
+      }
+
+      const handler = fn({ walletManager })({})(next)
+
+      const res = await handler(createAction(GENERATE_ACCOUNT)())
+
+      expect(res).toEqual(123)
+
+      expect(next).not.toHaveBeenCalled()
     })
   })
 })
