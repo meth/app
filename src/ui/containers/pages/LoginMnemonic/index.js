@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 
 import { generateNewMnemonic, load as loadWallet } from '../../../../wallet/manager'
 import { routes } from '../../../nav'
+import logger from '../../../../utils/log'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -10,6 +11,8 @@ import ErrorBox from '../../../components/ErrorBox'
 import Button from '../../../components/Button'
 import TextInput from '../../../components/TextInput'
 import Layout from '../Layout'
+
+const log = logger.create('LoginMnemonic')
 
 @connectStore('nav')
 export default class Page extends PureComponent {
@@ -85,7 +88,7 @@ export default class Page extends PureComponent {
         loadWallet(this.state.mnemonic)
           .then(() => navPush(routes.Browser.path))
           .catch(inputExistingError => {
-            console.warn(inputExistingError)
+            log.debug(inputExistingError)
 
             this.setState({ inputExistingError })
           })
@@ -106,7 +109,7 @@ export default class Page extends PureComponent {
             navPush(routes.ConfirmNewMnemonic.path, { mnemonic })
           ))
           .catch(generateNewError => {
-            console.warn(generateNewError)
+            log.debug(generateNewError)
 
             this.setState({ generateNewError })
           })
