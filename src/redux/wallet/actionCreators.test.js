@@ -38,9 +38,12 @@ describe('transactionSent()', () => {
 
 describe('transactionSendError()', () => {
   it('returns action', () => {
-    expect(transactionSendError(123)).toEqual({
+    const err = new Error('test')
+
+    expect(transactionSendError(err)).toEqual({
       type: TX_SEND_ERROR,
-      payload: 123
+      payload: err,
+      error: true
     })
   })
 })

@@ -3,16 +3,18 @@ import createSagaMiddleware from 'redux-saga'
 
 import { createReducers } from './reducers'
 import { createMiddleware } from './middleware'
-import sagas from './sagas'
+import { createSagas } from './sagas'
 
 export const createReduxStore = app => {
   const sagaMiddleware = createSagaMiddleware()
   const appMiddleware = createMiddleware(app)
   const reducers = createReducers(app)
+  const sagas = createSagas(app)
 
-  const store = compose(applyMiddleware(...appMiddleware, sagaMiddleware))(
-    createStore
-  )(combineReducers(reducers))
+  const store = compose(
+    applyMiddleware(...appMiddleware, sagaMiddleware),
+    window && window.devToolsExtension ? window.devToolsExtension() : f => f
+  )(createStore)(combineReducers(reducers))
 
   // hot module reload
   if (__DEV__) {

@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 
 import { connectStore, mutable } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
-import { CONNECT_NODE } from '../../../../utils/asyncEvents'
+import { CONNECT_NODE_EVENT } from '../../../../utils/asyncEvents'
 import { error } from '../../../../utils/stateMachines'
 import ErrorBox from '../../../components/ErrorBox'
 import AlertBox from '../../../components/AlertBox'
@@ -48,7 +48,7 @@ export default class ConnectNode extends PureComponent {
 
   renderSelector () {
     const {
-      node: { [CONNECT_NODE]: connectEvent },
+      node: { [CONNECT_NODE_EVENT]: connectEvent },
       config: { nodes }
     } = mutable(this.props)
 

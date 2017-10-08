@@ -8,9 +8,11 @@ import { showConnectionModal, showSendTransactionModal } from './actionCreators'
 describe('modal saga', () => {
   describe('waits for INIT action', () => {
     it('and processes it', () => {
-      const gen = saga()
+      const app = {}
 
-      expect(gen.next().value).toEqual(takeLatest(INIT, _privateFunctions.onInit))
+      const gen = saga(app)()
+
+      expect(gen.next().value).toEqual(takeLatest(INIT, _privateFunctions.onInit, app))
     })
 
     it('and then shows the connection modal', () => {
@@ -22,11 +24,15 @@ describe('modal saga', () => {
 
   describe('waits for TX_SENDING action', () => {
     it('and processes it', () => {
-      const gen = saga()
+      const app = {}
+
+      const gen = saga(app)()
 
       gen.next()
 
-      expect(gen.next().value).toEqual(takeLatest(TX_SENDING, _privateFunctions.onSendTransaction))
+      expect(gen.next().value).toEqual(
+        takeLatest(TX_SENDING, _privateFunctions.onSendTransaction, app)
+      )
     })
 
     it('and then shows the send tx modal', () => {

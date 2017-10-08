@@ -3,7 +3,7 @@ import EventEmitter from 'eventemitter3'
 import { Web3MethodFactory } from './web3Methods'
 import { EVENT, STATE } from '../../common/constants'
 import { UnableToConnectError } from '../utils/errors'
-import { connectingNode, nodeDisconnected } from '../redux/node/actionCreators'
+import { nodeDisconnected } from '../redux/node/actionCreators'
 import logger from '../utils/log'
 import RpcAdapter from './adapter/rpc'
 
@@ -23,12 +23,8 @@ class NodeConnector extends EventEmitter {
     this._walletManager = walletManager
 
     // keep track of what's going on in connector
-    this.on(EVENT.STATE_CHANGE, (newState, msg) => {
+    this.on(EVENT.STATE_CHANGE, newState => {
       switch (newState) {
-        case STATE.CONNECTING: {
-          store.dispatch(connectingNode(msg))
-          break
-        }
         case STATE.CONNECTON_ERROR: {
           store.dispatch(nodeDisconnected(STATE.CONNECTON_ERROR))
           break

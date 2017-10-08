@@ -13,3 +13,20 @@ export const mutable = props =>
     }),
     {}
   )
+
+/**
+ * Helper to create selector for extracting Redux store state, with the ability
+ * to specify a subset to extract
+ */
+export const mutableSelector = (...subStates) => state =>
+  _.reduce(
+    subStates.length ? subStates : Object.keys(state),
+    (m, v) => ({
+      ...m,
+      [v]:
+        state[v] && _.isFunction(state[v].toObject)
+          ? state[v].toObject()
+          : state[v]
+    }),
+    {}
+  )

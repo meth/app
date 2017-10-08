@@ -1,8 +1,13 @@
 import { all, call } from 'redux-saga/effects'
 
-import modalsSagas from './modals/sagas'
-import configSagas from './config/sagas'
+import modals from './modals/sagas'
+import config from './config/sagas'
 
-export default function* () {
-  yield all([ call(modalsSagas), call(configSagas) ])
+export const createSagas = app => {
+  const modalsSaga = modals(app)
+  const configSaga = config(app)
+
+  return function* allSagas () {
+    yield all([ call(modalsSaga), call(configSaga) ])
+  }
 }

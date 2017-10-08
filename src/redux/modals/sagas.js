@@ -1,4 +1,4 @@
-import { all, call, put, takeLatest } from 'redux-saga/effects'
+import { put, takeLatest } from 'redux-saga/effects'
 
 import { INIT } from '../config/actions'
 import { TX_SENDING } from '../wallet/actions'
@@ -12,11 +12,9 @@ function* onSendTransaction () {
   yield put(showSendTransactionModal())
 }
 
-export default function* saga () {
-  yield all([
-    call(takeLatest, INIT, onInit),
-    call(takeLatest, TX_SENDING, onSendTransaction)
-  ])
+export default app => function* saga () {
+  yield takeLatest(INIT, onInit, app)
+  yield takeLatest(TX_SENDING, onSendTransaction, app)
 }
 
 export const _privateFunctions = {

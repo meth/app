@@ -22,7 +22,7 @@ window.addEventListener('message', ({ data }) => {
   if (IPC.BACKEND_TASK === data.ipc) {
     sendIpcToBackend(data.task, data.params)
   } else {
-    console.warn(`Unrecognized frontend message`, data)
+    // do nothing, it's likely something to do with tools, e.g. webpack
   }
 })
 

@@ -38,9 +38,12 @@ describe('nodeConnecting()', () => {
 
 describe('nodeConnectError()', () => {
   it('returns action', () => {
-    expect(nodeConnectError(123)).toEqual({
+    const err = new Error('test')
+
+    expect(nodeConnectError(err)).toEqual({
       type: NODE_CONNECT_ERROR,
-      payload: 123
+      error: true,
+      payload: err
     })
   })
 })
