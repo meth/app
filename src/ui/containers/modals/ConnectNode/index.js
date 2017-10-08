@@ -6,12 +6,12 @@ import { connectStore, mutable } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
 import { CONNECT_NODE } from '../../../../utils/asyncEvents'
 import { error } from '../../../../utils/stateMachines'
-import ErrorBox from '../../ErrorBox'
-import AlertBox from '../../AlertBox'
-import Button from '../../Button'
-import Modal from '../'
-import Loading from '../../Loading'
-import Picker from '../../Picker'
+import ErrorBox from '../../../components/ErrorBox'
+import AlertBox from '../../../components/AlertBox'
+import Button from '../../../components/Button'
+import Modal from '../../../components/Modal'
+import Loading from '../../../components/Loading'
+import Picker from '../../../components/Picker'
 import styles from './styles'
 
 @connectStore('config', 'node')
@@ -101,8 +101,10 @@ export default class ConnectNode extends PureComponent {
 
     const node = _.get(nodes, selected)
 
+    const { connectNode, hideConnectionModal } = this.props.actions
+
     connectNode(node)
-      .then(() => controller.nodes.hideConnectionModal())
+      .then(() => hideConnectionModal())
       .catch(() => {})
   }
 }

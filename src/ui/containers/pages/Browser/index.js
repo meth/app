@@ -2,15 +2,17 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
-import { DAPP_PERMISSIONS, STATE } from '../../../../common/constants'
+import { DAPP_PERMISSIONS, STATE } from '../../../../../common/constants'
+import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
-import BrowserTabBar from '../../components/BrowserTabBar'
-import BrowserTabView from '../../components/BrowserTabView'
+import BrowserTabBar from '../../../components/BrowserTabBar'
+import BrowserTabView from '../../../components/BrowserTabView'
 
 const newTabId = () => _.random(1, 1000000000)
 
-export default class Page extends PureComponent {
+@connectStore('wallet', 'web3')
+export default class Browser extends PureComponent {
   state = {
     tabs: [
       // {
@@ -32,6 +34,8 @@ export default class Page extends PureComponent {
   render () {
     const { tabs } = this.state
 
+    const methods = _.pick(this.props.actions, 'generateAccount', 'sendRequest')
+
     const browserViews = tabs.map(tab => {
       const { id, active } = tab
 
@@ -39,6 +43,7 @@ export default class Page extends PureComponent {
         <View key={id} style={active ? styles.activeView : styles.inactiveView}>
           <BrowserTabView
             {...tab}
+            methods={methods}
             onUrlChange={url => this.onTabUrlChange(id, url)}
             onLoading={() => this.onTabStatusChange(id, STATE.LOADING)}
             onLoaded={() => this.onTabStatusChange(id, STATE.LOADED)}

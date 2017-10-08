@@ -1,4 +1,4 @@
-import { create, fontMaker } from '../../styles'
+import { create, fontMaker } from '../../../styles'
 
 const textStyles = {
   ...fontMaker(),

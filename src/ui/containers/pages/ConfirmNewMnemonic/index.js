@@ -1,14 +1,16 @@
 import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
-import { routes } from '../../nav'
-import controller from '../../../redux/controller'
-import { t } from '../../../../common/strings'
+import { load as loadWallet } from '../../../../wallet/manager'
+import { routes } from '../../../nav'
+import { connectStore } from '../../../helpers/redux'
+import { t } from '../../../../../common/strings'
 import styles from './styles'
 import Layout from '../Layout'
-import Button from '../../components/Button'
-import ErrorBox from '../../components/ErrorBox'
+import Button from '../../../components/Button'
+import ErrorBox from '../../../components/ErrorBox'
 
+@connectStore('nav')
 export default class Page extends PureComponent {
   state = {
     error: ''
@@ -38,13 +40,13 @@ export default class Page extends PureComponent {
 
   onProceed = () => {
     const {
-      navigation: { currentRoute: { params: { mnemonic } } }
+      navigation: { currentRoute: { params: { mnemonic } } },
+      actions: { navPush }
     } = this.props
 
     this.setState({ error: null }, () => {
-      controller.wallet
-        .loadUsingMnemonic(mnemonic)
-        .then(() => controller.nav.push(routes.Browser.path))
+      loadWallet(mnemonic)
+        .then(() => navPush(routes.Browser.path))
         .catch(error => this.setState({ error }))
     })
   }

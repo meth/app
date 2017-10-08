@@ -1,15 +1,17 @@
 import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
-import { routes } from '../../nav'
-import controller from '../../../redux/controller'
-import { t } from '../../../../common/strings'
+import { generateNewMnemonic, load as loadWallet } from '../../../../wallet/manager'
+import { routes } from '../../../nav'
+import { t } from '../../../../../common/strings'
+import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
-import ErrorBox from '../../components/ErrorBox'
-import Button from '../../components/Button'
-import TextInput from '../../components/TextInput'
+import ErrorBox from '../../../components/ErrorBox'
+import Button from '../../../components/Button'
+import TextInput from '../../../components/TextInput'
 import Layout from '../Layout'
 
+@connectStore('nav')
 export default class Page extends PureComponent {
   state = {
     mnemonic: '',
@@ -73,29 +75,31 @@ export default class Page extends PureComponent {
   }
 
   onSubmit = () => {
+    const { actions: { navPush } } = this.props
+
     this.setState(
       {
         inputExistingError: null
       },
       () => {
-        controller.wallet
-          .loadUsingMnemonic(this.state.mnemonic)
-          .then(() => controller.nav.push(routes.Browser.path))
+        loadWallet(this.state.mnemonic)
+          .then(() => navPush(routes.Browser.path))
           .catch(inputExistingError => this.setState({ inputExistingError }))
       }
     )
   }
 
   onGenerate = () => {
+    const { actions: { navPush } } = this.props
+
     this.setState(
       {
         generateNewError: null
       },
       () => {
-        controller.wallet
-          .generateNewMnemonic()
+        generateNewMnemonic()
           .then(mnemonic => (
-            controller.nav.push(routes.ConfirmNewMnemonic.path, { mnemonic })
+            navPush(routes.ConfirmNewMnemonic.path, { mnemonic })
           ))
           .catch(generateNewError => this.setState({ generateNewError }))
       }

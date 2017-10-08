@@ -76,10 +76,11 @@ export default class WebView extends PureComponent {
   onWeb3Request = ({ channel, args }) => {
     // if it's a web3 request
     if (IPC.WEBVIEW === channel) {
-      const { permissions } = this.props
       const { id, type, payload } = args[0]
 
-      handleWebViewIpcRequest(type, payload, permissions)
+      const { permissions, methods } = this.props
+
+      handleWebViewIpcRequest(type, payload, { permissions, methods })
         .then(response => this.webView.send(IPC.WEBVIEW, { id, response }))
         .catch(err => {
           this.webView.send(IPC.WEBVIEW, { id, error: err.toString() })

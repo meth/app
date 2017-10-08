@@ -5,8 +5,8 @@ import MODALS from '../utils/modals'
 import { create } from './styles'
 import { Navigator } from './nav'
 import { connectStore, mutable } from './helpers/redux'
-import ConnectNodeModal from './components/Modals/ConnectNode'
-import SendTransactionModal from './components/Modals/SendTransaction'
+import ConnectNodeModal from './containers/modals/ConnectNode'
+import SendTransactionModal from './containers/modals/SendTransaction'
 
 // modals - in order of importance
 const MODAL_COMPONENTS = {

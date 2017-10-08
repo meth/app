@@ -7,7 +7,7 @@ import IconButton from '../IconButton'
 import TextInput from '../TextInput'
 import WebView from '../WebView'
 
-export default class TabView extends PureComponent {
+export default class BrowserTabView extends PureComponent {
   constructor (props, ctx) {
     super(props, ctx)
 

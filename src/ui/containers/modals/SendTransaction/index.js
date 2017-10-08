@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 
-import { connectStore } from '../../helpers/redux'
-import Modal from '../../components/Modal'
+import { connectStore } from '../../../helpers/redux'
+import Modal from '../../../components/Modal'
 import styles from './styles'
 
 @connectStore('wallet')

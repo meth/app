@@ -17,7 +17,7 @@ export const init = ({ store, nodeConnector }) => {
  * Generate new mnemonic
  * @return {String}
  */
-export const generateNewMnemonic = () =>
+export const generateNewMnemonic = async () =>
   new Mnemonic(Mnemonic.Words.ENGLISH).toString()
 
 /**

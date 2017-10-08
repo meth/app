@@ -4,14 +4,13 @@ import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 import { fromWei } from 'web3-utils'
 
-import { t } from '../../../../common/strings'
-import { connectStore, mutable } from '../../helpers/redux'
-import controller from '../../../redux/controller'
-import TouchableView from '../../components/TouchableView'
+import { t } from '../../../../../common/strings'
+import { connectStore, mutable } from '../../../helpers/redux'
+import TouchableView from '../../../components/TouchableView'
 import styles from './styles'
 
 @connectStore('wallet')
-export default class MainLayout extends PureComponent {
+export default class Layout extends PureComponent {
   render () {
     const { children, contentStyle, wallet: { accountBalances } } = mutable(
       this.props
@@ -41,6 +40,6 @@ export default class MainLayout extends PureComponent {
   }
 
   onPressConnectionInfo = () => {
-    controller.nodes.showConnectionModal()
+    this.props.actions.showConnectionModal()
   }
 }

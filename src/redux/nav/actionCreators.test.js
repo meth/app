@@ -1,9 +1,9 @@
-import { reset, push } from './actionCreators'
+import { navReset, navPush } from './actionCreators'
 import { PUSH, RESET } from './actions'
 
-describe('push()', () => {
+describe('navPush()', () => {
   it('with path name returns action', () => {
-    expect(push('test')).toEqual({
+    expect(navPush('test')).toEqual({
       type: PUSH,
       payload: {
         path: 'test',
@@ -13,7 +13,7 @@ describe('push()', () => {
   })
 
   it('with path name and params returns action', () => {
-    expect(push('test', { dummy: false })).toEqual({
+    expect(navPush('test', { dummy: false })).toEqual({
       type: PUSH,
       payload: {
         path: 'test',
@@ -23,9 +23,9 @@ describe('push()', () => {
   })
 })
 
-describe('reset()', () => {
+describe('navReset()', () => {
   it('with path name returns action', () => {
-    expect(reset('test')).toEqual({
+    expect(navReset('test')).toEqual({
       type: RESET,
       payload: {
         path: 'test',
@@ -35,7 +35,7 @@ describe('reset()', () => {
   })
 
   it('with path name and params returns action', () => {
-    expect(reset('test', { dummy: false })).toEqual({
+    expect(navReset('test', { dummy: false })).toEqual({
       type: RESET,
       payload: {
         path: 'test',

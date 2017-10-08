@@ -3,7 +3,7 @@ import Immutable from 'immutable'
 
 import { NODE_DISCONNECTED, NODE_CONNECTED, NODE_CONNECTING, NODE_CONNECT_ERROR } from './actions'
 import { CONNECT_NODE_EVENT } from '../../utils/asyncEvents'
-import { success, error, inProgress, createStateActionMachine } from '../../utils/stateMachines'
+import { ready, success, error, inProgress, createStateActionMachine } from '../../utils/stateMachines'
 
 export default () => {
   const InitialState = Immutable.Map({
@@ -19,6 +19,9 @@ export default () => {
         state
           .set('isConnected', false)
           .set('disconnectionReason', reason)
+          .set(CONNECT_NODE_EVENT, state.get(CONNECT_NODE_EVENT).update({
+            state: ready
+          }))
       ),
       [NODE_CONNECTING]: (state, { payload: data }) => (
         state

@@ -8,9 +8,9 @@ import {
 
 import { connectStore, mutable } from './helpers/redux'
 
-import LoginMnemonic from './containers/LoginMnemonic'
-import ConfirmNewMnemonic from './containers/ConfirmNewMnemonic'
-import Browser from './containers/Browser'
+import LoginMnemonic from './containers/pages/LoginMnemonic'
+import ConfirmNewMnemonic from './containers/pages/ConfirmNewMnemonic'
+import Browser from './containers/pages/Browser'
 
 export const routes = {
   Home: {
