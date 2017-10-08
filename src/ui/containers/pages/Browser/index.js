@@ -11,7 +11,7 @@ import BrowserTabView from '../../../components/BrowserTabView'
 
 const newTabId = () => _.random(1, 1000000000)
 
-@connectStore('wallet', 'web3')
+@connectStore('api')
 export default class Browser extends PureComponent {
   state = {
     tabs: [
@@ -34,8 +34,6 @@ export default class Browser extends PureComponent {
   render () {
     const { tabs } = this.state
 
-    const methods = _.pick(this.props.actions, 'generateAccount', 'sendRequest')
-
     const browserViews = tabs.map(tab => {
       const { id, active } = tab
 
@@ -43,7 +41,7 @@ export default class Browser extends PureComponent {
         <View key={id} style={active ? styles.activeView : styles.inactiveView}>
           <BrowserTabView
             {...tab}
-            methods={methods}
+            apiMethods={this.props.actions}
             onUrlChange={url => this.onTabUrlChange(id, url)}
             onLoading={() => this.onTabStatusChange(id, STATE.LOADING)}
             onLoaded={() => this.onTabStatusChange(id, STATE.LOADED)}

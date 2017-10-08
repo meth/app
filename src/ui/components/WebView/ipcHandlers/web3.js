@@ -1,1 +1,1 @@
-export default (payload, { sendRequest }) => sendRequest(payload)
+export default (payload, { web3Request }) => web3Request(payload)

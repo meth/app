@@ -5,12 +5,12 @@ import apiHandler from './api'
 import { IPC } from '../../../../../common/constants'
 
 export const handleWebViewIpcRequest = Q.method(
-  (type, payload, { permissions, methods }) => {
+  (type, payload, { permissions, apiMethods }) => {
     switch (type) {
       case IPC.WEB3:
-        return web3Handler(payload, permissions, methods)
+        return web3Handler(payload, permissions, apiMethods)
       case IPC.API:
-        return apiHandler(payload, permissions, methods)
+        return apiHandler(payload, permissions, apiMethods)
       default:
         throw new Error('Unrecognized IPC request type')
     }
