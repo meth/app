@@ -27,7 +27,7 @@ class Wallet extends EventEmitter {
    * @return {Promise}
    */
   async init () {
-    log.info(`Initialzie wallet ...`)
+    log.info(`Initialize wallet ...`)
 
     await this._load()
 

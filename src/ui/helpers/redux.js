@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 
 import actionCreators from '../../redux/actionCreators'
 
+export { mutable } from '../../redux/utils'
+
 /**
  * Decorator: Connect a component to the Redux store
  */
@@ -31,17 +33,3 @@ export const connectStore = (...storeSubParts) => Component =>
     null,
     { withRef: true }
   )(Component)
-
-/**
- * Helper to extract Redux store values from this.props, ensure all immutables
- * are converted into mutables
- */
-export const mutable = props =>
-  _.reduce(
-    props,
-    (m, v, k) => ({
-      ...m,
-      [k]: _.isFunction(v.toObject) ? v.toObject() : v
-    }),
-    {}
-  )

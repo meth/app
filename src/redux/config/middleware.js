@@ -1,6 +1,7 @@
 import Q from 'bluebird'
 
 import { INIT } from './actions'
+import { mutable } from '../utils'
 
 // eslint-disable-next-line consistent-return
 export default ({ config }) => store => next => async action => {
@@ -8,7 +9,7 @@ export default ({ config }) => store => next => async action => {
     return next(action)
   }
 
-  const { nodes } = store.getStateObject()
+  const { nodes } = mutable(store.getState())
 
   // if not initialized then do nothing
   if (!nodes) {

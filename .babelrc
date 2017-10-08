@@ -3,8 +3,9 @@
     "react-native",
   ],
   "plugins": [
+    "transform-runtime",
     "transform-react-display-name",
-    "transform-decorators-legacy",
+    "transform-decorators-legacy"
   ],
   "env": {
     "development": {

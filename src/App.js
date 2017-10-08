@@ -2,6 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 
 import { createReduxStore } from './redux'
+import { init } from './redux/config/actionCreators'
 import * as config from './config'
 import nodeConnector from './nodeConnector'
 import * as walletManager from './wallet/manager'
@@ -17,3 +18,6 @@ export default () => (
     <Root />
   </Provider>
 )
+
+// go!
+store.dispatch(init())

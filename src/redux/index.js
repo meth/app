@@ -1,5 +1,5 @@
 import { applyMiddleware, compose, combineReducers, createStore } from 'redux'
-import { createSagaMiddleware } from 'redux-saga'
+import createSagaMiddleware from 'redux-saga'
 
 import { createReducers } from './reducers'
 import { createMiddleware } from './middleware'
@@ -10,7 +10,7 @@ export const createReduxStore = app => {
   const appMiddleware = createMiddleware(app)
   const reducers = createReducers(app)
 
-  const store = compose(applyMiddleware([ ...appMiddleware, sagaMiddleware ]))(
+  const store = compose(applyMiddleware(...appMiddleware, sagaMiddleware))(
     createStore
   )(combineReducers(reducers))
 
@@ -21,20 +21,6 @@ export const createReduxStore = app => {
         // eslint-disable-next-line global-require
         store.replaceReducer(require('./reducers').createReducers(app)))
     }
-  }
-
-  /**
-   * Helper to get store state as a plain object (taking Immutable instances into account).
-   * @return {Object}
-   */
-  store.getStateObject = () => {
-    const state = store.getState()
-
-    return Object.keys(state).reduce((m, key) => {
-      // eslint-disable-next-line no-param-reassign
-      m[key] = state[key].toObject ? state[key].toObject() : state[key]
-      return m
-    }, {})
   }
 
   // kick-off sagas
