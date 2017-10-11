@@ -15,12 +15,16 @@ class NodeConnector extends EventEmitter {
 
     this._adapter = null
     this._wrapResponse = this._wrapResponse.bind(this)
-    this._methodFactory = new Web3MethodFactory(this)
   }
 
   init ({ store, walletManager }) {
     this._store = store
     this._walletManager = walletManager
+
+    this._methodFactory = new Web3MethodFactory({
+      nodeConnector: this,
+      walletManager
+    })
 
     // keep track of what's going on in connector
     this.on(EVENT.STATE_CHANGE, newState => {
