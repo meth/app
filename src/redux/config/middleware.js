@@ -9,7 +9,7 @@ export default ({ config }) => store => next => async action => {
     return next(action)
   }
 
-  const { nodes } = mutable(store.getState())
+  const { nodes } = mutable(store.getState(), 'nodes')
 
   // if not initialized then do nothing
   if (!nodes) {

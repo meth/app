@@ -14,7 +14,9 @@ describe('config saga', () => {
 
   it('and then sets up the node connector', () => {
     const app = {
-      nodeConnector: {}
+      nodeConnector: {
+        setNetworks: jest.fn()
+      }
     }
 
     const gen = _privateFunctions.onInit(app, {

@@ -22,7 +22,7 @@ describe('config middleware', () => {
       const next = jest.fn()
 
       const store = {
-        getStateObject: () => ({})
+        getState: () => ({})
       }
 
       const config = {
@@ -46,7 +46,7 @@ describe('config middleware', () => {
       const next = jest.fn()
 
       const store = {
-        getStateObject: () => ({
+        getState: () => ({
           nodes: 23
         })
       }

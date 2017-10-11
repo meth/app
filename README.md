@@ -40,10 +40,12 @@ Branches:
  * `master` - Production branch. Clean code, only approved pull requests allowed.
 
 Requirements:
+
   * [Node.js 8.0.0](http://nodejs.org) **<- we recommend using this exact version!**
+  * [NPM 5.4.2+](https://npmjs.com)
   * [Yarn](yarnpkg.com)
 
-Once Node is installed, install the dependencies:
+Once Node and NPM are installed, install the dependencies:
 
 ```shell
 $ npm install
