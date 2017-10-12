@@ -10,6 +10,7 @@
   "plugins": [ "react" ],
   "rules": {
     "semi": ["error", "never"],
+    "semi-style": ["error", "first"],
     "comma-dangle": ["error", "never"],
     "space-before-function-paren": ["error", "always"],
     "arrow-parens": ["error", "as-needed"],

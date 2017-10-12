@@ -22,23 +22,15 @@ export const error = 'error'
 export const createStateActionMachine = () =>
   new StateActionMachine([
     {
-      id: ready,
-      from: [ success, error ],
-      to: [ inProgress, success, error ]
+      id: ready
     },
     {
-      id: inProgress,
-      from: [ ready, success, error ],
-      to: [ success, error ]
+      id: inProgress
     },
     {
-      id: success,
-      from: [ ready, inProgress ],
-      to: [ ready, inProgress ]
+      id: success
     },
     {
-      id: error,
-      from: [ ready, inProgress ],
-      to: [ ready, inProgress ]
+      id: error
     }
   ])

@@ -67,16 +67,22 @@ class NodeConnector extends EventEmitter {
         throw new UnableToConnectError(`Unrecognized adapter type: ${type}`)
     }
 
-    // event propagation
-    [ EVENT.STATE_CHANGE, EVENT.NEW_BLOCK ].forEach(e => {
-      this._adapter.on(e, (...args) => this.emit(e, ...args))
-    })
+    try {
+      // connect
+      await this._adapter.connect()
 
-    // connect
-    await this._adapter.connect()
+      // get genesis block
+      const ret = this.rawCall('eth_getBlockByNumber', [ '0x0', false ])
 
-    // get genesis block
-    return this.rawCall('eth_getBlockByNumber', [ '0x0', false ])
+      // event propagation (set this up after connection succeeds)
+      ;[ EVENT.STATE_CHANGE, EVENT.NEW_BLOCK ].forEach(e => {
+        this._adapter.on(e, (...args) => this.emit(e, ...args))
+      })
+
+      return ret
+    } catch (err) {
+      throw new UnableToConnectError(err.message)
+    }
   }
 
   /**
