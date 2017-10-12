@@ -8,7 +8,7 @@ const MAPPING = { eth_accounts, eth_sendTransaction, generic }
 
 export class Web3MethodFactory {
   constructor ({ nodeConnector, walletManager }) {
-    this._connector = nodeConnector
+    this._nodeConnector = nodeConnector
     this._walletManager = walletManager
     this._handlers = {}
   }
@@ -18,7 +18,7 @@ export class Web3MethodFactory {
       const Klass = MAPPING[method] || MAPPING.generic
 
       this._handlers[method] = new Klass({
-        connector: this._connector,
+        nodeConnector: this._nodeConnector,
         walletManager: this._walletManager
       }, method)
     }
