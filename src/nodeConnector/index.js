@@ -1,21 +1,46 @@
 import EventEmitter from 'eventemitter3'
 
 import { Web3MethodFactory } from './web3Methods'
-import { EVENT, ERROR } from '../../common/constants'
+import { EVENT, STATE } from '../../common/constants'
+import { UnableToConnectError } from '../utils/errors'
+import { nodeDisconnected } from '../redux/node/actionCreators'
+import logger from '../utils/log'
 import RpcAdapter from './adapter/rpc'
-const log = require('../utils/log').create('NodeConnector')
 
+const log = logger.create('NodeConnector')
 
-export class NodeConnector extends EventEmitter {
-  constructor ({ networks }) {
+class NodeConnector extends EventEmitter {
+  constructor () {
     super()
 
-    this._networks = networks
     this._adapter = null
-
     this._wrapResponse = this._wrapResponse.bind(this)
+  }
 
-    this._methodFactory = new Web3MethodFactory(this)
+  init ({ store, walletManager }) {
+    this._store = store
+    this._walletManager = walletManager
+
+    this._methodFactory = new Web3MethodFactory({
+      nodeConnector: this,
+      walletManager
+    })
+
+    // keep track of what's going on in connector
+    this.on(EVENT.STATE_CHANGE, newState => {
+      switch (newState) {
+        case STATE.CONNECTON_ERROR: {
+          store.dispatch(nodeDisconnected(STATE.CONNECTON_ERROR))
+          break
+        }
+        default:
+          break
+      }
+    })
+  }
+
+  setNetworks (networks) {
+    this._networks = networks
   }
 
   get isConnected () {
@@ -39,22 +64,25 @@ export class NodeConnector extends EventEmitter {
         this._adapter = new RpcAdapter({ url })
         break
       default:
-        throw new Error(`Unrecognized adapter type: ${type}`)
+        throw new UnableToConnectError(`Unrecognized adapter type: ${type}`)
     }
 
-    // event propagation
-    ;[
-      EVENT.STATE_CHANGE,
-      EVENT.NEW_BLOCK
-    ].forEach(e => {
-      this._adapter.on(e, (...args) => this.emit(e, ...args))
-    })
+    try {
+      // connect
+      await this._adapter.connect()
 
-    // connect
-    await this._adapter.connect()
+      // get genesis block
+      const ret = this.rawCall('eth_getBlockByNumber', [ '0x0', false ])
 
-    // get genesis block
-    return this.rawCall('eth_getBlockByNumber', ['0x0', false])
+      // event propagation (set this up after connection succeeds)
+      ;[ EVENT.STATE_CHANGE, EVENT.NEW_BLOCK ].forEach(e => {
+        this._adapter.on(e, (...args) => this.emit(e, ...args))
+      })
+
+      return ret
+    } catch (err) {
+      throw new UnableToConnectError(err.message)
+    }
   }
 
   /**
@@ -80,30 +108,32 @@ export class NodeConnector extends EventEmitter {
    * @return {Promise}
    */
   async request (payload, context) {
-    log.debug('Request', payload)
+    log.debug('Request', payload, context)
 
-    const isBatch = (payload instanceof Array)
+    const isBatch = payload instanceof Array
 
-    if (!isBatch) {
-      payload = [payload]
-    }
+    const finalPayload = !isBatch ? [ payload ] : payload
 
     // we will serially process the requests (as expected with batch requests)
     const result = []
 
-    for (const { id, method, params } of payload) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const { id, method, params } of finalPayload) {
       log.trace('Request', { id, method, params })
 
       try {
         if (!this.isConnected) {
-          throw new Error(ERROR.UNABLE_TO_CONNECT)
+          throw new UnableToConnectError('Adapter disconnected')
         }
 
         result.push({
           id,
+          // eslint-disable-next-line no-await-in-loop
           result: await this._methodFactory.getHandler(method).run(params)
         })
       } catch (err) {
+        err.method = method
+
         result.push({
           id,
           error: err
@@ -121,7 +151,6 @@ export class NodeConnector extends EventEmitter {
     return ret
   }
 
-
   /**
    * Make a raw method call.
    * @param  {String} method web3 method
@@ -132,20 +161,21 @@ export class NodeConnector extends EventEmitter {
     return this._adapter.execMethod(method, params)
   }
 
-
   _wrapResponse ({ id, result, error }) {
     if (error) {
       return {
         jsonrpc: '2.0',
         id,
-        error: error.toString(),
+        error: error.toString()
       }
-    } else {
-      return {
-        jsonrpc: '2.0',
-        id,
-        result,
-      }
+    }
+
+    return {
+      jsonrpc: '2.0',
+      id,
+      result
     }
   }
 }
+
+export default new NodeConnector()

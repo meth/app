@@ -1,12 +1,17 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
-import { create as createStore } from './redux/store'
-import controller from './redux/controller'
+import { createReduxStore } from './redux'
+import { init } from './redux/config/actionCreators'
+import * as config from './config'
+import nodeConnector from './nodeConnector'
+import * as walletManager from './wallet/manager'
 import Root from './ui/Root'
+import { router } from './ui/nav'
 
-const store = createStore()
-controller.setStore(store)
+const store = createReduxStore({ config, nodeConnector, walletManager, router })
+nodeConnector.init({ store, walletManager })
+walletManager.init({ store, nodeConnector })
 
 export default () => (
   <Provider store={store}>
@@ -14,5 +19,5 @@ export default () => (
   </Provider>
 )
 
-// initialize the app!
-controller.init()
+// go!
+store.dispatch(init())

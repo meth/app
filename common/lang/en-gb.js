@@ -22,8 +22,11 @@ module.exports = {
       pleaseChooseNode: 'Please choose a node to connect to',
     },
     error: {
-      unknownConnection: 'Sorry, there was an unexpected connection error',
+      unableToConnect: 'Unable to connect',
+      requestTimeout: 'Request timed out',
       methodCall: 'Error calling method: {method}',
+      unexpected: 'An unexpected error occurred',
+      transactionAlreadyInProgress: 'A transaction is already in progress'
     },
     mnemonic: {
       enterYourMnemonic: 'Enter your mnemonic',

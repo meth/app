@@ -2,10 +2,17 @@ import Q from 'bluebird'
 import EventEmitter from 'eventemitter3'
 import { hexToNumber } from 'web3-utils'
 
-import { EVENT, STATE, ERROR } from '../../../common/constants'
-const log = require('../../utils/log').create('Adapter')
+import { EVENT, STATE } from '../../../common/constants'
+import logger from '../../utils/log'
+import {
+  instanceOfError,
+  UnableToConnectError,
+  RequestTimeoutError,
+  CorruptDataError,
+  MethodNotAllowedError
+} from '../../utils/errors'
 
-
+const log = logger.create('Adapter')
 
 /**
  * Base node connection adapter
@@ -85,6 +92,8 @@ class Adapter extends EventEmitter {
 
       throw err
     }
+
+    return true
   }
 
   /**
@@ -122,8 +131,9 @@ class Adapter extends EventEmitter {
 
       throw err
     }
-  }
 
+    return true
+  }
 
   /**
    * Execute a method
@@ -131,7 +141,8 @@ class Adapter extends EventEmitter {
    */
   async execMethod (method, params) {
     try {
-      const ret = await this._doExecMethod(++this._callId, method, params)
+      this._callId += 1
+      const ret = await this._doExecMethod(this._callId, method, params)
 
       this._updateState(STATE.CONNECTED)
 
@@ -144,20 +155,22 @@ class Adapter extends EventEmitter {
       err.params = params
 
       // if connection error then update state
-      switch (err.message) {
-        case ERROR.UNABLE_TO_CONNECT:
-        case ERROR.CORRUPT_DATA:
-        case ERROR.REQUEST_TIMEOUT:
-          this._updateState(STATE.CONNECTON_ERROR)
-          break
-        default:
-          this._updateState(STATE.CONNECTED)
+      if (
+        instanceOfError(
+          err,
+          UnableToConnectError,
+          CorruptDataError,
+          RequestTimeoutError
+        )
+      ) {
+        this._updateState(STATE.CONNECTON_ERROR)
+      } else {
+        this._updateState(STATE.CONNECTED)
       }
 
       throw err
     }
   }
-
 
   /**
    * Actual connect method.
@@ -193,15 +206,13 @@ class Adapter extends EventEmitter {
     return Q.resolve()
   }
 
-
   /**
    * Execute a method, to be implemented by subclasses
    * @return {Promise}
    */
-  async _doExecMethod (requestId, method, params) {
+  async _doExecMethod () {
     throw new Error('Not yet implemented')
   }
-
 
   /**
    * Approve given method call
@@ -210,11 +221,9 @@ class Adapter extends EventEmitter {
    */
   async _approveMethod (method) {
     if (true !== this._methods[method]) {
-      throw new Error(ERROR.METHOD_NOT_ALLOWED)
+      throw new MethodNotAllowedError(method)
     }
   }
-
-
 
   /**
    * Start polling for latest block.
@@ -251,9 +260,10 @@ class Adapter extends EventEmitter {
 
     this._log.debug(`Polling for blocks ...`)
 
-    const block = await this.execMethod(
-      'eth_getBlockByNumber', ['latest', false]
-    )
+    const block = await this.execMethod('eth_getBlockByNumber', [
+      'latest',
+      false
+    ])
 
     const newBlockNumber = hexToNumber(block.number)
 
@@ -270,7 +280,6 @@ class Adapter extends EventEmitter {
       setTimeout(() => this._doBlockPoll(), 5000)
     }
   }
-
 
   /**
    * Construct and throw an error

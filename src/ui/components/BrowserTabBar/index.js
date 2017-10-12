@@ -6,7 +6,6 @@ import styles from './styles'
 import IconButton from '../IconButton'
 import TabList from './TabList'
 
-
 export default class BrowserTabBar extends PureComponent {
   render () {
     const { tabs, onSelect, onClose } = this.props
@@ -18,13 +17,10 @@ export default class BrowserTabBar extends PureComponent {
           onSortEnd={this.onSortEnd}
           onSelect={onSelect}
           onClose={onClose}
-          axis='x'
-          lockAxis='x'
+          axis="x"
+          lockAxis="x"
         />
-        <IconButton
-          name='plus'
-          onPress={this.onNewTab}
-        />
+        <IconButton name="plus" onPress={this.onNewTab} />
       </View>
     )
   }

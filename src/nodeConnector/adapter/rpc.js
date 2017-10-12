@@ -1,43 +1,6 @@
 import { loadJSON } from '../../utils/fetch'
 import { Adapter } from './base'
 
-
-class RpcAdapter extends Adapter {
-  constructor (nodeConfig) {
-    super(nodeConfig, 'rpc', METHODS)
-
-    this._url = nodeConfig.url
-  }
-
-  async _doExecMethod (id, method, params = []) {
-    try {
-      await this._approveMethod(method)
-
-      this._log.trace(`Calling ${this._url} with method ${method}`)
-
-      const json = await loadJSON(this._url, 'POST', {}, {
-        jsonrpc: '2.0',
-        id,
-        method,
-        params,
-      })
-
-      if (json.error) {
-        this._throwError(JSON.stringify(json.error), json)
-      } else {
-        return json.result
-      }
-    } catch (err) {
-      this._log.trace('Method call error', err)
-
-      throw err
-    }
-  }
-}
-
-module.exports = RpcAdapter
-
-
 /**
  * Approved/disapproved methods
  * @type {Object}
@@ -70,5 +33,47 @@ const METHODS = {
   eth_getTransactionByBlockNumberAndIndex: true,
   eth_getTransactionReceipt: true,
   eth_getUncleByBlockHashAndIndex: true,
-  eth_getUncleByBlockNumberAndIndex: true,
+  eth_getUncleByBlockNumberAndIndex: true
 }
+
+class RpcAdapter extends Adapter {
+  constructor (nodeConfig) {
+    super(nodeConfig, 'rpc', METHODS)
+
+    this._url = nodeConfig.url
+  }
+
+  async _doExecMethod (id, method, params = []) {
+    try {
+      await this._approveMethod(method)
+
+      this._log.trace(`Calling ${this._url} with method ${method}`)
+
+      const json = await loadJSON(
+        this._url,
+        'POST',
+        {},
+        {
+          jsonrpc: '2.0',
+          id,
+          method,
+          params
+        }
+      )
+
+      if (json.error) {
+        this._throwError(JSON.stringify(json.error), json)
+      } else {
+        return json.result
+      }
+    } catch (err) {
+      this._log.trace('Method call error', err)
+
+      throw err
+    }
+
+    return true
+  }
+}
+
+export default RpcAdapter

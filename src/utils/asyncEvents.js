@@ -1,8 +1,2 @@
-const define = (arr) => arr.reduce((m, v) => {
-  m[v] = v
-  return m
-}, {})
-
-module.exports = define([
-  'CONNECT_NODE'
-])
+export const CONNECT_NODE_EVENT = 'CONNECT_NODE_EVENT'
+export const SEND_TX_EVENT = 'SEND_TX_EVENT'

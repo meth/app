@@ -9,10 +9,6 @@ export default class TouchableView extends PureComponent {
   render () {
     const { children, ...props } = this.props
 
-    return (
-      <TouchableOpacity {...props}>
-        {children}
-      </TouchableOpacity>
-    )
+    return <TouchableOpacity {...props}>{children}</TouchableOpacity>
   }
 }

@@ -1,14 +1,14 @@
 export const ROOT_FONT_SIZE = 18
 
-module.exports = {
+export default {
   rem: ROOT_FONT_SIZE,
   header: {
     backgroundColor: '#000',
-    textColor: '#fff',
+    textColor: '#fff'
   },
   content: {
     backgroundColor: '#fff',
-    textColor: '#000',
+    textColor: '#000'
   },
   browser: {
     tabBar: {
@@ -16,56 +16,56 @@ module.exports = {
       tab: {
         inactive: {
           borderColor: '#999',
-          backgroundColor: '#ccc',
+          backgroundColor: '#ccc'
         },
         active: {
           borderColor: '#666',
-          backgroundColor: '#eee',
-        },
-      },
+          backgroundColor: '#eee'
+        }
+      }
     },
     navBar: {
-      borderBottomColor: '#ccc',
-    },
+      borderBottomColor: '#ccc'
+    }
   },
   alert: {
     error: {
       backgroundColor: '#f00',
-      textColor: '#fff',
+      textColor: '#fff'
     },
     info: {
       backgroundColor: '#aaf',
-      textColor: '#fff',
-    },
+      textColor: '#fff'
+    }
   },
   modal: {
     title: {
-      textColor: '#999',
+      textColor: '#999'
     },
     content: {
-      backgroundColor: '#fff',
+      backgroundColor: '#fff'
     },
     overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    },
+      backgroundColor: 'rgba(0, 0, 0, 0.8)'
+    }
   },
   form: {
     textInput: {
-      borderColor: '#999',
-    },
+      borderColor: '#999'
+    }
   },
   button: {
     default: {
       enabled: {
         borderColor: '#22f',
         backgroundColor: '#22f',
-        textColor: '#fff',
+        textColor: '#fff'
       },
       disabled: {
         borderColor: '#ccc',
         backgroundColor: '#ccc',
-        textColor: '#fff',
-      },
+        textColor: '#fff'
+      }
     }
   }
 }

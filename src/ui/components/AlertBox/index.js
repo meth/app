@@ -13,10 +13,6 @@ export default class AlertBox extends PureComponent {
       <Text style={styles.text}>{text}</Text>
     )
 
-    return (
-      <View style={styles.container}>
-        {content}
-      </View>
-    )
+    return <View style={styles.container}>{content}</View>
   }
 }

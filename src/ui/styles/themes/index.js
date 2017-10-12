@@ -1,1 +1,3 @@
-module.exports = require('./default')
+import defaultTheme from './default'
+
+export default defaultTheme

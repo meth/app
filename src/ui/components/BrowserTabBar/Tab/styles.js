@@ -9,30 +9,30 @@ export default create({
     backgroundColor: '$browser_tabBar_tab_inactive_backgroundColor',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
-    minWidth: 150,
+    minWidth: 150
     // transform: [{ perspective: 50, rotateX: '40deg' }],
   },
   activeTab: {
     borderBottomWidth: 0,
     borderColor: '$browser_tabBar_tab_active_borderColor',
-    backgroundColor: '$browser_tabBar_tab_active_backgroundColor',
+    backgroundColor: '$browser_tabBar_tab_active_backgroundColor'
   },
   content: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   leftContent: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   rightContent: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   status: {
-    marginRight: 10,
-  },
+    marginRight: 10
+  }
 })

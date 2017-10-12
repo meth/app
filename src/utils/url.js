@@ -1,12 +1,12 @@
 // https://abc -> abc
-export const trimProtocol = (url) => {
+export const trimProtocol = url => {
   const protPos = url.indexOf('://')
 
-  return (0 <= protPos) ? url.substr(protPos + 3) : url
+  return 0 <= protPos ? url.substr(protPos + 3) : url
 }
 
 export const addProtocol = (url, protocol = 'http') => {
   const protPos = url.indexOf('://')
 
-  return (0 > protPos) ? `${protocol}://${url}` : url
+  return 0 > protPos ? `${protocol}://${url}` : url
 }

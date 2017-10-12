@@ -61,6 +61,7 @@ class Web3IpcProvider {
 
   sendAsync (payload, callback) {
     sendIpc(IPC.WEB3, payload)
+      .catch(callback)
       .then(response => {
         const hasError = [].concat(response).find(r => !!r.error)
 

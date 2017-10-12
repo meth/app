@@ -7,9 +7,9 @@ export default _.memoize(type => create({
     paddingHorizontal: 15,
     margin: 0,
     backgroundColor: `$alert_${type}_backgroundColor`,
-    borderRadius: 10,
+    borderRadius: 10
   },
   text: {
     color: `$alert_${type}_textColor`
-  },
+  }
 }))

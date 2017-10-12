@@ -40,10 +40,12 @@ Branches:
  * `master` - Production branch. Clean code, only approved pull requests allowed.
 
 Requirements:
+
   * [Node.js 8.0.0](http://nodejs.org) **<- we recommend using this exact version!**
+  * [NPM 5.4.2+](https://npmjs.com)
   * [Yarn](yarnpkg.com)
 
-Once Node is installed, install the dependencies:
+Once Node and NPM are installed, install the dependencies:
 
 ```shell
 $ npm install
@@ -70,3 +72,24 @@ To start the electron backend and full UI:
 ```shell
 $ npm run electron
 ```
+
+### Code style (ESLint)
+
+We use [eslint](http://eslint.org/) to enforce a strict coding style. We've set
+it up to auto-lint code upon Git commit. You can manually run the linter
+at any time using:
+
+```shell
+$ npm run lint:js
+```
+
+To auto-fix any issues, run:
+
+```shell
+$ npm run lint:js:fix
+```
+
+_Note: not all issues are automatically fixable_.
+
+It's worth installing the `prettier-atom` and `linter-eslint` plugins for Atom if
+that's your editor - it will make your life easier.

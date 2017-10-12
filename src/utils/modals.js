@@ -1,3 +1,4 @@
 module.exports = {
   CONNECT_NODE: 'CONNECT_NODE',
+  SEND_TRANSACTION: 'SEND_TRANSACTION'
 }

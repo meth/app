@@ -5,20 +5,20 @@ import MODALS from '../utils/modals'
 import { create } from './styles'
 import { Navigator } from './nav'
 import { connectStore, mutable } from './helpers/redux'
-import ConnectNodeModal from './components/Modals/ConnectNode'
+import ConnectNodeModal from './containers/modals/ConnectNode'
+import SendTransactionModal from './containers/modals/SendTransaction'
 
-
+// modals - in order of importance
 const MODAL_COMPONENTS = {
-  [MODALS.CONNECT_NODE]: ConnectNodeModal
+  [MODALS.CONNECT_NODE]: ConnectNodeModal,
+  [MODALS.SEND_TRANSACTION]: SendTransactionModal
 }
-
 
 const styles = create({
   container: {
-    flex: 1,
-  },
+    flex: 1
+  }
 })
-
 
 @connectStore('modals')
 export default class Layout extends PureComponent {
@@ -32,20 +32,23 @@ export default class Layout extends PureComponent {
   }
 
   showModal () {
-    const {
-      modals
-    } = mutable(this.props)
+    const { modals } = mutable(this.props)
 
-    let Component
+    const components = []
 
-    for (const k in modals) {
-      if (modals[k]) {
-        Component = MODAL_COMPONENTS[k]
-
-        break
-      }
+    // connect modal overrides all others
+    if (modals[MODALS.CONNECT_NODE]) {
+      const Component = MODAL_COMPONENTS[MODALS.CONNECT_NODE]
+      components.push(<Component key={MODALS.CONNECT_NODE} />)
+    } else {
+      Object.keys(modals).forEach(key => {
+        if (modals[key]) {
+          const Component = MODAL_COMPONENTS[key]
+          components.push(<Component key={key} />)
+        }
+      })
     }
 
-    return Component ? <Component /> : null
+    return components.length ? components : null
   }
 }

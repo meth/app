@@ -1,33 +1,50 @@
 import Q from 'bluebird'
 import { stringify } from 'query-string'
 
-import { ERROR } from '../../common/constants'
-const log = require('./log').create('fetch')
+import logger from './log'
+import {
+  CorruptDataError,
+  UnableToConnectError,
+  RequestTimeoutError
+} from './errors'
+
+const log = logger.create('fetch')
 
 const TIMEOUT = 10
 
-const logRequestDuration = (startTime) => {
+const logRequestDuration = startTime => {
   log.debug(`Request took: ${Date.now() - startTime}ms`)
 }
 
-export const loadJSON = async (url, method = 'GET', query = {}, body = {}, headers = {}) => {
-  log.debug(`${method.toUpperCase()} [${url}] headers=${JSON.stringify(headers)}`)
+export const loadJSON = async (
+  url,
+  method = 'GET',
+  query = {},
+  body = {},
+  headers = {}
+) => {
+  log.debug(
+    `${method.toUpperCase()} [${url}] headers=${JSON.stringify(headers)}`
+  )
 
-  headers['Content-Type'] = 'application/json'
+  const myHeaders = {
+    ...headers,
+    'Content-Type': 'application/json'
+  }
 
   const req = {
     cache: 'no-cache',
     method,
-    headers
+    headers: myHeaders
   }
 
   if ('GET' !== method) {
     req.body = JSON.stringify(body)
   }
 
-  url = `${url}?${stringify(query)}`
+  const myUrl = `${url}?${stringify(query)}`
 
-  log.debug(`${method.toUpperCase()}`, url, req)
+  log.debug(`${method.toUpperCase()}`, myUrl, req)
 
   const startTime = Date.now()
 
@@ -35,17 +52,18 @@ export const loadJSON = async (url, method = 'GET', query = {}, body = {}, heade
 
   try {
     res = await new Q((resolve, reject) => {
-      Q.cast(fetch(url, req)).then(resolve, reject)
+      Q.cast(fetch(myUrl, req)).then(resolve, reject)
 
       setTimeout(() => {
-        reject(new Error(ERROR.REQUEST_TIMEOUT))
+        reject(new RequestTimeoutError('Fetch timed out'))
       }, TIMEOUT * 1000)
     })
   } catch (err) {
     // basic error parsing
-    const err2 = (0 <= err.toString().toLowerCase().indexOf('failed to fetch')) ? (
-      new Error(ERROR.UNABLE_TO_CONNECT)
-    ) : err
+    const err2 =
+      0 <= err.toString().toLowerCase().indexOf('failed to fetch')
+        ? new UnableToConnectError('Fetch failed')
+        : err
 
     logRequestDuration(startTime)
 
@@ -68,7 +86,7 @@ export const loadJSON = async (url, method = 'GET', query = {}, body = {}, heade
 
       return json
     } catch (err) {
-      throw new Error(ERROR.CORRUPT_DATA)
+      throw new CorruptDataError('Parsing failed')
     }
   }
 }

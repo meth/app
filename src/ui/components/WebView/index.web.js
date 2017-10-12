@@ -14,12 +14,12 @@ export default class WebView extends PureComponent {
       'did-navigate': this.onNavigate,
       'did-stop-loading': this.onLoaded,
       'did-fail-load': this.onLoadingError,
-      'crashed': this.onLoadingError,
+      crashed: this.onLoadingError,
       'gpu-crashed': this.onLoadingError,
       'plugin-crashed': this.onLoadingError,
       'page-title-updated': this.onNewTitle,
       'new-window': this.onNewWindow,
-      'ipc-message': this.onWeb3Request,
+      'ipc-message': this.onWeb3Request
     }
   }
 
@@ -28,11 +28,13 @@ export default class WebView extends PureComponent {
 
     return (
       <webview
-        ref={v => { this.webView = v }}
+        ref={v => {
+          this.webView = v
+        }}
         src={url}
         style={{
           width: '100%',
-          height: '100%',
+          height: '100%'
         }}
         preload={`file://${window.preloadBasePath}/browserTab.js`}
       />
@@ -74,18 +76,21 @@ export default class WebView extends PureComponent {
   onWeb3Request = ({ channel, args }) => {
     // if it's a web3 request
     if (IPC.WEBVIEW === channel) {
-      const { permissions } = this.props
       const { id, type, payload } = args[0]
 
-      handleWebViewIpcRequest(type, payload, permissions)
+      const { permissions, apiMethods } = this.props
+
+      handleWebViewIpcRequest(type, payload, { permissions, apiMethods })
         .then(response => this.webView.send(IPC.WEBVIEW, { id, response }))
-        .catch(err => this.webView.send(IPC.WEBVIEW, { id, error: err.toString() }))
+        .catch(err => {
+          this.webView.send(IPC.WEBVIEW, { id, error: err.toString() })
+        })
     }
   }
 
   /* public methods */
 
-  openUrl = (url) => {
+  openUrl = url => {
     this.webView.loadURL(url)
   }
 

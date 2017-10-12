@@ -3,8 +3,6 @@ import { ActivityIndicator } from 'react-native'
 
 export default class Loading extends PureComponent {
   render () {
-    return (
-      <ActivityIndicator size='small' />
-    )
+    return <ActivityIndicator size="small" />
   }
 }

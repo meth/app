@@ -7,8 +7,7 @@ import IconButton from '../IconButton'
 import TextInput from '../TextInput'
 import WebView from '../WebView'
 
-
-export default class TabView extends PureComponent {
+export default class BrowserTabView extends PureComponent {
   constructor (props, ctx) {
     super(props, ctx)
 
@@ -55,7 +54,9 @@ export default class TabView extends PureComponent {
             {...this.props}
             onRedirect={this.props.onUrlChange}
             onNewTitle={this.props.onTitleChange}
-            ref={v => { this.webView = v }}
+            ref={v => {
+              this.webView = v
+            }}
           />
         </View>
       </View>
@@ -70,13 +71,13 @@ export default class TabView extends PureComponent {
     }
   }
 
-  onChangeUrl = (e) => {
+  onChangeUrl = e => {
     this.setState({
-      url: e.target.value,
+      url: e.target.value
     })
   }
 
-  onEnterUrl = (e) => {
+  onEnterUrl = e => {
     this.webView.openUrl(addProtocol(e.target.value))
   }
 

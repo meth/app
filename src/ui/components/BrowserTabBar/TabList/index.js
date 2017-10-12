@@ -6,7 +6,6 @@ import { SortableContainer } from 'react-sortable-hoc'
 import styles from './styles'
 import Tab from '../Tab'
 
-
 export default SortableContainer(({ tabs, onSelect, onClose }) => {
   const items = _.map(tabs, (tab, index) => (
     <Tab
@@ -18,7 +17,5 @@ export default SortableContainer(({ tabs, onSelect, onClose }) => {
     />
   ))
 
-  return (
-    <View style={styles.tabs}>{items}</View>
-  )
+  return <View style={styles.tabs}>{items}</View>
 })

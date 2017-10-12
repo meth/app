@@ -1,14 +1,13 @@
 import { loadJSON } from '../utils/fetch'
+import networks from './networks.json'
+import nodes from './nodes.json'
+import logger from '../utils/log'
 
-const log = require('../utils/log').create('config')
+const log = logger.create('config')
 
-const BUNDLES = {
-  networks: require('./networks.json'),
-  nodes: require('./nodes.json')
-}
+const BUNDLES = { networks, nodes }
 
 const CACHE = {}
-
 
 /**
  * Load config file
@@ -21,7 +20,7 @@ const CACHE = {}
  * @param  {String} fileName name of config file
  * @return {Promise}
  */
-exports.load = async (fileName) => {
+export const load = async fileName => {
   log.info(`Load config: ${fileName}`)
 
   if (CACHE[fileName]) {

@@ -5,6 +5,6 @@ export default create({
     flex: 0,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'stretch',
-  },
+    alignItems: 'stretch'
+  }
 })

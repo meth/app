@@ -3,14 +3,20 @@
     "react-native",
   ],
   "plugins": [
+    "transform-runtime",
     "transform-react-display-name",
-    "transform-decorators-legacy",
+    "transform-decorators-legacy"
   ],
   "env": {
     "development": {
       "plugins": [
         "transform-react-jsx-source",
         "react-hot-loader/babel",
+      ]
+    },
+    "test": {
+      "plugins": [
+        "babel-jest-assertions"
       ]
     }
   }

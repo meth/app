@@ -9,7 +9,7 @@ export default _.memoize(({ type = 'default', disabled }) => {
       ...fontMaker(),
       fontSize: '0.8rem',
       textAlign: 'center',
-      color: `$button_${subtype}_textColor`,
-    },
+      color: `$button_${subtype}_textColor`
+    }
   })
 })

@@ -5,7 +5,7 @@ export default create({
     flex: 1,
     backgroundColor: '$browser_tabBar_tab_active_backgroundColor',
     justifyContent: 'flex-start',
-    alignItems: 'stretch',
+    alignItems: 'stretch'
   },
   navBar: {
     flex: 0,
@@ -17,12 +17,12 @@ export default create({
     borderColor: '$browser_navBar_borderBottomColor'
   },
   navIconButton: {
-    flex: 0,
+    flex: 0
   },
   navUrlInput: {
-    flex: 1,
+    flex: 1
   },
   webView: {
-    flex: 1,
-  },
+    flex: 1
+  }
 })
