@@ -5,22 +5,18 @@ import { IPC } from '../../../../common/constants'
 import { handleWebViewIpcRequest } from './ipcHandlers'
 
 export default class WebView extends PureComponent {
-  constructor (props, ctx) {
-    super(props, ctx)
-
-    this.webViewEventHandlers = {
-      'did-start-loading': this.onLoading,
-      'did-get-redirect-request': this.onRedirect,
-      'did-navigate': this.onNavigate,
-      'did-stop-loading': this.onLoaded,
-      'did-fail-load': this.onLoadingError,
-      crashed: this.onLoadingError,
-      'gpu-crashed': this.onLoadingError,
-      'plugin-crashed': this.onLoadingError,
-      'page-title-updated': this.onNewTitle,
-      'new-window': this.onNewWindow,
-      'ipc-message': this.onWeb3Request
-    }
+  webViewEventHandlers = {
+    'did-start-loading': this.onLoading,
+    'did-get-redirect-request': this.onRedirect,
+    'did-navigate': this.onNavigate,
+    'did-stop-loading': this.onLoaded,
+    'did-fail-load': this.onLoadingError,
+    crashed: this.onLoadingError,
+    'gpu-crashed': this.onLoadingError,
+    'plugin-crashed': this.onLoadingError,
+    'page-title-updated': this.onNewTitle,
+    'new-window': this.onNewWindow,
+    'ipc-message': this.onWeb3Request
   }
 
   render () {

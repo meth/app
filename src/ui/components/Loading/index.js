@@ -1,8 +1,4 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { ActivityIndicator } from 'react-native'
 
-export default class Loading extends PureComponent {
-  render () {
-    return <ActivityIndicator size="small" />
-  }
-}
+export default () => <ActivityIndicator size="small" />

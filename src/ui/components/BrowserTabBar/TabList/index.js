@@ -22,7 +22,7 @@ const TabList = SortableContainer(({ tabs, onSelect, onClose }) => (
 
 TabList.propTypes = {
   tabs: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]).isRequired,
     ...Tab.propTypes
   })),
   onSelect: PropTypes.func.isRequired,

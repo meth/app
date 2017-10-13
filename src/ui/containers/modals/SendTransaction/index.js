@@ -7,8 +7,6 @@ import styles from './styles'
 
 @connectStore('wallet')
 export default class SendTransaction extends PureComponent {
-  state = {}
-
   render () {
     return (
       <Modal>

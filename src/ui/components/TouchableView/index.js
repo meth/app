@@ -1,14 +1,17 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { TouchableOpacity } from 'react-native'
 
-export default class TouchableView extends PureComponent {
-  static defaultProps = {
-    activeOpacity: 1.0
-  }
+const TouchableView = ({ children, ...props }) => (
+  <TouchableOpacity {...props}>{children}</TouchableOpacity>
+)
 
-  render () {
-    const { children, ...props } = this.props
-
-    return <TouchableOpacity {...props}>{children}</TouchableOpacity>
-  }
+TouchableView.propTypes = {
+  activeOpacity: PropTypes.number
 }
+
+TouchableView.defaultProps = {
+  activeOpacity: 1.0
+}
+
+export default TouchableView

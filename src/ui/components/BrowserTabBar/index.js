@@ -21,7 +21,7 @@ export default class BrowserTabBar extends PureComponent {
           axis="x"
           lockAxis="x"
         />
-        <IconButton name="plus" onPress={this.onNewTab} />
+        <IconButton icon={{ name: 'plus' }} onPress={this.onNewTab} />
       </View>
     )
   }

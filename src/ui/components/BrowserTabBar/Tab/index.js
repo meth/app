@@ -60,7 +60,7 @@ const Tab = SortableElement(tab => {
           </Text>
         </View>
         <View style={styles.rightContent}>
-          {!onClose ? null : <IconButton name="close" onPress={onClose} />}
+          {!onClose ? null : <IconButton icon={{ name: 'close' }} onPress={onClose} />}
         </View>
       </View>
     </TouchableView>
@@ -70,8 +70,8 @@ const Tab = SortableElement(tab => {
 Tab.propTypes = {
   label: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
-  onSelect: PropTypes.func.isRequired,
-  active: PropTypes.string,
+  onSelect: PropTypes.func,
+  active: PropTypes.bool,
   onClose: PropTypes.func,
   status: PropTypes.string
 }

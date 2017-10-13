@@ -16,7 +16,7 @@ const IconButton = ({ icon, ...props }) => {
 }
 
 IconButton.propTypes = {
-  icon: PropTypes.shapeOf(Icon.propTypes),
+  icon: PropTypes.shape(Icon.propTypes),
   ...Button.propTypes
 }
 
