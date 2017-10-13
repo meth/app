@@ -40,10 +40,14 @@ export default class Button extends PureComponent {
 
 Button.propTypes = {
   disabled: PropTypes.bool,
-  type: PropTypes.string
+  type: PropTypes.string,
+  title: PropTypes.string,
+  style: PropTypes.object,
+  textStyle: PropTypes.object
 }
 
 Button.defaultProps = {
   disabled: false,
-  type: 'default'
+  type: 'default',
+  title: ''
 }

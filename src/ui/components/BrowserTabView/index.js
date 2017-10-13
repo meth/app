@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { View } from 'react-native'
 
 import styles from './styles'
@@ -96,4 +97,8 @@ export default class BrowserTabView extends PureComponent {
   onOpenDevTools = () => {
     this.webView.openDevTools()
   }
+}
+
+BrowserTabView.propTypes = {
+  url: PropTypes.string
 }

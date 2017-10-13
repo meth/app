@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { View } from 'react-native'
 import { arrayMove } from 'react-sortable-hoc'
 
@@ -36,4 +37,10 @@ export default class BrowserTabBar extends PureComponent {
 
     onNewTab('about:blank')
   }
+}
+
+BrowserTabBar.propTypes = {
+  tabs: TabList.propTypes.tabs,
+  onSelect: PropTypes.func,
+  onClose: PropTypes.func
 }

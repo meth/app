@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
+import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { SortableElement } from 'react-sortable-hoc'
 
@@ -23,7 +24,7 @@ const sanitizeLabel = label => {
     : `${myLabel.substr(0, MAX_LABEL_LENGTH - 3)}...`
 }
 
-export default SortableElement(tab => {
+const Tab = SortableElement(tab => {
   const { label: defaultLabel, url, active, onSelect, onClose, status } = tab
 
   // status icon
@@ -65,3 +66,14 @@ export default SortableElement(tab => {
     </TouchableView>
   )
 })
+
+Tab.propTypes = {
+  label: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  active: PropTypes.string,
+  onClose: PropTypes.func,
+  status: PropTypes.string
+}
+
+export default Tab

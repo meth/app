@@ -14,7 +14,7 @@ const AlertBox = ({ type, text }) => {
   return <View style={styles.container}>{content}</View>
 }
 
-export const propTypes = {
+AlertBox.propTypes = {
   type: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired
 }
