@@ -1,10 +1,22 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 
 import { IPC } from '../../../../common/constants'
 import { handleWebViewIpcRequest } from './ipcHandlers'
 
 export default class WebView extends PureComponent {
+  static propTypes = {
+    url: PropTypes.string.isRequired,
+    apiMethods: PropTypes.object.isRequired,
+    onUrlChange: PropTypes.func.isRequired,
+    onTitleChange: PropTypes.func.isRequired,
+    onLoading: PropTypes.func.isRequired,
+    onLoaded: PropTypes.func.isRequired,
+    onLoadingError: PropTypes.func.isRequired,
+    onOpenNewWindow: PropTypes.func.isRequired
+  }
+
   constructor (props, ctx) {
     super(props, ctx)
 
@@ -63,14 +75,14 @@ export default class WebView extends PureComponent {
     }
   }
   onNavigate = ({ url }) => {
-    this.props.onRedirect(url)
+    this.props.onUrlChange(url)
   }
   onRedirect = ({ newURL, isMainFrame }) => {
     if (isMainFrame) {
-      this.props.onRedirect(newURL)
+      this.props.onUrlChange(newURL)
     }
   }
-  onNewTitle = ({ title }) => this.props.onNewTitle(title)
+  onNewTitle = ({ title }) => this.props.onTitleChange(title)
   onNewWindow = ({ url }) => this.props.onOpenNewWindow(url)
 
   onWeb3Request = ({ channel, args }) => {

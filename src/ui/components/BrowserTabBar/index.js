@@ -8,6 +8,12 @@ import IconButton from '../IconButton'
 import TabList from './TabList'
 
 export default class BrowserTabBar extends PureComponent {
+  static propTypes = {
+    tabs: TabList.propTypes.tabs,
+    onSelect: PropTypes.func,
+    onClose: PropTypes.func
+  }
+
   render () {
     const { tabs, onSelect, onClose } = this.props
 
@@ -37,10 +43,4 @@ export default class BrowserTabBar extends PureComponent {
 
     onNewTab('about:blank')
   }
-}
-
-BrowserTabBar.propTypes = {
-  tabs: TabList.propTypes.tabs,
-  onSelect: PropTypes.func,
-  onClose: PropTypes.func
 }

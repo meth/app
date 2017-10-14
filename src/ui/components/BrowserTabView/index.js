@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { View } from 'react-native'
 
 import styles from './styles'
@@ -9,6 +8,8 @@ import TextInput from '../TextInput'
 import WebView from '../WebView'
 
 export default class BrowserTabView extends PureComponent {
+  static propTypes = WebView.propTypes
+
   constructor (props, ctx) {
     super(props, ctx)
 
@@ -92,8 +93,4 @@ export default class BrowserTabView extends PureComponent {
   openDevTools = () => {
     this.webView.openDevTools()
   }
-}
-
-BrowserTabView.propTypes = {
-  url: PropTypes.string
 }

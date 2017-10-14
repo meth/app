@@ -33,7 +33,7 @@ export default class Browser extends PureComponent {
   }
 
   render () {
-    const { tabs } = this.state
+    const tabs = this.state.tabs.filter(t => t)
 
     const browserViews = tabs.map(tab => {
       const { id, active } = tab
