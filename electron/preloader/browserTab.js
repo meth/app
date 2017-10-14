@@ -81,5 +81,5 @@ window.web3 = new Web3(new Web3IpcProvider())
 window.Meth = {
   createAccount: () => sendIpc(IPC.API, {
     command: API_COMMAND.CREATE_ACCOUNT
-  }),
+  })
 }

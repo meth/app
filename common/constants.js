@@ -26,10 +26,13 @@ module.exports = {
   },
   IPC: {
     BACKEND_TASK: 'backend-task',
-    UI_RELOAD: 'ui-reload',
-    UI_TASK_NOTIFY: 'ui-task-notify',
+    UI_TASK: 'ui-task',
     WEBVIEW: 'WEBVIEW',
     WEB3: 'WEB3',
-    API: 'API',
+    API: 'API'
   },
+  UI_TASKS: {
+    RELOAD: 'reload',
+    OPEN_ACTIVE_TAB_DEV_TOOLS: 'open-active-tab-dev-tools'
+  }
 }

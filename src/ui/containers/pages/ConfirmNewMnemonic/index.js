@@ -14,7 +14,7 @@ import ErrorBox from '../../../components/ErrorBox'
 const log = logger.create('ConfirmNewMnemonic')
 
 @connectStore('nav')
-export default class Page extends PureComponent {
+export default class ConfirmNewMnemonic extends PureComponent {
   state = {
     error: ''
   }

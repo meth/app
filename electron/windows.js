@@ -1,12 +1,13 @@
-const Q = require('bluebird'),
-  path = require('path'),
-  { BrowserWindow } = require('electron'),
-  EventEmitter = require('eventemitter3')
+const Q = require('bluebird')
+const path = require('path')
+const { BrowserWindow } = require('electron')
+const EventEmitter = require('eventemitter3')
 
-const _ = require('./underscore'),
-  Settings = require('./settings'),
-  { IPC } = require('../common/constants'),
-  log = require('./logger').create('Windows')
+const _ = require('./underscore')
+const Settings = require('./settings')
+const { IPC, UI_TASKS } = require('../common/constants')
+
+const log = require('./logger').create('Windows')
 
 
 class Window extends EventEmitter {
@@ -24,7 +25,7 @@ class Window extends EventEmitter {
       this._onContentReadyCallback = resolve
     })
 
-    let electronOptions = {
+    const electronOptions = {
       title: Settings.appName,
       show: true,
       width: 1100,
@@ -48,8 +49,8 @@ class Window extends EventEmitter {
         webaudio: true,
         webgl: false,
         webSecurity: false, // necessary to make routing work on file:// protocol
-        textAreasAreResizable: true,
-      },
+        textAreasAreResizable: true
+      }
     }
 
     _.deepExtend(electronOptions, config.electronOptions || {})
@@ -79,7 +80,7 @@ class Window extends EventEmitter {
       this.emit('closed')
     })
 
-    this._window.on('show', (e) => {
+    this._window.on('show', e => {
       this._log.debug(`Shown`)
 
       this._isShown = true
@@ -87,7 +88,7 @@ class Window extends EventEmitter {
       this.emit('show', e)
     })
 
-    this._window.on('hide', (e) => {
+    this._window.on('hide', e => {
       this._log.debug(`Hidden`)
 
       this._isShown = false
@@ -166,7 +167,7 @@ class Window extends EventEmitter {
     this.onceReady().then(() => {
       this._log.trace(`Sending data`, args)
 
-      this._webContents.send(...args)
+      this._webContents.send(IPC.UI_TASK, ...args)
     })
   }
 
@@ -209,7 +210,7 @@ class Window extends EventEmitter {
   }
 
   reload () {
-    this._window.send(IPC.UI_RELOAD)
+    this.send(UI_TASKS.RELOAD)
   }
 }
 
@@ -224,7 +225,7 @@ exports.setupMainWindow = () => {
         webviewTag: true,
         // Gotta turn off security - https://github.com/electron/electron/issues/9736
         nodeIntegration: true,
-        contextIsolation: false,
+        contextIsolation: false
       }
     }
   })

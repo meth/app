@@ -8,7 +8,7 @@
  * browser page that is loaded in the window.
  */
 const { ipcRenderer, webFrame } = require('electron')
-const { IPC, BACKEND_TASKS } = require('../../common/constants')
+const { IPC, BACKEND_TASKS, UI_TASKS } = require('../../common/constants')
 const Settings = require('../settings')
 
 // fn: send IPC to backend
@@ -26,20 +26,23 @@ window.addEventListener('message', ({ data }) => {
   }
 })
 
-// handle backend ipc: reload page
-ipcRenderer.on(IPC.UI_RELOAD, () => window.location.reload())
-
 // handle backend ipc: notify UI
-ipcRenderer.on(IPC.UI_TASK_NOTIFY, (e, task, status, data) => {
-  webFrame.executeJavaScript(`
-    window.dispatchEvent(new CustomEvent('ipc', {
-      detail: {
-        task: "${task}",
-        status: "${status}",
-        data: ${JSON.stringify(data)}
-      }
-    }));
-  `)
+ipcRenderer.on(IPC.UI_TASK, (e, task, data) => {
+  switch (task) {
+    case UI_TASKS.RELOAD: {
+      return window.location.reload()
+    }
+    default: {
+      return webFrame.executeJavaScript(`
+        window.dispatchEvent(new CustomEvent('${IPC.UI_TASK}', {
+          detail: {
+            task: "${task}",
+            data: ${JSON.stringify(data)}
+          }
+        }));
+      `)
+    }
+  }
 })
 
 // tell backend we have initialized

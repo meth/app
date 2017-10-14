@@ -15,7 +15,7 @@ import Layout from '../Layout'
 const log = logger.create('LoginMnemonic')
 
 @connectStore('nav')
-export default class Page extends PureComponent {
+export default class LoginMnemonic extends PureComponent {
   state = {
     mnemonic: '',
     generateNewError: null,
