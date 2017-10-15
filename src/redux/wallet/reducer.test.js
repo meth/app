@@ -2,8 +2,6 @@ import Immutable from 'immutable'
 
 import reducer from './reducer'
 import { BALANCES, TX_SENDING, TX_SENT, TX_SEND_ERROR, CANCEL_TX } from './actions'
-import { SEND_TX_EVENT } from '../../utils/asyncEvents'
-import { inProgress, success, error } from '../../utils/stateMachines'
 
 describe('BALANCES', () => {
   it('updates the balances', () => {
@@ -35,9 +33,7 @@ describe('TX_SENDING', () => {
       getState: () => null
     }
 
-    state = Immutable.Map({
-      [SEND_TX_EVENT]: event
-    })
+    state = Immutable.Map({})
 
     reduce = reducer()
   })
@@ -67,18 +63,6 @@ describe('TX_SENDING', () => {
 
     expect(newState.get('currentTransactionPromise')).toEqual('whatever')
   })
-
-  it('updates the event', () => {
-    const newState = reduce(state, {
-      type: TX_SENDING,
-      payload: 'whatever'
-    })
-
-    expect(event.update).toHaveBeenCalledWith({
-      state: inProgress
-    })
-    expect(newState.get(SEND_TX_EVENT)).toEqual(event)
-  })
 })
 
 describe('TX_SEND_ERROR', () => {
@@ -92,9 +76,7 @@ describe('TX_SEND_ERROR', () => {
       getState: () => null
     }
 
-    state = Immutable.Map({
-      [SEND_TX_EVENT]: event
-    })
+    state = Immutable.Map({})
 
     reduce = reducer()
   })
@@ -119,19 +101,6 @@ describe('TX_SEND_ERROR', () => {
     })
 
     expect(newState.get('currentTransactionPromise')).toEqual(null)
-  })
-
-  it('updates the event', () => {
-    const newState = reduce(state, {
-      type: TX_SEND_ERROR,
-      payload: 'whatever'
-    })
-
-    expect(event.update).toHaveBeenCalledWith({
-      state: error,
-      data: 'whatever'
-    })
-    expect(newState.get(SEND_TX_EVENT)).toEqual(event)
   })
 })
 
@@ -146,9 +115,7 @@ describe('CANCEL_TX', () => {
       getState: () => null
     }
 
-    state = Immutable.Map({
-      [SEND_TX_EVENT]: event
-    })
+    state = Immutable.Map({})
 
     reduce = reducer()
   })
@@ -173,19 +140,6 @@ describe('CANCEL_TX', () => {
     })
 
     expect(newState.get('currentTransactionPromise')).toEqual(null)
-  })
-
-  it('updates the event', () => {
-    const newState = reduce(state, {
-      type: CANCEL_TX,
-      payload: 'whatever'
-    })
-
-    expect(event.update).toHaveBeenCalledWith({
-      state: error,
-      data: 'whatever'
-    })
-    expect(newState.get(SEND_TX_EVENT)).toEqual(event)
   })
 })
 
@@ -200,9 +154,7 @@ describe('TX_SENT', () => {
       getState: () => null
     }
 
-    state = Immutable.Map({
-      [SEND_TX_EVENT]: event
-    })
+    state = Immutable.Map({})
 
     reduce = reducer()
   })
@@ -227,18 +179,5 @@ describe('TX_SENT', () => {
     })
 
     expect(newState.get('currentTransactionPromise')).toEqual(null)
-  })
-
-  it('updates the event', () => {
-    const newState = reduce(state, {
-      type: TX_SENT,
-      payload: 'whatever'
-    })
-
-    expect(event.update).toHaveBeenCalledWith({
-      state: success,
-      data: 'whatever'
-    })
-    expect(newState.get(SEND_TX_EVENT)).toEqual(event)
   })
 })

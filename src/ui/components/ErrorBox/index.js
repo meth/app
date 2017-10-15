@@ -46,7 +46,7 @@ const ErrorBox = ({ error }) => {
 }
 
 ErrorBox.propTypes = {
-  error: PropTypes.any
+  error: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ])
 }
 
 export default ErrorBox

@@ -2,12 +2,9 @@ import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
 import { BALANCES, TX_SENDING, TX_SEND_ERROR, TX_SENT, CANCEL_TX } from './actions'
-import { SEND_TX_EVENT } from '../../utils/asyncEvents'
-import { createStateActionMachine, inProgress, success, error } from '../../utils/stateMachines'
 
 export default () => {
   const InitialState = Immutable.Map({
-    [SEND_TX_EVENT]: createStateActionMachine(),
     balances: {},
     currentTransaction: null
   })
@@ -19,36 +16,21 @@ export default () => {
         state
           .set('currentTransaction', tx)
           .set('currentTransactionPromise', promise)
-          .set(SEND_TX_EVENT, state.get(SEND_TX_EVENT).update({
-            state: inProgress
-          }))
       ),
-      [TX_SENT]: (state, { payload: data }) => (
+      [TX_SENT]: state => (
         state
           .set('currentTransaction', null)
           .set('currentTransactionPromise', null)
-          .set(SEND_TX_EVENT, state.get(SEND_TX_EVENT).update({
-            state: success,
-            data
-          }))
       ),
-      [TX_SEND_ERROR]: (state, { payload: data }) => (
+      [TX_SEND_ERROR]: state => (
         state
           .set('currentTransaction', null)
           .set('currentTransactionPromise', null)
-          .set(SEND_TX_EVENT, state.get(SEND_TX_EVENT).update({
-            state: error,
-            data
-          }))
       ),
-      [CANCEL_TX]: (state, { payload: data }) => (
+      [CANCEL_TX]: state => (
         state
           .set('currentTransaction', null)
           .set('currentTransactionPromise', null)
-          .set(SEND_TX_EVENT, state.get(SEND_TX_EVENT).update({
-            state: error,
-            data
-          }))
       )
     },
     InitialState

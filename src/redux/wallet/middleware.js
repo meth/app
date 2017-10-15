@@ -1,7 +1,5 @@
 import { SEND_TX, TX_SEND_ERROR, TX_SENT, CANCEL_TX } from './actions'
 import { transactionSending } from './actionCreators'
-import { SEND_TX_EVENT } from '../../utils/asyncEvents'
-import { inProgress } from '../../utils/stateMachines'
 import { mutable } from '../utils'
 import { SendTransactionError } from '../../utils/errors'
 import { t } from '../../../common/strings'
@@ -10,9 +8,9 @@ import { t } from '../../../common/strings'
 export default () => store => next => async action => {
   switch (action.type) {
     case SEND_TX: {
-      const { wallet: { [SEND_TX_EVENT]: sendTxEvent } } = mutable(store.getState())
+      const { wallet: { currentTransaction } } = mutable(store.getState(), 'wallet')
 
-      if (inProgress === sendTxEvent.getState()) {
+      if (currentTransaction) {
         return Promise.reject(
           new SendTransactionError(t('error.transactionAlreadyInProgress'))
         )

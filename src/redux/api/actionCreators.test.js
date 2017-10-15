@@ -1,5 +1,5 @@
-import { web3Request, generateAccount } from './actionCreators'
-import { WEB3_REQUEST, GENERATE_ACCOUNT } from './actions'
+import { web3Request, generateAccount, finalizeTransaction } from './actionCreators'
+import { WEB3_REQUEST, GENERATE_ACCOUNT, FINALIZE_TRANSACTION } from './actions'
 
 describe('web3Request()', () => {
   it('with payload returns action', () => {
@@ -10,6 +10,15 @@ describe('web3Request()', () => {
       payload: {
         method: 'getAccounts'
       }
+    })
+  })
+})
+
+describe('finalizeTransaction()', () => {
+  it('with payload returns action', () => {
+    expect(finalizeTransaction(123)).toEqual({
+      type: FINALIZE_TRANSACTION,
+      payload: 123
     })
   })
 })
