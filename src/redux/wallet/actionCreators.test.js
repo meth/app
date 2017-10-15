@@ -1,5 +1,5 @@
-import { updateBalances, sendTransaction, transactionSending, transactionSent, transactionSendError } from './actionCreators'
-import { BALANCES, SEND_TX, TX_SENT, TX_SENDING, TX_SEND_ERROR } from './actions'
+import { updateBalances, sendTransaction, cancelTransaction, transactionSending, transactionSent, transactionSendError } from './actionCreators'
+import { BALANCES, SEND_TX, CANCEL_TX, TX_SENT, TX_SENDING, TX_SEND_ERROR } from './actions'
 
 describe('updateBalances()', () => {
   it('returns action', () => {
@@ -13,6 +13,15 @@ describe('sendTransaction()', () => {
   it('returns action', () => {
     expect(sendTransaction(123)).toEqual({
       type: SEND_TX,
+      payload: 123
+    })
+  })
+})
+
+describe('cancelTransaction()', () => {
+  it('returns action', () => {
+    expect(cancelTransaction(123)).toEqual({
+      type: CANCEL_TX,
       payload: 123
     })
   })

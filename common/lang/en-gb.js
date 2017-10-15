@@ -24,6 +24,7 @@ module.exports = {
       pleaseChooseNode: 'Please choose a node to connect to',
     },
     error: {
+      userCancelledTransaction: 'User cancelled transaction',
       unableToConnect: 'Unable to connect',
       requestTimeout: 'Request timed out',
       methodCall: 'Error calling method: {method}',

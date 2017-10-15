@@ -1,4 +1,4 @@
-import { BALANCES, SEND_TX, TX_SENDING, TX_SENT, TX_SEND_ERROR } from './actions'
+import { BALANCES, SEND_TX, CANCEL_TX, TX_SENDING, TX_SENT, TX_SEND_ERROR } from './actions'
 
 describe('BALANCES', () => {
   it('is defined', () => {
@@ -9,6 +9,12 @@ describe('BALANCES', () => {
 describe('SEND_TX', () => {
   it('is defined', () => {
     expect(SEND_TX).toBeDefined()
+  })
+})
+
+describe('CANCEL_TX', () => {
+  it('is defined', () => {
+    expect(CANCEL_TX).toBeDefined()
   })
 })
 

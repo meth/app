@@ -1,4 +1,4 @@
-import { SEND_TX, TX_SEND_ERROR, TX_SENT } from './actions'
+import { SEND_TX, TX_SEND_ERROR, TX_SENT, CANCEL_TX } from './actions'
 import { transactionSending } from './actionCreators'
 import { SEND_TX_EVENT } from '../../utils/asyncEvents'
 import { inProgress } from '../../utils/stateMachines'
@@ -39,6 +39,7 @@ export default () => store => next => async action => {
 
       return next(action)
     }
+    case CANCEL_TX:
     case TX_SEND_ERROR: {
       const { wallet: { currentTransactionPromise: promise } } = mutable(store.getState())
 
