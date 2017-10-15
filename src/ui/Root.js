@@ -2,11 +2,14 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
 import MODALS from '../utils/modals'
+import logger from '../utils/log'
 import { create } from './styles'
 import { Navigator } from './nav'
 import { connectStore, mutable } from './helpers/redux'
 import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
+
+const log = logger.create('Root')
 
 // modals - in order of importance
 const MODAL_COMPONENTS = {
@@ -21,14 +24,30 @@ const styles = create({
 })
 
 @connectStore('modals')
-export default class Layout extends PureComponent {
+export default class Root extends PureComponent {
+  state = {
+    uiError: {}
+  }
+
   render () {
-    return (
+    const { uiError: { error } } = this.state
+
+    return error ? (
+      <Text>{JSON.stringify(error)}</Text>
+    ) : (
       <View style={styles.container}>
         <Navigator />
         {this.showModal()}
       </View>
     )
+  }
+
+  componentDidCatch (error, info) {
+    log.error('UI error', error, info)
+
+    this.setState({
+      uiError: { error, info }
+    })
   }
 
   showModal () {
