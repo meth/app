@@ -73,7 +73,7 @@ export default class ConnectNode extends PureComponent {
     })
 
     const errorBox =
-      error !== connectEvent.getState() ? null : (
+      error === connectEvent.getState() && (
         <ErrorBox error={connectEvent.getData() || t('error.unexpected')} />
       )
 

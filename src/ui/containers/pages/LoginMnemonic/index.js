@@ -35,7 +35,7 @@ export default class LoginMnemonic extends PureComponent {
   renderInputExisting = () => {
     const { mnemonic, inputExistingError } = this.state
 
-    const errorBox = !inputExistingError ? null : (
+    const errorBox = inputExistingError && (
       <ErrorBox error={inputExistingError} />
     )
 
@@ -56,7 +56,7 @@ export default class LoginMnemonic extends PureComponent {
   renderGenerateNew = () => {
     const { generateNewError } = this.state
 
-    const errorBox = !generateNewError ? null : (
+    const errorBox = generateNewError && (
       <ErrorBox error={generateNewError} />
     )
 

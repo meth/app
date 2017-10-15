@@ -10,7 +10,7 @@ import styles from './styles'
 
 @connectStore('wallet', 'api')
 export default class SendTransaction extends PureComponent {
-  static = {
+  state = {
     error: null,
     gasPrice: 1
   }

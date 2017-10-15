@@ -41,4 +41,4 @@ const define = ClassName => {
 })
 
 export const instanceOfError = (e, ...args) =>
-  !!Object.values(args).filter(eK => e.type === eK.type)
+  !!Object.values(args).filter(eK => e.type === eK.type).length
