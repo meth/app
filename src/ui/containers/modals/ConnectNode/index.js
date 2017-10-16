@@ -29,7 +29,7 @@ export default class ConnectNode extends PureComponent {
       <AlertBox type="info" text={t('connector.pleaseChooseNode')} />
     )
 
-    const content = !nodes ? (
+    const content = (!nodes) ? (
       <Loading />
     ) : (
       <View>
@@ -73,12 +73,12 @@ export default class ConnectNode extends PureComponent {
     })
 
     const errorBox =
-      error === connectEvent.getState() && (
+      (error !== connectEvent.getState()) ? null : (
         <ErrorBox error={connectEvent.getData() || t('error.unexpected')} />
       )
 
     return (
-      <div>
+      <View>
         <Picker
           options={options}
           selected={selected}
@@ -86,7 +86,7 @@ export default class ConnectNode extends PureComponent {
         />
         <Button onPress={() => this.onSubmit(selected)} title="Go" />
         {errorBox}
-      </div>
+      </View>
     )
   }
 

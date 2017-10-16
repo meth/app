@@ -37,7 +37,9 @@ export default class SendTransaction extends PureComponent {
           <Text>{data}</Text>
           <Button title={t('button.confirmAndSend')} onPress={this.sendTransaction} />
           <Button title={t('button.cancelTransaction')} onPress={this.dismissModal} />
-          {error && <ErrorBox error={error} />}
+          {(!error) ? null : (
+            <ErrorBox error={error} />
+          )}
         </View>
       </Modal>
     )

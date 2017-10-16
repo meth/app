@@ -16,7 +16,8 @@ const AlertBox = ({ type, text, children }) => {
 
 AlertBox.propTypes = {
   type: PropTypes.string.isRequired,
-  text: PropTypes.string
+  text: PropTypes.string,
+  children: PropTypes.element
 }
 
 export default AlertBox

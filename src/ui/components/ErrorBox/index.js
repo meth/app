@@ -33,12 +33,16 @@ const ErrorBox = ({ error }) => {
         <Text style={styles.errorText}>
           {t('error.methodCall', { method })}
         </Text>
-        {details && (
+        {(!details) ? null : (
           <Text style={styles.errorText}>
             {JSON.stringify(details, null, 2)}
           </Text>
         )}
       </View>
+    )
+  } else {
+    renderedError = (
+      <Text style={styles.errorText}>{renderedError}</Text>
     )
   }
 

@@ -60,7 +60,9 @@ const Tab = SortableElement(tab => {
           </Text>
         </View>
         <View style={styles.rightContent}>
-          {onClose && <IconButton icon={{ name: 'close' }} onPress={onClose} />}
+          {(!onClose) ? null : (
+            <IconButton icon={{ name: 'close' }} onPress={onClose} />
+          )}
         </View>
       </View>
     </TouchableView>

@@ -26,7 +26,9 @@ export default class ConfirmNewMnemonic extends PureComponent {
 
     const { error } = this.state
 
-    const errorBox = error && <ErrorBox error={error} />
+    const errorBox = (!error) ? null : (
+      <ErrorBox error={error} />
+    )
 
     return (
       <Layout>

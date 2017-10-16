@@ -25,16 +25,8 @@ const styles = create({
 
 @connectStore('modals')
 export default class Root extends PureComponent {
-  state = {
-    uiError: {}
-  }
-
   render () {
-    const { uiError: { error } } = this.state
-
-    return error ? (
-      <Text>{JSON.stringify(error)}</Text>
-    ) : (
+    return (
       <View style={styles.container}>
         <Navigator />
         {this.showModal()}
@@ -44,10 +36,6 @@ export default class Root extends PureComponent {
 
   componentDidCatch (error, info) {
     log.error('UI error', error, info)
-
-    this.setState({
-      uiError: { error, info }
-    })
   }
 
   showModal () {
