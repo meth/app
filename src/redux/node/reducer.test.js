@@ -103,14 +103,14 @@ describe('NODE_CONNECTING', () => {
   })
 
   it('normally clears the genesis block', () => {
-    state = state.set('genesisBlock', 123)
+    state = state.set('networkInfo', 123)
 
     const newState = reduce(state, {
       type: NODE_CONNECTING,
       payload: 'whatever'
     })
 
-    expect(newState.get('genesisBlock')).toEqual(null)
+    expect(newState.get('networkInfo')).toEqual({})
   })
 })
 
@@ -157,14 +157,14 @@ describe('NODE_CONNECT_ERROR', () => {
   })
 
   it('normally clears the genesis block', () => {
-    state = state.set('genesisBlock', 123)
+    state = state.set('networkInfo', 123)
 
     const newState = reduce(state, {
       type: NODE_CONNECT_ERROR,
       payload: 'whatever'
     })
 
-    expect(newState.get('genesisBlock')).toEqual(null)
+    expect(newState.get('networkInfo')).toEqual({})
   })
 })
 
@@ -210,13 +210,13 @@ describe('NODE_CONNECTED', () => {
   })
 
   it('normally sets the genesis block', () => {
-    state = state.set('genesisBlock', null)
+    state = state.set('networkInfo', {})
 
     const newState = reduce(state, {
       type: NODE_CONNECTED,
       payload: 123
     })
 
-    expect(newState.get('genesisBlock')).toEqual(123)
+    expect(newState.get('networkInfo')).toEqual(123)
   })
 })

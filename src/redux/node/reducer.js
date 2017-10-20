@@ -10,7 +10,7 @@ export default () => {
     [CONNECT_NODE_EVENT]: createStateActionMachine(),
     isConnected: false,
     disconnectionReason: undefined,
-    genesisBlock: null
+    networkInfo: {}
   })
 
   return handleActions(
@@ -18,6 +18,7 @@ export default () => {
       [NODE_DISCONNECTED]: (state, { payload: { reason } }) => (
         state
           .set('isConnected', false)
+          .set('networkInfo', {})
           .set('disconnectionReason', reason)
           .set(CONNECT_NODE_EVENT, state.get(CONNECT_NODE_EVENT).update({
             state: ready
@@ -25,7 +26,7 @@ export default () => {
       ),
       [NODE_CONNECTING]: (state, { payload: data }) => (
         state
-          .set('genesisBlock', null)
+          .set('networkInfo', {})
           .set('isConnected', false)
           .set(CONNECT_NODE_EVENT, state.get(CONNECT_NODE_EVENT).update({
             state: inProgress,
@@ -34,16 +35,16 @@ export default () => {
       ),
       [NODE_CONNECT_ERROR]: (state, { payload: data }) => (
         state
-          .set('genesisBlock', null)
+          .set('networkInfo', {})
           .set('isConnected', false)
           .set(CONNECT_NODE_EVENT, state.get(CONNECT_NODE_EVENT).update({
             state: error,
             data
           }))
       ),
-      [NODE_CONNECTED]: (state, { payload: genesisBlock }) => (
+      [NODE_CONNECTED]: (state, { payload: networkInfo }) => (
         state
-          .set('genesisBlock', genesisBlock)
+          .set('networkInfo', networkInfo)
           .set('isConnected', true)
           .set(CONNECT_NODE_EVENT, state.get(CONNECT_NODE_EVENT).update({
             state: success

@@ -14,14 +14,20 @@ import Loading from '../../../components/Loading'
 import Picker from '../../../components/Picker'
 import styles from './styles'
 
-@connectStore('config', 'node')
+@connectStore('config', 'node', 'modals')
 export default class ConnectNode extends PureComponent {
   state = {}
 
   render () {
-    const { config: { nodes }, node: { disconnectReason } } = mutable(
-      this.props
-    )
+    const {
+      config: {
+        nodes
+      },
+      node: {
+        isConnected,
+        disconnectReason
+      }
+    } = mutable(this.props)
 
     const diconnectContent = disconnectReason ? (
       <ErrorBox error={disconnectReason} />
@@ -40,7 +46,7 @@ export default class ConnectNode extends PureComponent {
     )
 
     return (
-      <Modal>
+      <Modal onOverlayPress={isConnected ? this.dismissModal : null}>
         <View style={styles.container}>{content}</View>
       </Modal>
     )
@@ -106,5 +112,9 @@ export default class ConnectNode extends PureComponent {
     connectNode(node)
       .then(() => hideConnectionModal())
       .catch(() => {})
+  }
+
+  dismissModal = () => {
+    this.props.actions.hideConnectionModal()
   }
 }
