@@ -1,4 +1,4 @@
-import { put, call, select, takeLatest } from 'redux-saga/effects'
+import { put, select, takeLatest } from 'redux-saga/effects'
 
 import { SEND_RAW_TX } from '../wallet/actions'
 import { TX_COMPLETED } from './actions'
@@ -7,7 +7,7 @@ import { getTxDeferred } from './selectors'
 
 function* onSuccessfulTransaction (app, { payload: receipt }) {
   // resolve the tx promise so that the original caller gets a tx receipt
-  const deferred = yield call(select, getTxDeferred)
+  const deferred = yield select(getTxDeferred)
   if (deferred) {
     deferred.resolve(receipt)
   }

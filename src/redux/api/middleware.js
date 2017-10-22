@@ -2,7 +2,7 @@ import { SEND_TX, CANCEL_TX, WEB3_REQUEST, GENERATE_ACCOUNT } from './actions'
 import { createAction } from '../utils'
 import { SendTransactionError } from '../../utils/errors'
 import { t } from '../../../common/strings'
-import { getTx, getTxDeferred } from './selectors'
+import { getTxDeferred } from './selectors'
 
 
 export default ({ nodeConnector, walletManager }) => store => next => async action => {
@@ -14,9 +14,9 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       return Promise.resolve(walletManager.wallet().generateAccount())
     }
     case SEND_TX: {
-      const tx = getTx(store.getState())
+      const existingDeferred = getTxDeferred(store.getState())
 
-      if (tx) {
+      if (existingDeferred) {
         return Promise.reject(
           new SendTransactionError(t('error.transactionAlreadyInProgress'))
         )
@@ -36,11 +36,6 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       // we return a promise which the caller can wait on to know if/when the
       // tx passes/fails
       return promise
-        .catch(err => {
-          console.warn(err)
-
-          throw err
-        })
     }
     case CANCEL_TX: {
       const deferred = getTxDeferred(store.getState())

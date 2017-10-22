@@ -38,8 +38,8 @@ module.exports = {
     button: {
       close: 'Close',
       confirmAndSendTransaction: 'Send',
-      generateRawTransaction: 'Generate raw transaction',
       cancelTransaction: 'Cancel',
+      generateRawTransaction: 'Generate raw transaction',
       generateNewMnemonic: 'Generate new mnemonic',
       iHaveNotedDownMyMnemonicAndWishToProceed: 'I have written down my mnemonic offline and wish to proceed'
     }

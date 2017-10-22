@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 
 import reducer from './reducer'
-import { SEND_TX, CANCEL_TX } from './actions'
+import { SEND_TX, CANCEL_TX, TX_COMPLETED } from './actions'
 
 describe('SEND_TX', () => {
   let event
@@ -38,7 +38,7 @@ describe('SEND_TX', () => {
     const newState = reduce(state, {
       type: SEND_TX,
       payload: {
-        promise: 'whatever'
+        deferred: 'whatever'
       }
     })
 
@@ -62,7 +62,7 @@ describe('CANCEL_TX', () => {
     reduce = reducer()
   })
 
-  it('clears the current transaction', () => {
+  it('does not change the current transaction', () => {
     state = state.set('currentTx', 'whatever')
 
     const newState = reduce(state, {
@@ -70,7 +70,7 @@ describe('CANCEL_TX', () => {
       payload: 'whatever'
     })
 
-    expect(newState.get('currentTx')).toEqual(null)
+    expect(newState.get('currentTx')).toEqual('whatever')
   })
 
   it('clears the current transaction promise', () => {
@@ -78,6 +78,45 @@ describe('CANCEL_TX', () => {
 
     const newState = reduce(state, {
       type: CANCEL_TX,
+      payload: 'whatever'
+    })
+
+    expect(newState.get('currentTxDeferred')).toEqual(null)
+  })
+})
+
+describe('TX_COMPLETED', () => {
+  let event
+  let state
+  let reduce
+
+  beforeEach(() => {
+    event = {
+      update: jest.fn(() => event),
+      getState: () => null
+    }
+
+    state = Immutable.Map({})
+
+    reduce = reducer()
+  })
+
+  it('does not change the current transaction', () => {
+    state = state.set('currentTx', 'whatever')
+
+    const newState = reduce(state, {
+      type: TX_COMPLETED,
+      payload: 'whatever'
+    })
+
+    expect(newState.get('currentTx')).toEqual('whatever')
+  })
+
+  it('clears the current transaction promise', () => {
+    state = state.set('currentTxDeferred', 'whatever')
+
+    const newState = reduce(state, {
+      type: TX_COMPLETED,
       payload: 'whatever'
     })
 

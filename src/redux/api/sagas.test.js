@@ -1,4 +1,4 @@
-import { takeLatest, put, call, select } from 'redux-saga/effects'
+import { takeLatest, put, select } from 'redux-saga/effects'
 
 import { SEND_RAW_TX } from '../wallet/actions'
 import { TX_COMPLETED } from './actions'
@@ -23,7 +23,7 @@ describe('api saga', () => {
         payload: 123
       })
 
-      expect(gen.next().value).toEqual(call(select, getTxDeferred))
+      expect(gen.next().value).toEqual(select(getTxDeferred))
 
       const deferred = {
         resolve: jest.fn()

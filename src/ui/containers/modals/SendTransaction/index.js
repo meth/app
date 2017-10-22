@@ -19,25 +19,13 @@ export default class SendTransaction extends PureComponent {
   }
 
   render () {
-    const { from, to, value, gas, data } = getTx(this.props)
-
     const { error, rawTx, receipt } = this.state
-
-    const { gasLimit, gasPrice } = this._gas()
 
     return (
       <Modal>
         <View style={styles.container}>
-          <Text>{from}</Text>
-          <Text>{to}</Text>
-          <Text>{value}</Text>
-          <Text>{gasLimit || gas}</Text>
-          <Text>{gasPrice}</Text>
-          <Text>{data}</Text>
-          {receipt ? this.renderReceipt(receipt) : this.renderActions(rawTx)}
-          {(!error) ? null : (
-            <ErrorBox error={error} />
-          )}
+          {receipt ? this.renderReceipt(receipt) : this.renderForm(rawTx)}
+          {error ? <ErrorBox error={error} /> : null}
         </View>
       </Modal>
     )
@@ -52,14 +40,35 @@ export default class SendTransaction extends PureComponent {
     )
   }
 
-  renderActions (rawTx) {
+  renderForm (rawTx) {
+    const { from, to, value, gas, data } = getTx(this.props)
+
+    const { gasLimit, gasPrice } = this._gas()
+
+    const form = (
+      <View>
+        <Text>{from}</Text>
+        <Text>{to}</Text>
+        <Text>{value}</Text>
+        <Text>{gasLimit || gas}</Text>
+        <Text>{gasPrice}</Text>
+        <Text>{data}</Text>
+      </View>
+    )
+
     return rawTx ? (
       <View>
+        {form}
         <Text>{rawTx}</Text>
         <Button title={t('button.confirmAndSendTransaction')} onPress={this.confirmAndSend} />
+        <Button title={t('button.cancelTransaction')} onPress={this.dismissModal} />
       </View>
     ) : (
-      <Button title={t('button.generateRawTransaction')} onPress={this.generateRaw} />
+      <View>
+        {form}
+        <Button title={t('button.generateRawTransaction')} onPress={this.generateRaw} />
+        <Button title={t('button.cancelTransaction')} onPress={this.dismissModal} />
+      </View>
     )
   }
 

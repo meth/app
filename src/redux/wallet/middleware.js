@@ -1,4 +1,5 @@
 import { SEND_RAW_TX, GENERATE_RAW_TX } from './actions'
+import { createAction } from '../utils'
 
 // eslint-disable-next-line consistent-return
 export default () => () => next => async action => {
@@ -7,7 +8,11 @@ export default () => () => next => async action => {
       return Promise.resolve('0xdeadbeef')
     }
     case SEND_RAW_TX: {
-      return Promise.resolve('ok!')
+      const receipt = 123
+
+      await next(createAction(action.type, receipt))
+
+      return Promise.resolve(receipt)
     }
     default: {
       return next(action)

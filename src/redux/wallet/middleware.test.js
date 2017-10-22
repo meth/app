@@ -43,7 +43,7 @@ describe('wallet middleware', () => {
 
       const ret = await handler(action)
 
-      expect(ret).toEqual('ok!')
+      expect(ret).toEqual(123)
       expect(next).not.toHaveBeenCalledWith(action)
     })
   })
