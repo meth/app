@@ -1,1 +1,0 @@
-export const CONNECT_NODE_EVENT = 'CONNECT_NODE_EVENT'

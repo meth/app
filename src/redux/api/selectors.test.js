@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import { getTx, getTxDeferred } from './selectors'
 
-describe('getTx()', () => {
+describe('.getTx()', () => {
   it('returns current transaction', () => {
     const state = {
       api: new Immutable.Map({
@@ -13,7 +13,7 @@ describe('getTx()', () => {
   })
 })
 
-describe('getTxDeferred()', () => {
+describe('.getTxDeferred()', () => {
   it('returns current transaction deferred object', () => {
     const state = {
       api: new Immutable.Map({

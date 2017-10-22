@@ -2,10 +2,10 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 
-import { connectStore, mutable } from '../../../helpers/redux'
+import { connectStore } from '../../../helpers/redux'
 import { getNodes } from '../../../../redux/config/selectors'
+import { getNodeIsConnected, getDisconnectReason, getConnectionEvent } from '../../../../redux/node/selectors'
 import { t } from '../../../../../common/strings'
-import { CONNECT_NODE_EVENT } from '../../../../utils/asyncEvents'
 import { error } from '../../../../utils/stateMachines'
 import ErrorBox from '../../../components/ErrorBox'
 import AlertBox from '../../../components/AlertBox'
@@ -20,15 +20,9 @@ export default class ConnectNode extends PureComponent {
   state = {}
 
   render () {
-    const {
-      config: {
-        nodes
-      },
-      node: {
-        isConnected,
-        disconnectReason
-      }
-    } = mutable(this.props)
+    const nodes = getNodes(this.props)
+    const isConnected = getNodeIsConnected(this.props)
+    const disconnectReason = getDisconnectReason(this.props)
 
     const diconnectContent = disconnectReason ? (
       <ErrorBox error={disconnectReason} />
@@ -54,10 +48,8 @@ export default class ConnectNode extends PureComponent {
   }
 
   renderSelector () {
-    const {
-      node: { [CONNECT_NODE_EVENT]: connectEvent },
-      config: { nodes }
-    } = mutable(this.props)
+    const nodes = getNodes(this.props)
+    const connectEvent = getConnectionEvent(this.props)
 
     let { selected } = this.state
 

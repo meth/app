@@ -2,10 +2,11 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
 import MODALS from '../utils/modals'
+import { getModals } from '../redux/modals/selectors'
 import logger from '../utils/log'
 import { create } from './styles'
 import { Navigator } from './nav'
-import { connectStore, mutable } from './helpers/redux'
+import { connectStore } from './helpers/redux'
 import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
 
@@ -39,7 +40,7 @@ export default class Root extends PureComponent {
   }
 
   showModal () {
-    const { modals } = mutable(this.props)
+    const modals = getModals(this.props)
 
     const components = []
 

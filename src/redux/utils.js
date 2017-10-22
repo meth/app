@@ -9,7 +9,6 @@ export const createAction = (action, payload) => ({
   ...(undefined !== payload ? { payload } : undefined)
 })
 
-
 const defaultPayloadFn = (...args) => {
   if (args.length) {
     return 1 === args.length ? args[0] : args

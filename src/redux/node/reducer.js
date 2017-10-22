@@ -2,12 +2,11 @@ import { handleActions } from 'redux-actions'
 import Immutable from 'immutable'
 
 import { NODE_DISCONNECTED, NODE_CONNECTED, NODE_CONNECTING, NODE_CONNECT_ERROR } from './actions'
-import { CONNECT_NODE_EVENT } from '../../utils/asyncEvents'
 import { ready, success, error, inProgress, createStateActionMachine } from '../../utils/stateMachines'
 
 export default () => {
   const InitialState = Immutable.Map({
-    [CONNECT_NODE_EVENT]: createStateActionMachine(),
+    connectEvent: createStateActionMachine(),
     isConnected: false,
     disconnectionReason: undefined,
     networkInfo: {}
@@ -20,7 +19,7 @@ export default () => {
           .set('isConnected', false)
           .set('networkInfo', {})
           .set('disconnectionReason', reason)
-          .set(CONNECT_NODE_EVENT, state.get(CONNECT_NODE_EVENT).update({
+          .set('connectEvent', state.get('connectEvent').update({
             state: ready
           }))
       ),
@@ -28,7 +27,7 @@ export default () => {
         state
           .set('networkInfo', {})
           .set('isConnected', false)
-          .set(CONNECT_NODE_EVENT, state.get(CONNECT_NODE_EVENT).update({
+          .set('connectEvent', state.get('connectEvent').update({
             state: inProgress,
             data
           }))
@@ -37,7 +36,7 @@ export default () => {
         state
           .set('networkInfo', {})
           .set('isConnected', false)
-          .set(CONNECT_NODE_EVENT, state.get(CONNECT_NODE_EVENT).update({
+          .set('connectEvent', state.get('connectEvent').update({
             state: error,
             data
           }))
@@ -46,7 +45,7 @@ export default () => {
         state
           .set('networkInfo', networkInfo)
           .set('isConnected', true)
-          .set(CONNECT_NODE_EVENT, state.get(CONNECT_NODE_EVENT).update({
+          .set('connectEvent', state.get('connectEvent').update({
             state: success
           }))
       )

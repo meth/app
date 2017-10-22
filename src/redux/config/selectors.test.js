@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import { getNodes } from './selectors'
 
-describe('getNodes()', () => {
+describe('.getNodes()', () => {
   it('returns nodes', () => {
     const state = {
       config: new Immutable.Map({
