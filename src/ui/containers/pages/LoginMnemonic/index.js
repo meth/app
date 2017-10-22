@@ -15,7 +15,7 @@ import Layout from '../Layout'
 const log = logger.create('LoginMnemonic')
 
 @connectStore('nav')
-export default class Page extends PureComponent {
+export default class LoginMnemonic extends PureComponent {
   state = {
     mnemonic: '',
     generateNewError: null,
@@ -35,7 +35,7 @@ export default class Page extends PureComponent {
   renderInputExisting = () => {
     const { mnemonic, inputExistingError } = this.state
 
-    const errorBox = !inputExistingError ? null : (
+    const errorBox = (!inputExistingError) ? null : (
       <ErrorBox error={inputExistingError} />
     )
 
@@ -56,7 +56,7 @@ export default class Page extends PureComponent {
   renderGenerateNew = () => {
     const { generateNewError } = this.state
 
-    const errorBox = !generateNewError ? null : (
+    const errorBox = (!generateNewError) ? null : (
       <ErrorBox error={generateNewError} />
     )
 

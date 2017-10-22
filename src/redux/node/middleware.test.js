@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions'
+import { createAction } from '../utils'
 
 import fn from './middleware'
 import { CONNECT_NODE, NODE_CONNECTING, NODE_CONNECTED, NODE_CONNECT_ERROR } from './actions'
@@ -32,7 +32,7 @@ describe('node middleware', () => {
 
       const handler = fn({ nodeConnector })(store)(next)
 
-      const action = createAction(CONNECT_NODE)({
+      const action = createAction(CONNECT_NODE, {
         host: 'meth'
       })
 
@@ -66,15 +66,15 @@ describe('node middleware', () => {
 
         nodeConnector.connect = mockConnect
 
-        const action = createAction(CONNECT_NODE)({
+        const action = createAction(CONNECT_NODE, {
           host: 'meth'
         })
 
         await handler(action)
 
         expect(store.dispatch).toHaveBeenCalledTimes(2)
-        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTING)())
-        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTED)({
+        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTING))
+        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTED, {
           config: {
             host: 'meth'
           }
@@ -88,7 +88,7 @@ describe('node middleware', () => {
 
         nodeConnector.connect = mockConnect
 
-        const action = createAction(CONNECT_NODE)({
+        const action = createAction(CONNECT_NODE, {
           host: 'meth'
         })
 
@@ -99,8 +99,8 @@ describe('node middleware', () => {
         }
 
         expect(store.dispatch).toHaveBeenCalledTimes(2)
-        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTING)())
-        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECT_ERROR)(err))
+        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTING))
+        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECT_ERROR, err))
       })
     })
   })

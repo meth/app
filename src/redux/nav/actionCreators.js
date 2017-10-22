@@ -1,13 +1,13 @@
-import { createAction } from 'redux-actions'
+import { createActionCreator } from '../utils'
 
 import { PUSH, RESET } from './actions'
 
-export const navPush = createAction(PUSH, (path, params = {}) => ({
+export const navPush = createActionCreator(PUSH, (path, params = {}) => ({
   path,
   params
 }))
 
-export const navReset = createAction(RESET, (path, params = {}) => ({
+export const navReset = createActionCreator(RESET, (path, params = {}) => ({
   path,
   params
 }))

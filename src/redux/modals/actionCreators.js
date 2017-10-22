@@ -1,16 +1,16 @@
-import { createAction } from 'redux-actions'
+import { createActionCreator } from '../utils'
 
 import { SHOW, HIDE } from './actions'
 import { CONNECT_NODE, SEND_TRANSACTION } from '../../utils/modals'
 
-export const showConnectionModal = createAction(SHOW, () => CONNECT_NODE)
-export const hideConnectionModal = createAction(HIDE, () => CONNECT_NODE)
+export const showConnectionModal = createActionCreator(SHOW, () => CONNECT_NODE)
+export const hideConnectionModal = createActionCreator(HIDE, () => CONNECT_NODE)
 
-export const showSendTransactionModal = createAction(
+export const showSendTransactionModal = createActionCreator(
   SHOW,
   () => SEND_TRANSACTION
 )
-export const hideSendTransactionModal = createAction(
+export const hideSendTransactionModal = createActionCreator(
   HIDE,
   () => SEND_TRANSACTION
 )

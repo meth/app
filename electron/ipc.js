@@ -1,13 +1,12 @@
 const { ipcMain: ipc } = require('electron')
 
-const Windows = require('./windows'),
-  log = require('./logger').create('BackendIpc')
-
+const Windows = require('./windows')
 const {
   IPC,
-  BACKEND_TASKS,
+  BACKEND_TASKS
 } = require('../common/constants')
 
+const log = require('./logger').create('BackendIpc')
 
 
 class BackendIpc {
@@ -15,7 +14,7 @@ class BackendIpc {
     ipc.on(IPC.BACKEND_TASK, this._receiveIpcFromUi.bind(this))
   }
 
-  _receiveIpcFromUi ({ sender }, task, params) {
+  _receiveIpcFromUi ({ sender }, task) {
     switch (task) {
       case BACKEND_TASKS.SET_WINDOW_ID:
         log.info(`Task: Set window id: ${sender.id}`)
@@ -25,12 +24,6 @@ class BackendIpc {
       default:
         log.error(`Unrecognized task: ${task}`)
     }
-  }
-
-  notifyMainUi (task, status, data) {
-    log.debug(`Send UI task to window: ${task}, ${status}`)
-
-    Windows.getMainWindow().send(IPC.UI_TASK_NOTIFY, task, status, data)
   }
 }
 

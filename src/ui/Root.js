@@ -2,11 +2,15 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
 import MODALS from '../utils/modals'
+import { getModals } from '../redux/modals/selectors'
+import logger from '../utils/log'
 import { create } from './styles'
 import { Navigator } from './nav'
-import { connectStore, mutable } from './helpers/redux'
+import { connectStore } from './helpers/redux'
 import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
+
+const log = logger.create('Root')
 
 // modals - in order of importance
 const MODAL_COMPONENTS = {
@@ -21,7 +25,7 @@ const styles = create({
 })
 
 @connectStore('modals')
-export default class Layout extends PureComponent {
+export default class Root extends PureComponent {
   render () {
     return (
       <View style={styles.container}>
@@ -31,8 +35,12 @@ export default class Layout extends PureComponent {
     )
   }
 
+  componentDidCatch (error, info) {
+    log.error('UI error', error, info)
+  }
+
   showModal () {
-    const { modals } = mutable(this.props)
+    const modals = getModals(this.props)
 
     const components = []
 

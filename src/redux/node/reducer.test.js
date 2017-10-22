@@ -2,7 +2,6 @@ import Immutable from 'immutable'
 
 import reducer from './reducer'
 import { NODE_CONNECTED, NODE_CONNECTING, NODE_CONNECT_ERROR, NODE_DISCONNECTED } from './actions'
-import { CONNECT_NODE_EVENT } from '../../utils/asyncEvents'
 import { ready, inProgress, error, success } from '../../utils/stateMachines'
 
 describe('NODE_DISCONNECTED', () => {
@@ -17,7 +16,7 @@ describe('NODE_DISCONNECTED', () => {
     }
 
     state = Immutable.Map({
-      [CONNECT_NODE_EVENT]: event
+      connectEvent: event
     })
 
     reduce = reducer()
@@ -56,7 +55,7 @@ describe('NODE_DISCONNECTED', () => {
     expect(event.update).toHaveBeenCalledWith({
       state: ready
     })
-    expect(newState.get(CONNECT_NODE_EVENT)).toEqual(event)
+    expect(newState.get('connectEvent')).toEqual(event)
   })
 })
 
@@ -72,7 +71,7 @@ describe('NODE_CONNECTING', () => {
     }
 
     state = Immutable.Map({
-      [CONNECT_NODE_EVENT]: event
+      connectEvent: event
     })
 
     reduce = reducer()
@@ -88,7 +87,7 @@ describe('NODE_CONNECTING', () => {
       state: inProgress,
       data: 'whatever'
     })
-    expect(newState.get(CONNECT_NODE_EVENT)).toEqual(event)
+    expect(newState.get('connectEvent')).toEqual(event)
   })
 
   it('normally disables the isConnected flag', () => {
@@ -103,14 +102,14 @@ describe('NODE_CONNECTING', () => {
   })
 
   it('normally clears the genesis block', () => {
-    state = state.set('genesisBlock', 123)
+    state = state.set('networkInfo', 123)
 
     const newState = reduce(state, {
       type: NODE_CONNECTING,
       payload: 'whatever'
     })
 
-    expect(newState.get('genesisBlock')).toEqual(null)
+    expect(newState.get('networkInfo')).toEqual({})
   })
 })
 
@@ -126,7 +125,7 @@ describe('NODE_CONNECT_ERROR', () => {
     }
 
     state = Immutable.Map({
-      [CONNECT_NODE_EVENT]: event
+      connectEvent: event
     })
 
     reduce = reducer()
@@ -142,7 +141,7 @@ describe('NODE_CONNECT_ERROR', () => {
       state: error,
       data: 'whatever'
     })
-    expect(newState.get(CONNECT_NODE_EVENT)).toEqual(event)
+    expect(newState.get('connectEvent')).toEqual(event)
   })
 
   it('normally disables the isConnected flag', () => {
@@ -157,14 +156,14 @@ describe('NODE_CONNECT_ERROR', () => {
   })
 
   it('normally clears the genesis block', () => {
-    state = state.set('genesisBlock', 123)
+    state = state.set('networkInfo', 123)
 
     const newState = reduce(state, {
       type: NODE_CONNECT_ERROR,
       payload: 'whatever'
     })
 
-    expect(newState.get('genesisBlock')).toEqual(null)
+    expect(newState.get('networkInfo')).toEqual({})
   })
 })
 
@@ -180,7 +179,7 @@ describe('NODE_CONNECTED', () => {
     }
 
     state = Immutable.Map({
-      [CONNECT_NODE_EVENT]: event
+      connectEvent: event
     })
 
     reduce = reducer()
@@ -195,7 +194,7 @@ describe('NODE_CONNECTED', () => {
     expect(event.update).toHaveBeenCalledWith({
       state: success
     })
-    expect(newState.get(CONNECT_NODE_EVENT)).toEqual(event)
+    expect(newState.get('connectEvent')).toEqual(event)
   })
 
   it('normally enables the isConnected flag', () => {
@@ -210,13 +209,13 @@ describe('NODE_CONNECTED', () => {
   })
 
   it('normally sets the genesis block', () => {
-    state = state.set('genesisBlock', null)
+    state = state.set('networkInfo', {})
 
     const newState = reduce(state, {
       type: NODE_CONNECTED,
       payload: 123
     })
 
-    expect(newState.get('genesisBlock')).toEqual(123)
+    expect(newState.get('networkInfo')).toEqual(123)
   })
 })

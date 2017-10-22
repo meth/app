@@ -8,6 +8,8 @@ import TextInput from '../TextInput'
 import WebView from '../WebView'
 
 export default class BrowserTabView extends PureComponent {
+  static propTypes = WebView.propTypes
+
   constructor (props, ctx) {
     super(props, ctx)
 
@@ -25,28 +27,23 @@ export default class BrowserTabView extends PureComponent {
           <IconButton
             icon={{ name: 'chevron-left' }}
             style={styles.navIconButton}
-            onPress={this.onBack}
+            onPress={this.back}
           />
           <IconButton
             icon={{ name: 'chevron-right' }}
             style={styles.navIconButton}
-            onPress={this.onForward}
+            onPress={this.forward}
           />
           <IconButton
             icon={{ name: 'refresh' }}
             style={styles.navIconButton}
-            onPress={this.onRefresh}
+            onPress={this.refresh}
           />
           <TextInput
             value={url}
             onChange={this.onChangeUrl}
             onSubmitEditing={this.onEnterUrl}
             style={styles.navUrlInput}
-          />
-          <IconButton
-            icon={{ name: 'plus' }}
-            style={styles.navIconButton}
-            onPress={this.onOpenDevTools}
           />
         </View>
         <View style={styles.webView}>
@@ -81,19 +78,19 @@ export default class BrowserTabView extends PureComponent {
     this.webView.openUrl(addProtocol(e.target.value))
   }
 
-  onBack = () => {
+  back = () => {
     this.webView.goBack()
   }
 
-  onForward = () => {
+  forward = () => {
     this.webView.goForward()
   }
 
-  onRefresh = () => {
+  refresh = () => {
     this.webView.refresh()
   }
 
-  onOpenDevTools = () => {
+  openDevTools = () => {
     this.webView.openDevTools()
   }
 }

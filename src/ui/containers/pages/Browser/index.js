@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
 import { DAPP_PERMISSIONS, STATE } from '../../../../../common/constants'
+import { globalEvents, OPEN_ACTIVE_TAB_DEV_TOOLS } from '../../../../env'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
@@ -32,7 +33,7 @@ export default class Browser extends PureComponent {
   }
 
   render () {
-    const { tabs } = this.state
+    const tabs = this.state.tabs.filter(t => t)
 
     const browserViews = tabs.map(tab => {
       const { id, active } = tab
@@ -41,6 +42,9 @@ export default class Browser extends PureComponent {
         <View key={id} style={active ? styles.activeView : styles.inactiveView}>
           <BrowserTabView
             {...tab}
+            ref={view => {
+              if (active) this.activeTabView = view
+            }}
             apiMethods={this.props.actions}
             onUrlChange={url => this.onTabUrlChange(id, url)}
             onLoading={() => this.onTabStatusChange(id, STATE.LOADING)}
@@ -65,6 +69,20 @@ export default class Browser extends PureComponent {
         <View style={styles.browserViews}>{browserViews}</View>
       </Layout>
     )
+  }
+
+  componentDidMount () {
+    globalEvents.addListener(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
+  }
+
+  componentWillUnmount () {
+    globalEvents.removeListener(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
+  }
+
+  openActiveTabDevTools = () => {
+    if (this.activeTabView) {
+      this.activeTabView.openDevTools()
+    }
   }
 
   onTabUrlChange = (id, url) => {

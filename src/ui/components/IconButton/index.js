@@ -1,19 +1,23 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import Button from '../Button'
 import Icon from '../Icon'
 import createStyles from './styles'
 
-export default class IconButton extends PureComponent {
-  render () {
-    const { icon, ...props } = this.props
+const IconButton = ({ icon, ...props }) => {
+  const styles = createStyles(props)
 
-    const styles = createStyles(props)
-
-    return (
-      <Button {...props}>
-        <Icon {...icon} style={styles.icon} />
-      </Button>
-    )
-  }
+  return (
+    <Button {...props}>
+      <Icon {...icon} style={styles.icon} />
+    </Button>
+  )
 }
+
+IconButton.propTypes = {
+  icon: PropTypes.shape(Icon.propTypes),
+  ...Button.propTypes
+}
+
+export default IconButton

@@ -1,5 +1,5 @@
-import { updateBalances, sendTransaction, transactionSending, transactionSent, transactionSendError } from './actionCreators'
-import { BALANCES, SEND_TX, TX_SENT, TX_SENDING, TX_SEND_ERROR } from './actions'
+import { updateBalances, generateRawTransaction, sendRawTransaction } from './actionCreators'
+import { BALANCES, SEND_RAW_TX, GENERATE_RAW_TX } from './actions'
 
 describe('updateBalances()', () => {
   it('returns action', () => {
@@ -9,41 +9,20 @@ describe('updateBalances()', () => {
   })
 })
 
-describe('sendTransaction()', () => {
+describe('generateRawTransaction()', () => {
   it('returns action', () => {
-    expect(sendTransaction(123)).toEqual({
-      type: SEND_TX,
+    expect(generateRawTransaction(123)).toEqual({
+      type: GENERATE_RAW_TX,
       payload: 123
     })
   })
 })
 
-describe('transactionSending()', () => {
+describe('sendRawTransaction()', () => {
   it('returns action', () => {
-    expect(transactionSending(123)).toEqual({
-      type: TX_SENDING,
+    expect(sendRawTransaction(123)).toEqual({
+      type: SEND_RAW_TX,
       payload: 123
-    })
-  })
-})
-
-describe('transactionSent()', () => {
-  it('returns action', () => {
-    expect(transactionSent(123)).toEqual({
-      type: TX_SENT,
-      payload: 123
-    })
-  })
-})
-
-describe('transactionSendError()', () => {
-  it('returns action', () => {
-    const err = new Error('test')
-
-    expect(transactionSendError(err)).toEqual({
-      type: TX_SEND_ERROR,
-      payload: err,
-      error: true
     })
   })
 })

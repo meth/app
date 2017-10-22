@@ -2,9 +2,10 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 
-import { connectStore, mutable } from '../../../helpers/redux'
+import { connectStore } from '../../../helpers/redux'
+import { getNodes } from '../../../../redux/config/selectors'
+import { getNodeIsConnected, getDisconnectReason, getConnectionEvent } from '../../../../redux/node/selectors'
 import { t } from '../../../../../common/strings'
-import { CONNECT_NODE_EVENT } from '../../../../utils/asyncEvents'
 import { error } from '../../../../utils/stateMachines'
 import ErrorBox from '../../../components/ErrorBox'
 import AlertBox from '../../../components/AlertBox'
@@ -14,14 +15,14 @@ import Loading from '../../../components/Loading'
 import Picker from '../../../components/Picker'
 import styles from './styles'
 
-@connectStore('config', 'node')
+@connectStore('config', 'node', 'modals')
 export default class ConnectNode extends PureComponent {
   state = {}
 
   render () {
-    const { config: { nodes }, node: { disconnectReason } } = mutable(
-      this.props
-    )
+    const nodes = getNodes(this.props)
+    const isConnected = getNodeIsConnected(this.props)
+    const disconnectReason = getDisconnectReason(this.props)
 
     const diconnectContent = disconnectReason ? (
       <ErrorBox error={disconnectReason} />
@@ -29,7 +30,7 @@ export default class ConnectNode extends PureComponent {
       <AlertBox type="info" text={t('connector.pleaseChooseNode')} />
     )
 
-    const content = !nodes ? (
+    const content = (!nodes) ? (
       <Loading />
     ) : (
       <View>
@@ -40,17 +41,15 @@ export default class ConnectNode extends PureComponent {
     )
 
     return (
-      <Modal>
+      <Modal onOverlayPress={isConnected ? this.dismissModal : null}>
         <View style={styles.container}>{content}</View>
       </Modal>
     )
   }
 
   renderSelector () {
-    const {
-      node: { [CONNECT_NODE_EVENT]: connectEvent },
-      config: { nodes }
-    } = mutable(this.props)
+    const nodes = getNodes(this.props)
+    const connectEvent = getConnectionEvent(this.props)
 
     let { selected } = this.state
 
@@ -73,12 +72,12 @@ export default class ConnectNode extends PureComponent {
     })
 
     const errorBox =
-      error !== connectEvent.getState() ? null : (
+      (error !== connectEvent.getState()) ? null : (
         <ErrorBox error={connectEvent.getData() || t('error.unexpected')} />
       )
 
     return (
-      <div>
+      <View>
         <Picker
           options={options}
           selected={selected}
@@ -86,7 +85,7 @@ export default class ConnectNode extends PureComponent {
         />
         <Button onPress={() => this.onSubmit(selected)} title="Go" />
         {errorBox}
-      </div>
+      </View>
     )
   }
 
@@ -97,7 +96,7 @@ export default class ConnectNode extends PureComponent {
   }
 
   onSubmit = selected => {
-    const { config: { nodes } } = mutable(this.props)
+    const nodes = getNodes(this.props)
 
     const node = _.get(nodes, selected)
 
@@ -106,5 +105,9 @@ export default class ConnectNode extends PureComponent {
     connectNode(node)
       .then(() => hideConnectionModal())
       .catch(() => {})
+  }
+
+  dismissModal = () => {
+    this.props.actions.hideConnectionModal()
   }
 }

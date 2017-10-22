@@ -33,7 +33,7 @@ const define = ClassName => {
   'UnableToConnect',
   'CorruptData',
   'WalletNotLoaded',
-  'SendTransactionError'
+  'SendTransaction'
 ].forEach(e => {
   const n = `${e}Error`
 
@@ -41,4 +41,4 @@ const define = ClassName => {
 })
 
 export const instanceOfError = (e, ...args) =>
-  !!Object.values(args).filter(eK => e.type === eK.type)
+  !!Object.values(args).filter(eK => e.type === eK.type).length

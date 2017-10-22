@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { View } from 'react-native'
 import { arrayMove } from 'react-sortable-hoc'
 
@@ -7,6 +8,12 @@ import IconButton from '../IconButton'
 import TabList from './TabList'
 
 export default class BrowserTabBar extends PureComponent {
+  static propTypes = {
+    tabs: TabList.propTypes.tabs,
+    onSelect: PropTypes.func,
+    onClose: PropTypes.func
+  }
+
   render () {
     const { tabs, onSelect, onClose } = this.props
 
@@ -20,7 +27,7 @@ export default class BrowserTabBar extends PureComponent {
           axis="x"
           lockAxis="x"
         />
-        <IconButton name="plus" onPress={this.onNewTab} />
+        <IconButton icon={{ name: 'plus' }} onPress={this.onNewTab} />
       </View>
     )
   }

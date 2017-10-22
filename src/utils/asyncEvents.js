@@ -1,2 +1,0 @@
-export const CONNECT_NODE_EVENT = 'CONNECT_NODE_EVENT'
-export const SEND_TX_EVENT = 'SEND_TX_EVENT'

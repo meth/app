@@ -1,10 +1,17 @@
-import React, { PureComponent } from 'react'
-import { View } from 'react-native'
+import React from 'react'
+import PropTypes from 'prop-types'
 
+import TouchableView from '../TouchableView'
 import styles from './styles'
 
-export default class Modal extends PureComponent {
-  render () {
-    return <View style={styles.overlay}>{this.props.children}</View>
-  }
+const Modal = ({ children, onOverlayPress }) => (
+  <TouchableView onPress={onOverlayPress} style={styles.overlay}>
+    {children}
+  </TouchableView>
+)
+
+Modal.propTypes = {
+  onOverlayPress: PropTypes.func
 }
+
+export default Modal

@@ -23,6 +23,7 @@ class NodeConnector extends EventEmitter {
 
     this._methodFactory = new Web3MethodFactory({
       nodeConnector: this,
+      store: this._store,
       walletManager
     })
 
@@ -40,6 +41,8 @@ class NodeConnector extends EventEmitter {
   }
 
   setNetworks (networks) {
+    log.debug('Set networks', networks)
+
     this._networks = networks
   }
 
@@ -72,14 +75,31 @@ class NodeConnector extends EventEmitter {
       await this._adapter.connect()
 
       // get genesis block
-      const ret = this.rawCall('eth_getBlockByNumber', [ '0x0', false ])
+      const block = this.rawCall('eth_getBlockByNumber', [ '0x0', false ])
+
+      // work out what network we're on
+      let network = this._networks[
+        Object.keys(this._networks).find(key => {
+          const n = this._networks[key]
+
+          return n.genesisBlock === block.hash
+        })
+      ]
+
+      // if no match found then assume it's a private network
+      if (!network) {
+        network = this._networks.private
+        network.genesisBlock = block.hash
+      }
 
       // event propagation (set this up after connection succeeds)
-      ;[ EVENT.STATE_CHANGE, EVENT.NEW_BLOCK ].forEach(e => {
+      [ EVENT.STATE_CHANGE, EVENT.NEW_BLOCK ].forEach(e => {
         this._adapter.on(e, (...args) => this.emit(e, ...args))
       })
 
-      return ret
+      log.info(`Connected to network: ${network.description}`)
+
+      return network
     } catch (err) {
       throw new UnableToConnectError(err.message)
     }

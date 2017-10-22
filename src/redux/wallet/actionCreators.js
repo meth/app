@@ -1,13 +1,9 @@
-import { createAction } from 'redux-actions'
+import { createActionCreator } from '../utils'
 
-import { BALANCES, SEND_TX, TX_SENDING, TX_SENT, TX_SEND_ERROR } from './actions'
+import { BALANCES, GENERATE_RAW_TX, SEND_RAW_TX } from './actions'
 
-export const updateBalances = createAction(BALANCES)
+export const updateBalances = createActionCreator(BALANCES)
 
-export const sendTransaction = createAction(SEND_TX)
+export const generateRawTransaction = createActionCreator(GENERATE_RAW_TX)
 
-export const transactionSending = createAction(TX_SENDING)
-
-export const transactionSent = createAction(TX_SENT)
-
-export const transactionSendError = createAction(TX_SEND_ERROR)
+export const sendRawTransaction = createActionCreator(SEND_RAW_TX)

@@ -5,16 +5,18 @@ import { View, Text } from 'react-native'
 import { fromWei } from 'web3-utils'
 
 import { t } from '../../../../../common/strings'
-import { connectStore, mutable } from '../../../helpers/redux'
+import { connectStore } from '../../../helpers/redux'
+import { getAccountBalances } from '../../../../redux/wallet/selectors'
+import { getNetworkInfo } from '../../../../redux/node/selectors'
 import TouchableView from '../../../components/TouchableView'
 import styles from './styles'
 
-@connectStore('wallet')
+@connectStore('wallet', 'node')
 export default class Layout extends PureComponent {
   render () {
-    const { children, contentStyle, wallet: { accountBalances } } = mutable(
-      this.props
-    )
+    const { children, contentStyle } = this.props
+    const accountBalances = getAccountBalances(this.props)
+    const networkInfo = getNetworkInfo(this.props)
 
     const totalWei = _.reduce(accountBalances, (m, v) => m.add(v), new BN(0, 2))
     const totalEther = fromWei(totalWei, 'ether')
@@ -29,7 +31,7 @@ export default class Layout extends PureComponent {
             <Text style={styles.headerBalanceText}>{totalEther} ETH</Text>
             <TouchableView onPress={this.onPressConnectionInfo}>
               <Text style={styles.headerConnectionText}>
-                Localhost (Mainnet)
+                {networkInfo.description}
               </Text>
             </TouchableView>
           </View>

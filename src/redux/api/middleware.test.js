@@ -1,8 +1,7 @@
-import { createAction } from 'redux-actions'
-
+import { createAction } from '../utils'
 import fn from './middleware'
-
 import { WEB3_REQUEST, GENERATE_ACCOUNT } from './actions'
+
 
 describe('api middleware', () => {
   it('passes actions through', async () => {
@@ -28,7 +27,7 @@ describe('api middleware', () => {
 
       const handler = fn({ nodeConnector })({})(next)
 
-      const res = await handler(createAction(WEB3_REQUEST)({
+      const res = await handler(createAction(WEB3_REQUEST, {
         master: 'blaster'
       }))
 
@@ -54,7 +53,7 @@ describe('api middleware', () => {
 
       const handler = fn({ walletManager })({})(next)
 
-      const res = await handler(createAction(GENERATE_ACCOUNT)())
+      const res = await handler(createAction(GENERATE_ACCOUNT))
 
       expect(res).toEqual(123)
 
