@@ -8,11 +8,13 @@ import Button from '../../../components/Button'
 import ErrorBox from '../../../components/ErrorBox'
 import styles from './styles'
 
-@connectStore('wallet', 'api')
+@connectStore('wallet')
 export default class SendTransaction extends PureComponent {
   state = {
     error: null,
-    gasPrice: 1
+    rawTx: null,
+    gasPrice: 1,
+    gasLimit: null
   }
 
   render () {
@@ -24,19 +26,20 @@ export default class SendTransaction extends PureComponent {
       }
     } = mutable(this.props)
 
-    const { error, gasPrice } = this.state
+    const { error, rawTx, receipt } = this.state
+
+    const { gasLimit, gasPrice } = this._gas()
 
     return (
-      <Modal>
+      <Modal onOverlayPress={this.dismissModal}>
         <View style={styles.container}>
           <Text>{from}</Text>
           <Text>{to}</Text>
           <Text>{value}</Text>
-          <Text>{gas}</Text>
+          <Text>{gasLimit || gas}</Text>
           <Text>{gasPrice}</Text>
           <Text>{data}</Text>
-          <Button title={t('button.confirmAndSend')} onPress={this.sendTransaction} />
-          <Button title={t('button.cancelTransaction')} onPress={this.dismissModal} />
+          {receipt ? this.renderReceipt(receipt) : this.renderActions(rawTx)}
           {(!error) ? null : (
             <ErrorBox error={error} />
           )}
@@ -45,23 +48,64 @@ export default class SendTransaction extends PureComponent {
     )
   }
 
-  sendTransaction = () => {
-    const {
-      wallet: {
-        currentTransaction: {
-          from, to, value, gas, data
-        }
-      }
-    } = mutable(this.props)
+  renderReceipt (receipt) {
+    return (
+      <Text>Receipt: {receipt}</Text>
+    )
+  }
 
-    const { gasPrice } = this.state
+  renderActions (rawTx) {
+    return rawTx ? (
+      <View>
+        <Text>{rawTx}</Text>
+        <Button title={t('button.confirmAndSendTransaction')} onPress={this.confirmAndSend} />
+      </View>
+    ) : (
+      <Button title={t('button.generateRawTransaction')} onPress={this.generateRaw} />
+    )
+  }
+
+  confirmAndSend = () => {
+    const { rawTx } = this.state
 
     this.setState({
       error: null
     }, () => {
-      this.props.actions.finalizeTransaction({
-        from, to, value, gas, data, gasPrice
+      this.props.actions.sendRawTransaction(rawTx)
+        .then(receipt => {
+          this.setState({
+            receipt
+          })
+        })
+        .catch(error => {
+          this.setState({ error })
+        })
+    })
+  }
+
+  generateRaw = () => {
+    const {
+      wallet: {
+        currentTransaction: {
+          from, to, value, data
+        }
+      }
+    } = mutable(this.props)
+
+    const { gasLimit, gasPrice } = this._gas()
+
+    this.setState({
+      rawTx: null,
+      error: null
+    }, () => {
+      this.props.actions.generateRawTransaction({
+        from, to, value, gasLimit, data, gasPrice
       })
+        .then(rawTx => {
+          this.setState({
+            rawTx
+          })
+        })
         .catch(error => {
           this.setState({ error })
         })
@@ -69,6 +113,18 @@ export default class SendTransaction extends PureComponent {
   }
 
   dismissModal = () => {
-    this.props.actions.cancelTransaction(t('error.userCancelledTransaction'))
+    const { receipt } = this.state
+
+    // only cancel tx if not already succeeded
+    if (!receipt) {
+      this.props.actions.cancelTransaction(t('error.userCancelledTransaction'))
+    }
+  }
+
+  _gas () {
+    return {
+      gasLimit: this.state.gasLimit || this.props.wallet.currentTransaction.gas,
+      gasPrice: this.state.gasPrice
+    }
   }
 }

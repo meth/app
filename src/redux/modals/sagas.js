@@ -2,7 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects'
 
 import { INIT } from '../config/actions'
 import { NODE_DISCONNECTED } from '../node/actions'
-import { TX_SENDING, CANCEL_TX } from '../wallet/actions'
+import { SEND_TX, CANCEL_TX } from '../api/actions'
 import { showConnectionModal, showSendTransactionModal, hideSendTransactionModal } from './actionCreators'
 
 function* onInit () {
@@ -23,7 +23,7 @@ function* onNodeDisconnected () {
 
 export default app => function* saga () {
   yield takeLatest(INIT, onInit, app)
-  yield takeLatest(TX_SENDING, onSendTransaction, app)
+  yield takeLatest(SEND_TX, onSendTransaction, app)
   yield takeLatest(CANCEL_TX, onCancelTransaction, app)
   yield takeLatest(NODE_DISCONNECTED, onNodeDisconnected, app)
 }
@@ -31,5 +31,6 @@ export default app => function* saga () {
 export const _privateFunctions = {
   onInit,
   onSendTransaction,
+  onCancelTransaction,
   onNodeDisconnected
 }

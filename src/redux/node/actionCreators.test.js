@@ -42,7 +42,6 @@ describe('nodeConnectError()', () => {
 
     expect(nodeConnectError(err)).toEqual({
       type: NODE_CONNECT_ERROR,
-      error: true,
       payload: err
     })
   })

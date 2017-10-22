@@ -1,5 +1,5 @@
-import { web3Request, generateAccount, finalizeTransaction } from './actionCreators'
-import { WEB3_REQUEST, GENERATE_ACCOUNT, FINALIZE_TRANSACTION } from './actions'
+import { web3Request, generateAccount, sendTransaction, cancelTransaction } from './actionCreators'
+import { WEB3_REQUEST, GENERATE_ACCOUNT, SEND_TX, CANCEL_TX } from './actions'
 
 describe('web3Request()', () => {
   it('with payload returns action', () => {
@@ -14,19 +14,30 @@ describe('web3Request()', () => {
   })
 })
 
-describe('finalizeTransaction()', () => {
+describe('generateAccount()', () => {
   it('with payload returns action', () => {
-    expect(finalizeTransaction(123)).toEqual({
-      type: FINALIZE_TRANSACTION,
+    expect(generateAccount(123)).toEqual({
+      type: GENERATE_ACCOUNT,
       payload: 123
     })
   })
 })
 
-describe('generateAccount()', () => {
-  it('with payload returns action', () => {
-    expect(generateAccount(123)).toEqual({
-      type: GENERATE_ACCOUNT,
+describe('sendTransaction()', () => {
+  it('returns action', () => {
+    expect(sendTransaction(123)).toEqual({
+      type: SEND_TX,
+      payload: {
+        tx: 123
+      }
+    })
+  })
+})
+
+describe('cancelTransaction()', () => {
+  it('returns action', () => {
+    expect(cancelTransaction(123)).toEqual({
+      type: CANCEL_TX,
       payload: 123
     })
   })

@@ -1,4 +1,4 @@
-import { createAction } from 'redux-actions'
+import { createAction } from '../utils'
 
 import fn from './middleware'
 import { INIT } from './actions'
@@ -31,14 +31,14 @@ describe('config middleware', () => {
 
       const handler = fn({ config })(store)(next)
 
-      await handler(createAction(INIT)())
+      await handler(createAction(INIT))
 
       expect(next).toHaveBeenCalledTimes(1)
       expect(next).toHaveBeenCalledWith(
-        createAction(INIT, () => ({
+        createAction(INIT, {
           networks: 'networks loaded',
           nodes: 'nodes loaded'
-        }))()
+        })
       )
     })
 
@@ -53,9 +53,9 @@ describe('config middleware', () => {
 
       const handler = fn({})(store)(next)
 
-      await handler(createAction(INIT)())
-      await handler(createAction(INIT)())
-      await handler(createAction(INIT)())
+      await handler(createAction(INIT))
+      await handler(createAction(INIT))
+      await handler(createAction(INIT))
 
       expect(next).not.toHaveBeenCalled()
     })

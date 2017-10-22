@@ -23,6 +23,7 @@ class NodeConnector extends EventEmitter {
 
     this._methodFactory = new Web3MethodFactory({
       nodeConnector: this,
+      store: this._store,
       walletManager
     })
 
@@ -81,7 +82,7 @@ class NodeConnector extends EventEmitter {
         Object.keys(this._networks).find(key => {
           const n = this._networks[key]
 
-          return (n.genesisBlock === block.hash)
+          return n.genesisBlock === block.hash
         })
       ]
 

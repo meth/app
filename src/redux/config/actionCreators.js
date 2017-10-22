@@ -1,5 +1,5 @@
-import { createAction } from 'redux-actions'
+import { createActionCreator } from '../utils'
 
 import { INIT } from './actions'
 
-export const init = createAction(INIT)
+export const init = createActionCreator(INIT)

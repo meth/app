@@ -3,9 +3,10 @@ import logger from '../../utils/log'
 const log = logger.create('web3Method')
 
 export default class GenericMethod {
-  constructor ({ nodeConnector, walletManager }, method) {
+  constructor ({ nodeConnector, walletManager, store }, method) {
     this._nodeConnector = nodeConnector
     this._walletManager = walletManager
+    this._store = store
     this._method = method
     this._log = log.create(method)
   }
