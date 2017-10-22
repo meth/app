@@ -11,7 +11,6 @@ export const mutable = (props, ...keys) =>
     {}
   )
 
-
 /**
  * Create action.
  * @param  {String} action
@@ -23,15 +22,13 @@ export const createAction = (action, payload) => ({
   ...(undefined !== payload ? { payload } : undefined)
 })
 
-
 const defaultPayloadFn = (...args) => {
   if (args.length) {
-    return (1 === args.length ? args[0] : args)
+    return 1 === args.length ? args[0] : args
   }
 
   return undefined
 }
-
 
 /**
  * Create action creator function.
