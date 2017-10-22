@@ -10,10 +10,6 @@ export const createSagas = app => {
   const configSaga = config(app)
 
   return function* allSagas () {
-    yield all([
-      call(apiSaga),
-      call(modalsSaga),
-      call(configSaga)
-    ])
+    yield all([ call(apiSaga), call(modalsSaga), call(configSaga) ])
   }
 }
