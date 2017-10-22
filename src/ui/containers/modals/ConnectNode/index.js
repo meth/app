@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 
 import { connectStore, mutable } from '../../../helpers/redux'
+import { getNodes } from '../../../../redux/config/selectors'
 import { t } from '../../../../../common/strings'
 import { CONNECT_NODE_EVENT } from '../../../../utils/asyncEvents'
 import { error } from '../../../../utils/stateMachines'
@@ -103,7 +104,7 @@ export default class ConnectNode extends PureComponent {
   }
 
   onSubmit = selected => {
-    const { config: { nodes } } = mutable(this.props)
+    const nodes = getNodes(this.props)
 
     const node = _.get(nodes, selected)
 

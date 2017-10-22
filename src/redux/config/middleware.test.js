@@ -1,7 +1,9 @@
-import { createAction } from '../utils'
+import Immutable from 'immutable'
 
+import { createAction } from '../utils'
 import fn from './middleware'
 import { INIT } from './actions'
+
 
 describe('config middleware', () => {
   it('passes actions through', async () => {
@@ -22,7 +24,9 @@ describe('config middleware', () => {
       const next = jest.fn()
 
       const store = {
-        getState: () => ({})
+        getState: () => ({
+          config: Immutable.Map({})
+        })
       }
 
       const config = {
@@ -47,7 +51,9 @@ describe('config middleware', () => {
 
       const store = {
         getState: () => ({
-          nodes: 23
+          config: Immutable.Map({
+            nodes: 23
+          })
         })
       }
 
