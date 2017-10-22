@@ -9,7 +9,7 @@ import Button from '../../../components/Button'
 import ErrorBox from '../../../components/ErrorBox'
 import styles from './styles'
 
-@connectStore('wallet')
+@connectStore('wallet', 'api', 'modals')
 export default class SendTransaction extends PureComponent {
   state = {
     error: null,
@@ -26,7 +26,7 @@ export default class SendTransaction extends PureComponent {
     const { gasLimit, gasPrice } = this._gas()
 
     return (
-      <Modal onOverlayPress={this.dismissModal}>
+      <Modal>
         <View style={styles.container}>
           <Text>{from}</Text>
           <Text>{to}</Text>
@@ -45,7 +45,10 @@ export default class SendTransaction extends PureComponent {
 
   renderReceipt (receipt) {
     return (
-      <Text>Receipt: {receipt}</Text>
+      <View>
+        <Text>Receipt: {receipt}</Text>
+        <Button title={t('button.close')} onPress={this.dismissModal} />
+      </View>
     )
   }
 
@@ -107,6 +110,8 @@ export default class SendTransaction extends PureComponent {
     // only cancel tx if not already succeeded
     if (!receipt) {
       this.props.actions.cancelTransaction(t('error.userCancelledTransaction'))
+    } else {
+      this.props.actions.hideSendTransactionModal()
     }
   }
 

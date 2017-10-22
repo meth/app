@@ -33,7 +33,7 @@ const define = ClassName => {
   'UnableToConnect',
   'CorruptData',
   'WalletNotLoaded',
-  'SendTransactionError'
+  'SendTransaction'
 ].forEach(e => {
   const n = `${e}Error`
 

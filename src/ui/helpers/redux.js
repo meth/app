@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 
 import actionCreators from '../../redux/actionCreators'
 
-export { mutable } from '../../redux/utils'
-
 /**
  * Decorator: Connect a component to the Redux store
  */

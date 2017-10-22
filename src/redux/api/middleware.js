@@ -36,6 +36,11 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       // we return a promise which the caller can wait on to know if/when the
       // tx passes/fails
       return promise
+        .catch(err => {
+          console.warn(err)
+
+          throw err
+        })
     }
     case CANCEL_TX: {
       const deferred = getTxDeferred(store.getState())
