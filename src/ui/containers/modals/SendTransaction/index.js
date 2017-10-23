@@ -100,7 +100,7 @@ export default class SendTransaction extends PureComponent {
       error: null
     }, () => {
       this.props.actions.generateRawTransaction({
-        from, to, value, gasLimit, data, gasPrice
+        from, to, value, data, gasLimit, gasPrice
       })
         .then(rawTx => {
           this.setState({

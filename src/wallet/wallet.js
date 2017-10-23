@@ -5,7 +5,7 @@ import { toBN } from 'web3-utils'
 
 import logger from '../utils/log'
 import { WalletNotLoadedError } from '../utils/errors'
-import { updateBalances, sendTransaction } from '../redux/wallet/actionCreators'
+import { updateBalances } from '../redux/wallet/actionCreators'
 import { EVENT, STATE } from '../../common/constants'
 
 const log = logger.create('Wallet')
@@ -94,15 +94,29 @@ class Wallet extends EventEmitter {
   }
 
   /**
-   * Send a transcation.
-   * @return {Object} tx
+   * Generate signed transaction.
+   *
+   * @param  {String} from From address
+   * @param  {String} [to] If omitted then deploying a contract
+   * @param  {Number} value Amount of wei to send
+   * @param  {String} data Data
+   * @param  {Number} gasLimit Total Gas to use
+   * @param  {Number} gasPrice Gas price (wei per gas unit)
+   * @param  {String} chainId Chain id
+   *
+   * @return {String} Raw transaction string.
    */
-  async sendTransaction (tx) {
-    this._ensureLoaded()
-
-    log.debug('Send transaction', tx)
-
-    return this._store.dispatch(sendTransaction(tx))
+  sign ({ nonce, from, to, value, data, gasLimit, gasPrice, chainId }) {
+    return this._hdWallet.sign({
+      nonce,
+      from,
+      to,
+      value,
+      data,
+      gasLimit,
+      gasPrice,
+      chainId
+    })
   }
 
   /**

@@ -120,7 +120,7 @@ class NodeConnector extends EventEmitter {
   }
 
   /**
-   * Make a web3 JSON RPC request
+   * Make a web3 JSON RPC request that gets processed by our method handlers.
    *
    * @param {Object|Array} payload Either a single or batch request
    * @param {Object} context Context in which method is being called
@@ -172,7 +172,8 @@ class NodeConnector extends EventEmitter {
   }
 
   /**
-   * Make a raw method call.
+   * Make a raw method call directly to the adapter.
+   *
    * @param  {String} method web3 method
    * @param  {Array} [params]
    * @return {Promise}
