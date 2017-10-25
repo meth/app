@@ -1,5 +1,3 @@
-import { intToHex } from 'web3-utils'
-
 import { SEND_RAW_TX, GENERATE_RAW_TX } from './actions'
 import { getNetworkInfo } from '../node/selectors'
 import { createAction } from '../utils'
@@ -20,16 +18,12 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       log.debug(`chainId: ${chainId}`)
 
       // nonce
-      const nonce = intToHex(
-        await nodeConnector.rawCall('eth_getTransactionCount', [ from ])
-      )
+      const nonce = await nodeConnector.rawCall('eth_getTransactionCount', [ from, 'latest' ])
       log.debug(`nonce: ${nonce}`)
 
       return walletManager.wallet().sign({
         from, to, value, data, gasLimit, gasPrice, nonce, chainId
       })
-
-      // return Promise.resolve('0xdeadbeef')
     }
     case SEND_RAW_TX: {
       const rawTx = action.payload
