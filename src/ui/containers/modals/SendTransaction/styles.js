@@ -15,8 +15,7 @@ export default create({
   },
   title: {
     ...fontMaker({ weight: 'Bold' }),
-    color: '$modal_title_textColor',
-    fontSize: '0.6rem',
-    textTransform: 'uppercase'
+    color: '$modal_content_textColor',
+    fontSize: '0.6rem'
   }
 })

@@ -24,7 +24,7 @@ export default class LoginMnemonic extends PureComponent {
 
   render () {
     return (
-      <Layout>
+      <Layout contentStyle={styles.container}>
         {this.renderInputExisting()}
         <View style={styles.divider} />
         {this.renderGenerateNew()}

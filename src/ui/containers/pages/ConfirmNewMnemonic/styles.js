@@ -2,7 +2,7 @@ import { create, fontMaker } from '../../../styles'
 
 export default create({
   container: {
-    backgroundColor: '$content_backgroundColor'
+    backgroundColor: '$startScreen_backgroundColor'
   },
   mnemonic: {
     ...fontMaker({ weight: 'bold' }),

@@ -20,8 +20,8 @@ module.exports = {
       selectAll: 'Select all'
     },
     connector: {
-      connectToNetwork: 'Connect to network',
-      pleaseChooseNode: 'Please choose a node to connect to'
+      connectToNode: 'Connect to node',
+      pleaseChooseNode: 'Please choose a node'
     },
     error: {
       userCancelledTransaction: 'User cancelled transaction',

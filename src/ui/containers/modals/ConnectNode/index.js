@@ -8,8 +8,7 @@ import { getNodeIsConnected, getDisconnectReason, getConnectionEvent } from '../
 import { t } from '../../../../../common/strings'
 import { error } from '../../../../utils/stateMachines'
 import ErrorBox from '../../../components/ErrorBox'
-import AlertBox from '../../../components/AlertBox'
-import Button from '../../../components/Button'
+import ProgressButton from '../../../components/ProgressButton'
 import Modal from '../../../components/Modal'
 import Loading from '../../../components/Loading'
 import Picker from '../../../components/Picker'
@@ -17,32 +16,40 @@ import styles from './styles'
 
 @connectStore('config', 'node', 'modals')
 export default class ConnectNode extends PureComponent {
-  state = {}
+  state = {
+    connecting: false,
+    error: null
+  }
 
   render () {
     const nodes = getNodes(this.props)
     const isConnected = getNodeIsConnected(this.props)
     const disconnectReason = getDisconnectReason(this.props)
 
-    const diconnectContent = disconnectReason ? (
+    const diconnectContent = (!disconnectReason) ? null : (
       <ErrorBox error={disconnectReason} />
-    ) : (
-      <AlertBox type="info" text={t('connector.pleaseChooseNode')} />
+    )
+
+    const title = (
+      <Text style={styles.title}>{t('connector.pleaseChooseNode')}</Text>
     )
 
     const content = (!nodes) ? (
-      <Loading />
+      <View style={styles.loadingContainer}>
+        {title}
+        <Loading />
+      </View>
     ) : (
-      <View>
-        <Text style={styles.title}>{t('connector.connectToNetwork')}</Text>
-        <View style={styles.alert}>{diconnectContent}</View>
+      <View style={styles.contentContainer}>
+        {title}
         {this.renderSelector()}
+        <View style={styles.alert}>{diconnectContent}</View>
       </View>
     )
 
     return (
       <Modal onOverlayPress={isConnected ? this.dismissModal : null}>
-        <View style={styles.container}>{content}</View>
+        {content}
       </Modal>
     )
   }
@@ -50,6 +57,8 @@ export default class ConnectNode extends PureComponent {
   renderSelector () {
     const nodes = getNodes(this.props)
     const connectEvent = getConnectionEvent(this.props)
+
+    const { connecting } = this.state
 
     let { selected } = this.state
 
@@ -83,7 +92,10 @@ export default class ConnectNode extends PureComponent {
           selected={selected}
           onChange={this.onChange}
         />
-        <Button onPress={() => this.onSubmit(selected)} title="Go" />
+        <ProgressButton
+          showInProgress={connecting}
+          onPress={() => this.onSubmit(selected)}
+          title="Go" />
         {errorBox}
       </View>
     )
@@ -91,7 +103,8 @@ export default class ConnectNode extends PureComponent {
 
   onChange = e => {
     this.setState({
-      selected: e.target.value
+      selected: e.target.value,
+      error: null
     })
   }
 
@@ -102,9 +115,19 @@ export default class ConnectNode extends PureComponent {
 
     const { connectNode, hideConnectionModal } = this.props.actions
 
-    connectNode(node)
-      .then(() => hideConnectionModal())
-      .catch(() => {})
+    this.setState({
+      connecting: true,
+      error: null
+    }, () => {
+      connectNode(node)
+        .then(() => hideConnectionModal())
+        .catch(err => {
+          this.setState({
+            error: err,
+            connecting: false
+          })
+        })
+    })
   }
 
   dismissModal = () => {

@@ -1,22 +1,31 @@
 import { create, fontMaker } from '../../../styles'
 
+const container = {
+  flex: 0,
+  padding: 20,
+  backgroundColor: '$modal_content_backgroundColor',
+  borderRadius: 10,
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  alignItems: 'center',
+  width: 400
+}
+
 export default create({
+  loadingContainer: {
+    ...container,
+    height: 120
+  },
+  contentContainer: {
+    ...container,
+    height: 250
+  },
   container: {
-    flex: 0,
-    padding: 20,
-    backgroundColor: '$modal_content_backgroundColor',
-    width: 400,
-    height: 320,
-    borderRadius: 10,
-    zIndex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start'
   },
   title: {
-    ...fontMaker({ weight: 'Bold' }),
-    color: '$modal_title_textColor',
-    fontSize: '0.6rem',
-    textTransform: 'uppercase'
+    ...fontMaker({ weight: 'Light' }),
+    color: '$modal_content_textColor',
+    fontSize: '1.5rem',
+    marginBottom: 30
   }
 })

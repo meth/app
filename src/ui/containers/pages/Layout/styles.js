@@ -22,7 +22,8 @@ export default create({
     height: 30,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingHorizontal: 10
   },
   headerLeft: {
     flexDirection: 'row',
@@ -48,7 +49,6 @@ export default create({
 
   content: {
     flex: 1,
-    backgroundColor: '$content_backgroundColor',
     padding: 20
   }
 })
