@@ -12,7 +12,7 @@ import {
 import AlertBox from '../AlertBox'
 import styles from './styles'
 
-const ErrorBox = ({ error }) => {
+const ErrorBox = ({ error, style }) => {
   let couldBeMethodCallError = false
   let renderedError
 
@@ -46,11 +46,12 @@ const ErrorBox = ({ error }) => {
     )
   }
 
-  return <AlertBox type="error">{renderedError}</AlertBox>
+  return <AlertBox type="error" style={style}>{renderedError}</AlertBox>
 }
 
 ErrorBox.propTypes = {
-  error: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ])
+  error: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+  style: PropTypes.number
 }
 
 export default ErrorBox

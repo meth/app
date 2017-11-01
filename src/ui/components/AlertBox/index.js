@@ -4,20 +4,21 @@ import { View, Text } from 'react-native'
 
 import createStyles from './styles'
 
-const AlertBox = ({ type, text, children }) => {
+const AlertBox = ({ type, text, style, children }) => {
   const styles = createStyles(type)
 
   const content = children || (
     <Text style={styles.text}>{text}</Text>
   )
 
-  return <View style={styles.container}>{content}</View>
+  return <View style={[ styles.container, style ]}>{content}</View>
 }
 
 AlertBox.propTypes = {
   type: PropTypes.string.isRequired,
   text: PropTypes.string,
-  children: PropTypes.element
+  children: PropTypes.element,
+  style: PropTypes.number
 }
 
 export default AlertBox

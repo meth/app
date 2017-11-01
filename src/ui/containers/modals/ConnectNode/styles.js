@@ -1,32 +1,17 @@
 import { create, fontMaker } from '../../../styles'
 
-const container = {
-  flex: 0,
-  padding: 20,
-  backgroundColor: '$modal_content_backgroundColor',
-  borderRadius: 10,
-  flexDirection: 'column',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-  width: 400
-}
-
 export default create({
-  loadingContainer: {
-    ...container,
-    height: 120
-  },
-  contentContainer: {
-    ...container,
-    height: 250
-  },
-  errorContainer: {
-    ...container,
-    height: 350
-  },
   container: {
+    flex: 0,
+    padding: 30,
+    backgroundColor: '$modal_content_backgroundColor',
+    borderRadius: 10,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: 400
   },
-  picker: {
+  pickerButton: {
     width: 300,
     marginBottom: 30
   },
@@ -37,7 +22,10 @@ export default create({
   title: {
     ...fontMaker({ weight: 'Light' }),
     color: '$modal_content_textColor',
-    fontSize: '1.5rem',
+    fontSize: '1.2rem',
     marginBottom: 30
+  },
+  errorBox: {
+    marginTop: 30
   }
 })

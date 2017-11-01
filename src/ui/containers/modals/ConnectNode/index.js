@@ -32,16 +32,16 @@ export default class ConnectNode extends PureComponent {
     const { selected, picker } = this.buildPicker()
 
     const errorBox = (!error) ? null : (
-      <ErrorBox error={error} />
+      <ErrorBox style={styles.errorBox} error={error} />
     )
 
     const content = (!nodes) ? (
-      <View style={styles.loadingContainer}>
+      <View style={styles.container}>
         {title}
         <Loading />
       </View>
     ) : (
-      <View style={errorBox ? styles.errorContainer : styles.contentContainer}>
+      <View style={styles.container}>
         {title}
         {picker}
         <ProgressButton
@@ -86,7 +86,7 @@ export default class ConnectNode extends PureComponent {
       selected,
       picker: (
         <Picker
-          style={styles.picker}
+          buttonStyle={styles.pickerButton}
           options={options}
           selected={selected}
           onChange={this.onChange}

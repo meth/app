@@ -93,3 +93,7 @@ _Note: not all issues are automatically fixable_.
 
 It's worth installing the `prettier-atom` and `linter-eslint` plugins for Atom if
 that's your editor - it will make your life easier.
+
+## License
+
+AGPLv3

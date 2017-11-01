@@ -1,25 +1,26 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import PropTypes from 'prop-types'
 
-import Button from '../Button'
-import Icon from '../Icon'
-import styles from './styles'
+import PickerButton from '../PickerButton'
 
-export default ({ options, selected, style }) => {
+const Picker = ({ options, selected, buttonStyle }) => {
   const { label } = options.find(({ value }) => value === selected)
 
-  const content = (
-    <View style={styles.buttonContent}>
-      <Text style={styles.buttonText}>{label}</Text>
-      <Icon style={styles.buttonIconText} name="sort-desc" />
-    </View>
-  )
-
   return (
-    <Button
-      style={style}
-      type="picker">
-      {content}
-    </Button>
+    <PickerButton
+      label={label}
+      style={buttonStyle} />
   )
 }
+
+Picker.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    category: PropTypes.string
+  })).isRequired,
+  selected: PropTypes.string,
+  buttonStyle: PropTypes.number
+}
+
+export default Picker
