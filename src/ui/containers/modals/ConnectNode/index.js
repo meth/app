@@ -4,11 +4,10 @@ import { Text, View } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import { getNodes } from '../../../../redux/config/selectors'
-import { getNodeIsConnected, getDisconnectReason, getConnectionEvent } from '../../../../redux/node/selectors'
+import { getNodeIsConnected } from '../../../../redux/node/selectors'
 import { t } from '../../../../../common/strings'
-import { error } from '../../../../utils/stateMachines'
-import ErrorBox from '../../../components/ErrorBox'
 import ProgressButton from '../../../components/ProgressButton'
+import ErrorBox from '../../../components/ErrorBox'
 import Modal from '../../../components/Modal'
 import Loading from '../../../components/Loading'
 import Picker from '../../../components/Picker'
@@ -22,16 +21,18 @@ export default class ConnectNode extends PureComponent {
   }
 
   render () {
+    const { error, connecting } = this.state
     const nodes = getNodes(this.props)
     const isConnected = getNodeIsConnected(this.props)
-    const disconnectReason = getDisconnectReason(this.props)
-
-    const diconnectContent = (!disconnectReason) ? null : (
-      <ErrorBox error={disconnectReason} />
-    )
 
     const title = (
       <Text style={styles.title}>{t('connector.pleaseChooseNode')}</Text>
+    )
+
+    const { selected, picker } = this.buildPicker()
+
+    const errorBox = (!error) ? null : (
+      <ErrorBox error={error} />
     )
 
     const content = (!nodes) ? (
@@ -40,10 +41,15 @@ export default class ConnectNode extends PureComponent {
         <Loading />
       </View>
     ) : (
-      <View style={styles.contentContainer}>
+      <View style={errorBox ? styles.errorContainer : styles.contentContainer}>
         {title}
-        {this.renderSelector()}
-        <View style={styles.alert}>{diconnectContent}</View>
+        {picker}
+        <ProgressButton
+          style={styles.button}
+          showInProgress={connecting}
+          onPress={() => this.onSubmit(selected)}
+          title={t('button.connectToNode')} />
+        {errorBox}
       </View>
     )
 
@@ -54,12 +60,8 @@ export default class ConnectNode extends PureComponent {
     )
   }
 
-  renderSelector () {
+  buildPicker () {
     const nodes = getNodes(this.props)
-    const connectEvent = getConnectionEvent(this.props)
-
-    const { connecting } = this.state
-
     let { selected } = this.state
 
     const options = []
@@ -80,25 +82,17 @@ export default class ConnectNode extends PureComponent {
       })
     })
 
-    const errorBox =
-      (error !== connectEvent.getState()) ? null : (
-        <ErrorBox error={connectEvent.getData() || t('error.unexpected')} />
-      )
-
-    return (
-      <View>
+    return {
+      selected,
+      picker: (
         <Picker
+          style={styles.picker}
           options={options}
           selected={selected}
           onChange={this.onChange}
         />
-        <ProgressButton
-          showInProgress={connecting}
-          onPress={() => this.onSubmit(selected)}
-          title="Go" />
-        {errorBox}
-      </View>
-    )
+      )
+    }
   }
 
   onChange = e => {

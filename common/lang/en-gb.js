@@ -38,6 +38,7 @@ module.exports = {
     button: {
       close: 'Close',
       confirmAndSendTransaction: 'Send',
+      connectToNode: 'Connect',
       cancelTransaction: 'Cancel',
       generateRawTransaction: 'Generate raw transaction',
       generateNewMnemonic: 'Generate new mnemonic',

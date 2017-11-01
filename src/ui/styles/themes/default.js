@@ -7,6 +7,7 @@ const color4 = '#bedb39'
 const color5 = '#fd7400'
 
 const textColor1 = '#fff'
+const textColor2 = '#ccc'
 
 export default {
   rem: ROOT_FONT_SIZE,
@@ -62,6 +63,18 @@ export default {
     }
   },
   button: {
+    picker: {
+      enabled: {
+        borderColor: textColor1,
+        backgroundColor: color1,
+        textColor: textColor1
+      },
+      disabled: {
+        borderColor: textColor2,
+        backgroundColor: color1,
+        textColor: textColor2
+      }
+    },
     default: {
       enabled: {
         borderColor: color4,

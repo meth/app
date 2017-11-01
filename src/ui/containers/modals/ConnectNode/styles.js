@@ -20,7 +20,19 @@ export default create({
     ...container,
     height: 250
   },
+  errorContainer: {
+    ...container,
+    height: 350
+  },
   container: {
+  },
+  picker: {
+    width: 300,
+    marginBottom: 30
+  },
+  button: {
+    flex: 0,
+    width: 200
   },
   title: {
     ...fontMaker({ weight: 'Light' }),
