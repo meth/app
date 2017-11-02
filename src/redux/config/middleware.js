@@ -1,11 +1,11 @@
 import Q from 'bluebird'
 
-import { INIT } from './actions'
+import { LOAD_CONFIG } from './actions'
 import { getNodes } from './selectors'
 
 // eslint-disable-next-line consistent-return
 export default ({ config }) => store => next => async action => {
-  if (INIT !== action.type) {
+  if (LOAD_CONFIG !== action.type) {
     return next(action)
   }
 

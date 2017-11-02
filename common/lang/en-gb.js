@@ -21,7 +21,7 @@ module.exports = {
     },
     connector: {
       connectToNode: 'Connect to node',
-      pleaseChooseNode: 'Please choose a node'
+      pleaseChooseNode: 'Connect to an Ethereum node'
     },
     error: {
       userCancelledTransaction: 'User cancelled transaction',

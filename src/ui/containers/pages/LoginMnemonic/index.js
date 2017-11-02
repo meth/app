@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
-import { load as loadWallet } from '../../../../wallet/manager'
 import { routes } from '../../../nav'
 import logger from '../../../../utils/log'
+import { instanceOfError, UnableToConnectError } from '../../../../utils/errors'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -46,7 +46,7 @@ export default class LoginMnemonic extends PureComponent {
   }
 
   onSubmit = () => {
-    const { actions: { navPush } } = this.props
+    const { actions: { navPush, loadWallet } } = this.props
 
     this.setState({ error: null }, () => {
       loadWallet(this.state.mnemonic)
@@ -54,7 +54,11 @@ export default class LoginMnemonic extends PureComponent {
         .catch(error => {
           log.debug(error)
 
-          this.setState({ error })
+          if (!instanceOfError(error, UnableToConnectError)) {
+            return this.setState({ error })
+          }
+
+          return navPush(routes.Browser.path)
         })
     })
   }

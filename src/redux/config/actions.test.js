@@ -1,7 +1,7 @@
-import { INIT } from './actions'
+import { LOAD_CONFIG } from './actions'
 
-describe('INIT', () => {
+describe('LOAD_CONFIG', () => {
   it('is defined', () => {
-    expect(INIT).toBeDefined()
+    expect(LOAD_CONFIG).toBeDefined()
   })
 })

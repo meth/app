@@ -8,21 +8,21 @@ module.exports = {
     DISCONNECTED: 'disconnected',
     CONNECTON_ERROR: 'connection_error',
     LOADING: 'LOADING',
-    LOADED: 'LOADED',
+    LOADED: 'LOADED'
   },
   EVENT: {
     STATE_CHANGE: 'state_change',
     NEW_BLOCK: 'new_block',
-    NEW_BALANCES: 'new_balances',
+    NEW_BALANCES: 'new_balances'
   },
   BACKEND_TASKS: {
-    SET_WINDOW_ID: 'backend-set-window-id',
+    SET_WINDOW_ID: 'backend-set-window-id'
   },
   API_COMMAND: {
-    CREATE_ACCOUNT: 'CREATE_ACCOUNT',
+    CREATE_ACCOUNT: 'CREATE_ACCOUNT'
   },
   DAPP_PERMISSIONS: {
-    CREATE_ACCOUNT: 'CREATE_ACCOUNT',
+    CREATE_ACCOUNT: 'CREATE_ACCOUNT'
   },
   IPC: {
     BACKEND_TASK: 'backend-task',

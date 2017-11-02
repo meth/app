@@ -1,5 +1,5 @@
 import { createActionCreator } from '../utils'
 
-import { INIT } from './actions'
+import { LOAD_CONFIG } from './actions'
 
-export const init = createActionCreator(INIT)
+export const loadConfig = createActionCreator(LOAD_CONFIG)

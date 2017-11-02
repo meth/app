@@ -142,9 +142,7 @@ class NodeConnector extends EventEmitter {
       log.trace('Request', { id, method, params })
 
       try {
-        if (!this.isConnected) {
-          throw new UnableToConnectError('Adapter disconnected')
-        }
+        this._ensureConnected()
 
         result.push({
           id,
@@ -179,7 +177,17 @@ class NodeConnector extends EventEmitter {
    * @return {Promise}
    */
   async rawCall (method, params = []) {
+    this._ensureConnected()
+
     return this._adapter.execMethod(method, params)
+  }
+
+  _ensureConnected () {
+    if (!this.isConnected || !this._adapter) {
+      this.emit(EVENT.STATE_CHANGE, STATE.CONNECTON_ERROR)
+
+      throw new UnableToConnectError('Adapter not connected')
+    }
   }
 
   _wrapResponse ({ id, result, error }) {

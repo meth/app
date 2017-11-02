@@ -1,28 +1,11 @@
 import { takeLatest, put } from 'redux-saga/effects'
 
-import { INIT } from '../config/actions'
 import { SEND_TX, CANCEL_TX } from '../api/actions'
 import { NODE_DISCONNECTED } from '../node/actions'
 import saga, { _privateFunctions } from './sagas'
 import { showConnectionModal, showSendTransactionModal, hideSendTransactionModal } from './actionCreators'
 
 describe('modal saga', () => {
-  describe('waits for INIT action', () => {
-    it('and processes it', () => {
-      const app = {}
-
-      const gen = saga(app)()
-
-      expect(gen.next().value).toEqual(takeLatest(INIT, _privateFunctions.onInit, app))
-    })
-
-    it('and then shows the connection modal', () => {
-      const gen = _privateFunctions.onInit()
-
-      expect(gen.next().value).toEqual(put(showConnectionModal()))
-    })
-  })
-
   describe('waits for SEND_TX action', () => {
     it('and processes it', () => {
       const app = {}

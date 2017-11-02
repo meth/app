@@ -1,16 +1,16 @@
 import Immutable from 'immutable'
 
 import reducer from './reducer'
-import { INIT } from './actions'
+import { LOAD_CONFIG } from './actions'
 
-describe('INIT', () => {
+describe('LOAD_CONFIG', () => {
   it('updates the nodes and networks', () => {
     const state = Immutable.Map({})
 
     const reduce = reducer()
 
     const newState = reduce(state, {
-      type: INIT,
+      type: LOAD_CONFIG,
       payload: {
         networks: 1,
         nodes: 2

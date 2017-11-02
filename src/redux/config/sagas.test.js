@@ -1,15 +1,15 @@
 import { takeLatest, call } from 'redux-saga/effects'
 
-import { INIT } from './actions'
+import { LOAD_CONFIG } from './actions'
 import saga, { _privateFunctions } from './sagas'
 
 describe('config saga', () => {
-  it('waits for INIT action', () => {
+  it('waits for LOAD_CONFIG action', () => {
     const app = {}
 
     const gen = saga(app)()
 
-    expect(gen.next().value).toEqual(takeLatest(INIT, _privateFunctions.onInit, app))
+    expect(gen.next().value).toEqual(takeLatest(LOAD_CONFIG, _privateFunctions.onLoadConfig, app))
   })
 
   it('and then sets up the node connector', () => {
@@ -19,7 +19,7 @@ describe('config saga', () => {
       }
     }
 
-    const gen = _privateFunctions.onInit(app, {
+    const gen = _privateFunctions.onLoadConfig(app, {
       payload: {
         networks: 123
       }

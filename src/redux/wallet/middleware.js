@@ -1,6 +1,7 @@
-import { SEND_RAW_TX, GENERATE_RAW_TX } from './actions'
+import { SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
 import { getNetworkInfo } from '../node/selectors'
 import { createAction } from '../utils'
+import { instanceOfError, UnableToConnectError } from '../../utils/errors'
 import logger from '../../utils/log'
 
 const log = logger.create('walletMiddleware')
@@ -8,13 +9,30 @@ const log = logger.create('walletMiddleware')
 // eslint-disable-next-line consistent-return
 export default ({ nodeConnector, walletManager }) => store => next => async action => {
   switch (action.type) {
+    case LOAD_WALLET: {
+      log.debug('Load wallet ...')
+
+      const mnemonic = action.payload
+      log.debug(`Mnemonic: ${mnemonic}`)
+
+      try {
+        return walletManager.load(mnemonic)
+      } catch (err) {
+        // do nothing if it's a connection error, as connection modal should popup!
+        if (!instanceOfError(err, UnableToConnectError)) {
+          throw err
+        }
+      }
+
+      break
+    }
     case GENERATE_RAW_TX: {
       log.debug('Generate raw tx ...')
 
       const { from, to, value, data, gasLimit, gasPrice } = action.payload
 
       // chain id
-      const chainId = getNetworkInfo(store.getState())
+      const { chainId } = getNetworkInfo(store.getState())
       log.debug(`chainId: ${chainId}`)
 
       // nonce

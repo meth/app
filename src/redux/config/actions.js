@@ -1,1 +1,1 @@
-export const INIT = 'INIT_CONFIG'
+export const LOAD_CONFIG = 'LOAD_CONFIG'

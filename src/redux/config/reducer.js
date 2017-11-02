@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
-import { INIT } from './actions'
+import { LOAD_CONFIG } from './actions'
 
 export default () => {
   const InitialState = Immutable.Map({
@@ -13,7 +13,7 @@ export default () => {
 
   return handleActions(
     {
-      [INIT]: (state, { payload: { nodes, networks } }) =>
+      [LOAD_CONFIG]: (state, { payload: { nodes, networks } }) =>
         state.set('nodes', nodes).set('networks', networks)
     },
     InitialState

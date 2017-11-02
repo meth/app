@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 
 import { createAction } from '../utils'
 import fn from './middleware'
-import { INIT } from './actions'
+import { LOAD_CONFIG } from './actions'
 
 
 describe('config middleware', () => {
@@ -19,7 +19,7 @@ describe('config middleware', () => {
     expect(next).toHaveBeenCalledWith(action)
   })
 
-  describe('processes the INIT action', () => {
+  describe('processes the LOAD_CONFIG action', () => {
     it('by loading the config', async () => {
       const next = jest.fn()
 
@@ -35,11 +35,11 @@ describe('config middleware', () => {
 
       const handler = fn({ config })(store)(next)
 
-      await handler(createAction(INIT))
+      await handler(createAction(LOAD_CONFIG))
 
       expect(next).toHaveBeenCalledTimes(1)
       expect(next).toHaveBeenCalledWith(
-        createAction(INIT, {
+        createAction(LOAD_CONFIG, {
           networks: 'networks loaded',
           nodes: 'nodes loaded'
         })
@@ -59,9 +59,9 @@ describe('config middleware', () => {
 
       const handler = fn({})(store)(next)
 
-      await handler(createAction(INIT))
-      await handler(createAction(INIT))
-      await handler(createAction(INIT))
+      await handler(createAction(LOAD_CONFIG))
+      await handler(createAction(LOAD_CONFIG))
+      await handler(createAction(LOAD_CONFIG))
 
       expect(next).not.toHaveBeenCalled()
     })

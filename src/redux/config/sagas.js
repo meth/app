@@ -1,16 +1,16 @@
 import { takeLatest, call } from 'redux-saga/effects'
 
-import { INIT } from './actions'
+import { LOAD_CONFIG } from './actions'
 
 // eslint-disable-next-line require-yield
-function* onInit ({ nodeConnector }, { payload: { networks } }) {
+function* onLoadConfig ({ nodeConnector }, { payload: { networks } }) {
   yield call([ nodeConnector, 'setNetworks' ], networks)
 }
 
 export default app => function* saga () {
-  yield takeLatest(INIT, onInit, app)
+  yield takeLatest(LOAD_CONFIG, onLoadConfig, app)
 }
 
 export const _privateFunctions = {
-  onInit
+  onLoadConfig
 }

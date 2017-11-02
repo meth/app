@@ -1,10 +1,10 @@
-import { init } from './actionCreators'
-import { INIT } from './actions'
+import { loadConfig } from './actionCreators'
+import { LOAD_CONFIG } from './actions'
 
-describe('init()', () => {
+describe('loadConfig()', () => {
   it('returns action', () => {
-    expect(init()).toEqual({
-      type: INIT
+    expect(loadConfig()).toEqual({
+      type: LOAD_CONFIG
     })
   })
 })

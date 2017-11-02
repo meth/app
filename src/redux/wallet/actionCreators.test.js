@@ -1,5 +1,14 @@
-import { updateBalances, generateRawTransaction, sendRawTransaction } from './actionCreators'
-import { BALANCES, SEND_RAW_TX, GENERATE_RAW_TX } from './actions'
+import { updateBalances, generateRawTransaction, sendRawTransaction, loadWallet } from './actionCreators'
+import { BALANCES, SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
+
+describe('loadWallet()', () => {
+  it('returns action', () => {
+    expect(loadWallet(123)).toEqual({
+      type: LOAD_WALLET,
+      payload: 123
+    })
+  })
+})
 
 describe('updateBalances()', () => {
   it('returns action', () => {
