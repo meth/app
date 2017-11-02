@@ -6,6 +6,9 @@ const color1 = '#2c3e50'
 const color4 = '#bedb39'
 const color5 = '#fd7400'
 
+const colorLightGray = '#ccc'
+const colorGray = '#999'
+
 const textColor1 = '#fff'
 const textColor2 = '#ccc'
 
@@ -71,26 +74,54 @@ export default {
   button: {
     picker: {
       enabled: {
-        borderColor: textColor1,
-        backgroundColor: color1,
-        textColor: textColor1
+        default: {
+          borderColor: textColor1,
+          backgroundColor: color1,
+          textColor: textColor1
+        },
+        hover: {
+          borderColor: textColor1,
+          backgroundColor: color1,
+          textColor: textColor1
+        }
       },
       disabled: {
-        borderColor: textColor2,
-        backgroundColor: color1,
-        textColor: textColor2
+        default: {
+          borderColor: textColor2,
+          backgroundColor: color1,
+          textColor: textColor2
+        },
+        hover: {
+          borderColor: textColor2,
+          backgroundColor: color1,
+          textColor: textColor2
+        }
       }
     },
     default: {
       enabled: {
-        borderColor: color4,
-        backgroundColor: color4,
-        textColor: color1
+        default: {
+          borderColor: color4,
+          backgroundColor: color4,
+          textColor: color1
+        },
+        hover: {
+          borderColor: color4,
+          backgroundColor: color4,
+          textColor: color1
+        }
       },
       disabled: {
-        borderColor: '#ccc',
-        backgroundColor: '#ccc',
-        textColor: '#999'
+        default: {
+          borderColor: colorLightGray,
+          backgroundColor: colorLightGray,
+          textColor: colorGray
+        },
+        hover: {
+          borderColor: colorLightGray,
+          backgroundColor: colorLightGray,
+          textColor: colorGray
+        }
       }
     }
   }

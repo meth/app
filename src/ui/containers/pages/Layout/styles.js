@@ -38,7 +38,7 @@ export default create({
   headerAppNameText: {
     ...textStyles
   },
-  headerBalanceText: {
+  etherBalanceText: {
     ...textStyles
   },
   headerConnectionText: {

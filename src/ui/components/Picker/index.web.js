@@ -60,6 +60,10 @@ export default class Picker extends PureComponent {
   }
 
   onButtonElementRef = btnDiv => {
+    if (!btnDiv) {
+      return
+    }
+
     const { left, top, width, height } = btnDiv.getBoundingClientRect()
 
     this.setState({

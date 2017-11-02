@@ -5,6 +5,8 @@ import { TouchableOpacity } from 'react-native'
 export default class TouchableView extends PureComponent {
   static propTypes = {
     activeOpacity: PropTypes.number,
+    onStartHover: PropTypes.func,
+    onEndHover: PropTypes.func,
     style: PropTypes.any,
     hoverStyle: PropTypes.any
   }
@@ -26,18 +28,30 @@ export default class TouchableView extends PureComponent {
       <TouchableOpacity
         style={(hovering && hoverStyle) ? hoverStyle : style}
         {...props}
-        onMouseEnter={this.onMouseEnter}
-        onMouseLeave={this.onMouseLeave}>
+        onMouseEnter={this.onStartHover}
+        onMouseLeave={this.onEndHover}>
           {children}
       </TouchableOpacity>
     )
   }
 
-  onMouseEnter = () => {
+  onStartHover = () => {
+    const { onStartHover } = this.props
+
+    if (onStartHover()) {
+      onStartHover()
+    }
+
     this.setState({ hovering: true })
   }
 
-  onMouseLeave = () => {
+  onEndHover = () => {
+    const { onEndHover } = this.props
+
+    if (onEndHover()) {
+      onEndHover()
+    }
+
     this.setState({ hovering: false })
   }
 }

@@ -1,23 +1,31 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import Button from '../Button'
 import Icon from '../Icon'
 import createStyles from './styles'
 
-const IconButton = ({ icon, ...props }) => {
-  const styles = createStyles(props)
+export default class IconButton extends PureComponent {
+  static propTypes = {
+    icon: PropTypes.shape(Icon.propTypes),
+    ...Button.propTypes
+  }
 
-  return (
-    <Button {...props}>
-      <Icon {...icon} style={styles.icon} />
-    </Button>
-  )
+  state = {
+    hovering: false
+  }
+
+  render () {
+    const { icon, ...props } = this.props
+    const { hovering } = this.state
+    const styles = createStyles({ ...props, hovering })
+
+    return (
+      <Button {...props}
+        onStartHover={() => this.setState({ hovering: true })}
+        onEndHover={() => this.setState({ hovering: false })}>
+          <Icon {...icon} style={styles.icon} />
+      </Button>
+    )
+  }
 }
-
-IconButton.propTypes = {
-  icon: PropTypes.shape(Icon.propTypes),
-  ...Button.propTypes
-}
-
-export default IconButton
