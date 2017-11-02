@@ -28,7 +28,7 @@ const PickerButton = ({ label, style, onPress, onLayout }) => {
 PickerButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   label: PropTypes.string,
-  style: PropTypes.number,
+  style: PropTypes.oneOfType([ PropTypes.number, PropTypes.array, PropTypes.object ]),
   onLayout: PropTypes.func
 }
 

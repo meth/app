@@ -19,7 +19,7 @@ export default class Layout extends PureComponent {
       <View style={styles.container}>
         <Header
           style={styles.header}
-          networkInfo={networkInfo}
+          networkInfo={networkInfo && Object.keys(networkInfo).length ? networkInfo : null}
           accountBalances={accountBalances}
           appName={t('appName')}
           onPressNetworkInfo={this.showConnectionInfo}

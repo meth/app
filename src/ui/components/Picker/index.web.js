@@ -90,6 +90,6 @@ Picker.propTypes = {
   })).isRequired,
   onChange: PropTypes.func.isRequired,
   selected: PropTypes.string,
-  style: PropTypes.number,
-  buttonStyle: PropTypes.number
+  style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
+  buttonStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
 }

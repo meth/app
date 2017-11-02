@@ -31,12 +31,22 @@ module.exports = {
       unexpected: 'An unexpected error occurred',
       transactionAlreadyInProgress: 'A transaction is already in progress'
     },
+    home: {
+      intro1: 'Welcome to Meth!',
+      intro2: 'We are going to help you setup a password so that you can start using Ethereum Dapps!'
+    },
     mnemonic: {
       enterYourMnemonic: 'Enter your mnemonic',
       pleaseNoteDownThisMnemonicOnPaperOffline: 'Please remember this mnemonic carefully! We recommend you either memorise it thoroughly or write it down offline, on a piece of paper or something similarly secure. If you lose it you will never again be able to access your accounts! Neither we nor anyone else will be able to help you retrieve your mnemonic if you forget it!'
     },
+    linkButton: {
+      alreadyHavePasswordLogin: 'Already have a password? Login here',
+      dontHavePasswordCreateOne: 'Don\'t have a password yet? Create one here'
+    },
     button: {
       close: 'Close',
+      login: 'Login',
+      getStarted: 'Get started',
       confirmAndSendTransaction: 'Send',
       connectToNode: 'Connect',
       cancelTransaction: 'Cancel',

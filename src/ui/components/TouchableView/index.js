@@ -20,7 +20,7 @@ export default class TouchableView extends PureComponent {
   }
 
   render () {
-    const { children, style, hoverStyle, ...props } = this.props
+    const { children, style, hoverStyle, onStartHover, onEndHover, ...props } = this.props
 
     const { hovering } = this.state
 
@@ -38,7 +38,7 @@ export default class TouchableView extends PureComponent {
   onStartHover = () => {
     const { onStartHover } = this.props
 
-    if (onStartHover()) {
+    if (onStartHover) {
       onStartHover()
     }
 
@@ -48,7 +48,7 @@ export default class TouchableView extends PureComponent {
   onEndHover = () => {
     const { onEndHover } = this.props
 
-    if (onEndHover()) {
+    if (onEndHover) {
       onEndHover()
     }
 

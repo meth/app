@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react'
 import MODALS from '../utils/modals'
 import { getModals } from '../redux/modals/selectors'
 import logger from '../utils/log'
-import { create } from './styles'
 import { Navigator } from './nav'
 import { connectStore } from './helpers/redux'
 import { PopupContext } from './components/Popup'
@@ -18,18 +17,13 @@ const MODAL_COMPONENTS = {
   [MODALS.SEND_TRANSACTION]: SendTransactionModal
 }
 
-const styles = create({
-  container: {
-    flex: 1
-  }
-})
-
 @connectStore('modals')
 export default class Root extends PureComponent {
   render () {
     return (
-      <PopupContext style={styles.container}>
+      <PopupContext style={{ flex: 1 }}>
         <Navigator />
+        {this.showModal()}
       </PopupContext>
     )
   }

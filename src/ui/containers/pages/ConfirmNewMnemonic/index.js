@@ -31,7 +31,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
     )
 
     return (
-      <Layout>
+      <Layout contentStyle={styles.layoutContent}>
         <Text>{t('mnemonic.pleaseNoteDownThisMnemonicOnPaperOffline')}</Text>
         <Text style={styles.mnemonic}>{mnemonic}</Text>
         <Button

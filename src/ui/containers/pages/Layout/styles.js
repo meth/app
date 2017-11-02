@@ -12,7 +12,8 @@ export default create({
 
   header: {
     flex: 0,
-    height: 30
+    height: 36,
+    paddingVertical: 5
   },
 
   /* content */

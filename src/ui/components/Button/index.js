@@ -10,8 +10,8 @@ export default class Button extends PureComponent {
     disabled: PropTypes.bool,
     type: PropTypes.string,
     title: PropTypes.string,
-    style: PropTypes.number,
-    textStyle: PropTypes.number,
+    style: PropTypes.oneOfType([ PropTypes.number, PropTypes.array, PropTypes.object ]),
+    textStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.array, PropTypes.object ]),
     onLayout: PropTypes.func,
     onStartHover: PropTypes.func,
     onEndHover: PropTypes.func
@@ -38,7 +38,7 @@ export default class Button extends PureComponent {
       0 < React.Children.count(children) ? (
         children
       ) : (
-        <Text style={[ styles.text, textStyle ]}>
+        <Text style={[ styles.text ].concat(textStyle)}>
           {title}
         </Text>
       )
@@ -49,7 +49,7 @@ export default class Button extends PureComponent {
         onStartHover={this.onStartHover}
         onEndHover={this.onEndHover}
         onPress={this.onPress}
-        style={[ styles.box, style ]}>
+        style={[ styles.box ].concat(style)}>
         {content}
       </TouchableView>
     )

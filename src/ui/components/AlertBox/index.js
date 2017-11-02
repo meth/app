@@ -18,7 +18,7 @@ AlertBox.propTypes = {
   type: PropTypes.string.isRequired,
   text: PropTypes.string,
   children: PropTypes.element,
-  style: PropTypes.number
+  style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
 }
 
 export default AlertBox

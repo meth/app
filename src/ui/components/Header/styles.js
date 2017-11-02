@@ -31,11 +31,20 @@ export default create({
   section: {
     paddingHorizontal: 10
   },
-  iconButton: {
-    paddingVertical: 5
+  button: {
+    paddingVertical: 5,
+    borderRadius: 0
   },
   logout: {
     borderLeftWidth: 1,
     borderLeftColor: '$header_dividerColor'
+  },
+  network: {
+    borderRightWidth: 1,
+    borderRightColor: '$header_dividerColor'
+  },
+  balance: {
+    borderRightWidth: 1,
+    borderRightColor: '$header_dividerColor'
   }
 })

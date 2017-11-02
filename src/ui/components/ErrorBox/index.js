@@ -51,7 +51,7 @@ const ErrorBox = ({ error, style }) => {
 
 ErrorBox.propTypes = {
   error: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
-  style: PropTypes.number
+  style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
 }
 
 export default ErrorBox

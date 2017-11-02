@@ -7,18 +7,28 @@ import {
 } from 'react-navigation'
 
 import { connectStore } from './helpers/redux'
+import Home from './containers/pages/Home'
+import GenerateMnemonic from './containers/pages/GenerateMnemonic'
 import LoginMnemonic from './containers/pages/LoginMnemonic'
 import ConfirmNewMnemonic from './containers/pages/ConfirmNewMnemonic'
 import Browser from './containers/pages/Browser'
 
 export const routes = {
   Home: {
-    screen: LoginMnemonic,
+    screen: Home,
     path: ''
+  },
+  GenerateMnemonic: {
+    screen: GenerateMnemonic,
+    path: 'generate'
+  },
+  LoginMnemonic: {
+    screen: LoginMnemonic,
+    path: 'login'
   },
   ConfirmNewMnemonic: {
     screen: ConfirmNewMnemonic,
-    path: 'confirmNewMnemonic'
+    path: 'confirm'
   },
   Browser: {
     screen: Browser,

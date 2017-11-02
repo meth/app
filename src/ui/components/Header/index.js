@@ -4,20 +4,20 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { fromWei } from 'web3-utils'
 
-import TouchableView from '../TouchableView'
+import Button from '../Button'
 import IconButton from '../IconButton'
 import styles from './styles'
 
 export default class Header extends PureComponent {
   static propTypes = {
-    networkInfo: PropTypes.object.isRequired,
-    accountBalances: PropTypes.object.isRequired,
+    networkInfo: PropTypes.object,
+    accountBalances: PropTypes.object,
     onPressNetworkInfo: PropTypes.func.isRequired,
     style: PropTypes.any
   }
 
   render () {
-    const { networkInfo, appName, style } = this.props
+    const { accountBalances, networkInfo, appName, style } = this.props
 
     return (
       <View style={[ styles.container, style ]}>
@@ -25,8 +25,8 @@ export default class Header extends PureComponent {
           <Text style={styles.appNameText}>{appName}</Text>
         </View>
         <View style={styles.right}>
-          {networkInfo ? this.renderEther() : null}
-          {networkInfo ? this.renderNetwork() : null}
+          {networkInfo && accountBalances ? this.renderBalance(accountBalances) : null}
+          {networkInfo ? this.renderNetwork(networkInfo) : null}
           {this.renderAlerts()}
           {networkInfo ? this.renderLogoutButton() : null}
         </View>
@@ -34,31 +34,28 @@ export default class Header extends PureComponent {
     )
   }
 
-  renderEther () {
-    const { accountBalances } = this.props
+  renderBalance (accountBalances) {
     const totalWei = Object.values(accountBalances).reduce((m, v) => m.add(v), new BN(0, 2))
     const totalEther = fromWei(totalWei, 'ether')
 
     return (
-      <TouchableView
-        style={styles.section}
-        hoverStyle={styles.sectionHover}>
-          <Text style={styles.etherBalanceText}>{totalEther} ETH</Text>
-      </TouchableView>
+      <View style={styles.balance}>
+        <Button
+          style={styles.button}
+          type='header'
+          title={`${totalEther} ETH`} />
+      </View>
     )
   }
 
-  renderNetwork () {
-    const { networkInfo } = this.props
-
+  renderNetwork (networkInfo) {
     return (
-      <TouchableView style={styles.section}
-        style={styles.section}
-        hoverStyle={styles.sectionHover}>
-          <Text style={styles.networkInfoText}>
-            {networkInfo.description}
-          </Text>
-      </TouchableView>
+      <View style={styles.network}>
+        <Button
+          style={styles.button}
+          type='header'
+          title={networkInfo.description} />
+      </View>
     )
   }
 
@@ -66,7 +63,7 @@ export default class Header extends PureComponent {
     return (
       <View style={styles.alert}>
         <IconButton
-          style={styles.iconButton}
+          style={styles.button}
           type='header'
           icon={{ name: 'bell-o' }} />
       </View>
@@ -77,7 +74,7 @@ export default class Header extends PureComponent {
     return (
       <View style={styles.logout}>
         <IconButton
-          style={styles.iconButton}
+          style={styles.button}
           type='header'
           icon={{ name: 'sign-out' }} />
       </View>

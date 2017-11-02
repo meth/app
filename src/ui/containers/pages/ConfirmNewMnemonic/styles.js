@@ -1,7 +1,7 @@
 import { create, fontMaker } from '../../../styles'
 
 export default create({
-  container: {
+  layoutContent: {
     backgroundColor: '$startScreen_backgroundColor'
   },
   mnemonic: {
