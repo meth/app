@@ -11,9 +11,11 @@ export default create({
     alignItems: 'center',
     width: 400
   },
-  pickerButton: {
-    width: 300,
+  picker: {
     marginBottom: 30
+  },
+  pickerButton: {
+    width: 300
   },
   button: {
     flex: 0,

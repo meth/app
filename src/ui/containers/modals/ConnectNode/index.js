@@ -86,6 +86,7 @@ export default class ConnectNode extends PureComponent {
       selected,
       picker: (
         <Picker
+          style={styles.picker}
           buttonStyle={styles.pickerButton}
           options={options}
           selected={selected}
@@ -95,9 +96,9 @@ export default class ConnectNode extends PureComponent {
     }
   }
 
-  onChange = e => {
+  onChange = selected => {
     this.setState({
-      selected: e.target.value,
+      selected,
       error: null
     })
   }

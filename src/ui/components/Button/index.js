@@ -7,7 +7,7 @@ import createStyles from './styles'
 
 export default class Button extends PureComponent {
   render () {
-    const { disabled, title, type, style, textStyle, children } = this.props
+    const { disabled, title, type, style, textStyle, onLayout, children } = this.props
 
     const styles = createStyles({ type, disabled })
 
@@ -19,7 +19,10 @@ export default class Button extends PureComponent {
       )
 
     return (
-      <TouchableView onPress={this.onPress} style={[ styles.box, style ]}>
+      <TouchableView
+        onLayout={onLayout}
+        onPress={this.onPress}
+        style={[ styles.box, style ]}>
         {content}
       </TouchableView>
     )
@@ -43,7 +46,8 @@ Button.propTypes = {
   type: PropTypes.string,
   title: PropTypes.string,
   style: PropTypes.number,
-  textStyle: PropTypes.number
+  textStyle: PropTypes.number,
+  onLayout: PropTypes.func
 }
 
 Button.defaultProps = {

@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import { View } from 'react-native'
 
 import MODALS from '../utils/modals'
 import { getModals } from '../redux/modals/selectors'
@@ -7,6 +6,7 @@ import logger from '../utils/log'
 import { create } from './styles'
 import { Navigator } from './nav'
 import { connectStore } from './helpers/redux'
+import { PopupContext } from './components/Popup'
 import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
 
@@ -28,10 +28,10 @@ const styles = create({
 export default class Root extends PureComponent {
   render () {
     return (
-      <View style={styles.container}>
+      <PopupContext style={styles.container}>
         <Navigator />
         {this.showModal()}
-      </View>
+      </PopupContext>
     )
   }
 

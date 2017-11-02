@@ -6,7 +6,7 @@ import Button from '../Button'
 import Icon from '../Icon'
 import styles from './styles'
 
-const PickerButton = ({ label, style }) => {
+const PickerButton = ({ label, style, onPress, onLayout }) => {
   const content = (
     <View style={styles.content}>
       <Text style={styles.text}>{label}</Text>
@@ -16,16 +16,20 @@ const PickerButton = ({ label, style }) => {
 
   return (
     <Button
+      onPress={onPress}
       style={style}
-      type="picker">
+      type="picker"
+      onLayout={onLayout}>
       {content}
     </Button>
   )
 }
 
 PickerButton.propTypes = {
+  onPress: PropTypes.func.isRequired,
   label: PropTypes.string,
-  style: PropTypes.number
+  style: PropTypes.number,
+  onLayout: PropTypes.func
 }
 
 export default PickerButton

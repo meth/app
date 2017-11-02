@@ -1,24 +1,23 @@
 import { create, fontMaker } from '../../styles'
 
-const text = {
-  ...fontMaker(),
-  color: '$button_picker_enabled_textColor'
-}
-
 export default create({
-  buttonContent: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 5
+  container: {
+    flex: 0,
+    position: 'relative'
   },
-  buttonText: {
-    ...text,
-    fontSize: '1rem'
+  optionsContainer: {
+    borderWidth: 1,
+    borderColor: '$form_picker_borderColor',
+    backgroundColor: '$form_picker_backgroundColor'
   },
-  buttonIconText: {
-    ...text,
-    fontSize: '1.2rem'
+  optionContainer: {
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: '$form_picker_borderColor'
+  },
+  optionText: {
+    ...fontMaker(),
+    color: '$form_picker_textColor'
   }
 })

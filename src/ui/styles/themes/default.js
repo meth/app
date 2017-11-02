@@ -60,6 +60,11 @@ export default {
   form: {
     textInput: {
       borderColor: '#999'
+    },
+    picker: {
+      borderColor: color1,
+      backgroundColor: textColor1,
+      textColor: color1
     }
   },
   button: {
