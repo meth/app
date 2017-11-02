@@ -10,11 +10,11 @@ import styles from './styles'
 export default class Picker extends PureComponent {
   state = {
     open: false,
-    optionsContainerPosition: {}
+    popupStyle: {}
   }
 
   render () {
-    const { open, optionsContainerPosition } = this.state
+    const { open, popupStyle } = this.state
 
     const { options, selected, style, buttonStyle } = this.props
 
@@ -22,15 +22,16 @@ export default class Picker extends PureComponent {
 
     return (
       <View style={[ styles.container, style ]}>
-        <PickerButton
-          onPress={this.onPressButton}
-          label={label}
-          open={open}
-          style={buttonStyle}
-          onLayout={this.onButtonLayout}
-        />
+        <div ref={this.onButtonElementRef}>
+          <PickerButton
+            onPress={this.onPressButton}
+            label={label}
+            open={open}
+            style={buttonStyle}
+          />
+        </div>
         {(!open) ? null : (
-          <Popup style={optionsContainerPosition}>
+          <Popup style={popupStyle}>
             <View style={styles.optionsContainer}>
               {this.renderOptions({ options })}
             </View>
@@ -45,6 +46,7 @@ export default class Picker extends PureComponent {
       <TouchableView
         key={value}
         style={styles.optionContainer}
+        hoverStyle={styles.optionContainerHover}
         onPress={() => this.onSelect(value)}>
           <Text style={styles.optionText}>{label}</Text>
       </TouchableView>
@@ -57,13 +59,11 @@ export default class Picker extends PureComponent {
     })
   }
 
-  onButtonLayout = ({ nativeEvent: { layout: { height, width } } }) => {
+  onButtonElementRef = btnDiv => {
+    const { left, top, width, height } = btnDiv.getBoundingClientRect()
+
     this.setState({
-      optionsContainerPosition: {
-        top: height,
-        left: 0,
-        width
-      }
+      popupStyle: { left, top: top + height, width }
     })
   }
 

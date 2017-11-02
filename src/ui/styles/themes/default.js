@@ -64,6 +64,7 @@ export default {
     picker: {
       borderColor: color1,
       backgroundColor: textColor1,
+      hoverBackgroundColor: textColor2,
       textColor: color1
     }
   },
