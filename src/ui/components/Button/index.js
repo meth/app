@@ -23,7 +23,7 @@ export default class Button extends PureComponent {
     title: ''
   }
 
-  static = {
+  state = {
     hovering: false
   }
 

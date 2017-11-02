@@ -1,27 +1,27 @@
 export const ROOT_FONT_SIZE = 18
 
 const color1 = '#2c3e50'
-// const color2 = '#2980b9'
+const color2 = '#2980b9'
 // const color3 = '#3498db'
 const color4 = '#bedb39'
 const color5 = '#fd7400'
 
+const colorWhite = '#fff'
 const colorLightGray = '#ccc'
-const colorGray = '#999'
+const colorGray = '#9a9a9a'
 
-const textColor1 = '#fff'
-const textColor2 = '#ccc'
 
 export default {
   rem: ROOT_FONT_SIZE,
   /* https://color.adobe.com/Copy-of-Vitamin-C-color-theme-10071328/edit/?copy=true&base=2&rule=Custom&selected=4&name=Copy%20of%20Copy%20of%20Vitamin%20C&mode=rgb&rgbvalues=0,0.2627450980392157,0.34509803921568627,0.12156862745098039,0.5411764705882353,0.4392156862745098,0.7450980392156863,0.8588235294117647,0.2235294117647059,1,0.8823529411764706,0.10196078431372549,0.9921568627450981,0.4549019607843137,0&swatchOrder=0,1,2,3,4 */
   header: {
     backgroundColor: color1,
-    textColor: textColor1
+    textColor: colorWhite,
+    dividerColor: color2
   },
   startScreen: {
     backgroundColor: color1,
-    textColor: textColor1
+    textColor: colorWhite
   },
   browser: {
     tabBar: {
@@ -54,7 +54,7 @@ export default {
   modal: {
     content: {
       backgroundColor: color1,
-      textColor: textColor1
+      textColor: colorWhite
     },
     overlay: {
       backgroundColor: 'rgba(255, 255, 255, 0.8)'
@@ -66,8 +66,8 @@ export default {
     },
     picker: {
       borderColor: color1,
-      backgroundColor: textColor1,
-      hoverBackgroundColor: textColor2,
+      backgroundColor: colorWhite,
+      hoverBackgroundColor: colorLightGray,
       textColor: color1
     }
   },
@@ -75,26 +75,52 @@ export default {
     picker: {
       enabled: {
         default: {
-          borderColor: textColor1,
+          borderColor: colorWhite,
           backgroundColor: color1,
-          textColor: textColor1
+          textColor: colorWhite
         },
         hover: {
-          borderColor: textColor1,
+          borderColor: colorWhite,
           backgroundColor: color1,
-          textColor: textColor1
+          textColor: colorWhite
         }
       },
       disabled: {
         default: {
-          borderColor: textColor2,
-          backgroundColor: color1,
-          textColor: textColor2
+          borderColor: colorLightGray,
+          backgroundColor: colorGray,
+          textColor: colorLightGray
         },
         hover: {
-          borderColor: textColor2,
+          borderColor: colorLightGray,
+          backgroundColor: colorGray,
+          textColor: colorLightGray
+        }
+      }
+    },
+    header: {
+      enabled: {
+        default: {
+          borderColor: 'transparent',
           backgroundColor: color1,
-          textColor: textColor2
+          textColor: colorGray
+        },
+        hover: {
+          borderColor: 'transparent',
+          backgroundColor: color2,
+          textColor: colorWhite
+        }
+      },
+      disabled: {
+        default: {
+          borderColor: colorLightGray,
+          backgroundColor: colorGray,
+          textColor: colorLightGray
+        },
+        hover: {
+          borderColor: colorLightGray,
+          backgroundColor: colorGray,
+          textColor: colorLightGray
         }
       }
     },

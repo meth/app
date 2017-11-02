@@ -22,13 +22,14 @@ export default class Layout extends PureComponent {
           networkInfo={networkInfo}
           accountBalances={accountBalances}
           appName={t('appName')}
+          onPressNetworkInfo={this.showConnectionInfo}
         />
         <View style={[ styles.content, contentStyle ]}>{children}</View>
       </View>
     )
   }
 
-  showConnection = () => {
+  showConnectionInfo = () => {
     this.props.actions.showConnectionModal()
   }
 }

@@ -1,26 +1,26 @@
 import BN from 'bn.js'
-import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { fromWei } from 'web3-utils'
 
 import TouchableView from '../TouchableView'
+import IconButton from '../IconButton'
 import styles from './styles'
 
 export default class Header extends PureComponent {
   static propTypes = {
     networkInfo: PropTypes.object.isRequired,
     accountBalances: PropTypes.object.isRequired,
-    style: PropTypes.any,
-    onPressNetworkInfo: PropTypes.func
+    onPressNetworkInfo: PropTypes.func.isRequired,
+    style: PropTypes.any
   }
 
   render () {
     const { networkInfo, appName, style } = this.props
 
     return (
-      <View style={style}>
+      <View style={[ styles.container, style ]}>
         <View style={styles.left}>
           <Text style={styles.appNameText}>{appName}</Text>
         </View>
@@ -36,7 +36,7 @@ export default class Header extends PureComponent {
 
   renderEther () {
     const { accountBalances } = this.props
-    const totalWei = _.reduce(accountBalances, (m, v) => m.add(v), new BN(0, 2))
+    const totalWei = Object.values(accountBalances).reduce((m, v) => m.add(v), new BN(0, 2))
     const totalEther = fromWei(totalWei, 'ether')
 
     return (
@@ -64,21 +64,23 @@ export default class Header extends PureComponent {
 
   renderAlerts () {
     return (
-      <TouchableView
-        style={styles.section}
-        hoverStyle={styles.sectionHover}>
-          <IconButton icon={{ name: 'bell-o' }} />
-      </TouchableView>
+      <View style={styles.alert}>
+        <IconButton
+          style={styles.iconButton}
+          type='header'
+          icon={{ name: 'bell-o' }} />
+      </View>
     )
   }
 
   renderLogoutButton () {
     return (
-      <TouchableView
-        style={styles.section}
-        hoverStyle={styles.sectionHover}>
-          <IconButton icon={{ name: 'sign-out' }} />
-      </TouchableView>
+      <View style={styles.logout}>
+        <IconButton
+          style={styles.iconButton}
+          type='header'
+          icon={{ name: 'sign-out' }} />
+      </View>
     )
   }
 

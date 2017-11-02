@@ -2,7 +2,7 @@ import { create, fontMaker } from '../../styles'
 
 const text = {
   ...fontMaker(),
-  color: '$button_picker_enabled_textColor'
+  color: '$button_picker_enabled_default_textColor'
 }
 
 export default create({

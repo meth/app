@@ -30,7 +30,6 @@ export default class Root extends PureComponent {
     return (
       <PopupContext style={styles.container}>
         <Navigator />
-        {this.showModal()}
       </PopupContext>
     )
   }

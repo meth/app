@@ -1,12 +1,19 @@
 import { create, fontMaker } from '../../styles'
 
-const textStyles = {
+const text = {
   ...fontMaker(),
   color: '$header_textColor',
   fontSize: '0.8rem'
 }
 
+
 export default create({
+  container: {
+    backgroundColor: '$header_backgroundColor',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
   left: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -18,6 +25,17 @@ export default create({
     alignItems: 'center'
   },
   appNameText: {
-    ...textStyles
+    ...text,
+    paddingLeft: 10
+  },
+  section: {
+    paddingHorizontal: 10
+  },
+  iconButton: {
+    paddingVertical: 5
+  },
+  logout: {
+    borderLeftWidth: 1,
+    borderLeftColor: '$header_dividerColor'
   }
 })
