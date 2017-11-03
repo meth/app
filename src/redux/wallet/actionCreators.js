@@ -1,6 +1,8 @@
 import { createActionCreator } from '../utils'
 
-import { BALANCES, GENERATE_RAW_TX, SEND_RAW_TX, LOAD_WALLET } from './actions'
+import { BALANCES, GENERATE_RAW_TX, SEND_RAW_TX, LOAD_WALLET, GENERATE_MNEMONIC } from './actions'
+
+export const generateMnemonic = createActionCreator(GENERATE_MNEMONIC)
 
 export const loadWallet = createActionCreator(LOAD_WALLET)
 

@@ -33,9 +33,12 @@ module.exports = {
     },
     home: {
       intro1: 'Welcome to Meth!',
-      intro2: 'We are going to help you setup a password so that you can start using Ethereum Dapps!'
+      intro2: 'We are going to help you get setup so that you can start using Ethereum Dapps!'
     },
     mnemonic: {
+      intro1: 'We have generated a mnemonic (a secure pass phrase) for you.',
+      intro2: 'You will need this to use Meth.',
+      intro3: 'Make sure you write this down carefully as it cannot be recovered once lost!',
       enterYourMnemonic: 'Enter your mnemonic',
       pleaseNoteDownThisMnemonicOnPaperOffline: 'Please remember this mnemonic carefully! We recommend you either memorise it thoroughly or write it down offline, on a piece of paper or something similarly secure. If you lose it you will never again be able to access your accounts! Neither we nor anyone else will be able to help you retrieve your mnemonic if you forget it!'
     },
@@ -51,8 +54,7 @@ module.exports = {
       connectToNode: 'Connect',
       cancelTransaction: 'Cancel',
       generateRawTransaction: 'Generate raw transaction',
-      generateNewMnemonic: 'Generate new mnemonic',
-      iHaveNotedDownMyMnemonicAndWishToProceed: 'I have written down my mnemonic offline and wish to proceed'
+      iHaveWrittenDownMnemonic: 'I have written down my mnemonic and wish to proceed'
     }
   }
 }

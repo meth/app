@@ -1,51 +1,58 @@
 import React, { PureComponent } from 'react'
+import { Text } from 'react-native'
 
-import { generateNewMnemonic } from '../../../../wallet/manager'
 import { routes } from '../../../nav'
-import logger from '../../../../utils/log'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import ErrorBox from '../../../components/ErrorBox'
 import Button from '../../../components/Button'
+import Loading from '../../../components/Loading'
 import Layout from '../Layout'
 
-const log = logger.create('GenerateMnemonic')
-
-@connectStore('nav')
+@connectStore('nav', 'wallet')
 export default class GenerateMnemonic extends PureComponent {
   state = {
-    mnemonic: '',
+    mnemonic: null,
     error: null
   }
 
+  componentDidMount () {
+    const { generateMnemonic } = this.props.actions
+
+    generateMnemonic()
+      .then(mnemonic => this.setState({ mnemonic }))
+      .catch(error => this.setState({ error }))
+  }
+
   render () {
-    const { error } = this.state
+    const { error, mnemonic } = this.state
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <Button
-          onPress={this.onGenerate}
-          title={t('button.generateNewMnemonic')}
-        />
+        <Text style={styles.intro1Text}>{t('mnemonic.intro1')}</Text>
+        <Text style={styles.intro2Text}>{t('mnemonic.intro2')}</Text>
+        <Text style={styles.intro3Text}>{t('mnemonic.intro3')}</Text>
+        {(!mnemonic) ? <Loading /> : (
+          <Text style={styles.mnemonicText}>{mnemonic}</Text>
+        )}
+        {(!mnemonic) ? null : (
+          <Button
+            style={styles.nextButton}
+            onPress={this.onPressConfirm}
+            title={t('button.iHaveWrittenDownMnemonic')}
+          />
+        )}
         {error ? <ErrorBox error={error} /> : null}
       </Layout>
     )
   }
 
-  onGenerate = () => {
+  onPressConfirm = () => {
     const { actions: { navPush } } = this.props
 
-    this.setState({ error: null }, () => {
-      generateNewMnemonic()
-        .then(mnemonic => (
-          navPush(routes.ConfirmNewMnemonic.path, { mnemonic })
-        ))
-        .catch(error => {
-          log.debug(error)
+    const { mnemonic } = this.state
 
-          this.setState({ error })
-        })
-    })
+    navPush(routes.ConfirmNewMnemonic.path, { mnemonic })
   }
 }

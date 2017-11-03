@@ -1,4 +1,4 @@
-import { SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
+import { SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET, GENERATE_MNEMONIC } from './actions'
 import { getNetworkInfo } from '../node/selectors'
 import { createAction } from '../utils'
 import logger from '../../utils/log'
@@ -8,6 +8,9 @@ const log = logger.create('walletMiddleware')
 // eslint-disable-next-line consistent-return
 export default ({ nodeConnector, walletManager }) => store => next => async action => {
   switch (action.type) {
+    case GENERATE_MNEMONIC: {
+      return walletManager.generateMnemonic()
+    }
     case LOAD_WALLET: {
       log.debug('Load wallet ...')
 

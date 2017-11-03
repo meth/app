@@ -1,8 +1,14 @@
-import { BALANCES, SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
+import { BALANCES, GENERATE_MNEMONIC, SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
 
 describe('BALANCES', () => {
   it('is defined', () => {
     expect(BALANCES).toBeDefined()
+  })
+})
+
+describe('GENERATE_MNEMONIC', () => {
+  it('is defined', () => {
+    expect(GENERATE_MNEMONIC).toBeDefined()
   })
 })
 

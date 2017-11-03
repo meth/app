@@ -2,8 +2,10 @@ const _ = require('lodash')
 const I21n = require('i21n')
 
 const locales = {
+  /* eslint-disable global-require */
   'en-gb': require('./lang/en-gb'),
-  'zh-TW': require('./lang/zh-TW'),
+  'zh-TW': require('./lang/zh-TW')
+  /* eslint-enable global-require */
 }
 
 const i21n = new I21n({}, { defaultLocale: 'en-gb' })

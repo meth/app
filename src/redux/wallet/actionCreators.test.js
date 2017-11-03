@@ -1,10 +1,19 @@
-import { updateBalances, generateRawTransaction, sendRawTransaction, loadWallet } from './actionCreators'
-import { BALANCES, SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
+import { updateBalances, generateMnemonic, generateRawTransaction, sendRawTransaction, loadWallet } from './actionCreators'
+import { BALANCES, SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET, GENERATE_MNEMONIC } from './actions'
 
 describe('loadWallet()', () => {
   it('returns action', () => {
     expect(loadWallet(123)).toEqual({
       type: LOAD_WALLET,
+      payload: 123
+    })
+  })
+})
+
+describe('generateMnemonic()', () => {
+  it('returns action', () => {
+    expect(generateMnemonic(123)).toEqual({
+      type: GENERATE_MNEMONIC,
       payload: 123
     })
   })
