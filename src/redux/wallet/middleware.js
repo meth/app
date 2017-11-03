@@ -1,7 +1,6 @@
 import { SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
 import { getNetworkInfo } from '../node/selectors'
 import { createAction } from '../utils'
-import { instanceOfError, UnableToConnectError } from '../../utils/errors'
 import logger from '../../utils/log'
 
 const log = logger.create('walletMiddleware')
@@ -15,16 +14,7 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       const mnemonic = action.payload
       log.debug(`Mnemonic: ${mnemonic}`)
 
-      try {
-        return walletManager.load(mnemonic)
-      } catch (err) {
-        // do nothing if it's a connection error, as connection modal should popup!
-        if (!instanceOfError(err, UnableToConnectError)) {
-          throw err
-        }
-      }
-
-      break
+      return walletManager.load(mnemonic)
     }
     case GENERATE_RAW_TX: {
       log.debug('Generate raw tx ...')
