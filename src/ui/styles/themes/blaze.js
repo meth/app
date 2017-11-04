@@ -8,6 +8,7 @@ const color3 = '#3498db'
 const color4 = '#bedb39'
 const color5 = '#fd7400'
 const color6 = '#1F8A70'
+const color7 = '#FFE11A'
 
 const colorWhite = '#fff'
 const colorLightGray = '#ccc'
@@ -159,6 +160,10 @@ export default {
     }
   },
   mnemonic: {
+    confirmationBox: {
+      backgroundColor: color7,
+      textColor: color1
+    },
     backgroundColor: color3,
     textColor: colorWhite
   }

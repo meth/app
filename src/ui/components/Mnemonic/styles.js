@@ -7,23 +7,48 @@ const maskText = {
 }
 
 export default create({
-  container: {
+  mnemonicWords: {
     position: 'relative',
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center'
   },
-  text: {
+  wordText: {
     ...fontMaker(),
     fontSize: '1rem',
     textAlign: 'center',
     color: '$mnemonic_textColor',
     backgroundColor: '$mnemonic_backgroundColor',
     borderRadius: 5,
-    paddingVertical: 5,
-    paddingHorizontal: 5,
+    padding: 5,
     margin: 5
+  },
+  confirmedMnemonicWords: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '$mnemonic_confirmationBox_backgroundColor',
+    minHeight: 40,
+    borderRadius: 5,
+    marginTop: 10,
+    padding: 10
+  },
+  confirmedWordText: {
+    ...fontMaker(),
+    textAlign: 'center',
+    color: '$mnemonic_confirmationBox_textColor',
+    margin: 5
+  },
+  unselectedWordText: {
+    opacity: 0.4
+  },
+  wordWrapperButton: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    paddingVertical: 0,
+    paddingHorizontal: 0
   },
   maskButton: {
     ...coverParent,

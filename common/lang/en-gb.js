@@ -39,6 +39,8 @@ module.exports = {
       intro1: 'We have generated a mnemonic (a secure pass phrase) for you.',
       intro2: 'You will need this to use Meth.',
       intro3: 'Make sure you write this down carefully as it cannot be recovered once lost!',
+      pleaseConfirmYourMnemonic: 'Please confirm your mnemonic.',
+      putWordsInRightOrder: 'Put the words in the right order.',
       enterYourMnemonic: 'Enter your mnemonic',
       pleaseNoteDownThisMnemonicOnPaperOffline: 'Please remember this mnemonic carefully! We recommend you either memorise it thoroughly or write it down offline, on a piece of paper or something similarly secure. If you lose it you will never again be able to access your accounts! Neither we nor anyone else will be able to help you retrieve your mnemonic if you forget it!'
     },
@@ -55,6 +57,7 @@ module.exports = {
       cancelTransaction: 'Cancel',
       generateRawTransaction: 'Generate raw transaction',
       iHaveWrittenDownMnemonic: 'I have written down my mnemonic and wish to proceed',
+      iHaveConfirmedMyMnemonic: 'I have successfully confirmed my mnemonic',
       pressToRevealMnemonic: 'Press to reveal'
     }
   }

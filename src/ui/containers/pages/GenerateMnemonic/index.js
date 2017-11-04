@@ -8,7 +8,7 @@ import styles from './styles'
 import ErrorBox from '../../../components/ErrorBox'
 import Button from '../../../components/Button'
 import Loading from '../../../components/Loading'
-import Mnemonic from '../../../components/Mnemonic'
+import { MnemonicDisplay } from '../../../components/Mnemonic'
 import Layout from '../Layout'
 
 @connectStore('nav', 'wallet')
@@ -35,7 +35,7 @@ export default class GenerateMnemonic extends PureComponent {
         <Text style={styles.intro2Text}>{t('mnemonic.intro2')}</Text>
         <Text style={styles.intro3Text}>{t('mnemonic.intro3')}</Text>
         {(!mnemonic) ? <Loading /> : (
-          <Mnemonic mnemonic={mnemonic} style={styles.mnemonic} />
+          <MnemonicDisplay mnemonic={mnemonic} style={styles.mnemonic} />
         )}
         {(!mnemonic) ? null : (
           <Button

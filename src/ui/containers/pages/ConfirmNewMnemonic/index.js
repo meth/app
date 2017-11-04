@@ -10,13 +10,15 @@ import styles from './styles'
 import Layout from '../Layout'
 import Button from '../../../components/Button'
 import ErrorBox from '../../../components/ErrorBox'
+import { MnemonicConfirmator } from '../../../components/Mnemonic'
 
 const log = logger.create('ConfirmNewMnemonic')
 
 @connectStore('nav', 'wallet')
 export default class ConfirmNewMnemonic extends PureComponent {
   state = {
-    error: ''
+    success: false,
+    error: null
   }
 
   render () {
@@ -24,7 +26,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
       navigation: { currentRoute: { params: { mnemonic } } }
     } = this.props
 
-    const { error } = this.state
+    const { error, success } = this.state
 
     const errorBox = (!error) ? null : (
       <ErrorBox error={error} />
@@ -32,15 +34,26 @@ export default class ConfirmNewMnemonic extends PureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <Text>{t('mnemonic.pleaseNoteDownThisMnemonicOnPaperOffline')}</Text>
-        <Text style={styles.mnemonic}>{mnemonic}</Text>
-        <Button
-          onPress={this.onProceed}
-          title={t('button.iHaveNotedDownMyMnemonicAndWishToProceed')}
+        <Text style={styles.intro1Text}>{t('mnemonic.pleaseConfirmYourMnemonic')}</Text>
+        <Text style={styles.intro2Text}>{t('mnemonic.putWordsInRightOrder')}</Text>
+        <MnemonicConfirmator
+          onSuccess={this.onSuccessfulConfirmation}
+          style={styles.confirmator}
+          mnemonic={mnemonic}
         />
+        {(!success) ? null : (
+          <Button
+            onPress={this.onProceed}
+            title={t('button.iHaveConfirmedMyMnemonic')}
+          />
+        )}
         {errorBox}
       </Layout>
     )
+  }
+
+  onSuccessfulConfirmation = () => {
+    this.setState({ success: true })
   }
 
   onProceed = () => {
