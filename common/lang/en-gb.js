@@ -54,7 +54,8 @@ module.exports = {
       connectToNode: 'Connect',
       cancelTransaction: 'Cancel',
       generateRawTransaction: 'Generate raw transaction',
-      iHaveWrittenDownMnemonic: 'I have written down my mnemonic and wish to proceed'
+      iHaveWrittenDownMnemonic: 'I have written down my mnemonic and wish to proceed',
+      pressToRevealMnemonic: 'Press to reveal'
     }
   }
 }
