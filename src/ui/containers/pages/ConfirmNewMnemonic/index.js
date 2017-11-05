@@ -9,6 +9,7 @@ import { t } from '../../../../../common/strings'
 import styles from './styles'
 import Layout from '../Layout'
 import Button from '../../../components/Button'
+import LinkButton from '../../../components/LinkButton'
 import ErrorBox from '../../../components/ErrorBox'
 import { MnemonicConfirmator } from '../../../components/Mnemonic'
 
@@ -41,13 +42,18 @@ export default class ConfirmNewMnemonic extends PureComponent {
           style={styles.confirmator}
           mnemonic={mnemonic}
         />
+        {errorBox}
         <Button
+          style={styles.nextButton}
           disabled={!success}
           onPress={this.onProceed}
           onDisabledPress={this.onCantProceed}
           title={t('button.iHaveConfirmedMyMnemonic')}
         />
-        {errorBox}
+        <LinkButton
+          textStyle={styles.linkButtonText}
+          onPress={this.onPressGoBack}
+          title={t('linkButton.goBackAndGenerateAnotherMnemonic')} />
       </Layout>
     )
   }
@@ -62,6 +68,14 @@ export default class ConfirmNewMnemonic extends PureComponent {
     } = this.props
 
     return showErrorAlert(t('mnemonic.wordOrderStillIncorrect'))
+  }
+
+  onPressGoBack = () => {
+    const {
+      actions: { navBack }
+    } = this.props
+
+    navBack()
   }
 
   onProceed = () => {

@@ -48,16 +48,16 @@ export default class GenerateMnemonic extends PureComponent {
         {error ? <ErrorBox error={error} /> : null}
         <LinkButton
           textStyle={styles.linkButtonText}
-          onPress={this.onPressGoBack}
-          title={t('linkButton.goBack')} />
+          onPress={this.onPressLogin}
+          title={t('linkButton.alreadyHavePasswordLogin')} />
       </Layout>
     )
   }
 
-  onPressGoBack = () => {
-    const { actions: { navBack } } = this.props
+  onPressLogin = () => {
+    const { actions: { navPush } } = this.props
 
-    navBack()
+    navPush(routes.LoginMnemonic.path)
   }
 
   onPressConfirm = () => {

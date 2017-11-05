@@ -5,7 +5,7 @@ const text = {
   fontSize: '1.5rem',
   color: '$startScreen_textColor',
   textAlign: 'center',
-  maxWidth: '50%',
+  maxWidth: '70%',
   marginBottom: 20
 }
 
@@ -27,12 +27,13 @@ export default create({
     ...fontMaker({ weight: 'Bold' }),
     textDecorationLine: 'underline'
   },
-  nextButton: {
-    marginTop: 40
-  },
   mnemonic: {
     marginTop: 20,
     maxWidth: '30%'
+  },
+  nextButton: {
+    marginTop: 40,
+    marginBottom: 30
   },
   linkButtonText: {
     color: '$startScreen_linkTextColor'

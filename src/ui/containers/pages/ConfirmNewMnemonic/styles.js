@@ -25,7 +25,13 @@ export default create({
   },
   confirmator: {
     marginTop: 30,
-    marginBottom: 40,
     maxWidth: '40%'
+  },
+  nextButton: {
+    marginTop: 40,
+    marginBottom: 30
+  },
+  linkButtonText: {
+    color: '$startScreen_linkTextColor'
   }
 })
