@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import {
   addNavigationHelpers,
   createNavigator,
-  TabRouter
+  StackRouter
 } from 'react-navigation'
 
 import { connectStore } from './helpers/redux'
@@ -35,7 +35,7 @@ export const routes = {
   }
 }
 
-export const router = TabRouter(routes, {
+export const router = StackRouter(routes, {
   navigationOptions: () => ({
     tabBarVisible: false
   })

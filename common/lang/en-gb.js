@@ -46,9 +46,9 @@ module.exports = {
       wordOrderStillIncorrect: 'You haven\'t yet correctly ordered the words.'
     },
     linkButton: {
-      alreadyHavePasswordLogin: 'Already have a password? Login here',
-      dontHavePasswordCreateOne: 'Don\'t have a password yet? Create one here',
-      goBackAndGenerateAnotherMnemonic: 'Go back and generate another mnemonic'
+      alreadyHavePasswordLogin: 'Already have a mnemonic? Login here',
+      dontHavePasswordCreateOne: 'Don\'t have a mnemonic yet? Create one here',
+      goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
     button: {
       close: 'Close',

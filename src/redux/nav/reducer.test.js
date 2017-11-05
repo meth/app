@@ -6,14 +6,11 @@ describe('initial state', () => {
     const router = {
       getStateForAction: jest.fn(action => ({
         index: 1,
-        state: [ action ]
+        routes: [ action ]
       })),
-      getActionForPathAndParams: jest.fn((path, params) => ({
+      getActionForPathAndParams: jest.fn(path => ({
         type: 'MOCK_NAV',
-        payload: {
-          path,
-          params
-        }
+        payload: { path }
       }))
     }
 
@@ -21,7 +18,7 @@ describe('initial state', () => {
 
     expect(reduce(undefined, { type: 'invalid' })).toEqual({
       index: 1,
-      state: [
+      routes: [
         {
           type: 'MOCK_NAV',
           payload: { path: '', params: undefined }
@@ -36,16 +33,13 @@ describe('when a navigation action is received', () => {
 
   beforeEach(() => {
     router = {
-      getStateForAction: jest.fn((action, state = []) => ({
+      getStateForAction: jest.fn((action, state = {}) => ({
         index: 1,
-        state: [ ...state, action ]
+        routes: [ ...(state.routes || []), action ]
       })),
-      getActionForPathAndParams: jest.fn((path, params) => ({
+      getActionForPathAndParams: jest.fn(path => ({
         type: 'MOCK_NAV',
-        payload: {
-          path,
-          params
-        }
+        payload: { path }
       }))
     }
   })
@@ -53,7 +47,10 @@ describe('when a navigation action is received', () => {
   it('a PUSH action pushes a new path onto the state stack', () => {
     const reduce = reducer({ router })
 
-    const state = [ 'dummy' ]
+    const state = {
+      index: 1,
+      routes: [ 'dummy' ]
+    }
 
     const payload = {
       path: '/',
@@ -64,14 +61,17 @@ describe('when a navigation action is received', () => {
 
     expect(reduce(state, { type: PUSH, payload })).toEqual({
       index: 1,
-      state: [ 'dummy', { type: 'MOCK_NAV', payload } ]
+      routes: [ 'dummy', { type: 'MOCK_NAV', payload: { path: '/' }, params: { hello: 'world' } } ]
     })
   })
 
   it('a RESET action resets the state stack', () => {
     const reduce = reducer({ router })
 
-    const state = [ 'dummy' ]
+    const state = {
+      index: 1,
+      routes: [ 'dummy' ]
+    }
 
     const payload = {
       path: '/',
@@ -82,18 +82,21 @@ describe('when a navigation action is received', () => {
 
     expect(reduce(state, { type: RESET, payload })).toEqual({
       index: 1,
-      state: [ { type: 'MOCK_NAV', payload } ]
+      routes: [ { type: 'MOCK_NAV', payload: { path: '/' }, params: { hello: 'world' } } ]
     })
   })
 
   it('a BACK action pops the state stack', () => {
     const reduce = reducer({ router })
 
-    const state = [ 'dummy' ]
+    const state = {
+      index: 1,
+      routes: [ 'dummy' ]
+    }
 
     expect(reduce(state, { type: BACK })).toEqual({
       index: 1,
-      state: [ 'dummy', { type: BACK } ]
+      routes: [ 'dummy', { type: BACK } ]
     })
   })
 })
