@@ -1,6 +1,10 @@
 # Meth Browser
 
-The Meth dapp browser, for Ethereum addicts. **Work-in-progress**
+[![Build Status](https://secure.travis-ci.org/meth-project/meth-browser.svg?branch=master)](http://travis-ci.org/meth-project/meth-browser)
+
+The Meth Dapp browser, for Ethereum addicts.
+
+**NOTE: This is unreleased, Alpha software, very much a work-in-progress**
 
 Features:
 
