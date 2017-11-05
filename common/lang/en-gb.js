@@ -47,7 +47,8 @@ module.exports = {
     },
     linkButton: {
       alreadyHavePasswordLogin: 'Already have a password? Login here',
-      dontHavePasswordCreateOne: 'Don\'t have a password yet? Create one here'
+      dontHavePasswordCreateOne: 'Don\'t have a password yet? Create one here',
+      goBack: 'Go back'
     },
     button: {
       close: 'Close',

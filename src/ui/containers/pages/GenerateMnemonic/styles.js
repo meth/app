@@ -33,5 +33,8 @@ export default create({
   mnemonic: {
     marginTop: 20,
     maxWidth: '30%'
+  },
+  linkButtonText: {
+    color: '$startScreen_linkTextColor'
   }
 })

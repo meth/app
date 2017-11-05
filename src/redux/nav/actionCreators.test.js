@@ -1,5 +1,5 @@
-import { navReset, navPush } from './actionCreators'
-import { PUSH, RESET } from './actions'
+import { navReset, navPush, navBack } from './actionCreators'
+import { PUSH, RESET, BACK } from './actions'
 
 describe('navPush()', () => {
   it('with path name returns action', () => {
@@ -41,6 +41,14 @@ describe('navReset()', () => {
         path: 'test',
         params: { dummy: false }
       }
+    })
+  })
+})
+
+describe('navBack()', () => {
+  it('returns action', () => {
+    expect(navBack()).toEqual({
+      type: BACK
     })
   })
 })

@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import {
-  NavigationActions,
   addNavigationHelpers,
   createNavigator,
   TabRouter
@@ -42,9 +41,6 @@ export const router = TabRouter(routes, {
   })
 })
 
-export const NavActions = NavigationActions
-export const addNavHelpers = addNavigationHelpers
-
 // custom navigator - see https://reactnavigation.org/docs/navigators/custom
 @connectStore('nav')
 class NavigatorView extends PureComponent {
@@ -55,7 +51,7 @@ class NavigatorView extends PureComponent {
 
     const currentRoute = state.routes[state.index]
 
-    const navProps = addNavHelpers({ dispatch, state, currentRoute })
+    const navProps = addNavigationHelpers({ dispatch, state, currentRoute })
 
     return <Component navigation={navProps} />
   }

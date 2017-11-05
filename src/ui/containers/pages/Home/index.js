@@ -25,7 +25,6 @@ export default class Home extends PureComponent {
           onPress={this.onPressStart}
           title={t('button.getStarted')} />
         <LinkButton
-          style={styles.loginLinkButton}
           textStyle={styles.loginLinkButtonText}
           onPress={this.onPressLogin}
           title={t('linkButton.alreadyHavePasswordLogin')} />

@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions'
 
-import { PUSH, RESET } from './actions'
+import { PUSH, RESET, BACK } from './actions'
 
 export default ({ router }) => {
   const InitialState = router.getStateForAction(
@@ -9,6 +9,7 @@ export default ({ router }) => {
 
   return handleActions(
     {
+      [BACK]: (state, action) => router.getStateForAction(action, state),
       [RESET]: (state, { payload: { path, params } }) =>
         router.getStateForAction(
           router.getActionForPathAndParams(path, params)

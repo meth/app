@@ -1,6 +1,8 @@
 import { createActionCreator } from '../utils'
 
-import { PUSH, RESET } from './actions'
+import { BACK, PUSH, RESET } from './actions'
+
+export const navBack = createActionCreator(BACK)
 
 export const navPush = createActionCreator(PUSH, (path, params = {}) => ({
   path,

@@ -1,5 +1,5 @@
-const NavigationActions = require('react-navigation/lib/NavigationActions')
-  .default
+const NavigationActions = require('react-navigation/lib/NavigationActions').default
 
 export const { NAVIGATE: PUSH } = NavigationActions
 export const { RESET } = NavigationActions
+export const { BACK } = NavigationActions

@@ -1,5 +1,5 @@
 import reducer from './reducer'
-import { PUSH, RESET } from './actions'
+import { PUSH, RESET, BACK } from './actions'
 
 describe('initial state', () => {
   it('gets set using router', () => {
@@ -83,6 +83,17 @@ describe('when a navigation action is received', () => {
     expect(reduce(state, { type: RESET, payload })).toEqual({
       index: 1,
       state: [ { type: 'MOCK_NAV', payload } ]
+    })
+  })
+
+  it('a BACK action pops the state stack', () => {
+    const reduce = reducer({ router })
+
+    const state = [ 'dummy' ]
+
+    expect(reduce(state, { type: BACK })).toEqual({
+      index: 1,
+      state: [ 'dummy', { type: BACK } ]
     })
   })
 })
