@@ -14,7 +14,7 @@ describe('SHOW', () => {
 
     const newState = reduce(state, {
       type: SHOW,
-      payload: 'modal1'
+      payload: { type: 'modal1' }
     })
 
     expect(newState.get('modal1')).toEqual(true)
@@ -33,7 +33,7 @@ describe('HIDE', () => {
 
     const newState = reduce(state, {
       type: HIDE,
-      payload: 'modal1'
+      payload: { type: 'modal1' }
     })
 
     expect(newState.get('modal1')).toEqual(false)

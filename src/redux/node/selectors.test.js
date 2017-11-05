@@ -1,5 +1,5 @@
 import Immutable from 'immutable'
-import { getNodeIsConnected, getDisconnectReason, getConnectionEvent, getNetworkInfo } from './selectors'
+import { getNodeIsConnected, getDisconnectReason, getNetworkInfo } from './selectors'
 
 describe('.getNodeIsConnected()', () => {
   it('returns connection status', () => {
@@ -10,18 +10,6 @@ describe('.getNodeIsConnected()', () => {
     }
 
     expect(getNodeIsConnected(state)).toEqual(123)
-  })
-})
-
-describe('.getConnectionEvent()', () => {
-  it('returns connection status', () => {
-    const state = {
-      node: new Immutable.Map({
-        connectEvent: 123
-      })
-    }
-
-    expect(getConnectionEvent(state)).toEqual(123)
   })
 })
 

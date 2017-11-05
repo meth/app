@@ -42,7 +42,8 @@ module.exports = {
       pleaseConfirmYourMnemonic: 'Please confirm your mnemonic.',
       putWordsInRightOrder: 'Put the words in the right order.',
       enterYourMnemonic: 'Enter your mnemonic',
-      pleaseNoteDownThisMnemonicOnPaperOffline: 'Please remember this mnemonic carefully! We recommend you either memorise it thoroughly or write it down offline, on a piece of paper or something similarly secure. If you lose it you will never again be able to access your accounts! Neither we nor anyone else will be able to help you retrieve your mnemonic if you forget it!'
+      pleaseNoteDownThisMnemonicOnPaperOffline: 'Please remember this mnemonic carefully! We recommend you either memorise it thoroughly or write it down offline, on a piece of paper or something similarly secure. If you lose it you will never again be able to access your accounts! Neither we nor anyone else will be able to help you retrieve your mnemonic if you forget it!',
+      wordOrderStillIncorrect: 'You haven\'t yet correctly ordered the words.'
     },
     linkButton: {
       alreadyHavePasswordLogin: 'Already have a password? Login here',

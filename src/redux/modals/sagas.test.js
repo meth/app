@@ -12,8 +12,6 @@ describe('modal saga', () => {
 
       const gen = saga(app)()
 
-      gen.next()
-
       expect(gen.next().value).toEqual(
         takeLatest(SEND_TX, _privateFunctions.onSendTransaction, app)
       )
@@ -32,7 +30,6 @@ describe('modal saga', () => {
 
       const gen = saga(app)()
 
-      gen.next()
       gen.next()
 
       expect(gen.next().value).toEqual(
@@ -53,7 +50,6 @@ describe('modal saga', () => {
 
       const gen = saga(app)()
 
-      gen.next()
       gen.next()
       gen.next()
 

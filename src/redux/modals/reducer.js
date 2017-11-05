@@ -17,8 +17,8 @@ export default () => {
 
   return handleActions(
     {
-      [SHOW]: (state, { payload }) => state.set(payload, true),
-      [HIDE]: (state, { payload }) => state.set(payload, false)
+      [SHOW]: (state, { payload: { type } }) => state.set(type, true),
+      [HIDE]: (state, { payload: { type } }) => state.set(type, false)
     },
     InitialState
   )

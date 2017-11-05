@@ -14,7 +14,7 @@ import { MnemonicConfirmator } from '../../../components/Mnemonic'
 
 const log = logger.create('ConfirmNewMnemonic')
 
-@connectStore('nav', 'wallet')
+@connectStore('nav', 'wallet', 'modals')
 export default class ConfirmNewMnemonic extends PureComponent {
   state = {
     success: false,
@@ -41,12 +41,11 @@ export default class ConfirmNewMnemonic extends PureComponent {
           style={styles.confirmator}
           mnemonic={mnemonic}
         />
-        {(!success) ? null : (
-          <Button
-            onPress={this.onProceed}
-            title={t('button.iHaveConfirmedMyMnemonic')}
-          />
-        )}
+        <Button
+          disabled={!success}
+          onPress={this.onProceed}
+          title={t('button.iHaveConfirmedMyMnemonic')}
+        />
         {errorBox}
       </Layout>
     )
@@ -57,12 +56,20 @@ export default class ConfirmNewMnemonic extends PureComponent {
   }
 
   onProceed = () => {
+    const { success } = this.state
+
     const {
       navigation: { currentRoute: { params: { mnemonic } } },
-      actions: { navPush, loadWallet }
+      actions: { navPush, loadWallet, alert }
     } = this.props
 
-    this.setState({ error: null }, () => {
+    if (!success) {
+      return alert({
+        error: t('mnemonic.wordOrderStillIncorrect')
+      })
+    }
+
+    return this.setState({ error: null }, () => {
       loadWallet(mnemonic)
         .then(() => navPush(routes.Browser.path))
         .catch(error => {
