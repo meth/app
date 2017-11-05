@@ -2,18 +2,38 @@ import { SHOW, HIDE } from './actions'
 import { CONNECT_NODE, SEND_TRANSACTION, ALERT } from '../../utils/modals'
 
 import {
-  alert,
+  showAlert,
+  showErrorAlert,
+  hideAlert,
   showConnectionModal,
   hideConnectionModal,
   showSendTransactionModal,
   hideSendTransactionModal
 } from './actionCreators'
 
-describe('alert()', () => {
+describe('showAlert()', () => {
   it('returns action', () => {
-    expect(alert('this is the msg')).toEqual({
+    expect(showAlert('this is the msg')).toEqual({
       type: SHOW,
-      payload: { type: ALERT, msg: 'this is the msg' }
+      payload: { type: ALERT, data: { type: 'info', msg: 'this is the msg' } }
+    })
+  })
+})
+
+describe('showErrorAlert()', () => {
+  it('returns action', () => {
+    expect(showErrorAlert('this is the msg')).toEqual({
+      type: SHOW,
+      payload: { type: ALERT, data: { type: 'error', msg: 'this is the msg' } }
+    })
+  })
+})
+
+describe('hideAlert()', () => {
+  it('returns action', () => {
+    expect(hideAlert()).toEqual({
+      type: HIDE,
+      payload: { type: ALERT }
     })
   })
 })

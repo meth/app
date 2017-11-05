@@ -44,6 +44,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
         <Button
           disabled={!success}
           onPress={this.onProceed}
+          onDisabledPress={this.onCantProceed}
           title={t('button.iHaveConfirmedMyMnemonic')}
         />
         {errorBox}
@@ -55,19 +56,19 @@ export default class ConfirmNewMnemonic extends PureComponent {
     this.setState({ success: true })
   }
 
-  onProceed = () => {
-    const { success } = this.state
-
+  onCantProceed = () => {
     const {
-      navigation: { currentRoute: { params: { mnemonic } } },
-      actions: { navPush, loadWallet, alert }
+      actions: { showErrorAlert }
     } = this.props
 
-    if (!success) {
-      return alert({
-        error: t('mnemonic.wordOrderStillIncorrect')
-      })
-    }
+    return showErrorAlert(t('mnemonic.wordOrderStillIncorrect'))
+  }
+
+  onProceed = () => {
+    const {
+      navigation: { currentRoute: { params: { mnemonic } } },
+      actions: { navPush, loadWallet }
+    } = this.props
 
     return this.setState({ error: null }, () => {
       loadWallet(mnemonic)

@@ -6,6 +6,7 @@ import logger from '../utils/log'
 import { Navigator } from './nav'
 import { connectStore } from './helpers/redux'
 import { PopupContext } from './components/Popup'
+import AlertModal from './containers/modals/Alert'
 import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
 
@@ -13,6 +14,7 @@ const log = logger.create('Root')
 
 // modals - in order of importance
 const MODAL_COMPONENTS = {
+  [MODALS.ALERT]: AlertModal,
   [MODALS.CONNECT_NODE]: ConnectNodeModal,
   [MODALS.SEND_TRANSACTION]: SendTransactionModal
 }
@@ -45,7 +47,7 @@ export default class Root extends PureComponent {
       Object.keys(modals).forEach(key => {
         if (modals[key]) {
           const Component = MODAL_COMPONENTS[key]
-          components.push(<Component key={key} />)
+          components.push(<Component key={key} data={modals[key]} />)
         }
       })
     }

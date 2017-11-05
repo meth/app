@@ -10,6 +10,7 @@ const color5 = '#fd7400'
 const color6 = '#1F8A70'
 const color7 = '#FFE11A'
 
+const colorBlack = '#000'
 const colorWhite = '#fff'
 const colorLightGray = '#ccc'
 const colorGray = '#9a9a9a'
@@ -84,6 +85,11 @@ export default {
     },
     overlay: {
       backgroundColor: toRgbWithAlpha(colorWhite, 0.8)
+    },
+    alert: {
+      overlay: {
+        backgroundColor: toRgbWithAlpha(colorBlack, 0.8)
+      }
     }
   },
   form: {

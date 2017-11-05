@@ -10,6 +10,8 @@ export default class Button extends PureComponent {
     disabled: PropTypes.bool,
     type: PropTypes.string,
     title: PropTypes.string,
+    onPress: PropTypes.func,
+    onDisabledPress: PropTypes.func,
     style: PropTypes.oneOfType([ PropTypes.number, PropTypes.array, PropTypes.object ]),
     textStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.array, PropTypes.object ]),
     onLayout: PropTypes.func,

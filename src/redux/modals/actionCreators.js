@@ -3,10 +3,23 @@ import { createActionCreator } from '../utils'
 import { SHOW, HIDE } from './actions'
 import { CONNECT_NODE, SEND_TRANSACTION, ALERT } from '../../utils/modals'
 
-export const alert = createActionCreator(SHOW, msg => ({
+export const showAlert = createActionCreator(SHOW, msg => ({
   type: ALERT,
-  msg
+  data: {
+    type: 'info',
+    msg
+  }
 }))
+
+export const showErrorAlert = createActionCreator(SHOW, msg => ({
+  type: ALERT,
+  data: {
+    type: 'error',
+    msg
+  }
+}))
+
+export const hideAlert = createActionCreator(HIDE, () => ({ type: ALERT }))
 
 export const showConnectionModal = createActionCreator(SHOW, () => ({
   type: CONNECT_NODE
