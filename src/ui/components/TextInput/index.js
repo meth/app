@@ -1,12 +1,43 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { TextInput } from 'react-native'
 
-export default props => (
-  <TextInput
-    autoCapitalize={'none'}
-    autoCorrect={false}
-    autoFocus={false}
-    autoFocus={false}
-    {...props}
-  />
-)
+import createStyles from './styles'
+
+export default class Field extends PureComponent {
+  state = {
+    fieldState: 'blurred'
+  }
+
+  render () {
+    const { style, ...props } = this.props
+
+    const { fieldState } = this.state
+
+    const { styles, placeholderTextColor } = createStyles(fieldState)
+
+    return (
+      <TextInput
+        style={[ styles.input, style ]}
+        autoCapitalize={'none'}
+        autoCorrect={false}
+        autoFocus={false}
+        {...props}
+        placeholderTextColor={placeholderTextColor}
+        onBlur={this.onBlur}
+        onFocus={this.onFocus}
+      />
+    )
+  }
+
+  onBlur = () => {
+    this.setState({
+      fieldState: 'blurred'
+    })
+  }
+
+  onFocus = () => {
+    this.setState({
+      fieldState: 'focussed'
+    })
+  }
+}

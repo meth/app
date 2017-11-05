@@ -9,6 +9,7 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import ErrorBox from '../../../components/ErrorBox'
 import Button from '../../../components/Button'
+import LinkButton from '../../../components/LinkButton'
 import TextInput from '../../../components/TextInput'
 import Layout from '../Layout'
 
@@ -17,24 +18,31 @@ const log = logger.create('LoginMnemonic')
 @connectStore('nav')
 export default class LoginMnemonic extends PureComponent {
   state = {
-    mnemonic: '',
+    mnemonic: null,
     error: null
   }
 
   render () {
-    const { error, mnemonic } = this.state
+    const { error } = this.state
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <Text>{t('mnemonic.enterYourMnemonic')}</Text>
+        <Text style={styles.introText}>{t('mnemonic.enterYourMnemonic')}</Text>
         <TextInput
           style={styles.textInput}
-          defaultValue={mnemonic}
           onChange={this.onChange}
+          placeholder={t('mnemonic.inputPlaceholderText')}
           onSubmitEditing={this.onSubmit}
         />
-        <Button onPress={this.onSubmit} title={t('button.login')} />
         {error ? <ErrorBox error={error} /> : null}
+        <Button
+          style={styles.nextButton}
+          onPress={this.onSubmit}
+          title={t('button.login')} />
+        <LinkButton
+          textStyle={styles.linkButtonText}
+          onPress={this.onPressSignUp}
+          title={t('linkButton.dontHavePasswordCreateOne')} />
       </Layout>
     )
   }
@@ -43,6 +51,12 @@ export default class LoginMnemonic extends PureComponent {
     this.setState({
       mnemonic: e.target.value
     })
+  }
+
+  onPressSignUp = () => {
+    const { actions: { navPush } } = this.props
+
+    navPush(routes.GenerateMnemonic.path)
   }
 
   onSubmit = () => {

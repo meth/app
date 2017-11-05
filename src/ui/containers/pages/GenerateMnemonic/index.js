@@ -38,6 +38,7 @@ export default class GenerateMnemonic extends PureComponent {
         {(!mnemonic) ? <Loading /> : (
           <MnemonicDisplay mnemonic={mnemonic} style={styles.mnemonic} />
         )}
+        {error ? <ErrorBox error={error} /> : null}
         {(!mnemonic) ? null : (
           <Button
             style={styles.nextButton}
@@ -45,7 +46,6 @@ export default class GenerateMnemonic extends PureComponent {
             title={t('button.iHaveWrittenDownMnemonic')}
           />
         )}
-        {error ? <ErrorBox error={error} /> : null}
         <LinkButton
           textStyle={styles.linkButtonText}
           onPress={this.onPressLogin}

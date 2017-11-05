@@ -94,7 +94,18 @@ export default {
   },
   form: {
     textInput: {
-      borderColor: '#999'
+      blurred: {
+        borderColor: 'transparent',
+        backgroundColor: colorWhite,
+        textColor: colorBlack,
+        placeholderTextColor: colorGray
+      },
+      focussed: {
+        borderColor: 'transparent',
+        backgroundColor: colorWhite,
+        textColor: colorBlack,
+        placeholderTextColor: colorGray
+      }
     },
     picker: {
       borderColor: color1,

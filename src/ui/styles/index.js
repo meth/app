@@ -12,6 +12,8 @@ export const screen = Dimensions.get('window')
 
 export const create = EStyleSheet.create.bind(EStyleSheet)
 
+export const value = EStyleSheet.value.bind(EStyleSheet)
+
 export const transparentBg = {
   backgroundColor: 'transparent'
 }

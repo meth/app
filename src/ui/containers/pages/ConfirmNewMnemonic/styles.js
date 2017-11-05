@@ -23,6 +23,10 @@ export default create({
     ...text,
     fontSize: '1.2rem'
   },
+  intro3Text: {
+    ...text,
+    fontSize: '1.2rem'
+  },
   confirmator: {
     marginTop: 30,
     maxWidth: '40%'
