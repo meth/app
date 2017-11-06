@@ -1,6 +1,7 @@
 import logger from '../../utils/log'
 import { CONNECT_NODE, DISCONNECT_NODE } from './actions'
 import {
+  nodeConnecting,
   nodeConnectError,
   nodeConnected
 } from './actionCreators'
@@ -17,6 +18,8 @@ export default ({ nodeConnector }) => store => next => async action => {
       break
     }
     case CONNECT_NODE: {
+      await store.dispatch(nodeConnecting())
+
       try {
         const node = action.payload
 

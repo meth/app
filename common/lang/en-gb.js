@@ -30,7 +30,8 @@ module.exports = {
       requestTimeout: 'Request timed out',
       methodCall: 'Error calling method: {method}',
       unexpected: 'An unexpected error occurred',
-      transactionAlreadyInProgress: 'A transaction is already in progress'
+      transactionAlreadyInProgress: 'A transaction is already in progress',
+      connectionError: 'There was a connection error'
     },
     home: {
       intro1: 'Welcome to Meth!',

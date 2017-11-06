@@ -188,7 +188,7 @@ class NodeConnector extends EventEmitter {
 
   _ensureConnected () {
     if (!this.isConnected || !this._adapter) {
-      this.emit(EVENT.STATE_CHANGE, STATE.CONNECTON_ERROR)
+      this.emit(EVENT.STATE_CHANGE, STATE.DISCONNECTED)
 
       throw new UnableToConnectError('Adapter not connected')
     }

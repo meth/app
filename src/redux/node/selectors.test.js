@@ -29,7 +29,7 @@ describe('.getDisconnectReason()', () => {
   it('returns disconnection reason', () => {
     const state = {
       node: new Immutable.Map({
-        disconnectReason: 123
+        disconnectionReason: 123
       })
     }
 

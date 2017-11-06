@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import { getNodes } from '../../../../redux/config/selectors'
-import { getNodeConnection, getNodeIsConnected } from '../../../../redux/node/selectors'
+import { getNodeConnection, getNodeIsConnected, getDisconnectReason } from '../../../../redux/node/selectors'
 import { t } from '../../../../../common/strings'
 import ProgressButton from '../../../components/ProgressButton'
 import AlertBox from '../../../components/AlertBox'
@@ -82,6 +82,8 @@ export default class ConnectNode extends PureComponent {
   renderForm () {
     const { connecting } = this.state
 
+    const reason = getDisconnectReason(this.props)
+
     const options = this.getOptions()
     const selected = options.find(o => o.selected)
 
@@ -92,6 +94,11 @@ export default class ConnectNode extends PureComponent {
 
     return (
       <View style={styles.container}>
+        {(!reason) ? null : (
+          <ErrorBox
+            style={styles.disconnectReasonBox}
+            error={t(`error.${reason}`) || reason} />
+        )}
         {title}
         <Picker
           style={styles.picker}

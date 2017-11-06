@@ -6,7 +6,7 @@ module.exports = {
     CONNECTED: 'connected',
     DISCONNECTING: 'disconnecting',
     DISCONNECTED: 'disconnected',
-    CONNECTON_ERROR: 'connection_error',
+    CONNECTON_ERROR: 'connectionError',
     LOADING: 'LOADING',
     LOADED: 'LOADED'
   },

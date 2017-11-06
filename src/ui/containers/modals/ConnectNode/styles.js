@@ -54,5 +54,8 @@ export default create({
   },
   errorBox: {
     marginTop: 30
+  },
+  disconnectReasonBox: {
+    marginBottom: 20
   }
 })

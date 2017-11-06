@@ -1,7 +1,7 @@
 import { createAction } from '../utils'
 
 import fn from './middleware'
-import { CONNECT_NODE, DISCONNECT_NODE, NODE_CONNECTED, NODE_CONNECT_ERROR } from './actions'
+import { CONNECT_NODE, DISCONNECT_NODE, NODE_CONNECTING, NODE_CONNECTED, NODE_CONNECT_ERROR } from './actions'
 
 describe('node middleware', () => {
   it('passes actions through', async () => {
@@ -104,7 +104,8 @@ describe('node middleware', () => {
 
         await handler(action)
 
-        expect(store.dispatch).toHaveBeenCalledTimes(1)
+        expect(store.dispatch).toHaveBeenCalledTimes(2)
+        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTING))
         expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTED, {
           node: {
             host: 'meth'
@@ -134,7 +135,8 @@ describe('node middleware', () => {
           expect(err).toEqual(err)
         }
 
-        expect(store.dispatch).toHaveBeenCalledTimes(1)
+        expect(store.dispatch).toHaveBeenCalledTimes(2)
+        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTING))
         expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECT_ERROR, err))
       })
     })
