@@ -75,6 +75,11 @@ class NodeConnector extends EventEmitter {
     }
 
     try {
+      // propagate state changes
+      this._adapter.on(EVENT.STATE_CHANGE, (...args) => {
+        this.emit(EVENT.STATE_CHANGE, ...args)
+      })
+
       // connect
       await this._adapter.connect()
 
@@ -96,9 +101,9 @@ class NodeConnector extends EventEmitter {
         network.genesisBlock = block.hash
       }
 
-      // event propagation (set this up after connection succeeds)
-      [ EVENT.STATE_CHANGE, EVENT.NEW_BLOCK ].forEach(e => {
-        this._adapter.on(e, (...args) => this.emit(e, ...args))
+      // propagate blocks
+      this._adapter.on(EVENT.NEW_BLOCK, (...args) => {
+        this.emit(EVENT.NEW_BLOCK, ...args)
       })
 
       log.info(`Connected to network: ${network.description}`)

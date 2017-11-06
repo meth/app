@@ -29,13 +29,14 @@ class Wallet extends EventEmitter {
   async init () {
     log.info(`Initialize wallet ...`)
 
-    await this._load()
-
     this._nodeConnector.on(
       EVENT.STATE_CHANGE,
       this._onNodeConnectionStateChange.bind(this)
     )
+
     this._nodeConnector.on(EVENT.NEW_BLOCK, this._onNewBlock.bind(this))
+
+    await this._reload()
   }
 
   /**
@@ -133,14 +134,10 @@ class Wallet extends EventEmitter {
   _onNodeConnectionStateChange (newState) {
     log.debug('Node connection state changed')
 
-    if (!this._hdWallet) {
-      return
-    }
-
     switch (newState) {
       // once reconnected
       case STATE.CONNECTED:
-        log.info('Node connection re-established, reloading wallet data ...')
+        log.info('Node connection established, re/loading wallet data ...')
         // re-load the wallet data
         this._reload()
         break
@@ -196,19 +193,7 @@ class Wallet extends EventEmitter {
   }
 
   /**
-   * Reload wallet data.
-   * @return {Promise}
-   */
-  async _reload () {
-    log.debug('Reload wallet ...')
-
-    this._hdWallet = null
-
-    await this._load()
-  }
-
-  /**
-   * Load wallet data using stored mnemonic.
+   * Reload wallet data using stored mnemonic.
    *
    * Discover all of this wallet's generated addresses that have previously been used.
    *
@@ -223,7 +208,9 @@ class Wallet extends EventEmitter {
    *
    * @return {Promise}
    */
-  async _load () {
+  async _reload () {
+    this._hdWallet = null
+
     log.debug('Load wallet from mnemonic ...')
 
     const wallet = EthHdWallet.fromMnemonic(this._mnemonic)

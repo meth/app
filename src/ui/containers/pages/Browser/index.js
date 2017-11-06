@@ -25,8 +25,8 @@ export default class Browser extends PureComponent {
       {
         active: true,
         id: newTabId(),
-        label: 'Google',
-        url: 'https://google.com/',
+        label: 'Wallet',
+        url: 'https://wallet.ethereum.org/',
         permissions: [ DAPP_PERMISSIONS.CREATE_ACCOUNT ]
       }
     ]
