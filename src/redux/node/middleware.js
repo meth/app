@@ -1,7 +1,6 @@
 import logger from '../../utils/log'
-import { CONNECT_NODE } from './actions'
+import { CONNECT_NODE, DISCONNECT_NODE } from './actions'
 import {
-  nodeConnecting,
   nodeConnectError,
   nodeConnected
 } from './actionCreators'
@@ -11,19 +10,31 @@ const log = logger.create('nodeMiddleware')
 
 // eslint-disable-next-line consistent-return
 export default ({ nodeConnector }) => store => next => async action => {
-  if (CONNECT_NODE !== action.type) {
-    return next(action)
-  }
+  switch (action.type) {
+    case DISCONNECT_NODE: {
+      await nodeConnector.disconnect()
 
-  await store.dispatch(nodeConnecting())
+      break
+    }
+    case CONNECT_NODE: {
+      try {
+        const node = action.payload
 
-  try {
-    await store.dispatch(nodeConnected(await nodeConnector.connect(action.payload)))
-  } catch (err) {
-    log.warn(err)
+        const network = await nodeConnector.connect(node)
 
-    await store.dispatch(nodeConnectError(err))
+        await store.dispatch(nodeConnected({ node, network }))
+      } catch (err) {
+        log.warn(err)
 
-    throw err
+        await store.dispatch(nodeConnectError(err))
+
+        throw err
+      }
+
+      break
+    }
+    default: {
+      return next(action)
+    }
   }
 }

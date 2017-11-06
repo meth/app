@@ -4,13 +4,17 @@ import PropTypes from 'prop-types'
 import Button from '../Button'
 import Loading from '../Loading'
 
-const ProgressButton = ({ showInProgress, children, ...props }) => {
+const ProgressButton = ({ showInProgress, onPress, children, ...props }) => {
   const content = (!showInProgress) ? children : (
     <Loading />
   )
 
   return (
-    <Button {...props}>{content}</Button>
+    <Button
+      onPress={showInProgress ? null : onPress}
+      {...props}>
+        {content}
+    </Button>
   )
 }
 

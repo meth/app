@@ -1,5 +1,5 @@
 import { SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET, GENERATE_MNEMONIC } from './actions'
-import { getNetworkInfo } from '../node/selectors'
+import { getNodeConnection } from '../node/selectors'
 import { createAction } from '../utils'
 import logger from '../../utils/log'
 
@@ -25,7 +25,7 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       const { from, to, value, data, gasLimit, gasPrice } = action.payload
 
       // chain id
-      const { chainId } = getNetworkInfo(store.getState())
+      const { network: { chainId } } = getNodeConnection(store.getState())
       log.debug(`chainId: ${chainId}`)
 
       // nonce

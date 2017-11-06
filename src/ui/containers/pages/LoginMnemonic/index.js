@@ -18,7 +18,8 @@ const log = logger.create('LoginMnemonic')
 @connectStore('nav')
 export default class LoginMnemonic extends PureComponent {
   state = {
-    mnemonic: null,
+    mnemonic: 'fringe media suggest gesture intact raise aisle pupil exclude spatial hand lottery',
+    // mnemonic: null,
     error: null
   }
 
@@ -31,6 +32,7 @@ export default class LoginMnemonic extends PureComponent {
         <TextInput
           style={styles.textInput}
           onChange={this.onChange}
+defaultValue={this.state.mnemonic}
           placeholder={t('mnemonic.inputPlaceholderText')}
           onSubmitEditing={this.onSubmit}
         />

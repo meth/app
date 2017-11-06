@@ -1,7 +1,7 @@
 import { createAction } from '../utils'
 
 import fn from './middleware'
-import { CONNECT_NODE, NODE_CONNECTING, NODE_CONNECTED, NODE_CONNECT_ERROR } from './actions'
+import { CONNECT_NODE, DISCONNECT_NODE, NODE_CONNECTED, NODE_CONNECT_ERROR } from './actions'
 
 describe('node middleware', () => {
   it('passes actions through', async () => {
@@ -17,13 +17,46 @@ describe('node middleware', () => {
     expect(next).toHaveBeenCalledWith(action)
   })
 
+  describe('processes the DISCONNECT_NODE action', () => {
+    it('and intercepts it', async () => {
+      const next = jest.fn()
+
+      const nodeConnector = {
+        disconnect: jest.fn(() => Promise.resolve())
+      }
+
+      const handler = fn({ nodeConnector })()(next)
+
+      const action = createAction(DISCONNECT_NODE)
+
+      await handler(action)
+
+      expect(next).not.toHaveBeenCalledWith(action)
+    })
+
+    it('and tries to disconnect the node', async () => {
+      const next = jest.fn()
+
+      const nodeConnector = {
+        disconnect: jest.fn(() => Promise.resolve())
+      }
+
+      const handler = fn({ nodeConnector })()(next)
+
+      const action = createAction(DISCONNECT_NODE)
+
+      await handler(action)
+
+      expect(nodeConnector.disconnect).toHaveBeenCalled()
+    })
+  })
+
   describe('processes the CONNECT_NODE action', () => {
-    it('and intercepts it if its state is "ready"', async () => {
+    it('and intercepts it', async () => {
       const next = jest.fn()
 
       const store = {
-        dispatch: jest.fn(),
-        getStateObject: () => ({})
+        dispatch: jest.fn()
       }
 
       const nodeConnector = {
@@ -52,8 +85,7 @@ describe('node middleware', () => {
         next = jest.fn()
 
         store = {
-          dispatch: jest.fn(),
-          getStateObject: () => ({})
+          dispatch: jest.fn()
         }
 
         nodeConnector = {}
@@ -72,11 +104,15 @@ describe('node middleware', () => {
 
         await handler(action)
 
-        expect(store.dispatch).toHaveBeenCalledTimes(2)
-        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTING))
+        expect(store.dispatch).toHaveBeenCalledTimes(1)
         expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTED, {
-          config: {
+          node: {
             host: 'meth'
+          },
+          network: {
+            config: {
+              host: 'meth'
+            }
           }
         }))
       })
@@ -98,8 +134,7 @@ describe('node middleware', () => {
           expect(err).toEqual(err)
         }
 
-        expect(store.dispatch).toHaveBeenCalledTimes(2)
-        expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECTING))
+        expect(store.dispatch).toHaveBeenCalledTimes(1)
         expect(store.dispatch).toHaveBeenCalledWith(createAction(NODE_CONNECT_ERROR, err))
       })
     })

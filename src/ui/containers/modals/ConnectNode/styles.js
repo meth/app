@@ -1,5 +1,10 @@
 import { create, fontMaker } from '../../../styles'
 
+const text = {
+  ...fontMaker({ weight: 'Light' }),
+  color: '$modal_content_textColor'
+}
+
 export default create({
   container: {
     flex: 0,
@@ -22,10 +27,30 @@ export default create({
     width: 200
   },
   title: {
-    ...fontMaker({ weight: 'Light' }),
-    color: '$modal_content_textColor',
+    ...text,
     fontSize: '1.2rem',
     marginBottom: 30
+  },
+  nameText: {
+    ...text,
+    fontSize: '1.4rem'
+  },
+  urlText: {
+    ...text,
+    fontSize: '0.7rem',
+    marginTop: 10,
+    color: '$modal_connectNode_darkTextColor'
+  },
+  networkText: {
+    ...text,
+    fontSize: '1.4rem',
+    marginTop: 20
+  },
+  chainIdText: {
+    ...text,
+    fontSize: '0.7rem',
+    marginTop: 10,
+    color: '$modal_connectNode_darkTextColor'
   },
   errorBox: {
     marginTop: 30

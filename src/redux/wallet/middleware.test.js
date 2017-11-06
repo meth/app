@@ -24,7 +24,11 @@ describe('wallet middleware', () => {
 
       const state = {
         node: Immutable.Map({
-          networkInfo: { chainId: 123 }
+          connection: {
+            network: {
+              chainId: 123
+            }
+          }
         })
       }
 

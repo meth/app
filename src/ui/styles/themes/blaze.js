@@ -90,6 +90,9 @@ export default {
       overlay: {
         backgroundColor: toRgbWithAlpha(colorBlack, 0.8)
       }
+    },
+    connectNode: {
+      darkTextColor: colorGray
     }
   },
   form: {

@@ -5,13 +5,13 @@ import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
 import { getAccountBalances } from '../../../../redux/wallet/selectors'
-import { getNetworkInfo } from '../../../../redux/node/selectors'
+import { getNodeConnection } from '../../../../redux/node/selectors'
 import styles from './styles'
 
 @connectStore('wallet', 'node')
 export default class Layout extends PureComponent {
   render () {
-    const networkInfo = getNetworkInfo(this.props)
+    const { network } = getNodeConnection(this.props)
     const accountBalances = getAccountBalances(this.props)
     const { children, contentStyle } = this.props
 
@@ -19,7 +19,7 @@ export default class Layout extends PureComponent {
       <View style={styles.container}>
         <Header
           style={styles.header}
-          networkInfo={networkInfo && Object.keys(networkInfo).length ? networkInfo : null}
+          network={network && Object.keys(network).length ? network : null}
           accountBalances={accountBalances}
           appName={t('appName')}
           onPressNetworkInfo={this.showConnectionInfo}

@@ -34,6 +34,10 @@ class NodeConnector extends EventEmitter {
           store.dispatch(nodeDisconnected(STATE.CONNECTON_ERROR))
           break
         }
+        case STATE.DISCONNECTED: {
+          store.dispatch(nodeDisconnected())
+          break
+        }
         default:
           break
       }

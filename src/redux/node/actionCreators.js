@@ -1,6 +1,8 @@
 import { createActionCreator } from '../utils'
 
-import { NODE_CONNECTED, NODE_CONNECT_ERROR, NODE_CONNECTING, CONNECT_NODE, NODE_DISCONNECTED } from './actions'
+import { DISCONNECT_NODE, NODE_CONNECTED, NODE_CONNECT_ERROR, NODE_CONNECTING, CONNECT_NODE, NODE_DISCONNECTED } from './actions'
+
+export const disconnectNode = createActionCreator(DISCONNECT_NODE)
 
 export const connectNode = createActionCreator(CONNECT_NODE)
 

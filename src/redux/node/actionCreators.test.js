@@ -1,11 +1,12 @@
 import {
   connectNode,
+  disconnectNode,
   nodeDisconnected,
   nodeConnecting,
   nodeConnected,
   nodeConnectError
 } from './actionCreators'
-import { NODE_DISCONNECTED, CONNECT_NODE, NODE_CONNECT_ERROR, NODE_CONNECTING, NODE_CONNECTED } from './actions'
+import { NODE_DISCONNECTED, DISCONNECT_NODE, CONNECT_NODE, NODE_CONNECT_ERROR, NODE_CONNECTING, NODE_CONNECTED } from './actions'
 
 describe('nodeDisconnected()', () => {
   it('returns action', () => {
@@ -22,6 +23,15 @@ describe('connectNode()', () => {
   it('returns action', () => {
     expect(connectNode(123)).toEqual({
       type: CONNECT_NODE,
+      payload: 123
+    })
+  })
+})
+
+describe('disconnectNode()', () => {
+  it('returns action', () => {
+    expect(disconnectNode(123)).toEqual({
+      type: DISCONNECT_NODE,
       payload: 123
     })
   })

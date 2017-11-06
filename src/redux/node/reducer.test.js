@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 
 import reducer from './reducer'
-import { NODE_CONNECTED, NODE_CONNECTING, NODE_CONNECT_ERROR, NODE_DISCONNECTED } from './actions'
+import { NODE_CONNECTED, NODE_CONNECT_ERROR, NODE_DISCONNECTED } from './actions'
 
 describe('NODE_DISCONNECTED', () => {
   let event
@@ -44,47 +44,6 @@ describe('NODE_DISCONNECTED', () => {
   })
 })
 
-describe('NODE_CONNECTING', () => {
-  let event
-  let state
-  let reduce
-
-  beforeEach(() => {
-    event = {
-      update: jest.fn(() => event),
-      getState: () => null
-    }
-
-    state = Immutable.Map({
-      connectEvent: event
-    })
-
-    reduce = reducer()
-  })
-
-  it('normally disables the isConnected flag', () => {
-    state = state.set('isConnected', true)
-
-    const newState = reduce(state, {
-      type: NODE_CONNECTING,
-      payload: 'whatever'
-    })
-
-    expect(newState.get('isConnected')).toEqual(false)
-  })
-
-  it('normally clears the genesis block', () => {
-    state = state.set('networkInfo', 123)
-
-    const newState = reduce(state, {
-      type: NODE_CONNECTING,
-      payload: 'whatever'
-    })
-
-    expect(newState.get('networkInfo')).toEqual({})
-  })
-})
-
 describe('NODE_CONNECT_ERROR', () => {
   let event
   let state
@@ -115,14 +74,14 @@ describe('NODE_CONNECT_ERROR', () => {
   })
 
   it('normally clears the genesis block', () => {
-    state = state.set('networkInfo', 123)
+    state = state.set('connection', 123)
 
     const newState = reduce(state, {
       type: NODE_CONNECT_ERROR,
       payload: 'whatever'
     })
 
-    expect(newState.get('networkInfo')).toEqual({})
+    expect(newState.get('connection')).toEqual({})
   })
 })
 
@@ -156,13 +115,13 @@ describe('NODE_CONNECTED', () => {
   })
 
   it('normally sets the genesis block', () => {
-    state = state.set('networkInfo', {})
+    state = state.set('connection', {})
 
     const newState = reduce(state, {
       type: NODE_CONNECTED,
       payload: 123
     })
 
-    expect(newState.get('networkInfo')).toEqual(123)
+    expect(newState.get('connection')).toEqual(123)
   })
 })

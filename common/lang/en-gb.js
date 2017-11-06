@@ -21,7 +21,8 @@ module.exports = {
     },
     connector: {
       connectToNode: 'Connect to node',
-      pleaseChooseNode: 'Connect to an Ethereum node'
+      pleaseChooseNode: 'Connect to an Ethereum node',
+      network: '{network} network'
     },
     error: {
       userCancelledTransaction: 'User cancelled transaction',
@@ -58,6 +59,7 @@ module.exports = {
       getStarted: 'Get started',
       confirmAndSendTransaction: 'Send',
       connectToNode: 'Connect',
+      disconnectFromNode: 'Disconnect',
       cancelTransaction: 'Cancel',
       generateRawTransaction: 'Generate raw transaction',
       iHaveWrittenDownMnemonic: 'I have written down my mnemonic and wish to proceed',

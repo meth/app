@@ -10,14 +10,14 @@ import styles from './styles'
 
 export default class Header extends PureComponent {
   static propTypes = {
-    networkInfo: PropTypes.object,
+    network: PropTypes.object,
     accountBalances: PropTypes.object,
     onPressNetworkInfo: PropTypes.func.isRequired,
     style: PropTypes.any
   }
 
   render () {
-    const { accountBalances, networkInfo, appName, style } = this.props
+    const { accountBalances, network, appName, style } = this.props
 
     return (
       <View style={[ styles.container, style ]}>
@@ -25,10 +25,10 @@ export default class Header extends PureComponent {
           <Text style={styles.appNameText}>{appName}</Text>
         </View>
         <View style={styles.right}>
-          {networkInfo && accountBalances ? this.renderBalance(accountBalances) : null}
-          {networkInfo ? this.renderNetwork(networkInfo) : null}
+          {network && accountBalances ? this.renderBalance(accountBalances) : null}
+          {network ? this.renderNetwork(network) : null}
           {this.renderAlerts()}
-          {networkInfo ? this.renderLogoutButton() : null}
+          {network ? this.renderLogoutButton() : null}
         </View>
       </View>
     )
@@ -43,12 +43,12 @@ export default class Header extends PureComponent {
         <Button
           style={styles.button}
           type='header'
-          title={`${totalEther} ETH`} />
+          title={`Ξ ${totalEther}`} />
       </View>
     )
   }
 
-  renderNetwork (networkInfo) {
+  renderNetwork (network) {
     const { onPressNetworkInfo } = this.props
 
     return (
@@ -57,7 +57,7 @@ export default class Header extends PureComponent {
           onPress={onPressNetworkInfo}
           style={styles.button}
           type='header'
-          title={networkInfo.description} />
+          title={network.description} />
       </View>
     )
   }

@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import { getNodes } from '../../../../redux/config/selectors'
-import { getNodeIsConnected } from '../../../../redux/node/selectors'
+import { getNodeConnection, getNodeIsConnected } from '../../../../redux/node/selectors'
 import { t } from '../../../../../common/strings'
 import ProgressButton from '../../../components/ProgressButton'
 import AlertBox from '../../../components/AlertBox'
@@ -17,32 +17,80 @@ import styles from './styles'
 @connectStore('config', 'node', 'modals')
 export default class ConnectNode extends PureComponent {
   state = {
+    disconnecting: false,
     connecting: false,
     error: null
   }
 
   render () {
-    const { error, connecting } = this.state
     const nodes = getNodes(this.props)
     const isConnected = getNodeIsConnected(this.props)
+
+    let content
+    if (isConnected) {
+      content = this.renderConnected()
+    } else if (!nodes) {
+      content = this.renderLoading()
+    } else {
+      content = this.renderForm()
+    }
+
+    return (
+      <Modal onOverlayPress={isConnected ? this.dismissModal : null}>
+        {content}
+      </Modal>
+    )
+  }
+
+  renderConnected () {
+    const { disconnecting } = this.state
+
+    const {
+      node: { name, url },
+      network: { description: network, chainId }
+    } = getNodeConnection(this.props)
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.nameText}>{name}</Text>
+        <Text style={styles.urlText}>{url}</Text>
+        <Text style={styles.networkText}>{t('connector.network', { network })}</Text>
+        <Text style={styles.chainIdText}>chainId: {chainId}</Text>
+        <ProgressButton
+          style={styles.button}
+          showInProgress={disconnecting}
+          onPress={() => this.onDisconnect()}
+          title={t('button.disconnectFromNode')} />
+        {this.renderError()}
+      </View>
+    )
+  }
+
+  renderLoading () {
+    const title = (
+      <Text style={styles.title}>{t('connector.pleaseChooseNode')}</Text>
+    )
+
+    return (
+      <View style={styles.container}>
+        {title}
+        <Loading />
+      </View>
+    )
+  }
+
+  renderForm () {
+    const { connecting } = this.state
+
+    const options = this.getOptions()
+    const selected = options.find(o => o.selected)
+
 
     const title = (
       <Text style={styles.title}>{t('connector.pleaseChooseNode')}</Text>
     )
 
-    const options = this.getOptions()
-    const selected = options.find(o => o.selected)
-
-    const errorBox = (!error) ? null : (
-      <ErrorBox style={styles.errorBox} error={error} />
-    )
-
-    const content = (!nodes) ? (
-      <View style={styles.container}>
-        {title}
-        <Loading />
-      </View>
-    ) : (
+    return (
       <View style={styles.container}>
         {title}
         <Picker
@@ -61,16 +109,18 @@ export default class ConnectNode extends PureComponent {
         <ProgressButton
           style={styles.button}
           showInProgress={connecting}
-          onPress={() => this.onSubmit(selected.value)}
+          onPress={() => this.onConnect(selected.value)}
           title={t('button.connectToNode')} />
-        {errorBox}
+        {this.renderError()}
       </View>
     )
+  }
 
-    return (
-      <Modal onOverlayPress={isConnected ? this.dismissModal : null}>
-        {content}
-      </Modal>
+  renderError () {
+    const { error } = this.state
+
+    return (!error) ? null : (
+      <ErrorBox style={styles.errorBox} error={error} />
     )
   }
 
@@ -110,7 +160,7 @@ export default class ConnectNode extends PureComponent {
     })
   }
 
-  onSubmit = selected => {
+  onConnect = selected => {
     const nodes = getNodes(this.props)
 
     const node = _.get(nodes, selected)
@@ -127,6 +177,28 @@ export default class ConnectNode extends PureComponent {
           this.setState({
             error: err,
             connecting: false
+          })
+        })
+    })
+  }
+
+  onDisconnect = () => {
+    const { disconnectNode } = this.props.actions
+
+    this.setState({
+      disconnecting: true,
+      error: null
+    }, () => {
+      disconnectNode()
+        .then(() => {
+          this.setState({
+            disconnecting: false
+          })
+        })
+        .catch(err => {
+          this.setState({
+            error: err,
+            disconnecting: false
           })
         })
     })
