@@ -49,9 +49,12 @@ export default class Header extends PureComponent {
   }
 
   renderNetwork (networkInfo) {
+    const { onPressNetworkInfo } = this.props
+
     return (
       <View style={styles.network}>
         <Button
+          onPress={onPressNetworkInfo}
           style={styles.button}
           type='header'
           title={networkInfo.description} />
@@ -79,9 +82,5 @@ export default class Header extends PureComponent {
           icon={{ name: 'sign-out' }} />
       </View>
     )
-  }
-
-  showConnection = () => {
-    this.props.actions.showConnectionModal()
   }
 }

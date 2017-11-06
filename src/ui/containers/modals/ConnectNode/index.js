@@ -82,7 +82,7 @@ export default class ConnectNode extends PureComponent {
 
     _.each(nodes, ({ network, connections }, category) => {
       _.each(connections, ({ name, host }, idx) => {
-        const val = `${category}.${idx}`
+        const val = `${category}.connections.${idx}`
 
         // select first by default
         if (!selected) {
