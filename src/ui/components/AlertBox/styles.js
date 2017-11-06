@@ -10,6 +10,8 @@ export default _.memoize(type => create({
     borderRadius: 10
   },
   text: {
+    fontSize: '0.8rem',
+    textAlign: 'center',
     color: `$alert_${type}_textColor`
   }
 }))

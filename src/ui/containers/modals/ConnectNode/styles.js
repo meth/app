@@ -12,13 +12,13 @@ export default create({
     width: 400
   },
   picker: {
-    marginBottom: 30
+    marginBottom: 10
   },
   pickerButton: {
     width: 300
   },
   button: {
-    flex: 0,
+    marginTop: 25,
     width: 200
   },
   title: {

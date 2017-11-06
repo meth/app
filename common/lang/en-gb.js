@@ -63,6 +63,18 @@ module.exports = {
       iHaveWrittenDownMnemonic: 'I have written down my mnemonic and wish to proceed',
       iHaveConfirmedMyMnemonic: 'I have successfully confirmed my mnemonic',
       pressToRevealMnemonic: 'Press to reveal'
+    },
+    config: {
+      network: {
+        mainnet: 'The main public network.',
+        ropsten: 'Proof-of-Work test network.',
+        kovan: 'Proof-of-Authority test network.',
+        rinkeby: 'Proof-of-Authority test network.'
+      },
+      host: {
+        local: 'Ethereum client node running locally on device.',
+        infura: 'Etherum client node hosted by Infura.io.'
+      }
     }
   }
 }

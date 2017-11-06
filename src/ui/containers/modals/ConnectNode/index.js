@@ -7,6 +7,7 @@ import { getNodes } from '../../../../redux/config/selectors'
 import { getNodeIsConnected } from '../../../../redux/node/selectors'
 import { t } from '../../../../../common/strings'
 import ProgressButton from '../../../components/ProgressButton'
+import AlertBox from '../../../components/AlertBox'
 import ErrorBox from '../../../components/ErrorBox'
 import Modal from '../../../components/Modal'
 import Loading from '../../../components/Loading'
@@ -29,7 +30,8 @@ export default class ConnectNode extends PureComponent {
       <Text style={styles.title}>{t('connector.pleaseChooseNode')}</Text>
     )
 
-    const { selected, picker } = this.buildPicker()
+    const options = this.getOptions()
+    const selected = options.find(o => o.selected)
 
     const errorBox = (!error) ? null : (
       <ErrorBox style={styles.errorBox} error={error} />
@@ -43,11 +45,25 @@ export default class ConnectNode extends PureComponent {
     ) : (
       <View style={styles.container}>
         {title}
-        {picker}
+        <Picker
+          style={styles.picker}
+          buttonStyle={styles.pickerButton}
+          options={options}
+          selected={selected.value}
+          onChange={this.onChange}
+        />
+        <AlertBox
+          style={styles.desc}
+          type='info'
+          text={
+            `${t(`config.network.${selected.network}`)} ${t(`config.host.${selected.host}`)}`
+          }
+        >
+        </AlertBox>
         <ProgressButton
           style={styles.button}
           showInProgress={connecting}
-          onPress={() => this.onSubmit(selected)}
+          onPress={() => this.onSubmit(selected.value)}
           title={t('button.connectToNode')} />
         {errorBox}
       </View>
@@ -60,13 +76,14 @@ export default class ConnectNode extends PureComponent {
     )
   }
 
-  buildPicker () {
+  getOptions () {
     const nodes = getNodes(this.props)
     let { selected } = this.state
 
     const options = []
-    _.each(nodes, (group, category) => {
-      _.each(group, ({ name }, idx) => {
+
+    _.each(nodes, ({ network, connections }, category) => {
+      _.each(connections, ({ name, host }, idx) => {
         const val = `${category}.${idx}`
 
         // select first by default
@@ -77,23 +94,15 @@ export default class ConnectNode extends PureComponent {
         options.push({
           value: val,
           label: name,
-          category
+          category,
+          network,
+          host,
+          selected: selected === val
         })
       })
     })
 
-    return {
-      selected,
-      picker: (
-        <Picker
-          style={styles.picker}
-          buttonStyle={styles.pickerButton}
-          options={options}
-          selected={selected}
-          onChange={this.onChange}
-        />
-      )
-    }
+    return options
   }
 
   onChange = selected => {

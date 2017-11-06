@@ -1,14 +1,19 @@
 {
-  "Mainnet": [
-    {
-      "name": "Local client (8545)",
-      "url": "http://127.0.0.1:8545",
-      "type": "rpc"
-    },
-    {
-      "name": "Infura.io",
-      "url": "https://mainnet.infura.io/zdqWKkUgyPz8uUjp47FK",
-      "type": "infura"
-    }
-  ]
+  "Mainnet": {
+    "network": "mainnet",
+    "connections": [
+      {
+        "name": "Local client (8545)",
+        "url": "http://127.0.0.1:8545",
+        "type": "rpc",
+        "host": "local"
+      },
+      {
+        "name": "Infura.io",
+        "url": "https://mainnet.infura.io/zdqWKkUgyPz8uUjp47FK",
+        "type": "infura",
+        "host": "infura"
+      }
+    ]
+  }
 }
