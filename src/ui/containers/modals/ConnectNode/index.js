@@ -55,9 +55,7 @@ export default class ConnectNode extends PureComponent {
         <AlertBox
           style={styles.desc}
           type='info'
-          text={
-            `${t(`config.network.${selected.network}`)} ${t(`config.host.${selected.host}`)}`
-          }
+          text={t(`config.node.${selected.host}.${selected.network}`)}
         >
         </AlertBox>
         <ProgressButton

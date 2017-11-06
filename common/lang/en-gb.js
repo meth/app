@@ -65,15 +65,16 @@ module.exports = {
       pressToRevealMnemonic: 'Press to reveal'
     },
     config: {
-      network: {
-        mainnet: 'The main public network.',
-        ropsten: 'Proof-of-Work test network.',
-        kovan: 'Proof-of-Authority test network.',
-        rinkeby: 'Proof-of-Authority test network.'
-      },
-      host: {
-        local: 'Ethereum client node running locally on device.',
-        infura: 'Etherum client node hosted by Infura.io.'
+      node: {
+        local: {
+          local: 'Ethereum client node running locally on device.'
+        },
+        infura: {
+          mainnet: 'Etherum client node hosted by Infura.io, connected to the Main network.',
+          ropsten: 'Etherum client node hosted by Infura.io, connected to the Ropsten test network.',
+          kovan: 'Etherum client node hosted by Infura.io, connected to the Kovan test network.',
+          rinkeby: 'Etherum client node hosted by Infura.io, connected to the Rinkeby test network.'
+        }
       }
     }
   }

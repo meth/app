@@ -12,7 +12,7 @@ export default create({
     width: 400
   },
   picker: {
-    marginBottom: 10
+    marginBottom: 20
   },
   pickerButton: {
     width: 300
