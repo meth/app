@@ -11,7 +11,7 @@ export default ({ config }) => store => next => async action => {
 
   const nodes = getNodes(store.getState())
 
-  // if not initialized then do nothing
+  // if not already initialized then do it
   if (!nodes) {
     const payload = await Q.props({
       networks: config.load('networks'),

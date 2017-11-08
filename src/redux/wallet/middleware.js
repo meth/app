@@ -1,7 +1,7 @@
 import { SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET, GENERATE_MNEMONIC } from './actions'
 import { getNodeConnection } from '../node/selectors'
 import { createAction } from '../utils'
-import logger from '../../utils/log'
+import logger from '../../logger'
 
 const log = logger.create('walletMiddleware')
 

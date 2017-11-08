@@ -6,4 +6,12 @@ import * as node from './node/actionCreators'
 import * as wallet from './wallet/actionCreators'
 import * as api from './api/actionCreators'
 
-export default { ...log, ...config, ...nav, ...modals, ...node, ...wallet, ...api }
+export default {
+  ...log,
+  ...config,
+  ...nav,
+  ...modals,
+  ...node,
+  ...wallet,
+  ...api
+}

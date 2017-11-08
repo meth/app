@@ -3,7 +3,7 @@ import { EthHdWallet } from 'eth-hd-wallet'
 import EventEmitter from 'eventemitter3'
 import { toBN } from 'web3-utils'
 
-import logger from '../utils/log'
+import logger from '../logger'
 import { WalletNotLoadedError } from '../utils/errors'
 import { updateBalances } from '../redux/wallet/actionCreators'
 import { EVENT, STATE } from '../../common/constants'

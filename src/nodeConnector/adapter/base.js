@@ -3,7 +3,7 @@ import EventEmitter from 'eventemitter3'
 import { hexToNumber } from 'web3-utils'
 
 import { EVENT, STATE } from '../../../common/constants'
-import logger from '../../utils/log'
+import logger from '../../logger'
 import {
   instanceOfError,
   UnableToConnectError,

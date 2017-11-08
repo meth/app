@@ -1,4 +1,4 @@
-import logger from '../../utils/log'
+import logger from '../../logger'
 
 const log = logger.create('web3Method')
 

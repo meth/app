@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
 import { routes } from '../../../nav'
-import logger from '../../../../utils/log'
+import logger from '../../../../logger'
 import { instanceOfError, UnableToConnectError } from '../../../../utils/errors'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'

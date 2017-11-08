@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 import MODALS from '../utils/modals'
 import { getModals } from '../redux/modals/selectors'
-import logger from '../utils/log'
+import logger from '../logger'
 import { Navigator } from './nav'
 import { connectStore } from './helpers/redux'
 import { PopupContext } from './components/Popup'

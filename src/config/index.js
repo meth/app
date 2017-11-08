@@ -1,7 +1,7 @@
 import { loadJSON } from '../utils/fetch'
 import networks from './networks.json'
 import nodes from './nodes.json'
-import logger from '../utils/log'
+import logger from '../logger'
 
 const log = logger.create('config')
 
@@ -18,12 +18,13 @@ const CACHE = {}
  * Results from this are cached, so that the next call finishes quicker.
  *
  * @param  {String} fileName name of config file
+ * @param  {Boolean} [skipCache] don't use previously cached version of file
  * @return {Promise}
  */
-export const load = async fileName => {
+export const load = async (fileName, skipCache = false) => {
   log.info(`Load config: ${fileName}`)
 
-  if (CACHE[fileName]) {
+  if (CACHE[fileName] && !skipCache) {
     log.trace(`Returning cached config: ${fileName}`)
 
     return CACHE[fileName]

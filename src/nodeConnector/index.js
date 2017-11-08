@@ -4,7 +4,7 @@ import { Web3MethodFactory } from './web3Methods'
 import { EVENT, STATE } from '../../common/constants'
 import { UnableToConnectError } from '../utils/errors'
 import { nodeDisconnected } from '../redux/node/actionCreators'
-import logger from '../utils/log'
+import logger from '../logger'
 import RpcAdapter from './adapter/rpc'
 
 const log = logger.create('NodeConnector')

@@ -1,4 +1,4 @@
-import logger from '../../utils/log'
+import logger from '../../logger'
 import { CONNECT_NODE, DISCONNECT_NODE } from './actions'
 import {
   nodeConnecting,
