@@ -28,5 +28,9 @@ export const createReduxStore = app => {
   // kick-off sagas
   sagaMiddleware.run(sagas)
 
+  store.subsribe(() => {
+    console.log(store.getState())
+  })
+
   return store
 }

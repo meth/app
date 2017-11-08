@@ -8,10 +8,12 @@ import nodeConnector from './nodeConnector'
 import * as walletManager from './wallet/manager'
 import Root from './ui/Root'
 import { router } from './ui/nav'
+import { setStore as logSetStore } from './utils/log'
 
 const store = createReduxStore({ config, nodeConnector, walletManager, router })
 nodeConnector.init({ store, walletManager })
 walletManager.init({ store, nodeConnector })
+logSetStore(store)
 
 export default () => (
   <Provider store={store}>

@@ -7,7 +7,7 @@ import Modal from '../../../components/Modal'
 import createStyles from './styles'
 
 @connectStore('modals')
-export default class Alert extends PureComponent {
+export default class Log extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       type: PropTypes.string.isRequired,

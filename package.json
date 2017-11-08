@@ -110,6 +110,7 @@
     "redux-actions": "^2.2.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.6",
+    "reselect": "^3.0.1",
     "underscore-deep-extend": "^1.1.5",
     "web3": "^0.20.1",
     "web3-utils": "^1.0.0-beta.17",
@@ -118,6 +119,8 @@
     "yargs": "^8.0.2"
   },
   "jest": {
-    "setupFiles": [ "./.jest/setupConsole.js" ]
+    "setupFiles": [
+      "./.jest/setupConsole.js"
+    ]
   }
 }
