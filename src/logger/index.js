@@ -1,6 +1,6 @@
 import Logger from 'logarama'
 
-import { errorEvent, warnEvent } from '../redux/log/actionCreators'
+import { errorEvent, warnEvent, infoEvent } from '../redux/log/actionCreators'
 
 let store
 
@@ -16,11 +16,14 @@ export default new Logger('Meth', {
       let action
 
       switch (level) {
+        case 'info':
+          action = infoEvent(args.join('\n'), tag)
+          break
         case 'warn':
-          action = warnEvent(args.join(' '), tag)
+          action = warnEvent(args.join('\n'), tag)
           break
         case 'error':
-          action = errorEvent(args.join(' '), tag)
+          action = errorEvent(args.join('\n'), tag)
           break
         default:
           break
