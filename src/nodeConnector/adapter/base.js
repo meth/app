@@ -2,7 +2,8 @@ import Q from 'bluebird'
 import EventEmitter from 'eventemitter3'
 import { hexToNumber } from 'web3-utils'
 
-import { EVENT, STATE } from '../../../common/constants'
+import EVENT from '../../constants/events'
+import STATE from '../../constants/states'
 import logger from '../../logger'
 import {
   instanceOfError,

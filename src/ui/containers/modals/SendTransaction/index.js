@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import { getTx } from '../../../../redux/api/selectors'
-import { t } from '../../../../../common/strings'
+import { t } from '../../../../../strings'
 import Modal from '../../../components/Modal'
 import Button from '../../../components/Button'
 import ErrorBox from '../../../components/ErrorBox'

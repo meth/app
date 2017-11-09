@@ -5,7 +5,8 @@ const EventEmitter = require('eventemitter3')
 
 const _ = require('./underscore')
 const Settings = require('./settings')
-const { IPC, UI_TASKS } = require('../common/constants')
+const IPC = require('../src/constants/ipc')
+const UI_TASKS = require('../src/constants/ipc-ui-tasks')
 
 const log = require('./logger').create('Windows')
 

@@ -1,7 +1,7 @@
 import { SEND_TX, CANCEL_TX, WEB3_REQUEST, GENERATE_ACCOUNT } from './actions'
 import { createAction } from '../utils'
 import { SendTransactionError } from '../../utils/errors'
-import { t } from '../../../common/strings'
+import { t } from '../../../strings'
 import { getTxDeferred } from './selectors'
 
 

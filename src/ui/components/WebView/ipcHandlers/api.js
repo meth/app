@@ -1,4 +1,4 @@
-import { DAPP_PERMISSIONS, API_COMMAND } from '../../../../../common/constants'
+import API from '../../../../constants/api'
 
 const _ensurePermission = (haystack, needle) => {
   if (!haystack.includes(needle)) {
@@ -10,8 +10,8 @@ const _ensurePermission = (haystack, needle) => {
 
 export default ({ command }, permissions, { generateAccount }) => {
   switch (command) {
-    case API_COMMAND.CREATE_ACCOUNT:
-      _ensurePermission(permissions, DAPP_PERMISSIONS.CREATE_ACCOUNT)
+    case API.CREATE_ACCOUNT:
+      _ensurePermission(permissions, API.CREATE_ACCOUNT)
 
       return generateAccount()
     default:

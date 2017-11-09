@@ -1,12 +1,14 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 import SortedArray from 'sorted-array'
+import isAfter from 'date-fns/is_after'
 
 import { LOAD_ALERTS, LOG, SEEN_ALERTS } from './actions'
 import { ALERT } from './levels'
 
 
-const wrapEventsAsSortedArray = events => SortedArray(events, (a, b) => a.ts < b.ts)
+const wrapEventsAsSortedArray = events =>
+  new SortedArray(events, (a, b) => (isAfter(a.ts, b.ts) ? 1 : -1))
 
 
 export default () => {
@@ -27,23 +29,14 @@ export default () => {
 
         return state.set('events', [].concat(events.array))
       },
-      [SEEN_ALERTS]: state => {
-        const events = state.get('events')
-
-        // do in reverse order, for efficiency sake let's stop as soon as we
-        // find the boundary of the last time we ran this logic
-        for (let i = events.length - 1; 0 <= i; i -= 1) {
-          if (events[i].type === ALERT) {
-            if (events[i].seen) {
-              break
-            } else {
-              events[i].seen = true
-            }
+      [SEEN_ALERTS]: state =>
+        state.set('events', state.get('events').map(e => {
+          if (e.level === ALERT) {
+            e.seen = true
           }
-        }
 
-        return state.set('events', [].concat(events.array))
-      }
+          return e
+        }))
     },
     InitialState
   )

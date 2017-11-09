@@ -1,5 +1,5 @@
 import { SHOW, HIDE } from './actions'
-import { CONNECT_NODE, SEND_TRANSACTION, ALERT } from '../../utils/modals'
+import { CONNECT_NODE, SEND_TRANSACTION, ALERT } from '../../constants/modals'
 
 import {
   showAlert,

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
-import { t } from '../../../../../common/strings'
+import { t } from '../../../../../strings'
 import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
 import { getAccountBalances } from '../../../../redux/wallet/selectors'

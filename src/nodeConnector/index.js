@@ -1,7 +1,8 @@
 import EventEmitter from 'eventemitter3'
 
 import { Web3MethodFactory } from './web3Methods'
-import { EVENT, STATE } from '../../common/constants'
+import EVENT from '../constants/events'
+import STATE from '../constants/states'
 import { UnableToConnectError } from '../utils/errors'
 import { nodeDisconnected } from '../redux/node/actionCreators'
 import logger from '../logger'

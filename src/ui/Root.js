@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 
-import MODALS from '../utils/modals'
+import MODALS from '../constants/modals'
 import { getModals } from '../redux/modals/selectors'
 import logger from '../logger'
 import { Navigator } from './nav'

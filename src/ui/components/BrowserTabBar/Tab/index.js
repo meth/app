@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { SortableElement } from 'react-sortable-hoc'
 
-import { STATE } from '../../../../../common/constants'
+import STATE from '../../../../constants/states'
 import { trimProtocol } from '../../../../utils/url'
 import styles from './styles'
 import TouchableView from '../../TouchableView'

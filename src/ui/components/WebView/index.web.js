@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-import { IPC } from '../../../../common/constants'
+import IPC from '../../../constants/ipc'
 import { handleWebViewIpcRequest } from './ipcHandlers'
 
 export default class WebView extends PureComponent {

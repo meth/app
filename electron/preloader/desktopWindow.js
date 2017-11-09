@@ -8,7 +8,9 @@
  * browser page that is loaded in the window.
  */
 const { ipcRenderer, webFrame } = require('electron')
-const { IPC, BACKEND_TASKS, UI_TASKS } = require('../../common/constants')
+const IPC = require('../../src/constants/ipc')
+const BACKEND_TASKS = require('../../src/constants/ipc-backend-tasks')
+const UI_TASKS = require('../../src/constants/ipc-ui-tasks')
 const Settings = require('../settings')
 
 // fn: send IPC to backend

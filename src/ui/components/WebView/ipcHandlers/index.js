@@ -2,7 +2,7 @@ import Q from 'bluebird'
 
 import web3Handler from './web3'
 import apiHandler from './api'
-import { IPC } from '../../../../../common/constants'
+import IPC from '../../../../constants/ipc'
 
 export const handleWebViewIpcRequest = Q.method(
   (type, payload, { permissions, apiMethods }) => {

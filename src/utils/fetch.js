@@ -1,7 +1,8 @@
 import Q from 'bluebird'
 import { stringify } from 'query-string'
 
-import logger from './log'
+import logger from '../logger'
+
 import {
   CorruptDataError,
   UnableToConnectError,

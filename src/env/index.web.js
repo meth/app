@@ -1,6 +1,7 @@
 import EventEmitter from 'eventemitter3'
 
-import { IPC, UI_TASKS } from '../../common/constants'
+import IPC from '../constants/ipc'
+import UI_TASKS from '../constants/ipc-ui-tasks'
 import logger from '../logger'
 
 const log = logger.create('config')

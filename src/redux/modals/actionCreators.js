@@ -1,7 +1,7 @@
 import { createActionCreator } from '../utils'
 
 import { SHOW, HIDE } from './actions'
-import { CONNECT_NODE, SEND_TRANSACTION, ALERT } from '../../utils/modals'
+import { CONNECT_NODE, SEND_TRANSACTION, ALERT } from '../../constants/modals'
 
 export const showAlert = createActionCreator(SHOW, msg => ({
   type: ALERT,

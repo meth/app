@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { knuthShuffle } from 'knuth-shuffle'
 
-import { t } from '../../../../common/strings'
+import { t } from '../../../../strings'
 import Button from '../Button'
 import Icon from '../Icon'
 import Loading from '../Loading'

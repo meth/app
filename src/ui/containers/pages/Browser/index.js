@@ -2,7 +2,8 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
-import { DAPP_PERMISSIONS, STATE } from '../../../../../common/constants'
+import API from '../../../../constants/api'
+import STATE from '../../../../constants/states'
 import { globalEvents, OPEN_ACTIVE_TAB_DEV_TOOLS } from '../../../../env'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -27,7 +28,7 @@ export default class Browser extends PureComponent {
         id: newTabId(),
         label: 'Wallet',
         url: 'https://wallet.ethereum.org/',
-        permissions: [ DAPP_PERMISSIONS.CREATE_ACCOUNT ]
+        permissions: [ API.CREATE_ACCOUNT ]
       }
     ]
   }

@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
 import { SHOW, HIDE } from './actions'
-import MODALS from '../../utils/modals'
+import MODALS from '../../constants/modals'
 
 export default () => {
   const InitialState = Immutable.Map(

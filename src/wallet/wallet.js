@@ -6,7 +6,8 @@ import { toBN } from 'web3-utils'
 import logger from '../logger'
 import { WalletNotLoadedError } from '../utils/errors'
 import { updateBalances } from '../redux/wallet/actionCreators'
-import { EVENT, STATE } from '../../common/constants'
+import EVENT from '../constants/events'
+import STATE from '../constants/states'
 
 const log = logger.create('Wallet')
 

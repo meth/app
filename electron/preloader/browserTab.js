@@ -4,7 +4,8 @@
  * This will setup the web3 instance for any Dapp running in the page.
  */
 const { ipcRenderer: ipc } = require('electron')
-const { IPC, API_COMMAND } = require('../../common/constants')
+const IPC = require('../../src/constants/ipc')
+const API = require('../../src/constants/api')
 
 
 /* Setup generic IPC request-response mechanism */
@@ -80,6 +81,6 @@ window.web3 = new Web3(new Web3IpcProvider())
 
 window.Meth = {
   createAccount: () => sendIpc(IPC.API, {
-    command: API_COMMAND.CREATE_ACCOUNT
+    command: API.CREATE_ACCOUNT
   })
 }

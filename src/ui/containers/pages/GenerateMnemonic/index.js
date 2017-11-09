@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
 import { routes } from '../../../nav'
-import { t } from '../../../../../common/strings'
+import { t } from '../../../../../strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import ErrorBox from '../../../components/ErrorBox'
