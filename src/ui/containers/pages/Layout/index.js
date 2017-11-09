@@ -6,13 +6,15 @@ import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
 import { getAccountBalances } from '../../../../redux/wallet/selectors'
 import { getNodeConnection } from '../../../../redux/node/selectors'
+import { getUnseenAlertsCount } from '../../../../redux/log/selectors'
 import styles from './styles'
 
-@connectStore('wallet', 'node')
+@connectStore('wallet', 'node', 'log', 'modals')
 export default class Layout extends PureComponent {
   render () {
     const { network } = getNodeConnection(this.props)
     const accountBalances = getAccountBalances(this.props)
+    const unseenAlertsCount = getUnseenAlertsCount(this.props)
     const { children, contentStyle } = this.props
 
     return (
@@ -21,8 +23,10 @@ export default class Layout extends PureComponent {
           style={styles.header}
           network={network && Object.keys(network).length ? network : null}
           accountBalances={accountBalances}
+          unseenAlertsCount={unseenAlertsCount}
           appName={t('appName')}
           onPressNetworkInfo={this.showConnectionInfo}
+          onPressAlerts={this.showLog}
         />
         <View style={[ styles.content, contentStyle ]}>{children}</View>
       </View>
@@ -31,5 +35,9 @@ export default class Layout extends PureComponent {
 
   showConnectionInfo = () => {
     this.props.actions.showConnectionModal()
+  }
+
+  showLog = () => {
+    this.props.actions.showLog()
   }
 }

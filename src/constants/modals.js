@@ -1,5 +1,6 @@
 module.exports = {
   ALERT: 'ALERT',
+  LOG: 'LOG',
   CONNECT_NODE: 'CONNECT_NODE',
   SEND_TRANSACTION: 'SEND_TRANSACTION'
 }

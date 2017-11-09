@@ -4,7 +4,7 @@ import SortedArray from 'sorted-array'
 import isAfter from 'date-fns/is_after'
 
 import { LOAD_ALERTS, LOG, SEEN_ALERTS } from './actions'
-import { ALERT } from './levels'
+import { ALERT } from '../../constants/logLevels'
 
 
 const wrapEventsAsSortedArray = events =>

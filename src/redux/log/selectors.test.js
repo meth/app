@@ -1,7 +1,7 @@
 import Immutable from 'immutable'
 
 import { getUnseenAlerts, getUnseenAlertsCount, getLogWithoutUnseenAlerts } from './selectors'
-import { INFO, WARN, ERROR, ALERT } from './levels'
+import { INFO, WARN, ERROR, ALERT } from '../../constants/logLevels'
 
 const events = [
   { level: ALERT, msg: 'msg1' },

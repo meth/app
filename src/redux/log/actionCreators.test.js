@@ -1,6 +1,6 @@
 import { loadAlerts, seenAlerts, infoEvent, warnEvent, errorEvent, alertEvent } from './actionCreators'
 import { LOG, LOAD_ALERTS, SEEN_ALERTS } from './actions'
-import { INFO, WARN, ERROR, ALERT } from './levels'
+import { INFO, WARN, ERROR, ALERT } from '../../constants/logLevels'
 
 describe('loadAlerts()', () => {
   it('returns action', () => {

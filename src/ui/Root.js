@@ -6,6 +6,7 @@ import logger from '../logger'
 import { Navigator } from './nav'
 import { connectStore } from './helpers/redux'
 import { PopupContext } from './components/Popup'
+import LogModal from './containers/modals/Log'
 import AlertModal from './containers/modals/Alert'
 import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
@@ -14,6 +15,7 @@ const log = logger.create('Root')
 
 // modals - in order of importance
 const MODAL_COMPONENTS = {
+  [MODALS.LOG]: LogModal,
   [MODALS.ALERT]: AlertModal,
   [MODALS.CONNECT_NODE]: ConnectNodeModal,
   [MODALS.SEND_TRANSACTION]: SendTransactionModal

@@ -5,6 +5,7 @@ import { View, Text } from 'react-native'
 import { fromWei } from 'web3-utils'
 
 import Button from '../Button'
+import AlertsButton from './AlertsButton'
 import IconButton from '../IconButton'
 import styles from './styles'
 
@@ -12,7 +13,9 @@ export default class Header extends PureComponent {
   static propTypes = {
     network: PropTypes.object,
     accountBalances: PropTypes.object,
+    unseenAlertsCount: PropTypes.number,
     onPressNetworkInfo: PropTypes.func.isRequired,
+    onPressAlerts: PropTypes.func.isRequired,
     style: PropTypes.any
   }
 
@@ -63,12 +66,15 @@ export default class Header extends PureComponent {
   }
 
   renderAlerts () {
+    const { unseenAlertsCount, onPressAlerts } = this.props
+
     return (
       <View style={styles.alert}>
-        <IconButton
+        <AlertsButton
           style={styles.button}
-          type='header'
-          icon={{ name: 'bell-o' }} />
+          unseenAlertsCount={unseenAlertsCount}
+          onPress={onPressAlerts}
+        />
       </View>
     )
   }

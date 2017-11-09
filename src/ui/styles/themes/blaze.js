@@ -91,6 +91,11 @@ export default {
         backgroundColor: toRgbWithAlpha(colorBlack, 0.8)
       }
     },
+    log: {
+      overlay: {
+        backgroundColor: toRgbWithAlpha(colorBlack, 0.8)
+      }
+    },
     connectNode: {
       darkTextColor: colorGray
     }

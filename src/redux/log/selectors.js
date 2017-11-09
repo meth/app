@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 
-import { ALERT } from './levels'
+import { ALERT } from '../../constants/logLevels'
 
 const getRawLog = state => state.log.get('events')
 

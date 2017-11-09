@@ -1,7 +1,7 @@
 import { createActionCreator } from '../utils'
 
 import { LOAD_ALERTS, LOG, SEEN_ALERTS } from './actions'
-import { INFO, WARN, ERROR, ALERT } from './levels'
+import { INFO, WARN, ERROR, ALERT } from '../../constants/logLevels'
 
 export const loadAlerts = createActionCreator(LOAD_ALERTS)
 export const seenAlerts = createActionCreator(SEEN_ALERTS)

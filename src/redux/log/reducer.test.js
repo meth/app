@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 
 import reducer from './reducer'
 import { LOG, LOAD_ALERTS, SEEN_ALERTS } from './actions'
-import { INFO, WARN, ERROR, ALERT } from './levels'
+import { INFO, WARN, ERROR, ALERT } from '../../constants/logLevels'
 
 describe('LOG', () => {
   it('appends to the list of events', () => {

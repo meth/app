@@ -1,4 +1,4 @@
-import { INFO, WARN, ERROR, ALERT } from './levels'
+import { INFO, WARN, ERROR, ALERT } from './logLevels'
 
 describe('INFO', () => {
   it('is defined', () => {

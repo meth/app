@@ -1,10 +1,12 @@
 import { SHOW, HIDE } from './actions'
-import { CONNECT_NODE, SEND_TRANSACTION, ALERT } from '../../constants/modals'
+import { CONNECT_NODE, SEND_TRANSACTION, ALERT, LOG } from '../../constants/modals'
 
 import {
   showAlert,
   showErrorAlert,
   hideAlert,
+  showLog,
+  hideLog,
   showConnectionModal,
   hideConnectionModal,
   showSendTransactionModal,
@@ -34,6 +36,24 @@ describe('hideAlert()', () => {
     expect(hideAlert()).toEqual({
       type: HIDE,
       payload: { type: ALERT }
+    })
+  })
+})
+
+describe('showLog()', () => {
+  it('returns action', () => {
+    expect(showLog()).toEqual({
+      type: SHOW,
+      payload: { type: LOG }
+    })
+  })
+})
+
+describe('hideLog()', () => {
+  it('returns action', () => {
+    expect(hideLog()).toEqual({
+      type: HIDE,
+      payload: { type: LOG }
     })
   })
 })
