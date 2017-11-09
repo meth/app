@@ -2,10 +2,10 @@ import { createSelector } from 'reselect'
 
 import { ALERT } from './levels'
 
-const getLogEvents = state => state.events.get('events')
+export const getLog = state => state.events.get('events')
 
-const getUnseenAlerts = createSelector(
-  getLogEvents,
+export const getUnseenAlerts = createSelector(
+  getLog,
   events => events.filter(e => e.level === ALERT && !e.seen)
 )
 

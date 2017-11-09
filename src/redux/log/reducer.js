@@ -25,7 +25,7 @@ export default () => {
 
         ;(alerts || []).forEach(alert => events.insert(alert))
 
-        return state.set('events', events.array)
+        return state.set('events', [].concat(events.array))
       },
       [SEEN_ALERTS]: state => {
         const events = state.get('events')
@@ -42,7 +42,7 @@ export default () => {
           }
         }
 
-        return state.set('events', events.concat([]))
+        return state.set('events', [].concat(events.array))
       }
     },
     InitialState
