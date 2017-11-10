@@ -3,6 +3,7 @@ import { Text } from 'react-native'
 import PropTypes from 'prop-types'
 
 import IconButton from '../../IconButton'
+import styles from './styles'
 
 const AlertsButton = ({ style, onPress, unseenAlertsCount }) => (
   <IconButton
@@ -11,7 +12,7 @@ const AlertsButton = ({ style, onPress, unseenAlertsCount }) => (
     onPress={onPress}
     icon={{ name: 'bell-o' }}>
       {unseenAlertsCount ? (
-        <Text>test</Text>
+        <Text style={styles.numbersText}>{unseenAlertsCount}</Text>
       ) : null}
   </IconButton>
 )
