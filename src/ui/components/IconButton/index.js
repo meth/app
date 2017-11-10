@@ -16,7 +16,7 @@ export default class IconButton extends PureComponent {
   }
 
   render () {
-    const { icon, ...props } = this.props
+    const { icon, children, ...props } = this.props
     const { hovering } = this.state
     const styles = createStyles({ ...props, hovering })
 
@@ -24,7 +24,7 @@ export default class IconButton extends PureComponent {
       <Button {...props}
         onStartHover={() => this.setState({ hovering: true })}
         onEndHover={() => this.setState({ hovering: false })}>
-          <Icon {...icon} style={styles.icon} />
+          {children || <Icon {...icon} style={styles.icon} />}
       </Button>
     )
   }

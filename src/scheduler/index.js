@@ -56,13 +56,14 @@ class Scheduler extends EventEmitter {
     let i = 0
 
     while (this._jobs.length > i) {
-      const { name, lastRun, intervalMs, callback } = this._jobs[i]
+      const job = this._jobs[i]
+      const { name, lastRun, intervalMs, callback } = job
       const now = Date.now()
 
       if (now - lastRun >= intervalMs) {
         log.info(`Running job ${name} ...`)
 
-        this._jobs[i].lastRun = now
+        job.lastRun = now
 
         callback()
       }
