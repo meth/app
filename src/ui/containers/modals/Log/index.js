@@ -5,6 +5,7 @@ import { t } from '../../../../../strings'
 import { formatDate } from '../../../../utils/datetime'
 import { connectStore } from '../../../helpers/redux'
 import ScrollView from '../../../components/ScrollView'
+import IconButton from '../../../components/IconButton'
 import Modal from '../../../components/Modal'
 import { INFO, WARN, ERROR, ALERT } from '../../../../constants/logLevels'
 import { getUnseenAlerts, getLogWithoutUnseenAlerts } from '../../../../redux/log/selectors'
@@ -34,6 +35,11 @@ export default class Log extends PureComponent {
           <Text style={styles.appLogText}>{t('log.appEvents')}</Text>
           {this.renderLog(log)}
         </ScrollView>
+        <IconButton
+          style={styles.closeButton}
+          icon={{ name: 'close' }}
+          onPress={this.close}
+        />
       </Modal>
     )
   }
@@ -78,7 +84,7 @@ export default class Log extends PureComponent {
     ))
   }
 
-  onClose = () => {
+  close = () => {
     const { actions: { hideLog } } = this.props
 
     hideLog()

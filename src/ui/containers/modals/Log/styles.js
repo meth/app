@@ -16,6 +16,12 @@ export default create({
     width: '90%',
     height: '90%'
   },
+  closeButton: {
+    position: 'absolute',
+    top: 25,
+    right: 25,
+    borderRadius: 40
+  },
   scrollContent: {
     flexDirection: 'column',
     justifyContent: 'center',
