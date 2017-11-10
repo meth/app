@@ -3,7 +3,7 @@ import Color from 'color'
 export const ROOT_FONT_SIZE = 18
 
 const color1 = '#2c3e50'
-// const color2 = '#2980b9'
+const color2 = '#2980b9'
 const color3 = '#3498db'
 const color4 = '#bedb39'
 const color5 = '#fd7400'
@@ -78,6 +78,21 @@ export default {
       textColor: '#fff'
     }
   },
+  log: {
+    unseenAlert: {
+      backgroundColor: color2,
+      textColor: colorWhite,
+      metaTextColor: Color(color2).lighten(0.2).hex()
+    },
+    event: {
+      backgroundColor: colorWhite,
+      textColor: colorBlack,
+      metaTextColor: colorLightGray,
+      warnColor: color7,
+      errorColor: color5,
+      alertColor: color2
+    }
+  },
   modal: {
     content: {
       backgroundColor: color1,
@@ -93,7 +108,7 @@ export default {
     },
     log: {
       overlay: {
-        backgroundColor: toRgbWithAlpha(colorBlack, 0.8)
+        backgroundColor: toRgbWithAlpha(colorWhite, 0.8)
       }
     },
     connectNode: {

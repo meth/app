@@ -1,13 +1,13 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 import binarySearchInsert from 'binary-search-insert'
-import isAfter from 'date-fns/is_after'
 
+import { buildSortComparator } from '../../utils/datetime'
 import { LOAD_ALERTS, LOG, SEEN_ALERTS } from './actions'
 import { ALERT } from '../../constants/logLevels'
 
 
-const comparator = (a, b) => (isAfter(a.ts, b.ts) ? 1 : -1)
+const sortByDateComparator = buildSortComparator('ts')
 
 
 export default () => {
@@ -25,7 +25,7 @@ export default () => {
         const events = state.get('events')
 
         ;(alerts || []).forEach(
-          alert => binarySearchInsert(events, comparator, alert)
+          alert => binarySearchInsert(events, sortByDateComparator, alert)
         )
 
         return state.set('events', [].concat(events))

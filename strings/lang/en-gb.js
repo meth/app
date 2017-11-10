@@ -37,6 +37,9 @@ module.exports = {
       intro1: 'Welcome to Meth!',
       intro2: 'We are going to help you get setup so that you can start using Ethereum Dapps!'
     },
+    log: {
+      appEvents: 'App log'
+    },
     mnemonic: {
       intro1: 'We have now generated a mnemonic (secure pass phrase) for you.',
       intro2: 'You will need this to use Meth.',
