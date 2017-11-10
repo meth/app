@@ -54,7 +54,7 @@ class Scheduler extends EventEmitter {
       const now = Date.now()
 
       if (now - lastRun === intervalMs) {
-        log.debug(`Running job ${name} ...`)
+        log.info(`Running job ${name} ...`)
 
         this._jobs[i].lastRun = now
 

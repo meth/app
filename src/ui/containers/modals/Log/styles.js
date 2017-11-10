@@ -35,6 +35,7 @@ export default create({
     marginBottom: 15
   },
   unseenAlert: {
+    width: '95%',
     marginBottom: 20,
     backgroundColor: '$log_unseenAlert_backgroundColor',
     padding: 10,
@@ -55,7 +56,7 @@ export default create({
   /* log */
 
   event: {
-    width: '100%',
+    width: '95%',
     marginBottom: 2,
     borderRadius: 2,
     padding: 3,

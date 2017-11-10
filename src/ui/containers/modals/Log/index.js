@@ -21,8 +21,8 @@ const LEVEL_TO_STYLE_MAP = {
 @connectStore('modals', 'log')
 export default class Log extends PureComponent {
   render () {
-    const unseenAlerts = getUnseenAlerts(this.props)
-    const log = getLogWithoutUnseenAlerts(this.props)
+    const unseenAlerts = [ ...getUnseenAlerts(this.props) ]
+    const log = [ ...getLogWithoutUnseenAlerts(this.props) ]
 
     // want the items in reverse chrono order
     unseenAlerts.reverse()
