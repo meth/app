@@ -4,16 +4,18 @@ export default create({
   overlay: {
     backgroundColor: '$modal_log_overlay_backgroundColor'
   },
-  container: {
+  scrollContainer: {
     flex: 0,
     padding: 20,
     backgroundColor: '$modal_content_backgroundColor',
     borderRadius: 10,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
     width: '90%',
     height: '90%'
+  },
+  scrollContent: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   text: {
     ...fontMaker(),

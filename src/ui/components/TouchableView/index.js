@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 
 export default class TouchableView extends PureComponent {
   static propTypes = {
     activeOpacity: PropTypes.number,
+    onPress: PropTypes.func,
     onStartHover: PropTypes.func,
     onEndHover: PropTypes.func,
     style: PropTypes.any,
@@ -20,18 +21,33 @@ export default class TouchableView extends PureComponent {
   }
 
   render () {
-    const { children, style, hoverStyle, onStartHover, onEndHover, ...props } = this.props
+    const {
+      children,
+      style,
+      hoverStyle,
+      onPress,
+      onStartHover,
+      onEndHover,
+      activeOpacity,
+      ...props
+    } = this.props
 
     const { hovering } = this.state
 
+    const ViewComponent = onPress ? TouchableOpacity : View
+
     return (
-      <TouchableOpacity
+      <ViewComponent
         style={(hovering && hoverStyle) ? hoverStyle : style}
         {...props}
-        onMouseEnter={this.onStartHover}
-        onMouseLeave={this.onEndHover}>
+        {...((!onPress) ? null : {
+          activeOpacity,
+          onPress,
+          onMouseEnter: this.onStartHover,
+          onMouseLeave: this.onEndHover
+        })}>
           {children}
-      </TouchableOpacity>
+      </ViewComponent>
     )
   }
 
