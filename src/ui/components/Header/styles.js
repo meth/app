@@ -32,7 +32,7 @@ export default create({
     paddingHorizontal: 10
   },
   button: {
-    paddingVertical: 8,
+    paddingVertical: 10,
     borderRadius: 0
   },
   logout: {

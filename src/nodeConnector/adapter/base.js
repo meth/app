@@ -269,7 +269,7 @@ class Adapter extends EventEmitter {
     const newBlockNumber = hexToNumber(block.number)
 
     if (newBlockNumber !== this._lastBlockNumber) {
-      this._log.info(`Got new block: ${newBlockNumber}`)
+      this._log.debug(`Got new block: ${newBlockNumber}`)
 
       this._lastBlockNumber = newBlockNumber
 
