@@ -6,9 +6,12 @@ import { formatDate } from '../../../../utils/datetime'
 import { connectStore } from '../../../helpers/redux'
 import ScrollView from '../../../components/ScrollView'
 import Modal from '../../../components/Modal'
-import { INFO, WARN, ERROR, ALERT } from '../../../../constants/logLevels'
+import { LEVELS } from '../../../../constants/log'
+
 import { getUnseenAlerts, getLogWithoutUnseenAlerts } from '../../../../redux/log/selectors'
 import styles from './styles'
+
+const { INFO, WARN, ERROR, ALERT } = LEVELS
 
 const LEVEL_TO_STYLE_MAP = {
   [INFO]: styles.info,

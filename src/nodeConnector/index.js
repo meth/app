@@ -33,8 +33,8 @@ class NodeConnector extends EventEmitter {
     // keep track of what's going on in connector
     this.on(EVENT.STATE_CHANGE, newState => {
       switch (newState) {
-        case STATE.CONNECTON_ERROR: {
-          store.dispatch(nodeDisconnected(STATE.CONNECTON_ERROR))
+        case STATE.CONNECTION_ERROR: {
+          store.dispatch(nodeDisconnected(STATE.CONNECTION_ERROR))
           break
         }
         case STATE.DISCONNECTED: {
@@ -87,10 +87,10 @@ class NodeConnector extends EventEmitter {
       await this._adapter.connect()
 
       // get genesis block
-      const block = this.rawCall('eth_getBlockByNumber', [ '0x0', false ])
+      const block = await this.rawCall('eth_getBlockByNumber', [ '0x0', false ])
 
       // work out what network we're on
-      let network = this._networks[
+      const foundNetwork = this._networks[
         Object.keys(this._networks).find(key => {
           const n = this._networks[key]
 
@@ -98,11 +98,12 @@ class NodeConnector extends EventEmitter {
         })
       ]
 
-      // if no match found then assume it's a private network
-      if (!network) {
-        network = this._networks.private
-        network.genesisBlock = block.hash
-      }
+      const network = foundNetwork
+        ? { ...foundNetwork }
+        // if no match found then assume it's a private network
+        : { ...this._networks.private }
+
+      network.genesisBlock = block.hash
 
       // propagate blocks
       this._adapter.on(EVENT.NEW_BLOCK, (...args) => {
@@ -204,7 +205,11 @@ class NodeConnector extends EventEmitter {
 
   _ensureConnected () {
     if (!this.isConnected || !this._adapter) {
-      this._updateState(STATE.DISCONNECTED)
+      // if in a connected state then update state
+      // (guard ensures we minimize no. of events getting sent)
+      if (STATE.PREPARE === this._state || STATE.CONNECTED === this._state) {
+        this._updateState(STATE.DISCONNECTED)
+      }
 
       throw new UnableToConnectError('Adapter not connected')
     }

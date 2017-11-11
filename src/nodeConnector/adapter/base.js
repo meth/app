@@ -88,7 +88,7 @@ class Adapter extends EventEmitter {
     } catch (err) {
       this._log.trace('Connection error', err)
 
-      this._updateState(STATE.DISCONNECTED)
+      this._updateState(STATE.CONNECT_ERROR)
 
       throw err
     }
@@ -163,7 +163,7 @@ class Adapter extends EventEmitter {
           RequestTimeoutError
         )
       ) {
-        this._updateState(STATE.CONNECTON_ERROR)
+        this._updateState(STATE.CONNECTION_ERROR)
       } else {
         this._updateState(STATE.CONNECTED)
       }

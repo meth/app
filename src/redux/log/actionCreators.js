@@ -1,10 +1,12 @@
 import { createActionCreator } from '../utils'
 
 import { LOAD_ALERTS, LOG, SEEN_ALERTS } from './actions'
-import { INFO, WARN, ERROR, ALERT } from '../../constants/logLevels'
+import { LEVELS } from '../../constants/log'
 
 export const loadAlerts = createActionCreator(LOAD_ALERTS)
 export const seenAlerts = createActionCreator(SEEN_ALERTS)
+
+const { INFO, WARN, ERROR, ALERT } = LEVELS
 
 export const infoEvent = createActionCreator(LOG, (msg, cat) => ({ level: INFO, msg, cat }))
 export const warnEvent = createActionCreator(LOG, (msg, cat) => ({ level: WARN, msg, cat }))

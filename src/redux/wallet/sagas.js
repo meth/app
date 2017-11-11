@@ -1,12 +1,19 @@
 import { put, takeLatest } from 'redux-saga/effects'
 
+import logger from '../../logger'
 import { ACCOUNT_BALANCES, LOAD_WALLET } from './actions'
 import { updateAccountNames } from './actionCreators'
 
-function* refreshAccountNames ({ storage }) {
-  const names = yield storage.loadAccountNames()
+const log = logger.create('walletSaga')
 
-  yield put(updateAccountNames(names))
+function* refreshAccountNames ({ storage }) {
+  try {
+    const names = yield storage.loadAccountNames()
+
+    yield put(updateAccountNames(names))
+  } catch (err) {
+    log.warn('Error refreshing account names', err.toString())
+  }
 }
 
 function* setStorageMnemonic ({ storage }, { payload: mnemonic }) {

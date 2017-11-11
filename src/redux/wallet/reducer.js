@@ -12,13 +12,17 @@ export default () => {
     {
       [ACCOUNT_BALANCES]: (state, { payload }) => state.set('accounts', payload),
       [ACCOUNT_NAMES]: (state, { payload: names }) => {
-        const accounts = state.get('accounts')
+        if (names) {
+          const accounts = state.get('accounts')
 
-        Object.keys(accounts).forEach(address => {
-          accounts[address].name = names[address]
-        })
+          Object.keys(accounts).forEach(address => {
+            accounts[address].name = names[address]
+          })
 
-        return state.set('accounts', [ ...accounts ])
+          return state.set('accounts', [ ...accounts ])
+        }
+
+        return state
       }
     },
     InitialState

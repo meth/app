@@ -9,6 +9,7 @@ class Scheduler extends EventEmitter {
     super()
 
     this._jobs = []
+    this._running = false
   }
 
   addJob (name, interval, callback) {
@@ -35,24 +36,28 @@ class Scheduler extends EventEmitter {
   }
 
   start () {
-    if (!this._timer) {
+    if (!this._running) {
       log.info('Start scheduler ...')
 
-      this._timer = setInterval(this._processJobs, 1000)
+      this._running = true
+      this._processJobs()
     }
   }
 
   stop () {
-    if (this._timer) {
+    if (this._running) {
       log.info('Stop scheduler ...')
 
-      clearInterval(this._timer)
-
-      this._timer = null
+      this._running = false
+      clearTimeout(this._timer)
     }
   }
 
   _processJobs = () => {
+    if (!this._running) {
+      return
+    }
+
     let i = 0
 
     while (this._jobs.length > i) {
@@ -70,6 +75,8 @@ class Scheduler extends EventEmitter {
 
       i += 1
     }
+
+    this._timer = setTimeout(this._processJobs, 1000)
   }
 }
 

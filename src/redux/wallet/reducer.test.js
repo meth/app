@@ -16,7 +16,7 @@ describe('ACCOUNT_BALANCES', () => {
       }
     })
 
-    expect(newState.get('balances')).toEqual({
+    expect(newState.get('accounts')).toEqual({
       dummy: false
     })
   })

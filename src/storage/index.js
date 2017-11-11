@@ -19,7 +19,7 @@ class Storage {
   }
 
   async setNetwork ({ description, genesisBlock } = {}) {
-    log.info(`Set storage network: ${description} ...`)
+    log.info(`Set storage network: ${description} - ${genesisBlock} ...`)
 
     this._network = genesisBlock
   }

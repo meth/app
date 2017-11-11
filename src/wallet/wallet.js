@@ -37,7 +37,8 @@ class Wallet extends EventEmitter {
 
     this._nodeConnector.on(EVENT.NEW_BLOCK, this._onNewBlock.bind(this))
 
-    await this._reload()
+    // do this asynchronously!
+    this._reload()
   }
 
   /**
@@ -136,7 +137,7 @@ class Wallet extends EventEmitter {
     log.debug('Node connection state changed')
 
     switch (newState) {
-      // once reconnected
+      // once connected
       case STATE.CONNECTED:
         log.info('Node connection established, re/loading wallet data ...')
         // re-load the wallet data
@@ -174,12 +175,18 @@ class Wallet extends EventEmitter {
         addresses.map(a => this._getBalance(a))
       )
 
-      this._balances = balances.map(toBN)
-
-      this._store.dispatch(updateAccountBalances(this.getAccountBalances()))
+      await this._setBalancesAndNotifyStore(balances)
     } catch (err) {
-      log.debug('Balance query error', err)
+      log.warn('Balance query error, network probably not ready')
     }
+  }
+
+  async _setBalancesAndNotifyStore (balances) {
+    this._balances = balances.map(toBN)
+
+    await this._store.dispatch(
+      updateAccountBalances(this.getAccountBalances())
+    )
   }
 
   /**
@@ -210,43 +217,54 @@ class Wallet extends EventEmitter {
    * @return {Promise}
    */
   async _reload () {
-    this._hdWallet = null
+    try {
+      this._hdWallet = null
 
-    log.debug('Load wallet from mnemonic ...')
+      log.debug('Load wallet from mnemonic ...')
 
-    const wallet = EthHdWallet.fromMnemonic(this._mnemonic)
+      const wallet = EthHdWallet.fromMnemonic(this._mnemonic)
 
-    log.debug('Discover used wallet addresses ...')
+      log.debug('Discover used wallet addresses ...')
 
-    let checked = 0
-    while (20 > checked) {
-      const [ nextAddress ] = wallet.generateAddresses(1)
+      const balances = []
 
-      // eslint-disable-next-line no-await-in-loop
-      const balance = await this._getBalance(nextAddress)
+      let checked = 0
+      while (20 > checked) {
+        const [ nextAddress ] = wallet.generateAddresses(1)
 
-      if (0 < balance) {
-        checked = 0
-      } else {
-        checked += 1
+        // eslint-disable-next-line no-await-in-loop
+        const balance = await this._getBalance(nextAddress)
+
+        if (0 < balance) {
+          checked = 0
+        } else {
+          checked += 1
+        }
+
+        // save balance
+        balances.push(balance)
       }
+
+      let totalAddresses = wallet.getAddressCount() - 20
+      if (0 >= totalAddresses) {
+        totalAddresses = 1
+      }
+
+      log.info(`Discovered addresses: ${totalAddresses}`)
+
+      // regenerate wallet and initial addresses
+      const finalWallet = EthHdWallet.fromMnemonic(this._mnemonic)
+      finalWallet.generateAddresses(totalAddresses)
+
+      this._hdWallet = finalWallet
+
+      // setup initial balances
+      await this._setBalancesAndNotifyStore(
+        balances.slice(0, totalAddresses).map(toBN)
+      )
+    } catch (err) {
+      log.warn('Loading error, network probably not ready yet')
     }
-
-    let totalAddresses = wallet.getAddressCount() - 20
-
-    if (0 >= totalAddresses) {
-      totalAddresses = 1
-    }
-
-    log.info(`Discovered addresses: ${totalAddresses}`)
-
-    // regenerate wallet and initial addresses
-    const finalWallet = EthHdWallet.fromMnemonic(this._mnemonic)
-    finalWallet.generateAddresses(totalAddresses)
-
-    this._hdWallet = finalWallet
-
-    this._updateBalances()
   }
 }
 

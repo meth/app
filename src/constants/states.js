@@ -2,10 +2,11 @@ module.exports = {
   ERROR: 'error',
   PREPARE: 'prepare',
   CONNECTING: 'connecting',
+  CONNECT_ERROR: 'connectError',
   CONNECTED: 'connected',
+  CONNECTION_ERROR: 'connectionError',
   DISCONNECTING: 'disconnecting',
   DISCONNECTED: 'disconnected',
-  CONNECTON_ERROR: 'connectionError',
   LOADING: 'LOADING',
   LOADED: 'LOADED'
 }

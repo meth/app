@@ -4,8 +4,8 @@ const getAccounts = state => state.wallet.get('accounts') || {}
 
 export const getAccountBalances = createSelector(
   getAccounts,
-  accounts => Object.keys(accounts).reduce((m, { balance }, addr) => ({
+  accounts => Object.keys(accounts).reduce((m, addr) => ({
     ...m,
-    [addr]: balance
+    [addr]: accounts[addr].balance
   }), {})
 )
