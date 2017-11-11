@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 
 import reducer from './reducer'
 import { LOG, LOAD_ALERTS, SEEN_ALERTS } from './actions'
-import { LEVELS } from '../../constants/log'
+import { MAX_ITEMS, LEVELS } from '../../constants/log'
 
 const { INFO, WARN, ERROR, ALERT } = LEVELS
 
@@ -39,7 +39,7 @@ describe('LOG', () => {
 
     const reduce = reducer()
 
-    for (let i = 0; 5000 > i; i += 1) {
+    for (let i = 0; MAX_ITEMS > i; i += 1) {
       state = reduce(state, {
         type: LOG,
         payload: {
@@ -51,7 +51,7 @@ describe('LOG', () => {
 
     const events = state.get('events')
 
-    expect(events.length).toEqual(5000)
+    expect(events.length).toEqual(MAX_ITEMS)
     expect(events[0]).toMatchObject({
       msg: 'msg',
       cat: 'cat'
@@ -117,7 +117,7 @@ describe('LOAD_ALERTS', () => {
     })
 
     const alerts = []
-    for (let i = 0; 5000 > i; i += 1) {
+    for (let i = 0; MAX_ITEMS > i; i += 1) {
       alerts.push({ ts: anchorDate.getTime() - i, msg: 'msg0' })
     }
 
@@ -130,7 +130,7 @@ describe('LOAD_ALERTS', () => {
 
     const newEvents = newState.get('events')
 
-    expect(newEvents.length).toEqual(5000)
+    expect(newEvents.length).toEqual(MAX_ITEMS)
     expect(newEvents[0]).toEqual(alerts[alerts.length - 1])
   })
 })

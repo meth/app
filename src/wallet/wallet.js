@@ -184,9 +184,7 @@ class Wallet extends EventEmitter {
   async _setBalancesAndNotifyStore (balances) {
     this._balances = balances.map(toBN)
 
-    await this._store.dispatch(
-      updateAccountBalances(this.getAccountBalances())
-    )
+    await this._store.dispatch(updateAccountBalances(this.getAccountBalances()))
   }
 
   /**

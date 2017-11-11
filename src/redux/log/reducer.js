@@ -4,17 +4,15 @@ import binarySearchInsert from 'binary-search-insert'
 
 import { buildSortComparator } from '../../utils/datetime'
 import { LOAD_ALERTS, LOG, SEEN_ALERTS } from './actions'
-import { LEVELS } from '../../constants/log'
+import { MAX_ITEMS, LEVELS } from '../../constants/log'
 
 const { ALERT } = LEVELS
 
 
 const sortByDateComparator = buildSortComparator('ts')
 
-const MAX_EVENTS = 5000
-
 const trimEvents = events =>
-  (events.length > MAX_EVENTS ? events.slice(events.length - MAX_EVENTS) : events)
+  (events.length > MAX_ITEMS ? events.slice(events.length - MAX_ITEMS) : events)
 
 
 export default () => {
