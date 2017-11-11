@@ -11,34 +11,36 @@ const log = logger.create('Storage')
  */
 class Storage {
   async setMnemonic (mnemonic) {
-    this._mnemonic = createHash('sha256').update(mnemonic).digest('hex')
+    const hash = createHash('sha256').update(mnemonic).digest('hex')
+
+    log.info(`Set storage mnemonic ${hash} ...`)
+
+    this._mnemonic = hash
   }
 
-  async setNetwork ({ genesisBlock } = {}) {
+  async setNetwork ({ description, genesisBlock } = {}) {
+    log.info(`Set storage network: ${description} ...`)
+
     this._network = genesisBlock
   }
 
   async loadAccountNames () {
-    return this._load('accountNames')
+    return this._load(this._constructNetworkKey('accountNames'))
   }
 
   async _load (key) {
-    const fullKey = this._constructKey(key)
+    log.debug(`Load key ${key} ...`)
 
-    log.debug(`Load key ${fullKey} ...`)
-
-    return AsyncStorage.getItem(fullKey)
+    return AsyncStorage.getItem(key)
   }
 
   async _save (key, value) {
-    const fullKey = this._constructKey(key)
+    log.debug(`Save key ${key} ...`)
 
-    log.debug(`Save key ${fullKey} ...`)
-
-    return AsyncStorage.setItem(fullKey, value)
+    return AsyncStorage.setItem(key, value)
   }
 
-  _constructKey (key) {
+  _constructNetworkKey (key) {
     if (!this._mnemonic || !this._network) {
       log.throw('Mnemonic and network need to be set')
     }

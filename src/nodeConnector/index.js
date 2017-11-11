@@ -28,6 +28,8 @@ class NodeConnector extends EventEmitter {
       walletManager
     })
 
+    this._state = STATE.PREPARE
+
     // keep track of what's going on in connector
     this.on(EVENT.STATE_CHANGE, newState => {
       switch (newState) {
@@ -78,7 +80,7 @@ class NodeConnector extends EventEmitter {
     try {
       // propagate state changes
       this._adapter.on(EVENT.STATE_CHANGE, (...args) => {
-        this.emit(EVENT.STATE_CHANGE, ...args)
+        this._updateState(...args)
       })
 
       // connect
@@ -192,9 +194,17 @@ class NodeConnector extends EventEmitter {
     return this._adapter.execMethod(method, params)
   }
 
+  _updateState (newState, data) {
+    if (this._state !== newState) {
+      this._state = newState
+
+      this.emit(EVENT.STATE_CHANGE, newState, data)
+    }
+  }
+
   _ensureConnected () {
     if (!this.isConnected || !this._adapter) {
-      this.emit(EVENT.STATE_CHANGE, STATE.DISCONNECTED)
+      this._updateState(STATE.DISCONNECTED)
 
       throw new UnableToConnectError('Adapter not connected')
     }
