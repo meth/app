@@ -5,7 +5,7 @@ import { toBN } from 'web3-utils'
 
 import logger from '../logger'
 import { WalletNotLoadedError } from '../utils/errors'
-import { updateBalances } from '../redux/wallet/actionCreators'
+import { updateAccountBalances } from '../redux/wallet/actionCreators'
 import EVENT from '../constants/events'
 import STATE from '../constants/states'
 
@@ -176,7 +176,7 @@ class Wallet extends EventEmitter {
 
       this._balances = balances.map(toBN)
 
-      this._store.dispatch(updateBalances(this.getAccountBalances()))
+      this._store.dispatch(updateAccountBalances(this.getAccountBalances()))
     } catch (err) {
       log.debug('Balance query error', err)
     }

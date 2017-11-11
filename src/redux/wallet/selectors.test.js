@@ -5,10 +5,22 @@ describe('.getAccountBalances()', () => {
   it('returns balances', () => {
     const state = {
       wallet: new Immutable.Map({
-        balances: 123
+        accounts: {
+          a: {
+            name: 'jeff',
+            balance: 1
+          },
+          b: {
+            name: 'ram',
+            balance: 2
+          }
+        }
       })
     }
 
-    expect(getAccountBalances(state)).toEqual(123)
+    expect(getAccountBalances(state)).toEqual({
+      a: 1,
+      b: 2
+    })
   })
 })

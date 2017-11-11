@@ -6,13 +6,14 @@ import { loadConfig } from './redux/config/actionCreators'
 import { loadAlerts } from './redux/log/actionCreators'
 import * as config from './config'
 import nodeConnector from './nodeConnector'
+import storage from './storage'
 import scheduler from './scheduler'
 import * as walletManager from './wallet/manager'
 import Root from './ui/Root'
 import { router } from './ui/nav'
 import { setStore as logSetStore } from './logger'
 
-const store = createReduxStore({ config, nodeConnector, walletManager, router })
+const store = createReduxStore({ config, storage, nodeConnector, walletManager, router })
 logSetStore(store)
 nodeConnector.init({ store, walletManager })
 walletManager.init({ store, nodeConnector })

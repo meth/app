@@ -1,16 +1,16 @@
 import Immutable from 'immutable'
 
 import reducer from './reducer'
-import { BALANCES } from './actions'
+import { ACCOUNT_BALANCES } from './actions'
 
-describe('BALANCES', () => {
+describe('ACCOUNT_BALANCES', () => {
   it('updates the balances', () => {
     const state = Immutable.Map({})
 
     const reduce = reducer()
 
     const newState = reduce(state, {
-      type: BALANCES,
+      type: ACCOUNT_BALANCES,
       payload: {
         dummy: false
       }

@@ -17,7 +17,9 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       const mnemonic = action.payload
       log.debug(`Mnemonic: ${mnemonic}`)
 
-      return walletManager.load(mnemonic)
+      await walletManager.load(mnemonic)
+
+      return next(action)
     }
     case GENERATE_RAW_TX: {
       log.debug('Generate raw tx ...')

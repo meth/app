@@ -13,11 +13,15 @@ const log = logger.create('nodeMiddleware')
 export default ({ nodeConnector }) => store => next => async action => {
   switch (action.type) {
     case DISCONNECT_NODE: {
+      log.debug('Disconnect from node ...')
+
       await nodeConnector.disconnect()
 
       break
     }
     case CONNECT_NODE: {
+      log.debug('Connect to node ...')
+
       await store.dispatch(nodeConnecting())
 
       try {

@@ -5,7 +5,7 @@ import { TX_COMPLETED } from './actions'
 import { createAction } from '../utils'
 import { getTxDeferred } from './selectors'
 
-function* onSuccessfulTransaction (app, { payload: receipt }) {
+function* onSuccessfulTransaction (_, { payload: receipt }) {
   // resolve the tx promise so that the original caller gets a tx receipt
   const deferred = yield select(getTxDeferred)
   if (deferred) {

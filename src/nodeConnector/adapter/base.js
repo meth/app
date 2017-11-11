@@ -1,4 +1,3 @@
-import Q from 'bluebird'
 import EventEmitter from 'eventemitter3'
 import { hexToNumber } from 'web3-utils'
 
@@ -63,7 +62,7 @@ class Adapter extends EventEmitter {
     if (STATE.CONNECTED === this._state) {
       this._log.trace('Already connected')
 
-      return Q.resolve()
+      return Promise.resolve()
     }
 
     if (STATE.CONNECTING === this._state && this._connectPromise) {
@@ -106,7 +105,7 @@ class Adapter extends EventEmitter {
     if (STATE.DISCONNECTED === this._state) {
       this._log.trace('Already disconnected')
 
-      return Q.resolve()
+      return Promise.resolve()
     }
 
     if (STATE.DISCONNECTING === this._state && this._disconnectPromise) {
@@ -204,7 +203,7 @@ class Adapter extends EventEmitter {
   async _disconnect () {
     this._log.debug('Disconnected')
 
-    return Q.resolve()
+    return Promise.resolve()
   }
 
   /**

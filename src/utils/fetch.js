@@ -1,4 +1,3 @@
-import Q from 'bluebird'
 import { stringify } from 'query-string'
 
 import logger from '../logger'
@@ -52,8 +51,8 @@ export const loadJSON = async (
   let res
 
   try {
-    res = await new Q((resolve, reject) => {
-      Q.cast(fetch(myUrl, req)).then(resolve, reject)
+    res = await new Promise((resolve, reject) => {
+      fetch(myUrl, req).then(resolve, reject)
 
       setTimeout(() => {
         reject(new RequestTimeoutError('Fetch timed out'))
