@@ -1,25 +1,22 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
-import { ACCOUNT_BALANCES, ACCOUNT_NAMES } from './actions'
+import { ACCOUNTS, ACCOUNT_NAMES } from './actions'
 
 export default () => {
   const InitialState = Immutable.Map({
-    accounts: {}
+    accounts: {},
+    accountNames: {},
+    bookmarks: {},
+    dappPermissions: {}
   })
 
   return handleActions(
     {
-      [ACCOUNT_BALANCES]: (state, { payload }) => state.set('accounts', payload),
+      [ACCOUNTS]: (state, { payload }) => state.set('accounts', payload),
       [ACCOUNT_NAMES]: (state, { payload: names }) => {
         if (names) {
-          const accounts = state.get('accounts')
-
-          Object.keys(accounts).forEach(address => {
-            accounts[address].name = names[address]
-          })
-
-          return state.set('accounts', [ ...accounts ])
+          return state.set('accountNames', names)
         }
 
         return state

@@ -6,9 +6,7 @@ import { LOAD_CONFIG } from './actions'
 export default () => {
   const InitialState = Immutable.Map({
     nodes: undefined,
-    networks: undefined,
-    isConnected: false,
-    disconnectReason: undefined
+    networks: undefined
   })
 
   return handleActions(

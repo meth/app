@@ -1,8 +1,8 @@
-import { ACCOUNT_BALANCES, GENERATE_MNEMONIC, SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
+import { ACCOUNTS, GENERATE_MNEMONIC, SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
 
-describe('ACCOUNT_BALANCES', () => {
+describe('ACCOUNTS', () => {
   it('is defined', () => {
-    expect(ACCOUNT_BALANCES).toBeDefined()
+    expect(ACCOUNTS).toBeDefined()
   })
 })
 

@@ -1,8 +1,10 @@
 import { createActionCreator } from '../utils'
 
 import {
-  ACCOUNT_BALANCES,
+  ACCOUNTS,
   ACCOUNT_NAMES,
+  BOOKMARKS,
+  DAPP_PERMISSIONS,
   GENERATE_RAW_TX,
   SEND_RAW_TX,
   LOAD_WALLET,
@@ -13,9 +15,13 @@ export const generateMnemonic = createActionCreator(GENERATE_MNEMONIC)
 
 export const loadWallet = createActionCreator(LOAD_WALLET)
 
-export const updateAccountBalances = createActionCreator(ACCOUNT_BALANCES)
+export const updateAccounts = createActionCreator(ACCOUNTS)
 
 export const updateAccountNames = createActionCreator(ACCOUNT_NAMES)
+
+export const updateBookmarks = createActionCreator(BOOKMARKS)
+
+export const updateDappPermissions = createActionCreator(DAPP_PERMISSIONS)
 
 export const generateRawTransaction = createActionCreator(GENERATE_RAW_TX)
 

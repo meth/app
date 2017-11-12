@@ -15,6 +15,7 @@ import { setStore as logSetStore } from './logger'
 
 const store = createReduxStore({ config, storage, nodeConnector, walletManager, router })
 logSetStore(store)
+storage.init({ store })
 nodeConnector.init({ store, walletManager })
 walletManager.init({ store, nodeConnector })
 

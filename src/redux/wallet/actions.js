@@ -1,5 +1,7 @@
-export const ACCOUNT_BALANCES = 'ACCOUNTS'
+export const ACCOUNTS = 'ACCOUNTS'
 export const ACCOUNT_NAMES = 'ACCOUNT_NAMES'
+export const BOOKMARKS = 'BOOKMARKS'
+export const DAPP_PERMISSIONS = 'DAPP_PERMISSIONS'
 export const GENERATE_RAW_TX = 'GENERATE_RAW_TX'
 export const SEND_RAW_TX = 'SEND_RAW_TX'
 export const LOAD_WALLET = 'LOAD_WALLET'
