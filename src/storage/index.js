@@ -2,7 +2,11 @@ import { createHash } from 'crypto'
 import { AsyncStorage } from 'react-native'
 
 import logger from '../logger'
-import { updateAccountNames, updateBookmarks, updateDappPermissions } from '../redux/wallet/actionCreators'
+import {
+  updateAccountNames,
+  updateBookmarks,
+  updateDappPermissions
+} from '../redux/wallet/actionCreators'
 
 const log = logger.create('Storage')
 
