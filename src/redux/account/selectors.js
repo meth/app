@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 
-const _getAddresses = state => state.wallet.get('addresses') || {}
-const _getAddressNames = state => state.wallet.get('addressNames') || {}
+const _getAddresses = state => state.account.get('addresses') || {}
+const _getAddressNames = state => state.account.get('addressNames') || {}
 
 export const getAddresses = createSelector(
   _getAddresses,
@@ -14,3 +14,7 @@ export const getAddresses = createSelector(
     }
   }), {})
 )
+
+export const getBookMarks = state => state.account.get('bookmarks') || []
+
+export const getDappPermissions = state => state.account.get('dappPermissions') || {}
