@@ -2,8 +2,6 @@ import React from 'react'
 import { Provider } from 'react-redux'
 
 import { createReduxStore } from './redux'
-import { loadConfig } from './redux/config/actionCreators'
-import { loadAlerts } from './redux/log/actionCreators'
 import * as config from './config'
 import nodeConnector from './nodeConnector'
 import storage from './storage'
@@ -26,7 +24,7 @@ export default () => (
 )
 
 // load config
-store.dispatch(loadConfig())
+store.actions.loadConfig()
 
 // schedule the loading of alerts
-scheduler.addJob('check_alerts', 300, () => store.dispatch(loadAlerts()))
+scheduler.addJob('check_alerts', 300, () => store.actions.loadAlerts())

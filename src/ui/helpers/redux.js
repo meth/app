@@ -25,6 +25,7 @@ export const connectStore = (...storeSubParts) => Component =>
         },
         {}
       ),
+    // mapDispatchToProps
     dispatch => ({
       actions: bindActionCreators(actionCreators, dispatch)
     }),

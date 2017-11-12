@@ -1,15 +1,15 @@
 import { createSelector } from 'reselect'
 
-const _getAddresses = state => state.account.get('addresses') || {}
+const _getAddressBalances = state => state.account.get('addressBalances') || {}
 const _getAddressNames = state => state.account.get('addressNames') || {}
 
 export const getAddresses = createSelector(
-  _getAddresses,
+  _getAddressBalances,
   _getAddressNames,
-  (addresses, names) => Object.keys(addresses).reduce((m, addr) => ({
+  (balances, names) => Object.keys(balances).reduce((m, addr) => ({
     ...m,
     [addr]: {
-      ...addresses[addr],
+      balance: balances[addr],
       ...(names[addr] ? { name: names[addr] } : {})
     }
   }), {})

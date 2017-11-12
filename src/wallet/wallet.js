@@ -5,7 +5,6 @@ import { toBN } from 'web3-utils'
 
 import logger from '../logger'
 import { WalletNotLoadedError } from '../utils/errors'
-import { updateAddresses } from '../redux/account/actionCreators'
 import EVENT from '../constants/events'
 import STATE from '../constants/states'
 
@@ -184,7 +183,7 @@ class Wallet extends EventEmitter {
   async _setBalancesAndNotifyStore (balances) {
     this._balances = balances.map(toBN)
 
-    await this._store.dispatch(updateAddresses(this.getAddressBalances()))
+    await this._store.actions.updateAddressBalances(this.getAddressBalances())
   }
 
   /**
@@ -257,9 +256,7 @@ class Wallet extends EventEmitter {
       this._hdWallet = finalWallet
 
       // setup initial balances
-      await this._setBalancesAndNotifyStore(
-        balances.slice(0, totalAddresses).map(toBN)
-      )
+      await this._setBalancesAndNotifyStore(balances.slice(0, totalAddresses))
     } catch (err) {
       log.warn('Loading error, network probably not ready yet')
     }

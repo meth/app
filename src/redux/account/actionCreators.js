@@ -1,7 +1,7 @@
 import { createActionCreator } from '../utils'
 
 import {
-  ADDRESSES,
+  ADDRESS_BALANCES,
   ADDRESS_NAMES,
   BOOKMARKS,
   DAPP_PERMISSIONS,
@@ -15,7 +15,7 @@ export const generateMnemonic = createActionCreator(GENERATE_MNEMONIC)
 
 export const loadWallet = createActionCreator(LOAD_WALLET)
 
-export const updateAddresses = createActionCreator(ADDRESSES)
+export const updateAddressBalances = createActionCreator(ADDRESS_BALANCES)
 
 export const updateAddressNames = createActionCreator(ADDRESS_NAMES)
 

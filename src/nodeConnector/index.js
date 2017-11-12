@@ -4,7 +4,6 @@ import { Web3MethodFactory } from './web3Methods'
 import EVENT from '../constants/events'
 import STATE from '../constants/states'
 import { UnableToConnectError } from '../utils/errors'
-import { nodeDisconnected } from '../redux/node/actionCreators'
 import logger from '../logger'
 import RpcAdapter from './adapter/rpc'
 
@@ -34,11 +33,11 @@ class NodeConnector extends EventEmitter {
     this.on(EVENT.STATE_CHANGE, newState => {
       switch (newState) {
         case STATE.CONNECTION_ERROR: {
-          store.dispatch(nodeDisconnected(STATE.CONNECTION_ERROR))
+          store.actions.nodeDisconnected(STATE.CONNECTION_ERROR)
           break
         }
         case STATE.DISCONNECTED: {
-          store.dispatch(nodeDisconnected())
+          store.actions.nodeDisconnected()
           break
         }
         default:

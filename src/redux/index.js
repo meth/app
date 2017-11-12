@@ -1,6 +1,7 @@
-import { applyMiddleware, compose, combineReducers, createStore } from 'redux'
+import { bindActionCreators, applyMiddleware, compose, combineReducers, createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
+import actionCreators from './actionCreators'
 import { createReducers } from './reducers'
 import { createMiddleware } from './middleware'
 import { createSagas } from './sagas'
@@ -27,6 +28,8 @@ export const createReduxStore = app => {
 
   // kick-off sagas
   sagaMiddleware.run(sagas)
+
+  store.actions = bindActionCreators(actionCreators, store.dispatch)
 
   return store
 }

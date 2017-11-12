@@ -2,11 +2,6 @@ import { createHash } from 'crypto'
 import { AsyncStorage } from 'react-native'
 
 import logger from '../logger'
-import {
-  updateAddressNames,
-  updateBookmarks,
-  updateDappPermissions
-} from '../redux/account/actionCreators'
 
 const log = logger.create('Storage')
 
@@ -29,9 +24,10 @@ class Storage {
     this._mnemonic = hash
 
     try {
-      await this.loadAddressNames()
-      await this.loadBookmarks()
-      await this.loadDappPermissions()
+      /* do these calls asynchronously */
+      this.loadAddressNames()
+      this.loadBookmarks()
+      this.loadDappPermissions()
     } catch (err) {
       log.warn(err.toString())
     }
@@ -49,7 +45,7 @@ class Storage {
     const data = this._load(this._userKey('accountNames'))
 
     if (data) {
-      this._store.dispatch(updateAddressNames(data))
+      this._store.actions.updateAddressNames(data)
     }
   }
 
@@ -59,7 +55,7 @@ class Storage {
     const data = this._load(this._userKey('bookmarks'))
 
     if (data) {
-      this._store.dispatch(updateBookmarks(data))
+      this._store.actions.updateBookmarks(data)
     }
   }
 
@@ -69,7 +65,7 @@ class Storage {
     const data = this._load(this._userKey('dappPermissions'))
 
     if (data) {
-      this._store.dispatch(updateDappPermissions(data))
+      this._store.actions.updateDappPermissions(data)
     }
   }
 
