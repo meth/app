@@ -1,5 +1,5 @@
-export const ACCOUNTS = 'ACCOUNTS'
-export const ACCOUNT_NAMES = 'ACCOUNT_NAMES'
+export const ADDRESSES = 'ADDRESSES'
+export const ADDRESS_NAMES = 'ADDRESS_NAMES'
 export const BOOKMARKS = 'BOOKMARKS'
 export const DAPP_PERMISSIONS = 'DAPP_PERMISSIONS'
 export const GENERATE_RAW_TX = 'GENERATE_RAW_TX'

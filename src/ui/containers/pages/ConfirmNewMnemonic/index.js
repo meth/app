@@ -15,7 +15,7 @@ import { MnemonicConfirmator } from '../../../components/Mnemonic'
 
 const log = logger.create('ConfirmNewMnemonic')
 
-@connectStore('nav', 'wallet', 'modals')
+@connectStore('nav', 'account', 'modals')
 export default class ConfirmNewMnemonic extends PureComponent {
   state = {
     success: false,

@@ -12,7 +12,7 @@ import Loading from '../../../components/Loading'
 import { MnemonicDisplay } from '../../../components/Mnemonic'
 import Layout from '../Layout'
 
-@connectStore('nav', 'wallet')
+@connectStore('nav', 'account')
 export default class GenerateMnemonic extends PureComponent {
   state = {
     mnemonic: null,

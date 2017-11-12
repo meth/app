@@ -3,10 +3,10 @@ import { AsyncStorage } from 'react-native'
 
 import logger from '../logger'
 import {
-  updateAccountNames,
+  updateAddressNames,
   updateBookmarks,
   updateDappPermissions
-} from '../redux/wallet/actionCreators'
+} from '../redux/account/actionCreators'
 
 const log = logger.create('Storage')
 
@@ -42,7 +42,7 @@ class Storage {
   async _loadData () {
     if (this._canConstructNetworkKey()) {
       try {
-        await this.loadAccountNames()
+        await this.loadAddressNames()
         await this.loadBookmarks()
         await this.loadDappPermissions()
       } catch (err) {
@@ -51,13 +51,13 @@ class Storage {
     }
   }
 
-  async loadAccountNames () {
-    log.info('Load account names ...')
+  async loadAddressNames () {
+    log.info('Load address friendly names ...')
 
     const data = this._load(this._constructNetworkKey('accountNames'))
 
     if (data) {
-      this._store.dispatch(updateAccountNames(data))
+      this._store.dispatch(updateAddressNames(data))
     }
   }
 

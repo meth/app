@@ -12,7 +12,7 @@ import styles from './styles'
 export default class Header extends PureComponent {
   static propTypes = {
     network: PropTypes.object,
-    accounts: PropTypes.object,
+    addresses: PropTypes.object,
     unseenAlertsCount: PropTypes.number,
     onPressNetworkInfo: PropTypes.func.isRequired,
     onPressAlerts: PropTypes.func.isRequired,
@@ -20,7 +20,7 @@ export default class Header extends PureComponent {
   }
 
   render () {
-    const { accounts, network, appName, style } = this.props
+    const { addresses, network, appName, style } = this.props
 
     return (
       <View style={[ styles.container, style ]}>
@@ -28,7 +28,7 @@ export default class Header extends PureComponent {
           <Text style={styles.appNameText}>{appName}</Text>
         </View>
         <View style={styles.right}>
-          {network && accounts ? this.renderBalance(accounts) : null}
+          {network && addresses ? this.renderBalance(addresses) : null}
           {network ? this.renderNetwork(network) : null}
           {this.renderAlerts()}
           {network ? this.renderLogoutButton() : null}
@@ -37,8 +37,8 @@ export default class Header extends PureComponent {
     )
   }
 
-  renderBalance (accounts) {
-    const totalWei = Object.values(accounts).reduce(
+  renderBalance (addresses) {
+    const totalWei = Object.values(addresses).reduce(
       (m, { balance }) => m.add(balance), new BN(0, 2)
     )
     const totalEther = fromWei(totalWei, 'ether')

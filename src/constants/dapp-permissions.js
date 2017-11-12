@@ -2,6 +2,6 @@ import API from './api'
 
 module.exports = {
   API: {
-    [API.CREATE_ACCOUNT]: 'Generate new Ether addresses'
+    [API.GENERATE_ADDRESS]: 'Generate new Ether addresses'
   }
 }

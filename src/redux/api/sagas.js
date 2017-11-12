@@ -1,6 +1,6 @@
 import { put, select, takeLatest } from 'redux-saga/effects'
 
-import { SEND_RAW_TX } from '../wallet/actions'
+import { SEND_RAW_TX } from '../account/actions'
 import { TX_COMPLETED } from './actions'
 import { createAction } from '../utils'
 import { getTxDeferred } from './selectors'

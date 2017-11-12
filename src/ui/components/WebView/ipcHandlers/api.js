@@ -8,12 +8,12 @@ const _ensurePermission = (haystack, needle) => {
   }
 }
 
-export default ({ command }, permissions, { generateAccount }) => {
+export default ({ command }, permissions, { generateAddress }) => {
   switch (command) {
-    case API.CREATE_ACCOUNT:
-      _ensurePermission(permissions, API.CREATE_ACCOUNT)
+    case API.GENERATE_ADDRESS:
+      _ensurePermission(permissions, API.GENERATE_ADDRESS)
 
-      return generateAccount()
+      return generateAddress()
     default:
       return new Error('Unrecognized API command')
   }

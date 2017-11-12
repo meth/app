@@ -5,7 +5,7 @@ import { toBN } from 'web3-utils'
 
 import logger from '../logger'
 import { WalletNotLoadedError } from '../utils/errors'
-import { updateAccountBalances } from '../redux/wallet/actionCreators'
+import { updateAddresses } from '../redux/account/actionCreators'
 import EVENT from '../constants/events'
 import STATE from '../constants/states'
 
@@ -62,28 +62,28 @@ class Wallet extends EventEmitter {
   }
 
   /**
-   * Get all generated accounts.
+   * Get all generated addresses.
    * @return {Array}
    */
-  getAccounts () {
+  getAddresses () {
     return this._hdWallet ? this._hdWallet.getAddresses() : []
   }
 
   /**
-   * Get all generated accounts along with their balances.
+   * Get all generated addresses along with their balances.
    * @return {Object}
    */
-  getAccountBalances () {
+  getAddressBalances () {
     return this._hdWallet
       ? _.zipObject(this._hdWallet.getAddresses(), this._balances)
       : {}
   }
 
   /**
-   * Generate next account.
+   * Generate next address.
    * @return {String} address generated
    */
-  generateAccount () {
+  generateAddress () {
     this._ensureLoaded()
 
     const addr = this._hdWallet.generateAddresses(1).pop()
@@ -184,7 +184,7 @@ class Wallet extends EventEmitter {
   async _setBalancesAndNotifyStore (balances) {
     this._balances = balances.map(toBN)
 
-    await this._store.dispatch(updateAccountBalances(this.getAccountBalances()))
+    await this._store.dispatch(updateAddresses(this.getAddressBalances()))
   }
 
   /**

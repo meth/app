@@ -1,4 +1,4 @@
-import { SEND_TX, CANCEL_TX, WEB3_REQUEST, GENERATE_ACCOUNT } from './actions'
+import { SEND_TX, CANCEL_TX, WEB3_REQUEST, GENERATE_ADDRESS } from './actions'
 import { createAction } from '../utils'
 import { SendTransactionError } from '../../utils/errors'
 import { t } from '../../../strings'
@@ -10,8 +10,8 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
     case WEB3_REQUEST: {
       return nodeConnector.request(action.payload)
     }
-    case GENERATE_ACCOUNT: {
-      return Promise.resolve(walletManager.wallet().generateAccount())
+    case GENERATE_ADDRESS: {
+      return Promise.resolve(walletManager.wallet().generateAddress())
     }
     case SEND_TX: {
       const existingDeferred = getTxDeferred(store.getState())

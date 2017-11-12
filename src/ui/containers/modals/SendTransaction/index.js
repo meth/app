@@ -9,7 +9,7 @@ import Button from '../../../components/Button'
 import ErrorBox from '../../../components/ErrorBox'
 import styles from './styles'
 
-@connectStore('wallet', 'api', 'modals')
+@connectStore('account', 'api', 'modals')
 export default class SendTransaction extends PureComponent {
   state = {
     error: null,

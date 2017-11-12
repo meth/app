@@ -1,7 +1,7 @@
 import configMiddleware from './config/middleware'
 import nodeMiddleware from './node/middleware'
 import apiMiddleware from './api/middleware'
-import walletMiddleware from './wallet/middleware'
+import accountMiddleware from './account/middleware'
 
 export const createMiddleware = app => [
   // first let's ensure the final `dispatch` function is async
@@ -10,5 +10,5 @@ export const createMiddleware = app => [
   configMiddleware(app),
   nodeMiddleware(app),
   apiMiddleware(app),
-  walletMiddleware(app)
+  accountMiddleware(app)
 ]

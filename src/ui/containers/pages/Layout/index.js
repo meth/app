@@ -4,16 +4,16 @@ import { View } from 'react-native'
 import { t } from '../../../../../strings'
 import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
-import { getAccounts } from '../../../../redux/wallet/selectors'
+import { getAddresses } from '../../../../redux/account/selectors'
 import { getNodeConnection } from '../../../../redux/node/selectors'
 import { getUnseenAlertsCount } from '../../../../redux/log/selectors'
 import styles from './styles'
 
-@connectStore('wallet', 'node', 'log', 'modals')
+@connectStore('account', 'node', 'log', 'modals')
 export default class Layout extends PureComponent {
   render () {
     const { network } = getNodeConnection(this.props)
-    const accounts = getAccounts(this.props)
+    const addresses = getAddresses(this.props)
     const unseenAlertsCount = getUnseenAlertsCount(this.props)
     const { children, contentStyle } = this.props
 
@@ -22,7 +22,7 @@ export default class Layout extends PureComponent {
         <Header
           style={styles.header}
           network={network && Object.keys(network).length ? network : null}
-          accounts={accounts}
+          addresses={addresses}
           unseenAlertsCount={unseenAlertsCount}
           appName={t('appName')}
           onPressNetworkInfo={this.showConnectionInfo}
