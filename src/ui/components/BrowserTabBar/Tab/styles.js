@@ -50,5 +50,10 @@ export default create({
   },
   status: {
     marginRight: 10
+  },
+  closeButton: {
+    borderRadius: 40,
+    paddingVertical: 3,
+    paddingHorizontal: 5
   }
 })

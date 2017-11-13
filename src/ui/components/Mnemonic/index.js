@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { knuthShuffle } from 'knuth-shuffle'
 
+import { CachePureComponent } from '../../helpers/components'
 import { t } from '../../../../strings'
 import Button from '../Button'
 import Icon from '../Icon'
 import Loading from '../Loading'
 import styles from './styles'
 
-export class MnemonicConfirmator extends PureComponent {
+export class MnemonicConfirmator extends CachePureComponent {
   static propTypes = {
     mnemonic: PropTypes.string.isRequired,
     style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
@@ -64,7 +65,7 @@ export class MnemonicConfirmator extends PureComponent {
               {jumbled.map(word => (
                 <Button
                   key={word}
-                  onPress={() => this.onPressWord(word)}
+                  onPress={this.cacheMethod('onPressWord', word)}
                   title={word}
                   style={styles.wordWrapperButton}
                   textStyle={[

@@ -22,10 +22,18 @@ export default class IconButton extends PureComponent {
 
     return (
       <Button {...props}
-        onStartHover={() => this.setState({ hovering: true })}
-        onEndHover={() => this.setState({ hovering: false })}>
+        onStartHover={this.onStartHover}
+        onEndHover={this.onEndHover}>
           {children || <Icon {...icon} style={styles.icon} />}
       </Button>
     )
+  }
+
+  onStartHover = () => {
+    this.setState({ hovering: true })
+  }
+
+  onEndHover = () => {
+    this.setState({ hovering: false })
   }
 }

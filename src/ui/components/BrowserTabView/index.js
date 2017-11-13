@@ -25,16 +25,19 @@ export default class BrowserTabView extends PureComponent {
       <View style={styles.container}>
         <View style={styles.navBar}>
           <IconButton
+            type='browserTab'
             icon={{ name: 'chevron-left' }}
             style={styles.navIconButton}
             onPress={this.back}
           />
           <IconButton
+            type='browserTab'
             icon={{ name: 'chevron-right' }}
             style={styles.navIconButton}
             onPress={this.forward}
           />
           <IconButton
+            type='browserTab'
             icon={{ name: 'refresh' }}
             style={styles.navIconButton}
             onPress={this.refresh}

@@ -168,6 +168,36 @@ export default {
       },
       disabled: { ...buttonDisabledStyles }
     },
+    browserTab: {
+      enabled: {
+        default: {
+          borderColor: 'transparent',
+          backgroundColor: 'transparent',
+          textColor: colorGray
+        },
+        hover: {
+          borderColor: 'transparent',
+          backgroundColor: colorGray,
+          textColor: colorLightGray
+        }
+      },
+      disabled: { ...buttonDisabledStyles }
+    },
+    browserPanel: {
+      enabled: {
+        default: {
+          borderColor: 'transparent',
+          backgroundColor: 'transparent',
+          textColor: color3
+        },
+        hover: {
+          borderColor: 'transparent',
+          backgroundColor: color3,
+          textColor: color2
+        }
+      },
+      disabled: { ...buttonDisabledStyles }
+    },
     header: {
       enabled: {
         default: {

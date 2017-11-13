@@ -1,13 +1,14 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 
+import { CachePureComponent } from '../../helpers/components'
 import TouchableView from '../TouchableView'
 import { Popup } from '../Popup'
 import PickerButton from '../PickerButton'
 import styles from './styles'
 
-export default class Picker extends PureComponent {
+export default class Picker extends CachePureComponent {
   state = {
     open: false,
     popupStyle: {}
@@ -47,7 +48,7 @@ export default class Picker extends PureComponent {
         key={value}
         style={styles.optionContainer}
         hoverStyle={styles.optionContainerHover}
-        onPress={() => this.onSelect(value)}>
+        onPress={this.cacheMethod('onSelect', value)}>
           <Text style={styles.optionText}>{label}</Text>
       </TouchableView>
     ))

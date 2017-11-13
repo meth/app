@@ -6,5 +6,13 @@ export default create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'stretch'
+  },
+  plusButton: {
+    alignSelf: 'flex-end',
+    borderRadius: 40,
+    paddingVertical: 3,
+    paddingHorizontal: 5,
+    marginLeft: 5,
+    marginBottom: 5
   }
 })

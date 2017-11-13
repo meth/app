@@ -56,13 +56,18 @@ const Tab = SortableElement(tab => {
         <View style={styles.leftContent}>
           {statusIcon}
           <Text
+            selectable={false}
             style={[ styles.tabText, active ? styles.activeTabText : null ]}>
             {sanitizeLabel(label)}
           </Text>
         </View>
         <View style={styles.rightContent}>
           {(!onClose) ? null : (
-            <IconButton icon={{ name: 'close' }} onPress={onClose} />
+            <IconButton
+              style={styles.closeButton}
+              type='browserTab'
+              icon={{ name: 'close' }}
+              onPress={onClose} />
           )}
         </View>
       </View>

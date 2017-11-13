@@ -9,6 +9,7 @@ export default class WebView extends PureComponent {
   static propTypes = {
     url: PropTypes.string.isRequired,
     apiMethods: PropTypes.object.isRequired,
+    permissions: PropTypes.array,
     onUrlChange: PropTypes.func.isRequired,
     onTitleChange: PropTypes.func.isRequired,
     onLoading: PropTypes.func.isRequired,
@@ -82,7 +83,6 @@ export default class WebView extends PureComponent {
       this.props.onUrlChange(newURL)
     }
   }
-  onNewTitle = ({ title }) => this.props.onTitleChange(title)
   onNewWindow = ({ url }) => this.props.onOpenNewWindow(url)
 
   onWeb3Request = ({ channel, args }) => {

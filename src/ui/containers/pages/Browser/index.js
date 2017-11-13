@@ -1,10 +1,11 @@
 import _ from 'lodash'
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { View } from 'react-native'
 
 import API from '../../../../constants/api'
 import STATE from '../../../../constants/states'
 import { globalEvents, OPEN_ACTIVE_TAB_DEV_TOOLS } from '../../../../env'
+import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
@@ -14,7 +15,7 @@ import BrowserTabView from '../../../components/BrowserTabView'
 const newTabId = () => _.random(1, 1000000000)
 
 @connectStore('api')
-export default class Browser extends PureComponent {
+export default class Browser extends CachePureComponent {
   state = {
     tabs: [
       // {
@@ -60,11 +61,11 @@ export default class Browser extends PureComponent {
               if (active) this.activeTabView = view
             }}
             apiMethods={this.props.actions}
-            onUrlChange={url => this.onTabUrlChange(id, url)}
-            onLoading={() => this.onTabStatusChange(id, STATE.LOADING)}
-            onLoaded={() => this.onTabStatusChange(id, STATE.LOADED)}
-            onLoadingError={() => this.onTabStatusChange(id, STATE.ERROR)}
-            onTitleChange={title => this.onTabTitleChange(id, title)}
+            onUrlChange={this.cacheMethod('onTabUrlChange', id)}
+            onLoading={this.cacheMethod('onTabStatusChange', id, STATE.LOADING)}
+            onLoaded={this.cacheMethod('onTabStatusChange', id, STATE.LOADED)}
+            onLoadingError={this.cacheMethod('onTabStatusChange', id, STATE.ERROR)}
+            onTitleChange={this.cacheMethod('onTabTitleChange', id)}
             onOpenNewWindow={this.onNewTab}
           />
         </View>

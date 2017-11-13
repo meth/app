@@ -1,8 +1,9 @@
 import _ from 'lodash'
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { Text, View } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
+import { CachePureComponent } from '../../../helpers/components'
 import { getNodes } from '../../../../redux/config/selectors'
 import { getNodeConnection, getNodeIsConnected, getDisconnectReason } from '../../../../redux/node/selectors'
 import { t } from '../../../../../strings'
@@ -15,7 +16,7 @@ import Picker from '../../../components/Picker'
 import styles from './styles'
 
 @connectStore('config', 'node', 'modals')
-export default class ConnectNode extends PureComponent {
+export default class ConnectNode extends CachePureComponent {
   state = {
     disconnecting: false,
     connecting: false,
@@ -59,7 +60,7 @@ export default class ConnectNode extends PureComponent {
         <ProgressButton
           style={styles.button}
           showInProgress={disconnecting}
-          onPress={() => this.onDisconnect()}
+          onPress={this.onDisconnect}
           title={t('button.disconnectFromNode')} />
         {this.renderError()}
       </View>
@@ -116,7 +117,7 @@ export default class ConnectNode extends PureComponent {
         <ProgressButton
           style={styles.button}
           showInProgress={connecting}
-          onPress={() => this.onConnect(selected.value)}
+          onPress={this.cacheMethod(this, 'onConnect', selected.value)}
           title={t('button.connectToNode')} />
         {this.renderError()}
       </View>
