@@ -12,6 +12,7 @@ const TabList = SortableContainer(({ tabs, onSelect, onClose }) => (
       <Tab
         key={tab.id}
         index={index}
+        totalTabs={tabs.length}
         onSelect={() => onSelect(tab.id)}
         onClose={1 < tabs.length ? () => onClose(tab.id) : null}
         {...tab}

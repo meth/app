@@ -12,7 +12,7 @@ export default create({
     borderRadius: 40,
     paddingVertical: 3,
     paddingHorizontal: 5,
-    marginLeft: 5,
+    marginLeft: 10,
     marginBottom: 5
   }
 })

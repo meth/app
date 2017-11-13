@@ -1,31 +1,20 @@
-import _ from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { SortableElement } from 'react-sortable-hoc'
 
 import STATE from '../../../../constants/states'
-import { trimProtocol } from '../../../../utils/url'
-import styles from './styles'
+import createStyles from './styles'
 import TouchableView from '../../TouchableView'
 import IconButton from '../../IconButton'
 import Icon from '../../Icon'
 import Loading from '../../Loading'
 
-const MAX_LABEL_LENGTH = 20
-
-const sanitizeLabel = label => {
-  // trim
-  const myLabel = trimProtocol(_.trim(label, '/'))
-
-  // limit length
-  return MAX_LABEL_LENGTH > myLabel.length
-    ? myLabel
-    : `${myLabel.substr(0, MAX_LABEL_LENGTH - 3)}...`
-}
 
 const Tab = SortableElement(tab => {
-  const { label: defaultLabel, url, active, onSelect, onClose, status } = tab
+  const { label: defaultLabel, totalTabs, url, active, onSelect, onClose, status } = tab
+
+  const styles = createStyles({ totalTabs })
 
   // status icon
   let statusIcon = null
@@ -58,7 +47,7 @@ const Tab = SortableElement(tab => {
           <Text
             selectable={false}
             style={[ styles.tabText, active ? styles.activeTabText : null ]}>
-            {sanitizeLabel(label)}
+              {label}
           </Text>
         </View>
         <View style={styles.rightContent}>
@@ -78,6 +67,7 @@ const Tab = SortableElement(tab => {
 Tab.propTypes = {
   label: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  totalTabs: PropTypes.number,
   onSelect: PropTypes.func,
   active: PropTypes.bool,
   onClose: PropTypes.func,

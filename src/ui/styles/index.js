@@ -8,7 +8,7 @@ EStyleSheet.build(flatten(defaultTheme, { delimiter: '_' }))
 
 export const theme = defaultTheme
 
-export const screen = Dimensions.get('window')
+export const getWindowDimensions = () => Dimensions.get('window')
 
 export const create = EStyleSheet.create.bind(EStyleSheet)
 
