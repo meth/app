@@ -65,7 +65,7 @@ export class MnemonicConfirmator extends CachePureComponent {
               {jumbled.map(word => (
                 <Button
                   key={word}
-                  onPress={this.cacheMethod('onPressWord', word)}
+                  onPress={this.cacheBind('onPressWord', word)}
                   title={word}
                   style={styles.wordWrapperButton}
                   textStyle={[

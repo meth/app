@@ -48,7 +48,7 @@ export default class Picker extends CachePureComponent {
         key={value}
         style={styles.optionContainer}
         hoverStyle={styles.optionContainerHover}
-        onPress={this.cacheMethod('onSelect', value)}>
+        onPress={this.cacheBind('onSelect', value)}>
           <Text style={styles.optionText}>{label}</Text>
       </TouchableView>
     ))

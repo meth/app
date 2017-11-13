@@ -64,11 +64,11 @@ export default class Browser extends CachePureComponent {
             url={url}
             permissions={permissions}
             apiMethods={this.props.actions}
-            onUrlChange={this.cacheMethod('onTabUrlChange', id)}
-            onLoading={this.cacheMethod('onTabStatusChange', id, STATE.LOADING)}
-            onLoaded={this.cacheMethod('onTabStatusChange', id, STATE.LOADED)}
-            onLoadingError={this.cacheMethod('onTabStatusChange', id, STATE.ERROR)}
-            onTitleChange={this.cacheMethod('onTabTitleChange', id)}
+            onUrlChange={this.cacheBind('onTabUrlChange', id)}
+            onLoading={this.cacheBind('onTabStatusChange', id, STATE.LOADING)}
+            onLoaded={this.cacheBind('onTabStatusChange', id, STATE.LOADED)}
+            onLoadingError={this.cacheBind('onTabStatusChange', id, STATE.ERROR)}
+            onTitleChange={this.cacheBind('onTabTitleChange', id)}
             onOpenNewWindow={this.openNewTab}
           />
         </View>

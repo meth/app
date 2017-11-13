@@ -18,7 +18,7 @@ module.exports = {
       copy: 'Copy',
       paste: 'Paste',
       selectAll: 'Select all',
-      browser: 'Browser',
+      navigation: 'Navigation',
       newTab: 'Open new tab',
       closeTab: 'Close current tab',
       editUrl: 'Edit current tab URL',

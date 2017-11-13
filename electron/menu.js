@@ -29,7 +29,7 @@ exports.setup = () => {
       ]
     },
     {
-      label: t('menu.browser'),
+      label: t('menu.navigation'),
       submenu: [
         { label: t('menu.closeTab'), accelerator: 'Command+W', click: () => Windows.getMainWindow().send(UI_TASKS.CLOSE_TAB) },
         { label: t('menu.editUrl'), accelerator: 'Command+L', click: () => Windows.getMainWindow().send(UI_TASKS.EDIT_TAB_URL) },

@@ -117,7 +117,7 @@ export default class ConnectNode extends CachePureComponent {
         <ProgressButton
           style={styles.button}
           showInProgress={connecting}
-          onPress={this.cacheMethod(this, 'onConnect', selected.value)}
+          onPress={this.cacheBind(this, 'onConnect', selected.value)}
           title={t('button.connectToNode')} />
         {this.renderError()}
       </View>
