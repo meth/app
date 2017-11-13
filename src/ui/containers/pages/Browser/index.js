@@ -27,7 +27,14 @@ export default class Browser extends PureComponent {
         active: true,
         id: newTabId(),
         label: 'Wallet',
-        url: 'https://wallet.ethereum.org/',
+        url: 'https://google.com/',
+        permissions: [ API.CREATE_ACCOUNT ]
+      },
+      {
+        active: false,
+        id: newTabId(),
+        label: 'Wallet',
+        url: 'https://google.com/',
         permissions: [ API.CREATE_ACCOUNT ]
       }
     ]

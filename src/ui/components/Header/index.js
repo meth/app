@@ -6,7 +6,6 @@ import { fromWei } from 'web3-utils'
 
 import Button from '../Button'
 import AlertsButton from './AlertsButton'
-import IconButton from '../IconButton'
 import styles from './styles'
 
 export default class Header extends PureComponent {
@@ -31,7 +30,6 @@ export default class Header extends PureComponent {
           {network && addresses ? this.renderBalance(addresses) : null}
           {network ? this.renderNetwork(network) : null}
           {this.renderAlerts()}
-          {network ? this.renderLogoutButton() : null}
         </View>
       </View>
     )
@@ -77,17 +75,6 @@ export default class Header extends PureComponent {
           unseenAlertsCount={unseenAlertsCount}
           onPress={onPressAlerts}
         />
-      </View>
-    )
-  }
-
-  renderLogoutButton () {
-    return (
-      <View style={styles.logout}>
-        <IconButton
-          style={styles.button}
-          type='header'
-          icon={{ name: 'sign-out' }} />
       </View>
     )
   }

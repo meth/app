@@ -1,4 +1,10 @@
-import { bindActionCreators, applyMiddleware, compose, combineReducers, createStore } from 'redux'
+import {
+  bindActionCreators,
+  applyMiddleware,
+  compose,
+  combineReducers,
+  createStore
+} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
 import actionCreators from './actionCreators'

@@ -52,7 +52,7 @@ export default {
   },
   browser: {
     tabBar: {
-      backgroundColor: '#ccc',
+      backgroundColor: color2,
       tab: {
         inactive: {
           borderColor: '#999',
