@@ -54,6 +54,6 @@ export default class Root extends PureComponent {
       })
     }
 
-    return /*components.length ? components : */null
+    return /* components.length ? components : */ null
   }
 }

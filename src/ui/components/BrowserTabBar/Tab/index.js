@@ -47,11 +47,11 @@ const Tab = SortableElement(tab => {
   }
 
   return (
-    <View style={[ styles.tab, active ? styles.activeTab : null ]}>
-      <TouchableView
-        style={[ styles.bg, active ? styles.activeBg : null ]}
+    <TouchableView
+        style={[ styles.tab, active ? styles.activeTab : null ]}
         onPress={active ? null : onSelect}
-        title={label} />
+        title={label}>
+      <View style={[ styles.bg, active ? styles.activeBg : null ]} />
       <View style={styles.content}>
         <View style={styles.leftContent}>
           {statusIcon}
@@ -66,7 +66,7 @@ const Tab = SortableElement(tab => {
           )}
         </View>
       </View>
-    </View>
+    </TouchableView>
   )
 })
 

@@ -26,16 +26,22 @@ export default class Browser extends PureComponent {
       {
         active: true,
         id: newTabId(),
-        label: 'Wallet',
+        label: 'Google',
         url: 'https://google.com/',
         permissions: [ API.CREATE_ACCOUNT ]
       },
       {
         active: false,
         id: newTabId(),
-        label: 'Wallet',
-        url: 'https://google.com/',
+        label: 'Example',
+        url: 'https://example.com/',
         permissions: [ API.CREATE_ACCOUNT ]
+      },
+      {
+        active: false,
+        id: newTabId(),
+        label: 'Placeholder',
+        url: 'https://placeholder.com/'
       }
     ]
   }
