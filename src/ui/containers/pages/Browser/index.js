@@ -4,7 +4,15 @@ import { View } from 'react-native'
 
 import API from '../../../../constants/api'
 import STATE from '../../../../constants/states'
-import { globalEvents, OPEN_ACTIVE_TAB_DEV_TOOLS } from '../../../../env'
+import {
+  globalEvents,
+  OPEN_ACTIVE_TAB_DEV_TOOLS,
+  OPEN_NEW_TAB,
+  CLOSE_TAB,
+  EDIT_TAB_URL,
+  GOTO_PREVIOUS_TAB,
+  GOTO_NEXT_TAB
+} from '../../../../env'
 import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -61,7 +69,7 @@ export default class Browser extends CachePureComponent {
             onLoaded={this.cacheMethod('onTabStatusChange', id, STATE.LOADED)}
             onLoadingError={this.cacheMethod('onTabStatusChange', id, STATE.ERROR)}
             onTitleChange={this.cacheMethod('onTabTitleChange', id)}
-            onOpenNewWindow={this.onNewTab}
+            onOpenNewWindow={this.openNewTab}
           />
         </View>
       )
@@ -74,7 +82,7 @@ export default class Browser extends CachePureComponent {
           onSort={this.onSortTabs}
           onSelect={this.onSelectTab}
           onClose={this.onCloseTab}
-          onNewTab={this.onNewTab}
+          onNewTab={this.openNewTab}
         />
         <View style={styles.browserViews}>{browserViews}</View>
       </Layout>
@@ -83,10 +91,20 @@ export default class Browser extends CachePureComponent {
 
   componentDidMount () {
     globalEvents.addListener(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
+    globalEvents.addListener(OPEN_NEW_TAB, this.openNewTab)
+    globalEvents.addListener(CLOSE_TAB, this.closeActiveTab)
+    globalEvents.addListener(EDIT_TAB_URL, this.editActiveTabUrl)
+    globalEvents.addListener(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
+    globalEvents.addListener(GOTO_NEXT_TAB, this.gotoNextTab)
   }
 
   componentWillUnmount () {
     globalEvents.removeListener(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
+    globalEvents.removeListener(OPEN_NEW_TAB, this.openNewTab)
+    globalEvents.removeListener(CLOSE_TAB, this.closeActiveTab)
+    globalEvents.removeListener(EDIT_TAB_URL, this.editActiveTabUrl)
+    globalEvents.removeListener(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
+    globalEvents.removeListener(GOTO_NEXT_TAB, this.gotoNextTab)
   }
 
   openActiveTabDevTools = () => {
@@ -95,8 +113,58 @@ export default class Browser extends CachePureComponent {
     }
   }
 
+  openNewTab = url => {
+    const id = newTabId()
+
+    this.state.tabs.push({
+      id,
+      label: url || 'about:blank',
+      url: url || 'about:blank',
+      active: true,
+      status: STATE.LOADING
+    })
+
+    this.onSelectTab(id)
+  }
+
+  closeActiveTab = () => {
+    const { tabs } = this.state
+
+    const tab = tabs.find(({ active }) => active)
+
+    if (tab) {
+      this.onCloseTab(tab.id)
+    }
+  }
+
+  editActiveTabUrl = () => {
+    if (this.activeTabView) {
+      this.activeTabView.focusAddressBar()
+    }
+  }
+
+  gotoNextTab = () => {
+    const { tabs } = this.state
+
+    let index = Math.max(0, tabs.findIndex(t => !!t.active))
+
+    index = (tabs.length - 1 === index) ? 0 : index += 1
+
+    this.onSelectTab(tabs[index].id)
+  }
+
+  gotoPreviousTab = () => {
+    const { tabs } = this.state
+
+    let index = Math.max(0, tabs.findIndex(t => !!t.active))
+
+    index = (0 === index) ? tabs.length - 1 : index -= 1
+
+    this.onSelectTab(tabs[index].id)
+  }
+
   onTabUrlChange = (id, url) => {
-    this._forEachTab(t => {
+    this._updatTabs(t => {
       if (t.id === id) {
         // eslint-disable-next-line no-param-reassign
         t.url = url
@@ -105,7 +173,7 @@ export default class Browser extends CachePureComponent {
   }
 
   onTabTitleChange = (id, title) => {
-    this._forEachTab(t => {
+    this._updatTabs(t => {
       if (t.id === id) {
         // eslint-disable-next-line no-param-reassign
         t.label = title
@@ -114,7 +182,7 @@ export default class Browser extends CachePureComponent {
   }
 
   onTabStatusChange = (id, status) => {
-    this._forEachTab(t => {
+    this._updatTabs(t => {
       if (t.id === id) {
         // eslint-disable-next-line no-param-reassign
         t.status = status
@@ -127,7 +195,7 @@ export default class Browser extends CachePureComponent {
   }
 
   onSelectTab = id => {
-    this._forEachTab(t => {
+    this._updatTabs(t => {
       // eslint-disable-next-line no-param-reassign
       t.active = t.id === id
     })
@@ -137,21 +205,7 @@ export default class Browser extends CachePureComponent {
     this._filterTabs(t => t.id !== id)
   }
 
-  onNewTab = url => {
-    const id = newTabId()
-
-    this.state.tabs.push({
-      id,
-      label: url,
-      url,
-      active: true,
-      status: STATE.LOADING
-    })
-
-    this.onSelectTab(id)
-  }
-
-  _forEachTab = cb => {
+  _updatTabs = cb => {
     const { tabs } = this.state
 
     tabs.forEach(cb)

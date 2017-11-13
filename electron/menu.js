@@ -29,6 +29,17 @@ exports.setup = () => {
       ]
     },
     {
+      label: t('menu.browser'),
+      submenu: [
+        { label: t('menu.closeTab'), accelerator: 'Command+W', click: () => Windows.getMainWindow().send(UI_TASKS.CLOSE_TAB) },
+        { label: t('menu.editUrl'), accelerator: 'Command+L', click: () => Windows.getMainWindow().send(UI_TASKS.EDIT_TAB_URL) },
+        { type: 'separator' },
+        { label: t('menu.previousTab'), accelerator: 'Alt+Command+Left', click: () => Windows.getMainWindow().send(UI_TASKS.GOTO_PREVIOUS_TAB) },
+        { label: t('menu.nextTab'), accelerator: 'Alt+Command+Right', click: () => Windows.getMainWindow().send(UI_TASKS.GOTO_NEXT_TAB) },
+        { label: t('menu.newTab'), accelerator: 'Command+T', click: () => Windows.getMainWindow().send(UI_TASKS.OPEN_NEW_TAB) }
+      ]
+    },
+    {
       label: t('menu.developer'),
       submenu: [
         { label: t('menu.devTools'), accelerator: 'Alt+Command+I', click: () => Windows.getMainWindow().openDevTools() },

@@ -17,7 +17,13 @@ module.exports = {
       cut: 'Cut',
       copy: 'Copy',
       paste: 'Paste',
-      selectAll: 'Select all'
+      selectAll: 'Select all',
+      browser: 'Browser',
+      newTab: 'Open new tab',
+      closeTab: 'Close current tab',
+      editUrl: 'Edit current tab URL',
+      previousTab: 'Goto previous tab',
+      nextTab: 'Goto next tab'
     },
     connector: {
       connectToNode: 'Connect to node',

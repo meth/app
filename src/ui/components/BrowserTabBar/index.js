@@ -45,6 +45,6 @@ export default class BrowserTabBar extends PureComponent {
   onNewTab = () => {
     const { onNewTab } = this.props
 
-    onNewTab('about:blank')
+    onNewTab()
   }
 }

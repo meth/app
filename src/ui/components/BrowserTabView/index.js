@@ -43,10 +43,12 @@ export default class BrowserTabView extends PureComponent {
             onPress={this.refresh}
           />
           <TextInput
+            ref={input => { this.addressInput = input }}
             value={url}
             onChange={this.onChangeUrl}
             onSubmitEditing={this.onEnterUrl}
             style={styles.navUrlInput}
+            selectTextOnFocus
           />
         </View>
         <View style={styles.webView}>
@@ -95,5 +97,11 @@ export default class BrowserTabView extends PureComponent {
 
   openDevTools = () => {
     this.webView.openDevTools()
+  }
+
+  focusAddressBar = () => {
+    if (this.addressInput) {
+      this.addressInput.focusHighlight()
+    }
   }
 }

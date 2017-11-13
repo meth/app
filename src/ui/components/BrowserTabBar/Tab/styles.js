@@ -63,6 +63,10 @@ export default ({ totalTabs }) => {
       borderRadius: CLOSE_BUTTON_SIZE,
       paddingVertical: 3,
       paddingHorizontal: 5
+    },
+    tabText: {
+      flex: 1,
+      textAlign: 'left'
     }
   })
 }

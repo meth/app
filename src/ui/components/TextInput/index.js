@@ -17,6 +17,7 @@ export default class Field extends PureComponent {
 
     return (
       <TextInput
+        ref={input => { this.textInput = input }}
         style={[ styles.input, style ]}
         autoCapitalize={'none'}
         autoCorrect={false}
@@ -39,5 +40,11 @@ export default class Field extends PureComponent {
     this.setState({
       fieldState: 'focussed'
     })
+  }
+
+  focusHighlight () {
+    if (this.textInput) {
+      this.textInput.focus()
+    }
   }
 }

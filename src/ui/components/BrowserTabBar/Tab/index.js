@@ -45,6 +45,7 @@ const Tab = SortableElement(tab => {
         <View style={styles.leftContent}>
           {statusIcon}
           <Text
+            numberOfLines={1}
             selectable={false}
             style={[ styles.tabText, active ? styles.activeTabText : null ]}>
               {label}

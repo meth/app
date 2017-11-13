@@ -6,13 +6,15 @@ import logger from '../logger'
 
 const log = logger.create('config')
 
-export default UI_TASKS
+const globalEvents = new EventEmitter()
 
-class GlobalEvents extends EventEmitter {}
-export const globalEvents = new GlobalEvents()
-
-window.addEventListener(IPC.UI_TASK, ({ task, data }) => {
+window.addEventListener(IPC.UI_TASK, ({ detail: { task, data } }) => {
   log.debug('Recieved UI task IPC command', task)
 
   globalEvents.emit(task, data)
 })
+
+module.exports = {
+  ...UI_TASKS,
+  globalEvents
+}
