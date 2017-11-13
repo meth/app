@@ -37,12 +37,6 @@ export default class Browser extends CachePureComponent {
         label: 'Example',
         url: 'https://example.com/',
         permissions: [ API.CREATE_ACCOUNT ]
-      },
-      {
-        active: false,
-        id: newTabId(),
-        label: 'Placeholder',
-        url: 'https://placeholder.com/'
       }
     ]
   }
@@ -51,15 +45,16 @@ export default class Browser extends CachePureComponent {
     const tabs = this.state.tabs.filter(t => t)
 
     const browserViews = tabs.map(tab => {
-      const { id, active } = tab
+      const { id, active, url, permissions } = tab
 
       return (
         <View key={id} style={active ? styles.activeView : styles.inactiveView}>
           <BrowserTabView
-            {...tab}
             ref={view => {
               if (active) this.activeTabView = view
             }}
+            url={url}
+            permissions={permissions}
             apiMethods={this.props.actions}
             onUrlChange={this.cacheMethod('onTabUrlChange', id)}
             onLoading={this.cacheMethod('onTabStatusChange', id, STATE.LOADING)}
