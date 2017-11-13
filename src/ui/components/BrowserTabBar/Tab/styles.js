@@ -38,7 +38,9 @@ export default create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    paddingLeft: 10
+    paddingLeft: 10,
+    maxWidth: '60%',
+    overflow: 'hidden'
   },
   rightContent: {
     flexDirection: 'row',

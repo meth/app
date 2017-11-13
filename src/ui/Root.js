@@ -27,7 +27,7 @@ export default class Root extends PureComponent {
     return (
       <PopupContext style={{ flex: 1 }}>
         <Navigator />
-        {this.showModal()}
+        {this.renderModals()}
       </PopupContext>
     )
   }
@@ -36,7 +36,7 @@ export default class Root extends PureComponent {
     log.error('UI error', error, info)
   }
 
-  showModal () {
+  renderModals () {
     const modals = getModals(this.props)
 
     const components = []
@@ -54,6 +54,6 @@ export default class Root extends PureComponent {
       })
     }
 
-    return components.length ? components : null
+    return /*components.length ? components : */null
   }
 }
