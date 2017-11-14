@@ -164,7 +164,7 @@ export default class Browser extends CachePureComponent {
   }
 
   onTabUrlChange = (id, url) => {
-    this._updatTabs(t => {
+    this._updateTabs(t => {
       if (t.id === id) {
         // eslint-disable-next-line no-param-reassign
         t.url = url
@@ -173,7 +173,7 @@ export default class Browser extends CachePureComponent {
   }
 
   onTabTitleChange = (id, title) => {
-    this._updatTabs(t => {
+    this._updateTabs(t => {
       if (t.id === id) {
         // eslint-disable-next-line no-param-reassign
         t.label = title
@@ -186,7 +186,7 @@ export default class Browser extends CachePureComponent {
     // we don't update the display too often, by using a timer.
     clearTimeout(this._tabStatusTimer)
     this._tabStatusTimer = setTimeout(() => {
-      this._updatTabs(t => {
+      this._updateTabs(t => {
         if (t.id === id) {
           // eslint-disable-next-line no-param-reassign
           t.status = status
@@ -200,7 +200,7 @@ export default class Browser extends CachePureComponent {
   }
 
   onSelectTab = id => {
-    this._updatTabs(t => {
+    this._updateTabs(t => {
       // eslint-disable-next-line no-param-reassign
       t.active = t.id === id
     })
@@ -210,7 +210,7 @@ export default class Browser extends CachePureComponent {
     this._filterTabs(t => t.id !== id)
   }
 
-  _updatTabs = cb => {
+  _updateTabs = cb => {
     const { tabs } = this.state
 
     tabs.forEach(cb)
@@ -229,24 +229,19 @@ export default class Browser extends CachePureComponent {
     Object.keys(tabs).forEach(index => {
       const tab = tabs[index]
 
-      // if tab should be removed
-      if (!cb(tab)) {
-        // if it was active then next active tab is one before it
-        if (tab.active) {
-          newActiveIndex = index - 1
-        }
-      } else {
-        // tab shouldn' be removed, add it to final list
+      // if tab should remain
+      if (cb(tab)) {
         final.push(tab)
+      }
+      // if tab was active then we may need to select a new active tab
+      else if (tab.active) {
+        newActiveIndex = index
       }
     })
 
     // if another tab should be made "active"
-    if (-1 < newActiveIndex) {
-      // ensure index of new tab to be made active is valid
-      while (newActiveIndex >= tabs.length) {
-        newActiveIndex -= 1
-      }
+    if (final.length <= newActiveIndex) {
+      newActiveIndex = final.length - 1
       // make new tab active
       final[newActiveIndex].active = true
     }
