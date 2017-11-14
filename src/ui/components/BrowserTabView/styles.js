@@ -9,7 +9,8 @@ export default create({
   },
   navBar: {
     flex: 0,
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -20,7 +21,8 @@ export default create({
     flex: 0
   },
   navUrlInput: {
-    flex: 1
+    flex: 1,
+    marginHorizontal: 5
   },
   webView: {
     flex: 1

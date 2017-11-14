@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { SortableElement } from 'react-sortable-hoc'
 
+import { t } from '../../../../../strings'
 import STATE from '../../../../constants/states'
 import createStyles from './styles'
 import TouchableView from '../../TouchableView'
@@ -54,6 +55,7 @@ const Tab = SortableElement(tab => {
           {(!onClose) ? null : (
             <IconButton
               style={styles.closeButton}
+              tooltip={t('button.browser.closeTab')}
               type='browserTab'
               icon={{ name: 'close' }}
               onPress={onClose} />

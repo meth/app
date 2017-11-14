@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
+import PropTypes from 'prop-types'
 
+import { t } from '../../../../strings'
 import styles from './styles'
 import { addProtocol } from '../../../utils/url'
 import IconButton from '../IconButton'
@@ -8,7 +10,10 @@ import TextInput from '../TextInput'
 import WebView from '../WebView'
 
 export default class BrowserTabView extends PureComponent {
-  static propTypes = WebView.propTypes
+  static propTypes = {
+    ...WebView.propTypes,
+    editDappPermissions: PropTypes.func.isRequired
+  }
 
   constructor (props, ctx) {
     super(props, ctx)
@@ -20,24 +25,28 @@ export default class BrowserTabView extends PureComponent {
 
   render () {
     const { url } = this.state
+    const { editDappPermissions } = this.props
 
     return (
       <View style={styles.container}>
         <View style={styles.navBar}>
           <IconButton
             type='browserTab'
+            tooltip={t('button.browser.back')}
             icon={{ name: 'chevron-left' }}
             style={styles.navIconButton}
             onPress={this.back}
           />
           <IconButton
             type='browserTab'
+            tooltip={t('button.browser.forward')}
             icon={{ name: 'chevron-right' }}
             style={styles.navIconButton}
             onPress={this.forward}
           />
           <IconButton
             type='browserTab'
+            tooltip={t('button.browser.reload')}
             icon={{ name: 'refresh' }}
             style={styles.navIconButton}
             onPress={this.refresh}
@@ -49,6 +58,13 @@ export default class BrowserTabView extends PureComponent {
             onSubmitEditing={this.onEnterUrl}
             style={styles.navUrlInput}
             selectTextOnFocus
+          />
+          <IconButton
+            type='browserTab'
+            tooltip={t('button.browser.editPermissions')}
+            icon={{ name: 'gear' }}
+            style={styles.navIconButton}
+            onPress={editDappPermissions}
           />
         </View>
         <View style={styles.webView}>
@@ -93,10 +109,6 @@ export default class BrowserTabView extends PureComponent {
 
   refresh = () => {
     this.webView.refresh()
-  }
-
-  openDevTools = () => {
-    this.webView.openDevTools()
   }
 
   focusAddressBar = () => {

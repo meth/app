@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { View } from 'react-native'
 import { arrayMove } from 'react-sortable-hoc'
 
+import { t } from '../../../../strings'
 import styles from './styles'
 import IconButton from '../IconButton'
 import TabList from './TabList'
@@ -30,6 +31,7 @@ export default class BrowserTabBar extends PureComponent {
         <IconButton
           style={styles.plusButton}
           type='browserPanel'
+          tooltip={t('button.browser.newTab')}
           icon={{ name: 'plus' }}
           onPress={this.onNewTab} />
       </View>

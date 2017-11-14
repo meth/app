@@ -10,6 +10,7 @@ export default class Button extends PureComponent {
     disabled: PropTypes.bool,
     type: PropTypes.string,
     title: PropTypes.string,
+    tooltip: PropTypes.string,
     onPress: PropTypes.func,
     onDisabledPress: PropTypes.func,
     style: PropTypes.oneOfType([ PropTypes.number, PropTypes.array, PropTypes.object ]),
@@ -30,7 +31,7 @@ export default class Button extends PureComponent {
   }
 
   render () {
-    const { disabled, title, type, style, textStyle, onLayout, children } = this.props
+    const { disabled, title, tooltip, type, style, textStyle, onLayout, children } = this.props
 
     const { hovering } = this.state
 
@@ -51,6 +52,7 @@ export default class Button extends PureComponent {
         onStartHover={this.onStartHover}
         onEndHover={this.onEndHover}
         onPress={this.onPress}
+        title={tooltip}
         style={[ styles.box ].concat(style)}>
         {content}
       </TouchableView>

@@ -74,7 +74,15 @@ module.exports = {
       generateRawTransaction: 'Generate raw transaction',
       iHaveWrittenDownMnemonic: 'I have written down my mnemonic and wish to proceed',
       iHaveConfirmedMyMnemonic: 'I have successfully confirmed my mnemonic',
-      pressToRevealMnemonic: 'Press to reveal'
+      pressToRevealMnemonic: 'Press to reveal',
+      browser: {
+        forward: 'Forward',
+        back: 'Back',
+        reload: 'Reload',
+        editPermissions: 'Edit permissions',
+        newTab: 'Open new tab',
+        closeTab: 'Close tab'
+      }
     },
     config: {
       node: {

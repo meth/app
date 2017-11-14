@@ -70,6 +70,7 @@ export default class Browser extends CachePureComponent {
             onLoadingError={this.cacheBind('onTabStatusChange', id, STATE.ERROR)}
             onTitleChange={this.cacheBind('onTabTitleChange', id)}
             onOpenNewWindow={this.openNewTab}
+            editDappPermissions={this.cacheBind('onEditPermissions', id)}
           />
         </View>
       )
@@ -208,6 +209,13 @@ export default class Browser extends CachePureComponent {
 
   onCloseTab = id => {
     this._filterTabs(t => t.id !== id)
+  }
+
+  onEditPermissions = id => {
+    const { tabs } = this.state
+    const tab = tabs.find(t => t.id === id)
+
+    console.warn(tab)
   }
 
   _updateTabs = cb => {
