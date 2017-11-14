@@ -68,8 +68,12 @@ export default class WebView extends PureComponent {
 
   /* event handlers */
 
-  onLoading = () => this.props.onLoading()
-  onLoaded = () => this.props.onLoaded()
+  onLoading = () => {
+    this.props.onLoading()
+  }
+  onLoaded = () => {
+    this.props.onLoaded()
+  }
   onLoadingError = ({ isMainFrame, errorDescription }) => {
     if (isMainFrame) {
       this.props.onLoadingError(errorDescription)
@@ -84,6 +88,7 @@ export default class WebView extends PureComponent {
     }
   }
   onNewWindow = ({ url }) => this.props.onOpenNewWindow(url)
+  onNewTitle = ({ title }) => this.props.onTitleChange(title)
 
   onWeb3Request = ({ channel, args }) => {
     // if it's a web3 request

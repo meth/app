@@ -182,12 +182,17 @@ export default class Browser extends CachePureComponent {
   }
 
   onTabStatusChange = (id, status) => {
-    this._updatTabs(t => {
-      if (t.id === id) {
-        // eslint-disable-next-line no-param-reassign
-        t.status = status
-      }
-    })
+    // tab status changes rapidly at times, let's smoothen things out so that
+    // we don't update the display too often, by using a timer.
+    clearTimeout(this._tabStatusTimer)
+    this._tabStatusTimer = setTimeout(() => {
+      this._updatTabs(t => {
+        if (t.id === id) {
+          // eslint-disable-next-line no-param-reassign
+          t.status = status
+        }
+      })
+    }, 300)
   }
 
   onSortTabs = tabs => {

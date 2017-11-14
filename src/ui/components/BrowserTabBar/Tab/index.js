@@ -7,7 +7,6 @@ import STATE from '../../../../constants/states'
 import createStyles from './styles'
 import TouchableView from '../../TouchableView'
 import IconButton from '../../IconButton'
-import Icon from '../../Icon'
 import Loading from '../../Loading'
 
 
@@ -24,10 +23,10 @@ const Tab = SortableElement(tab => {
       statusIcon = <Loading />
       label = url
       break
-    case STATE.ERROR:
-      statusIcon = <Icon name="exclamation-circle" />
-      label = url
-      break
+    // case STATE.ERROR:
+    //   statusIcon = <Icon name="exclamation-circle" />
+    //   label = url
+    //   break
     default:
       break
   }
