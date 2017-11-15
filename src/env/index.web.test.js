@@ -12,7 +12,9 @@ describe('env web', () => {
   })
 
   it('exports ui task constants', () => {
-    expect(require('./index.web')).toMatchObject(require('../constants/ipc-ui-tasks'))
+    expect(require('./index.web')).toMatchObject(
+      require('../constants/ipc-ui-tasks')
+    )
   })
 
   describe('.globalEvents', () => {
