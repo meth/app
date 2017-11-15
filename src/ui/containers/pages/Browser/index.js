@@ -91,21 +91,21 @@ export default class Browser extends CachePureComponent {
   }
 
   componentDidMount () {
-    globalEvents.addListener(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
-    globalEvents.addListener(OPEN_NEW_TAB, this.openNewTab)
-    globalEvents.addListener(CLOSE_TAB, this.closeActiveTab)
-    globalEvents.addListener(EDIT_TAB_URL, this.editActiveTabUrl)
-    globalEvents.addListener(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
-    globalEvents.addListener(GOTO_NEXT_TAB, this.gotoNextTab)
+    globalEvents.on(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
+    globalEvents.on(OPEN_NEW_TAB, this.openNewTab)
+    globalEvents.on(CLOSE_TAB, this.closeActiveTab)
+    globalEvents.on(EDIT_TAB_URL, this.editActiveTabUrl)
+    globalEvents.on(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
+    globalEvents.on(GOTO_NEXT_TAB, this.gotoNextTab)
   }
 
   componentWillUnmount () {
-    globalEvents.removeListener(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
-    globalEvents.removeListener(OPEN_NEW_TAB, this.openNewTab)
-    globalEvents.removeListener(CLOSE_TAB, this.closeActiveTab)
-    globalEvents.removeListener(EDIT_TAB_URL, this.editActiveTabUrl)
-    globalEvents.removeListener(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
-    globalEvents.removeListener(GOTO_NEXT_TAB, this.gotoNextTab)
+    globalEvents.off(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
+    globalEvents.off(OPEN_NEW_TAB, this.openNewTab)
+    globalEvents.off(CLOSE_TAB, this.closeActiveTab)
+    globalEvents.off(EDIT_TAB_URL, this.editActiveTabUrl)
+    globalEvents.off(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
+    globalEvents.off(GOTO_NEXT_TAB, this.gotoNextTab)
   }
 
   openActiveTabDevTools = () => {

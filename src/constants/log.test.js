@@ -10,24 +10,24 @@ describe('MAX_ITEMS', () => {
 
 describe('INFO', () => {
   it('is defined', () => {
-    expect(INFO).toBeDefined()
+    expect(INFO).toBeTruthy()
   })
 })
 
 describe('WARN', () => {
   it('is defined', () => {
-    expect(WARN).toBeDefined()
+    expect(WARN).toBeTruthy()
   })
 })
 
 describe('ERROR', () => {
   it('is defined', () => {
-    expect(ERROR).toBeDefined()
+    expect(ERROR).toBeTruthy()
   })
 })
 
 describe('ALERT', () => {
   it('is defined', () => {
-    expect(ALERT).toBeDefined()
+    expect(ALERT).toBeTruthy()
   })
 })
