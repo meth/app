@@ -5,7 +5,6 @@ import logger, { setStore } from './index'
 describe('logger', () => {
   beforeEach(() => {
     this.consoleMethods = {}
-
     ;[ 'debug', 'info', 'warn', 'error' ].forEach(method => {
       this.consoleMethods[method] = console[method]
 

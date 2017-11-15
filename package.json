@@ -13,6 +13,7 @@
     "lint:js": "eslint src/",
     "lint:js:fix": "eslint --fix src/",
     "test": "jest",
+    "test-cov": "jest --coverage --collectCoverageFrom=src/**/*.js",
     "build": "npm run lint:js && npm test"
   },
   "repository": {

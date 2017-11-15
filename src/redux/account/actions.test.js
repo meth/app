@@ -1,8 +1,35 @@
-import { ACCOUNTS, GENERATE_MNEMONIC, SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET } from './actions'
+import {
+  ADDRESS_BALANCES,
+  ADDRESS_NAMES,
+  BOOKMARKS,
+  DAPP_PERMISSIONS,
+  SEND_RAW_TX,
+  GENERATE_RAW_TX,
+  LOAD_WALLET,
+  GENERATE_MNEMONIC
+} from './actions'
 
-describe('ACCOUNTS', () => {
+describe('ADDRESS_NAMES', () => {
   it('is defined', () => {
-    expect(ACCOUNTS).toBeDefined()
+    expect(ADDRESS_NAMES).toBeDefined()
+  })
+})
+
+describe('ADDRESS_BALANCES', () => {
+  it('is defined', () => {
+    expect(ADDRESS_BALANCES).toBeDefined()
+  })
+})
+
+describe('BOOKMARKS', () => {
+  it('is defined', () => {
+    expect(BOOKMARKS).toBeDefined()
+  })
+})
+
+describe('DAPP_PERMISSIONS', () => {
+  it('is defined', () => {
+    expect(DAPP_PERMISSIONS).toBeDefined()
   })
 })
 

@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 
 import { createAction } from '../utils'
 import fn from './middleware'
-import { SEND_RAW_TX, GENERATE_RAW_TX, GENERATE_MNEMONIC } from './actions'
+import { SEND_RAW_TX, GENERATE_RAW_TX, GENERATE_MNEMONIC, LOAD_WALLET } from './actions'
 
 describe('wallet middleware', () => {
   it('passes actions through', async () => {
@@ -16,6 +16,26 @@ describe('wallet middleware', () => {
 
     expect(next).toHaveBeenCalledTimes(1)
     expect(next).toHaveBeenCalledWith(action)
+  })
+
+  describe('processes the LOAD_WALLET action', () => {
+    it('and loads the wallet using the mnemonic', async () => {
+      const next = jest.fn(() => Promise.resolve(123))
+
+      const walletManager = {
+        load: jest.fn(() => Promise.resolve())
+      }
+
+      const handler = fn({ walletManager })()(next)
+
+      const action = createAction(LOAD_WALLET, 'testMnemonic')
+
+      const ret = await handler(action)
+
+      expect(ret).toEqual(123)
+      expect(walletManager.load).toHaveBeenCalledWith('testMnemonic')
+      expect(next).toHaveBeenCalledWith(action)
+    })
   })
 
   describe('processes the GENERATE_RAW_TX action', () => {

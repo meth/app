@@ -93,6 +93,20 @@ To auto-fix any issues, run:
 $ npm run lint:js:fix
 ```
 
+### Testing
+
+To run the unit tests:
+
+```shell
+$ npm test
+```
+
+To run with coverage:
+
+```shell
+$ npm run test-cov
+```
+
 _Note: not all issues are automatically fixable_.
 
 It's worth installing the `prettier-atom` and `linter-eslint` plugins for Atom if

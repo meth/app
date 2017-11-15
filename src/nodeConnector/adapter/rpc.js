@@ -11,6 +11,7 @@ const METHODS = {
   net_peerCount: true,
   eth_protocolVersion: true,
   eth_syncing: true,
+  eth_coinbase: true,
   eth_mining: true,
   eth_gasPrice: true,
   eth_hashrate: true,
@@ -33,7 +34,19 @@ const METHODS = {
   eth_getTransactionByBlockNumberAndIndex: true,
   eth_getTransactionReceipt: true,
   eth_getUncleByBlockHashAndIndex: true,
-  eth_getUncleByBlockNumberAndIndex: true
+  eth_getUncleByBlockNumberAndIndex: true,
+  eth_newBlockFilter: true,
+  eth_newPendingTransactionFilter: true,
+  eth_uninstallFilter: true,
+  eth_getFilterChanges: true,
+  eth_getFilterLogs: true,
+  eth_getLogs: true,
+  eth_getWork: true,
+  shh_version: true,
+  shh_newFilter: true,
+  shh_uninstallFilter: true,
+  shh_getFilterChanges: true,
+  shh_getMessages: true
 }
 
 class RpcAdapter extends Adapter {

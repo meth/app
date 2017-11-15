@@ -1,5 +1,23 @@
-import { updateAccountBalances, generateMnemonic, generateRawTransaction, sendRawTransaction, loadWallet } from './actionCreators'
-import { ACCOUNT_BALANCES, SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET, GENERATE_MNEMONIC } from './actions'
+import {
+  updateAddressBalances,
+  updateAddressNames,
+  updateBookmarks,
+  updateDappPermissions,
+  generateMnemonic,
+  generateRawTransaction,
+  sendRawTransaction,
+  loadWallet
+} from './actionCreators'
+import {
+  ADDRESS_BALANCES,
+  ADDRESS_NAMES,
+  BOOKMARKS,
+  DAPP_PERMISSIONS,
+  SEND_RAW_TX,
+  GENERATE_RAW_TX,
+  LOAD_WALLET,
+  GENERATE_MNEMONIC
+} from './actions'
 
 describe('loadWallet()', () => {
   it('returns action', () => {
@@ -19,10 +37,38 @@ describe('generateMnemonic()', () => {
   })
 })
 
-describe('updateAccountBalances()', () => {
+describe('updateAddressBalances()', () => {
   it('returns action', () => {
-    expect(updateAccountBalances()).toEqual({
-      type: ACCOUNT_BALANCES
+    expect(updateAddressBalances(123)).toEqual({
+      type: ADDRESS_BALANCES,
+      payload: 123
+    })
+  })
+})
+
+describe('updateAddressNames()', () => {
+  it('returns action', () => {
+    expect(updateAddressNames(123)).toEqual({
+      type: ADDRESS_NAMES,
+      payload: 123
+    })
+  })
+})
+
+describe('updateBookmarks()', () => {
+  it('returns action', () => {
+    expect(updateBookmarks(123)).toEqual({
+      type: BOOKMARKS,
+      payload: 123
+    })
+  })
+})
+
+describe('updateDappPermissions()', () => {
+  it('returns action', () => {
+    expect(updateDappPermissions(123)).toEqual({
+      type: DAPP_PERMISSIONS,
+      payload: 123
     })
   })
 })
