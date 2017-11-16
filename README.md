@@ -38,24 +38,39 @@ node issues will be handled within the Browser app itself.
 
 ## Developer guide
 
-Branches:
+**Branches**
 
  * `dev` - Dev branch (default). Bleeding-edge code.
  * `master` - Production branch. Clean code, only approved pull requests allowed.
 
-Requirements:
+**Setup and installation**
 
   * [Node.js 8.0.0](http://nodejs.org) **<- we recommend using this exact version!**
-  * [NPM 5.4.2+](https://npmjs.com)
-  * [Yarn](yarnpkg.com)
+  * [Yarn 1.0+](yarnpkg.com)
 
-Once Node and NPM are installed, install the dependencies:
+Once Node is installed, install the dependencies:
 
 ```shell
-$ npm install
+$ yarn
 ```
 
-_Note: Yarn is not currently supported, use NPM 5+ instead_
+Check that you have all necessary system dependencies by running [solidarity](https://github.com/infinitered/solidarity):
+
+```shell
+$ yarn solidarity
+```
+
+If everything works you should see something like:
+
+```
+yarn run v1.1.0
+$ "/path/to/meth-browser/node_modules/.bin/solidarity"
+
+✔︎ Solidarity checks valid
+✨  Done in 3.29s.
+```
+
+**Geth development chain**
 
 Start a local Geth private network. We recommend using [geth-private](https://github.com/hiddentao/geth-private):
 
@@ -63,18 +78,32 @@ Start a local Geth private network. We recommend using [geth-private](https://gi
 $ geth-private
 ```
 
-### Electron desktop app
+**Electron desktop app**
 
 To build frontend for development:
 
 ```shell
-$ npm run web
+$ yarn web
 ```
 
 To start the electron backend and full UI:
 
 ```shell
-$ npm run electron
+$ yarn electron
+```
+
+**Unit tests**
+
+To run the unit tests:
+
+```shell
+$ yarn test
+```
+
+To run with coverage:
+
+```shell
+$ yarn test-cov
 ```
 
 ### Code style (ESLint)
@@ -84,28 +113,15 @@ it up to auto-lint code upon Git commit. You can manually run the linter
 at any time using:
 
 ```shell
-$ npm run lint:js
+$ yarn lint:js
 ```
 
 To auto-fix any issues, run:
 
 ```shell
-$ npm run lint:js:fix
+$ yarn lint:js:fix
 ```
 
-### Testing
-
-To run the unit tests:
-
-```shell
-$ npm test
-```
-
-To run with coverage:
-
-```shell
-$ npm run test-cov
-```
 
 _Note: not all issues are automatically fixable_.
 
