@@ -1,4 +1,4 @@
-import { WEB3_REQUEST, GENERATE_ACCOUNT, SEND_TX, CANCEL_TX, TX_COMPLETED } from './actions'
+import { WEB3_REQUEST, GENERATE_ADDRESS, SEND_TX, CANCEL_TX, TX_COMPLETED } from './actions'
 
 describe('WEB3_REQUEST', () => {
   it('is defined', () => {
@@ -6,9 +6,9 @@ describe('WEB3_REQUEST', () => {
   })
 })
 
-describe('GENERATE_ACCOUNT', () => {
+describe('GENERATE_ADDRESS', () => {
   it('is defined', () => {
-    expect(GENERATE_ACCOUNT).toBeDefined()
+    expect(GENERATE_ADDRESS).toBeDefined()
   })
 })
 

@@ -1,6 +1,6 @@
 import { createAction } from '../utils'
 import fn from './middleware'
-import { WEB3_REQUEST, GENERATE_ACCOUNT } from './actions'
+import { WEB3_REQUEST, GENERATE_ADDRESS } from './actions'
 
 
 describe('api middleware', () => {
@@ -41,19 +41,19 @@ describe('api middleware', () => {
     })
   })
 
-  describe('processes the GENERATE_ACCOUNT action', () => {
+  describe('processes the GENERATE_ADDRESS action', () => {
     it('by passing on the request to the wallet', async () => {
       const next = jest.fn()
 
       const walletManager = {
         wallet: () => ({
-          generateAccount: () => 123
+          generateAddress: () => 123
         })
       }
 
       const handler = fn({ walletManager })({})(next)
 
-      const res = await handler(createAction(GENERATE_ACCOUNT))
+      const res = await handler(createAction(GENERATE_ADDRESS))
 
       expect(res).toEqual(123)
 
