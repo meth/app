@@ -135,6 +135,28 @@ export default {
       backgroundColor: colorWhite,
       hoverBackgroundColor: colorLightGray,
       textColor: color1
+    },
+    checkbox: {
+      on: {
+        box: {
+          backgroundColor: 'transparent',
+          borderColor: colorWhite,
+          tickIconColor: colorWhite
+        },
+        label: {
+          textColor: colorWhite
+        }
+      },
+      off: {
+        box: {
+          backgroundColor: 'transparent',
+          borderColor: colorLightGray,
+          tickIconColor: colorLightGray
+        },
+        label: {
+          textColor: colorLightGray
+        }
+      }
     }
   },
   button: {

@@ -9,8 +9,8 @@
  */
 const { ipcRenderer, webFrame } = require('electron')
 const IPC = require('../../src/constants/ipc')
-const BACKEND_TASKS = require('../../src/constants/ipc-backend-tasks')
-const UI_TASKS = require('../../src/constants/ipc-ui-tasks')
+const BACKEND_TASKS = require('../../src/constants/ipcBackendTasks')
+const UI_TASKS = require('../../src/constants/ipcUiTasks')
 const Settings = require('../settings')
 
 // fn: send IPC to backend

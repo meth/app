@@ -1,6 +1,6 @@
 const { ipcMain: ipc } = require('electron')
 
-const BACKEND_TASKS = require('../src/constants/ipc-backend-tasks')
+const BACKEND_TASKS = require('../src/constants/ipcBackendTasks')
 const IPC = require('../src/constants/ipc')
 const Windows = require('./windows')
 
