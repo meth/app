@@ -5,9 +5,9 @@ export default class EthGetAccounts extends GenericMethod {
     super(config, 'eth_accounts')
   }
 
-  async run (params) {
-    this._log.trace('Get accounts', params)
+  async run () {
+    this._log.trace('Get accounts')
 
-    return this._walletManager.wallet().getAccounts()
+    return this._walletManager.wallet().getAddresses()
   }
 }
