@@ -10,6 +10,7 @@ import LogModal from './containers/modals/Log'
 import AlertModal from './containers/modals/Alert'
 import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
+import DappPermissions from './containers/modals/DappPermissions'
 
 const log = logger.create('Root')
 
@@ -18,7 +19,8 @@ const MODAL_COMPONENTS = {
   [MODALS.LOG]: LogModal,
   [MODALS.ALERT]: AlertModal,
   [MODALS.CONNECT_NODE]: ConnectNodeModal,
-  [MODALS.SEND_TRANSACTION]: SendTransactionModal
+  [MODALS.SEND_TRANSACTION]: SendTransactionModal,
+  [MODALS.DAPP_PERMISSIONS]: DappPermissions
 }
 
 @connectStore('modals')
@@ -54,6 +56,6 @@ export default class Root extends PureComponent {
       })
     }
 
-    return /* components.length ? components : */ null
+    return components.length ? components : null
   }
 }

@@ -1,9 +1,8 @@
-const Q = require('bluebird')
 const path = require('path')
 const { BrowserWindow } = require('electron')
 const EventEmitter = require('eventemitter3')
 
-const _ = require('./underscore')
+const _ = require('./lodash')
 const Settings = require('./settings')
 const IPC = require('../src/constants/ipc')
 const UI_TASKS = require('../src/constants/ipc-ui-tasks')
@@ -22,7 +21,7 @@ class Window extends EventEmitter {
     this._log = log.create(this._type)
 
     // promise to track when content is ready
-    this._onContentReady = new Q(resolve => {
+    this._onContentReady = new Promise(resolve => {
       this._onContentReadyCallback = resolve
     })
 

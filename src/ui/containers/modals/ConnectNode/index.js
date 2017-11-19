@@ -37,7 +37,10 @@ export default class ConnectNode extends CachePureComponent {
     }
 
     return (
-      <Modal onOverlayPress={isConnected ? this.dismissModal : null}>
+      <Modal
+        onOverlayPress={isConnected ? this.dismissModal : null}
+        contentStyle={styles.content}
+      >
         {content}
       </Modal>
     )
@@ -52,7 +55,7 @@ export default class ConnectNode extends CachePureComponent {
     } = getNodeConnection(this.props)
 
     return (
-      <View style={styles.container}>
+      <View style={styles.form}>
         <Text style={styles.nameText}>{name}</Text>
         <Text style={styles.urlText}>{url}</Text>
         <Text style={styles.networkText}>{t('connector.network', { network })}</Text>
@@ -73,7 +76,7 @@ export default class ConnectNode extends CachePureComponent {
     )
 
     return (
-      <View style={styles.container}>
+      <View style={styles.form}>
         {title}
         <Loading />
       </View>
@@ -94,7 +97,7 @@ export default class ConnectNode extends CachePureComponent {
     )
 
     return (
-      <View style={styles.container}>
+      <View style={styles.form}>
         {(!reason) ? null : (
           <ErrorBox
             style={styles.disconnectReasonBox}
@@ -117,7 +120,7 @@ export default class ConnectNode extends CachePureComponent {
         <ProgressButton
           style={styles.button}
           showInProgress={connecting}
-          onPress={this.cacheBind(this, 'onConnect', selected.value)}
+          onPress={this.bind(this.onConnect, selected.value)}
           title={t('button.connectToNode')} />
         {this.renderError()}
       </View>

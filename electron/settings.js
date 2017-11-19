@@ -1,17 +1,23 @@
-const { app } = require('electron'),
-  path = require('path')
+const { app } = require('electron')
+const path = require('path')
 
-const _ = require('./settings'),
-  packageJson = require('../package.json')
+const _ = require('./settings')
+const packageJson = require('../package.json')
 
 
-let CONFIG = {
-  mode: 'development',
+const CONFIG = {
+  mode: 'development'
 }
 
 try {
+  /* eslint-disable global-require */
+  /* eslint-disable import/no-unresolved */
   _.extend(CONFIG, require('./config/appConfig.json'))
-} catch (err) {}
+  /* eslint-enable global-require */
+  /* eslint-enable import/no-unresolved */
+} catch (err) {
+  // do nothing!
+}
 
 const MODE_IS_PRODUCTION = ('production' === CONFIG.mode)
 
@@ -25,7 +31,7 @@ const argv = require('yargs')
       requiresArg: true,
       nargs: 1,
       type: 'string',
-      group: 'Meth options:',
+      group: 'Meth options:'
     },
     loglevel: {
       demand: false,
@@ -34,7 +40,7 @@ const argv = require('yargs')
       requiresArg: true,
       nargs: 1,
       type: 'string',
-      group: 'Meth options:',
+      group: 'Meth options:'
     },
     version: {
       alias: 'v',
@@ -43,8 +49,8 @@ const argv = require('yargs')
       nargs: 0,
       describe: 'Display Meth version.',
       type: 'boolean',
-      group: 'Meth options:',
-    },
+      group: 'Meth options:'
+    }
   })
   .help('h')
   .alias('h', 'help')

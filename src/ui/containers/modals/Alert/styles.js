@@ -4,15 +4,14 @@ export default ({ type }) => create({
   overlay: {
     backgroundColor: '$modal_alert_overlay_backgroundColor'
   },
-  container: {
-    flex: 0,
+  content: {
     padding: 30,
     backgroundColor: `$alert_${type}_backgroundColor`,
-    borderRadius: 10,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: 400
+    width: 400,
+    height: 'auto'
   },
   text: {
     ...fontMaker(),

@@ -1,14 +1,19 @@
-import _ from 'lodash'
 import { PureComponent } from 'react'
 
-export class CachePureComponent extends PureComponent {
-  methodCache = {}
+import { sha256 } from '../../utils/crypto'
 
-  cacheBind = (methodName, ...args) => {
-    const key = JSON.stringify({ methodName, args })
-    if (!this.methodCache[key]) {
-      this.methodCache[key] = _.bind(this[methodName], this, ...args)
+export class CachePureComponent extends PureComponent {
+  cache = {}
+
+  bind = (fn, ...args) => {
+    const fnSig = sha256(fn.toString())
+
+    const key = JSON.stringify({ fnSig, args })
+
+    if (!this.cache[key]) {
+      this.cache[key] = fn.bind(this, ...args)
     }
-    return this.methodCache[key]
+
+    return this.cache[key]
   }
 }

@@ -4,6 +4,7 @@ import { View } from 'react-native'
 
 import API from '../../../../constants/api'
 import STATE from '../../../../constants/states'
+import { createDappId } from '../../../../utils/dapp'
 import {
   globalEvents,
   OPEN_ACTIVE_TAB_DEV_TOOLS,
@@ -22,7 +23,7 @@ import BrowserTabView from '../../../components/BrowserTabView'
 
 const newTabId = () => _.random(1, 1000000000)
 
-@connectStore('api')
+@connectStore('api', 'modals')
 export default class Browser extends CachePureComponent {
   state = {
     tabs: [
@@ -64,13 +65,13 @@ export default class Browser extends CachePureComponent {
             url={url}
             permissions={permissions}
             apiMethods={this.props.actions}
-            onUrlChange={this.cacheBind('onTabUrlChange', id)}
-            onLoading={this.cacheBind('onTabStatusChange', id, STATE.LOADING)}
-            onLoaded={this.cacheBind('onTabStatusChange', id, STATE.LOADED)}
-            onLoadingError={this.cacheBind('onTabStatusChange', id, STATE.ERROR)}
-            onTitleChange={this.cacheBind('onTabTitleChange', id)}
+            onUrlChange={this.bind(this.onTabUrlChange, id)}
+            onLoading={this.bind(this.onTabStatusChange, id, STATE.LOADING)}
+            onLoaded={this.bind(this.onTabStatusChange, id, STATE.LOADED)}
+            onLoadingError={this.bind(this.onTabStatusChange, id, STATE.ERROR)}
+            onTitleChange={this.bind(this.onTabTitleChange, id)}
             onOpenNewWindow={this.openNewTab}
-            editDappPermissions={this.cacheBind('onEditPermissions', id)}
+            editDappPermissions={this.bind(this.onEditPermissions, id)}
           />
         </View>
       )
@@ -215,7 +216,11 @@ export default class Browser extends CachePureComponent {
     const { tabs } = this.state
     const tab = tabs.find(t => t.id === id)
 
-    console.warn(tab)
+    if (tab) {
+      const { showDappPermissionsModal } = this.props.actions
+
+      showDappPermissionsModal(createDappId(tab))
+    }
   }
 
   _updateTabs = cb => {

@@ -1,4 +1,3 @@
-const Q = require('bluebird')
 const installExtension = require('electron-devtools-installer').default
 const {
   REACT_DEVELOPER_TOOLS,
@@ -8,7 +7,7 @@ const {
 const logger = require('./logger')
 
 exports.installDefaultExtensions = () =>
-  Q.all([
+  Promise.all([
     installExtension(REACT_DEVELOPER_TOOLS),
     installExtension(REDUX_DEVTOOLS)
   ]).catch(err => {

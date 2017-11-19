@@ -3,6 +3,7 @@ const { app } = require('electron')
 const IpcImpl = require('./ipc')
 const Settings = require('./settings')
 const BrowserTools = require('./browserTools')
+const Menu = require('./menu')
 const { setupMainWindow } = require('./windows')
 const log = require('./logger').create('main')
 
@@ -19,7 +20,7 @@ const createMainWindow = () => {
   mainWindow = setupMainWindow()
 
   // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
+  mainWindow.on('closed', () => {
     log.info('Window closed')
 
     // On OS X it's common to re-create a window in the app when the
@@ -30,7 +31,7 @@ const createMainWindow = () => {
     }
   })
 
-  require('./menu').setup()
+  Menu.setup()
 }
 
 // This method will be called when Electron has finished
@@ -40,16 +41,16 @@ app.on('ready', () => {
   log.info('App ready')
 
   if (!Settings.inProductionMode) {
-    createMainWindow()
+    BrowserTools.installDefaultExtensions()
+      .then(createMainWindow)
+      .catch(createMainWindow)
   } else {
-    // BrowserTools.installDefaultExtensions().finally(() => {
-      createMainWindow()
-    // })
+    createMainWindow()
   }
 })
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
   log.debug('All windows closed')
 
   // On OS X it is common for applications and their menu bar
@@ -64,20 +65,22 @@ app.on('window-all-closed', function () {
 
 // Extra security, see https://github.com/electron/electron/blob/master/docs/tutorial/security.md
 app.on('web-contents-created', (event, contents) => {
-  contents.on('will-attach-webview', (event, webPreferences, params) => {
+  /* eslint-disable no-param-reassign */
+  contents.on('will-attach-webview', (_, webPreferences) => {
     // disable nodeIntegration
     webPreferences.nodeIntegration = false
     // only allow our custom preload script - disable all others
     if (0 > webPreferences.preloadURL.indexOf(Settings.preloadBasePath)) {
-      log.error('WebView started with disallowed preload script: ' + webPreferences.preloadURL)
+      log.error(`WebView started with disallowed preload script: ${webPreferences.preloadURL}`)
 
       event.preventDefault()
     }
   })
+  /* eslint-enable no-param-reassign */
 })
 
 // activate
-app.on('activate', function () {
+app.on('activate', () => {
   log.info('App activated')
 
   // if reference was previously nullified we need to recreate the window

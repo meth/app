@@ -9,20 +9,12 @@ export default create({
     backgroundColor: '$modal_log_overlay_backgroundColor'
   },
   scrollContainer: {
-    flex: 0,
-    padding: 20,
-    backgroundColor: '$modal_content_backgroundColor',
-    borderRadius: 10,
-    width: '90%',
-    height: '90%'
-  },
-  closeButton: {
-    top: 25,
-    right: 25
+    width: '100%',
+    height: '100%'
   },
   scrollContent: {
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   },
   appLogText: {

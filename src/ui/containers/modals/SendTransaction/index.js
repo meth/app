@@ -22,11 +22,9 @@ export default class SendTransaction extends PureComponent {
     const { error, rawTx, receipt } = this.state
 
     return (
-      <Modal>
-        <View style={styles.container}>
-          {receipt ? this.renderReceipt(receipt) : this.renderForm(rawTx)}
-          {error ? <ErrorBox error={error} /> : null}
-        </View>
+      <Modal contentStyle={styles.content}>
+        {receipt ? this.renderReceipt(receipt) : this.renderForm(rawTx)}
+        {error ? <ErrorBox error={error} /> : null}
       </Modal>
     )
   }

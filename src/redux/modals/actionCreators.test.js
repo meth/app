@@ -1,5 +1,11 @@
 import { SHOW, HIDE } from './actions'
-import { CONNECT_NODE, SEND_TRANSACTION, ALERT, LOG } from '../../constants/modals'
+import {
+  CONNECT_NODE,
+  SEND_TRANSACTION,
+  ALERT,
+  LOG,
+  DAPP_PERMISSIONS
+} from '../../constants/modals'
 
 import {
   showAlert,
@@ -10,7 +16,9 @@ import {
   showConnectionModal,
   hideConnectionModal,
   showSendTransactionModal,
-  hideSendTransactionModal
+  hideSendTransactionModal,
+  showDappPermissionsModal,
+  hideDappPermissionsModal
 } from './actionCreators'
 
 describe('showAlert()', () => {
@@ -72,6 +80,24 @@ describe('hideSendTransactionModal()', () => {
     expect(hideSendTransactionModal()).toEqual({
       type: HIDE,
       payload: { type: SEND_TRANSACTION }
+    })
+  })
+})
+
+describe('showDappPermissionsModal()', () => {
+  it('returns action', () => {
+    expect(showDappPermissionsModal(123)).toEqual({
+      type: SHOW,
+      payload: { type: DAPP_PERMISSIONS, data: { dappId: 123 } }
+    })
+  })
+})
+
+describe('hideDappPermissionsModal()', () => {
+  it('returns action', () => {
+    expect(hideDappPermissionsModal()).toEqual({
+      type: HIDE,
+      payload: { type: DAPP_PERMISSIONS }
     })
   })
 })

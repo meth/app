@@ -1,7 +1,7 @@
-import { createHash } from 'crypto'
 import { AsyncStorage } from 'react-native'
 
 import logger from '../logger'
+import { sha256 } from '../utils/crypto'
 
 const log = logger.create('Storage')
 
@@ -17,7 +17,7 @@ class Storage {
   }
 
   async setMnemonic (mnemonic) {
-    const hash = createHash('sha256').update(mnemonic).digest('hex')
+    const hash = sha256(mnemonic)
 
     log.info(`Set storage mnemonic ${hash} ...`)
 

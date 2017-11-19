@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
@@ -21,10 +21,12 @@ export default class Alert extends PureComponent {
     const styles = createStyles({ type })
 
     return (
-      <Modal onOverlayPress={this.onClose} overlayStyle={styles.overlay}>
-        <View style={styles.container}>
-          <Text style={styles.text}>{msg}</Text>
-        </View>
+      <Modal
+        onOverlayPress={this.onClose}
+        overlayStyle={styles.overlay}
+        contentStyle={styles.content}
+      >
+        <Text style={styles.text}>{msg}</Text>
       </Modal>
     )
   }

@@ -1,7 +1,13 @@
 import { createActionCreator } from '../utils'
 
 import { SHOW, HIDE } from './actions'
-import { CONNECT_NODE, SEND_TRANSACTION, ALERT, LOG } from '../../constants/modals'
+import {
+  CONNECT_NODE,
+  SEND_TRANSACTION,
+  ALERT,
+  LOG,
+  DAPP_PERMISSIONS
+} from '../../constants/modals'
 
 export const showAlert = createActionCreator(SHOW, msg => ({
   type: ALERT,
@@ -33,6 +39,14 @@ export const showConnectionModal = createActionCreator(SHOW, () => ({
 }))
 export const hideConnectionModal = createActionCreator(HIDE, () => ({
   type: CONNECT_NODE
+}))
+
+export const showDappPermissionsModal = createActionCreator(SHOW, dappId => ({
+  type: DAPP_PERMISSIONS,
+  data: { dappId }
+}))
+export const hideDappPermissionsModal = createActionCreator(HIDE, () => ({
+  type: DAPP_PERMISSIONS
 }))
 
 export const showSendTransactionModal = createActionCreator(

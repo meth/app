@@ -6,15 +6,18 @@ const text = {
 }
 
 export default create({
-  container: {
-    flex: 0,
+  content: {
     padding: 30,
-    backgroundColor: '$modal_content_backgroundColor',
-    borderRadius: 10,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    width: 400
+    width: 400,
+    height: 'auto'
+  },
+  form: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   picker: {
     marginBottom: 20
