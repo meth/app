@@ -10,7 +10,7 @@ cache:
 
 script:
   - "yarn lint:js"
-  - "yarn test-cov"
+  - "yarn ci"
 
 notifications:
   email:
