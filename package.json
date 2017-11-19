@@ -15,7 +15,6 @@
     "test": "jest",
     "test-cov": "jest --coverage --collectCoverageFrom=src/**/*.js --coverageDirectory=coverage/",
     "codecov": "codecov",
-    "ci": "yarn test-cov && yarn codecov",
     "build": "npm run lint:js && npm test"
   },
   "repository": {
@@ -65,6 +64,7 @@
     "chalk": "^2.0.1",
     "clean-webpack-plugin": "^0.1.16",
     "clockmaker": "^2.0.0",
+    "codecov": "^3.0.0",
     "color": "^2.0.0",
     "date-fns": "^1.29.0",
     "electron": "^1.7.5",
