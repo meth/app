@@ -1,7 +1,0 @@
-comment:
-  layout: "header, diff"
-  require_changes: false
-  behavior: new
-  branches: null
-  flags: null
-  paths: null
