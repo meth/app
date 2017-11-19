@@ -16,7 +16,17 @@ describe('eth_sendTransaction', () => {
     expect(ret).toBeInstanceOf(Generic)
   })
 
-  it('calls method to send transaction', async () => {
+  it('calls method to send transaction (send eth)', async () => {
+    const ret = new Method({})
+    ret._store = store
+
+    expect(await ret.run([ {
+      from: '0x',
+      to: '0x'
+    } ])).toEqual(123)
+  })
+
+  it('calls method to send transaction (create contract)', async () => {
     const ret = new Method({})
     ret._store = store
 
