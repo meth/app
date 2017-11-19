@@ -1,6 +1,7 @@
 # Meth Browser
 
 [![Dev build Status](https://secure.travis-ci.org/meth-project/meth-browser.svg?branch=dev)](http://travis-ci.org/meth-project/meth-browser) (dev)
+[![codecov](https://codecov.io/gh/meth-project/meth-browser/branch/dev/graph/badge.svg)](https://codecov.io/gh/meth-project/meth-browser)
 
 The Meth Dapp browser, for Ethereum addicts.
 
