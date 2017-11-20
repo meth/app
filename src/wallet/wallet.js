@@ -39,9 +39,8 @@ class Wallet extends EventEmitter {
     // if node connector is connected then load!
     if (this._nodeConnector.isConnected) {
       this._reload()
-    }
-    // else show the connection modal
-    else {
+    } else {
+      // else show the connection modal
       this._store.actions.showConnectionModal()
     }
   }
@@ -263,11 +262,10 @@ class Wallet extends EventEmitter {
 
       log.info(`Discovered addresses: ${totalAddresses}`)
 
-      // regenerate wallet and initial addresses
-      const finalWallet = EthHdWallet.fromMnemonic(this._mnemonic)
-      finalWallet.generateAddresses(totalAddresses)
+      // discard unwanted addresses
+      wallet.discardAddresses(wallet.getAddressCount() - totalAddresses)
 
-      this._hdWallet = finalWallet
+      this._hdWallet = wallet
 
       // setup initial balances
       await this._setBalancesAndNotifyStore(balances.slice(0, totalAddresses))
