@@ -96,6 +96,9 @@ module.exports = {
           rinkeby: 'Etherum client node hosted by Infura.io, connected to the Rinkeby test network.'
         }
       }
+    },
+    dappPermissions: {
+      allAddresses: 'All addresses'
     }
   }
 }

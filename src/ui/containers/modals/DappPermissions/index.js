@@ -2,9 +2,9 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
-import Form, { Section, Field, VALIDATION_RESULT } from 'react-native-advanced-forms'
+import Form from 'react-native-advanced-forms'
 
-import { t } from '../../../../../strings'
+import { t } from '../../../../strings'
 import { connectStore } from '../../../helpers/redux'
 import { ALL_ADDRESSES } from '../../../../constants/dappPermissions'
 import { getDappPermissions, getAddresses } from '../../../../redux/account/selectors'
@@ -66,13 +66,13 @@ export default class DappPermissions extends PureComponent {
         onSubmit={this.onSubmit}
         validate={this.validate}
       >
-        <Section title='Addresses'>
-          <Field name={ALL_ADDRESSES} style={styles.field}>
+        <Form.Section title='Addresses'>
+          <Form.Field name={ALL_ADDRESSES} style={styles.field}>
             <Switch
               turnedOn={_.get(permissions, ALL_ADDRESSES, false)}
               label={t(`dappPermissions.${ALL_ADDRESSES}`)} />
-          </Field>
-        </Section>
+          </Form.Field>
+        </Form.Section>
       </Form>
     )
   }
@@ -91,7 +91,7 @@ export default class DappPermissions extends PureComponent {
     const { [ALL_ADDRESSES]: allAddresses } = values
 
     if (!allAddresses) {
-      ret[ALL_ADDRESSES] = VALIDATION_RESULT.MISSING
+      ret[ALL_ADDRESSES] = Form.VALIDATION_RESULT.MISSING
     }
 
     return ret

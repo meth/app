@@ -1,6 +1,6 @@
 const { Menu, app } = require('electron')
 const Windows = require('./windows')
-const { t } = require('../strings')
+const { t } = require('../src/strings')
 const UI_TASKS = require('../src/constants/ipcUiTasks')
 
 

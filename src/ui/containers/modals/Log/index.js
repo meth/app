@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
-import { t } from '../../../../../strings'
+import { t } from '../../../../strings'
 import { formatDate } from '../../../../utils/datetime'
 import { connectStore } from '../../../helpers/redux'
 import ScrollView from '../../../components/ScrollView'
