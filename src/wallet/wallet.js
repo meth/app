@@ -36,8 +36,14 @@ class Wallet extends EventEmitter {
 
     this._nodeConnector.on(EVENT.NEW_BLOCK, this._onNewBlock.bind(this))
 
-    // do this asynchronously!
-    this._reload()
+    // if node connector is connected then load!
+    if (this._nodeConnector.isConnected) {
+      this._reload()
+    }
+    // else show the connection modal
+    else {
+      this._store.actions.showConnectionModal()
+    }
   }
 
   /**
@@ -226,7 +232,9 @@ class Wallet extends EventEmitter {
       const balances = []
 
       let checked = 0
-      while (20 > checked) {
+
+      // eslint-disable-next-line consistent-return
+      const _scanAddresses = async () => {
         const [ nextAddress ] = wallet.generateAddresses(1)
 
         // eslint-disable-next-line no-await-in-loop
@@ -240,7 +248,13 @@ class Wallet extends EventEmitter {
 
         // save balance
         balances.push(balance)
+
+        if (20 > checked) {
+          return _scanAddresses()
+        }
       }
+
+      await _scanAddresses()
 
       let totalAddresses = wallet.getAddressCount() - 20
       if (0 >= totalAddresses) {
