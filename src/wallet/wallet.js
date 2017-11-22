@@ -270,7 +270,7 @@ class Wallet extends EventEmitter {
       // setup initial balances
       await this._setBalancesAndNotifyStore(balances.slice(0, totalAddresses))
     } catch (err) {
-      log.warn('Loading error, network probably not ready yet')
+      log.warn('Loading error, network probably not ready yet', err.message)
     }
   }
 }

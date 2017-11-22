@@ -66,7 +66,7 @@ export default class DappPermissions extends PureComponent {
         onSubmit={this.onSubmit}
         validate={this.validate}
       >
-        <Form.Section title='Addresses'>
+        <Form.Section title={t('dappPermissions.addressPermissions')}>
           <Form.Field name={ALL_ADDRESSES} style={styles.field}>
             <Switch
               turnedOn={_.get(permissions, ALL_ADDRESSES, false)}

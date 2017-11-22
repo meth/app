@@ -1,3 +1,5 @@
+import { ALL_ADDRESSES } from '../../constants/dappPermissions'
+
 module.exports = {
   label: 'English',
   strings: {
@@ -98,7 +100,8 @@ module.exports = {
       }
     },
     dappPermissions: {
-      allAddresses: 'All addresses'
+      addressPermissions: 'Address permissions',
+      [ALL_ADDRESSES]: 'All addresses'
     }
   }
 }

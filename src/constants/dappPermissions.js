@@ -1,6 +1,6 @@
 import API from './api'
 
 module.exports = {
-  ALL_ADDRESSES: 'all_addresses',
-  [API.GENERATE_ADDRESS]: 'generate_addresses'
+  ALL_ADDRESSES: 'allAddresses',
+  [API.GENERATE_ADDRESS]: 'generateAddresses'
 }
