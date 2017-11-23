@@ -1,6 +1,6 @@
 import web3Handler from './web3'
 import apiHandler from './api'
-import IPC from '../../../../constants/ipc'
+import IPC from '../../../../../common/constants/ipc'
 
 export const handleWebViewIpcRequest = async (type, payload, { permissions, apiMethods }) => {
   switch (type) {

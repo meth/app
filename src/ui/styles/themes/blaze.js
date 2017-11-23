@@ -14,6 +14,7 @@ const colorBlack = '#000'
 const colorWhite = '#fff'
 const colorLightGray = '#ccc'
 const colorGray = '#9a9a9a'
+const colorDarkGray = '#777'
 
 /* https://color.adobe.com/Copy-of-Vitamin-C-color-theme-10071328/edit/?copy=true&base=2&rule=Custom&selected=4&name=Copy%20of%20Copy%20of%20Vitamin%20C&mode=rgb&rgbvalues=0,0.2627450980392157,0.34509803921568627,0.12156862745098039,0.5411764705882353,0.4392156862745098,0.7450980392156863,0.8588235294117647,0.2235294117647059,1,0.8823529411764706,0.10196078431372549,0.9921568627450981,0.4549019607843137,0&swatchOrder=0,1,2,3,4 */
 
@@ -136,6 +137,30 @@ export default {
       hoverBackgroundColor: colorLightGray,
       textColor: color1
     },
+    section: {
+      layout: {
+        borderColor: colorLightGray
+      },
+      title: {
+        textColor: colorLightGray
+      }
+    },
+    switch: {
+      on: {
+        trackColor: color2,
+        thumbColor: color3,
+        label: {
+          textColor: colorWhite
+        }
+      },
+      off: {
+        trackColor: colorLightGray,
+        thumbColor: colorDarkGray,
+        label: {
+          textColor: colorGray
+        }
+      }
+    },
     checkbox: {
       on: {
         box: {
@@ -150,11 +175,11 @@ export default {
       off: {
         box: {
           backgroundColor: 'transparent',
-          borderColor: colorLightGray,
-          tickIconColor: colorLightGray
+          borderColor: colorDarkGray,
+          tickIconColor: colorDarkGray
         },
         label: {
-          textColor: colorLightGray
+          textColor: colorDarkGray
         }
       }
     }

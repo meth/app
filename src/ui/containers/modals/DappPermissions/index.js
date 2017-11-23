@@ -4,9 +4,10 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
-import { t } from '../../../../strings'
+import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
-import { ALL_ADDRESSES } from '../../../../constants/dappPermissions'
+import { ALL_ADDRESSES } from '../../../../../common/constants/dappPermissions'
+import { GENERATE_ADDRESS } from '../../../../../common/constants/api'
 import { getDappPermissions, getAddresses } from '../../../../redux/account/selectors'
 import Modal from '../../../components/Modal'
 import Switch from '../../../components/Switch'
@@ -20,28 +21,30 @@ export default class DappPermissions extends PureComponent {
     })
   }
 
-  state = {
-    permissions: null
+  constructor (props, ctx) {
+    super(props, ctx)
+
+    const { data: { dappId } } = this.props
+    const { [dappId]: permissions } = getDappPermissions(props)
+
+    this.state = { permissions }
   }
 
   componentWillReceiveProps (newProps) {
-    const { data: { dappId } } = this.props
+    const { data: { oldDappId } } = this.props
     const { data: { newDappId } } = newProps
 
-    if (newDappId !== dappId) {
-      this.setState({
-        permissions: null
-      })
+    if (newDappId !== oldDappId) {
+      const { [newDappId]: permissions } = getDappPermissions(newProps)
+
+      this.setState({ permissions })
     }
   }
 
   render () {
     const { data: { dappId } } = this.props
-    const { [dappId]: savedPermissions } = getDappPermissions(this.props)
     const addresses = getAddresses(this.props)
-    const { permissions: newPermissions } = this.state
-
-    const permissions = newPermissions || savedPermissions
+    const { permissions } = this.state
 
     return (
       <Modal
@@ -66,11 +69,28 @@ export default class DappPermissions extends PureComponent {
         onSubmit={this.onSubmit}
         validate={this.validate}
       >
-        <Form.Section title={t('dappPermissions.addressPermissions')}>
+        <Form.Section
+          title={t('dappPermissions.addressPermissions')}
+          style={styles.section}
+          layoutStyle={styles.sectionLayout}
+          titleTextStyle={styles.sectionTitleText}
+        >
           <Form.Field name={ALL_ADDRESSES} style={styles.field}>
             <Switch
               turnedOn={_.get(permissions, ALL_ADDRESSES, false)}
               label={t(`dappPermissions.${ALL_ADDRESSES}`)} />
+          </Form.Field>
+        </Form.Section>
+        <Form.Section
+          title={t('dappPermissions.apiPermissions')}
+          style={styles.section}
+          layoutStyle={styles.sectionLayout}
+          titleTextStyle={styles.sectionTitleText}
+        >
+          <Form.Field name={`api.${GENERATE_ADDRESS}`} style={styles.field}>
+            <Switch
+              turnedOn={_.get(permissions, `api.${GENERATE_ADDRESS}`, false)}
+              label={t(`dappPermissions.api.${GENERATE_ADDRESS}`)} />
           </Form.Field>
         </Form.Section>
       </Form>
@@ -78,7 +98,14 @@ export default class DappPermissions extends PureComponent {
   }
 
   onChange = values => {
-    this.setState(values)
+    const { permissions } = this.state
+
+    this.setState({
+      permissions: {
+        ...permissions,
+        ...values
+      }
+    })
   }
 
   onSubmit = values => {

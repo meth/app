@@ -1,4 +1,4 @@
-import API from '../../../../constants/api'
+import API from '../../../../../common/constants/api'
 
 const _ensurePermission = (haystack, needle) => {
   if (!haystack.includes(needle)) {

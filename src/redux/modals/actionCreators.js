@@ -7,7 +7,7 @@ import {
   ALERT,
   LOG,
   DAPP_PERMISSIONS
-} from '../../constants/modals'
+} from '../../../common/constants/modals'
 
 export const showAlert = createActionCreator(SHOW, msg => ({
   type: ALERT,

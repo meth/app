@@ -1,7 +1,7 @@
 const { Menu, app } = require('electron')
 const Windows = require('./windows')
-const { t } = require('../src/strings')
-const UI_TASKS = require('../src/constants/ipcUiTasks')
+const { t } = require('../common/strings')
+const UI_TASKS = require('../common/constants/ipcUiTasks')
 
 
 exports.setup = () => {

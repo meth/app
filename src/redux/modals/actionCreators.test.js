@@ -5,7 +5,7 @@ import {
   ALERT,
   LOG,
   DAPP_PERMISSIONS
-} from '../../constants/modals'
+} from '../../../common/constants/modals'
 
 import {
   showAlert,

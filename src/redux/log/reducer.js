@@ -4,7 +4,7 @@ import binarySearchInsert from 'binary-search-insert'
 
 import { buildSortComparator } from '../../utils/datetime'
 import { LOAD_ALERTS, LOG, SEEN_ALERTS } from './actions'
-import { MAX_ITEMS, LEVELS } from '../../constants/log'
+import { MAX_ITEMS, LEVELS } from '../../../common/constants/log'
 
 const { ALERT } = LEVELS
 

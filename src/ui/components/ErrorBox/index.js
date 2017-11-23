@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 
-import { t } from '../../../strings'
+import { t } from '../../../../common/strings'
 import {
   instanceOfError,
   UnableToConnectError,

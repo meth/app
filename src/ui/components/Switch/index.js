@@ -14,11 +14,15 @@ export default class CustomSwitch extends Component {
       labelTextStyle
     } = this.props
 
-    const styles = createStyles({ turnedOn })
+    const { styles, thumbColor, trackColor } = createStyles({ turnedOn })
 
     return (
       <View style={[ styles.container, style ]}>
         <Switch
+          thumbColor={thumbColor}
+          trackColor={trackColor}
+          activeThumbColor={thumbColor}
+          activeTrackColor={trackColor}
           style={[ styles.switch, switchStyle ]}
           value={turnedOn}
           onValueChange={this.onPress}

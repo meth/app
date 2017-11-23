@@ -1,4 +1,5 @@
-import { ALL_ADDRESSES } from '../../constants/dappPermissions'
+const { GENERATE_ADDRESS } = require('../../constants/api')
+const { ALL_ADDRESSES } = require('../../constants/dappPermissions')
 
 module.exports = {
   label: 'English',
@@ -100,8 +101,12 @@ module.exports = {
       }
     },
     dappPermissions: {
-      addressPermissions: 'Address permissions',
-      [ALL_ADDRESSES]: 'All addresses'
+      addressPermissions: 'My addresses',
+      [ALL_ADDRESSES]: 'All addresses',
+      apiPermissions: 'Privileged functions',
+      api: {
+        [GENERATE_ADDRESS]: 'Generate new addresses'
+      }
     }
   }
 }

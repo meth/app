@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View } from 'react-native'
 import { arrayMove } from 'react-sortable-hoc'
 
-import { t } from '../../../strings'
+import { t } from '../../../../common/strings'
 import styles from './styles'
 import IconButton from '../IconButton'
 import TabList from './TabList'

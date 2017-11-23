@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 
 import reducer from './reducer'
 import { LOG, LOAD_ALERTS, SEEN_ALERTS } from './actions'
-import { MAX_ITEMS, LEVELS } from '../../constants/log'
+import { MAX_ITEMS, LEVELS } from '../../../common/constants/log'
 
 const { INFO, WARN, ERROR, ALERT } = LEVELS
 

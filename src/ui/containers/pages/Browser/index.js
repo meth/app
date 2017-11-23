@@ -2,8 +2,8 @@ import _ from 'lodash'
 import React from 'react'
 import { View } from 'react-native'
 
-import API from '../../../../constants/api'
-import STATE from '../../../../constants/states'
+import API from '../../../../../common/constants/api'
+import STATE from '../../../../../common/constants/states'
 import { createDappId } from '../../../../utils/dapp'
 import {
   globalEvents,

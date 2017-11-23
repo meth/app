@@ -4,8 +4,8 @@
  * This will setup the web3 instance for any Dapp running in the page.
  */
 const { ipcRenderer: ipc } = require('electron')
-const IPC = require('../../src/constants/ipc')
-const API = require('../../src/constants/api')
+const IPC = require('../../common/constants/ipc')
+const API = require('../../common/constants/api')
 
 
 /* Setup generic IPC request-response mechanism */

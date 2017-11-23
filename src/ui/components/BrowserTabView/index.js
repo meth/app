@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { t } from '../../../strings'
+import { t } from '../../../../common/strings'
 import styles from './styles'
 import { addProtocol } from '../../../utils/url'
 import IconButton from '../IconButton'

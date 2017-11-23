@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 
-import IPC from '../constants/ipc'
+import IPC from '../../common/constants/ipc'
 
 const dispatchEvent = (eventName, detail) => {
   window.dispatchEvent(new global.CustomEvent(eventName, { detail }))
@@ -13,7 +13,7 @@ describe('env web', () => {
 
   it('exports ui task constants', () => {
     expect(require('./index.web')).toMatchObject(
-      require('../constants/ipcUiTasks')
+      require('../../common/constants/ipcUiTasks')
     )
   })
 

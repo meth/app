@@ -1,4 +1,4 @@
-import API from './api'
+const API = require('./api')
 
 module.exports = {
   ALL_ADDRESSES: 'allAddresses',

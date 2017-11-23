@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
-import { t } from '../../../../strings'
+import { t } from '../../../../../common/strings'
 import { formatDate } from '../../../../utils/datetime'
 import { connectStore } from '../../../helpers/redux'
 import ScrollView from '../../../components/ScrollView'
 import Modal from '../../../components/Modal'
-import { LEVELS } from '../../../../constants/log'
+import { LEVELS } from '../../../../../common/constants/log'
 
 import { getUnseenAlerts, getLogWithoutUnseenAlerts } from '../../../../redux/log/selectors'
 import styles from './styles'

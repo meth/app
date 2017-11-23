@@ -1,6 +1,6 @@
 import { loadAlerts, seenAlerts, infoEvent, warnEvent, errorEvent, alertEvent } from './actionCreators'
 import { LOG, LOAD_ALERTS, SEEN_ALERTS } from './actions'
-import { LEVELS } from '../../constants/log'
+import { LEVELS } from '../../../common/constants/log'
 
 const { INFO, WARN, ERROR, ALERT } = LEVELS
 

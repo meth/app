@@ -4,7 +4,7 @@
   "description": "Meth Dapp browser",
   "main": "electron/index.js",
   "scripts": {
-    "electron": "electron ./electron",
+    "electron": "electron -r babel-register ./electron",
     "web": "webpack --env.development --env.vendor && webpack-dev-server --env.development",
     "web:prod": "webpack --env.production --env.vendor && webpack --env.production --progress",
     "web:serve": "http-serve -p 3001 --gzip true ./build/web",
@@ -57,6 +57,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-react-native": "^4.0.0",
+    "babel-register": "^6.26.0",
     "babel-runtime": "^6.26.0",
     "binary-search-insert": "^1.0.3",
     "bitcore-mnemonic": "^1.2.5",
