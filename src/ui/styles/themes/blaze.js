@@ -148,7 +148,7 @@ export default {
     switch: {
       on: {
         trackColor: color2,
-        thumbColor: color3,
+        thumbColor: colorWhite,
         label: {
           textColor: colorWhite
         }
@@ -164,9 +164,12 @@ export default {
     checkbox: {
       on: {
         box: {
-          backgroundColor: 'transparent',
-          borderColor: colorWhite,
-          tickIconColor: colorWhite
+          backgroundColor: color2,
+          borderColor: color2,
+          tickIcon: {
+            color: colorWhite,
+            opacity: 1
+          }
         },
         label: {
           textColor: colorWhite
@@ -175,11 +178,14 @@ export default {
       off: {
         box: {
           backgroundColor: 'transparent',
-          borderColor: colorDarkGray,
-          tickIconColor: colorDarkGray
+          borderColor: colorGray,
+          tickIcon: {
+            color: colorGray,
+            opacity: 0.2
+          }
         },
         label: {
-          textColor: colorDarkGray
+          textColor: colorGray
         }
       }
     }

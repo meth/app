@@ -19,25 +19,29 @@ export default create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 30
-  },
-  dappTitlePrefixText: {
-    ...text,
-    textTransform: 'uppercase',
-    fontSize: '1.3rem',
-    marginRight: 10
+    marginBottom: 10
   },
   dappTitleIdText: {
     ...text,
     fontSize: '1.3rem'
   },
 
+  /* alert */
+
+  alert: {
+    maxWidth: '90%'
+  },
+
+
   /* form */
 
   form: {
-    width: '100%'
+    width: '100%',
+    marginTop: 20
   },
-
+  field: {
+    marginBottom: 10
+  },
   section: {
     position: 'relative',
     marginBottom: 30,
@@ -65,5 +69,8 @@ export default create({
     paddingHorizontal: 20,
     marginBottom: -13,
     zIndex: 1
+  },
+  addressCheckBoxLabelText: {
+    fontSize: '0.5rem'
   }
 })

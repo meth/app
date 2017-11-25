@@ -1,10 +1,16 @@
 import Immutable from 'immutable'
 
 import reducer from './reducer'
-import { ADDRESS_BALANCES, ADDRESS_NAMES, BOOKMARKS, DAPP_PERMISSIONS } from './actions'
+import {
+  ADDRESS_BALANCES,
+  ADDRESS_NAMES,
+  BOOKMARKS,
+  DAPP_PERMISSIONS,
+  SAVE_DAPP_PERMISSIONS
+} from './actions'
 
 describe('ADDRESS_BALANCES', () => {
-  it('updates the balances', () => {
+  it('sets up balances', () => {
     const state = Immutable.Map({})
 
     const reduce = reducer()
@@ -23,7 +29,7 @@ describe('ADDRESS_BALANCES', () => {
 })
 
 describe('ADDRESS_NAMES', () => {
-  it('updates the names', () => {
+  it('sets up names', () => {
     const state = Immutable.Map({})
 
     const reduce = reducer()
@@ -54,7 +60,7 @@ describe('ADDRESS_NAMES', () => {
 })
 
 describe('BOOKMARKS', () => {
-  it('updates the bookmarks', () => {
+  it('sets up bookmarks', () => {
     const state = Immutable.Map({})
 
     const reduce = reducer()
@@ -73,7 +79,7 @@ describe('BOOKMARKS', () => {
 })
 
 describe('DAPP_PERMISSIONS', () => {
-  it('updates the bookmarks', () => {
+  it('sets up permissions', () => {
     const state = Immutable.Map({})
 
     const reduce = reducer()
@@ -87,6 +93,40 @@ describe('DAPP_PERMISSIONS', () => {
 
     expect(newState.get('dappPermissions')).toEqual({
       dummy: false
+    })
+  })
+})
+
+describe('SAVE_DAPP_PERMISSIONS', () => {
+  it('saves permissions for given dapp', () => {
+    const state = Immutable.Map({
+      dappPermissions: {
+        test: {
+          hello: 'jim'
+        },
+        test2: {
+          hello: 'bob'
+        }
+      }
+    })
+
+    const reduce = reducer()
+
+    const newState = reduce(state, {
+      type: SAVE_DAPP_PERMISSIONS,
+      payload: {
+        dappId: 'test2',
+        permissions: { hello: 'mark' }
+      }
+    })
+
+    expect(newState.get('dappPermissions')).toEqual({
+      test: {
+        hello: 'jim'
+      },
+      test2: {
+        hello: 'mark'
+      }
     })
   })
 })

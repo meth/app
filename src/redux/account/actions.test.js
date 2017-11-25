@@ -6,7 +6,8 @@ import {
   SEND_RAW_TX,
   GENERATE_RAW_TX,
   LOAD_WALLET,
-  GENERATE_MNEMONIC
+  GENERATE_MNEMONIC,
+  SAVE_DAPP_PERMISSIONS
 } from './actions'
 
 describe('ADDRESS_NAMES', () => {
@@ -30,6 +31,12 @@ describe('BOOKMARKS', () => {
 describe('DAPP_PERMISSIONS', () => {
   it('is defined', () => {
     expect(DAPP_PERMISSIONS).toBeDefined()
+  })
+})
+
+describe('SAVE_DAPP_PERMISSIONS', () => {
+  it('is defined', () => {
+    expect(SAVE_DAPP_PERMISSIONS).toBeDefined()
   })
 })
 

@@ -32,8 +32,8 @@ export default ({ turnedOn }) => {
     },
     tickIcon: {
       ...text,
-      color: `$form_checkbox_${state}_box_tickIconColor`,
-      opacity: 0.1,
+      color: `$form_checkbox_${state}_box_tickIcon_color`,
+      opacity: `$form_checkbox_${state}_box_tickIcon_opacity`,
       textAlign: 'center'
     }
   })

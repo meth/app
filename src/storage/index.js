@@ -45,7 +45,7 @@ class Storage {
     const data = this._load(this._userKey('accountNames'))
 
     if (data) {
-      this._store.actions.updateAddressNames(data)
+      this._store.actions.setupAddressNames(data)
     }
   }
 
@@ -55,7 +55,7 @@ class Storage {
     const data = this._load(this._userKey('bookmarks'))
 
     if (data) {
-      this._store.actions.updateBookmarks(data)
+      this._store.actions.setupBookmarks(data)
     }
   }
 
@@ -65,7 +65,7 @@ class Storage {
     const data = this._load(this._userKey('dappPermissions'))
 
     if (data) {
-      this._store.actions.updateDappPermissions(data)
+      this._store.actions.setupDappPermissions(data)
     }
   }
 

@@ -41,22 +41,21 @@ export default class Root extends PureComponent {
   renderModals () {
     const modals = getModals(this.props)
 
-    return <DappPermissions data={{ dappId: 123 }} />
-    // const components = []
-    //
-    // // connect modal overrides all others
-    // if (modals[MODALS.CONNECT_NODE]) {
-    //   const Component = MODAL_COMPONENTS[MODALS.CONNECT_NODE]
-    //   components.push(<Component key={MODALS.CONNECT_NODE} />)
-    // } else {
-    //   Object.keys(modals).forEach(key => {
-    //     if (modals[key]) {
-    //       const Component = MODAL_COMPONENTS[key]
-    //       components.push(<Component key={key} data={modals[key]} />)
-    //     }
-    //   })
-    // }
-    //
-    // return components.length ? components : null
+    const components = []
+
+    // connect modal overrides all others
+    if (modals[MODALS.CONNECT_NODE]) {
+      const Component = MODAL_COMPONENTS[MODALS.CONNECT_NODE]
+      components.push(<Component key={MODALS.CONNECT_NODE} />)
+    } else {
+      Object.keys(modals).forEach(key => {
+        if (modals[key]) {
+          const Component = MODAL_COMPONENTS[key]
+          components.push(<Component key={key} data={modals[key]} />)
+        }
+      })
+    }
+
+    return components.length ? components : null
   }
 }

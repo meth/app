@@ -67,6 +67,7 @@ module.exports = {
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
     button: {
+      save: 'Save',
       close: 'Close',
       login: 'Login',
       getStarted: 'Get started',
@@ -101,9 +102,10 @@ module.exports = {
       }
     },
     dappPermissions: {
-      addressPermissions: 'My addresses',
-      [ALL_ADDRESSES]: 'All addresses',
-      apiPermissions: 'Privileged functions',
+      pleaseSet: 'Please decide which addresses and special privileges this Dapp may access.',
+      addressPermissions: 'Can access addresses',
+      [ALL_ADDRESSES]: 'All my addresses',
+      apiPermissions: 'Can access privileges',
       api: {
         [GENERATE_ADDRESS]: 'Generate new addresses'
       }
