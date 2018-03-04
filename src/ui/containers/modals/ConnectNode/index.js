@@ -1,11 +1,17 @@
 import _ from 'lodash'
 import React from 'react'
 import { Text, View } from 'react-native'
+import { hexToNumber } from 'web3-utils'
 
 import { connectStore } from '../../../helpers/redux'
 import { CachePureComponent } from '../../../helpers/components'
 import { getNodes } from '../../../../redux/config/selectors'
-import { getNodeConnection, getNodeIsConnected, getDisconnectReason } from '../../../../redux/node/selectors'
+import {
+  getNodeConnection,
+  getNodeIsConnected,
+  getDisconnectReason,
+  getLatestBlock
+} from '../../../../redux/node/selectors'
 import { t } from '../../../../../common/strings'
 import ProgressButton from '../../../components/ProgressButton'
 import AlertBox from '../../../components/AlertBox'
@@ -54,12 +60,15 @@ export default class ConnectNode extends CachePureComponent {
       network: { description: network, chainId }
     } = getNodeConnection(this.props)
 
+    const block = getLatestBlock(this.props)
+
     return (
       <View style={styles.form}>
         <Text style={styles.nameText}>{name}</Text>
         <Text style={styles.urlText}>{url}</Text>
         <Text style={styles.networkText}>{t('connector.network', { network })}</Text>
         <Text style={styles.chainIdText}>chainId: {chainId}</Text>
+        { block ? <Text style={styles.chainIdText}>block: {hexToNumber(block.number)}</Text> : null}
         <ProgressButton
           style={styles.button}
           showInProgress={disconnecting}

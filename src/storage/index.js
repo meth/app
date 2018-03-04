@@ -19,7 +19,7 @@ class Storage {
   async setMnemonic (mnemonic) {
     const hash = sha256(mnemonic)
 
-    log.info(`Set storage mnemonic ${hash} ...`)
+    log.info(`Set storage mnemonic: ${hash} ...`)
 
     this._mnemonic = hash
 
@@ -70,13 +70,13 @@ class Storage {
   }
 
   async _load (key) {
-    log.debug(`Load key ${key} ...`)
+    log.debug(`Load: ${key} ...`)
 
     return AsyncStorage.getItem(key)
   }
 
   async _save (key, value) {
-    log.debug(`Save key ${key} ...`)
+    log.debug(`Save: ${key} ...`)
 
     return AsyncStorage.setItem(key, value)
   }

@@ -1,13 +1,20 @@
 import { handleActions } from 'redux-actions'
 import Immutable from 'immutable'
 
-import { NODE_DISCONNECTED, NODE_CONNECTED, NODE_CONNECTING, NODE_CONNECT_ERROR } from './actions'
+import {
+  NODE_DISCONNECTED,
+  NODE_CONNECTED,
+  NODE_CONNECTING,
+  NODE_CONNECT_ERROR,
+  NEW_BLOCK
+} from './actions'
 
 export default () => {
   const InitialState = Immutable.Map({
     isConnected: false,
     disconnectionReason: null,
-    connection: {}
+    connection: {},
+    latestBlock: null
   })
 
   return handleActions(
@@ -33,6 +40,10 @@ export default () => {
         state
           .set('connection', connection)
           .set('isConnected', true)
+      ),
+      [NEW_BLOCK]: (state, { payload: block }) => (
+        state
+          .set('latestBlock', block)
       )
     },
     InitialState

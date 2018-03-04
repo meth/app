@@ -4,9 +4,30 @@ import {
   nodeDisconnected,
   nodeConnecting,
   nodeConnected,
-  nodeConnectError
+  nodeConnectError,
+  notifyNewBlock
 } from './actionCreators'
-import { NODE_DISCONNECTED, DISCONNECT_NODE, CONNECT_NODE, NODE_CONNECT_ERROR, NODE_CONNECTING, NODE_CONNECTED } from './actions'
+
+import {
+  DISCONNECT_NODE,
+  NODE_CONNECTED,
+  NODE_CONNECT_ERROR,
+  NODE_CONNECTING,
+  CONNECT_NODE,
+  NODE_DISCONNECTED,
+  NEW_BLOCK
+} from './actions'
+
+describe('notifyNewBlock()', () => {
+  it('returns action', () => {
+    expect(notifyNewBlock(123)).toEqual({
+      type: NEW_BLOCK,
+      payload: {
+        reason: 123
+      }
+    })
+  })
+})
 
 describe('nodeDisconnected()', () => {
   it('returns action', () => {

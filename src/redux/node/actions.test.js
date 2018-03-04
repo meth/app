@@ -1,4 +1,18 @@
-import { CONNECT_NODE, DISCONNECT_NODE, NODE_DISCONNECTED, NODE_CONNECTED, NODE_CONNECTING, NODE_CONNECT_ERROR } from './actions'
+import {
+  DISCONNECT_NODE,
+  NODE_CONNECTED,
+  NODE_CONNECT_ERROR,
+  NODE_CONNECTING,
+  CONNECT_NODE,
+  NODE_DISCONNECTED,
+  NEW_BLOCK
+} from './actions'
+
+describe('NEW_BLOCK', () => {
+  it('is defined', () => {
+    expect(NEW_BLOCK).toBeDefined()
+  })
+})
 
 describe('CONNECT_NODE', () => {
   it('is defined', () => {

@@ -1,5 +1,23 @@
 import Immutable from 'immutable'
-import { getNodeIsConnected, getDisconnectReason, getNodeConnection } from './selectors'
+
+import {
+  getNodeIsConnected,
+  getDisconnectReason,
+  getNodeConnection,
+  getLatestBlock
+} from './selectors'
+
+describe('.getLatestBlock()', () => {
+  it('returns latest block', () => {
+    const state = {
+      node: new Immutable.Map({
+        latestBlock: 123
+      })
+    }
+
+    expect(getLatestBlock(state)).toEqual(123)
+  })
+})
 
 describe('.getNodeIsConnected()', () => {
   it('returns connection status', () => {

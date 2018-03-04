@@ -161,7 +161,7 @@ class Wallet extends EventEmitter {
       return
     }
 
-    log.debug('New block received, update balances ...')
+    log.debug('New block received, update balances')
 
     this._updateBalances()
   }

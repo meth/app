@@ -1,7 +1,13 @@
 import Immutable from 'immutable'
 
 import reducer from './reducer'
-import { NODE_CONNECTED, NODE_CONNECTING, NODE_CONNECT_ERROR, NODE_DISCONNECTED } from './actions'
+import {
+  NODE_DISCONNECTED,
+  NODE_CONNECTED,
+  NODE_CONNECTING,
+  NODE_CONNECT_ERROR,
+  NEW_BLOCK
+} from './actions'
 
 describe('NODE_DISCONNECTED', () => {
   let event
@@ -175,5 +181,33 @@ describe('NODE_CONNECTED', () => {
     })
 
     expect(newState.get('connection')).toEqual(123)
+  })
+})
+
+describe('NEW_BLOCK', () => {
+  let event
+  let state
+  let reduce
+
+  beforeEach(() => {
+    event = {
+      update: jest.fn(() => event),
+      getState: () => null
+    }
+
+    state = Immutable.Map({
+      latestBlock: null
+    })
+
+    reduce = reducer()
+  })
+
+  it('normally sets the latest block', () => {
+    const newState = reduce(state, {
+      type: NEW_BLOCK,
+      payload: 'whatever'
+    })
+
+    expect(newState.get('latestBlock')).toEqual('whatever')
   })
 })

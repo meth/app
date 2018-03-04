@@ -44,6 +44,10 @@ class NodeConnector extends EventEmitter {
           break
       }
     })
+
+    this.on(EVENT.NEW_BLOCK, block => {
+      store.actions.notifyNewBlock(block)
+    })
   }
 
   setNetworks (networks) {
