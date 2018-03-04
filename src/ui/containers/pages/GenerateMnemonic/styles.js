@@ -29,7 +29,7 @@ export default create({
   },
   mnemonic: {
     marginTop: 20,
-    maxWidth: '30%'
+    maxWidth: '90%'
   },
   nextButton: {
     marginTop: 40,

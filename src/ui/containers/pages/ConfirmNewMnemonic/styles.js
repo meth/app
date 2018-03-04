@@ -29,7 +29,7 @@ export default create({
   },
   confirmator: {
     marginTop: 30,
-    maxWidth: '40%'
+    maxWidth: '80%'
   },
   nextButton: {
     marginTop: 40,

@@ -124,12 +124,38 @@ export class MnemonicDisplay extends PureComponent {
     const { mnemonic, style } = this.props
     const { show } = this.state
 
+    const WORDS_PER_COL = 6
+
+    const columns = mnemonic.split(' ').reduce((list, word, index) => {
+      // eslint-disable-next-line no-bitwise
+      const col = ~~(index / WORDS_PER_COL)
+
+      if (undefined === list[col]) {
+        // eslint-disable-next-line no-param-reassign
+        list[col] = [ { index, word } ]
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        list[col].push({ index, word })
+      }
+
+      return list
+    }, [])
+
     return (
       <View style={style}>
         <View style={styles.mnemonicWords}>
-          {mnemonic.split(' ').map(word => (
-            <Text key={word} style={styles.wordText}>{word}</Text>
-          ))}
+          <View style={styles.wordColumns}>
+            {columns.map((column, idx) => (
+              <View key={idx} style={styles.wordColumn}>
+                {column.map(({ word, index }) => (
+                  <View key={index} style={styles.wordRow}>
+                    <Text style={styles.wordIndexText}>{index + 1}</Text>
+                    <Text style={styles.wordText}>{word}</Text>
+                  </View>
+                ))}
+              </View>
+            ))}
+          </View>
           {show ? null : (
             <Button
               onPress={this.onPressMask}

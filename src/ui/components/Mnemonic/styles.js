@@ -14,6 +14,11 @@ export default create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  mnemonicDisplay: {
+    flex: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   wordText: {
     ...fontMaker(),
     fontSize: '1rem',
@@ -63,5 +68,30 @@ export default create({
   maskButtonText: {
     ...maskText,
     fontSize: '1rem'
+  },
+  wordColumns: {
+    flex: 0,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'stretch'
+  },
+  wordColumn: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    marginHorizontal: 10
+  },
+  wordRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  wordIndexText: {
+    ...fontMaker(),
+    fontSize: '1rem',
+    textAlign: 'center',
+    color: '$mnemonic_textColor',
+    width: '2rem'
   }
 })

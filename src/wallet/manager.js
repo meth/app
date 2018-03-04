@@ -1,4 +1,4 @@
-import Mnemonic from 'bitcore-mnemonic'
+import Bip39 from 'bip39'
 
 import Wallet from './wallet'
 
@@ -17,8 +17,7 @@ export const init = ({ store, nodeConnector }) => {
  * Generate new mnemonic
  * @return {String}
  */
-export const generateMnemonic = async () =>
-  new Mnemonic(Mnemonic.Words.ENGLISH).toString()
+export const generateMnemonic = async () => Bip39.generateMnemonic(256)
 
 /**
  * Get current wallet
