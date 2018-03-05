@@ -5,12 +5,19 @@ import {
   NODE_CONNECTING,
   CONNECT_NODE,
   NODE_DISCONNECTED,
-  NEW_BLOCK
+  NEW_BLOCK,
+  SYNCING
 } from './actions'
 
 describe('NEW_BLOCK', () => {
   it('is defined', () => {
     expect(NEW_BLOCK).toBeDefined()
+  })
+})
+
+describe('SYNCING', () => {
+  it('is defined', () => {
+    expect(SYNCING).toBeDefined()
   })
 })
 

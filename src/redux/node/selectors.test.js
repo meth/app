@@ -4,18 +4,22 @@ import {
   getNodeIsConnected,
   getDisconnectReason,
   getNodeConnection,
-  getLatestBlock
+  getNodeState
 } from './selectors'
 
-describe('.getLatestBlock()', () => {
+describe('.getNodeState()', () => {
   it('returns latest block', () => {
     const state = {
       node: new Immutable.Map({
-        latestBlock: 123
+        latestBlock: 123,
+        syncing: 456
       })
     }
 
-    expect(getLatestBlock(state)).toEqual(123)
+    expect(getNodeState(state)).toEqual({
+      latestBlock: 123,
+      syncing: 456
+    })
   })
 })
 

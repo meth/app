@@ -84,7 +84,7 @@ class Adapter extends EventEmitter {
       this._connectPromise = null
       this._updateState(STATE.CONNECTED)
 
-      this._startBlockPoll()
+      this._startPoll()
     } catch (err) {
       this._log.trace('Connection error', err)
 
@@ -115,7 +115,7 @@ class Adapter extends EventEmitter {
     }
 
     this._log.trace('Disconnecting...')
-    this._stopBlockPoll()
+    this._stopPoll()
     this._updateState(STATE.DISCONNECTING)
     this._disconnectPromise = this._disconnect()
 
@@ -230,11 +230,11 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  _startBlockPoll () {
+  _startPoll () {
     this._log.info(`Start polling for blocks`)
 
-    this._blockPollEnabled = true
-    this._doBlockPoll()
+    this._pollEnabled = true
+    this._doPoll()
   }
 
   /**
@@ -242,10 +242,10 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  _stopBlockPoll () {
+  _stopPoll () {
     this._log.info(`Stop polling for blocks`)
 
-    this._blockPollEnabled = false
+    this._pollEnabled = false
   }
 
   /**
@@ -253,31 +253,42 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  async _doBlockPoll () {
-    if (!this._blockPollEnabled || STATE.CONNECTED !== this.state) {
+  async _doPoll () {
+    if (!this._pollEnabled || STATE.CONNECTED !== this.state) {
       return
     }
 
-    this._log.debug(`Polling for blocks ...`)
+    this._log.debug(`Polling node state ...`)
 
-    const block = await this.execMethod('eth_getBlockByNumber', [
-      'latest',
-      false
+    const [ block, syncing ] = await Promise.all([
+      this.execMethod('eth_getBlockByNumber', [
+        'latest',
+        false
+      ]),
+      this.execMethod('eth_syncing')
     ])
 
-    const newBlockNumber = hexToNumber(block.number)
+    const newBlockHash = block.hash
 
-    if (newBlockNumber !== this._lastBlockNumber) {
-      this._log.debug(`Got new block: ${newBlockNumber}`)
+    if (newBlockHash !== this._lastBlockHash) {
+      this._log.debug(`Got new block: ${hexToNumber(block.number)}`)
 
-      this._lastBlockNumber = newBlockNumber
+      this._lastBlockHash = newBlockHash
 
       this.emit(EVENT.NEW_BLOCK, block)
     }
 
-    if (this._blockPollEnabled) {
+    if (syncing !== this._lastSyncing) {
+      this._log.debug(`Sync status changed to: ${syncing ? 'true' : 'false'}`)
+
+      this._lastSyncing = syncing
+
+      this.emit(EVENT.SYNCING, syncing)
+    }
+
+    if (this._pollEnabled) {
       // every 10 seconds
-      setTimeout(() => this._doBlockPoll(), 5000)
+      setTimeout(() => this._doPoll(), 5000)
     }
   }
 

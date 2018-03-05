@@ -5,7 +5,8 @@ import {
   nodeConnecting,
   nodeConnected,
   nodeConnectError,
-  notifyNewBlock
+  notifyNewBlock,
+  notifySyncing
 } from './actionCreators'
 
 import {
@@ -15,16 +16,15 @@ import {
   NODE_CONNECTING,
   CONNECT_NODE,
   NODE_DISCONNECTED,
-  NEW_BLOCK
+  NEW_BLOCK,
+  SYNCING
 } from './actions'
 
 describe('notifyNewBlock()', () => {
   it('returns action', () => {
     expect(notifyNewBlock(123)).toEqual({
       type: NEW_BLOCK,
-      payload: {
-        reason: 123
-      }
+      payload: 123
     })
   })
 })
@@ -82,6 +82,15 @@ describe('nodeConnected()', () => {
   it('returns action', () => {
     expect(nodeConnected(123)).toEqual({
       type: NODE_CONNECTED,
+      payload: 123
+    })
+  })
+})
+
+describe('notifySyncing()', () => {
+  it('returns action', () => {
+    expect(notifySyncing(123)).toEqual({
+      type: SYNCING,
       payload: 123
     })
   })

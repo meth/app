@@ -7,7 +7,8 @@ import {
   NODE_CONNECTING,
   CONNECT_NODE,
   NODE_DISCONNECTED,
-  NEW_BLOCK
+  NEW_BLOCK,
+  SYNCING
 } from './actions'
 
 export const disconnectNode = createActionCreator(DISCONNECT_NODE)
@@ -25,3 +26,5 @@ export const nodeDisconnected = createActionCreator(NODE_DISCONNECTED, reason =>
 }))
 
 export const notifyNewBlock = createActionCreator(NEW_BLOCK)
+
+export const notifySyncing = createActionCreator(SYNCING)

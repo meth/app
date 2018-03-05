@@ -48,6 +48,10 @@ class NodeConnector extends EventEmitter {
     this.on(EVENT.NEW_BLOCK, block => {
       store.actions.notifyNewBlock(block)
     })
+
+    this.on(EVENT.SYNCING, syncing => {
+      store.actions.notifySyncing(syncing)
+    })
   }
 
   setNetworks (networks) {
@@ -108,9 +112,11 @@ class NodeConnector extends EventEmitter {
 
       network.genesisBlock = block.hash
 
-      // propagate blocks
       this._adapter.on(EVENT.NEW_BLOCK, (...args) => {
         this.emit(EVENT.NEW_BLOCK, ...args)
+      })
+      this._adapter.on(EVENT.SYNCING, (...args) => {
+        this.emit(EVENT.SYNCING, ...args)
       })
 
       log.info(`Connected to network: ${network.description}`)

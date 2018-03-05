@@ -109,6 +109,10 @@ module.exports = {
       api: {
         [GENERATE_ADDRESS]: 'Generate new addresses'
       }
+    },
+    sync: {
+      upToDate: 'complete',
+      percent: '{percent}%'
     }
   }
 }

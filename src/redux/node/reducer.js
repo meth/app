@@ -6,7 +6,8 @@ import {
   NODE_CONNECTED,
   NODE_CONNECTING,
   NODE_CONNECT_ERROR,
-  NEW_BLOCK
+  NEW_BLOCK,
+  SYNCING
 } from './actions'
 
 export default () => {
@@ -14,7 +15,8 @@ export default () => {
     isConnected: false,
     disconnectionReason: null,
     connection: {},
-    latestBlock: null
+    latestBlock: null,
+    syncing: false
   })
 
   return handleActions(
@@ -44,6 +46,10 @@ export default () => {
       [NEW_BLOCK]: (state, { payload: block }) => (
         state
           .set('latestBlock', block)
+      ),
+      [SYNCING]: (state, { payload: syncing }) => (
+        state
+          .set('syncing', syncing)
       )
     },
     InitialState

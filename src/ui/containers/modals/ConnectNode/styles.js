@@ -55,6 +55,18 @@ export default create({
     marginTop: 10,
     color: '$modal_connectNode_darkTextColor'
   },
+  blockText: {
+    ...text,
+    fontSize: '0.7rem',
+    marginTop: 10,
+    color: '$modal_connectNode_darkTextColor'
+  },
+  syncingText: {
+    ...text,
+    fontSize: '0.7rem',
+    marginTop: 10,
+    color: '$modal_connectNode_darkTextColor'
+  },
   errorBox: {
     marginTop: 30
   },

@@ -1,7 +1,16 @@
-export const getNodeIsConnected = state => state.node.get('isConnected')
+import { createSelector } from 'reselect'
 
-export const getNodeConnection = state => state.node.get('connection')
+export const getNodeIsConnected = state => state.node.get('isConnected')
 
 export const getDisconnectReason = state => state.node.get('disconnectionReason')
 
-export const getLatestBlock = state => state.node.get('latestBlock')
+export const getNodeConnection = state => state.node.get('connection')
+
+const getLatestBlock = state => state.node.get('latestBlock')
+
+const getSyncing = state => state.node.get('syncing')
+
+export const getNodeState = createSelector(
+  getLatestBlock, getSyncing,
+  (latestBlock, syncing) => ({ latestBlock, syncing })
+)

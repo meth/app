@@ -6,7 +6,8 @@ import {
   NODE_CONNECTED,
   NODE_CONNECTING,
   NODE_CONNECT_ERROR,
-  NEW_BLOCK
+  NEW_BLOCK,
+  SYNCING
 } from './actions'
 
 describe('NODE_DISCONNECTED', () => {
@@ -209,5 +210,33 @@ describe('NEW_BLOCK', () => {
     })
 
     expect(newState.get('latestBlock')).toEqual('whatever')
+  })
+})
+
+describe('SYNCING', () => {
+  let event
+  let state
+  let reduce
+
+  beforeEach(() => {
+    event = {
+      update: jest.fn(() => event),
+      getState: () => null
+    }
+
+    state = Immutable.Map({
+      syncing: null
+    })
+
+    reduce = reducer()
+  })
+
+  it('normally sets the syncing flag', () => {
+    const newState = reduce(state, {
+      type: SYNCING,
+      payload: 'whatever'
+    })
+
+    expect(newState.get('syncing')).toEqual('whatever')
   })
 })
