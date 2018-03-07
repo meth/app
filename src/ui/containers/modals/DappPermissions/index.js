@@ -7,7 +7,7 @@ import Form from 'react-native-advanced-forms'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import { ALL_ADDRESSES } from '../../../../../common/constants/dappPermissions'
-import { GENERATE_ADDRESS } from '../../../../../common/constants/api'
+import API from '../../../../../common/constants/api'
 import { getDappPermissions, getAddresses } from '../../../../redux/account/selectors'
 import Modal from '../../../components/Modal'
 import Switch from '../../../components/Switch'
@@ -131,11 +131,13 @@ export default class DappPermissions extends PureComponent {
           layoutStyle={styles.sectionLayout}
           titleTextStyle={styles.sectionTitleText}
         >
-          <Form.Field name={GENERATE_ADDRESS} style={styles.field}>
-            <Switch
-              turnedOn={_.get(permissions, GENERATE_ADDRESS, false)}
-              label={t(`dappPermissions.api.${GENERATE_ADDRESS}`)} />
-          </Form.Field>
+          {Object.keys(API).map(key => (
+            <Form.Field key={key} name={key} style={styles.field}>
+              <Switch
+                turnedOn={_.get(permissions, key, false)}
+                label={t(`dappPermissions.api.${API[key]}`)} />
+            </Form.Field>
+          ))}
         </Form.Section>
       </Form>
     )

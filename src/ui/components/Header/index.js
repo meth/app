@@ -30,7 +30,7 @@ export default class Header extends PureComponent {
         </View>
         <View style={styles.right}>
           {network && addresses ? this.renderBalance(addresses) : null}
-          {(!network) ? this.renderNetwork(network) : null}
+          {network ? this.renderNetwork(network) : null}
           {this.renderAlerts()}
         </View>
       </View>
@@ -65,10 +65,11 @@ export default class Header extends PureComponent {
       <View style={styles.network}>
         <Button
           onPress={onPressNetworkInfo}
-          style={styles.button}
-          type='header'/>
-        <Text style={styles.networkButtonText}>{'Private'}</Text>
-        {syncIcon}
+          style={styles.networkButton}
+          type='header'>
+            <Text style={styles.networkButtonText}>{'Private'}</Text>
+            {syncIcon}
+        </Button>
       </View>
     )
   }

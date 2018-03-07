@@ -60,7 +60,9 @@ export default class Browser extends CachePureComponent {
         <View key={id} style={active ? styles.activeView : styles.inactiveView}>
           <BrowserTabView
             ref={view => {
-              if (active) this.activeTabView = view
+              if (active) {
+                this.activeTabView = view
+              }
             }}
             url={url}
             permissions={permissions}

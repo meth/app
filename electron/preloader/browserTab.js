@@ -77,10 +77,13 @@ class Web3IpcProvider {
 
 window.web3 = new Web3(new Web3IpcProvider())
 
-/* Setup Meth API */
+/* Meth API */
 
-window.Meth = {
-  createAccount: () => sendIpc(IPC.API, {
-    command: API.CREATE_ACCOUNT
+window.DappBrowser = Object.entries(API).reduce((ret, [ command, methodName ]) => {
+  // eslint-disable-next-line no-param-reassign
+  ret[methodName] = params => sendIpc(IPC.API, {
+    command,
+    params
   })
-}
+  return ret
+}, {})

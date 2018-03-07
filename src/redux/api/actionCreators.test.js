@@ -1,4 +1,5 @@
-import { web3Request, generateAddress, sendTransaction, cancelTransaction } from './actionCreators'
+import API from '../../../common/constants/api'
+import { web3Request, generateAddress, sendTransaction, cancelTransaction, exposedToDapp } from './actionCreators'
 import { WEB3_REQUEST, GENERATE_ADDRESS, SEND_TX, CANCEL_TX } from './actions'
 
 describe('web3Request()', () => {
@@ -40,5 +41,11 @@ describe('cancelTransaction()', () => {
       type: CANCEL_TX,
       payload: 123
     })
+  })
+})
+
+describe('exposedToDapp', () => {
+  it('.GENERATE_ADDRESS', () => {
+    expect(exposedToDapp[API.GENERATE_ADDRESS]).toEqual(generateAddress)
   })
 })

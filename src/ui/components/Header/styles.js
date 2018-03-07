@@ -6,6 +6,11 @@ const text = {
   fontSize: '0.8rem'
 }
 
+const button = {
+  paddingVertical: 10,
+  borderRadius: 0
+}
+
 export default create({
   container: {
     backgroundColor: '$header_backgroundColor',
@@ -31,8 +36,7 @@ export default create({
     paddingHorizontal: 10
   },
   button: {
-    paddingVertical: 10,
-    borderRadius: 0
+    ...button
   },
   logout: {
     borderLeftWidth: 1,
@@ -41,10 +45,13 @@ export default create({
   network: {
     borderRightWidth: 1,
     borderRightColor: '$header_dividerColor',
-    paddingHorizontal: 10,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  networkButton: {
+    ...button,
+    paddingHorizontal: 10
   },
   networkButtonText: {
     ...text

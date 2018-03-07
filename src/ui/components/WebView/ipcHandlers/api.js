@@ -1,5 +1,3 @@
-import API from '../../../../../common/constants/api'
-
 const _ensurePermission = (haystack, needle) => {
   if (!haystack.includes(needle)) {
     throw new Error(
@@ -8,13 +6,10 @@ const _ensurePermission = (haystack, needle) => {
   }
 }
 
-export default ({ command }, permissions, { generateAddress }) => {
-  switch (command) {
-    case API.GENERATE_ADDRESS:
-      _ensurePermission(permissions, API.GENERATE_ADDRESS)
+export default (payload, permissions, apiMethods) => {
+  const { command } = payload
 
-      return generateAddress()
-    default:
-      return new Error('Unrecognized API command')
-  }
+  _ensurePermission(permissions, command)
+
+  return apiMethods[command](payload)
 }
