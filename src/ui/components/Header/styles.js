@@ -6,7 +6,6 @@ const text = {
   fontSize: '0.8rem'
 }
 
-
 export default create({
   container: {
     backgroundColor: '$header_backgroundColor',
@@ -41,7 +40,17 @@ export default create({
   },
   network: {
     borderRightWidth: 1,
-    borderRightColor: '$header_dividerColor'
+    borderRightColor: '$header_dividerColor',
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  },
+  networkButtonText: {
+    ...text
+  },
+  networkButtonLoading: {
+    marginLeft: 5
   },
   balance: {
     borderRightWidth: 1,

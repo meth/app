@@ -28,6 +28,14 @@ module.exports = {
       previousTab: 'Goto previous tab',
       nextTab: 'Goto next tab'
     },
+    network: {
+      chainId: 'ChainId',
+      syncing: 'Sync',
+      block: 'Block',
+      sync: {
+        percent: '{percent}%'
+      }
+    },
     connector: {
       connectToNode: 'Connect to node',
       pleaseChooseNode: 'Connect to an Ethereum node',
@@ -109,10 +117,6 @@ module.exports = {
       api: {
         [GENERATE_ADDRESS]: 'Generate new addresses'
       }
-    },
-    sync: {
-      upToDate: 'complete',
-      percent: '{percent}%'
     }
   }
 }

@@ -62,24 +62,21 @@ export default class ConnectNode extends CachePureComponent {
 
     const { latestBlock, syncing } = getNodeState(this.props)
 
-    let syncText = t('sync.upToDate')
-    if (syncing) {
-      const percent = (_.get(syncing, 'currentBlock') - _.get(syncing, 'startingBlock')) /
-        (0.1 + (_.get(syncing, 'highestBlock') - _.get(syncing, 'startingBlock')))
-
-      syncText = t('sync.percent', { percent })
-    }
+    const syncPercent = (syncing) ? (
+      (_.get(syncing, 'currentBlock', 0) - _.get(syncing, 'startingBlock', 0)) /
+        (0.1 + (_.get(syncing, 'highestBlock', 0) - _.get(syncing, 'startingBlock', 0)))
+    ) : 100
 
     return (
       <View style={styles.form}>
         <Text style={styles.nameText}>{name}</Text>
         <Text style={styles.urlText}>{url}</Text>
         <Text style={styles.networkText}>{t('connector.network', { network })}</Text>
-        <Text style={styles.chainIdText}>chainId: {chainId}</Text>
+        <Text style={styles.chainIdText}>{t('network.chainId')}: {chainId}</Text>
         {latestBlock ? (
-          <Text style={styles.blockText}>block: {hexToNumber(latestBlock.number)}</Text>
+          <Text style={styles.blockText}>{t('network.block')}: {hexToNumber(latestBlock.number)}</Text>
         ) : null}
-        <Text style={styles.syncingText}>sync: {syncText}</Text>
+        <Text style={styles.syncingText}>{t('network.syncing')}: {t('network.sync.percent', { percent: syncPercent })}</Text>
         <ProgressButton
           style={styles.button}
           showInProgress={disconnecting}

@@ -5,7 +5,7 @@ import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
 import { getAddresses } from '../../../../redux/account/selectors'
-import { getNodeConnection } from '../../../../redux/node/selectors'
+import { getNodeConnection, getNodeState } from '../../../../redux/node/selectors'
 import { getUnseenAlertsCount } from '../../../../redux/log/selectors'
 import styles from './styles'
 
@@ -13,6 +13,9 @@ import styles from './styles'
 export default class Layout extends PureComponent {
   render () {
     const { network } = getNodeConnection(this.props)
+    if (network) {
+      network.node = getNodeState(this.props)
+    }
     const addresses = getAddresses(this.props)
     const unseenAlertsCount = getUnseenAlertsCount(this.props)
     const { children, contentStyle } = this.props

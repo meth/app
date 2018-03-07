@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import BN from 'bn.js'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
@@ -5,6 +6,7 @@ import { View, Text } from 'react-native'
 import { fromWei } from 'web3-utils'
 
 import Button from '../Button'
+import Loading from '../Loading'
 import AlertsButton from './AlertsButton'
 import styles from './styles'
 
@@ -28,7 +30,7 @@ export default class Header extends PureComponent {
         </View>
         <View style={styles.right}>
           {network && addresses ? this.renderBalance(addresses) : null}
-          {network ? this.renderNetwork(network) : null}
+          {(!network) ? this.renderNetwork(network) : null}
           {this.renderAlerts()}
         </View>
       </View>
@@ -54,13 +56,19 @@ export default class Header extends PureComponent {
   renderNetwork (network) {
     const { onPressNetworkInfo } = this.props
 
+    const syncing = !!_.get(network, 'node.syncing')
+    const syncIcon = syncing ? (
+      <Loading />
+    ) : null
+
     return (
       <View style={styles.network}>
         <Button
           onPress={onPressNetworkInfo}
           style={styles.button}
-          type='header'
-          title={network.description} />
+          type='header'/>
+        <Text style={styles.networkButtonText}>{'Private'}</Text>
+        {syncIcon}
       </View>
     )
   }
