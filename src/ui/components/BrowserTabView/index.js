@@ -116,4 +116,8 @@ export default class BrowserTabView extends PureComponent {
       this.addressInput.focusHighlight()
     }
   }
+
+  openDevTools = () => {
+    this.webView.openDevTools()
+  }
 }

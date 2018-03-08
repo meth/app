@@ -1,6 +1,8 @@
 import API from '../../../common/constants/api'
-import { web3Request, generateAddress, sendTransaction, cancelTransaction, exposedToDapp } from './actionCreators'
+import * as methods from './actionCreators'
 import { WEB3_REQUEST, GENERATE_ADDRESS, SEND_TX, CANCEL_TX } from './actions'
+
+const { web3Request, generateAddress, sendTransaction, cancelTransaction } = methods
 
 describe('web3Request()', () => {
   it('with payload returns action', () => {
@@ -44,8 +46,21 @@ describe('cancelTransaction()', () => {
   })
 })
 
-describe('exposedToDapp', () => {
-  it('.GENERATE_ADDRESS', () => {
-    expect(exposedToDapp[API.GENERATE_ADDRESS]).toEqual(generateAddress)
+describe('API.GENERATE_ADDRESS()', () => {
+  it('defined', () => {
+    expect(cancelTransaction(123)).toEqual({
+      type: CANCEL_TX,
+      payload: 123
+    })
+  })
+})
+
+describe('API', () => {
+  it('has exports', () => {
+    expect.assertions(3)
+
+    Object.keys(API).forEach(key => {
+      expect(methods[key]).toBeInstanceOf(Function)
+    })
   })
 })

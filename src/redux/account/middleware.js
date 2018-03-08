@@ -1,4 +1,10 @@
-import { SEND_RAW_TX, GENERATE_RAW_TX, LOAD_WALLET, GENERATE_MNEMONIC } from './actions'
+import {
+  SEND_RAW_TX,
+  GENERATE_RAW_TX,
+  LOAD_WALLET,
+  GENERATE_MNEMONIC,
+  SAVE_DAPP_PERMISSIONS
+} from './actions'
 import { getNodeConnection } from '../node/selectors'
 import { createAction } from '../utils'
 import logger from '../../logger'
@@ -47,6 +53,10 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       await next(createAction(action.type, receipt))
 
       return Promise.resolve(receipt)
+    }
+    case SAVE_DAPP_PERMISSIONS: {
+      // TODO
+      break
     }
     default: {
       return next(action)

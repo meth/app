@@ -38,14 +38,14 @@ export default class Browser extends CachePureComponent {
         id: newTabId(),
         label: 'Google',
         url: 'https://google.com/',
-        permissions: [ API.CREATE_ACCOUNT ]
+        permissions: [ API.GENERATE_ADDRESS ]
       },
       {
         active: false,
         id: newTabId(),
         label: 'Example',
         url: 'https://example.com/',
-        permissions: [ API.CREATE_ACCOUNT ]
+        permissions: [ API.GENERATE_ADDRESS ]
       }
     ]
   }

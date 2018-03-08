@@ -11,6 +11,6 @@ export const sendTransaction = createActionCreator(SEND_TX, tx => ({ tx }))
 
 export const cancelTransaction = createActionCreator(CANCEL_TX)
 
-export const exposedToDapp = {
-  [API.GENERATE_ADDRESS]: generateAddress
-}
+exports[API.GENERATE_ADDRESS] = generateAddress
+exports[API.LABEL_ADDRESS] = generateAddress
+exports[API.SIGN_DATA] = generateAddress
