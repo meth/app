@@ -25,9 +25,9 @@ class Storage {
 
     try {
       /* do these calls asynchronously */
-      this.loadAddressNames()
-      this.loadBookmarks()
-      this.loadDappPermissions()
+      this._loadAddressNames()
+      this._loadBookmarks()
+      this._loadDappPermissions()
     } catch (err) {
       log.warn(err.toString())
     }
@@ -39,46 +39,58 @@ class Storage {
     this._network = genesisBlock
   }
 
-  async loadAddressNames () {
+  async _loadAddressNames () {
     log.info('Load address friendly names ...')
 
-    const data = this._load(this._userKey('accountNames'))
+    const data = await this._load(this._userKey('accountNames'))
 
     if (data) {
       this._store.actions.setupAddressNames(data)
     }
   }
 
-  async loadBookmarks () {
+  async _loadBookmarks () {
     log.info('Load bookmarks ...')
 
-    const data = this._load(this._userKey('bookmarks'))
+    const data = await this._load(this._userKey('bookmarks'))
 
     if (data) {
       this._store.actions.setupBookmarks(data)
     }
   }
 
-  async loadDappPermissions () {
+  async _loadDappPermissions () {
     log.info('Load dapp permissions ...')
 
-    const data = this._load(this._userKey('dappPermissions'))
+    const data = await this._load(this._userKey('dappPermissions'))
 
     if (data) {
       this._store.actions.setupDappPermissions(data)
     }
   }
 
+  async saveDappPermissions (data) {
+    log.debug('Save dapp permissions ...', data)
+
+    await this._save(this._userKey('dappPermissions'), data)
+  }
+
   async _load (key) {
     log.debug(`Load: ${key} ...`)
 
-    return AsyncStorage.getItem(key)
+    const json = await AsyncStorage.getItem(key)
+
+    try {
+      return JSON.parse(json)
+    } catch (err) {
+      return undefined
+    }
   }
 
   async _save (key, value) {
     log.debug(`Save: ${key} ...`)
 
-    return AsyncStorage.setItem(key, value)
+    return AsyncStorage.setItem(key, JSON.stringify(value))
   }
 
   _userKey (key) {
@@ -90,7 +102,7 @@ class Storage {
   }
 
   _canConstructUserKey () {
-    return this._mnemonic
+    return !!this._mnemonic
   }
 }
 

@@ -5,6 +5,7 @@ import {
   GENERATE_MNEMONIC,
   SAVE_DAPP_PERMISSIONS
 } from './actions'
+import { getDappPermissions } from './selectors'
 import { getNodeConnection } from '../node/selectors'
 import { createAction } from '../utils'
 import logger from '../../logger'
@@ -12,7 +13,9 @@ import logger from '../../logger'
 const log = logger.create('walletMiddleware')
 
 // eslint-disable-next-line consistent-return
-export default ({ nodeConnector, walletManager }) => store => next => async action => {
+export default ({
+  storage, nodeConnector, walletManager
+}) => ({ getState }) => next => async action => {
   switch (action.type) {
     case GENERATE_MNEMONIC: {
       return walletManager.generateMnemonic()
@@ -33,7 +36,7 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       const { from, to, value, data, gasLimit, gasPrice } = action.payload
 
       // chain id
-      const { network: { chainId } } = getNodeConnection(store.getState())
+      const { network: { chainId } } = getNodeConnection(getState())
       log.debug(`chainId: ${chainId}`)
 
       // nonce
@@ -55,8 +58,17 @@ export default ({ nodeConnector, walletManager }) => store => next => async acti
       return Promise.resolve(receipt)
     }
     case SAVE_DAPP_PERMISSIONS: {
-      // TODO
-      break
+      const { dappId, permissions } = action.payload
+
+      log.debug(`Save dapp permissions (${dappId}) ...`)
+
+      const dappPermissions = getDappPermissions(getState())
+
+      dappPermissions[dappId] = permissions
+
+      await storage.saveDappPermissions(dappPermissions)
+
+      return next(action)
     }
     default: {
       return next(action)
