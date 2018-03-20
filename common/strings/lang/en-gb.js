@@ -1,7 +1,6 @@
 const {
   GENERATE_ADDRESS,
-  LABEL_ADDRESS,
-  SIGN_DATA
+  LABEL_ADDRESS
 } = require('../../constants/api')
 const { ALL_ADDRESSES } = require('../../constants/dappPermissions')
 
@@ -120,8 +119,7 @@ module.exports = {
       apiPermissions: 'Can access privileges',
       api: {
         [GENERATE_ADDRESS]: 'Generate new account',
-        [LABEL_ADDRESS]: 'Set friendly account label',
-        [SIGN_DATA]: 'Sign data using account'
+        [LABEL_ADDRESS]: 'Set friendly account label'
       }
     }
   }

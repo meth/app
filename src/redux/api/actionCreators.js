@@ -3,7 +3,9 @@ import { createActionCreator } from '../utils'
 
 import { GENERATE_ADDRESS, WEB3_REQUEST, SEND_TX, CANCEL_TX } from './actions'
 
-export const web3Request = createActionCreator(WEB3_REQUEST)
+export const web3Request = createActionCreator(WEB3_REQUEST, (request, permissions) => ({
+  request, permissions
+}))
 
 export const generateAddress = createActionCreator(GENERATE_ADDRESS)
 
@@ -13,4 +15,3 @@ export const cancelTransaction = createActionCreator(CANCEL_TX)
 
 exports[API.GENERATE_ADDRESS] = generateAddress
 exports[API.LABEL_ADDRESS] = generateAddress
-exports[API.SIGN_DATA] = generateAddress

@@ -1,5 +1,5 @@
 const _ensurePermission = (haystack, needle) => {
-  if (!haystack.includes(needle)) {
+  if (!haystack[needle]) {
     throw new Error(
       `Webview does not have permission to execute command: ${needle}`
     )

@@ -15,3 +15,12 @@ export const createDappId = ({ url }) => {
 
   return host
 }
+
+export const extractAddressPermissions = dappPermissions => (
+  Object.keys(dappPermissions || {})
+    .filter(k => k.startsWith('0x'))
+    .reduce((m, v) => ({
+      ...m,
+      [v]: dappPermissions[v]
+    }), {})
+)

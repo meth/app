@@ -146,7 +146,7 @@ class NodeConnector extends EventEmitter {
    *
    * @param {Object|Array} payload Either a single or batch request
    * @param {Object} context Context in which method is being called
-   * @param {String} [context.dappUrl] URL of dapp which is calling this method
+   * @param {String} [context.permissions] Dapp permissions
    * @return {Promise}
    */
   async request (payload, context) {
@@ -169,7 +169,7 @@ class NodeConnector extends EventEmitter {
         result.push({
           id,
           // eslint-disable-next-line no-await-in-loop
-          result: await this._methodFactory.getHandler(method).run(params)
+          result: await this._methodFactory.getHandler(method).run(params, context)
         })
       } catch (err) {
         err.method = method

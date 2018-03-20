@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React from 'react'
 import { View } from 'react-native'
 
-import API from '../../../../../common/constants/api'
+import DAPP_PERMISSIONS from '../../../../../common/constants/dappPermissions'
 import STATE from '../../../../../common/constants/states'
 import { createDappId } from '../../../../utils/dapp'
 import {
@@ -16,6 +16,7 @@ import {
 } from '../../../../env'
 import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
+import { getDappPermissions } from '../../../../redux/account/selectors'
 import styles from './styles'
 import Layout from '../Layout'
 import BrowserTabBar from '../../../components/BrowserTabBar'
@@ -23,38 +24,36 @@ import BrowserTabView from '../../../components/BrowserTabView'
 
 const newTabId = () => _.random(1, 1000000000)
 
-@connectStore('api', 'modals')
+const DEFAULT_PERMISSIONS = {
+  [DAPP_PERMISSIONS.ALL_ADDRESSES]: true
+}
+
+@connectStore('api', 'modals', 'account')
 export default class Browser extends CachePureComponent {
   state = {
     tabs: [
-      // {
-      //   id: newTabId(),
-      //   active: true,
-      //   label: 'Mist Wallet',
-      //   url: 'https://wallet.ethereum.org/'
-      // },
       {
         active: true,
         id: newTabId(),
         label: 'Google',
-        url: 'https://google.com/',
-        permissions: [ API.GENERATE_ADDRESS ]
+        url: 'https://google.com/'
       },
       {
         active: false,
         id: newTabId(),
         label: 'Example',
-        url: 'https://example.com/',
-        permissions: [ API.GENERATE_ADDRESS ]
+        url: 'https://example.com/'
       }
     ]
   }
 
   render () {
+    const dappPermissions = getDappPermissions(this.props)
+
     const tabs = this.state.tabs.filter(t => t)
 
     const browserViews = tabs.map(tab => {
-      const { id, active, url, permissions } = tab
+      const { id, active, url } = tab
 
       return (
         <View key={id} style={active ? styles.activeView : styles.inactiveView}>
@@ -65,7 +64,7 @@ export default class Browser extends CachePureComponent {
               }
             }}
             url={url}
-            permissions={permissions}
+            permissions={dappPermissions[createDappId(tab)] || DEFAULT_PERMISSIONS}
             apiMethods={this.props.actions}
             onUrlChange={this.bind(this.onTabUrlChange, id)}
             onLoading={this.bind(this.onTabStatusChange, id, STATE.LOADING)}

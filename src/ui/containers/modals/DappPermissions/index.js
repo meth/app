@@ -15,8 +15,8 @@ import CheckBox from '../../../components/CheckBox'
 import AlertBox from '../../../components/AlertBox'
 import ErrorBox from '../../../components/ErrorBox'
 import ProgressButton from '../../../components/ProgressButton'
+import { extractAddressPermissions } from '../../../../utils/dapp'
 import styles from './styles'
-
 
 @connectStore('modals', 'account')
 export default class DappPermissions extends PureComponent {
@@ -96,6 +96,18 @@ export default class DappPermissions extends PureComponent {
   renderForm (addresses, permissions) {
     const allAddressesEnabled = _.get(permissions, ALL_ADDRESSES, false)
 
+    const addressPermissions = extractAddressPermissions(permissions)
+
+    // merge current addresses with ones already in permissions obj to get final list
+    const addressList = Object.keys(addresses).reduce((m, a) => {
+      if (undefined === m[a]) {
+        // eslint-disable-next-line no-param-reassign
+        m[a] = false
+      }
+
+      return m
+    }, addressPermissions)
+
     return (
       <Form
         style={styles.form}
@@ -115,12 +127,12 @@ export default class DappPermissions extends PureComponent {
               turnedOn={allAddressesEnabled}
               label={t(`dappPermissions.${ALL_ADDRESSES}`)} />
           </Form.Field>
-          {Object.keys(addresses).map(address => (
+          {Object.keys(addressList).map(address => (
             <Form.Field key={address} name={address} style={styles.field}>
               <CheckBox
                 disabled={allAddressesEnabled}
                 labelTextStyle={styles.addressCheckBoxLabelText}
-                turnedOn={_.get(permissions, address, false)}
+                turnedOn={addressPermissions[address]}
                 label={address} />
             </Form.Field>
           ))}
@@ -144,45 +156,40 @@ export default class DappPermissions extends PureComponent {
   }
 
   onChange = values => {
-    const oldPermissions = this.state.permissions || {}
-
-    const addresses = getAddresses(this.props)
-
-    const previouslyEnabledAddresses = Object.keys(oldPermissions).filter(
-      key => oldPermissions[key] && !!addresses[key]
-    )
-
-    const newlyEnabledAddresses = Object.keys(values).filter(
-      key => values[key] && !!addresses[key]
-    )
-
-    const allAddressesSwitchFlipped = values[ALL_ADDRESSES] && !oldPermissions[ALL_ADDRESSES]
-
     const newPermissions = { ...values }
 
+    const oldPermissions = this.state.permissions || {}
+    const oldAddressPermissions = extractAddressPermissions(oldPermissions)
+
+    // how many addresses were previously enabled?
+    const previouslyEnabledAddressesCount = Object.keys(oldAddressPermissions).filter(a => (
+      !!oldAddressPermissions[a]
+    )).length
+
+    // how many addresses are currently enabled?
+    const newAddressPermissions = extractAddressPermissions(newPermissions)
+    const newlyEnabledAddressesCount = Object.keys(newAddressPermissions).filter(a => (
+      !!newPermissions[a]
+    )).length
+
     // if no addresses enabled then turn on "all addresses" setting
-    if (!newlyEnabledAddresses.length) {
+    if (!newlyEnabledAddressesCount) {
       newPermissions[ALL_ADDRESSES] = true
     }
     // if more addresses are enabled than there were previously then turn
     // off "all addresses" setting
-    else if (newlyEnabledAddresses.length > previouslyEnabledAddresses) {
+    else if (newlyEnabledAddressesCount > previouslyEnabledAddressesCount) {
       newPermissions[ALL_ADDRESSES] = false
     }
     // if "all addresses" turned on then turn off individual addresses
-    else if (allAddressesSwitchFlipped) {
-      Object.keys(addresses).forEach(key => { newPermissions[key] = false })
+    else if (newPermissions[ALL_ADDRESSES] && !oldPermissions[ALL_ADDRESSES]) {
+      Object.keys(newAddressPermissions).forEach(a => { newPermissions[a] = false })
     }
 
-    const permissions = {
-      ...oldPermissions,
-      ...newPermissions
-    }
-
-    this.setState({ permissions, canSubmit: true })
+    this.setState({ permissions: newPermissions, canSubmit: true })
   }
 
-  onSubmit = values => {
+  onSubmit = newPermissions => {
     const { data: { dappId } } = this.props
     const { saveDappPermissions } = this.props.actions
 
@@ -190,7 +197,7 @@ export default class DappPermissions extends PureComponent {
       submitting: false,
       error: null
     }, () => {
-      saveDappPermissions(dappId, values)
+      saveDappPermissions(dappId, newPermissions)
         .then(() => this.close())
         .catch(error => {
           this.setState({
@@ -228,4 +235,6 @@ export default class DappPermissions extends PureComponent {
 
     hideDappPermissionsModal()
   }
+
+  _extractAddresses
 }
