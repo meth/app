@@ -15,7 +15,7 @@ export default create({
   container: {
     backgroundColor: '$header_backgroundColor',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center'
   },
   left: {
@@ -27,10 +27,6 @@ export default create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center'
-  },
-  appNameText: {
-    ...text,
-    paddingLeft: 10
   },
   section: {
     paddingHorizontal: 10

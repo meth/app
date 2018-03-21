@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { create, fontMaker } from '../../styles'
+import { create, fontMaker, value } from '../../styles'
 
 const box = {
   borderWidth: 1,
@@ -23,11 +23,13 @@ export default _.memoize(({ type = 'default', disabled, hovering = false }) => {
     box: {
       ...box,
       borderColor: `$button_${subtype}_${state}_borderColor`,
-      backgroundColor: `$button_${subtype}_${state}_backgroundColor`
+      backgroundColor: `$button_${subtype}_${state}_backgroundColor`,
+      opacity: () => value(`$button_${subtype}_${state}_opacity`, 1)
     },
     text: {
       ...text,
-      color: `$button_${subtype}_${state}_textColor`
+      color: `$button_${subtype}_${state}_textColor`,
+      opacity: () => value(`$button_${subtype}_${state}_opacity`, 1)
     }
   })
 })

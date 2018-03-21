@@ -55,14 +55,13 @@ module.exports = {
     },
     home: {
       intro1: 'Welcome to Meth!',
-      intro2: 'We are going to help you get setup so that you can start using Ethereum Dapps!'
+      intro2: 'Let\'s get your wallet setup so that you can start using Ethereum Dapps!'
     },
     log: {
       appEvents: 'App log'
     },
     mnemonic: {
-      intro1: 'We have now generated a mnemonic (secure pass phrase) for you.',
-      intro2: 'You will need this to use Meth.',
+      intro1: 'We have generated a mnemonic (secure pass phrase) for you.',
       intro3: 'Make sure you write this down carefully as it cannot be recovered once lost!',
       pleaseConfirmYourMnemonic: 'Please confirm your mnemonic.',
       letsMakeSureYouHaveItCorrect: 'Lets make sure you have written it down correctly.',

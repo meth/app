@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
-import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
 import { getAddresses } from '../../../../redux/account/selectors'
@@ -27,7 +26,6 @@ export default class Layout extends PureComponent {
           network={network && Object.keys(network).length ? network : null}
           addresses={addresses}
           unseenAlertsCount={unseenAlertsCount}
-          appName={t('appName')}
           onPressNetworkInfo={this.showConnectionInfo}
           onPressAlerts={this.showLog}
         />

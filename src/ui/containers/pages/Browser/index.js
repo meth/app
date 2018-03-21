@@ -37,12 +37,6 @@ export default class Browser extends CachePureComponent {
         id: newTabId(),
         label: 'Google',
         url: 'https://google.com/'
-      },
-      {
-        active: false,
-        id: newTabId(),
-        label: 'Example',
-        url: 'https://example.com/'
       }
     ]
   }

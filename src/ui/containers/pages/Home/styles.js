@@ -1,10 +1,12 @@
 import { create, fontMaker } from '../../../styles'
 
-const text = {
+const introText = {
   ...fontMaker(),
-  fontSize: '1.5rem',
+  fontSize: '1rem',
   textAlign: 'center',
-  color: '$startScreen_textColor'
+  color: '$startScreen_textColor',
+  maxWidth: '70%',
+  marginBottom: 20
 }
 
 export default create({
@@ -14,15 +16,21 @@ export default create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  introText: {
-    ...text,
-    marginBottom: 20,
+  introText1: {
+    ...introText,
+    ...fontMaker({ weight: 'Light' }),
+    fontSize: '2.5rem',
+    marginBottom: 30
+  },
+  introText2: {
+    ...introText,
     maxWidth: '50%'
   },
   getStartedButton: {
-    marginVertical: 40
+    marginTop: 20,
+    marginBottom: 100
   },
-  loginLinkButtonText: {
-    color: '$startScreen_linkTextColor'
+  loginButtonText: {
+    fontSize: '0.65rem'
   }
 })

@@ -34,8 +34,5 @@ export default create({
   nextButton: {
     marginTop: 40,
     marginBottom: 30
-  },
-  linkButtonText: {
-    color: '$startScreen_linkTextColor'
   }
 })

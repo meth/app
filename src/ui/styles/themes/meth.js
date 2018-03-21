@@ -2,21 +2,25 @@ import Color from 'color'
 
 export const ROOT_FONT_SIZE = 18
 
-const color1 = '#2c3e50'
+/* Theme inspired by: https://color.adobe.com/3-on-3-color-theme-10562048/edit/?copy=true&base=2&rule=Custom&selected=3&name=Copy%20of%203%20on%203&mode=rgb&rgbvalues=0.3176557600941157,0.6980392156862745,0.10174108611321976,0.5820319082105079,1,0.3447833030295686,0.5171910624715654,1,0.2431372549019608,0.6911307528192672,0.03137254901960784,0.6980392156862745,0.9921568627450981,0.24313725490196078,1&swatchOrder=0,1,2,3,4 */
+
+const color1 = '#b008b2'
 const color2 = '#2980b9'
 const color3 = '#3498db'
-const color4 = '#bedb39'
+// const color4 = '#bedb39'
 const color5 = '#fd7400'
 const color6 = '#1F8A70'
 const color7 = '#FFE11A'
 
+// const colorTransparent = 'transparent'
+const colorPurpleDark = '#650566'
+const colorPurpleNormal = '#b008b2'
+const colorPurpleLight = '#FC0BFF'
 const colorBlack = '#000'
 const colorWhite = '#fff'
 const colorLightGray = '#ccc'
 const colorGray = '#9a9a9a'
 const colorDarkGray = '#777'
-
-/* https://color.adobe.com/Copy-of-Vitamin-C-color-theme-10071328/edit/?copy=true&base=2&rule=Custom&selected=4&name=Copy%20of%20Copy%20of%20Vitamin%20C&mode=rgb&rgbvalues=0,0.2627450980392157,0.34509803921568627,0.12156862745098039,0.5411764705882353,0.4392156862745098,0.7450980392156863,0.8588235294117647,0.2235294117647059,1,0.8823529411764706,0.10196078431372549,0.9921568627450981,0.4549019607843137,0&swatchOrder=0,1,2,3,4 */
 
 const toRgbWithAlpha = (color, opacity) => (
   `rgba(${
@@ -42,12 +46,12 @@ const buttonDisabledStyles = {
 export default {
   rem: ROOT_FONT_SIZE,
   header: {
-    backgroundColor: color1,
+    backgroundColor: colorBlack,
     textColor: colorLightGray,
     dividerColor: Color(color1).lighten(0.5).hex()
   },
   startScreen: {
-    backgroundColor: color1,
+    backgroundColor: colorBlack,
     textColor: colorWhite
   },
   browser: {
@@ -95,7 +99,7 @@ export default {
   },
   modal: {
     content: {
-      backgroundColor: color1,
+      backgroundColor: colorBlack,
       textColor: colorWhite
     },
     overlay: {
@@ -253,13 +257,13 @@ export default {
     header: {
       enabled: {
         default: {
-          borderColor: 'transparent',
-          backgroundColor: 'transparent',
-          textColor: colorGray
+          borderColor: colorBlack,
+          backgroundColor: colorBlack,
+          textColor: colorPurpleDark
         },
         hover: {
-          borderColor: 'transparent',
-          backgroundColor: Color(color1).lighten(0.5).hex(),
+          borderColor: colorBlack,
+          backgroundColor: colorPurpleLight,
           textColor: colorWhite
         }
       },
@@ -268,14 +272,14 @@ export default {
     default: {
       enabled: {
         default: {
-          borderColor: color4,
-          backgroundColor: color4,
-          textColor: color1
+          borderColor: colorPurpleNormal,
+          backgroundColor: colorBlack,
+          textColor: colorPurpleNormal
         },
         hover: {
-          borderColor: color4,
-          backgroundColor: Color(color4).lighten(0.2).hex(),
-          textColor: color1
+          borderColor: colorPurpleLight,
+          backgroundColor: colorPurpleLight,
+          textColor: colorWhite
         }
       },
       disabled: { ...buttonDisabledStyles }

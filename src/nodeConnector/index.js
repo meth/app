@@ -169,7 +169,9 @@ class NodeConnector extends EventEmitter {
         result.push({
           id,
           // eslint-disable-next-line no-await-in-loop
-          result: await this._methodFactory.getHandler(method).run(params, context)
+          result: await this._methodFactory
+            .getHandler(method)
+            .run(params, context)
         })
       } catch (err) {
         err.method = method

@@ -1,6 +1,6 @@
 import { create, fontMaker } from '../../../styles'
 
-const text = {
+const introText = {
   ...fontMaker(),
   fontSize: '1.5rem',
   color: '$startScreen_textColor',
@@ -17,13 +17,10 @@ export default create({
     alignItems: 'center'
   },
   intro1Text: {
-    ...text
-  },
-  intro2Text: {
-    ...text
+    ...introText
   },
   intro3Text: {
-    ...text,
+    ...introText,
     ...fontMaker({ weight: 'Bold' }),
     textDecorationLine: 'underline'
   },
@@ -34,8 +31,5 @@ export default create({
   nextButton: {
     marginTop: 40,
     marginBottom: 30
-  },
-  linkButtonText: {
-    color: '$startScreen_linkTextColor'
   }
 })

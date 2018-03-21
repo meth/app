@@ -21,13 +21,10 @@ export default class Header extends PureComponent {
   }
 
   render () {
-    const { addresses, network, appName, style } = this.props
+    const { addresses, network, style } = this.props
 
     return (
       <View style={[ styles.container, style ]}>
-        <View style={styles.left}>
-          <Text style={styles.appNameText}>{appName}</Text>
-        </View>
         <View style={styles.right}>
           {network && addresses ? this.renderBalance(addresses) : null}
           {network ? this.renderNetwork(network) : null}

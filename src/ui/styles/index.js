@@ -1,8 +1,10 @@
 import flatten from 'flat'
-import { Dimensions } from 'react-native'
+import { Platform, Dimensions } from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
 import defaultTheme from './themes'
+
+const isWebPlatform = ('web' === Platform.OS)
 
 EStyleSheet.build(flatten(defaultTheme, { delimiter: '_' }))
 
@@ -12,7 +14,13 @@ export const getWindowDimensions = () => Dimensions.get('window')
 
 export const create = EStyleSheet.create.bind(EStyleSheet)
 
-export const value = EStyleSheet.value.bind(EStyleSheet)
+export const value = (id, fallback) => {
+  try {
+    return EStyleSheet.value(id)
+  } catch (err) {
+    return fallback
+  }
+}
 
 export const transparentBg = {
   backgroundColor: 'transparent'
@@ -47,37 +55,42 @@ export const dropShadower = (
 })
 
 export const fontMaker = (options = {}) => {
-  const { weight, style } = Object.assign(
+  const { name, weight, style } = Object.assign(
     {
+      name: 'OpenSans',
       weight: null,
       style: null
     },
     options
   )
 
-  return {
+  return (isWebPlatform) ? {
+    fontFamily: `${name}${weight || ''}${style || ''}`,
+    ...transparentBg
+  } : {
+    fontFamily: name,
     fontWeight: weight,
     fontStyle: style,
     ...transparentBg
   }
 }
 
-export const addWebFont = (fontName, fontUrl) => {
+export const addWebFont = (url, name, { weight = null, style = null } = {}) => {
   // Generate required css
-  const iconFontStyles = `@font-face {
-    src: url(${fontUrl});
-    font-family: FontAwesome;
+  const fontStyles = `@font-face {
+    src: url(${url});
+    font-family: ${name}${weight || ''}${style || ''};
   }`
 
   // Create stylesheet
-  const style = document.createElement('style')
-  style.type = 'text/css'
-  if (style.styleSheet) {
-    style.styleSheet.cssText = iconFontStyles
+  const styleElem = document.createElement('style')
+  styleElem.type = 'text/css'
+  if (styleElem.styleSheet) {
+    styleElem.styleSheet.cssText = fontStyles
   } else {
-    style.appendChild(document.createTextNode(iconFontStyles))
+    styleElem.appendChild(document.createTextNode(fontStyles))
   }
 
   // Inject stylesheet
-  document.head.appendChild(style)
+  document.head.appendChild(styleElem)
 }

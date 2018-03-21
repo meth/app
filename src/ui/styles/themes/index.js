@@ -1,3 +1,3 @@
-import blaze from './blaze'
+import defaultTheme from './meth'
 
-export default blaze
+export default defaultTheme

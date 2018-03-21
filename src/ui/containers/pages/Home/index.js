@@ -6,7 +6,6 @@ import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Button from '../../../components/Button'
-import LinkButton from '../../../components/LinkButton'
 import Layout from '../Layout'
 
 @connectStore('nav')
@@ -14,18 +13,18 @@ export default class Home extends PureComponent {
   render () {
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <Text style={styles.introText}>
+        <Text style={styles.introText1}>
           {t('home.intro1')}
         </Text>
-        <Text style={styles.introText}>
+        <Text style={styles.introText2}>
           {t('home.intro2')}
         </Text>
         <Button
           style={styles.getStartedButton}
           onPress={this.onPressStart}
           title={t('button.getStarted')} />
-        <LinkButton
-          textStyle={styles.loginLinkButtonText}
+        <Button
+          textStyle={styles.loginButtonText}
           onPress={this.onPressLogin}
           title={t('linkButton.alreadyHavePasswordLogin')} />
       </Layout>

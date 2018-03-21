@@ -33,7 +33,6 @@ export default class GenerateMnemonic extends PureComponent {
     return (
       <Layout contentStyle={styles.layoutContent}>
         <Text style={styles.intro1Text}>{t('mnemonic.intro1')}</Text>
-        <Text style={styles.intro2Text}>{t('mnemonic.intro2')}</Text>
         <Text style={styles.intro3Text}>{t('mnemonic.intro3')}</Text>
         {(!mnemonic) ? <Loading /> : (
           <MnemonicDisplay mnemonic={mnemonic} style={styles.mnemonic} />

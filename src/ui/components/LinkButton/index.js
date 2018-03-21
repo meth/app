@@ -3,10 +3,8 @@ import React from 'react'
 import Button from '../Button'
 import styles from './styles'
 
-const LinkButton = ({ children, style, textStyle, ...props }) => (
-  <Button {...props} style={[ styles.box, style ]} textStyle={[ textStyle, styles.text ]}>
-    {children}
-  </Button>
+const LinkButton = ({ style, textStyle, ...props }) => (
+  <Button {...props} style={[ styles.box, style ]} textStyle={[ textStyle, styles.text ]} />
 )
 
 LinkButton.propTypes = {

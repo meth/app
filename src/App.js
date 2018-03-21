@@ -1,6 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 
+import setupFonts from './fonts'
 import { createReduxStore } from './redux'
 import * as config from './config'
 import nodeConnector from './nodeConnector'
@@ -10,6 +11,9 @@ import * as walletManager from './wallet/manager'
 import Root from './ui/Root'
 import { router } from './ui/nav'
 import { setStore as logSetStore } from './logger'
+
+// setup fonts
+setupFonts()
 
 const store = createReduxStore({ config, storage, nodeConnector, walletManager, router })
 logSetStore(store)
