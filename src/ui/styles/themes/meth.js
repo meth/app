@@ -103,16 +103,16 @@ export default {
       textColor: colorWhite
     },
     overlay: {
-      backgroundColor: toRgbWithAlpha(colorWhite, 0.8)
+      backgroundColor: toRgbWithAlpha(colorWhite, 0.2)
     },
     alert: {
       overlay: {
-        backgroundColor: toRgbWithAlpha(colorBlack, 0.8)
+        backgroundColor: toRgbWithAlpha(colorBlack, 0.2)
       }
     },
     log: {
       overlay: {
-        backgroundColor: toRgbWithAlpha(colorWhite, 0.8)
+        backgroundColor: toRgbWithAlpha(colorWhite, 0.2)
       }
     },
     connectNode: {
