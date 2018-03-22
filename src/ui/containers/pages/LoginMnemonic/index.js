@@ -9,7 +9,7 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import ErrorBox from '../../../components/ErrorBox'
 import ProgressButton from '../../../components/ProgressButton'
-import LinkButton from '../../../components/LinkButton'
+import Button from '../../../components/LinkButton'
 import TextInput from '../../../components/TextInput'
 import Layout from '../Layout'
 
@@ -43,8 +43,8 @@ defaultValue={this.state.mnemonic}
           style={styles.nextButton}
           onPress={this.onSubmit}
           title={t('button.login')} />
-        <LinkButton
-          textStyle={styles.linkButtonText}
+        <Button
+          textStyle={styles.createPasswordButtonText}
           onPress={this.onPressSignUp}
           title={t('linkButton.dontHavePasswordCreateOne')} />
       </Layout>

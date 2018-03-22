@@ -31,5 +31,8 @@ export default create({
   nextButton: {
     marginTop: 40,
     marginBottom: 30
+  },
+  loginButtonText: {
+    fontSize: '0.65rem'
   }
 })

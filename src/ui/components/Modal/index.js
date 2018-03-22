@@ -1,4 +1,5 @@
 import React from 'react'
+import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import FadingView from '../FadingView'
@@ -14,17 +15,19 @@ const Modal = ({
   onPressCloseButton,
   closeButtonStyle
 }) => (
-  <TouchableView onPress={onOverlayPress} style={[ styles.overlay, overlayStyle ]}>
-    <FadingView style={[ styles.content, contentStyle ]}>
-      {children}
-      {onPressCloseButton ? (
-        <CloseButton
-          style={[ styles.closeButton, closeButtonStyle ]}
-          onPress={onPressCloseButton}
-        />
-      ) : null}
-    </FadingView>
-  </TouchableView>
+  <FadingView style={styles.fadeWrapper}>
+    <TouchableView onPress={onOverlayPress} style={[ styles.overlay, overlayStyle ]}>
+      <View style={[ styles.content, contentStyle ]}>
+        {children}
+        {onPressCloseButton ? (
+          <CloseButton
+            style={[ styles.closeButton, closeButtonStyle ]}
+            onPress={onPressCloseButton}
+          />
+        ) : null}
+      </View>
+    </TouchableView>
+  </FadingView>
 )
 
 Modal.propTypes = {

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View, Text } from 'react-native'
 
-import { t } from '../../../../../common/strings'
 import { formatDate } from '../../../../utils/datetime'
 import { connectStore } from '../../../helpers/redux'
 import ScrollView from '../../../components/ScrollView'
@@ -36,7 +35,7 @@ export default class Log extends PureComponent {
         closeButtonStyle={styles.closeButton}>
           <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.scrollContent}>
             {this.renderAlerts(unseenAlerts)}
-            <Text style={styles.appLogText}>{t('log.appEvents')}</Text>
+            {unseenAlerts.length ? <Text style={styles.dividerText}>--------</Text> : null}
             {this.renderLog(log)}
           </ScrollView>
       </Modal>

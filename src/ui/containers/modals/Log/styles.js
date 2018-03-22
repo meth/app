@@ -17,11 +17,11 @@ export default create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
-  appLogText: {
+  dividerText: {
     ...text,
     fontSize: '1rem',
     textAlign: 'center',
-    color: `$modal_content_textColor`,
+    color: `$modal_log_content_dividerColor`,
     marginBottom: 15
   },
   unseenAlert: {
@@ -47,7 +47,7 @@ export default create({
 
   event: {
     width: '95%',
-    marginBottom: 2,
+    marginBottom: 20,
     borderRadius: 2,
     padding: 3,
     backgroundColor: '$log_event_backgroundColor',

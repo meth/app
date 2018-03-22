@@ -7,7 +7,6 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import ErrorBox from '../../../components/ErrorBox'
 import Button from '../../../components/Button'
-import LinkButton from '../../../components/LinkButton'
 import Loading from '../../../components/Loading'
 import { MnemonicDisplay } from '../../../components/Mnemonic'
 import Layout from '../Layout'
@@ -45,8 +44,8 @@ export default class GenerateMnemonic extends PureComponent {
             title={t('button.iHaveWrittenDownMnemonic')}
           />
         )}
-        <LinkButton
-          textStyle={styles.linkButtonText}
+        <Button
+          textStyle={styles.loginButtonText}
           onPress={this.onPressLogin}
           title={t('linkButton.alreadyHavePasswordLogin')} />
       </Layout>

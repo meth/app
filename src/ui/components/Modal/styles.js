@@ -1,6 +1,9 @@
 import { create, coverParent } from '../../styles'
 
 export default create({
+  fadeWrapper: {
+    ...coverParent
+  },
   overlay: {
     ...coverParent,
     backgroundColor: '$modal_overlay_backgroundColor',

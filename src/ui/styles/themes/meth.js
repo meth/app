@@ -16,11 +16,13 @@ const color7 = '#FFE11A'
 const colorPurpleDark = '#650566'
 const colorPurpleNormal = '#b008b2'
 const colorPurpleLight = '#FC0BFF'
+const colorGreenNormal = '#5CB22B'
 const colorBlack = '#000'
 const colorWhite = '#fff'
 const colorLightGray = '#ccc'
 const colorGray = '#9a9a9a'
 const colorDarkGray = '#777'
+const colorDarkerGray = '#444'
 
 const toRgbWithAlpha = (color, opacity) => (
   `rgba(${
@@ -84,13 +86,13 @@ export default {
   },
   log: {
     unseenAlert: {
-      backgroundColor: color2,
+      backgroundColor: colorGreenNormal,
       textColor: colorWhite,
-      metaTextColor: Color(color2).lighten(0.2).hex()
+      metaTextColor: Color(colorGreenNormal).lighten(0.4).hex()
     },
     event: {
-      backgroundColor: colorWhite,
-      textColor: colorBlack,
+      backgroundColor: colorBlack,
+      textColor: colorWhite,
       metaTextColor: colorLightGray,
       warnColor: color7,
       errorColor: color5,
@@ -113,6 +115,9 @@ export default {
     log: {
       overlay: {
         backgroundColor: toRgbWithAlpha(colorWhite, 0.2)
+      },
+      content: {
+        dividerColor: colorDarkerGray
       }
     },
     connectNode: {

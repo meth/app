@@ -26,5 +26,8 @@ export default create({
   nextButton: {
     marginTop: 40,
     marginBottom: 40
+  },
+  createPasswordButtonText: {
+    fontSize: '0.65rem'
   }
 })
