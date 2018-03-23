@@ -256,8 +256,7 @@ export default {
   },
   mnemonic: {
     confirmationBox: {
-      backgroundColor: color7,
-      textColor: color1
+      topBorderColor: colorDarkerGray
     },
     backgroundColor: colorDarkGray,
     textColor: colorWhite
