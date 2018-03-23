@@ -79,7 +79,13 @@ export class MnemonicConfirmator extends CachePureComponent {
             </View>
             <View style={styles.confirmedMnemonicWords}>
               {selected.map(word => (
-                <Text key={word} style={styles.wordText}>{word}</Text>
+                <Button
+                  key={word}
+                  onPress={this.bind(this.onPressWord, word)}
+                  title={word}
+                  style={styles.wordWrapperButton}
+                  textStyle={styles.wordText}
+                />
               ))}
             </View>
           </View>
