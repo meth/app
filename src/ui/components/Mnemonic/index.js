@@ -41,6 +41,13 @@ export class MnemonicConfirmator extends CachePureComponent {
 
   componentDidUpdate () {
     this.generateJumbledWords()
+
+    const { selected } = this.state
+    const { mnemonic, onSuccess } = this.props
+
+    if (selected.join(' ') === mnemonic && onSuccess) {
+      onSuccess()
+    }
   }
 
   generateJumbledWords () {
@@ -67,7 +74,7 @@ export class MnemonicConfirmator extends CachePureComponent {
               {jumbled.map(word => (
                 <Button
                   key={word}
-                  onPress={this.bind(this.onPressWord, word)}
+                  onPress={this.onAddWord}
                   title={word}
                   style={styles.wordWrapperButton}
                   textStyle={[
@@ -81,7 +88,7 @@ export class MnemonicConfirmator extends CachePureComponent {
               {selected.map(word => (
                 <Button
                   key={word}
-                  onPress={this.bind(this.onPressWord, word)}
+                  onPress={this.onRemoveWord}
                   title={word}
                   style={styles.wordWrapperButton}
                   textStyle={styles.wordText}
@@ -96,25 +103,34 @@ export class MnemonicConfirmator extends CachePureComponent {
     )
   }
 
-  onPressWord = word => {
+  onAddWord = e => {
+    const word = e.target.innerText
+
+    const { selected } = this.state
+
+    const index = selected.indexOf(word)
+    if (0 > index) {
+      selected.push(word)
+
+      this.setState({
+        selected: [ ...selected ]
+      })
+    }
+  }
+
+  onRemoveWord = e => {
+    const word = e.target.innerText
+
     const { selected } = this.state
 
     const index = selected.indexOf(word)
     if (0 <= index) {
       selected.splice(index, 1)
-    } else {
-      selected.push(word)
+
+      this.setState({
+        selected: [ ...selected ]
+      })
     }
-
-    this.setState({
-      selected: [ ...selected ]
-    }, () => {
-      const { mnemonic, onSuccess } = this.props
-
-      if (selected.join(' ') === mnemonic && onSuccess) {
-        onSuccess()
-      }
-    })
   }
 }
 

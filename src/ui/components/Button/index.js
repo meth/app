@@ -79,15 +79,15 @@ export default class Button extends PureComponent {
     this.setState({ hovering: false })
   }
 
-  onPress = () => {
+  onPress = e => {
     const { disabled, onPress, onDisabledPress } = this.props
 
     if (!disabled) {
       // eslint-disable-next-line no-unused-expressions
-      onPress && onPress()
+      onPress && onPress(e)
     } else {
       // eslint-disable-next-line no-unused-expressions
-      onDisabledPress && onDisabledPress()
+      onDisabledPress && onDisabledPress(e)
     }
   }
 }
