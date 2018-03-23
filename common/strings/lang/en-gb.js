@@ -98,7 +98,7 @@ module.exports = {
     config: {
       node: {
         local: {
-          local: 'Ethereum client node running locally on device.'
+          local: 'Ethereum client node running locally on your device.'
         },
         infura: {
           mainnet: 'Etherum client node hosted by Infura.io, connected to the Main network.',

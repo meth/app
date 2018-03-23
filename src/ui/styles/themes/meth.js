@@ -87,7 +87,7 @@ export default {
       textColor: colorWhite
     },
     overlay: {
-      backgroundColor: toRGBA(colorWhite, 0.2)
+      backgroundColor: toRGBA(colorWhite, 0.5)
     },
     alert: {
       overlay: {

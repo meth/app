@@ -1,4 +1,4 @@
-import { create, fontMaker } from '../../../styles'
+import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
 
 const text = {
   ...fontMaker({ weight: 'Light' }),
@@ -72,5 +72,12 @@ export default create({
   },
   disconnectReasonBox: {
     marginBottom: 20
-  }
+  },
+
+
+  ...whenWidthVerySmall({
+    content: {
+      width: '90%'
+    }
+  })
 })
