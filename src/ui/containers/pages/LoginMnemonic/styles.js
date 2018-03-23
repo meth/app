@@ -1,4 +1,4 @@
-import { create, fontMaker } from '../../../styles'
+import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
 
 const text = {
   ...fontMaker(),
@@ -18,6 +18,7 @@ export default create({
   },
   introText: {
     ...text,
+    ...fontMaker({ weight: 'Light' }),
     marginBottom: 40
   },
   textInput: {
@@ -29,5 +30,14 @@ export default create({
   },
   createPasswordButtonText: {
     fontSize: '0.65rem'
-  }
+  },
+
+  ...whenWidthVerySmall({
+    introText: {
+      width: '90%'
+    },
+    textInput: {
+      width: '90%'
+    }
+  })
 })

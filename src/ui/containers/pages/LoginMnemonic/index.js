@@ -9,7 +9,7 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import ErrorBox from '../../../components/ErrorBox'
 import ProgressButton from '../../../components/ProgressButton'
-import Button from '../../../components/LinkButton'
+import Button from '../../../components/Button'
 import TextInput from '../../../components/TextInput'
 import Layout from '../Layout'
 
