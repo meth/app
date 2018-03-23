@@ -94,3 +94,33 @@ export const addWebFont = (url, name, { weight = null, style = null } = {}) => {
   // Inject stylesheet
   document.head.appendChild(styleElem)
 }
+
+const SCREEN_WIDTH_SMALL = 700
+const SCREEN_WIDTH_VERY_SMALL = 400
+const SCREEN_HEIGHT_SMALL = 640
+const SCREEN_HEIGHT_VERY_SMALL = 500
+
+export const isScreenHeightSmall = () =>
+  getWindowDimensions().height <= SCREEN_HEIGHT_SMALL
+export const isScreenHeightVerySmall = () =>
+  getWindowDimensions().height <= SCREEN_HEIGHT_VERY_SMALL
+export const isScreenWidthSmall = () =>
+  getWindowDimensions().width <= SCREEN_WIDTH_SMALL
+export const isScreenWidthVerySmall = () =>
+  getWindowDimensions().width <= SCREEN_WIDTH_VERY_SMALL
+
+export const whenHeightSmall = props => ({
+  [`@media (max-height: ${SCREEN_HEIGHT_SMALL}px)`]: props
+})
+
+export const whenHeightVerySmall = props => ({
+  [`@media (max-height: ${SCREEN_HEIGHT_VERY_SMALL}px)`]: props
+})
+
+export const whenWidthSmall = props => ({
+  [`@media (max-width: ${SCREEN_WIDTH_SMALL}px)`]: props
+})
+
+export const whenWidthVerySmall = props => ({
+  [`@media (max-width: ${SCREEN_WIDTH_VERY_SMALL}px)`]: props
+})

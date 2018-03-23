@@ -5,6 +5,8 @@ import { knuthShuffle } from 'knuth-shuffle'
 
 import { CachePureComponent } from '../../helpers/components'
 import { t } from '../../../../common/strings'
+import { mnemonicToList } from '../../../utils/mnemonic'
+import { isScreenWidthSmall, isScreenWidthVerySmall } from '../../styles'
 import Button from '../Button'
 import Icon from '../Icon'
 import Loading from '../Loading'
@@ -124,9 +126,9 @@ export class MnemonicDisplay extends PureComponent {
     const { mnemonic, style } = this.props
     const { show } = this.state
 
-    const WORDS_PER_COL = 6
+    const WORDS_PER_COL = this._getWordsPerColumn()
 
-    const columns = mnemonic.split(' ').reduce((list, word, index) => {
+    const columns = mnemonicToList(mnemonic).reduce((list, word, index) => {
       // eslint-disable-next-line no-bitwise
       const col = ~~(index / WORDS_PER_COL)
 
@@ -174,5 +176,19 @@ export class MnemonicDisplay extends PureComponent {
 
   onPressMask = () => {
     this.setState({ show: true })
+  }
+
+  _getWordsPerColumn () {
+    let wordsPerCol = 6
+
+    if (isScreenWidthSmall()) {
+      wordsPerCol = 8
+
+      if (isScreenWidthVerySmall()) {
+        wordsPerCol = 12
+      }
+    }
+
+    return wordsPerCol
   }
 }

@@ -1,4 +1,4 @@
-import { create, fontMaker, coverParent } from '../../styles'
+import { create, fontMaker, coverParent, whenWidthSmall } from '../../styles'
 
 const maskText = {
   ...fontMaker(),
@@ -27,7 +27,8 @@ export default create({
     backgroundColor: '$mnemonic_backgroundColor',
     borderRadius: 5,
     padding: 5,
-    margin: 5
+    margin: 5,
+    marginLeft: 0
   },
   confirmedMnemonicWords: {
     flexDirection: 'row',
@@ -93,5 +94,14 @@ export default create({
     textAlign: 'center',
     color: '$mnemonic_textColor',
     width: '2rem'
-  }
+  },
+
+  ...whenWidthSmall({
+    wordText: {
+      fontSize: '0.7rem'
+    },
+    wordIndexText: {
+      fontSize: '0.8rem'
+    }
+  })
 })

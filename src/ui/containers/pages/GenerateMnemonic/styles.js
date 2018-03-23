@@ -1,8 +1,8 @@
-import { create, fontMaker } from '../../../styles'
+import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
 
 const introText = {
   ...fontMaker(),
-  fontSize: '1.5rem',
+  fontSize: '1rem',
   color: '$startScreen_textColor',
   textAlign: 'center',
   maxWidth: '70%',
@@ -17,11 +17,14 @@ export default create({
     alignItems: 'center'
   },
   intro1Text: {
-    ...introText
+    ...introText,
+    ...fontMaker({ weight: 'Light' }),
+    fontSize: '1.5rem'
   },
-  intro3Text: {
+  intro2Text: {
     ...introText,
     ...fontMaker({ weight: 'Bold' }),
+    fontSize: '0.8rem',
     textDecorationLine: 'underline'
   },
   mnemonic: {
@@ -34,5 +37,14 @@ export default create({
   },
   loginButtonText: {
     fontSize: '0.65rem'
-  }
+  },
+
+  ...whenWidthVerySmall({
+    intro1Text: {
+      maxWidth: '90%'
+    },
+    intro2Text: {
+      maxWidth: '90%'
+    }
+  })
 })

@@ -35,7 +35,6 @@ export default class Log extends PureComponent {
         closeButtonStyle={styles.closeButton}>
           <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.scrollContent}>
             {this.renderAlerts(unseenAlerts)}
-            {unseenAlerts.length ? <Text style={styles.dividerText}>--------</Text> : null}
             {this.renderLog(log)}
           </ScrollView>
       </Modal>
@@ -83,8 +82,9 @@ export default class Log extends PureComponent {
   }
 
   close = () => {
-    const { actions: { hideLog } } = this.props
+    const { actions: { seenAlerts, hideLog } } = this.props
 
+    seenAlerts()
     hideLog()
   }
 }

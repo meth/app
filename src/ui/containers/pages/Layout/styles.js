@@ -1,6 +1,10 @@
 import { create } from '../../../styles'
 
 export default create({
+  scrollView: {
+    flex: 1,
+    minHeight: '100%'
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -19,7 +23,7 @@ export default create({
   /* content */
 
   content: {
-    flex: 1,
+    flex: 0,
     padding: 20
   }
 })

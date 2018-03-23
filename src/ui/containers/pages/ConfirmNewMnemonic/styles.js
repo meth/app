@@ -1,10 +1,10 @@
-import { create, fontMaker } from '../../../styles'
+import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
 
 const text = {
   ...fontMaker(),
   color: '$startScreen_textColor',
   textAlign: 'center',
-  maxWidth: '50%',
+  maxWidth: '70%',
   marginBottom: 20
 }
 
@@ -17,15 +17,12 @@ export default create({
   },
   intro1Text: {
     ...text,
-    fontSize: '1.5rem'
+    ...fontMaker({ weight: 'Light' }),
+    fontSize: '1.5rem',
+    marginBottom: 30
   },
   intro2Text: {
-    ...text,
-    fontSize: '1.2rem'
-  },
-  intro3Text: {
-    ...text,
-    fontSize: '1.2rem'
+    ...text
   },
   confirmator: {
     marginTop: 30,
@@ -34,5 +31,17 @@ export default create({
   nextButton: {
     marginTop: 40,
     marginBottom: 30
-  }
+  },
+  goBackButtonText: {
+    fontSize: '0.65rem'
+  },
+
+  ...whenWidthVerySmall({
+    intro1Text: {
+      maxWidth: '90%'
+    },
+    intro2Text: {
+      maxWidth: '90%'
+    }
+  })
 })

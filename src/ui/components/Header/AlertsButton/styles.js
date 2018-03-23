@@ -4,7 +4,7 @@ export default create({
   numbersText: {
     backgroundColor: '$log_unseenAlert_backgroundColor',
     color: '$log_unseenAlert_textColor',
-    paddingVertical: 5,
+    paddingVertical: 3,
     paddingHorizontal: 8,
     borderRadius: 40
   }

@@ -1,4 +1,5 @@
-import Color from 'color'
+import { toRGBA, lighten } from '../../../utils/colors'
+import { generateButtonStyles } from './utils'
 
 export const ROOT_FONT_SIZE = 18
 
@@ -9,7 +10,7 @@ const color2 = '#2980b9'
 const color3 = '#3498db'
 // const color4 = '#bedb39'
 const color5 = '#fd7400'
-const color6 = '#1F8A70'
+// const color6 = '#1F8A70'
 const color7 = '#FFE11A'
 
 // const colorTransparent = 'transparent'
@@ -17,6 +18,7 @@ const colorPurpleDark = '#650566'
 const colorPurpleNormal = '#b008b2'
 const colorPurpleLight = '#FC0BFF'
 const colorGreenNormal = '#5CB22B'
+// const colorGreenDark = '#427F1F'
 const colorBlack = '#000'
 const colorWhite = '#fff'
 const colorLightGray = '#ccc'
@@ -24,33 +26,13 @@ const colorGray = '#9a9a9a'
 const colorDarkGray = '#777'
 const colorDarkerGray = '#444'
 
-const toRgbWithAlpha = (color, opacity) => (
-  `rgba(${
-    Color(color && color.hex ? color.hex() : color).rgb().array().join(', ')
-  }, ${opacity})`
-)
-
-
-const buttonDisabledStyles = {
-  default: {
-    borderColor: colorLightGray,
-    backgroundColor: colorLightGray,
-    textColor: colorGray
-  },
-  hover: {
-    borderColor: colorLightGray,
-    backgroundColor: colorLightGray,
-    textColor: colorGray
-  }
-}
-
 
 export default {
   rem: ROOT_FONT_SIZE,
   header: {
     backgroundColor: colorBlack,
     textColor: colorLightGray,
-    dividerColor: Color(color1).lighten(0.5).hex()
+    dividerColor: lighten(color1, 0.5)
   },
   startScreen: {
     backgroundColor: colorBlack,
@@ -88,7 +70,7 @@ export default {
     unseenAlert: {
       backgroundColor: colorGreenNormal,
       textColor: colorWhite,
-      metaTextColor: Color(colorGreenNormal).lighten(0.4).hex()
+      metaTextColor: lighten(colorGreenNormal, 0.4)
     },
     event: {
       backgroundColor: colorBlack,
@@ -96,7 +78,7 @@ export default {
       metaTextColor: colorLightGray,
       warnColor: color7,
       errorColor: color5,
-      alertColor: color2
+      alertColor: colorGreenNormal
     }
   },
   modal: {
@@ -105,16 +87,16 @@ export default {
       textColor: colorWhite
     },
     overlay: {
-      backgroundColor: toRgbWithAlpha(colorWhite, 0.2)
+      backgroundColor: toRGBA(colorWhite, 0.2)
     },
     alert: {
       overlay: {
-        backgroundColor: toRgbWithAlpha(colorBlack, 0.2)
+        backgroundColor: toRGBA(colorBlack, 0.75)
       }
     },
     log: {
       overlay: {
-        backgroundColor: toRgbWithAlpha(colorWhite, 0.2)
+        backgroundColor: toRGBA(colorWhite, 0.4)
       },
       content: {
         dividerColor: colorDarkerGray
@@ -199,103 +181,85 @@ export default {
     }
   },
   button: {
-    picker: {
-      enabled: {
-        default: {
-          borderColor: colorWhite,
-          backgroundColor: color1,
-          textColor: colorWhite
-        },
-        hover: {
-          borderColor: colorWhite,
-          backgroundColor: color1,
-          textColor: colorWhite
-        }
+    picker: generateButtonStyles({
+      default: {
+        borderColor: colorWhite,
+        backgroundColor: color1,
+        textColor: colorWhite
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    mask: {
-      enabled: {
-        default: {
-          borderColor: color6,
-          backgroundColor: toRgbWithAlpha(color6, 0.97),
-          textColor: colorWhite
-        },
-        hover: {
-          borderColor: color6,
-          backgroundColor: toRgbWithAlpha(Color(color6).lighten(0.2), 0.97),
-          textColor: colorWhite
-        }
+      hover: {
+        borderColor: colorWhite,
+        backgroundColor: color1,
+        textColor: colorWhite
+      }
+    }),
+    mask: generateButtonStyles({
+      default: {
+        borderColor: colorPurpleDark,
+        backgroundColor: toRGBA(colorPurpleDark, 0.97),
+        textColor: colorWhite
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    browserTab: {
-      enabled: {
-        default: {
-          borderColor: 'transparent',
-          backgroundColor: 'transparent',
-          textColor: colorGray
-        },
-        hover: {
-          borderColor: 'transparent',
-          backgroundColor: colorGray,
-          textColor: colorLightGray
-        }
+      hover: {
+        borderColor: colorPurpleNormal,
+        backgroundColor: colorPurpleNormal,
+        textColor: colorWhite
+      }
+    }),
+    browserTab: generateButtonStyles({
+      default: {
+        borderColor: 'transparent',
+        backgroundColor: 'transparent',
+        textColor: colorGray
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    browserPanel: {
-      enabled: {
-        default: {
-          borderColor: 'transparent',
-          backgroundColor: 'transparent',
-          textColor: color3
-        },
-        hover: {
-          borderColor: 'transparent',
-          backgroundColor: color3,
-          textColor: color2
-        }
+      hover: {
+        borderColor: 'transparent',
+        backgroundColor: colorGray,
+        textColor: colorLightGray
+      }
+    }),
+    browserPanel: generateButtonStyles({
+      default: {
+        borderColor: 'transparent',
+        backgroundColor: 'transparent',
+        textColor: color3
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    header: {
-      enabled: {
-        default: {
-          borderColor: colorBlack,
-          backgroundColor: colorBlack,
-          textColor: colorPurpleDark
-        },
-        hover: {
-          borderColor: colorBlack,
-          backgroundColor: colorPurpleLight,
-          textColor: colorWhite
-        }
+      hover: {
+        borderColor: 'transparent',
+        backgroundColor: color3,
+        textColor: color2
+      }
+    }),
+    header: generateButtonStyles({
+      default: {
+        borderColor: colorBlack,
+        backgroundColor: colorBlack,
+        textColor: colorPurpleDark
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    default: {
-      enabled: {
-        default: {
-          borderColor: colorPurpleNormal,
-          backgroundColor: colorBlack,
-          textColor: colorPurpleNormal
-        },
-        hover: {
-          borderColor: colorPurpleLight,
-          backgroundColor: colorPurpleLight,
-          textColor: colorWhite
-        }
+      hover: {
+        borderColor: colorBlack,
+        backgroundColor: colorPurpleLight,
+        textColor: colorWhite
+      }
+    }),
+    default: generateButtonStyles({
+      default: {
+        borderColor: colorPurpleNormal,
+        backgroundColor: colorBlack,
+        textColor: colorPurpleNormal
       },
-      disabled: { ...buttonDisabledStyles }
-    }
+      hover: {
+        borderColor: colorPurpleLight,
+        backgroundColor: colorPurpleLight,
+        textColor: colorWhite
+      }
+    })
   },
   mnemonic: {
     confirmationBox: {
       backgroundColor: color7,
       textColor: color1
     },
-    backgroundColor: color3,
+    backgroundColor: colorDarkGray,
     textColor: colorWhite
   }
 }

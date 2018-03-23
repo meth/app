@@ -3,6 +3,7 @@ import { View } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
+import ScrollView from '../../../components/ScrollView'
 import { getAddresses } from '../../../../redux/account/selectors'
 import { getNodeConnection, getNodeState } from '../../../../redux/node/selectors'
 import { getUnseenAlertsCount } from '../../../../redux/log/selectors'
@@ -20,7 +21,7 @@ export default class Layout extends PureComponent {
     const { children, contentStyle } = this.props
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
         <Header
           style={styles.header}
           network={network && Object.keys(network).length ? network : null}
@@ -29,8 +30,10 @@ export default class Layout extends PureComponent {
           onPressNetworkInfo={this.showConnectionInfo}
           onPressAlerts={this.showLog}
         />
-        <View style={[ styles.content, contentStyle ]}>{children}</View>
-      </View>
+        <View style={[ styles.content, contentStyle ]}>
+          {children}
+        </View>
+      </ScrollView>
     )
   }
 

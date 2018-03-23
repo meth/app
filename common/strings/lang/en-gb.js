@@ -58,19 +58,19 @@ module.exports = {
       intro2: 'Let\'s get your wallet setup so that you can start using Ethereum Dapps!'
     },
     mnemonic: {
-      intro1: 'We have generated a mnemonic (secure pass phrase) for you.',
-      intro3: 'Make sure you write this down carefully as it cannot be recovered once lost!',
-      pleaseConfirmYourMnemonic: 'Please confirm your mnemonic.',
+      intro1: 'We have generated a passphrase for you.',
+      intro2: 'Make sure you write this down carefully as it cannot be recovered once lost!',
+      pleaseConfirmYourMnemonic: 'Please confirm your passphrase.',
       letsMakeSureYouHaveItCorrect: 'Lets make sure you have written it down correctly.',
       putWordsInRightOrder: 'Put the words in the right order.',
-      enterYourMnemonic: 'Please enter your mnemonic.',
-      pleaseNoteDownThisMnemonicOnPaperOffline: 'Please remember this mnemonic carefully! We recommend you either memorise it thoroughly or write it down offline, on a piece of paper or something similarly secure. If you lose it you will never again be able to access your accounts! Neither we nor anyone else will be able to help you retrieve your mnemonic if you forget it!',
+      enterYourMnemonic: 'Please enter your passphrase.',
+      pleaseNoteDownThisMnemonicOnPaperOffline: 'Please remember this passphrase carefully! We recommend you either memorise it thoroughly or write it down offline, on a piece of paper or something similarly secure. If you lose it you will never again be able to access your accounts! Neither we nor anyone else will be able to help you retrieve your passphrase if you forget it!',
       wordOrderStillIncorrect: 'Please put the words in the correct order!',
       inputPlaceholderText: 'separate each word by a space ...'
     },
     linkButton: {
-      alreadyHavePasswordLogin: 'Already have a mnemonic? Login here',
-      dontHavePasswordCreateOne: 'Don\'t have a mnemonic yet? Create one here',
+      alreadyHavePasswordLogin: 'Already have a passphrase? Login here',
+      dontHavePasswordCreateOne: 'Don\'t have a passphrase yet? Create one here',
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
     button: {
@@ -83,8 +83,8 @@ module.exports = {
       disconnectFromNode: 'Disconnect',
       cancelTransaction: 'Cancel',
       generateRawTransaction: 'Generate raw transaction',
-      iHaveWrittenDownMnemonic: 'I have written down my mnemonic and wish to proceed',
-      iHaveConfirmedMyMnemonic: 'I have successfully confirmed my mnemonic',
+      iHaveWrittenDownMnemonic: 'I have written down my passphrase carefully',
+      iHaveConfirmedMyMnemonic: 'I have successfully confirmed my passphrase',
       pressToRevealMnemonic: 'Press to reveal',
       browser: {
         forward: 'Forward',

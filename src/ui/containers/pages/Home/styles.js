@@ -1,4 +1,4 @@
-import { create, fontMaker } from '../../../styles'
+import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
 
 const introText = {
   ...fontMaker(),
@@ -16,13 +16,13 @@ export default create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  introText1: {
+  intro1Text: {
     ...introText,
     ...fontMaker({ weight: 'Light' }),
     fontSize: '2.5rem',
     marginBottom: 30
   },
-  introText2: {
+  intro2Text: {
     ...introText,
     maxWidth: '50%'
   },
@@ -32,5 +32,11 @@ export default create({
   },
   loginButtonText: {
     fontSize: '0.65rem'
-  }
+  },
+
+  ...whenWidthVerySmall({
+    intro2Text: {
+      maxWidth: '90%'
+    }
+  })
 })

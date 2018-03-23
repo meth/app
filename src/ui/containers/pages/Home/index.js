@@ -13,10 +13,10 @@ export default class Home extends PureComponent {
   render () {
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <Text style={styles.introText1}>
+        <Text style={styles.intro1Text}>
           {t('home.intro1')}
         </Text>
-        <Text style={styles.introText2}>
+        <Text style={styles.intro2Text}>
           {t('home.intro2')}
         </Text>
         <Button
