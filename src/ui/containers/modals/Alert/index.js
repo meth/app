@@ -4,6 +4,7 @@ import { Text } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
+import Icon from '../../../components/Icon'
 import createStyles from './styles'
 
 @connectStore('modals')
@@ -26,9 +27,24 @@ export default class Alert extends PureComponent {
         overlayStyle={styles.overlay}
         contentStyle={styles.content}
       >
+        {this.renderIcon(styles, type)}
         <Text style={styles.text}>{msg}</Text>
       </Modal>
     )
+  }
+
+  renderIcon (styles, type) {
+    switch (type) {
+      case 'error': {
+        return <Icon name='exclamation-triangle' style={styles.icon} />
+      }
+      case 'info': {
+        return <Icon name='info-circle' style={styles.icon} />
+      }
+      default: {
+        return null
+      }
+    }
   }
 
   onClose = () => {
