@@ -9,11 +9,11 @@ const color1 = '#b008b2'
 const color2 = '#2980b9'
 const color3 = '#3498db'
 // const color4 = '#bedb39'
-const color5 = '#fd7400'
 // const color6 = '#1F8A70'
 const color7 = '#FFE11A'
 
 // const colorTransparent = 'transparent'
+const colorOrange = '#fd7400'
 const colorPurpleDark = '#650566'
 const colorPurpleNormal = '#b008b2'
 const colorPurpleLight = '#FC0BFF'
@@ -58,11 +58,11 @@ export default {
   },
   alert: {
     error: {
-      backgroundColor: color5,
+      backgroundColor: colorOrange,
       textColor: '#fff'
     },
     info: {
-      backgroundColor: '#aaf',
+      backgroundColor: colorGray,
       textColor: '#fff'
     }
   },
@@ -77,7 +77,7 @@ export default {
       textColor: colorWhite,
       metaTextColor: colorLightGray,
       warnColor: color7,
-      errorColor: color5,
+      errorColor: colorOrange,
       alertColor: colorGreenNormal
     }
   },

@@ -1,4 +1,4 @@
-import { create, fontMaker } from '../../styles'
+import { create, fontMaker, whenWidthVerySmall } from '../../styles'
 
 const text = {
   ...fontMaker(),
@@ -20,5 +20,17 @@ export default create({
   iconText: {
     ...text,
     fontSize: '1.2rem'
-  }
+  },
+
+  ...whenWidthVerySmall({
+    content: {
+      padding: 0
+    },
+    text: {
+      fontSize: '0.8rem'
+    },
+    iconText: {
+      fontSize: '1rem'
+    }
+  })
 })

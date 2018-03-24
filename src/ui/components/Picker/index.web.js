@@ -22,7 +22,7 @@ export default class Picker extends CachePureComponent {
     const { label } = options.find(({ value }) => value === selected)
 
     return (
-      <View style={[ styles.container, style ]}>
+      <View style={[ styles.container, style ]} onLayout={this.onLayout}>
         <div ref={this.onButtonElementRef}>
           <PickerButton
             onPress={this.onPressButton}
@@ -55,21 +55,25 @@ export default class Picker extends CachePureComponent {
   }
 
   onPressButton = () => {
-    this.setState({
-      open: !this.state.open
-    })
+    const open = !this.state.open
+
+    // if going to open then reposition popup box near button
+    if (open && this.btnDiv) {
+      const { left, top, width, height } = this.btnDiv.getBoundingClientRect()
+
+      this.setState({
+        open,
+        popupStyle: { left, top: top + height, width }
+      })
+    } else {
+      this.setState({
+        open
+      })
+    }
   }
 
-  onButtonElementRef = btnDiv => {
-    if (!btnDiv) {
-      return
-    }
-
-    const { left, top, width, height } = btnDiv.getBoundingClientRect()
-
-    this.setState({
-      popupStyle: { left, top: top + height, width }
-    })
+  onButtonElementRef = elem => {
+    this.btnDiv = elem
   }
 
   onSelect = value => {
