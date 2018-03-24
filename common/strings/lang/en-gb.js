@@ -41,7 +41,7 @@ module.exports = {
     },
     connector: {
       connectToNode: 'Connect to node',
-      pleaseChooseNode: 'Connect to an Ethereum node',
+      pleaseChooseNode: 'Connect to Ethereum',
       network: '{network} network'
     },
     error: {

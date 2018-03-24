@@ -62,7 +62,7 @@ export default {
       textColor: '#fff'
     },
     info: {
-      backgroundColor: colorGray,
+      backgroundColor: colorDarkerGray,
       textColor: '#fff'
     }
   },
@@ -122,10 +122,10 @@ export default {
       }
     },
     picker: {
-      borderColor: color1,
+      borderColor: colorBlack,
       backgroundColor: colorWhite,
       hoverBackgroundColor: colorLightGray,
-      textColor: color1
+      textColor: colorBlack
     },
     section: {
       layout: {
@@ -184,13 +184,13 @@ export default {
     picker: generateButtonStyles({
       default: {
         borderColor: colorWhite,
-        backgroundColor: color1,
-        textColor: colorWhite
+        backgroundColor: colorWhite,
+        textColor: colorBlack
       },
       hover: {
         borderColor: colorWhite,
-        backgroundColor: color1,
-        textColor: colorWhite
+        backgroundColor: colorWhite,
+        textColor: colorBlack
       }
     }),
     mask: generateButtonStyles({
