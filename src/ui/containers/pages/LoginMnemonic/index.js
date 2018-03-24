@@ -66,6 +66,8 @@ defaultValue={this.state.mnemonic}
   onSubmit = () => {
     const { actions: { navPush, loadWallet } } = this.props
 
+    const postSuccessPath = routes.Wallet.path
+
     this.setState({
       error: null,
       submitting: true
@@ -73,7 +75,7 @@ defaultValue={this.state.mnemonic}
       // timeout to give the UI time to re-render
       setTimeout(() => {
         loadWallet(this.state.mnemonic)
-          .then(() => navPush(routes.Browser.path))
+          .then(() => navPush(postSuccessPath))
           .catch(error => {
             log.debug(error)
 
@@ -84,7 +86,7 @@ defaultValue={this.state.mnemonic}
               })
             }
 
-            return navPush(routes.Browser.path)
+            return navPush(postSuccessPath)
           })
       })
     })

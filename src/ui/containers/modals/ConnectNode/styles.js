@@ -68,12 +68,8 @@ export default create({
     color: '$modal_connectNode_darkTextColor'
   },
   errorBox: {
-    marginTop: 30
+    marginTop: 20
   },
-  disconnectReasonBox: {
-    marginBottom: 20
-  },
-
 
   ...whenWidthVerySmall({
     content: {

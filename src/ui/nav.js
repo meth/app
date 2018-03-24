@@ -10,6 +10,8 @@ import Home from './containers/pages/Home'
 import GenerateMnemonic from './containers/pages/GenerateMnemonic'
 import LoginMnemonic from './containers/pages/LoginMnemonic'
 import ConfirmNewMnemonic from './containers/pages/ConfirmNewMnemonic'
+import Addresses from './containers/pages/Addresses'
+import Wallet from './containers/pages/Wallet'
 import Browser from './containers/pages/Browser'
 
 export const routes = {
@@ -28,6 +30,14 @@ export const routes = {
   ConfirmNewMnemonic: {
     screen: ConfirmNewMnemonic,
     path: 'confirm'
+  },
+  Wallet: {
+    screen: Wallet,
+    path: 'wallet'
+  },
+  Addresses: {
+    screen: Addresses,
+    path: 'addresses'
   },
   Browser: {
     screen: Browser,

@@ -115,11 +115,6 @@ export default class ConnectNode extends CachePureComponent {
 
     return (
       <View style={styles.form}>
-        {(!reason) ? null : (
-          <ErrorBox
-            style={styles.disconnectReasonBox}
-            error={t(`error.${reason}`) || reason} />
-        )}
         {title}
         <Picker
           style={styles.picker}
@@ -139,17 +134,22 @@ export default class ConnectNode extends CachePureComponent {
           showInProgress={connecting}
           onPress={this.bind(this.onConnect, selected.value)}
           title={t('button.connectToNode')} />
-        {this.renderError()}
+        {this.renderError(reason)}
       </View>
     )
   }
 
-  renderError () {
+  renderError (disconnectReason) {
     const { error } = this.state
 
-    return (!error) ? null : (
-      <ErrorBox style={styles.errorBox} error={error} />
-    )
+    if (!error) {
+      return null
+    }
+
+    return <ErrorBox style={styles.errorBox} error={[
+      error,
+      disconnectReason ? (t(`error.${disconnectReason}`) || disconnectReason) : null
+    ]} />
   }
 
   getOptions () {

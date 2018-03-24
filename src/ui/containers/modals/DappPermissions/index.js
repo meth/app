@@ -7,7 +7,6 @@ import Form from 'react-native-advanced-forms'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import { ALL_ADDRESSES } from '../../../../../common/constants/dappPermissions'
-import API from '../../../../../common/constants/api'
 import { getDappPermissions, getAddresses } from '../../../../redux/account/selectors'
 import Modal from '../../../components/Modal'
 import Switch from '../../../components/Switch'
@@ -134,20 +133,6 @@ export default class DappPermissions extends PureComponent {
                 labelTextStyle={styles.addressCheckBoxLabelText}
                 turnedOn={addressPermissions[address]}
                 label={address} />
-            </Form.Field>
-          ))}
-        </Form.Section>
-        <Form.Section
-          title={t('dappPermissions.apiPermissions')}
-          style={styles.section}
-          layoutStyle={styles.sectionLayout}
-          titleTextStyle={styles.sectionTitleText}
-        >
-          {Object.keys(API).map(key => (
-            <Form.Field key={key} name={key} style={styles.field}>
-              <Switch
-                turnedOn={_.get(permissions, key, false)}
-                label={t(`dappPermissions.api.${API[key]}`)} />
             </Form.Field>
           ))}
         </Form.Section>
