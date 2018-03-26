@@ -10,6 +10,7 @@ import {
   RequestTimeoutError
 } from '../../../utils/errors'
 import AlertBox from '../AlertBox'
+import ExpandingView from '../ExpandingView'
 import styles from './styles'
 
 
@@ -30,11 +31,13 @@ const renderError = error => {
     renderedError = String(error)
   }
 
+  const key = `${error}`
+
   if (couldBeMethodCallError && _.get(error, 'method')) {
     const { method, details } = error
 
     renderedError = (
-      <View>
+      <View key={key}>
         <Text style={styles.errorText}>
           {t('error.methodCall', { method })}
         </Text>
@@ -47,22 +50,31 @@ const renderError = error => {
     )
   } else {
     renderedError = (
-      <Text style={styles.errorText}>{renderedError}</Text>
+      <Text key={key} style={styles.errorText}>{renderedError}</Text>
     )
   }
 
   return renderedError
 }
 
-const ErrorBox = ({ error, style }) => {
+const ErrorBox = ({ animate, error, style }) => {
   const errors = [].concat(error).map(renderError)
 
-  return <AlertBox type="error" style={style}>{errors}</AlertBox>
+  const box = <AlertBox type="error" style={style}>{errors}</AlertBox>
+
+  return (!animate) ? box : (
+    <ExpandingView duration={1000} finalMaxHeight={300}>{box}</ExpandingView>
+  )
 }
 
 ErrorBox.propTypes = {
-  error: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
+  animate: PropTypes.bool,
+  error: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]).isRequired,
   style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
+}
+
+ErrorBox.defaultProps = {
+  animate: true
 }
 
 export default ErrorBox

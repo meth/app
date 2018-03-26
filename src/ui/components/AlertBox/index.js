@@ -17,7 +17,7 @@ const AlertBox = ({ type, text, style, children }) => {
 AlertBox.propTypes = {
   type: PropTypes.string.isRequired,
   text: PropTypes.string,
-  children: PropTypes.element,
+  children: PropTypes.oneOfType([ PropTypes.element, PropTypes.array ]),
   style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
 }
 
