@@ -1,7 +1,3 @@
-const {
-  GENERATE_ADDRESS,
-  LABEL_ADDRESS
-} = require('../../constants/api')
 const { ALL_ADDRESSES } = require('../../constants/dappPermissions')
 
 module.exports = {
@@ -83,6 +79,9 @@ module.exports = {
       disconnectFromNode: 'Disconnect',
       cancelTransaction: 'Cancel',
       generateRawTransaction: 'Generate raw transaction',
+      wallet: 'Wallet',
+      addressBook: 'Address book',
+      dappBrowser: 'Browser',
       iHaveWrittenDownMnemonic: 'I have written down my passphrase carefully',
       iHaveConfirmedMyMnemonic: 'I have successfully confirmed my passphrase',
       pressToRevealMnemonic: 'Press to reveal',
@@ -109,14 +108,9 @@ module.exports = {
       }
     },
     dappPermissions: {
-      pleaseSet: 'Please decide which addresses and special privileges this Dapp may access.',
+      pleaseSet: 'Please decide which addresses this Dapp may access.',
       addressPermissions: 'Can access addresses',
-      [ALL_ADDRESSES]: 'All my addresses',
-      apiPermissions: 'Can access privileges',
-      api: {
-        [GENERATE_ADDRESS]: 'Generate new account',
-        [LABEL_ADDRESS]: 'Set friendly account label'
-      }
+      [ALL_ADDRESSES]: 'All my addresses'
     }
   }
 }

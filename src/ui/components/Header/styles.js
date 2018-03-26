@@ -15,7 +15,7 @@ export default create({
   container: {
     backgroundColor: '$header_backgroundColor',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
   left: {
@@ -33,6 +33,9 @@ export default create({
   },
   button: {
     ...button
+  },
+  buttonIcon: {
+    fontSize: '0.9rem'
   },
   logout: {
     borderLeftWidth: 1,
@@ -54,9 +57,5 @@ export default create({
   },
   networkButtonLoading: {
     marginLeft: 5
-  },
-  balance: {
-    borderRightWidth: 1,
-    borderRightColor: '$header_dividerColor'
   }
 })

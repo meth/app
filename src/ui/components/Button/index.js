@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Text } from 'react-native'
@@ -17,13 +18,15 @@ export default class Button extends PureComponent {
     textStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.array, PropTypes.object ]),
     onLayout: PropTypes.func,
     onStartHover: PropTypes.func,
-    onEndHover: PropTypes.func
+    onEndHover: PropTypes.func,
+    stateOverride: PropTypes.object
   }
 
   static defaultProps = {
     disabled: false,
     type: 'default',
-    title: ''
+    title: '',
+    stateOverride: null
   }
 
   state = {
@@ -31,9 +34,13 @@ export default class Button extends PureComponent {
   }
 
   render () {
-    const { disabled, title, tooltip, type, style, textStyle, onLayout, children } = this.props
+    const { disabled, title, tooltip, type, style, textStyle, onLayout
+      , stateOverride, children } = this.props
 
-    const { hovering } = this.state
+    let { hovering } = this.state
+    if (_.get(stateOverride, 'hovering') !== undefined) {
+      ({ hovering } = stateOverride)
+    }
 
     const styles = createStyles({ type, disabled, hovering })
 

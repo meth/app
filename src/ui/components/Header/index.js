@@ -5,28 +5,63 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { fromWei } from 'web3-utils'
 
+import { t } from '../../../../common/strings'
 import Button from '../Button'
 import Loading from '../Loading'
 import AlertsButton from './AlertsButton'
+import IconButton from '../IconButton'
 import styles from './styles'
+import { toDecimalPlaces } from '../../../utils/number'
 
 export default class Header extends PureComponent {
   static propTypes = {
+    navState: PropTypes.object.isRequired,
+    routes: PropTypes.object.isRequired,
     network: PropTypes.object,
     addresses: PropTypes.object,
     unseenAlertsCount: PropTypes.number,
     onPressNetworkInfo: PropTypes.func.isRequired,
     onPressAlerts: PropTypes.func.isRequired,
+    onPressWallet: PropTypes.func.isRequired,
+    onPressAddressBook: PropTypes.func.isRequired,
+    onPressBrowser: PropTypes.func.isRequired,
     style: PropTypes.any
   }
 
   render () {
-    const { addresses, network, style } = this.props
+    const { addresses, network, style, navState, routes } = this.props
+    const { onPressAddressBook, onPressBrowser } = this.props
+
+    const ALL_INITIALIZED = network && addresses
 
     return (
       <View style={[ styles.container, style ]}>
+        <View style={styles.left}>
+          {ALL_INITIALIZED ? (
+            <React.Fragment>
+              {this.renderBalance(addresses)}
+              <IconButton
+                type='header'
+                tooltip={t('button.addressBook')}
+                icon={{ name: 'address-book' }}
+                style={styles.button}
+                iconStyle={styles.buttonIcon}
+                onPress={onPressAddressBook}
+                stateOverride={this._getButtonStateOverride(navState, routes.AddressBook)}
+              />
+              <IconButton
+                type='header'
+                tooltip={t('button.dappBrowser')}
+                icon={{ name: 'globe' }}
+                style={styles.button}
+                iconStyle={styles.buttonIcon}
+                onPress={onPressBrowser}
+                stateOverride={this._getButtonStateOverride(navState, routes.Browser)}
+              />
+            </React.Fragment>
+          ) : null}
+        </View>
         <View style={styles.right}>
-          {network && addresses ? this.renderBalance(addresses) : null}
           {network ? this.renderNetwork(network) : null}
           {this.renderAlerts()}
         </View>
@@ -35,18 +70,23 @@ export default class Header extends PureComponent {
   }
 
   renderBalance (addresses) {
+    const { navState, routes, onPressWallet } = this.props
+
     const totalWei = Object.values(addresses).reduce(
       (m, { balance }) => m.add(balance), new BN(0, 2)
     )
+
     const totalEther = fromWei(totalWei, 'ether')
 
     return (
-      <View style={styles.balance}>
-        <Button
-          style={styles.button}
-          type='header'
-          title={`Ξ ${totalEther}`} />
-      </View>
+      <Button
+        tooltip={t('button.wallet')}
+        style={styles.button}
+        type='header'
+        title={`Ξ ${toDecimalPlaces(totalEther, 0)}`}
+        stateOverride={this._getButtonStateOverride(navState, routes.Wallet)}
+        onPress={onPressWallet}
+      />
     )
   }
 
@@ -83,5 +123,9 @@ export default class Header extends PureComponent {
         />
       </View>
     )
+  }
+
+  _getButtonStateOverride (navState, route) {
+    return (navState.routeName === route.routeName) ? { hovering: true } : null
   }
 }

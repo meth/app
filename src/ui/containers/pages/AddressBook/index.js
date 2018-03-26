@@ -6,11 +6,11 @@ import styles from './styles'
 import Layout from '../Layout'
 
 @connectStore('nav')
-export default class Addresses extends PureComponent {
+export default class AddressBook extends PureComponent {
   render () {
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <Text style={styles.text}>Addresses</Text>
+        <Text style={styles.text}>AddressBook</Text>
       </Layout>
     )
   }

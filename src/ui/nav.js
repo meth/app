@@ -10,7 +10,7 @@ import Home from './containers/pages/Home'
 import GenerateMnemonic from './containers/pages/GenerateMnemonic'
 import LoginMnemonic from './containers/pages/LoginMnemonic'
 import ConfirmNewMnemonic from './containers/pages/ConfirmNewMnemonic'
-import Addresses from './containers/pages/Addresses'
+import AddressBook from './containers/pages/AddressBook'
 import Wallet from './containers/pages/Wallet'
 import Browser from './containers/pages/Browser'
 
@@ -35,8 +35,8 @@ export const routes = {
     screen: Wallet,
     path: 'wallet'
   },
-  Addresses: {
-    screen: Addresses,
+  AddressBook: {
+    screen: AddressBook,
     path: 'addresses'
   },
   Browser: {
@@ -44,6 +44,13 @@ export const routes = {
     path: 'browser'
   }
 }
+
+// add route name as key as well so we can compare with nav state later on
+Object.keys(routes).forEach(routeName => {
+  // eslint-disable-next-line no-param-reassign
+  routes[routeName].routeName = routeName
+})
+
 
 export const router = StackRouter(routes, {
   navigationOptions: () => ({

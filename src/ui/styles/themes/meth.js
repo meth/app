@@ -233,7 +233,7 @@ export default {
       default: {
         borderColor: colorBlack,
         backgroundColor: colorBlack,
-        textColor: colorPurpleDark
+        textColor: colorPurpleNormal
       },
       hover: {
         borderColor: colorBlack,
