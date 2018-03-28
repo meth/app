@@ -2,7 +2,7 @@ import { create, fontMaker } from '../../../styles'
 
 export default create({
   layoutContent: {
-    backgroundColor: '$startScreen_backgroundColor',
+    backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
@@ -11,7 +11,7 @@ export default create({
     ...fontMaker(),
     fontSize: '1rem',
     textAlign: 'center',
-    color: '$startScreen_textColor',
+    color: '$content_textColor',
     maxWidth: '70%'
   }
 })

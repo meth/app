@@ -1,9 +1,12 @@
 import React, { PureComponent } from 'react'
+import { View, Text } from 'react-native'
 
+import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
 import Table from '../../../components/Table'
+import IconButton from '../../../components/IconButton'
 
 const RENDER_NULL = () => null
 
@@ -12,6 +15,13 @@ export default class AddressBook extends PureComponent {
   render () {
     return (
       <Layout contentStyle={styles.layoutContent}>
+        <View style={styles.titleBar}>
+          <Text style={styles.titleBarText}>{t('nav.addressBook')}</Text>
+          <IconButton
+            style={styles.titleBarAddButton}
+            icon={{ name: 'plus', style: styles.titleBarAddIcon }}
+          />
+        </View>
         <Table
           style={styles.table}
           showFilter={true}

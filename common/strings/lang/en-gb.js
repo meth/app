@@ -94,6 +94,9 @@ module.exports = {
         closeTab: 'Close tab'
       }
     },
+    nav: {
+      addressBook: 'Address book'
+    },
     config: {
       node: {
         local: {

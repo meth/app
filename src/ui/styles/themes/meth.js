@@ -34,9 +34,14 @@ export default {
     textColor: colorLightGray,
     dividerColor: lighten(color1, 0.5)
   },
-  startScreen: {
+  content: {
     backgroundColor: colorBlack,
     textColor: colorWhite
+  },
+  addressBook: {
+    title: {
+      textColor: colorDarkGray
+    }
   },
   browser: {
     tabBar: {

@@ -2,7 +2,7 @@ import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
 
 const text = {
   ...fontMaker(),
-  color: '$startScreen_textColor',
+  color: '$content_textColor',
   textAlign: 'center',
   maxWidth: '70%',
   marginBottom: 20
@@ -10,7 +10,7 @@ const text = {
 
 export default create({
   layoutContent: {
-    backgroundColor: '$startScreen_backgroundColor',
+    backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
