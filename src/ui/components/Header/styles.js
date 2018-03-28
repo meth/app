@@ -1,11 +1,5 @@
 import { create, fontMaker } from '../../styles'
 
-const text = {
-  ...fontMaker(),
-  color: '$header_textColor',
-  fontSize: '0.8rem'
-}
-
 const button = {
   paddingVertical: 10,
   borderRadius: 0
@@ -41,19 +35,13 @@ export default create({
     borderLeftWidth: 1,
     borderLeftColor: '$header_dividerColor'
   },
-  network: {
-    borderRightWidth: 1,
-    borderRightColor: '$header_dividerColor',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
   networkButton: {
     ...button,
     paddingHorizontal: 10
   },
   networkButtonText: {
-    ...text
+    ...fontMaker(),
+    fontSize: '0.7rem'
   },
   networkButtonLoading: {
     marginLeft: 5

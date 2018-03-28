@@ -7,8 +7,8 @@ export const addCommas = value => {
 
   const strValue = String(value)
   const fracStartPos = strValue.indexOf('.')
-  const fraction = (0 <= fracStartPos) ? strValue.substr(fracStartPos + 1) : ''
-  const sig = (0 <= fracStartPos) ? strValue.substr(0, fracStartPos) : strValue
+  const fraction = 0 <= fracStartPos ? strValue.substr(fracStartPos + 1) : ''
+  const sig = 0 <= fracStartPos ? strValue.substr(0, fracStartPos) : strValue
 
   let str = ''
   let numbersAdded = 0
@@ -21,12 +21,16 @@ export const addCommas = value => {
     numbersAdded += 1
   }
 
-  str += (fraction.length && Number(fraction) ? `.${fraction}` : '')
+  str += fraction.length && Number(fraction) ? `.${fraction}` : ''
 
   return str
 }
 
-export const toDecimalPlaces = (value, decimals = undefined, { showCommas = true } = {}) => {
+export const toDecimalPlaces = (
+  value,
+  decimals = undefined,
+  { showCommas = true } = {}
+) => {
   if (null === value) {
     return null
   }

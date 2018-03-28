@@ -83,9 +83,11 @@ export default class ConfirmNewMnemonic extends PureComponent {
       actions: { navPush, loadWallet }
     } = this.props
 
+    const postSuccessPath = routes.OnceLoggedIn.path
+
     return this.setState({ error: null }, () => {
       loadWallet(mnemonic)
-        .then(() => navPush(routes.Browser.path))
+        .then(() => navPush(postSuccessPath))
         .catch(error => {
           log.debug(error)
 
@@ -93,7 +95,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
             return this.setState({ error })
           }
 
-          return navPush(routes.Browser.path)
+          return navPush(postSuccessPath)
         })
     })
   }

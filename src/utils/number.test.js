@@ -103,10 +103,18 @@ describe('.toDecimalPlaces()', () => {
   })
 
   it('can exclude commas', () => {
-    expect(toDecimalPlaces(9109872343.125, 3, { showCommas: false })).toEqual('9109872343.125')
-    expect(toDecimalPlaces(9109872343.125, 2, { showCommas: false })).toEqual('9109872343.13')
-    expect(toDecimalPlaces(9109872343.125, 1, { showCommas: false })).toEqual('9109872343.1')
-    expect(toDecimalPlaces(9109872343.125, 0, { showCommas: false })).toEqual('9109872343')
+    expect(toDecimalPlaces(9109872343.125, 3, { showCommas: false })).toEqual(
+      '9109872343.125'
+    )
+    expect(toDecimalPlaces(9109872343.125, 2, { showCommas: false })).toEqual(
+      '9109872343.13'
+    )
+    expect(toDecimalPlaces(9109872343.125, 1, { showCommas: false })).toEqual(
+      '9109872343.1'
+    )
+    expect(toDecimalPlaces(9109872343.125, 0, { showCommas: false })).toEqual(
+      '9109872343'
+    )
     expect(toDecimalPlaces(999.525, 0, { showCommas: false })).toEqual('1000')
   })
 })

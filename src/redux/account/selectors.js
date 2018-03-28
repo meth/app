@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect'
 
-const _getAddressBalances = state => state.account.get('addressBalances') || {}
-const _getAddressNames = state => state.account.get('addressNames') || {}
+const _getAccountBalances = state => state.account.get('accountBalances') || {}
+const _getAccountFriendlyNames = state => state.account.get('accountFriendlyNames') || {}
 
 export const getAddresses = createSelector(
-  _getAddressBalances,
-  _getAddressNames,
+  _getAccountBalances,
+  _getAccountFriendlyNames,
   (balances, names) => Object.keys(balances).reduce((m, addr) => ({
     ...m,
     [addr]: {

@@ -3,6 +3,8 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Text } from 'react-native'
 
+import { isType } from '../../helpers/components'
+import Icon from '../Icon'
 import TouchableView from '../TouchableView'
 import createStyles from './styles'
 
@@ -44,14 +46,22 @@ export default class Button extends PureComponent {
 
     const styles = createStyles({ type, disabled, hovering })
 
-    const content =
-      0 < React.Children.count(children) ? (
-        children
-      ) : (
-        <Text style={[ styles.text ].concat(textStyle)}>
-          {title}
-        </Text>
-      )
+    const content = React.Children.count(children) ? (
+      React.Children.map(children, child => {
+        // if child is a Text or Icon then apply text styles to it
+        if (React.isValidElement(child) && (isType(child, Text) || isType(child, Icon))) {
+          return React.cloneElement(child, {
+            style: [].concat(styles.text, textStyle, child.props.style)
+          })
+        }
+
+        return child
+      })
+    ) : (
+      <Text style={[ styles.text ].concat(textStyle)}>
+        {title}
+      </Text>
+    )
 
     return (
       <TouchableView

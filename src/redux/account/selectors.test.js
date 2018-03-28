@@ -5,11 +5,11 @@ describe('.getAddresses()', () => {
   it('returns addresses', () => {
     const state = {
       account: new Immutable.Map({
-        addressNames: {
+        accountFriendlyNames: {
           a: 'ram',
           b: 'jeff'
         },
-        addressBalances: {
+        accountBalances: {
           a: 1,
           b: 2
         }

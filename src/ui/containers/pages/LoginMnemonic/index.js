@@ -66,7 +66,7 @@ defaultValue={this.state.mnemonic}
   onSubmit = () => {
     const { actions: { navPush, loadWallet } } = this.props
 
-    const postSuccessPath = routes.Wallet.path
+    const postSuccessPath = routes.OnceLoggedIn.path
 
     this.setState({
       error: null,

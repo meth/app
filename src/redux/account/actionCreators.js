@@ -1,8 +1,8 @@
 import { createActionCreator } from '../utils'
 
 import {
-  ADDRESS_BALANCES,
-  ADDRESS_NAMES,
+  ACCOUNT_BALANCES,
+  ACCOUNT_FRIENDLY_NAMES,
   BOOKMARKS,
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS,
@@ -17,8 +17,8 @@ export const generateMnemonic = createActionCreator(GENERATE_MNEMONIC)
 export const loadWallet = createActionCreator(LOAD_WALLET)
 
 /* setup reducer data */
-export const setupAddressBalances = createActionCreator(ADDRESS_BALANCES)
-export const setupAddressNames = createActionCreator(ADDRESS_NAMES)
+export const setupAccountBalances = createActionCreator(ACCOUNT_BALANCES)
+export const setupAccountFriendlyNames = createActionCreator(ACCOUNT_FRIENDLY_NAMES)
 export const setupBookmarks = createActionCreator(BOOKMARKS)
 export const setupDappPermissions = createActionCreator(DAPP_PERMISSIONS)
 

@@ -18,7 +18,7 @@ export default class Field extends PureComponent {
     return (
       <TextInput
         ref={input => { this.textInput = input }}
-        style={[ styles.input, style ]}
+        style={[ styles.input ].concat(style)}
         autoCapitalize={'none'}
         autoCorrect={false}
         autoFocus={false}

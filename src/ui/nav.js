@@ -37,7 +37,7 @@ export const routes = {
   },
   AddressBook: {
     screen: AddressBook,
-    path: 'addresses'
+    path: 'addressbook'
   },
   Browser: {
     screen: Browser,
@@ -45,12 +45,16 @@ export const routes = {
   }
 }
 
+routes.OnceLoggedIn = {
+  screen: Home,
+  path: 'addressbook'
+}
+
 // add route name as key as well so we can compare with nav state later on
 Object.keys(routes).forEach(routeName => {
   // eslint-disable-next-line no-param-reassign
   routes[routeName].routeName = routeName
 })
-
 
 export const router = StackRouter(routes, {
   navigationOptions: () => ({

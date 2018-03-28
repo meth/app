@@ -2,8 +2,8 @@ import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
 import {
-  ADDRESS_BALANCES,
-  ADDRESS_NAMES,
+  ACCOUNT_BALANCES,
+  ACCOUNT_FRIENDLY_NAMES,
   BOOKMARKS,
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS
@@ -11,15 +11,15 @@ import {
 
 export default () => {
   const InitialState = Immutable.Map({
-    addressBalances: {},
-    addressNames: {},
+    accountBalances: {},
+    accountFriendlyNames: {},
     bookmarks: {},
     dappPermissions: {}
   })
 
   return handleActions(
     {
-      [ADDRESS_BALANCES]: (state, { payload }) => state.set('addressBalances', payload),
+      [ACCOUNT_BALANCES]: (state, { payload }) => state.set('accountBalances', payload),
       [BOOKMARKS]: (state, { payload }) => state.set('bookmarks', payload),
       [DAPP_PERMISSIONS]: (state, { payload }) => state.set('dappPermissions', payload),
       [SAVE_DAPP_PERMISSIONS]: (state, { payload: { dappId, permissions } }) =>
@@ -27,9 +27,9 @@ export default () => {
           ...state.get('dappPermissions'),
           [dappId]: permissions
         }),
-      [ADDRESS_NAMES]: (state, { payload: names }) => {
+      [ACCOUNT_FRIENDLY_NAMES]: (state, { payload: names }) => {
         if (names) {
-          return state.set('addressNames', names)
+          return state.set('accountFriendlyNames', names)
         }
 
         return state

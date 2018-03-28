@@ -45,7 +45,7 @@ class Storage {
     const data = await this._load(this._userKey('accountNames'))
 
     if (data) {
-      this._store.actions.setupAddressNames(data)
+      this._store.actions.setupAccountFriendlyNames(data)
     }
   }
 

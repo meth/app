@@ -260,5 +260,22 @@ export default {
     },
     backgroundColor: colorDarkGray,
     textColor: colorWhite
+  },
+  table: {
+    default: {
+      header: {
+        backgroundColor: colorBlack,
+        textColor: colorDarkGray
+      },
+      rowOdd: {
+        backgroundColor: colorBlack
+      },
+      rowEven: {
+        backgroundColor: colorDarkerGray
+      },
+      column: {
+        textColor: colorWhite
+      }
+    }
   }
 }

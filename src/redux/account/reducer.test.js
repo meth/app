@@ -2,46 +2,46 @@ import Immutable from 'immutable'
 
 import reducer from './reducer'
 import {
-  ADDRESS_BALANCES,
-  ADDRESS_NAMES,
+  ACCOUNT_BALANCES,
+  ACCOUNT_FRIENDLY_NAMES,
   BOOKMARKS,
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS
 } from './actions'
 
-describe('ADDRESS_BALANCES', () => {
+describe('ACCOUNT_BALANCES', () => {
   it('sets up balances', () => {
     const state = Immutable.Map({})
 
     const reduce = reducer()
 
     const newState = reduce(state, {
-      type: ADDRESS_BALANCES,
+      type: ACCOUNT_BALANCES,
       payload: {
         dummy: false
       }
     })
 
-    expect(newState.get('addressBalances')).toEqual({
+    expect(newState.get('accountBalances')).toEqual({
       dummy: false
     })
   })
 })
 
-describe('ADDRESS_NAMES', () => {
+describe('ACCOUNT_FRIENDLY_NAMES', () => {
   it('sets up names', () => {
     const state = Immutable.Map({})
 
     const reduce = reducer()
 
     const newState = reduce(state, {
-      type: ADDRESS_NAMES,
+      type: ACCOUNT_FRIENDLY_NAMES,
       payload: {
         dummy: false
       }
     })
 
-    expect(newState.get('addressNames')).toEqual({
+    expect(newState.get('accountFriendlyNames')).toEqual({
       dummy: false
     })
   })
@@ -52,10 +52,10 @@ describe('ADDRESS_NAMES', () => {
     const reduce = reducer()
 
     const newState = reduce(state, {
-      type: ADDRESS_NAMES
+      type: ACCOUNT_FRIENDLY_NAMES
     })
 
-    expect(newState.get('addressNames')).toEqual(undefined)
+    expect(newState.get('accountFriendlyNames')).toEqual(undefined)
   })
 })
 

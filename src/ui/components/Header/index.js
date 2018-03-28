@@ -43,18 +43,16 @@ export default class Header extends PureComponent {
               <IconButton
                 type='header'
                 tooltip={t('button.addressBook')}
-                icon={{ name: 'address-book' }}
+                icon={{ name: 'address-book', style: styles.buttonIcon }}
                 style={styles.button}
-                iconStyle={styles.buttonIcon}
                 onPress={onPressAddressBook}
                 stateOverride={this._getButtonStateOverride(navState, routes.AddressBook)}
               />
               <IconButton
                 type='header'
                 tooltip={t('button.dappBrowser')}
-                icon={{ name: 'globe' }}
+                icon={{ name: 'globe', style: styles.buttonIcon }}
                 style={styles.button}
-                iconStyle={styles.buttonIcon}
                 onPress={onPressBrowser}
                 stateOverride={this._getButtonStateOverride(navState, routes.Browser)}
               />
@@ -83,7 +81,7 @@ export default class Header extends PureComponent {
         tooltip={t('button.wallet')}
         style={styles.button}
         type='header'
-        title={`Ξ ${toDecimalPlaces(totalEther, 0)}`}
+        title={`Ξ ${toDecimalPlaces(totalEther, 1)}`}
         stateOverride={this._getButtonStateOverride(navState, routes.Wallet)}
         onPress={onPressWallet}
       />
@@ -99,15 +97,13 @@ export default class Header extends PureComponent {
     ) : null
 
     return (
-      <View style={styles.network}>
-        <Button
-          onPress={onPressNetworkInfo}
-          style={styles.networkButton}
-          type='header'>
-            <Text style={styles.networkButtonText}>{'Private'}</Text>
-            {syncIcon}
-        </Button>
-      </View>
+      <Button
+        onPress={onPressNetworkInfo}
+        style={styles.networkButton}
+        type='header'>
+          <Text style={styles.networkButtonText}>{'Private'}</Text>
+          {syncIcon}
+      </Button>
     )
   }
 
