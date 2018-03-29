@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { ListView, View, Text } from 'react-native'
 
 import { styles } from './styles'
@@ -9,6 +10,25 @@ import TextInput from '../TextInput'
 
 
 export default class Table extends PureComponent {
+  static propTypes = {
+    rows: PropTypes.arrayOf(PropTypes.object).isRequired,
+    columns: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })).isRequired,
+    style: PropTypes.any,
+    listStyle: PropTypes.any,
+    rowStyle: PropTypes.any,
+    filterInputStyle: PropTypes.any,
+    headerRowStyle: PropTypes.any,
+    filterPlaceholderText: PropTypes.string,
+    renderHeader: PropTypes.func,
+    renderRowData: PropTypes.func,
+    showFilter: PropTypes.bool,
+    onColumnHeaderPress: PropTypes.func,
+    sortColumn: PropTypes.string,
+    sortDesc: PropTypes.bool
+  }
+
   static defaultProps = {
     renderHeader: null,
     showFilter: false,
@@ -37,7 +57,7 @@ export default class Table extends PureComponent {
   }
 
   _renderFilterInput () {
-    const { filterInputStyle } = this.props
+    const { filterInputStyle, filterPlaceholderText } = this.props
     const { filter } = this.state
 
     return (
@@ -45,6 +65,7 @@ export default class Table extends PureComponent {
         onChangeText={this._onFilterChange}
         defaultValue={filter}
         style={[ styles.filterInput, filterInputStyle ]}
+        placeholder={filterPlaceholderText}
       />
     )
   }
@@ -94,13 +115,15 @@ export default class Table extends PureComponent {
 
   _renderBody () {
     const { listStyle, sortColumn, sortDesc } = this.props
-    const { filter } = this.state
 
+    let { filter } = this.state
     let { rows } = this.props
 
     if (filter) {
+      filter = filter.toLowerCase()
+
       rows =
-        rows.filter(({ _filterKey }) => (_filterKey && _filterKey.includes(filter)))
+        rows.filter(({ _filterKey }) => (_filterKey && _filterKey.toLowerCase().includes(filter)))
     }
 
     if (sortColumn) {
@@ -133,7 +156,7 @@ export default class Table extends PureComponent {
   }
 
   _renderBodyRow = (row, __, rowID) => {
-    const { rowStyle } = this.props
+    const { rowStyle, renderRowData } = this.props
 
     return (
       <View style={[
@@ -141,7 +164,7 @@ export default class Table extends PureComponent {
         (rowID % 2 ? styles.rowOdd : styles.rowEven),
         rowStyle
       ]}>
-        {this._renderRowColumns(row)}
+        {renderRowData ? renderRowData(row) : this._renderRowColumns(row)}
       </View>
     )
   }

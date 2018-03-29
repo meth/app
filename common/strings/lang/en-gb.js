@@ -70,6 +70,7 @@ module.exports = {
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
     button: {
+      addEntry: 'Add entry',
       save: 'Save',
       close: 'Close',
       login: 'Login',
@@ -96,6 +97,9 @@ module.exports = {
     },
     nav: {
       addressBook: 'Address book'
+    },
+    addressBook: {
+      filterPlaceholder: 'Filter...'
     },
     config: {
       node: {

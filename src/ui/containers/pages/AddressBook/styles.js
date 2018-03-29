@@ -14,7 +14,8 @@ export default create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     paddingTop: 0,
-    width: '70%'
+    paddingBottom: 0,
+    height: '95%'
   },
   titleBar: {
     flexDirection: 'row',
@@ -33,14 +34,48 @@ export default create({
     fontSize: '0.6rem'
   },
   table: {
+    flex: 1,
     marginTop: 10,
-    paddingBottom: 20
+    paddingBottom: 20,
+    minWidth: '70%'
+  },
+  tableFilter: {
+    marginBottom: 5
+  },
+  tableRow: {
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  tableRowData: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    padding: 20,
+    borderRadius: 0
+  },
+  tableRowAddressText: {
+    ...text,
+    ...fontMaker({ weight: 'Light' }),
+    color: '$addressBook_address_textColor',
+    marginBottom: 5
+  },
+  tableRowLabelText: {
+    ...text,
+    fontSize: '0.7rem',
+    color: '$addressBook_label_textColor'
   },
 
   ...whenWidthSmall({
     layoutContent: {
       alignItems: 'center',
       width: '95%'
+    },
+    table: {
+      width: '100%'
     }
   })
 })

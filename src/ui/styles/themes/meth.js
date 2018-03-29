@@ -21,17 +21,20 @@ const colorGreenNormal = '#5CB22B'
 // const colorGreenDark = '#427F1F'
 const colorBlack = '#000'
 const colorWhite = '#fff'
-const colorLightGray = '#ccc'
+const colorGrayLight = '#ccc'
 const colorGray = '#9a9a9a'
-const colorDarkGray = '#777'
-const colorDarkerGray = '#444'
+const colorGrayDark = '#777'
+const colorGrayDarker = '#444'
+const colorGrayDarkest = '#222'
+
+const colorTransparent = 'transparent'
 
 
 export default {
   rem: ROOT_FONT_SIZE,
   header: {
     backgroundColor: colorBlack,
-    textColor: colorLightGray,
+    textColor: colorGrayLight,
     dividerColor: lighten(color1, 0.5)
   },
   content: {
@@ -40,7 +43,13 @@ export default {
   },
   addressBook: {
     title: {
-      textColor: colorDarkGray
+      textColor: colorGrayDark
+    },
+    address: {
+      textColor: colorWhite
+    },
+    label: {
+      textColor: colorGrayDark
     }
   },
   browser: {
@@ -67,7 +76,7 @@ export default {
       textColor: '#fff'
     },
     info: {
-      backgroundColor: colorDarkerGray,
+      backgroundColor: colorGrayDarker,
       textColor: '#fff'
     }
   },
@@ -80,7 +89,7 @@ export default {
     event: {
       backgroundColor: colorBlack,
       textColor: colorWhite,
-      metaTextColor: colorLightGray,
+      metaTextColor: colorGrayLight,
       warnColor: color7,
       errorColor: colorOrange,
       alertColor: colorGreenNormal
@@ -104,7 +113,7 @@ export default {
         backgroundColor: toRGBA(colorWhite, 0.4)
       },
       content: {
-        dividerColor: colorDarkerGray
+        dividerColor: colorGrayDarker
       }
     },
     connectNode: {
@@ -129,15 +138,15 @@ export default {
     picker: {
       borderColor: colorBlack,
       backgroundColor: colorWhite,
-      hoverBackgroundColor: colorLightGray,
+      hoverBackgroundColor: colorGrayLight,
       textColor: colorBlack
     },
     section: {
       layout: {
-        borderColor: colorLightGray
+        borderColor: colorGrayLight
       },
       title: {
-        textColor: colorLightGray
+        textColor: colorGrayLight
       }
     },
     switch: {
@@ -149,8 +158,8 @@ export default {
         }
       },
       off: {
-        trackColor: colorLightGray,
-        thumbColor: colorDarkGray,
+        trackColor: colorGrayLight,
+        thumbColor: colorGrayDark,
         label: {
           textColor: colorGray
         }
@@ -219,7 +228,7 @@ export default {
       hover: {
         borderColor: 'transparent',
         backgroundColor: colorGray,
-        textColor: colorLightGray
+        textColor: colorGrayLight
       }
     }),
     browserPanel: generateButtonStyles({
@@ -246,6 +255,18 @@ export default {
         textColor: colorWhite
       }
     }),
+    tableRow: generateButtonStyles({
+      default: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorWhite
+      },
+      hover: {
+        borderColor: colorPurpleLight,
+        backgroundColor: colorPurpleLight,
+        textColor: colorWhite
+      }
+    }),
     default: generateButtonStyles({
       default: {
         borderColor: colorPurpleNormal,
@@ -261,22 +282,22 @@ export default {
   },
   mnemonic: {
     confirmationBox: {
-      topBorderColor: colorDarkerGray
+      topBorderColor: colorGrayDarker
     },
-    backgroundColor: colorDarkGray,
+    backgroundColor: colorGrayDark,
     textColor: colorWhite
   },
   table: {
     default: {
       header: {
         backgroundColor: colorBlack,
-        textColor: colorDarkGray
+        textColor: colorGrayDark
       },
       rowOdd: {
         backgroundColor: colorBlack
       },
       rowEven: {
-        backgroundColor: colorDarkerGray
+        backgroundColor: colorGrayDarkest
       },
       column: {
         textColor: colorWhite
