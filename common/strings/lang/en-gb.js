@@ -96,14 +96,15 @@ module.exports = {
         closeTab: 'Close tab'
       }
     },
-    nav: {
+    title: {
       addressBook: 'Address book',
+      editAddress: 'Edit address'
+    },
+    addressBook: {
+      filterPlaceholder: 'Filter...',
       editor: {
         labelInputPlaceholder: 'Enter label...'
       }
-    },
-    addressBook: {
-      filterPlaceholder: 'Filter...'
     },
     config: {
       node: {

@@ -23,11 +23,6 @@ export default create({
     alignItems: 'center'
   },
   titleBarText: {
-    ...text,
-    ...fontMaker({ weight: 'Light' }),
-    fontSize: '0.8rem',
-    color: '$addressBook_title_textColor',
-    textTransform: 'uppercase',
     marginRight: 20
   },
   titleBarAddIcon: {

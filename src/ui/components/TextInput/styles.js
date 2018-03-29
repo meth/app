@@ -1,6 +1,7 @@
+import _ from 'lodash'
 import { create, value } from '../../styles'
 
-export default state => {
+export default _.memoize(state => {
   const baseStyle = {
     fontSize: '0.8rem',
     paddingVertical: 10,
@@ -24,4 +25,4 @@ export default state => {
     }),
     placeholderTextColor: value(`$form_textInput_${state}_placeholderTextColor`)
   }
-}
+})

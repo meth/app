@@ -41,12 +41,12 @@ export default {
   },
   content: {
     backgroundColor: colorBlack,
-    textColor: colorWhite
-  },
-  addressBook: {
+    textColor: colorWhite,
     title: {
       textColor: colorGrayDark
-    },
+    }
+  },
+  addressBook: {
     address: {
       textColor: colorWhite
     },

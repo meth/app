@@ -13,7 +13,7 @@ export const createSagas = app => {
   const configSaga = config(app)
   const accountSaga = account(app)
 
-  return function* allSagas () {
+  return function* allSagas (){
     yield all([
       call(apiSaga),
       call(modalsSaga),

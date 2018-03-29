@@ -59,10 +59,10 @@ export const hideSendTransactionModal = createActionCreator(
   () => ({ type: SEND_TRANSACTION })
 )
 
-export const showEditAddressModal = createActionCreator(
-  SHOW,
-  address => ({ type: EDIT_ADDRESS, address })
-)
+export const showEditAddressModal = createActionCreator(SHOW, address => ({
+  type: EDIT_ADDRESS,
+  data: { address }
+}))
 export const hideEditAddressModal = createActionCreator(
   HIDE,
   () => ({ type: EDIT_ADDRESS })

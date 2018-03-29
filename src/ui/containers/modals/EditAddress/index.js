@@ -14,6 +14,7 @@ import ErrorBox from '../../../components/ErrorBox'
 import TextInput from '../../../components/TextInput'
 import ProgressButton from '../../../components/ProgressButton'
 import Button from '../../../components/Button'
+import TitleText from '../../../components/TitleText'
 import styles from './styles'
 
 @connectStore('modals', 'account', 'node')
@@ -32,7 +33,7 @@ export default class EditAddress extends PureComponent {
 
     this.state = {
       label: _.get(addressBook[address], 'label', ''),
-      canSubmit: !!Object.keys(this.validate(addressBook[address])).length,
+      canSubmit: !(Object.keys(this.validate(addressBook[address])).length),
       submitting: false,
       error: null
     }
@@ -54,6 +55,7 @@ export default class EditAddress extends PureComponent {
         contentStyle={styles.content}
         onPressCloseButton={this.close}
       >
+        <TitleText text={t('title.editAddress')} />
         <Text>Address: ${address}</Text>
         <Text>Network: ${network}</Text>
         <Text>Type: ${type}</Text>
