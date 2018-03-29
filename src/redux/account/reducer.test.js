@@ -3,7 +3,7 @@ import Immutable from 'immutable'
 import reducer from './reducer'
 import {
   ACCOUNT_BALANCES,
-  ACCOUNT_FRIENDLY_NAMES,
+  ADDRESS_BOOK,
   BOOKMARKS,
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS
@@ -28,20 +28,20 @@ describe('ACCOUNT_BALANCES', () => {
   })
 })
 
-describe('ACCOUNT_FRIENDLY_NAMES', () => {
-  it('sets up names', () => {
+describe('ADDRESS_BOOK', () => {
+  it('sets up address book', () => {
     const state = Immutable.Map({})
 
     const reduce = reducer()
 
     const newState = reduce(state, {
-      type: ACCOUNT_FRIENDLY_NAMES,
+      type: ADDRESS_BOOK,
       payload: {
         dummy: false
       }
     })
 
-    expect(newState.get('accountFriendlyNames')).toEqual({
+    expect(newState.get('addressBook')).toEqual({
       dummy: false
     })
   })
@@ -52,10 +52,10 @@ describe('ACCOUNT_FRIENDLY_NAMES', () => {
     const reduce = reducer()
 
     const newState = reduce(state, {
-      type: ACCOUNT_FRIENDLY_NAMES
+      type: ADDRESS_BOOK
     })
 
-    expect(newState.get('accountFriendlyNames')).toEqual(undefined)
+    expect(newState.get('addressBook')).toEqual(undefined)
   })
 })
 

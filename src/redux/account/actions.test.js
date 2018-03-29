@@ -1,6 +1,6 @@
 import {
   ACCOUNT_BALANCES,
-  ACCOUNT_FRIENDLY_NAMES,
+  ADDRESS_BOOK,
   BOOKMARKS,
   DAPP_PERMISSIONS,
   SEND_RAW_TX,
@@ -10,9 +10,9 @@ import {
   SAVE_DAPP_PERMISSIONS
 } from './actions'
 
-describe('ACCOUNT_FRIENDLY_NAMES', () => {
+describe('ADDRESS_BOOK', () => {
   it('is defined', () => {
-    expect(ACCOUNT_FRIENDLY_NAMES).toBeDefined()
+    expect(ADDRESS_BOOK).toBeDefined()
   })
 })
 

@@ -18,6 +18,7 @@ const colorPurpleDark = '#650566'
 const colorPurpleNormal = '#b008b2'
 const colorPurpleLight = '#FC0BFF'
 const colorGreenNormal = '#5CB22B'
+const colorYellowLight = '#ffffaa'
 // const colorGreenDark = '#427F1F'
 const colorBlack = '#000'
 const colorWhite = '#fff'
@@ -26,6 +27,7 @@ const colorGray = '#9a9a9a'
 const colorGrayDark = '#777'
 const colorGrayDarker = '#444'
 const colorGrayDarkest = '#222'
+
 
 const colorTransparent = 'transparent'
 
@@ -133,6 +135,9 @@ export default {
         backgroundColor: colorWhite,
         textColor: colorBlack,
         placeholderTextColor: colorGray
+      },
+      error: {
+        backgroundColor: colorYellowLight
       }
     },
     picker: {

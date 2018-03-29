@@ -52,7 +52,7 @@ export default class BrowserTabView extends PureComponent {
             onPress={this.refresh}
           />
           <TextInput
-            ref={input => { this.addressInput = input }}
+            ref={this._onAddressInputRef}
             value={url}
             onChange={this.onChangeUrl}
             onSubmitEditing={this.onEnterUrl}
@@ -72,13 +72,19 @@ export default class BrowserTabView extends PureComponent {
             {...this.props}
             onRedirect={this.props.onUrlChange}
             onNewTitle={this.props.onTitleChange}
-            ref={v => {
-              this.webView = v
-            }}
+            ref={this._onWebViewRef}
           />
         </View>
       </View>
     )
+  }
+
+  _onAddressInputRef = input => {
+    this.addressInput = input
+  }
+
+  _onWebViewRef = v => {
+    this.webView = v
   }
 
   componentWillReceiveProps (newProps) {
@@ -113,7 +119,7 @@ export default class BrowserTabView extends PureComponent {
 
   focusAddressBar = () => {
     if (this.addressInput) {
-      this.addressInput.focusHighlight()
+      this.addressInput.focus()
     }
   }
 

@@ -1,16 +1,30 @@
 import { createSelector } from 'reselect'
 
-const _getAccountBalances = state => state.account.get('accountBalances') || {}
-const _getAccountFriendlyNames = state => state.account.get('accountFriendlyNames') || {}
+import ADDRESS_TYPES from '../../../common/constants/addressTypes'
 
-export const getAddresses = createSelector(
+const _getAccountBalances = state => state.account.get('accountBalances') || {}
+const _getAddressBook = state => state.account.get('addressBook') || {}
+
+export const getAccounts = createSelector(
   _getAccountBalances,
-  _getAccountFriendlyNames,
-  (balances, names) => Object.keys(balances).reduce((m, addr) => ({
+  _getAddressBook,
+  (balances, addressBook) => Object.keys(balances).reduce((m, addr) => ({
     ...m,
     [addr]: {
       balance: balances[addr],
-      ...(names[addr] ? { name: names[addr] } : {})
+      ...(addressBook[addr] ? { label: addressBook[addr] } : {})
+    }
+  }), {})
+)
+
+export const getAddressBook = createSelector(
+  _getAccountBalances,
+  _getAddressBook,
+  (accounts, addressBook) => Object.keys(addressBook).reduce((m, addr) => ({
+    ...m,
+    [addr]: {
+      ...addressBook[addr],
+      ...(accounts[addr] ? { type: ADDRESS_TYPES.MY_ACCOUNT } : {})
     }
   }), {})
 )

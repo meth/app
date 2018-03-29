@@ -41,9 +41,7 @@ export default class WebView extends PureComponent {
 
     return (
       <webview
-        ref={v => {
-          this.webView = v
-        }}
+        ref={this._onWebViewRef}
         src={url}
         style={{
           width: '100%',
@@ -52,6 +50,10 @@ export default class WebView extends PureComponent {
         preload={`file://${window.preloadBasePath}/browserTab.js`}
       />
     )
+  }
+
+  _onWebViewRef = v => {
+    this.webView = v
   }
 
   componentWillUnmount () {

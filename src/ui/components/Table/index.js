@@ -62,9 +62,9 @@ export default class Table extends PureComponent {
 
     return (
       <TextInput
-        onChangeText={this._onFilterChange}
+        onChange={this._onFilterChange}
         defaultValue={filter}
-        style={[ styles.filterInput, filterInputStyle ]}
+        style={filterInputStyle}
         placeholder={filterPlaceholderText}
       />
     )

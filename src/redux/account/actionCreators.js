@@ -2,10 +2,11 @@ import { createActionCreator } from '../utils'
 
 import {
   ACCOUNT_BALANCES,
-  ACCOUNT_FRIENDLY_NAMES,
+  ADDRESS_BOOK,
   BOOKMARKS,
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS,
+  SAVE_ADDRESS_BOOK_ENTRY,
   GENERATE_RAW_TX,
   SEND_RAW_TX,
   LOAD_WALLET,
@@ -18,14 +19,18 @@ export const loadWallet = createActionCreator(LOAD_WALLET)
 
 /* setup reducer data */
 export const setupAccountBalances = createActionCreator(ACCOUNT_BALANCES)
-export const setupAccountFriendlyNames = createActionCreator(ACCOUNT_FRIENDLY_NAMES)
+export const setupAddressBook = createActionCreator(ADDRESS_BOOK)
 export const setupBookmarks = createActionCreator(BOOKMARKS)
 export const setupDappPermissions = createActionCreator(DAPP_PERMISSIONS)
 
-/* save config for dapps, etc */
+/* save changes for dapps, etc */
 export const saveDappPermissions =
   createActionCreator(SAVE_DAPP_PERMISSIONS, (dappId, permissions) => ({
     dappId, permissions
+  }))
+export const saveAddressBookEntry =
+  createActionCreator(SAVE_ADDRESS_BOOK_ENTRY, (address, data) => ({
+    address, data
   }))
 
 /* transactions */

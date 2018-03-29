@@ -33,7 +33,7 @@ export default class LoginMnemonic extends PureComponent {
         <TextInput
           style={styles.textInput}
           onChange={this.onChange}
-defaultValue={this.state.mnemonic}
+          defaultValue={this.state.mnemonic}
           placeholder={t('mnemonic.inputPlaceholderText')}
           onSubmitEditing={this.onSubmit}
         />

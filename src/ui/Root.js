@@ -11,6 +11,7 @@ import AlertModal from './containers/modals/Alert'
 import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
 import DappPermissions from './containers/modals/DappPermissions'
+import EditAddress from './containers/modals/EditAddress'
 
 const log = logger.create('Root')
 
@@ -20,7 +21,8 @@ const MODAL_COMPONENTS = {
   [MODALS.ALERT]: AlertModal,
   [MODALS.CONNECT_NODE]: ConnectNodeModal,
   [MODALS.SEND_TRANSACTION]: SendTransactionModal,
-  [MODALS.DAPP_PERMISSIONS]: DappPermissions
+  [MODALS.DAPP_PERMISSIONS]: DappPermissions,
+  [MODALS.EDIT_ADDRESS]: EditAddress
 }
 
 @connectStore('modals')

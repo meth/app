@@ -3,9 +3,10 @@ import {
   GENERATE_RAW_TX,
   LOAD_WALLET,
   GENERATE_MNEMONIC,
-  SAVE_DAPP_PERMISSIONS
+  SAVE_DAPP_PERMISSIONS,
+  SAVE_ADDRESS_BOOK_ENTRY
 } from './actions'
-import { getDappPermissions } from './selectors'
+import { getDappPermissions, getAddressBook } from './selectors'
 import { getNodeConnection } from '../node/selectors'
 import { createAction } from '../utils'
 import logger from '../../logger'
@@ -67,6 +68,19 @@ export default ({
       dappPermissions[dappId] = permissions
 
       await storage.saveDappPermissions(dappPermissions)
+
+      return next(action)
+    }
+    case SAVE_ADDRESS_BOOK_ENTRY: {
+      const { address, data } = action.payload
+
+      log.debug(`Save addressbook entry (${address}) ...`)
+
+      const book = getAddressBook(getState())
+
+      book[address] = data
+
+      await storage.saveAddressBook(book)
 
       return next(action)
     }

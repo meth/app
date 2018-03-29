@@ -4,7 +4,8 @@ import {
   SEND_TRANSACTION,
   ALERT,
   LOG,
-  DAPP_PERMISSIONS
+  DAPP_PERMISSIONS,
+  EDIT_ADDRESS
 } from '../../../common/constants/modals'
 
 import {
@@ -18,7 +19,9 @@ import {
   showSendTransactionModal,
   hideSendTransactionModal,
   showDappPermissionsModal,
-  hideDappPermissionsModal
+  hideDappPermissionsModal,
+  showEditAddressModal,
+  hideEditAddressModal
 } from './actionCreators'
 
 describe('showAlert()', () => {

@@ -6,7 +6,8 @@ import {
   SEND_TRANSACTION,
   ALERT,
   LOG,
-  DAPP_PERMISSIONS
+  DAPP_PERMISSIONS,
+  EDIT_ADDRESS
 } from '../../../common/constants/modals'
 
 export const showAlert = createActionCreator(SHOW, msg => ({
@@ -56,4 +57,13 @@ export const showSendTransactionModal = createActionCreator(
 export const hideSendTransactionModal = createActionCreator(
   HIDE,
   () => ({ type: SEND_TRANSACTION })
+)
+
+export const showEditAddressModal = createActionCreator(
+  SHOW,
+  address => ({ type: EDIT_ADDRESS, address })
+)
+export const hideEditAddressModal = createActionCreator(
+  HIDE,
+  () => ({ type: EDIT_ADDRESS })
 )

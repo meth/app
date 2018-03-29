@@ -1,6 +1,6 @@
 import {
   setupAccountBalances,
-  setupAccountFriendlyNames,
+  setupAddressBook,
   setupBookmarks,
   setupDappPermissions,
   generateMnemonic,
@@ -11,7 +11,7 @@ import {
 } from './actionCreators'
 import {
   ACCOUNT_BALANCES,
-  ACCOUNT_FRIENDLY_NAMES,
+  ADDRESS_BOOK,
   BOOKMARKS,
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS,
@@ -48,10 +48,10 @@ describe('setupAccountBalances()', () => {
   })
 })
 
-describe('setupAccountFriendlyNames()', () => {
+describe('setupAddressBook()', () => {
   it('returns action', () => {
-    expect(setupAccountFriendlyNames(123)).toEqual({
-      type: ACCOUNT_FRIENDLY_NAMES,
+    expect(setupAddressBook(123)).toEqual({
+      type: ADDRESS_BOOK,
       payload: 123
     })
   })

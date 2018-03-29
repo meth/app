@@ -72,6 +72,7 @@ module.exports = {
     button: {
       addEntry: 'Add entry',
       save: 'Save',
+      delete: 'Delete',
       close: 'Close',
       login: 'Login',
       getStarted: 'Get started',
@@ -96,7 +97,10 @@ module.exports = {
       }
     },
     nav: {
-      addressBook: 'Address book'
+      addressBook: 'Address book',
+      editor: {
+        labelInputPlaceholder: 'Enter label...'
+      }
     },
     addressBook: {
       filterPlaceholder: 'Filter...'

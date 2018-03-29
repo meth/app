@@ -1,7 +1,9 @@
 import _ from 'lodash'
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { View, Text } from 'react-native'
 
+import { CachePureComponent } from '../../../helpers/components'
+import { getAddressBook } from '../../../../redux/account/selectors'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -10,38 +12,24 @@ import Table from '../../../components/Table'
 import Button from '../../../components/Button'
 import IconButton from '../../../components/IconButton'
 
-const RENDER_NULL = () => null
+const RENDER_HEADER = () => null
 
-const ROWS = [
-  {
-    address: {
-      value: '0xdcc703c0E500B653Ca82273B7BFAd8045D85a470'
-    },
-    label: {
-      value: 'Friendly label 1'
-    },
-    _filterKey: '0xdcc703c0e500b653ca82273b7bfad8045d85a470 friendly label 1'
-  },
-  {
-    address: {
-      value: '0xdcc703c0E500B653Ca82273B7BFAd8045D85a471'
-    },
-    _filterKey: '0xdcc703c0e500b653ca82273b7bfad8045d85a471'
-  },
-  {
-    address: {
-      value: '0xdcc703c0E500B653Ca82273B7BFAd8045D85a472'
-    },
-    label: {
-      value: 'Bancor network'
-    },
-    _filterKey: '0xdcc703c0e500b653ca82273b7bfad8045d85a472 bancor network'
-  }
-]
+const COLUMNS = [ { id: 'address' } ]
 
-@connectStore('nav')
-export default class AddressBook extends PureComponent {
+
+@connectStore('nav', 'account')
+export default class AddressBook extends CachePureComponent {
   render () {
+    const book = getAddressBook(this.props)
+
+    const rows = Object.keys(book).map(addr => ({
+      address: {
+        ...book[addr],
+        value: addr
+      },
+      _filterKey: `${addr} ${book[addr].label || ''}`.toLowerCase()
+    }))
+
     return (
       <Layout contentStyle={styles.layoutContent}>
         <View style={styles.titleBar}>
@@ -59,29 +47,25 @@ export default class AddressBook extends PureComponent {
           filterInputStyle={styles.tableFilter}
           filterPlaceholderText={t('addressBook.filterPlaceholder')}
           showFilter={true}
-          renderHeader={RENDER_NULL}
+          renderHeader={RENDER_HEADER}
           renderRowData={this._renderRowData}
-          columns={[
-            {
-              id: 'address'
-            }
-          ]}
+          columns={COLUMNS}
           rows={[
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS,
-            ...ROWS
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows,
+            ...rows
           ]}
         />
       </Layout>
@@ -90,13 +74,24 @@ export default class AddressBook extends PureComponent {
 
   _renderRowData = row => {
     const address = _.get(row, 'address.value')
-    const label = _.get(row, 'label.value')
+    const label = _.get(row, 'address.label')
 
     return (
-      <Button style={styles.tableRowData} type='tableRow'>
+      <Button
+        data-address={address}
+        style={styles.tableRowData}
+        type='tableRow'
+        onPress={this.bind(this.onSelectEntry, address)}
+      >
         <Text style={styles.tableRowAddressText}>{address}</Text>
         <Text style={styles.tableRowLabelText}>{label || ' '}</Text>
       </Button>
     )
+  }
+
+  onSelectEntry = address => {
+    const { showEditAddressModal } = this.props.actions
+
+    showEditAddressModal(address)
   }
 }

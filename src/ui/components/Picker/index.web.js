@@ -23,7 +23,7 @@ export default class Picker extends CachePureComponent {
 
     return (
       <View style={[ styles.container, style ]} onLayout={this.onLayout}>
-        <div ref={this.onButtonElementRef}>
+        <div ref={this._onButtonElementRef}>
           <PickerButton
             onPress={this.onPressButton}
             label={label}
@@ -72,7 +72,7 @@ export default class Picker extends CachePureComponent {
     }
   }
 
-  onButtonElementRef = elem => {
+  _onButtonElementRef = elem => {
     this.btnDiv = elem
   }
 

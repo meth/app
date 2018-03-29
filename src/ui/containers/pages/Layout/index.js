@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
 import ScrollView from '../../../components/ScrollView'
-import { getAddresses } from '../../../../redux/account/selectors'
+import { getAccounts } from '../../../../redux/account/selectors'
 import { getNodeConnection, getNodeState } from '../../../../redux/node/selectors'
 import { getUnseenAlertsCount } from '../../../../redux/log/selectors'
 import { getCurrentNavState } from '../../../../redux/nav/selectors'
@@ -18,7 +18,7 @@ export default class Layout extends PureComponent {
     if (network) {
       network.node = getNodeState(this.props)
     }
-    const addresses = getAddresses(this.props)
+    const addresses = getAccounts(this.props)
     const unseenAlertsCount = getUnseenAlertsCount(this.props)
     const navState = getCurrentNavState(this.props)
 

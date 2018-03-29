@@ -13,7 +13,7 @@ const ModalCloseButton = ({ style, onPress }) => (
 
 ModalCloseButton.propTypes = {
   onPress: PropTypes.func.isRequired,
-  style: PropTypes.oneOfType([ PropTypes.array, PropTypes.button, PropTypes.number ])
+  style: PropTypes.oneOfType([ PropTypes.array, PropTypes.object, PropTypes.number ])
 }
 
 export default ModalCloseButton

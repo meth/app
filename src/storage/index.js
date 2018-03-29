@@ -25,7 +25,7 @@ class Storage {
 
     try {
       /* do these calls asynchronously */
-      this._loadAddressNames()
+      this._loadAddressBook()
       this._loadBookmarks()
       this._loadDappPermissions()
     } catch (err) {
@@ -39,13 +39,13 @@ class Storage {
     this._network = genesisBlock
   }
 
-  async _loadAddressNames () {
-    log.info('Load address friendly names ...')
+  async _loadAddressBook () {
+    log.info('Load address book ...')
 
-    const data = await this._load(this._userKey('accountNames'))
+    const data = await this._load(this._userKey('addressBook'))
 
     if (data) {
-      this._store.actions.setupAccountFriendlyNames(data)
+      this._store.actions.setupAddressBook(data)
     }
   }
 
@@ -73,6 +73,12 @@ class Storage {
     log.debug('Save dapp permissions ...', data)
 
     await this._save(this._userKey('dappPermissions'), data)
+  }
+
+  async saveAddressBook (data) {
+    log.debug('Save address book ...', data)
+
+    await this._save(this._userKey('addressBook'), data)
   }
 
   async _load (key) {
