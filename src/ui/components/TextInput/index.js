@@ -63,13 +63,13 @@ export default class CustomTextInput extends PureComponent {
 
   focus () {
     if (this.textInput) {
-      this.testInput.focus()
+      this.textInput.focus()
     }
   }
 
   unfocus () {
     if (this.textInput) {
-      this.testInput.blur()
+      this.textInput.blur()
     }
   }
 

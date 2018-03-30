@@ -5,7 +5,6 @@ export const ROOT_FONT_SIZE = 18
 
 /* Theme inspired by: https://color.adobe.com/3-on-3-color-theme-10562048/edit/?copy=true&base=2&rule=Custom&selected=3&name=Copy%20of%203%20on%203&mode=rgb&rgbvalues=0.3176557600941157,0.6980392156862745,0.10174108611321976,0.5820319082105079,1,0.3447833030295686,0.5171910624715654,1,0.2431372549019608,0.6911307528192672,0.03137254901960784,0.6980392156862745,0.9921568627450981,0.24313725490196078,1&swatchOrder=0,1,2,3,4 */
 
-const color1 = '#b008b2'
 const color2 = '#2980b9'
 const color3 = '#3498db'
 // const color4 = '#bedb39'
@@ -37,12 +36,14 @@ export default {
   rem: ROOT_FONT_SIZE,
   header: {
     backgroundColor: colorBlack,
-    textColor: colorGrayLight,
-    dividerColor: lighten(color1, 0.5)
+    textColor: colorGrayLight
   },
   content: {
     backgroundColor: colorBlack,
     textColor: colorWhite,
+    borderTop: {
+      color: colorGrayDarkest
+    },
     title: {
       textColor: colorGrayDark
     }
@@ -110,6 +111,13 @@ export default {
       overlay: {
         backgroundColor: toRGBA(colorBlack, 0.75)
       }
+    },
+    confirm: {
+      overlay: {
+        backgroundColor: toRGBA(colorBlack, 0.75)
+      },
+      backgroundColor: colorGrayDarkest,
+      textColor: colorWhite
     },
     log: {
       overlay: {

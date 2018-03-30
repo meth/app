@@ -16,6 +16,7 @@ import IconText from '../../../components/IconText'
 import ProgressButton from '../../../components/ProgressButton'
 import Button from '../../../components/Button'
 import TitleText from '../../../components/TitleText'
+import AskUserConfirmModal from '../../../components/AskUserConfirmModal'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
 
@@ -97,8 +98,19 @@ export default class EditAddress extends PureComponent {
           />
         </View>
         {this._renderError()}
+        <AskUserConfirmModal
+          ref={this._onConfirmModalRef}
+          question={t('addressBook.editor.areYouSureYouWantToDelete')}
+          yesButtonText={t('button.yes')}
+          noButtonText={t('button.no')}
+          onPressYes={this._onConfirmDelete}
+        />
       </Modal>
     )
+  }
+
+  _onConfirmModalRef = d => {
+    this.confirmDeleteModal = d
   }
 
   _onFormRef = f => {
@@ -202,6 +214,12 @@ export default class EditAddress extends PureComponent {
   }
 
   delete = () => {
+    if (this.confirmDeleteModal) {
+      this.confirmDeleteModal.show()
+    }
+  }
+
+  _onConfirmDelete = () => {
     console.log('TODO: delete')
   }
 

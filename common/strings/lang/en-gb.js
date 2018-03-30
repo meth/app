@@ -72,6 +72,8 @@ module.exports = {
     },
     button: {
       addEntry: 'Add entry',
+      yes: 'Yes',
+      no: 'No',
       save: 'Save',
       delete: 'Delete',
       close: 'Close',
@@ -105,7 +107,8 @@ module.exports = {
       filterPlaceholder: 'Filter...',
       editor: {
         labelInputPlaceholder: 'Enter label...',
-        labelFieldLabel: 'Label'
+        labelFieldLabel: 'Label',
+        areYouSureYouWantToDelete: 'Are you sure you want to delete this entry?'
       }
     },
     addressType: {

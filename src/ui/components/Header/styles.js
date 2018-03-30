@@ -31,10 +31,6 @@ export default create({
   buttonIcon: {
     fontSize: '0.9rem'
   },
-  logout: {
-    borderLeftWidth: 1,
-    borderLeftColor: '$header_dividerColor'
-  },
   networkButton: {
     ...button,
     paddingHorizontal: 10
