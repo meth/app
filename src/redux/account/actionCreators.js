@@ -7,6 +7,7 @@ import {
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
+  DELETE_ADDRESS_BOOK_ENTRY,
   GENERATE_RAW_TX,
   SEND_RAW_TX,
   LOAD_WALLET,
@@ -32,6 +33,8 @@ export const saveAddressBookEntry =
   createActionCreator(SAVE_ADDRESS_BOOK_ENTRY, (address, data) => ({
     address, data
   }))
+export const deleteAddressBookEntry =
+  createActionCreator(DELETE_ADDRESS_BOOK_ENTRY, address => ({ address }))
 
 /* transactions */
 export const generateRawTransaction = createActionCreator(GENERATE_RAW_TX)

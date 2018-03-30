@@ -7,7 +7,8 @@ import {
   BOOKMARKS,
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS,
-  SAVE_ADDRESS_BOOK_ENTRY
+  SAVE_ADDRESS_BOOK_ENTRY,
+  DELETE_ADDRESS_BOOK_ENTRY
 } from './actions'
 
 export default () => {
@@ -50,7 +51,16 @@ export default () => {
         state.set('addressBook', {
           ...state.get('addressBook'),
           [address]: data
+        }),
+      [DELETE_ADDRESS_BOOK_ENTRY]: (state, { payload: { address } }) => {
+        const addressBook = state.get('addressBook')
+
+        delete addressBook[address]
+
+        return state.set('addressBook', {
+          ...addressBook
         })
+      }
     },
     InitialState
   )

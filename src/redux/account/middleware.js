@@ -4,7 +4,8 @@ import {
   LOAD_WALLET,
   GENERATE_MNEMONIC,
   SAVE_DAPP_PERMISSIONS,
-  SAVE_ADDRESS_BOOK_ENTRY
+  SAVE_ADDRESS_BOOK_ENTRY,
+  DELETE_ADDRESS_BOOK_ENTRY
 } from './actions'
 import { getDappPermissions, getAddressBook } from './selectors'
 import { getNodeConnection } from '../node/selectors'
@@ -79,6 +80,19 @@ export default ({
       const book = getAddressBook(getState())
 
       book[address] = data
+
+      await storage.saveAddressBook(book)
+
+      return next(action)
+    }
+    case DELETE_ADDRESS_BOOK_ENTRY: {
+      const { address } = action.payload
+
+      log.debug(`Delete addressbook entry (${address}) ...`)
+
+      const book = getAddressBook(getState())
+
+      delete book[address]
 
       await storage.saveAddressBook(book)
 

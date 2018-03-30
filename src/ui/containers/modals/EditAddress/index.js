@@ -103,7 +103,7 @@ export default class EditAddress extends PureComponent {
           question={t('addressBook.editor.areYouSureYouWantToDelete')}
           yesButtonText={t('button.yes')}
           noButtonText={t('button.no')}
-          onPressYes={this._onConfirmDelete}
+          onPressYes={this.onDelete}
         />
       </Modal>
     )
@@ -219,8 +219,23 @@ export default class EditAddress extends PureComponent {
     }
   }
 
-  _onConfirmDelete = () => {
-    console.log('TODO: delete')
+  onDelete = () => {
+    const { data: { address } } = this.props
+    const { deleteAddressBookEntry } = this.props.actions
+
+    this.setState({
+      submitting: false,
+      error: null
+    }, () => {
+      deleteAddressBookEntry(address)
+        .then(() => this.close())
+        .catch(error => {
+          this.setState({
+            submitting: false,
+            error
+          })
+        })
+    })
   }
 
   close = () => {
