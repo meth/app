@@ -1,4 +1,4 @@
-import { create, fontMaker } from '../../../styles'
+import { create, fontMaker, whenWidthSmall } from '../../../styles'
 
 const text = {
   ...fontMaker(),
@@ -9,68 +9,62 @@ export default create({
   // $outline: 1,
 
   content: {
-    width: 400,
+    width: 500,
     height: 'auto'
   },
 
-  /* dapp title */
+  /* texts */
 
-  dappTitle: {
+  titleText: {
+    marginBottom: 20
+  },
+  addressText: {
+    ...text,
+    fontSize: '0.8rem'
+  },
+  meta: {
+    marginTop: 5,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10
+    alignItems: 'center'
   },
-  dappTitleIdText: {
+  metaIcon: {
+    marginHorizontal: 10
+  },
+  metaIconText: {
     ...text,
-    fontSize: '1.3rem'
+    color: '$modal_editAddress_metaTextColor',
+    fontSize: '0.7rem'
   },
-
-  /* alert */
-
-  alert: {
-    maxWidth: '90%'
-  },
-
 
   /* form */
 
   form: {
-    width: '100%',
+    marginTop: 10,
+    width: '70%'
+  },
+  field: {},
+  errorBox: {
     marginTop: 20
   },
-  field: {
-    marginBottom: 10
-  },
-  section: {
-    position: 'relative',
-    marginBottom: 30,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+
+  /* buttons */
+
+  buttons: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center'
   },
-  sectionLayout: {
-    width: '90%',
-    borderWidth: 1,
-    borderColor: '$form_section_layout_borderColor',
-    paddingHorizontal: 15,
-    paddingTop: 20,
-    paddingBottom: 15,
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start'
+  button: {
+    marginHorizontal: 5
   },
-  sectionTitleText: {
-    ...text,
-    textAlign: 'center',
-    color: '$form_section_title_textColor',
-    backgroundColor: '$modal_content_backgroundColor',
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    marginBottom: -13,
-    zIndex: 1
-  },
-  addressCheckBoxLabelText: {
-    fontSize: '0.5rem'
-  }
+
+  /* responsive layout */
+
+  ...whenWidthSmall({
+    content: {
+      width: '90%'
+    }
+  })
 })

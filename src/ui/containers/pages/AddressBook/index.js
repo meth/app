@@ -10,7 +10,6 @@ import styles from './styles'
 import Layout from '../Layout'
 import Table from '../../../components/Table'
 import Button from '../../../components/Button'
-import IconButton from '../../../components/IconButton'
 import TitleText from '../../../components/TitleText'
 
 const RENDER_HEADER = () => null
@@ -35,11 +34,6 @@ export default class AddressBook extends CachePureComponent {
       <Layout contentStyle={styles.layoutContent}>
         <View style={styles.titleBar}>
           <TitleText style={styles.titleBarText} text={t('title.addressBook')} />
-          <IconButton
-            style={styles.titleBarAddButton}
-            icon={{ name: 'plus', style: styles.titleBarAddIcon }}
-            tooltip={t('button.addEntry')}
-          />
         </View>
         <Table
           style={styles.table}

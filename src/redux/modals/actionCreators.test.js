@@ -122,3 +122,21 @@ describe('hideConnectionModal()', () => {
     })
   })
 })
+
+describe('showEditAddressModal()', () => {
+  it('returns action', () => {
+    expect(showEditAddressModal(123)).toEqual({
+      type: SHOW,
+      payload: { type: EDIT_ADDRESS, data: { address: 123 } }
+    })
+  })
+})
+
+describe('hideEditAddressModal()', () => {
+  it('returns action', () => {
+    expect(hideEditAddressModal()).toEqual({
+      type: HIDE,
+      payload: { type: EDIT_ADDRESS }
+    })
+  })
+})

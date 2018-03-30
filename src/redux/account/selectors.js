@@ -24,7 +24,7 @@ export const getAddressBook = createSelector(
     ...m,
     [addr]: {
       ...addressBook[addr],
-      ...(accounts[addr] ? { type: ADDRESS_TYPES.MY_ACCOUNT } : {})
+      ...(accounts[addr] ? { type: ADDRESS_TYPES.OWN_ACCOUNT } : {})
     }
   }), {})
 )

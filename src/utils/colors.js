@@ -7,7 +7,7 @@ export const toRGBA = (color, opacity) =>
     .join(', ')}, ${opacity})`
 
 export const darken = (color, amnt) =>
-  'transparent' === color ? color : Color(color).darken(amnt).hex()
+  ('transparent' === color ? color : Color(color).darken(amnt).hex())
 
 export const lighten = (color, amnt) =>
-  'transparent' === color ? color : Color(color).lighten(amnt).hex()
+  ('transparent' === color ? color : Color(color).lighten(amnt).hex())

@@ -1,4 +1,4 @@
 module.exports = {
-  MY_ACCOUNT: 1,
+  OWN_ACCOUNT: 1,
   CONTRACT: 2
 }

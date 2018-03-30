@@ -12,10 +12,12 @@ import { getNodeConnection } from '../../../../redux/node/selectors'
 import Modal from '../../../components/Modal'
 import ErrorBox from '../../../components/ErrorBox'
 import TextInput from '../../../components/TextInput'
+import IconText from '../../../components/IconText'
 import ProgressButton from '../../../components/ProgressButton'
 import Button from '../../../components/Button'
 import TitleText from '../../../components/TitleText'
 import styles from './styles'
+import formStyles from '../../../styles/forms'
 
 @connectStore('modals', 'account', 'node')
 export default class EditAddress extends PureComponent {
@@ -33,7 +35,7 @@ export default class EditAddress extends PureComponent {
 
     this.state = {
       label: _.get(addressBook[address], 'label', ''),
-      canSubmit: !(Object.keys(this.validate(addressBook[address])).length),
+      canSubmit: this._canSubmitForm(addressBook[address]),
       submitting: false,
       error: null
     }
@@ -55,10 +57,9 @@ export default class EditAddress extends PureComponent {
         contentStyle={styles.content}
         onPressCloseButton={this.close}
       >
-        <TitleText text={t('title.editAddress')} />
-        <Text>Address: ${address}</Text>
-        <Text>Network: ${network}</Text>
-        <Text>Type: ${type}</Text>
+        <TitleText style={styles.titleText} text={t('title.editAddress')} />
+        <Text style={styles.addressText}>{address}</Text>
+        {this._renderMeta({ network, type })}
         <Form
           style={styles.form}
           ref={this._onFormRef}
@@ -66,7 +67,13 @@ export default class EditAddress extends PureComponent {
           onSubmit={this.onSubmit}
           validate={this.validate}
         >
-          <Form.Field name='label' style={styles.field}>
+          <Form.Field
+            name='label'
+            label={t('addressBook.editor.labelFieldLabel')}
+            style={styles.field}
+            labelStyle={formStyles.label}
+            labelTextStyle={formStyles.labelText}
+          >
             <TextInput
               onChange={this._onLabelChange}
               value={label}
@@ -89,7 +96,7 @@ export default class EditAddress extends PureComponent {
             title={t('button.delete')}
           />
         </View>
-        {this.renderError()}
+        {this._renderError()}
       </Modal>
     )
   }
@@ -98,7 +105,48 @@ export default class EditAddress extends PureComponent {
     this.form = f
   }
 
-  renderError () {
+  _renderMeta ({ network, type }) {
+    if (!(network || type)) {
+      return null
+    }
+
+    let typeIcon = null
+    switch (type) {
+      case ADDRESS_TYPES.OWN_ACCOUNT: {
+        typeIcon = 'user'
+        break
+      }
+      case ADDRESS_TYPES.CONTRACT: {
+        typeIcon = 'file'
+        break
+      }
+      default:
+        break
+    }
+
+    return (
+      <View style={styles.meta}>
+        {typeIcon ? (
+          <IconText
+            style={styles.metaIcon}
+            textStyle={styles.metaIconText}
+            icon={{ name: typeIcon, style: styles.metaIconText }}
+            text={t(`addressType.${type}`)}
+          />
+        ) : null}
+        {network ? (
+          <IconText
+            style={styles.metaIcon}
+            textStyle={styles.metaIconText}
+            icon={{ name: 'plug', style: styles.metaIconText }}
+            text={network}
+          />
+        ) : null}
+      </View>
+    )
+  }
+
+  _renderError () {
     const { error } = this.state
 
     return (!error) ? null : (
@@ -107,7 +155,11 @@ export default class EditAddress extends PureComponent {
   }
 
   onChange = values => {
-    this.setState({ label: values.label })
+    this.setState({
+      label: values.label,
+      canSubmit: this._canSubmitForm(values),
+      error: null
+    })
   }
 
   onSubmit = data => {
@@ -137,6 +189,10 @@ export default class EditAddress extends PureComponent {
     }
 
     return ret
+  }
+
+  _canSubmitForm (values) {
+    return !(Object.keys(this.validate(values)).length)
   }
 
   submit = () => {

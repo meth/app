@@ -37,7 +37,7 @@ export const routes = {
   },
   AddressBook: {
     screen: AddressBook,
-    path: 'addressbook'
+    path: 'addressBook'
   },
   Browser: {
     screen: Browser,
@@ -47,7 +47,7 @@ export const routes = {
 
 routes.OnceLoggedIn = {
   screen: Home,
-  path: 'addressbook'
+  path: 'addressBook'
 }
 
 // add route name as key as well so we can compare with nav state later on

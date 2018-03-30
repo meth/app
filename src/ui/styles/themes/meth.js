@@ -13,6 +13,7 @@ const color3 = '#3498db'
 const color7 = '#FFE11A'
 
 // const colorTransparent = 'transparent'
+const colorRed = '#fd4100'
 const colorOrange = '#fd7400'
 const colorPurpleDark = '#650566'
 const colorPurpleNormal = '#b008b2'
@@ -74,7 +75,7 @@ export default {
   },
   alert: {
     error: {
-      backgroundColor: colorOrange,
+      backgroundColor: colorRed,
       textColor: '#fff'
     },
     info: {
@@ -120,6 +121,9 @@ export default {
     },
     connectNode: {
       darkTextColor: colorGray
+    },
+    editAddress: {
+      metaTextColor: colorGray
     }
   },
   form: {

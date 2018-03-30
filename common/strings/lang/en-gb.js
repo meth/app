@@ -1,4 +1,5 @@
 const { ALL_ADDRESSES } = require('../../constants/dappPermissions')
+const ADDRESS_TYPES = require('../../constants/addressTypes')
 
 module.exports = {
   label: 'English',
@@ -103,8 +104,13 @@ module.exports = {
     addressBook: {
       filterPlaceholder: 'Filter...',
       editor: {
-        labelInputPlaceholder: 'Enter label...'
+        labelInputPlaceholder: 'Enter label...',
+        labelFieldLabel: 'Label'
       }
+    },
+    addressType: {
+      [ADDRESS_TYPES.OWN_ACCOUNT]: 'Own account',
+      [ADDRESS_TYPES.CONTRACT]: 'Contract'
     },
     config: {
       node: {
