@@ -101,7 +101,8 @@ module.exports = {
     },
     title: {
       addressBook: 'Address book',
-      editAddress: 'Edit address'
+      editAddress: 'Edit address',
+      wallet: 'Wallet'
     },
     addressBook: {
       filterPlaceholder: 'Filter...',

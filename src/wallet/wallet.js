@@ -257,7 +257,7 @@ class Wallet extends EventEmitter {
 
       let totalAddresses = wallet.getAddressCount() - 20
       if (0 >= totalAddresses) {
-        totalAddresses = 1
+        totalAddresses = 3
       }
 
       log.info(`Discovered addresses: ${totalAddresses}`)

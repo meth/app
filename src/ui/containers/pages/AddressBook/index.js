@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
-import { View, Text } from 'react-native'
+import { Text } from 'react-native'
 
 import { CachePureComponent } from '../../../helpers/components'
 import { getAddressBook } from '../../../../redux/account/selectors'
@@ -32,9 +32,7 @@ export default class AddressBook extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <View style={styles.titleBar}>
-          <TitleText style={styles.titleBarText} text={t('title.addressBook')} />
-        </View>
+        <TitleText text={t('title.addressBook')} />
         <Table
           style={styles.table}
           listStyle={styles.tableList}

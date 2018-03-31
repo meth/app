@@ -19,17 +19,6 @@ export default create({
     paddingBottom: 0,
     height: '95%'
   },
-  titleBar: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
-  titleBarText: {
-    marginRight: 20
-  },
-  titleBarAddIcon: {
-    fontSize: '0.6rem'
-  },
   table: {
     flex: 1,
     marginTop: 10,

@@ -202,6 +202,7 @@ export default {
   },
   button: {
     picker: generateButtonStyles({
+      spinnerColor: colorBlack,
       default: {
         borderColor: colorWhite,
         backgroundColor: colorWhite,
@@ -214,6 +215,7 @@ export default {
       }
     }),
     mask: generateButtonStyles({
+      spinnerColor: colorWhite,
       default: {
         borderColor: colorPurpleDark,
         backgroundColor: toRGBA(colorPurpleDark, 0.97),
@@ -226,6 +228,7 @@ export default {
       }
     }),
     browserTab: generateButtonStyles({
+      spinnerColor: colorGrayLight,
       default: {
         borderColor: 'transparent',
         backgroundColor: 'transparent',
@@ -238,6 +241,7 @@ export default {
       }
     }),
     browserPanel: generateButtonStyles({
+      spinnerColor: colorGray,
       default: {
         borderColor: 'transparent',
         backgroundColor: 'transparent',
@@ -250,6 +254,7 @@ export default {
       }
     }),
     header: generateButtonStyles({
+      spinnerColor: colorWhite,
       default: {
         borderColor: colorBlack,
         backgroundColor: colorBlack,
@@ -262,6 +267,7 @@ export default {
       }
     }),
     tableRow: generateButtonStyles({
+      spinnerColor: colorWhite,
       default: {
         borderColor: colorTransparent,
         backgroundColor: colorTransparent,
@@ -274,6 +280,7 @@ export default {
       }
     }),
     default: generateButtonStyles({
+      spinnerColor: colorWhite,
       default: {
         borderColor: colorPurple,
         backgroundColor: colorBlack,

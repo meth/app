@@ -13,7 +13,11 @@ import {
 
 export default () => {
   const InitialState = Immutable.Map({
-    accountBalances: {},
+    accountBalances: {
+      '0xDcc703c0E500B653Ca82273B7BFAd8045D85a470': 1.2,
+      '0xEfd703c0E500B653Ca82273B7BFAd8045D85a471': 0.5,
+      '0xAba703c0E500B653Ca82273B7BFAd8045D85a472': 23.5
+    },
     addressBook: {
       '0xDcc703c0E500B653Ca82273B7BFAd8045D85a470': {
         label: 'Friendly label 1'
