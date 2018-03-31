@@ -1,6 +1,7 @@
-import { darken } from '../../../utils/colors'
+import { darken, colorWhite } from '../../../utils/colors'
 
 export const generateButtonStyles = props => ({
+  spinnerColor: props.spinnerColor || colorWhite,
   enabled: {
     default: props.default,
     hover: props.hover

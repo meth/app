@@ -23,20 +23,29 @@ class Storage {
 
     this._mnemonic = hash
 
-    try {
-      /* do these calls asynchronously */
-      this._loadAddressBook()
-      this._loadBookmarks()
-      this._loadDappPermissions()
-    } catch (err) {
-      log.warn(err.toString())
-    }
+    this.loadUserData()
   }
 
   async setNetwork ({ description, genesisBlock } = {}) {
     log.info(`Set storage network: ${description} - ${genesisBlock} ...`)
 
     this._network = genesisBlock
+
+    this.loadUserData()
+  }
+
+  loadUserData () {
+    if (!this._canConstructUserKey()) {
+      return
+    }
+
+    try {
+      this._loadAddressBook()
+      this._loadBookmarks()
+      this._loadDappPermissions()
+    } catch (err) {
+      log.warn(err.toString())
+    }
   }
 
   async _loadAddressBook () {
@@ -108,7 +117,7 @@ class Storage {
   }
 
   _canConstructUserKey () {
-    return !!this._mnemonic
+    return !!this._mnemonic && !!this._network
   }
 }
 

@@ -1,17 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { value } from '../../styles'
 import Button from '../Button'
 import Loading from '../Loading'
 
-const ProgressButton = ({ showInProgress, onPress, children, ...props }) => {
+const ProgressButton = ({ type, showInProgress, onPress, children, ...props }) => {
   const content = (!showInProgress) ? children : (
-    <Loading />
+    <Loading color={value(`$button_${type}_spinnerColor`)} />
   )
 
   return (
     <Button
       onPress={showInProgress ? null : onPress}
+      type={type}
       {...props}>
         {content}
     </Button>
@@ -24,7 +26,8 @@ ProgressButton.propTypes = {
 }
 
 ProgressButton.defaultProps = {
-  showInProgress: false
+  showInProgress: false,
+  type: 'default'
 }
 
 export default ProgressButton
