@@ -108,7 +108,6 @@ export default class ConnectNode extends CachePureComponent {
     const options = this.getOptions()
     const selected = options.find(o => o.selected)
 
-
     const title = (
       <Text style={styles.title}>{t('connector.pleaseChooseNode')}</Text>
     )
@@ -142,7 +141,7 @@ export default class ConnectNode extends CachePureComponent {
   renderError (disconnectReason) {
     const { error } = this.state
 
-    if (!error) {
+    if (!(error || disconnectReason)) {
       return null
     }
 

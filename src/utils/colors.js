@@ -21,7 +21,6 @@ export const colorGrayDark = '#777'
 export const colorGrayDarker = '#444'
 export const colorGrayDarkest = '#222'
 
-
 export const toRGBA = (color, opacity) =>
   `rgba(${Color(color && color.hex ? color.hex() : color)
     .rgb()
