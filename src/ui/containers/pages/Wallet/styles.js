@@ -35,6 +35,7 @@ export default create({
     alignItems: 'center'
   },
   card: {
+    $outline: 1,
     height: 200
   },
   cardText: {

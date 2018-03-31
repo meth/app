@@ -1,10 +1,4 @@
-import { create, fontMaker, whenWidthSmall } from '../../../styles'
-
-const text = {
-  ...fontMaker(),
-  fontSize: '1rem',
-  color: '$content_textColor'
-}
+import { create, whenWidthSmall } from '../../../styles'
 
 export default create({
   layoutContent: {
@@ -42,17 +36,6 @@ export default create({
     alignItems: 'flex-start',
     padding: 20,
     borderRadius: 0
-  },
-  tableRowAddressText: {
-    ...text,
-    ...fontMaker({ weight: 'Light' }),
-    color: '$addressBook_address_textColor',
-    marginBottom: 5
-  },
-  tableRowLabelText: {
-    ...text,
-    fontSize: '0.7rem',
-    color: '$addressBook_label_textColor'
   },
 
   ...whenWidthSmall({

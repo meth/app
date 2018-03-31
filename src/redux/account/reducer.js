@@ -1,3 +1,4 @@
+import BN from 'bn.js'
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
@@ -14,9 +15,9 @@ import {
 export default () => {
   const InitialState = Immutable.Map({
     accountBalances: {
-      '0xDcc703c0E500B653Ca82273B7BFAd8045D85a470': 1.2,
-      '0xEfd703c0E500B653Ca82273B7BFAd8045D85a471': 0.5,
-      '0xAba703c0E500B653Ca82273B7BFAd8045D85a472': 23.5
+      '0xDcc703c0E500B653Ca82273B7BFAd8045D85a470': new BN('12', 10),
+      '0xEfd703c0E500B653Ca82273B7BFAd8045D85a471': new BN('5', 10),
+      '0xAba703c0E500B653Ca82273B7BFAd8045D85a472': new BN('235', 10)
     },
     addressBook: {
       '0xDcc703c0E500B653Ca82273B7BFAd8045D85a470': {

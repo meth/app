@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import React from 'react'
-import { Text } from 'react-native'
 
 import { CachePureComponent } from '../../../helpers/components'
 import { getAddressBook } from '../../../../redux/account/selectors'
@@ -10,6 +9,7 @@ import styles from './styles'
 import Layout from '../Layout'
 import Table from '../../../components/Table'
 import Button from '../../../components/Button'
+import LabelledAddress from '../../../components/LabelledAddress'
 import TitleText from '../../../components/TitleText'
 
 const RENDER_HEADER = () => null
@@ -60,8 +60,10 @@ export default class AddressBook extends CachePureComponent {
         type='tableRow'
         onPress={this.bind(this.onSelectEntry, address)}
       >
-        <Text style={styles.tableRowAddressText}>{address}</Text>
-        <Text style={styles.tableRowLabelText}>{label || ' '}</Text>
+        <LabelledAddress
+          address={address}
+          label={label || ''}
+        />
       </Button>
     )
   }

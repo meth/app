@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import { getAccounts } from '../../../../redux/account/selectors'
@@ -8,6 +8,7 @@ import styles from './styles'
 import Layout from '../Layout'
 import TitleText from '../../../components/TitleText'
 import ScrollView from '../../../components/ScrollView'
+import LabelledAddress from '../../../components/LabelledAddress'
 
 
 @connectStore('account')
@@ -29,7 +30,7 @@ export default class Wallet extends PureComponent {
         >
           {accountAddresses.map(address => (
             <View key={address} style={styles.card}>
-              <Text style={styles.cardText}>{address}</Text>
+              <LabelledAddress address={address} label={accounts[address].label} />
             </View>
           ))}
         </ScrollView>

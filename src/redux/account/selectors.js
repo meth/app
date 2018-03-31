@@ -12,7 +12,7 @@ export const getAccounts = createSelector(
     ...m,
     [addr]: {
       balance: balances[addr],
-      ...(addressBook[addr] ? { label: addressBook[addr] } : {})
+      ...(addressBook[addr] ? { label: addressBook[addr].label } : {})
     }
   }), {})
 )
