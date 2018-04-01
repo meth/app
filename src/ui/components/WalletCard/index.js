@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 
 import styles from './styles'
 import LabelledAddress from '../LabelledAddress'
+import EtherBalance from '../EtherBalance'
+
 
 export default class WalletCard extends PureComponent {
   static propTypes = {
@@ -26,12 +28,18 @@ export default class WalletCard extends PureComponent {
       <View style={[ styles.container, style ]}>
         <LabelledAddress
           address={address}
+          displayShortened={true}
           label={label}
           style={styles.addressLabel}
           addressTextStyle={styles.addressText}
           labelTextStyle={styles.labelText}
         />
-        <Text style={styles.balanceText}>{balance.toString(10)}</Text>
+        <EtherBalance
+          balance={balance}
+          style={styles.balance}
+          amountTextStyle={styles.amountText}
+          unitTextStyle={styles.unitText}
+        />
       </View>
     )
   }

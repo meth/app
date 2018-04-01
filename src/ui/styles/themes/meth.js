@@ -46,6 +46,26 @@ export default {
       textColor: colorGrayDark
     }
   },
+  balance: {
+    amount: {
+      textColor: colorWhite
+    },
+    unit: {
+      textColor: colorGrayDark
+    }
+  },
+  wallet: {
+    card: {
+      account: {
+        address: {
+          textColor: colorGrayDark
+        },
+        label: {
+          textColor: colorGrayDarker
+        }
+      }
+    }
+  },
   browser: {
     tabBar: {
       backgroundColor: colorGrayLight,
