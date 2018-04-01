@@ -1,10 +1,4 @@
-import { create, fontMaker } from '../../../styles'
-
-const text = {
-  ...fontMaker(),
-  fontSize: '1rem',
-  color: '$content_textColor'
-}
+import { create } from '../../../styles'
 
 export default create({
   // $outline: 1,
@@ -34,11 +28,15 @@ export default create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
-  card: {
-    $outline: 1,
-    height: 200
+  cardButton: {
+    borderWidth: 1,
+    borderRadius: 0
   },
-  cardText: {
-    ...text
+  cardButtonActive: {
+    borderBottomWidth: 0
+  },
+  card: {
+    width: 250,
+    minHeight: 250
   }
 })

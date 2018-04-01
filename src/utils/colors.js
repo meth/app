@@ -8,6 +8,7 @@ export const colorTransparent = 'transparent'
 
 export const colorRed = '#fd4100'
 export const colorOrange = '#fd7400'
+export const colorPurpleDarker = '#4B004C'
 export const colorPurpleDark = '#650566'
 export const colorPurple = '#b008b2'
 export const colorPurpleLight = '#FC0BFF'

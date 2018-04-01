@@ -3,10 +3,11 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 
 import styles from './styles'
-import Icon from '../Icon'
+import LabelledAddress from '../LabelledAddress'
 
 export default class WalletCard extends PureComponent {
   static propTypes = {
+    active: PropTypes.bool,
     account: PropTypes.shape({
       address: PropTypes.string.isRequired,
       balance: PropTypes.object,
@@ -16,12 +17,20 @@ export default class WalletCard extends PureComponent {
   }
 
   render () {
-    const { account: { address, balance, label }, style } = this.props
+    const {
+      account: { address, balance, label },
+      style
+    } = this.props
 
     return (
       <View style={[ styles.container, style ]}>
-        <Text style={styles.addressText}>{address}</Text>
-        <Text style={styles.addressLabelText}>{label}</Text>
+        <LabelledAddress
+          address={address}
+          label={label}
+          style={styles.addressLabel}
+          addressTextStyle={styles.addressText}
+          labelTextStyle={styles.labelText}
+        />
         <Text style={styles.balanceText}>{balance.toString(10)}</Text>
       </View>
     )
