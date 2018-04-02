@@ -18,7 +18,7 @@ export default class WalletCard extends PureComponent {
     }).isRequired,
     style: PropTypes.any,
     onPressSend: PropTypes.func,
-    onPressReceive: PropTypes.func
+    onPressQrCode: PropTypes.func
   }
 
   render () {
@@ -51,10 +51,10 @@ export default class WalletCard extends PureComponent {
             onPress={this._onPressSend}
           />
           <IconButton
-            tooltip={t('button.receive')}
-            icon={{ name: 'arrow-circle-down' }}
+            tooltip={t('button.qrCode')}
+            icon={{ name: 'qrcode' }}
             style={styles.transButton}
-            onPress={this._onPressReceive}
+            onPress={this._onPressQrCode}
           />
         </View>
       </View>
@@ -72,14 +72,14 @@ export default class WalletCard extends PureComponent {
     }
   }
 
-  _onPressReceive = () => {
+  _onPressQrCode = () => {
     const {
       account: { address },
-      onPressReceive
+      onPressQrCode
     } = this.props
 
-    if (onPressReceive) {
-      onPressReceive(address)
+    if (onPressQrCode) {
+      onPressQrCode(address)
     }
   }
 }

@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import { Text } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
@@ -23,6 +24,7 @@ export default class EditAddress extends PureComponent {
         onPressCloseButton={this.close}
         onOverlayPress={this.close}
       >
+        <Text style={styles.addressText}>{address}</Text>
         <QrCode
           input={address}
           style={styles.qrCode}

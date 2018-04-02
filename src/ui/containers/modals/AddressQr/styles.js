@@ -10,7 +10,21 @@ export default create({
 
   content: {
     width: 500,
-    height: 'auto'
+    height: 'auto',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingVertical: 40
+  },
+
+  /* address text */
+
+  addressText: {
+    ...text,
+    ...fontMaker({ weight: 'SemiBold' }),
+    textAlign: 'center',
+    fontSize: '1rem',
+    marginBottom: 30,
+    maxWidth: '90%'
   },
 
   /* qr code */

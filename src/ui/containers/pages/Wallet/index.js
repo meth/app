@@ -63,7 +63,7 @@ export default class Wallet extends CachePureComponent {
             ...accounts[address]
           }}
           onPressSend={this.bind(this._onSend, address)}
-          onPressReceive={this.bind(this._onReceive, address)}
+          onPressQrCode={this.bind(this._onQrCode, address)}
         />
       </Button>
     )
@@ -73,7 +73,7 @@ export default class Wallet extends CachePureComponent {
     console.log('TODO: send ', address)
   }
 
-  _onReceive = address => {
+  _onQrCode = address => {
     const { showAddressQrModal } = this.props.actions
 
     showAddressQrModal(address)

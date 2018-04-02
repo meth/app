@@ -73,7 +73,7 @@ module.exports = {
     button: {
       addEntry: 'Add entry',
       send: 'Send',
-      receive: 'Receive',
+      qrCode: 'QR code',
       yes: 'Yes',
       no: 'No',
       save: 'Save',
