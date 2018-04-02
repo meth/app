@@ -6,8 +6,6 @@ import { connectStore } from '../../../helpers/redux'
 import ScrollView from '../../../components/ScrollView'
 import Modal from '../../../components/Modal'
 import { LEVELS } from '../../../../../common/constants/log'
-
-import { getUnseenAlerts, getLogWithoutUnseenAlerts } from '../../../../redux/log/selectors'
 import styles from './styles'
 
 const { INFO, WARN, ERROR, ALERT } = LEVELS
@@ -22,8 +20,10 @@ const LEVEL_TO_STYLE_MAP = {
 @connectStore('modals', 'log')
 export default class Log extends PureComponent {
   render () {
-    const unseenAlerts = [ ...getUnseenAlerts(this.props) ]
-    const log = [ ...getLogWithoutUnseenAlerts(this.props) ]
+    const { getUnseenAlerts, getLogWithoutUnseenAlerts } = this.props.selectors
+
+    const unseenAlerts = [ ...getUnseenAlerts() ]
+    const log = [ ...getLogWithoutUnseenAlerts() ]
 
     // want the items in reverse chrono order
     unseenAlerts.reverse()

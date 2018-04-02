@@ -8,17 +8,20 @@ import {
 import createSagaMiddleware from 'redux-saga'
 
 import actionCreators from './actionCreators'
+import selectors from './selectors'
 import { createReducers } from './reducers'
 import { createMiddleware } from './middleware'
 import { createSagas } from './sagas'
 
-export const createReduxStore = app => {
+let store
+
+export const setupStore = app => {
   const sagaMiddleware = createSagaMiddleware()
   const appMiddleware = createMiddleware(app)
   const reducers = createReducers(app)
   const sagas = createSagas(app)
 
-  const store = compose(
+  store = compose(
     applyMiddleware(...appMiddleware, sagaMiddleware),
     window && window.devToolsExtension ? window.devToolsExtension() : f => f
   )(createStore)(combineReducers(reducers))
@@ -35,7 +38,14 @@ export const createReduxStore = app => {
   // kick-off sagas
   sagaMiddleware.run(sagas)
 
+  // as a convenience, bind actions and selectors onto the store
   store.actions = bindActionCreators(actionCreators, store.dispatch)
+  store.selectors = Object.keys(selectors).reduce((set, fn) => ({
+    ...set,
+    [fn]: (...args) => selectors[fn](store.getState(), ...args)
+  }))
 
   return store
 }
+
+export const getStore = () => store

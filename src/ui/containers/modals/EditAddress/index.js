@@ -7,8 +7,6 @@ import Form from 'react-native-advanced-forms'
 import { t } from '../../../../../common/strings'
 import ADDRESS_TYPES from '../../../../../common/constants/addressTypes'
 import { connectStore } from '../../../helpers/redux'
-import { getAddressBook } from '../../../../redux/account/selectors'
-import { getNodeConnection } from '../../../../redux/node/selectors'
 import Modal from '../../../components/Modal'
 import ErrorBox from '../../../components/ErrorBox'
 import TextInput from '../../../components/TextInput'
@@ -32,7 +30,10 @@ export default class EditAddress extends PureComponent {
     super(props, ctx)
 
     const { data: { address } } = this.props
-    const addressBook = getAddressBook(this.props)
+
+    const { getAddressBook } = this.props.selectors
+
+    const addressBook = getAddressBook()
 
     this.state = {
       label: _.get(addressBook[address], 'label', ''),
@@ -45,11 +46,13 @@ export default class EditAddress extends PureComponent {
   render () {
     const { data: { address } } = this.props
 
-    const addressBook = getAddressBook(this.props)
+    const { getAddressBook, getNodeConnection } = this.props.selectors
+
+    const addressBook = getAddressBook()
 
     const type = _.get(addressBook[address], 'type')
 
-    const network = _.get(getNodeConnection(this.props), 'network.description')
+    const network = _.get(getNodeConnection(), 'network.description')
 
     const { label, submitting, canSubmit } = this.state
 

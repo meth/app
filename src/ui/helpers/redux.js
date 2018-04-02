@@ -1,8 +1,12 @@
 import _ from 'lodash'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import actionCreators from '../../redux/actionCreators'
+
+let store
+
+export const setStore = s => {
+  store = s
+}
 
 /**
  * Decorator: Connect a component to the Redux store
@@ -26,9 +30,12 @@ export const connectStore = (...storeSubParts) => Component =>
         {}
       ),
     // mapDispatchToProps
-    dispatch => ({
-      actions: bindActionCreators(actionCreators, dispatch)
-    }),
     null,
+    (stateProps, dispatchProps, ownProps) => ({
+      ...stateProps,
+      ...ownProps,
+      actions: store.actions,
+      selectors: store.selectors
+    }),
     { withRef: true }
   )(Component)

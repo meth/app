@@ -7,7 +7,6 @@ import Form from 'react-native-advanced-forms'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import { ALL_ADDRESSES } from '../../../../../common/constants/dappPermissions'
-import { getDappPermissions, getAccounts } from '../../../../redux/account/selectors'
 import Modal from '../../../components/Modal'
 import Switch from '../../../components/Switch'
 import CheckBox from '../../../components/CheckBox'
@@ -28,8 +27,10 @@ export default class DappPermissions extends PureComponent {
   constructor (props, ctx) {
     super(props, ctx)
 
+    const { getDappPermissions } = this.props.selectors
+
     const { data: { dappId } } = this.props
-    const { [dappId]: permissions } = getDappPermissions(props)
+    const { [dappId]: permissions } = getDappPermissions()
 
     this.state = {
       permissions,
@@ -43,8 +44,10 @@ export default class DappPermissions extends PureComponent {
     const { data: { oldDappId } } = this.props
     const { data: { newDappId } } = newProps
 
+    const { getDappPermissions } = newProps.selectors
+
     if (newDappId !== oldDappId) {
-      const { [newDappId]: permissions } = getDappPermissions(newProps)
+      const { [newDappId]: permissions } = getDappPermissions()
 
       this.setState({ permissions })
     }
@@ -52,7 +55,11 @@ export default class DappPermissions extends PureComponent {
 
   render () {
     const { data: { dappId } } = this.props
+
+    const { getAccounts } = this.props.selectors
+
     const addresses = getAccounts(this.props)
+
     const { permissions, submitting, canSubmit } = this.state
 
     return (
@@ -200,7 +207,9 @@ export default class DappPermissions extends PureComponent {
   validate = values => {
     const ret = {}
 
-    const addresses = getAccounts(this.props)
+    const { getAccounts } = this.props.selectors
+
+    const addresses = getAccounts()
 
     const enabledAddresses = Object.keys(values).filter(
       key => values[key] && !!addresses[key]

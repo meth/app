@@ -4,23 +4,27 @@ import { View } from 'react-native'
 import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
 import ScrollView from '../../../components/ScrollView'
-import { getAccounts } from '../../../../redux/account/selectors'
-import { getNodeConnection, getNodeState } from '../../../../redux/node/selectors'
-import { getUnseenAlertsCount } from '../../../../redux/log/selectors'
-import { getCurrentNavState } from '../../../../redux/nav/selectors'
 import { routes } from '../../../nav'
 import styles from './styles'
 
 @connectStore('account', 'node', 'log', 'modals', 'nav')
 export default class Layout extends PureComponent {
   render () {
-    const { network } = getNodeConnection(this.props)
+    const {
+      getNodeConnection,
+      getNodeState,
+      getAccounts,
+      getUnseenAlertsCount,
+      getCurrentNavState
+    } = this.props.selectors
+
+    const { network } = getNodeConnection()
     if (network) {
-      network.node = getNodeState(this.props)
+      network.node = getNodeState()
     }
-    const addresses = getAccounts(this.props)
-    const unseenAlertsCount = getUnseenAlertsCount(this.props)
-    const navState = getCurrentNavState(this.props)
+    const addresses = getAccounts()
+    const unseenAlertsCount = getUnseenAlertsCount()
+    const navState = getCurrentNavState()
 
     const { children, contentStyle } = this.props
 

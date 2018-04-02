@@ -1,4 +1,6 @@
 import {
+  SEND_TX,
+  CANCEL_TX,
   SEND_RAW_TX,
   GENERATE_RAW_TX,
   LOAD_WALLET,
@@ -7,9 +9,10 @@ import {
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY
 } from './actions'
-import { getDappPermissions, getAddressBook } from './selectors'
-import { getNodeConnection } from '../node/selectors'
+import { t } from '../../../common/strings'
+import { getStore } from '../'
 import { createAction } from '../utils'
+import { SendTransactionError } from '../../utils/errors'
 import logger from '../../logger'
 
 const log = logger.create('walletMiddleware')
@@ -17,7 +20,14 @@ const log = logger.create('walletMiddleware')
 // eslint-disable-next-line consistent-return
 export default ({
   storage, nodeConnector, walletManager
-}) => ({ getState }) => next => async action => {
+}) => () => next => async action => {
+  const { selectors: {
+    getDappPermissions,
+    getAddressBook,
+    getTxDeferred,
+    getNodeConnection
+  } } = getStore()
+
   switch (action.type) {
     case GENERATE_MNEMONIC: {
       return walletManager.generateMnemonic()
@@ -32,13 +42,46 @@ export default ({
 
       return next(action)
     }
+    case SEND_TX: {
+      const existingDeferred = getTxDeferred()
+
+      if (existingDeferred) {
+        return Promise.reject(
+          new SendTransactionError(t('error.transactionAlreadyInProgress'))
+        )
+      }
+
+      let deferred = null
+
+      const promise = new Promise((resolve, reject) => {
+        deferred = { resolve, reject }
+      })
+
+      await next(createAction(SEND_TX, {
+        ...action.payload,
+        deferred
+      }))
+
+      // we return a promise which the caller can wait on to know if/when the
+      // tx passes/fails
+      return promise
+    }
+    case CANCEL_TX: {
+      const deferred = getTxDeferred()
+
+      if (deferred) {
+        deferred.reject(action.payload)
+      }
+
+      return next(action)
+    }
     case GENERATE_RAW_TX: {
       log.debug('Generate raw tx ...')
 
       const { from, to, value, data, gasLimit, gasPrice } = action.payload
 
       // chain id
-      const { network: { chainId } } = getNodeConnection(getState())
+      const { network: { chainId } } = getNodeConnection()
       log.debug(`chainId: ${chainId}`)
 
       // nonce
@@ -64,7 +107,7 @@ export default ({
 
       log.debug(`Save dapp permissions (${dappId}) ...`)
 
-      const dappPermissions = getDappPermissions(getState())
+      const dappPermissions = getDappPermissions()
 
       dappPermissions[dappId] = permissions
 
@@ -77,7 +120,7 @@ export default ({
 
       log.debug(`Save addressbook entry (${address}) ...`)
 
-      const book = getAddressBook(getState())
+      const book = getAddressBook()
 
       book[address] = data
 
@@ -90,7 +133,7 @@ export default ({
 
       log.debug(`Delete addressbook entry (${address}) ...`)
 
-      const book = getAddressBook(getState())
+      const book = getAddressBook()
 
       delete book[address]
 

@@ -9,7 +9,10 @@ import {
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
-  DELETE_ADDRESS_BOOK_ENTRY
+  DELETE_ADDRESS_BOOK_ENTRY,
+  SEND_TX,
+  CANCEL_TX,
+  TX_COMPLETED
 } from './actions'
 
 export default () => {
@@ -29,7 +32,9 @@ export default () => {
       }
     },
     bookmarks: {},
-    dappPermissions: {}
+    dappPermissions: {},
+    currentTx: null,
+    currentTxDeferred: null
   })
 
   return handleActions(
@@ -65,7 +70,14 @@ export default () => {
         return state.set('addressBook', {
           ...addressBook
         })
-      }
+      },
+      [SEND_TX]: (state, { payload: { tx, deferred } }) => (
+        state
+          .set('currentTx', tx)
+          .set('currentTxDeferred', deferred)
+      ),
+      [CANCEL_TX]: state => state.set('currentTxDeferred', null),
+      [TX_COMPLETED]: state => state.set('currentTxDeferred', null)
     },
     InitialState
   )

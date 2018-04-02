@@ -2,7 +2,6 @@ import _ from 'lodash'
 import React from 'react'
 
 import { CachePureComponent } from '../../../helpers/components'
-import { getAddressBook } from '../../../../redux/account/selectors'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -20,7 +19,9 @@ const COLUMNS = [ { id: 'address' } ]
 @connectStore('nav', 'account')
 export default class AddressBook extends CachePureComponent {
   render () {
-    const book = getAddressBook(this.props)
+    const { getAddressBook } = this.props.selectors
+
+    const book = getAddressBook()
 
     const rows = Object.keys(book).map(addr => ({
       address: {

@@ -32,3 +32,7 @@ export const getAddressBook = createSelector(
 export const getBookMarks = state => state.account.get('bookmarks') || []
 
 export const getDappPermissions = state => state.account.get('dappPermissions') || {}
+
+export const getTx = state => state.account.get('currentTx')
+
+export const getTxDeferred = state => state.account.get('currentTxDeferred')

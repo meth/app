@@ -14,7 +14,8 @@ export default create({
   amountText: {
     ...text,
     color: '$balance_amount_textColor',
-    fontSize: '1rem'
+    fontSize: '1rem',
+    lineHeight: '1.6rem'
   },
   unitText: {
     ...text,

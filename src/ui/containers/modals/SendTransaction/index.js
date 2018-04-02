@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
-import { getTx } from '../../../../redux/api/selectors'
 import { t } from '../../../../../common/strings'
 import Modal from '../../../components/Modal'
 import Button from '../../../components/Button'
@@ -39,7 +38,9 @@ export default class SendTransaction extends PureComponent {
   }
 
   renderForm (rawTx) {
-    const { from, to, value, gas, data } = getTx(this.props)
+    const { getTx } = this.props.selectors
+
+    const { from, to, value, gas, data } = getTx()
 
     const { gasLimit, gasPrice } = this._gas()
 
@@ -89,7 +90,9 @@ export default class SendTransaction extends PureComponent {
   }
 
   generateRaw = () => {
-    const { from, to, value, data } = getTx(this.props)
+    const { getTx } = this.props.selectors
+
+    const { from, to, value, data } = getTx()
 
     const { gasLimit, gasPrice } = this._gas()
 
@@ -123,7 +126,9 @@ export default class SendTransaction extends PureComponent {
   }
 
   _gas () {
-    const { gas } = getTx(this.props)
+    const { getTx } = this.props.selectors
+
+    const { gas } = getTx()
 
     return {
       gasLimit: this.state.gasLimit || gas,

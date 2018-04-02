@@ -1,13 +1,15 @@
 import { LOAD_CONFIG } from './actions'
-import { getNodes } from './selectors'
+import { getStore } from '../'
 
 // eslint-disable-next-line consistent-return
-export default ({ config }) => store => next => async action => {
+export default ({ config }) => () => next => async action => {
   if (LOAD_CONFIG !== action.type) {
     return next(action)
   }
 
-  const existingNodes = getNodes(store.getState())
+  const { selectors: { getNodes } } = getStore()
+
+  const existingNodes = getNodes()
 
   // if not already initialized then do it
   if (!existingNodes) {

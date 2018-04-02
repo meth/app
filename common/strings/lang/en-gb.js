@@ -72,8 +72,8 @@ module.exports = {
     },
     button: {
       addEntry: 'Add entry',
-      send: 'Send',
-      qrCode: 'QR code',
+      sendCrypto: 'Send crypto',
+      showQrCode: 'Show QR code',
       yes: 'Yes',
       no: 'No',
       save: 'Save',

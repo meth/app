@@ -5,13 +5,6 @@ import { hexToNumber } from 'web3-utils'
 
 import { connectStore } from '../../../helpers/redux'
 import { CachePureComponent } from '../../../helpers/components'
-import { getNodes } from '../../../../redux/config/selectors'
-import {
-  getNodeConnection,
-  getNodeIsConnected,
-  getDisconnectReason,
-  getNodeState
-} from '../../../../redux/node/selectors'
 import { t } from '../../../../../common/strings'
 import ProgressButton from '../../../components/ProgressButton'
 import AlertBox from '../../../components/AlertBox'
@@ -30,8 +23,13 @@ export default class ConnectNode extends CachePureComponent {
   }
 
   render () {
-    const nodes = getNodes(this.props)
-    const isConnected = getNodeIsConnected(this.props)
+    const {
+      getNodes,
+      getNodeIsConnected
+    } = this.props.selectors
+
+    const nodes = getNodes()
+    const isConnected = getNodeIsConnected()
 
     let content
     if (isConnected) {
@@ -54,6 +52,11 @@ export default class ConnectNode extends CachePureComponent {
 
   renderConnected () {
     const { disconnecting } = this.state
+
+    const {
+      getNodeConnection,
+      getNodeState
+    } = this.props.selectors
 
     const {
       node: { name, url },
@@ -102,6 +105,10 @@ export default class ConnectNode extends CachePureComponent {
 
   renderForm () {
     const { connecting } = this.state
+
+    const {
+      getDisconnectReason
+    } = this.props.selectors
 
     const reason = getDisconnectReason(this.props)
 
@@ -152,6 +159,10 @@ export default class ConnectNode extends CachePureComponent {
   }
 
   getOptions () {
+    const {
+      getNodes
+    } = this.props.selectors
+
     const nodes = getNodes(this.props)
     let { selected } = this.state
 
@@ -188,6 +199,10 @@ export default class ConnectNode extends CachePureComponent {
   }
 
   onConnect = selected => {
+    const {
+      getNodes
+    } = this.props.selectors
+
     const nodes = getNodes(this.props)
 
     const node = _.get(nodes, selected)
@@ -232,6 +247,8 @@ export default class ConnectNode extends CachePureComponent {
   }
 
   dismissModal = () => {
-    this.props.actions.hideConnectionModal()
+    const { hideConnectionModal } = this.props.actions
+
+    hideConnectionModal()
   }
 }

@@ -9,3 +9,7 @@ export const GENERATE_RAW_TX = 'GENERATE_RAW_TX'
 export const SEND_RAW_TX = 'SEND_RAW_TX'
 export const LOAD_WALLET = 'LOAD_WALLET'
 export const GENERATE_MNEMONIC = 'GENERATE_MNEMONIC'
+export const SEND_TX = 'SEND_TX'
+export const CANCEL_TX = 'CANCEL_TX'
+
+export const TX_COMPLETED = 'TX_COMPLETED'

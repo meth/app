@@ -16,7 +16,6 @@ import {
 } from '../../../../env'
 import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
-import { getDappPermissions } from '../../../../redux/account/selectors'
 import styles from './styles'
 import Layout from '../Layout'
 import BrowserTabBar from '../../../components/BrowserTabBar'
@@ -42,7 +41,9 @@ export default class Browser extends CachePureComponent {
   }
 
   render () {
-    const dappPermissions = getDappPermissions(this.props)
+    const { getDappPermissions } = this.props.selectors
+
+    const dappPermissions = getDappPermissions()
 
     const tabs = this.state.tabs.filter(t => t)
 

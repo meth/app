@@ -2,7 +2,6 @@ import React from 'react'
 
 import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
-import { getAccounts } from '../../../../redux/account/selectors'
 import { t } from '../../../../../common/strings'
 import styles from './styles'
 import Layout from '../Layout'
@@ -12,14 +11,16 @@ import WalletCard from '../../../components/WalletCard'
 import Button from '../../../components/Button'
 
 
-@connectStore('account', 'modals')
+@connectStore('account', 'modals', 'api')
 export default class Wallet extends CachePureComponent {
   state = {
     activeCard: 0
   }
 
   render () {
-    const accounts = getAccounts(this.props)
+    const { getAccounts } = this.props.selectors
+
+    const accounts = getAccounts()
 
     const accountAddresses = Object.keys(accounts)
 
@@ -70,7 +71,9 @@ export default class Wallet extends CachePureComponent {
   }
 
   _onSend = address => {
-    console.log('TODO: send ', address)
+    const { sendTransaction } = this.props.actions
+
+    sendTransaction({ from: address })
   }
 
   _onQrCode = address => {
