@@ -13,51 +13,11 @@ export default create({
     height: 'auto'
   },
 
-  /* texts */
+  /* qr code */
 
-  titleText: {
-    marginBottom: 20
-  },
-  addressText: {
-    ...text,
-    fontSize: '0.8rem'
-  },
-  meta: {
-    marginTop: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  metaIcon: {
-    marginHorizontal: 10
-  },
-  metaIconText: {
-    ...text,
-    color: '$modal_editAddress_metaTextColor',
-    fontSize: '0.7rem'
-  },
-
-  /* form */
-
-  form: {
-    marginTop: 10,
-    width: '70%'
-  },
-  field: {},
-  errorBox: {
-    marginTop: 20
-  },
-
-  /* buttons */
-
-  buttons: {
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  button: {
-    marginHorizontal: 5
+  qrCode: {
+    width: '40%',
+    height: 'auto'
   },
 
   /* responsive layout */

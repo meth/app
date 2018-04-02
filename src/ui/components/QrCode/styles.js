@@ -1,8 +1,12 @@
 import { create } from '../../styles'
 
 export default create({
-  code: {
-    width: 300,
-    height: 300
+  // $outline: 1,
+  container: {
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#fff',
+    width: '200',
+    height: '200'
   }
 })

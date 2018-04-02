@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { QRCode } from 'react-qr-svg'
+import { View } from 'react-native'
 
 import styles from './styles'
 
@@ -14,13 +15,14 @@ export default class QrCode extends PureComponent {
     const { input, style } = this.props
 
     return (
-      <QRCode
-        bgColor="#FFFFFF"
-        fgColor="#000000"
-        level="L"
-        style={[ styles.code, style ]}
-        value={input}
-      />
+      <View style={[ styles.container, style ]}>
+        <QRCode
+          bgColor="#FFFFFF"
+          fgColor="#000000"
+          level="L"
+          value={input}
+        />
+      </View>
     )
   }
 }
