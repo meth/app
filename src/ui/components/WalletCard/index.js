@@ -16,7 +16,9 @@ export default class WalletCard extends PureComponent {
       balance: PropTypes.object,
       label: PropTypes.string
     }).isRequired,
-    style: PropTypes.any
+    style: PropTypes.any,
+    onPressSend: PropTypes.func,
+    onPressReceive: PropTypes.func
   }
 
   render () {
@@ -46,14 +48,38 @@ export default class WalletCard extends PureComponent {
             tooltip={t('button.send')}
             style={styles.transButton}
             icon={{ name: 'arrow-circle-up' }}
+            onPress={this._onPressSend}
           />
           <IconButton
             tooltip={t('button.receive')}
             icon={{ name: 'arrow-circle-down' }}
             style={styles.transButton}
+            onPress={this._onPressReceive}
           />
         </View>
       </View>
     )
+  }
+
+  _onPressSend = () => {
+    const {
+      account: { address },
+      onPressSend
+    } = this.props
+
+    if (onPressSend) {
+      onPressSend(address)
+    }
+  }
+
+  _onPressReceive = () => {
+    const {
+      account: { address },
+      onPressReceive
+    } = this.props
+
+    if (onPressReceive) {
+      onPressReceive(address)
+    }
   }
 }

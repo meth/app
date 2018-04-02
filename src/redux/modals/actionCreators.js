@@ -7,7 +7,8 @@ import {
   ALERT,
   LOG,
   DAPP_PERMISSIONS,
-  EDIT_ADDRESS
+  EDIT_ADDRESS,
+  ADDRESS_QR
 } from '../../../common/constants/modals'
 
 export const showAlert = createActionCreator(SHOW, msg => ({
@@ -66,4 +67,13 @@ export const showEditAddressModal = createActionCreator(SHOW, address => ({
 export const hideEditAddressModal = createActionCreator(
   HIDE,
   () => ({ type: EDIT_ADDRESS })
+)
+
+export const showAddressQrModal = createActionCreator(SHOW, address => ({
+  type: ADDRESS_QR,
+  data: { address }
+}))
+export const hideAddressQrModal = createActionCreator(
+  HIDE,
+  () => ({ type: ADDRESS_QR })
 )

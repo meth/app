@@ -12,7 +12,7 @@ import WalletCard from '../../../components/WalletCard'
 import Button from '../../../components/Button'
 
 
-@connectStore('account')
+@connectStore('account', 'modals')
 export default class Wallet extends CachePureComponent {
   state = {
     activeCard: 0
@@ -62,9 +62,21 @@ export default class Wallet extends CachePureComponent {
             address,
             ...accounts[address]
           }}
+          onPressSend={this.bind(this._onSend, address)}
+          onPressReceive={this.bind(this._onReceive, address)}
         />
       </Button>
     )
+  }
+
+  _onSend = address => {
+    console.log('TODO: send ', address)
+  }
+
+  _onReceive = address => {
+    const { showAddressQrModal } = this.props.actions
+
+    showAddressQrModal(address)
   }
 
   _onSelectCard = activeCard => this.setState({ activeCard })
