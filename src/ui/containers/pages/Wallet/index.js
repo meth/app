@@ -51,14 +51,15 @@ export default class Wallet extends CachePureComponent {
       <Button
         type='walletCard'
         key={address}
-        style={[ styles.cardButton, isActive ? styles.cardButtonActive : null ]}
+        style={isActive ? styles.cardButton_active : styles.cardButton_inactive}
         {...(isActive ? {
           stateOverride: { hovering: true }
         } : null)}
         onPress={this.bind(this._onSelectCard, index)}
       >
         <WalletCard
-          style={isActive ? styles.cardActive : styles.cardInactive}
+          isActive={isActive}
+          style={styles.card}
           account={{
             address,
             ...accounts[address]

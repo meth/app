@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View } from 'react-native'
 
 import { t } from '../../../../common/strings'
-import styles from './styles'
+import { createStyles } from './styles'
 import LabelledAddress from '../LabelledAddress'
 import EtherBalance from '../EtherBalance'
 import IconButton from '../IconButton'
@@ -11,6 +11,7 @@ import IconButton from '../IconButton'
 
 export default class WalletCard extends PureComponent {
   static propTypes = {
+    isActive: PropTypes.bool,
     account: PropTypes.shape({
       address: PropTypes.string.isRequired,
       balance: PropTypes.object,
@@ -21,11 +22,18 @@ export default class WalletCard extends PureComponent {
     onPressQrCode: PropTypes.func
   }
 
+  static defaultProps = {
+    isActive: true
+  }
+
   render () {
     const {
       account: { address, balance, label },
-      style
+      style,
+      isActive
     } = this.props
+
+    const styles = createStyles(isActive ? 'active' : 'inactive')
 
     return (
       <View style={[ styles.container, style ]}>
@@ -38,6 +46,7 @@ export default class WalletCard extends PureComponent {
           labelTextStyle={styles.labelText}
         />
         <EtherBalance
+          canToggle={isActive}
           balance={balance}
           style={styles.balance}
           amountTextStyle={styles.amountText}
@@ -45,12 +54,14 @@ export default class WalletCard extends PureComponent {
         />
         <View style={styles.transButtons}>
           <IconButton
+            disabled={!isActive}
             tooltip={t('button.sendCrypto')}
             style={styles.transButton}
             icon={{ name: 'send' }}
-            onPress={this._onPressSend}
+            onPress={this.isActive}
           />
           <IconButton
+            disabled={!isActive}
             tooltip={t('button.showQrCode')}
             icon={{ name: 'qrcode' }}
             style={styles.transButton}

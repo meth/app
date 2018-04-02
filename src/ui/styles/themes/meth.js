@@ -56,12 +56,20 @@ export default {
   },
   wallet: {
     card: {
-      account: {
+      active: {
         address: {
           textColor: colorGray
         },
         label: {
           textColor: colorGrayDarker
+        }
+      },
+      inactive: {
+        address: {
+          textColor: colorGrayDark
+        },
+        label: {
+          textColor: colorGrayDarkest
         }
       }
     }

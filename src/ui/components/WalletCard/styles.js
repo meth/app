@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { create, fontMaker } from '../../styles'
 
 const text = {
@@ -5,7 +6,7 @@ const text = {
   textAlign: 'center'
 }
 
-export default create({
+export const createStyles = _.memoize(state => create({
   container: {
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -24,13 +25,13 @@ export default create({
     ...text,
     fontSize: '0.8rem',
     maxWidth: '90%',
-    color: '$wallet_card_account_address_textColor'
+    color: `$wallet_card_${state}_address_textColor`
   },
   labelText: {
     ...text,
     fontSize: '0.6rem',
     maxWidth: '90%',
-    color: '$wallet_card_account_label_textColor'
+    color: `$wallet_card_${state}_label_textColor`
   },
 
   /* balance */
@@ -61,4 +62,4 @@ export default create({
   transButton: {
     borderWidth: 0
   }
-})
+}))

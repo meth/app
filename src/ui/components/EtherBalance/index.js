@@ -9,13 +9,15 @@ import styles from './styles'
 export default class EtherBalance extends PureComponent {
   static propTypes = {
     balance: PropTypes.object.isRequired,
+    canToggle: PropTypes.bool,
     style: PropTypes.any,
     amountTextStyle: PropTypes.any,
     unitTextStyle: PropTypes.any
   }
 
   state = {
-    showWei: false
+    showWei: false,
+    canToggle: true
   }
 
   render () {
@@ -33,17 +35,25 @@ export default class EtherBalance extends PureComponent {
     return (
       <TouchableView style={[ styles.container, style ]} onPress={this.toggle}>
         <Text
-          style={[ styles.amountText, amountTextStyle ]}
+          style={[ styles.amountText ].concat(amountTextStyle)}
           selectable={true}
         >
           {amount}
         </Text>
-        <Text style={[ styles.unitText, unitTextStyle ]}>
+        <Text style={[ styles.unitText ].concat(unitTextStyle)}>
           {showWei ? 'Wei' : 'Eth'}
         </Text>
       </TouchableView>
     )
   }
 
-  toggle = () => this.setState({ showWei: !this.state.showWei })
+  toggle = () => {
+    const { canToggle } = this.props
+
+    const { showWei } = this.state
+
+    if (canToggle) {
+      this.setState({ showWei: !showWei })
+    }
+  }
 }

@@ -33,18 +33,17 @@ export default create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
-  cardButton: {
+
+  /* card */
+
+  cardButton_active: {
+    borderWidth: 1,
+    borderRadius: 0,
+    borderBottomWidth: 0
+  },
+  cardButton_inactive: {
     borderWidth: 1,
     borderRadius: 0
   },
-  cardButtonActive: {
-    borderBottomWidth: 0
-  },
-  cardActive: {
-    ...card
-  },
-  cardInactive: {
-    ...card,
-    pointerEvents: 'none'
-  }
+  card: { ...card }
 })
