@@ -5,7 +5,7 @@
       {
         "rule": "cli",
         "binary": "node",
-        "semver": "8.9.1"
+        "semver": "8.10.0"
       }
     ],
     "Watchman": [

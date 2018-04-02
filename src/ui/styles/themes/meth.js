@@ -58,10 +58,16 @@ export default {
     card: {
       active: {
         address: {
-          textColor: colorGray
+          textColor: colorGrayLight
         },
         label: {
           textColor: colorGrayDarker
+        },
+        amount: {
+          textColor: colorWhite
+        },
+        unit: {
+          textColor: colorGray
         }
       },
       inactive: {
@@ -70,6 +76,12 @@ export default {
         },
         label: {
           textColor: colorGrayDarkest
+        },
+        amount: {
+          textColor: colorGrayDarker
+        },
+        unit: {
+          textColor: colorGrayDarker
         }
       }
     }

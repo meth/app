@@ -36,7 +36,7 @@ export default class WalletCard extends PureComponent {
     const styles = createStyles(isActive ? 'active' : 'inactive')
 
     return (
-      <View style={[ styles.container, style ]}>
+      <View style={[ styles.container, style ]} pointerEvents={isActive ? 'auto' : 'none'}>
         <LabelledAddress
           address={address}
           displayShortened={true}

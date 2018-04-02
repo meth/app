@@ -43,12 +43,14 @@ export const createStyles = _.memoize(state => create({
   amountText: {
     textAlign: 'center',
     fontSize: '1.7rem',
-    maxWidth: '90%'
+    maxWidth: '90%',
+    color: `$wallet_card_${state}_amount_textColor`
   },
   unitText: {
     textAlign: 'center',
     fontSize: '0.8rem',
-    maxWidth: '90%'
+    maxWidth: '90%',
+    color: `$wallet_card_${state}_unit_textColor`
   },
 
   /* trans buttons */

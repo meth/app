@@ -1,4 +1,5 @@
 import React from 'react'
+import { YellowBox } from 'react-native'
 import { Provider } from 'react-redux'
 
 import setupFonts from './fonts'
@@ -12,6 +13,15 @@ import Root from './ui/Root'
 import { router } from './ui/nav'
 import { setStore as logSetStore } from './logger'
 import { setStore as reduxConnectorSetStore } from './ui/helpers/redux'
+
+// eslint-disable-next-line no-console
+if (YellowBox) {
+  YellowBox.ignoreWarnings([
+    '%cWarning: a promise was created in a handler',
+    'Remote debugger is in a background tab',
+    'Warning: In next release empty section headers'
+  ])
+}
 
 // setup fonts
 setupFonts()
