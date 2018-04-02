@@ -23,8 +23,6 @@ export default class Wallet extends CachePureComponent {
 
     const accountAddresses = Object.keys(accounts)
 
-    const { activeCard } = this.state
-
     return (
       <Layout contentStyle={styles.layoutContent}>
         <TitleText text={t('title.wallet')} />
@@ -36,27 +34,36 @@ export default class Wallet extends CachePureComponent {
           showsHorizontalScrollIndicator={true}
         >
           {accountAddresses.map((address, index) => (
-            <Button
-              type='walletCard'
-              key={address}
-              style={[ styles.cardButton, activeCard === index ? styles.cardButtonActive : null ]}
-              stateOverride={{
-                hovering: activeCard === index
-              }}
-              onPress={this.bind(this._onSelectCard, index)}
-            >
-              <WalletCard
-                style={styles.card}
-                account={{
-                  address,
-                  ...accounts[address]
-                }}
-                active={activeCard === index}
-              />
-            </Button>
+            this._renderCard(accounts, address, index)
           ))}
         </ScrollView>
       </Layout>
+    )
+  }
+
+  _renderCard (accounts, address, index) {
+    const { activeCard } = this.state
+
+    const isActive = index === activeCard
+
+    return (
+      <Button
+        type='walletCard'
+        key={address}
+        style={[ styles.cardButton, isActive ? styles.cardButtonActive : null ]}
+        {...(isActive ? {
+          stateOverride: { hovering: true }
+        } : null)}
+        onPress={this.bind(this._onSelectCard, index)}
+      >
+        <WalletCard
+          style={isActive ? styles.cardActive : styles.cardInactive}
+          account={{
+            address,
+            ...accounts[address]
+          }}
+        />
+      </Button>
     )
   }
 

@@ -1,5 +1,10 @@
 import { create } from '../../../styles'
 
+const card = {
+  width: 250,
+  minHeight: 250
+}
+
 export default create({
   // $outline: 1,
 
@@ -35,8 +40,11 @@ export default create({
   cardButtonActive: {
     borderBottomWidth: 0
   },
-  card: {
-    width: 250,
-    minHeight: 250
+  cardActive: {
+    ...card
+  },
+  cardInactive: {
+    ...card,
+    pointerEvents: 'none'
   }
 })

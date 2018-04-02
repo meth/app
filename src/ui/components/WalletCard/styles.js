@@ -48,5 +48,17 @@ export default create({
     textAlign: 'center',
     fontSize: '0.8rem',
     maxWidth: '90%'
+  },
+
+  /* trans buttons */
+
+  transButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '90%'
+  },
+  transButton: {
+    borderWidth: 0
   }
 })

@@ -58,7 +58,7 @@ export default {
     card: {
       account: {
         address: {
-          textColor: colorGrayDark
+          textColor: colorGray
         },
         label: {
           textColor: colorGrayDarker

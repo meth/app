@@ -72,6 +72,8 @@ module.exports = {
     },
     button: {
       addEntry: 'Add entry',
+      send: 'Send',
+      receive: 'Receive',
       yes: 'Yes',
       no: 'No',
       save: 'Save',
