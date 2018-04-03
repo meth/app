@@ -84,6 +84,24 @@ export default {
           textColor: colorGrayDarker
         }
       }
+    },
+    tabBar: {
+      backgroundColor: colorTransparent,
+      item: {
+        inactive: {
+          backgroundColor: colorTransparent,
+          textColor: colorPurple
+        },
+        active: {
+          backgroundColor: colorPurple,
+          textColor: colorWhite
+        }
+      }
+    },
+    tokens: {
+      symbol: {
+        textColor: colorGray
+      }
     }
   },
   browser: {
@@ -305,11 +323,11 @@ export default {
     header: generateButtonStyles({
       default: {
         borderColor: colorBlack,
-        backgroundColor: colorBlack,
+        backgroundColor: colorTransparent,
         textColor: colorPurple
       },
       hover: {
-        borderColor: colorBlack,
+        borderColor: colorTransparent,
         backgroundColor: colorPurpleLight,
         textColor: colorWhite
       }
@@ -330,7 +348,7 @@ export default {
       spinnerColor: colorWhite,
       default: {
         borderColor: colorPurple,
-        backgroundColor: colorBlack,
+        backgroundColor: colorTransparent,
         textColor: colorPurple
       },
       hover: {

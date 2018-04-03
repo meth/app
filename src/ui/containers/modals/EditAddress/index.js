@@ -52,7 +52,7 @@ export default class EditAddress extends PureComponent {
 
     const type = _.get(addressBook[address], 'type')
 
-    const network = _.get(getNodeConnection(), 'network.description')
+    const network = _.get(getNodeConnection(), 'network.id')
 
     const { label, submitting, canSubmit } = this.state
 

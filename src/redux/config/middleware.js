@@ -13,11 +13,12 @@ export default ({ config }) => () => next => async action => {
 
   // if not already initialized then do it
   if (!existingNodes) {
-    const [ networks, nodes ] = await Promise.all([
+    const [ networks, nodes, tokens ] = await Promise.all([
       config.load('networks'),
-      config.load('nodes')
+      config.load('nodes'),
+      config.load('tokens')
     ])
 
-    return next({ ...action, payload: { networks, nodes } })
+    return next({ ...action, payload: { networks, nodes, tokens } })
   }
 }

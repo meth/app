@@ -14,7 +14,7 @@ const injectParams = (state, params) => {
 
 export default ({ router }) => {
   const InitialState = router.getStateForAction(
-    router.getActionForPathAndParams('wallet')
+    router.getActionForPathAndParams('login')
   )
 
   return handleActions(

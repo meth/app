@@ -60,10 +60,10 @@ export default class ConnectNode extends CachePureComponent {
 
     const {
       node: { name, url },
-      network: { description: network, chainId }
-    } = getNodeConnection(this.props)
+      network: { description: networkDesc, chainId }
+    } = getNodeConnection()
 
-    const { latestBlock, syncing } = getNodeState(this.props)
+    const { latestBlock, syncing } = getNodeState()
 
     const syncPercent = (syncing) ? (
       (_.get(syncing, 'currentBlock', 0) - _.get(syncing, 'startingBlock', 0)) /
@@ -74,7 +74,7 @@ export default class ConnectNode extends CachePureComponent {
       <View style={styles.form}>
         <Text style={styles.nameText}>{name}</Text>
         <Text style={styles.urlText}>{url}</Text>
-        <Text style={styles.networkText}>{t('connector.network', { network })}</Text>
+        <Text style={styles.networkText}>{t('connector.network', { networkDesc })}</Text>
         <Text style={styles.chainIdText}>{t('network.chainId')}: {chainId}</Text>
         {latestBlock ? (
           <Text style={styles.blockText}>{t('network.block')}: {hexToNumber(latestBlock.number)}</Text>

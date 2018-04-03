@@ -1,11 +1,12 @@
 import { loadJSON } from '../utils/fetch'
 import networks from './networks.json'
 import nodes from './nodes.json'
+import tokens from './tokens.json'
 import logger from '../logger'
 
 const log = logger.create('config')
 
-const BUNDLES = { networks, nodes }
+const BUNDLES = { networks, nodes, tokens }
 
 const CACHE = {}
 

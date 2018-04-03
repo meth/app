@@ -46,7 +46,7 @@ module.exports = {
       unableToConnect: 'Unable to connect',
       requestTimeout: 'Request timed out',
       methodCall: 'Error calling method: {method}',
-      unexpected: 'An unexpected error occurred',
+      unexpected: 'Unexpected error!',
       transactionAlreadyInProgress: 'A transaction is already in progress',
       connectionError: 'There was a connection error'
     },
@@ -112,6 +112,16 @@ module.exports = {
         labelInputPlaceholder: 'Enter label...',
         labelFieldLabel: 'Label',
         areYouSureYouWantToDelete: 'Are you sure you want to delete this entry?'
+      }
+    },
+    wallet: {
+      tab: {
+        tokens: 'Tokens',
+        transactions: 'Transactions'
+      },
+      tokens: {
+        filterPlaceholder: 'Filter...',
+        checkBalance: 'Check balance'
       }
     },
     addressType: {

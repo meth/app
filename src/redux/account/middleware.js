@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import {
   SEND_TX,
   CANCEL_TX,
@@ -7,8 +8,10 @@ import {
   GENERATE_MNEMONIC,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
-  DELETE_ADDRESS_BOOK_ENTRY
+  DELETE_ADDRESS_BOOK_ENTRY,
+  GET_TOKEN_BALANCE
 } from './actions'
+import { Erc20 } from '../../abi'
 import { t } from '../../../common/strings'
 import { getStore } from '../'
 import { createAction } from '../utils'
@@ -25,7 +28,8 @@ export default ({
     getDappPermissions,
     getAddressBook,
     getTxDeferred,
-    getNodeConnection
+    getNodeConnection,
+    getTokenList
   } } = getStore()
 
   switch (action.type) {
@@ -140,6 +144,20 @@ export default ({
       await storage.saveAddressBook(book)
 
       return next(action)
+    }
+    case GET_TOKEN_BALANCE: {
+      const { token, account: accountAddress } = action.payload
+
+      const { address } = _.get(getTokenList(), token, {})
+
+      const contract = nodeConnector.getContractAt(address, { abi: Erc20 })
+
+      const balance = await contract.balanceOf(accountAddress)
+
+      return next(createAction(GET_TOKEN_BALANCE, {
+        ...action.payload,
+        balance
+      }))
     }
     default: {
       return next(action)

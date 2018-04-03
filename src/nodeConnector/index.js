@@ -1,4 +1,6 @@
 import EventEmitter from 'eventemitter3'
+import Web3 from 'web3'
+import ethers from 'ethers'
 
 import { Web3MethodFactory } from './web3Methods'
 import EVENT from '../../common/constants/events'
@@ -97,19 +99,20 @@ class NodeConnector extends EventEmitter {
       const block = await this.rawCall('eth_getBlockByNumber', [ '0x0', false ])
 
       // work out what network we're on
-      const foundNetwork = this._networks[
-        Object.keys(this._networks).find(key => {
-          const n = this._networks[key]
+      const networkId = Object.keys(this._networks).find(key => {
+        const n = this._networks[key]
 
-          return n.genesisBlock === block.hash
-        })
-      ]
+        return n.genesisBlock === block.hash
+      })
+
+      const foundNetwork = this._networks[networkId]
 
       const network = foundNetwork
         ? { ...foundNetwork }
         : // if no match found then assume it's a private network
         { ...this._networks.private }
 
+      network.id = networkId
       network.genesisBlock = block.hash
 
       this._adapter.on(EVENT.NEW_BLOCK, (...args) => {
@@ -142,7 +145,7 @@ class NodeConnector extends EventEmitter {
   }
 
   /**
-   * Make a web3 JSON RPC request that gets processed by our method handlers.
+   * Make a web3 request that gets processed by our method handlers.
    *
    * @param {Object|Array} payload Either a single or batch request
    * @param {Object} context Context in which method is being called
@@ -206,6 +209,14 @@ class NodeConnector extends EventEmitter {
     return this._adapter.execMethod(method, params)
   }
 
+  getContractAt (address, { abi }) {
+    return new ethers.Contract(
+      address,
+      abi,
+      ethers.providers.Web3Provider(this.web3)
+    )
+  }
+
   _updateState (newState, data) {
     if (this._state !== newState) {
       this._state = newState
@@ -243,4 +254,33 @@ class NodeConnector extends EventEmitter {
   }
 }
 
-export default new NodeConnector()
+const nodeConnector = new NodeConnector()
+
+export default nodeConnector
+
+class Web3ProxyProvider {
+  isConnected () {
+    return nodeConnector.isConnected
+  }
+
+  send () {
+    throw new Error('Synchronous web3 calls are not supported.')
+  }
+
+  sendAsync (payload, callback) {
+    nodeConnector
+      .request(payload, { fullAccess: true })
+      .catch(callback)
+      .then(response => {
+        const hasError = [].concat(response).find(r => !!r.error)
+
+        if (hasError) {
+          callback(response)
+        } else {
+          callback(null, response)
+        }
+      })
+  }
+}
+
+nodeConnector.web3 = new Web3(new Web3ProxyProvider())

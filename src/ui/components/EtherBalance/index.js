@@ -5,6 +5,7 @@ import { fromWei } from 'web3-utils'
 
 import TouchableView from '../TouchableView'
 import styles from './styles'
+import { toDecimalPlaces } from '../../../utils/number'
 
 export default class EtherBalance extends PureComponent {
   static propTypes = {
@@ -29,7 +30,7 @@ export default class EtherBalance extends PureComponent {
     if (showWei) {
       amount = balance.toString(10)
     } else {
-      amount = fromWei(balance, 'ether')
+      amount = toDecimalPlaces(fromWei(balance, 'ether'), 3)
     }
 
     return (

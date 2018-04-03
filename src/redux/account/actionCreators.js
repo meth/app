@@ -13,7 +13,8 @@ import {
   LOAD_WALLET,
   GENERATE_MNEMONIC,
   SEND_TX,
-  CANCEL_TX
+  CANCEL_TX,
+  GET_TOKEN_BALANCE
 } from './actions'
 
 /* wallet loading */
@@ -43,3 +44,7 @@ export const sendTransaction = createActionCreator(SEND_TX, tx => ({ tx }))
 export const cancelTransaction = createActionCreator(CANCEL_TX)
 export const generateRawTransaction = createActionCreator(GENERATE_RAW_TX)
 export const sendRawTransaction = createActionCreator(SEND_RAW_TX)
+
+/* tokens */
+export const fetchTokenBalance =
+  createActionCreator(GET_TOKEN_BALANCE, (token, account) => ({ token, account }))

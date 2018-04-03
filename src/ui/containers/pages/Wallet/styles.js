@@ -1,8 +1,14 @@
-import { create } from '../../../styles'
+import { create, fontMaker } from '../../../styles'
 
 const card = {
   width: 250,
   minHeight: 250
+}
+
+const text = {
+  ...fontMaker(),
+  color: '$content_textColor',
+  fontSize: '1rem'
 }
 
 export default create({
@@ -36,14 +42,50 @@ export default create({
 
   /* card */
 
-  cardButton_active: {
+  walletCardButton_active: {
     borderWidth: 1,
     borderRadius: 0,
     borderBottomWidth: 0
   },
-  cardButton_inactive: {
+  walletCardButton_inactive: {
     borderWidth: 1,
-    borderRadius: 0
+    borderRadius: 0,
+    borderBottomColor: '$button_walletCard_enabled_hover_borderColor'
   },
-  card: { ...card }
+  card: { ...card },
+
+  /* tab bar */
+
+  tabBar: {
+    marginTop: 50
+  },
+
+  /* tokens */
+
+  tokenTable: {
+    flex: 1,
+    marginTop: 10,
+    paddingBottom: 20,
+    width: '100%'
+  },
+  tokenTableRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 5
+  },
+  tokenTableFilter: {
+    fontSize: '0.7rem',
+    paddingVertical: 7,
+    marginBottom: 5
+  },
+  tokenSymbolText: {
+    ...text,
+    fontSize: '0.8rem',
+    color: '$wallet_tokens_symbol_textColor'
+  },
+  tokenCheckButton: {
+    borderWidth: 0
+  }
 })

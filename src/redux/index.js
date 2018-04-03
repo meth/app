@@ -40,10 +40,13 @@ export const setupStore = app => {
 
   // as a convenience, bind actions and selectors onto the store
   store.actions = bindActionCreators(actionCreators, store.dispatch)
-  store.selectors = Object.keys(selectors).reduce((set, fn) => ({
-    ...set,
-    [fn]: (...args) => selectors[fn](store.getState(), ...args)
-  }))
+  store.selectors = Object.keys(selectors).reduce(
+    (set, fn) => ({
+      ...set,
+      [fn]: (...args) => selectors[fn](store.getState(), ...args)
+    }),
+    {}
+  )
 
   return store
 }

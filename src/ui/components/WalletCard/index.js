@@ -58,7 +58,7 @@ export default class WalletCard extends PureComponent {
             tooltip={t('button.sendCrypto')}
             style={styles.transButton}
             icon={{ name: 'send' }}
-            onPress={this.isActive}
+            onPress={this._onPressSend}
           />
           <IconButton
             disabled={!isActive}
