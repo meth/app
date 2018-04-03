@@ -70,6 +70,21 @@ export default create({
   errorBox: {
     marginTop: 20
   },
+  pickerOption: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  pickerOptionLabelText: {
+    ...fontMaker(),
+    color: '$form_picker_textColor',
+    fontSize: '1rem'
+  },
+  pickerOptionCategoryText: {
+    ...fontMaker(),
+    color: '$form_picker_category_textColor',
+    fontSize: '0.8rem'
+  },
 
   ...whenWidthVerySmall({
     content: {

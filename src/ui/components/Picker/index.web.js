@@ -9,6 +9,19 @@ import PickerButton from '../PickerButton'
 import styles from './styles'
 
 export default class Picker extends CachePureComponent {
+  static propTypes = {
+    options: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string,
+      category: PropTypes.string
+    })).isRequired,
+    onChange: PropTypes.func.isRequired,
+    selected: PropTypes.string,
+    renderOption: PropTypes.func,
+    style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
+    buttonStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
+  }
+
   state = {
     open: false,
     popupStyle: {}
@@ -43,15 +56,23 @@ export default class Picker extends CachePureComponent {
   }
 
   renderOptions ({ options }) {
-    return options.map(({ label, value }) => (
-      <TouchableView
-        key={value}
-        style={styles.optionContainer}
-        hoverStyle={styles.optionContainerHover}
-        onPress={this.bind(this.onSelect, value)}>
-          <Text style={styles.optionText}>{label}</Text>
-      </TouchableView>
-    ))
+    const { renderOption, selected } = this.props
+
+    return options.map(option => {
+      const { label, value } = option
+
+      return (
+        <TouchableView
+          key={value}
+          style={styles.optionContainer}
+          hoverStyle={styles.optionContainerHover}
+          onPress={this.bind(this.onSelect, value)}>
+            {renderOption ? renderOption(option, value === selected) : (
+              <Text style={styles.optionText}>{label}</Text>
+            )}
+        </TouchableView>
+      )
+    })
   }
 
   onPressButton = () => {
@@ -85,16 +106,4 @@ export default class Picker extends CachePureComponent {
       onChange(value)
     })
   }
-}
-
-Picker.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.shape({
-    value: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    category: PropTypes.string
-  })).isRequired,
-  onChange: PropTypes.func.isRequired,
-  selected: PropTypes.string,
-  style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
-  buttonStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
 }

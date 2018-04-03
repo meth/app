@@ -106,11 +106,9 @@ export default class ConnectNode extends CachePureComponent {
   renderForm () {
     const { connecting } = this.state
 
-    const {
-      getDisconnectReason
-    } = this.props.selectors
+    const { getDisconnectReason } = this.props.selectors
 
-    const reason = getDisconnectReason(this.props)
+    const reason = getDisconnectReason()
 
     const options = this.getOptions()
     const selected = options.find(o => o.selected)
@@ -128,6 +126,7 @@ export default class ConnectNode extends CachePureComponent {
           options={options}
           selected={selected.value}
           onChange={this.onChange}
+          renderOption={this._renderPickerOption}
         />
         <AlertBox
           style={styles.desc}
@@ -158,12 +157,17 @@ export default class ConnectNode extends CachePureComponent {
     ]} />
   }
 
-  getOptions () {
-    const {
-      getNodes
-    } = this.props.selectors
+  _renderPickerOption = ({ label, host }) => (
+    <View style={styles.pickerOption}>
+      <Text style={styles.pickerOptionLabelText}>{label}</Text>
+      <Text style={styles.pickerOptionCategoryText}>{host}</Text>
+    </View>
+  )
 
-    const nodes = getNodes(this.props)
+  getOptions () {
+    const { getNodes } = this.props.selectors
+
+    const nodes = getNodes()
     let { selected } = this.state
 
     const options = []
@@ -179,8 +183,7 @@ export default class ConnectNode extends CachePureComponent {
 
         options.push({
           value: val,
-          label: name,
-          category,
+          label: name || category,
           network,
           host,
           selected: selected === val

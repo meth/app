@@ -204,7 +204,10 @@ export default {
       borderColor: colorBlack,
       backgroundColor: colorWhite,
       hoverBackgroundColor: colorGrayLight,
-      textColor: colorBlack
+      textColor: colorBlack,
+      category: {
+        textColor: colorGray
+      }
     },
     section: {
       layout: {
