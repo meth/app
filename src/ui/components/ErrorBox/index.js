@@ -69,7 +69,7 @@ const ErrorBox = ({ animate, error, style }) => {
 
 ErrorBox.propTypes = {
   animate: PropTypes.bool,
-  error: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]).isRequired,
+  error: PropTypes.oneOfType([ PropTypes.string, PropTypes.object, PropTypes.array ]).isRequired,
   style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
 }
 

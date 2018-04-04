@@ -39,7 +39,8 @@ module.exports = {
     connector: {
       connectToNode: 'Connect to node',
       pleaseChooseNode: 'Connect to Ethereum',
-      network: '{network} network'
+      network: '{network} network',
+      type: 'Type'
     },
     error: {
       userCancelledTransaction: 'User cancelled transaction',
@@ -130,15 +131,8 @@ module.exports = {
     },
     config: {
       node: {
-        local: {
-          local: 'Ethereum client node running locally on your device.'
-        },
-        infura: {
-          mainnet: 'Etherum client node hosted by Infura.io, connected to the Main network.',
-          ropsten: 'Etherum client node hosted by Infura.io, connected to the Ropsten test network.',
-          kovan: 'Etherum client node hosted by Infura.io, connected to the Kovan test network.',
-          rinkeby: 'Etherum client node hosted by Infura.io, connected to the Rinkeby test network.'
-        }
+        rpc: 'Ethereum client node connected via RPC.',
+        infura: 'Etherum client node hosted by Infura.io, connected to {network}.'
       }
     },
     dappPermissions: {

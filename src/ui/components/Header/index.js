@@ -101,7 +101,7 @@ export default class Header extends PureComponent {
         onPress={onPressNetworkInfo}
         style={styles.networkButton}
         type='header'>
-          <Text style={styles.networkButtonText}>{'Private'}</Text>
+          <Text style={styles.networkButtonText}>{network.description}</Text>
           {syncIcon}
       </Button>
     )

@@ -59,8 +59,8 @@ export default class ConnectNode extends CachePureComponent {
     } = this.props.selectors
 
     const {
-      node: { name, url },
-      network: { description: networkDesc, chainId }
+      node: { type },
+      network: { description: network, chainId }
     } = getNodeConnection()
 
     const { latestBlock, syncing } = getNodeState()
@@ -72,9 +72,8 @@ export default class ConnectNode extends CachePureComponent {
 
     return (
       <View style={styles.form}>
-        <Text style={styles.nameText}>{name}</Text>
-        <Text style={styles.urlText}>{url}</Text>
-        <Text style={styles.networkText}>{t('connector.network', { networkDesc })}</Text>
+        <Text style={styles.networkText}>{t('connector.network', { network })}</Text>
+        <Text style={styles.typeText}>{t(`connector.type`)}: {type}</Text>
         <Text style={styles.chainIdText}>{t('network.chainId')}: {chainId}</Text>
         {latestBlock ? (
           <Text style={styles.blockText}>{t('network.block')}: {hexToNumber(latestBlock.number)}</Text>
@@ -131,7 +130,7 @@ export default class ConnectNode extends CachePureComponent {
         <AlertBox
           style={styles.desc}
           type='info'
-          text={t(`config.node.${selected.host}.${selected.network}`)}
+          text={t(`config.node.${selected.type}`, { network: selected.category })}
         >
         </AlertBox>
         <ProgressButton
@@ -157,10 +156,10 @@ export default class ConnectNode extends CachePureComponent {
     ]} />
   }
 
-  _renderPickerOption = ({ label, host }) => (
+  _renderPickerOption = ({ label, type }) => (
     <View style={styles.pickerOption}>
       <Text style={styles.pickerOptionLabelText}>{label}</Text>
-      <Text style={styles.pickerOptionCategoryText}>{host}</Text>
+      <Text style={styles.pickerOptionCategoryText}>{type}</Text>
     </View>
   )
 
@@ -172,8 +171,8 @@ export default class ConnectNode extends CachePureComponent {
 
     const options = []
 
-    _.each(nodes, ({ network, connections }, category) => {
-      _.each(connections, ({ name, host }, idx) => {
+    _.each(nodes, ({ connections }, category) => {
+      _.each(connections, ({ name, type }, idx) => {
         const val = `${category}.connections.${idx}`
 
         // select first by default
@@ -184,8 +183,8 @@ export default class ConnectNode extends CachePureComponent {
         options.push({
           value: val,
           label: name || category,
-          network,
-          host,
+          type,
+          category,
           selected: selected === val
         })
       })

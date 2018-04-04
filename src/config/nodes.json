@@ -1,52 +1,42 @@
 {
   "Mainnet": {
-    "network": "mainnet",
     "connections": [
       {
         "url": "https://mainnet.infura.io/qosgoXW1nFmCRFDPttGk",
-        "type": "infura",
-        "host": "infura"
+        "type": "infura"
       }
     ]
   },
   "Ropsten (testnet)": {
-    "network": "ropsten",
     "connections": [
       {
         "url": "https://ropsten.infura.io/qosgoXW1nFmCRFDPttGk",
-        "type": "infura",
-        "host": "infura"
+        "type": "infura"
       }
     ]
   },
   "Kovan (testnet)": {
-    "network": "kovan",
     "connections": [
       {
         "url": "https://kovan.infura.io/qosgoXW1nFmCRFDPttGk",
-        "type": "infura",
-        "host": "infura"
+        "type": "infura"
       }
     ]
   },
   "Rinkeby (testnet)": {
-    "network": "rinkeby",
     "connections": [
       {
         "url": "https://rinkeby.infura.io/qosgoXW1nFmCRFDPttGk",
-        "type": "infura",
-        "host": "infura"
+        "type": "infura"
       }
     ]
   },
   "Local": {
-    "network": "local",
     "connections": [
       {
         "name": "Localhost (8545)",
         "url": "http://127.0.0.1:8545",
-        "type": "rpc",
-        "host": "local"
+        "type": "rpc"
       }
     ]
   }

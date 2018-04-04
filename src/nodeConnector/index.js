@@ -8,6 +8,7 @@ import STATE from '../../common/constants/states'
 import { UnableToConnectError } from '../utils/errors'
 import logger from '../logger'
 import RpcAdapter from './adapter/rpc'
+import InfuraAdapter from './adapter/infura'
 
 const log = logger.create('NodeConnector')
 
@@ -71,17 +72,22 @@ class NodeConnector extends EventEmitter {
    * @type {Promise}
    */
   async connect (cfg) {
-    const { name, url, type } = cfg
+    const { type } = cfg
 
     // disconnect first
     await this.disconnect()
 
-    log.info(`Connecting to ${name} at ${url} of type ${type} ...`)
+    log.info(`Connecting to node of type ${type}: ${JSON.stringify(cfg)} ...`)
 
     switch (type) {
-      case 'rpc':
-        this._adapter = new RpcAdapter({ url })
+      case 'rpc': {
+        this._adapter = new RpcAdapter(cfg)
         break
+      }
+      case 'infura': {
+        this._adapter = new InfuraAdapter(cfg)
+        break
+      }
       default:
         throw new UnableToConnectError(`Unrecognized adapter type: ${type}`)
     }

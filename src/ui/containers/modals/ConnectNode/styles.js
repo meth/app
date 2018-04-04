@@ -34,42 +34,49 @@ export default create({
     fontSize: '1.2rem',
     marginBottom: 30
   },
-  nameText: {
+
+  /* when conneted */
+
+  networkText: {
     ...text,
     fontSize: '1.4rem'
   },
-  urlText: {
+  typeText: {
     ...text,
-    fontSize: '0.7rem',
     marginTop: 10,
-    color: '$modal_connectNode_darkTextColor'
-  },
-  networkText: {
-    ...text,
-    fontSize: '1.4rem',
-    marginTop: 20
+    fontSize: '0.7rem',
+    textTransform: 'lowercase'
   },
   chainIdText: {
     ...text,
     fontSize: '0.7rem',
     marginTop: 10,
-    color: '$modal_connectNode_darkTextColor'
+    color: '$modal_connectNode_darkTextColor',
+    textTransform: 'lowercase'
   },
   blockText: {
     ...text,
     fontSize: '0.7rem',
     marginTop: 10,
-    color: '$modal_connectNode_darkTextColor'
+    color: '$modal_connectNode_darkTextColor',
+    textTransform: 'lowercase'
   },
   syncingText: {
     ...text,
     fontSize: '0.7rem',
     marginTop: 10,
-    color: '$modal_connectNode_darkTextColor'
+    color: '$modal_connectNode_darkTextColor',
+    textTransform: 'lowercase'
   },
+
+  /* error display */
+
   errorBox: {
     marginTop: 20
   },
+
+  /* picker stuff */
+
   pickerOption: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -85,6 +92,8 @@ export default create({
     color: '$form_picker_category_textColor',
     fontSize: '0.8rem'
   },
+
+  /* responsive layouyt */
 
   ...whenWidthVerySmall({
     content: {

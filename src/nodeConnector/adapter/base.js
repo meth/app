@@ -215,11 +215,11 @@ class Adapter extends EventEmitter {
   }
 
   /**
-   * Approve given method call
+   * Check that given method call is allowed
    * @param  {String} method
    * @return {Promise}
    */
-  async _approveMethod (method) {
+  async _checkMethodAllowed (method) {
     if (true !== this._methods[method]) {
       throw new MethodNotAllowedError(method)
     }

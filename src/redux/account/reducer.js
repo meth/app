@@ -1,4 +1,4 @@
-import BN from 'bn.js'
+// import BN from 'bn.js'
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
@@ -17,20 +17,22 @@ import {
 
 export default () => {
   const InitialState = Immutable.Map({
-    accountBalances: {
-      '0xDcc703c0E500B653Ca82273B7BFAd8045D85a470': new BN('12', 10),
-      '0xEfd703c0E500B653Ca82273B7BFAd8045D85a471': new BN('5891000000000000000', 10),
-      '0xAba703c0E500B653Ca82273B7BFAd8045D85a472': new BN('235129900000000000000', 10)
-    },
-    addressBook: {
-      '0xDcc703c0E500B653Ca82273B7BFAd8045D85a470': {
-        label: 'Friendly label 1'
-      },
-      '0xEfd703c0E500B653Ca82273B7BFAd8045D85a471': {},
-      '0xAba703c0E500B653Ca82273B7BFAd8045D85a472': {
-        label: 'Bancor network'
-      }
-    },
+    // accountBalances: {
+    //   '0xDcc703c0E500B653Ca82273B7BFAd8045D85a470': new BN('12', 10),
+    //   '0xEfd703c0E500B653Ca82273B7BFAd8045D85a471': new BN('5891000000000000000', 10),
+    //   '0xAba703c0E500B653Ca82273B7BFAd8045D85a472': new BN('235129900000000000000', 10)
+    // },
+    // addressBook: {
+    //   '0xDcc703c0E500B653Ca82273B7BFAd8045D85a470': {
+    //     label: 'Friendly label 1'
+    //   },
+    //   '0xEfd703c0E500B653Ca82273B7BFAd8045D85a471': {},
+    //   '0xAba703c0E500B653Ca82273B7BFAd8045D85a472': {
+    //     label: 'Bancor network'
+    //   }
+    // },
+    accountBalances: {},
+    addressBook: {},
     bookmarks: {},
     dappPermissions: {},
     currentTx: null,

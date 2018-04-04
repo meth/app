@@ -27,7 +27,11 @@ class Storage {
   }
 
   async setNetwork ({ description, genesisBlock } = {}) {
-    log.info(`Set storage network: ${description} - ${genesisBlock} ...`)
+    if (!description && !genesisBlock) {
+      log.info('Clear storage network key')
+    } else {
+      log.info(`Set storage network key: ${description} - ${genesisBlock} ...`)
+    }
 
     this._network = genesisBlock
 

@@ -22,7 +22,6 @@ export default class EditAddress extends PureComponent {
       <Modal
         contentStyle={styles.content}
         onPressCloseButton={this.close}
-        onOverlayPress={this.close}
       >
         <Text style={styles.addressText}>{address}</Text>
         <QrCode
