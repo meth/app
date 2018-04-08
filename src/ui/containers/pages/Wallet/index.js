@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 
 import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
@@ -10,7 +10,9 @@ import Layout from '../Layout'
 import TitleText from '../../../components/TitleText'
 import ScrollView from '../../../components/ScrollView'
 import WalletCard from '../../../components/WalletCard'
+import EtherBalance from '../../../components/EtherBalance'
 import WalletTabBar from '../../../components/WalletTabBar'
+import Loading from '../../../components/Loading'
 import Button from '../../../components/Button'
 import ProgressButton from '../../../components/ProgressButton'
 import Icon from '../../../components/Icon'
@@ -30,20 +32,8 @@ export default class Wallet extends CachePureComponent {
     checkingBalance: {}
   }
 
-  componentDidUpdate (oldProps, oldState) {
-    // if active card changed then reload data
-    if (oldState.activeCard !== this.state.activeCard) {
-      this._reloadAccountData()
-    }
-  }
-
-  componentDidMount () {
-    this._reloadAccountData()
-  }
-
   render () {
     const { getAccounts } = this.props.selectors
-    const { activeTab } = this.state
 
     const accounts = getAccounts()
 
@@ -52,6 +42,20 @@ export default class Wallet extends CachePureComponent {
     return (
       <Layout contentStyle={styles.layoutContent}>
         <TitleText text={t('title.wallet')} />
+        {accountAddresses.length ? (
+          this._renderContent({ accounts, accountAddresses })
+        ) : (
+          <Loading style={styles.topLevelLoading} />
+        )}
+      </Layout>
+    )
+  }
+
+  _renderContent ({ accounts, accountAddresses }) {
+    const { activeTab } = this.state
+
+    return (
+      <React.Fragment>
         <ScrollView
           style={styles.cardsScrollView}
           contentContainerStyle={styles.cardsContent}
@@ -79,14 +83,15 @@ export default class Wallet extends CachePureComponent {
           onSelectTab={this._onSelectTab}
         />
         {this._renderActiveTab()}
-      </Layout>
+      </React.Fragment>
     )
   }
 
   _renderActiveTab () {
     const { getTokenList } = this.props.selectors
-
     const { activeTab } = this.state
+
+    const selectedAccount = this._getSelectedAccount()
 
     const tokens = getTokenList()
 
@@ -98,6 +103,9 @@ export default class Wallet extends CachePureComponent {
           return ({
             symbol: {
               value: token
+            },
+            balance: {
+              value: _.get(selectedAccount.tokens, token)
             },
             _filterKey: `${token} ${name || ''}`
           })
@@ -128,20 +136,31 @@ export default class Wallet extends CachePureComponent {
 
   _renderTokenRowData = row => {
     const symbol = _.get(row, 'symbol.value')
+    const balance = _.get(row, 'balance.value')
 
     const { checkingBalance } = this.state
 
     return (
       <React.Fragment>
         <Text style={styles.tokenSymbolText}>{symbol}</Text>
-        <ProgressButton
-          tooltip={t('wallet.tokens.checkBalance')}
-          style={styles.tokenCheckButton}
-          onPress={this.bind(this._onCheckTokenBalance, symbol)}
-          showInProgress={checkingBalance[symbol]}
-        >
-          <Icon name='refresh' />
-        </ProgressButton>
+        <View style={styles.tokenData}>
+          {balance ? (
+            <EtherBalance
+              balance={balance}
+              showUnits={false}
+              canToggle={false}
+              amountTextStyle={styles.tokenBalanceText}
+            />
+          ) : null}
+          <ProgressButton
+            tooltip={t('wallet.tokens.checkBalance')}
+            style={styles.tokenCheckButton}
+            onPress={this.bind(this._onCheckTokenBalance, symbol)}
+            showInProgress={checkingBalance[symbol]}
+          >
+            <Icon name='refresh' />
+          </ProgressButton>
+        </View>
       </React.Fragment>
     )
   }
@@ -176,7 +195,8 @@ export default class Wallet extends CachePureComponent {
   }
 
   _onCheckTokenBalance = symbol => {
-    const { fetchTokenBalance } = this.props.actions
+    const { address } = this._getSelectedAccount()
+    const { loadTokenBalance } = this.props.actions
 
     this.setState({
       checkingBalance: {
@@ -188,7 +208,7 @@ export default class Wallet extends CachePureComponent {
         [symbol]: false
       }
     }, () => {
-      fetchTokenBalance(symbol)
+      loadTokenBalance(symbol, address)
         .then(() => {
           this.setState({
             checkingBalance: {
@@ -228,7 +248,20 @@ export default class Wallet extends CachePureComponent {
 
   _onSelectCard = activeCard => this.setState({ activeCard })
 
-  _reloadAccountData () {
+  _getSelectedAccount () {
+    const { getAccounts } = this.props.selectors
+    const { activeCard } = this.state
 
+    const accounts = getAccounts()
+
+    const address = Object.keys(accounts)[activeCard]
+    const { balance, tokens, label } = accounts[address]
+
+    return {
+      address,
+      balance,
+      tokens,
+      label
+    }
   }
 }

@@ -10,6 +10,7 @@ import { toDecimalPlaces } from '../../../utils/number'
 export default class EtherBalance extends PureComponent {
   static propTypes = {
     balance: PropTypes.object.isRequired,
+    showUnits: PropTypes.bool,
     canToggle: PropTypes.bool,
     style: PropTypes.any,
     amountTextStyle: PropTypes.any,
@@ -18,11 +19,12 @@ export default class EtherBalance extends PureComponent {
 
   state = {
     showWei: false,
+    showUnits: true,
     canToggle: true
   }
 
   render () {
-    const { balance, style, amountTextStyle, unitTextStyle } = this.props
+    const { balance, showUnits, style, amountTextStyle, unitTextStyle } = this.props
 
     const { showWei } = this.state
 
@@ -30,7 +32,7 @@ export default class EtherBalance extends PureComponent {
     if (showWei) {
       amount = balance.toString(10)
     } else {
-      amount = toDecimalPlaces(fromWei(balance, 'ether'), 3)
+      amount = toDecimalPlaces(fromWei(balance.toString(10), 'ether'), 3)
     }
 
     return (
@@ -41,9 +43,11 @@ export default class EtherBalance extends PureComponent {
         >
           {amount}
         </Text>
-        <Text style={[ styles.unitText ].concat(unitTextStyle)}>
-          {showWei ? 'Wei' : 'Eth'}
-        </Text>
+        {showUnits ? (
+          <Text style={[ styles.unitText ].concat(unitTextStyle)}>
+            {showWei ? 'Wei' : 'Eth'}
+          </Text>
+        ) : null}
       </TouchableView>
     )
   }

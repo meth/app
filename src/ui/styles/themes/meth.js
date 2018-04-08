@@ -101,6 +101,9 @@ export default {
     tokens: {
       symbol: {
         textColor: colorGray
+      },
+      balance: {
+        textColor: colorGrayLight
       }
     }
   },

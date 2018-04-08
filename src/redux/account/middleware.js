@@ -9,7 +9,7 @@ import {
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
-  GET_TOKEN_BALANCE
+  TOKEN_BALANCE
 } from './actions'
 import { Erc20 } from '../../abi'
 import { t } from '../../../common/strings'
@@ -145,16 +145,16 @@ export default ({
 
       return next(action)
     }
-    case GET_TOKEN_BALANCE: {
-      const { token, account: accountAddress } = action.payload
+    case TOKEN_BALANCE: {
+      const { token, accountAddress } = action.payload
 
-      const { address } = _.get(getTokenList(), token, {})
+      const { address: tokenContractAddress } = _.get(getTokenList(), token, {})
 
-      const contract = nodeConnector.getContractAt(address, { abi: Erc20 })
+      const contract = await nodeConnector.getContractAt(tokenContractAddress, { abi: Erc20 })
 
       const balance = await contract.balanceOf(accountAddress)
 
-      return next(createAction(GET_TOKEN_BALANCE, {
+      return next(createAction(TOKEN_BALANCE, {
         ...action.payload,
         balance
       }))

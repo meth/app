@@ -1,6 +1,5 @@
 import EventEmitter from 'eventemitter3'
-import Web3 from 'web3'
-import ethers from 'ethers'
+import truffleContract from 'truffle-contract'
 
 import { Web3MethodFactory } from './web3Methods'
 import EVENT from '../../common/constants/events'
@@ -215,12 +214,10 @@ class NodeConnector extends EventEmitter {
     return this._adapter.execMethod(method, params)
   }
 
-  getContractAt (address, { abi }) {
-    return new ethers.Contract(
-      address,
-      abi,
-      ethers.providers.Web3Provider(this.web3)
-    )
+  async getContractAt (address, { abi }) {
+    const Contract = truffleContract({ abi })
+    Contract.setProvider(this._web3Provider)
+    return Contract.at(address)
   }
 
   _updateState (newState, data) {
@@ -289,4 +286,4 @@ class Web3ProxyProvider {
   }
 }
 
-nodeConnector.web3 = new Web3(new Web3ProxyProvider())
+nodeConnector._web3Provider = new Web3ProxyProvider()

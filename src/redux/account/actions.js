@@ -11,6 +11,6 @@ export const LOAD_WALLET = 'LOAD_WALLET'
 export const GENERATE_MNEMONIC = 'GENERATE_MNEMONIC'
 export const SEND_TX = 'SEND_TX'
 export const CANCEL_TX = 'CANCEL_TX'
-export const GET_TOKEN_BALANCE = 'GET_TOKEN_BALANCE'
+export const TOKEN_BALANCE = 'TOKEN_BALANCE'
 
 export const TX_COMPLETED = 'TX_COMPLETED'

@@ -3,16 +3,19 @@ import { createSelector } from 'reselect'
 import ADDRESS_TYPES from '../../../common/constants/addressTypes'
 
 const _getAccountBalances = state => state.account.get('accountBalances') || {}
+const _getTokenBalances = state => state.account.get('tokenBalances') || {}
 const _getAddressBook = state => state.account.get('addressBook') || {}
 
 export const getAccounts = createSelector(
   _getAccountBalances,
+  _getTokenBalances,
   _getAddressBook,
-  (balances, addressBook) => Object.keys(balances).reduce((m, addr) => ({
+  (balances, tokenBalances, addressBook) => Object.keys(balances).reduce((m, addr) => ({
     ...m,
     [addr]: {
       balance: balances[addr],
-      ...(addressBook[addr] ? { label: addressBook[addr].label } : {})
+      ...(addressBook[addr] ? { label: addressBook[addr].label } : {}),
+      tokens: tokenBalances.get(addr).toObject()
     }
   }), {})
 )

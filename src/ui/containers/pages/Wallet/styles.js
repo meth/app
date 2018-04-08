@@ -25,6 +25,9 @@ export default create({
     paddingBottom: 0,
     height: '95%'
   },
+  topLevelLoading: {
+    alignSelf: 'center'
+  },
 
   /* account cards */
 
@@ -84,6 +87,17 @@ export default create({
     ...text,
     fontSize: '0.8rem',
     color: '$wallet_tokens_symbol_textColor'
+  },
+  tokenData: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  tokenBalanceText: {
+    ...text,
+    fontSize: '0.8rem',
+    color: '$wallet_tokens_balance_textColor',
+    marginRight: 5
   },
   tokenCheckButton: {
     borderWidth: 0

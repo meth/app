@@ -4,6 +4,7 @@ import { handleActions } from 'redux-actions'
 
 import {
   ACCOUNT_BALANCES,
+  TOKEN_BALANCE,
   ADDRESS_BOOK,
   BOOKMARKS,
   DAPP_PERMISSIONS,
@@ -32,6 +33,7 @@ export default () => {
     //   }
     // },
     accountBalances: {},
+    tokenBalances: Immutable.Map({}),
     addressBook: {},
     bookmarks: {},
     dappPermissions: {},
@@ -41,7 +43,29 @@ export default () => {
 
   return handleActions(
     {
-      [ACCOUNT_BALANCES]: (state, { payload }) => state.set('accountBalances', payload),
+      [ACCOUNT_BALANCES]: (state, { payload }) => {
+        // ensure there is a token balance entry for each address
+        let tokenBalances = state.get('tokenBalances')
+
+        Object.keys(payload).forEach(accountAddress => {
+          if (!tokenBalances.get(accountAddress)) {
+            tokenBalances = tokenBalances.set(accountAddress, Immutable.Map({}))
+          }
+        })
+
+        return state
+          .set('accountBalances', payload)
+          .set('tokenBalances', tokenBalances)
+      },
+      [TOKEN_BALANCE]: (state, { payload: { token, accountAddress, balance } }) => {
+        let tokenBalances = state.get('tokenBalances')
+
+        let accountEntry = tokenBalances.get(accountAddress)
+        accountEntry = accountEntry.set(token, balance)
+        tokenBalances = tokenBalances.set(accountAddress, accountEntry)
+
+        return state.set('tokenBalances', tokenBalances)
+      },
       /* bookmarks */
       [BOOKMARKS]: (state, { payload }) => state.set('bookmarks', payload),
       /* dapp permissions */
