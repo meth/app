@@ -86,7 +86,7 @@
     "html-webpack-plugin": "^2.30.1",
     "http-serve": "^1.0.1",
     "husky": "^0.14.3",
-    "i21n": "1.1.0",
+    "i21n": "^1.2.0",
     "immutable": "^3.8.1",
     "immutable-state-machine": "^1.2.0",
     "interpolate-html-plugin": "^2.0.0",

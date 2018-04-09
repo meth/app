@@ -2,8 +2,7 @@ import { create } from '../../styles'
 
 export default create({
   box: {
-    borderColor: 'transparent',
-    backgroundColor: 'transparent'
+    borderColor: 'transparent'
   },
   text: {
     textDecorationLine: 'underline'

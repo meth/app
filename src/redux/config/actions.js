@@ -1,1 +1,2 @@
 export const LOAD_CONFIG = 'LOAD_CONFIG'
+export const OPEN_EXTERNAL_URL = 'OPEN_EXTERNAL_URL'

@@ -5,9 +5,10 @@ import { hexToNumber } from 'web3-utils'
 
 import { connectStore } from '../../../helpers/redux'
 import { CachePureComponent } from '../../../helpers/components'
-import { t } from '../../../../../common/strings'
+import { t, tSub } from '../../../../../common/strings'
 import ProgressButton from '../../../components/ProgressButton'
 import AlertBox from '../../../components/AlertBox'
+import IconButton from '../../../components/IconButton'
 import ErrorBox from '../../../components/ErrorBox'
 import Modal from '../../../components/Modal'
 import Loading from '../../../components/Loading'
@@ -60,7 +61,7 @@ export default class ConnectNode extends CachePureComponent {
 
     const {
       node: { type },
-      network: { description: network, chainId }
+      network: { description: network, chainId, blockUrl }
     } = getNodeConnection()
 
     const { latestBlock, syncing } = getNodeState()
@@ -76,7 +77,18 @@ export default class ConnectNode extends CachePureComponent {
         <Text style={styles.typeText}>{t(`connector.type`)}: {type}</Text>
         <Text style={styles.chainIdText}>{t('network.chainId')}: {chainId}</Text>
         {latestBlock ? (
-          <Text style={styles.blockText}>{t('network.block')}: {hexToNumber(latestBlock.number)}</Text>
+          <View style={styles.block}>
+            <Text style={styles.blockText}>{t('network.block')}: {hexToNumber(latestBlock.number)}</Text>
+            {blockUrl ? (
+              <IconButton
+                style={styles.blockLinkButton}
+                icon={{ name: 'external-link', style: styles.blockLinkButtonText }}
+                onPress={this._onPressBlockLink}
+                tooltip={t('button.viewDetails')}
+              />
+            ) : null}
+          </View>
+
         ) : null}
         <Text style={styles.syncingText}>{t('network.syncing')}: {t('network.sync.percent', { percent: syncPercent })}</Text>
         <ProgressButton
@@ -252,5 +264,15 @@ export default class ConnectNode extends CachePureComponent {
     const { hideConnectionModal } = this.props.actions
 
     hideConnectionModal()
+  }
+
+  _onPressBlockLink = () => {
+    const { openExternalUrl } = this.props.actions
+    const { getNodeConnection, getNodeState } = this.props.selectors
+
+    const { latestBlock } = getNodeState()
+    const { network: { blockUrl } } = getNodeConnection()
+
+    openExternalUrl(tSub(blockUrl, { blockHash: latestBlock.hash }))
   }
 }

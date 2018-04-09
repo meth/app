@@ -19,10 +19,12 @@ const sendIpcToBackend = (task, params) => {
 }
 
 // handle frontend message
-window.addEventListener('message', ({ data }) => {
+window.addEventListener('message', ({ data = {} }) => {
+  const { ipc, task, params } = data
+
   // send IPC to backend
-  if (IPC.BACKEND_TASK === data.ipc) {
-    sendIpcToBackend(data.task, data.params)
+  if (IPC.BACKEND_TASK === ipc) {
+    sendIpcToBackend(task, params)
   } else {
     // do nothing, it's likely something to do with tools, e.g. webpack
   }

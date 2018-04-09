@@ -54,12 +54,26 @@ export default create({
     color: '$modal_connectNode_darkTextColor',
     textTransform: 'lowercase'
   },
+  block: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   blockText: {
     ...text,
     fontSize: '0.7rem',
-    marginTop: 10,
     color: '$modal_connectNode_darkTextColor',
     textTransform: 'lowercase'
+  },
+  blockLinkButton: {
+    borderWidth: 0,
+    marginLeft: 5,
+    paddingVertical: 2,
+    paddingHorizontal: 3
+  },
+  blockLinkButtonText: {
+    fontSize: '0.6rem'
   },
   syncingText: {
     ...text,

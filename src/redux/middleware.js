@@ -1,8 +1,10 @@
-import log from '../logger'
+import logger from '../logger'
 import configMiddleware from './config/middleware'
 import nodeMiddleware from './node/middleware'
 import apiMiddleware from './api/middleware'
 import accountMiddleware from './account/middleware'
+
+const log = logger.create('Middleware')
 
 export const createMiddleware = app => [
   // first let's ensure the final `dispatch` function is async
@@ -10,7 +12,7 @@ export const createMiddleware = app => [
     try {
       return await next(action)
     } catch (err) {
-      log.warn('Middleware error', err)
+      log.warn(err)
 
       throw err
     }

@@ -4434,9 +4434,9 @@ hyphenate-style-name@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.2.tgz#31160a36930adaf1fc04c6074f7eb41465d4ec4b"
 
-i21n@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/i21n/-/i21n-1.1.0.tgz#e8a1f0d34aa52ff6c0b36f4fa66843b2f651f8bf"
+i21n@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/i21n/-/i21n-1.2.0.tgz#4c8e559bc184ee10ce8e57dade2ec1d7f0a736a0"
 
 iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@^0.4.8, iconv-lite@~0.4.13:
   version "0.4.19"

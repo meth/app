@@ -74,6 +74,7 @@ module.exports = {
     button: {
       addEntry: 'Add entry',
       editLabel: 'Edit label',
+      viewDetails: 'View details',
       sendCrypto: 'Send crypto',
       showQrCode: 'Show QR code',
       yes: 'Yes',

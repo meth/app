@@ -1,6 +1,7 @@
 import EventEmitter from 'eventemitter3'
 
 import IPC from '../../common/constants/ipc'
+import BACKEND_TASKS from '../../common/constants/ipcBackendTasks'
 import UI_TASKS from '../../common/constants/ipcUiTasks'
 import logger from '../logger'
 
@@ -16,7 +17,16 @@ if (typeof window !== 'undefined') {
   })
 }
 
+const openExternalUrl = url => {
+  window.postMessage({
+    ipc: IPC.BACKEND_TASK,
+    task: BACKEND_TASKS.OPEN_EXTERNAL_URL,
+    params: { url }
+  }, '*')
+}
+
 module.exports = {
   ...UI_TASKS,
-  globalEvents
+  globalEvents,
+  openExternalUrl
 }

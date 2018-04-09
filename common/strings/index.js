@@ -17,3 +17,5 @@ _.each(locales, (data, locale) => {
 exports.languages = _.mapValues(locales, data => data.label)
 
 exports.t = (id, args) => i21n.t(id, args)
+
+exports.tSub = (id, args) => i21n.sub(id, args)
