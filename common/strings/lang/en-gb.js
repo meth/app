@@ -73,6 +73,8 @@ module.exports = {
     },
     button: {
       addEntry: 'Add entry',
+      addToken: 'Add token',
+      addCustomToken: 'Add custom token',
       editLabel: 'Edit label',
       viewDetails: 'View details',
       sendCrypto: 'Send crypto',
@@ -118,12 +120,9 @@ module.exports = {
       }
     },
     wallet: {
-      tab: {
-        tokens: 'Tokens',
-        transactions: 'Transactions'
-      },
       tokens: {
-        filterPlaceholder: 'Filter...',
+        noneConfigured: 'No tokens current configured',
+        filterPlaceholder: 'Filter tokens...',
         checkBalance: 'Check balance'
       }
     },

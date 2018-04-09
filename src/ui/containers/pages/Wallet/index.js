@@ -11,16 +11,12 @@ import TitleText from '../../../components/TitleText'
 import ScrollView from '../../../components/ScrollView'
 import WalletCard from '../../../components/WalletCard'
 import TokenBalance from '../../../components/TokenBalance'
-import WalletTabBar from '../../../components/WalletTabBar'
 import Loading from '../../../components/Loading'
 import Button from '../../../components/Button'
 import ProgressButton from '../../../components/ProgressButton'
 import Icon from '../../../components/Icon'
 import ErrorBox from '../../../components/ErrorBox'
 import Table from '../../../components/Table'
-
-const TAB_TOKENS = 'tokens'
-const TAB_TRANSACTIONS = 'transactions'
 
 const RENDER_NULL = () => null
 const TOKEN_COLUMNS = [ { id: 'address' } ]
@@ -29,7 +25,6 @@ const TOKEN_COLUMNS = [ { id: 'address' } ]
 export default class Wallet extends CachePureComponent {
   state = {
     activeCard: 0,
-    activeTab: TAB_TOKENS,
     checkingBalance: {}
   }
 
@@ -53,7 +48,29 @@ export default class Wallet extends CachePureComponent {
   }
 
   _renderContent ({ accounts, accountAddresses }) {
-    const { activeTab } = this.state
+    const { getTokenList } = this.props.selectors
+
+    const selectedAccount = this._getSelectedAccount()
+
+    const tokens = getTokenList()
+
+    const tokenSymbols = Object.keys(tokens)
+
+    const rows = tokenSymbols.map(token => {
+      const { name, decimals } = (tokens[token] || {})
+
+      return ({
+        symbol: {
+          value: token
+        },
+        meta: {
+          name,
+          balance: _.get(selectedAccount.tokens, token),
+          decimals
+        },
+        _filterKey: `${token} ${name || ''}`
+      })
+    })
 
     return (
       <React.Fragment>
@@ -68,73 +85,54 @@ export default class Wallet extends CachePureComponent {
             this._renderCard(accounts, address, index)
           ))}
         </ScrollView>
-        <WalletTabBar
-          style={styles.tabBar}
-          tabs={[
-            {
-              name: TAB_TOKENS,
-              label: t('wallet.tab.tokens')
-            },
-            {
-              name: TAB_TRANSACTIONS,
-              label: t('wallet.tab.transactions')
-            }
-          ]}
-          selectedTab={activeTab}
-          onSelectTab={this._onSelectTab}
-        />
-        {this._renderActiveTab()}
-      </React.Fragment>
-    )
-  }
-
-  _renderActiveTab () {
-    const { getTokenList } = this.props.selectors
-    const { activeTab } = this.state
-
-    const selectedAccount = this._getSelectedAccount()
-
-    const tokens = getTokenList()
-
-    switch (activeTab) {
-      case TAB_TOKENS: {
-        const rows = Object.keys(tokens).map(token => {
-          const { name, decimals } = (tokens[token] || {})
-
-          return ({
-            symbol: {
-              value: token
-            },
-            meta: {
-              name,
-              balance: _.get(selectedAccount.tokens, token),
-              decimals
-            },
-            _filterKey: `${token} ${name || ''}`
-          })
-        })
-
-        return (
+        <View style={styles.tokens}>
           <Table
             style={styles.tokenTable}
             listStyle={styles.tokenTableList}
             rowStyle={styles.tokenTableRow}
-            filterInputStyle={styles.tokenTableFilter}
+            filterInputStyle={styles.tokenTableFilterInput}
             filterPlaceholderText={t('wallet.tokens.filterPlaceholder')}
-            showFilter={true}
+            renderFilter={this._renderTokenFilter}
             renderHeader={RENDER_NULL}
+            renderBody={this._renderTokensTableBody}
             renderRowData={this._renderTokenRowData}
             columns={TOKEN_COLUMNS}
             rows={rows}
           />
-        )
-      }
-      case TAB_TRANSACTIONS: {
-        return null
-      }
-      default:
-        return null
+        </View>
+      </React.Fragment>
+    )
+  }
+
+  _renderTokenFilter = defaultRenderFunc => {
+    const renderedFilter = defaultRenderFunc()
+
+    return (
+      <View style={styles.tokenTableFilterRow}>
+        {renderedFilter}
+        <Button
+          style={styles.tokenTableFilterAddButton}
+          title={t('button.addToken')}
+          tooltip={t('button.addCustomToken')}
+        />
+      </View>
+    )
+  }
+
+  _renderTokensTableBody = defaultRenderFunc => {
+    const { getTokenList } = this.props.selectors
+
+    const tokens = getTokenList()
+
+    if (!Object.keys(tokens).length) {
+      return (
+        <Text style={styles.tokensNoneText}>
+          {t('wallet.tokens.noneConfigured')}
+        </Text>
+      )
     }
+
+    return defaultRenderFunc()
   }
 
   _renderTokenRowData = row => {
@@ -242,8 +240,6 @@ export default class Wallet extends CachePureComponent {
         })
     })
   }
-
-  _onSelectTab = activeTab => this.setState({ activeTab })
 
   _onSend = address => {
     const { sendTransaction } = this.props.actions

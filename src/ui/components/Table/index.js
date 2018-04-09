@@ -22,8 +22,9 @@ export default class Table extends PureComponent {
     headerRowStyle: PropTypes.any,
     filterPlaceholderText: PropTypes.string,
     renderHeader: PropTypes.func,
+    renderBody: PropTypes.func,
     renderRowData: PropTypes.func,
-    showFilter: PropTypes.bool,
+    renderFilter: PropTypes.func,
     onColumnHeaderPress: PropTypes.func,
     sortColumn: PropTypes.string,
     sortDesc: PropTypes.bool
@@ -31,7 +32,7 @@ export default class Table extends PureComponent {
 
   static defaultProps = {
     renderHeader: null,
-    showFilter: false,
+    renderFilter: null,
     sortColumn: null,
     sortDesc: false
   }
@@ -41,22 +42,28 @@ export default class Table extends PureComponent {
   }
 
   render () {
-    const { style, renderHeader, showFilter, headerRowStyle } = this.props
+    const { style, renderHeader, renderFilter, renderBody } = this.props
 
     return (
       <View style={[ styles.table, style ]}>
-        {showFilter ? this._renderFilterInput() : null}
-        {renderHeader ? renderHeader() : (
-          <View style={[ styles.headerRow, headerRowStyle ]}>
-            {this._renderHeaderColumns()}
-          </View>
-        )}
-        {this._renderBody()}
+        {renderFilter ? renderFilter(this._renderFilterInput) : this._renderFilterInput()}
+        {renderHeader ? renderHeader(this._renderHeader) : this._renderHeader()}
+        {renderBody ? renderBody(this._renderBody) : this._renderBody()}
       </View>
     )
   }
 
-  _renderFilterInput () {
+  _renderHeader = () => {
+    const { headerRowStyle } = this.props
+
+    return (
+      <View style={[ styles.headerRow, headerRowStyle ]}>
+        {this._renderHeaderColumns()}
+      </View>
+    )
+  }
+
+  _renderFilterInput = () => {
     const { filterInputStyle, filterPlaceholderText } = this.props
     const { filter } = this.state
 
@@ -113,7 +120,7 @@ export default class Table extends PureComponent {
     })
   }
 
-  _renderBody () {
+  _renderBody = () => {
     const { listStyle, sortColumn, sortDesc } = this.props
 
     let { filter } = this.state

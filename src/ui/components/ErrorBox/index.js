@@ -69,7 +69,7 @@ const ErrorBox = ({ animate, error, style }) => {
   const box = <AlertBox type="error" style={style}>{validErrors}</AlertBox>
 
   return (!animate) ? box : (
-    <ExpandingView duration={1000} finalMaxHeight={300}>{box}</ExpandingView>
+    <ExpandingView duration={1500} finalMaxHeight={300}>{box}</ExpandingView>
   )
 }
 

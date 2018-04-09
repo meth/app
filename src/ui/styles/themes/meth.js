@@ -107,6 +107,9 @@ export default {
       },
       balance: {
         textColor: colorGrayLight
+      },
+      tableMessage: {
+        textColor: colorGray
       }
     }
   },

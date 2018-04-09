@@ -57,19 +57,41 @@ export default create({
   },
   card: { ...card },
 
-  /* tab bar */
-
-  tabBar: {
-    marginTop: 50
-  },
-
   /* tokens */
 
-  tokenTable: {
+  tokens: {
     flex: 1,
     marginTop: 10,
-    paddingBottom: 20,
+    width: '100%',
+    alignItems: 'stretch',
+    paddingBottom: 10
+  },
+  tokenTable: {
+    flex: 1,
     width: '100%'
+  },
+  tokenTableFilterRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 5
+  },
+  tokenTableFilterInput: {
+    flex: 1,
+    fontSize: '0.7rem',
+    paddingVertical: 7
+  },
+  tokenTableFilterAddButton: {
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    marginLeft: 5
+  },
+  tokensNoneText: {
+    ...text,
+    ...fontMaker({ style: 'Italic' }),
+    color: '$wallet_tokens_tableMessage_textColor',
+    fontSize: '0.8rem',
+    marginTop: 5
   },
   tokenTableRow: {
     flexDirection: 'row',
@@ -77,11 +99,6 @@ export default create({
     alignItems: 'center',
     paddingVertical: 5,
     paddingHorizontal: 5
-  },
-  tokenTableFilter: {
-    fontSize: '0.7rem',
-    paddingVertical: 7,
-    marginBottom: 5
   },
   tokenRowLeft: {
     flexDirection: 'row',

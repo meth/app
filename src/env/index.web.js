@@ -18,11 +18,14 @@ if (typeof window !== 'undefined') {
 }
 
 const openExternalUrl = url => {
-  window.postMessage({
-    ipc: IPC.BACKEND_TASK,
-    task: BACKEND_TASKS.OPEN_EXTERNAL_URL,
-    params: { url }
-  }, '*')
+  window.postMessage(
+    {
+      ipc: IPC.BACKEND_TASK,
+      task: BACKEND_TASKS.OPEN_EXTERNAL_URL,
+      params: { url }
+    },
+    '*'
+  )
 }
 
 module.exports = {
