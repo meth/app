@@ -73,6 +73,7 @@ module.exports = {
     },
     button: {
       addEntry: 'Add entry',
+      editLabel: 'Edit label',
       sendCrypto: 'Send crypto',
       showQrCode: 'Show QR code',
       yes: 'Yes',
@@ -104,7 +105,7 @@ module.exports = {
     },
     title: {
       addressBook: 'Address book',
-      editAddress: 'Edit address',
+      editAddressLabel: 'Edit address label',
       wallet: 'Wallet'
     },
     addressBook: {
@@ -112,7 +113,7 @@ module.exports = {
       editor: {
         labelInputPlaceholder: 'Enter label...',
         labelFieldLabel: 'Label',
-        areYouSureYouWantToDelete: 'Are you sure you want to delete this entry?'
+        areYouSureYouWantToDelete: 'Are you sure you want to remove this label?'
       }
     },
     wallet: {

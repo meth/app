@@ -195,6 +195,7 @@ export default class Wallet extends CachePureComponent {
           }}
           onPressSend={this.bind(this._onSend, address)}
           onPressQrCode={this.bind(this._onQrCode, address)}
+          onPressEditLabel={this.bind(this._onEditLabel, address)}
         />
       </Button>
     )
@@ -250,6 +251,12 @@ export default class Wallet extends CachePureComponent {
     const { showAddressQrModal } = this.props.actions
 
     showAddressQrModal(address)
+  }
+
+  _onEditLabel = address => {
+    const { showEditAddressModal } = this.props.actions
+
+    showEditAddressModal(address)
   }
 
   _onSelectCard = activeCard => this.setState({ activeCard })

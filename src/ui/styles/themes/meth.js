@@ -61,7 +61,7 @@ export default {
           textColor: colorGrayLight
         },
         label: {
-          textColor: colorGrayDarker
+          textColor: colorGrayDark
         },
         amount: {
           textColor: colorWhite

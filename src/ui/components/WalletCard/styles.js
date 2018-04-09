@@ -33,6 +33,14 @@ export const createStyles = _.memoize(state => create({
     maxWidth: '90%',
     color: `$wallet_card_${state}_label_textColor`
   },
+  labelEditButton: {
+    paddingVertical: 2,
+    paddingHorizontal: 3,
+    borderWidth: 0
+  },
+  labelEditButtonText: {
+    fontSize: '0.5rem'
+  },
 
   /* balance */
 

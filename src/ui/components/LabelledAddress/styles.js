@@ -12,9 +12,15 @@ export default create({
     textAlign: 'left',
     color: '$addressBook_address_textColor'
   },
+  label: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   labelText: {
     ...fontMaker(),
     fontSize: '0.7rem',
-    color: '$addressBook_label_textColor'
+    color: '$addressBook_label_textColor',
+    marginRight: 5
   }
 })

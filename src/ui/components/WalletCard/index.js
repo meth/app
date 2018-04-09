@@ -19,7 +19,8 @@ export default class WalletCard extends PureComponent {
     }).isRequired,
     style: PropTypes.any,
     onPressSend: PropTypes.func,
-    onPressQrCode: PropTypes.func
+    onPressQrCode: PropTypes.func,
+    onPressEditLabel: PropTypes.func
   }
 
   static defaultProps = {
@@ -30,7 +31,8 @@ export default class WalletCard extends PureComponent {
     const {
       account: { address, balance, label },
       style,
-      isActive
+      isActive,
+      onPressEditLabel
     } = this.props
 
     const styles = createStyles(isActive ? 'active' : 'inactive')
@@ -44,6 +46,15 @@ export default class WalletCard extends PureComponent {
           style={styles.addressLabel}
           addressTextStyle={styles.addressText}
           labelTextStyle={styles.labelText}
+          editButtonProps={onPressEditLabel ? {
+            disabled: !isActive,
+            style: styles.labelEditButton,
+            icon: {
+              style: styles.labelEditButtonText
+            },
+            onPress: onPressEditLabel,
+            tooltip: t('button.editLabel')
+          } : null}
         />
         <EtherBalance
           canToggle={isActive}

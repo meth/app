@@ -52,7 +52,7 @@ export default class EditAddress extends PureComponent {
 
     const type = _.get(addressBook[address], 'type')
 
-    const network = _.get(getNodeConnection(), 'network.id')
+    const network = _.get(getNodeConnection(), 'network.description')
 
     const { label, submitting, canSubmit } = this.state
 
@@ -61,7 +61,7 @@ export default class EditAddress extends PureComponent {
         contentStyle={styles.content}
         onPressCloseButton={this.close}
       >
-        <TitleText style={styles.titleText} text={t('title.editAddress')} />
+        <TitleText style={styles.titleText} text={t('title.editAddressLabel')} />
         <Text style={styles.addressText}>{address}</Text>
         {this._renderMeta({ network, type })}
         <Form
