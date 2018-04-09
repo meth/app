@@ -105,6 +105,7 @@ export default class Wallet extends CachePureComponent {
               value: token
             },
             meta: {
+              name,
               balance: _.get(selectedAccount.tokens, token),
               decimals
             },
@@ -137,6 +138,7 @@ export default class Wallet extends CachePureComponent {
 
   _renderTokenRowData = row => {
     const symbol = _.get(row, 'symbol.value')
+    const name = _.get(row, 'meta.name')
     const balance = _.get(row, 'meta.balance')
     const decimals = _.get(row, 'meta.decimals')
 
@@ -144,8 +146,11 @@ export default class Wallet extends CachePureComponent {
 
     return (
       <React.Fragment>
-        <Text style={styles.tokenSymbolText}>{symbol}</Text>
-        <View style={styles.tokenData}>
+        <View style={styles.tokenRowLeft}>
+          <Text style={styles.tokenSymbolText}>{symbol}</Text>
+          <Text style={styles.tokenNameText}>{name}</Text>
+        </View>
+        <View style={styles.tokenRowRight}>
           {balance ? (
             <TokenBalance
               balance={balance}

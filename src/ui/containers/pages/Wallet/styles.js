@@ -83,12 +83,23 @@ export default create({
     paddingVertical: 7,
     marginBottom: 5
   },
+  tokenRowLeft: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
   tokenSymbolText: {
     ...text,
     fontSize: '0.8rem',
     color: '$wallet_tokens_symbol_textColor'
   },
-  tokenData: {
+  tokenNameText: {
+    ...text,
+    fontSize: '0.65rem',
+    color: '$wallet_tokens_name_textColor',
+    marginLeft: 5
+  },
+  tokenRowRight: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center'

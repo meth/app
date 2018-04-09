@@ -60,6 +60,5 @@ export const toDecimalPlaces = (
   return showCommas ? addCommas(finalValue) : finalValue
 }
 
-export const divideByPowerOfTen = (num, power) => (
+export const divideByPowerOfTen = (num, power) =>
   num.div(new BN('10', 10).pow(new BN(`${power}`, 10))).toString(10)
-)

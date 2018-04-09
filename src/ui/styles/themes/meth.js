@@ -102,6 +102,9 @@ export default {
       symbol: {
         textColor: colorGray
       },
+      name: {
+        textColor: colorGrayDarker
+      },
       balance: {
         textColor: colorGrayLight
       }
