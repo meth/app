@@ -1,3 +1,5 @@
+import BN from 'bn.js'
+
 export const isNumber = val => 'number' === typeof val && `${val}` !== 'NaN'
 
 export const addCommas = value => {
@@ -57,3 +59,7 @@ export const toDecimalPlaces = (
 
   return showCommas ? addCommas(finalValue) : finalValue
 }
+
+export const divideByPowerOfTen = (num, power) => (
+  num.div(new BN('10', 10).pow(new BN(`${power}`, 10))).toString(10)
+)

@@ -10,7 +10,7 @@ import Layout from '../Layout'
 import TitleText from '../../../components/TitleText'
 import ScrollView from '../../../components/ScrollView'
 import WalletCard from '../../../components/WalletCard'
-import EtherBalance from '../../../components/EtherBalance'
+import TokenBalance from '../../../components/TokenBalance'
 import WalletTabBar from '../../../components/WalletTabBar'
 import Loading from '../../../components/Loading'
 import Button from '../../../components/Button'
@@ -98,14 +98,15 @@ export default class Wallet extends CachePureComponent {
     switch (activeTab) {
       case TAB_TOKENS: {
         const rows = Object.keys(tokens).map(token => {
-          const { name } = (tokens[token] || {})
+          const { name, decimals } = (tokens[token] || {})
 
           return ({
             symbol: {
               value: token
             },
-            balance: {
-              value: _.get(selectedAccount.tokens, token)
+            meta: {
+              balance: _.get(selectedAccount.tokens, token),
+              decimals
             },
             _filterKey: `${token} ${name || ''}`
           })
@@ -136,7 +137,8 @@ export default class Wallet extends CachePureComponent {
 
   _renderTokenRowData = row => {
     const symbol = _.get(row, 'symbol.value')
-    const balance = _.get(row, 'balance.value')
+    const balance = _.get(row, 'meta.balance')
+    const decimals = _.get(row, 'meta.decimals')
 
     const { checkingBalance } = this.state
 
@@ -145,11 +147,10 @@ export default class Wallet extends CachePureComponent {
         <Text style={styles.tokenSymbolText}>{symbol}</Text>
         <View style={styles.tokenData}>
           {balance ? (
-            <EtherBalance
+            <TokenBalance
               balance={balance}
-              showUnits={false}
-              canToggle={false}
-              amountTextStyle={styles.tokenBalanceText}
+              decimals={decimals}
+              textStyle={styles.tokenBalanceText}
             />
           ) : null}
           <ProgressButton

@@ -17,10 +17,13 @@ export default class EtherBalance extends PureComponent {
     unitTextStyle: PropTypes.any
   }
 
-  state = {
-    showWei: false,
+  static defaultProps = {
     showUnits: true,
     canToggle: true
+  }
+
+  state = {
+    showWei: false
   }
 
   render () {
