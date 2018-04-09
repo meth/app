@@ -112,5 +112,10 @@ export default create({
   },
   tokenCheckButton: {
     borderWidth: 0
+  },
+  tokenErrorBox: {
+    paddingVertical: 1,
+    paddingHorizontal: 5,
+    marginRight: 5
   }
 })

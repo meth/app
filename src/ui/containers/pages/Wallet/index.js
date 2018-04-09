@@ -16,6 +16,7 @@ import Loading from '../../../components/Loading'
 import Button from '../../../components/Button'
 import ProgressButton from '../../../components/ProgressButton'
 import Icon from '../../../components/Icon'
+import ErrorBox from '../../../components/ErrorBox'
 import Table from '../../../components/Table'
 
 const TAB_TOKENS = 'tokens'
@@ -142,7 +143,9 @@ export default class Wallet extends CachePureComponent {
     const balance = _.get(row, 'meta.balance')
     const decimals = _.get(row, 'meta.decimals')
 
-    const { checkingBalance } = this.state
+    const { checkingBalance, tokenError } = this.state
+
+    const error = _.get(tokenError, symbol)
 
     return (
       <React.Fragment>
@@ -151,6 +154,7 @@ export default class Wallet extends CachePureComponent {
           <Text style={styles.tokenNameText}>{name}</Text>
         </View>
         <View style={styles.tokenRowRight}>
+          <ErrorBox error={error} style={styles.tokenErrorBox} />
           {balance ? (
             <TokenBalance
               balance={balance}

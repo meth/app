@@ -60,7 +60,13 @@ const renderError = error => {
 const ErrorBox = ({ animate, error, style }) => {
   const errors = [].concat(error).map(renderError)
 
-  const box = <AlertBox type="error" style={style}>{errors}</AlertBox>
+  const validErrors = errors.filter(e => !!e)
+
+  if (!validErrors.length) {
+    return null
+  }
+
+  const box = <AlertBox type="error" style={style}>{validErrors}</AlertBox>
 
   return (!animate) ? box : (
     <ExpandingView duration={1000} finalMaxHeight={300}>{box}</ExpandingView>
@@ -69,8 +75,8 @@ const ErrorBox = ({ animate, error, style }) => {
 
 ErrorBox.propTypes = {
   animate: PropTypes.bool,
-  error: PropTypes.oneOfType([ PropTypes.string, PropTypes.object, PropTypes.array ]).isRequired,
-  style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
+  error: PropTypes.any,
+  style: PropTypes.any
 }
 
 ErrorBox.defaultProps = {

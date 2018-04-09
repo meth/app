@@ -8,7 +8,7 @@ export const createMiddleware = app => [
   // first let's ensure the final `dispatch` function is async
   () => next => async action => {
     try {
-      return next(action)
+      return await next(action)
     } catch (err) {
       log.warn('Middleware error', err)
 
