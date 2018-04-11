@@ -138,7 +138,7 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
       const { symbol, details: { symbol: newSymbol, contractAddress } } = action.payload
 
       // ensure token doesn't already exist
-      const existsAlready = _.get(getTokenList(), symbol)
+      const existsAlready = _.get(getTokenList(), newSymbol)
 
       if (symbol !== newSymbol && existsAlready) {
         throw new Error(t('error.tokenAlreadyExists'))

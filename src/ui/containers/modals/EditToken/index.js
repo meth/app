@@ -56,7 +56,10 @@ export default class EditToken extends PureComponent {
         contentStyle={styles.content}
         onPressCloseButton={this.close}
       >
-        <TitleText style={styles.titleText} text={t('title.addToken')} />
+        <TitleText
+          style={styles.titleText}
+          text={t(`title.${updatingToken ? 'editToken' : 'addToken'}`)}
+        />
         {this._renderMeta({ network })}
         <Form
           style={styles.form}
@@ -102,7 +105,7 @@ export default class EditToken extends PureComponent {
           >
             <TextInput
               onChange={this._onLabelChange}
-              value={decimals}
+              value={`${decimals}`}
               style={styles.labelInput}
               placeholder={t('modal.editToken.decimalsInputPlaceholder')}
             />
@@ -140,10 +143,10 @@ export default class EditToken extends PureComponent {
         {this._renderError()}
         <AskUserConfirmModal
           ref={this._onConfirmDeleteModalRef}
-          question={t('modal.editAddress.areYouSureYouWantToDelete')}
+          question={t('modal.editToken.areYouSureYouWantToDelete')}
           yesButtonText={t('button.yes')}
           noButtonText={t('button.no')}
-          onPressYes={this.onDelete}
+          onPressYes={this._onConfirmDelete}
         />
       </Modal>
     )
@@ -194,23 +197,31 @@ export default class EditToken extends PureComponent {
   onSubmit = () => {
     const { data: { symbol: updatingSymbol } } = this.props
 
-    if (updatingSymbol) {
-      this.submitUpdateToken()
+    const { name, symbol, decimals, contractAddress } = this.state
+
+    const values = {
+      name,
+      symbol,
+      decimals: parseInt(decimals, 10),
+      contractAddress
     }
 
-    this.submitAddToken()
+    if (updatingSymbol) {
+      return this.submitUpdateToken(values)
+    }
+
+    return this.submitAddToken(values)
   }
 
-  submitUpdateToken () {
+  submitUpdateToken (values) {
     const { data: { symbol: updatingSymbol } } = this.props
     const { updateCustomToken } = this.props.actions
-    const { name, symbol, decimals, contractAddress } = this.state
 
     this.setState({
       submitting: true,
       error: null
     }, () => {
-      updateCustomToken(updatingSymbol, { name, symbol, decimals, contractAddress })
+      updateCustomToken(updatingSymbol, values)
         .then(() => this.close())
         .catch(error => {
           this.setState({
@@ -221,15 +232,15 @@ export default class EditToken extends PureComponent {
     })
   }
 
-  submitAddToken () {
+  submitAddToken (values) {
     const { addCustomToken } = this.props.actions
-    const { name, symbol, decimals, contractAddress } = this.state
+    const { symbol } = values
 
     this.setState({
       submitting: true,
       error: null
     }, () => {
-      addCustomToken(symbol, { name, symbol, decimals, contractAddress })
+      addCustomToken(symbol, values)
         .then(() => this.close())
         .catch(error => {
           this.setState({
@@ -278,7 +289,24 @@ export default class EditToken extends PureComponent {
     }
   }
 
-  onDelete = () => {
+  _onConfirmDelete = () => {
+    const { data: { symbol } } = this.props
+
+    const { removeCustomToken } = this.props.actions
+
+    this.setState({
+      submitting: true,
+      error: null
+    }, () => {
+      removeCustomToken(symbol)
+        .then(() => this.close())
+        .catch(error => {
+          this.setState({
+            submitting: false,
+            error
+          })
+        })
+    })
   }
 
   close = () => {

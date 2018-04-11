@@ -57,5 +57,7 @@ export const showAddressQrModal = modalActionCreator(SHOW, ADDRESS_QR, address =
 }))
 export const hideAddressQrModal = modalActionCreator(HIDE, ADDRESS_QR)
 
-export const showEditTokenModal = modalActionCreator(SHOW, EDIT_TOKEN)
+export const showEditTokenModal = modalActionCreator(SHOW, EDIT_TOKEN, symbol => ({
+  symbol
+}))
 export const hideEditTokenModal = modalActionCreator(HIDE, EDIT_TOKEN)

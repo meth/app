@@ -12,7 +12,7 @@ export const createMiddleware = app => [
     try {
       return await next(action)
     } catch (err) {
-      log.warn(err)
+      log.warn(action.type, err)
 
       throw err
     }

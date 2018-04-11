@@ -17,7 +17,10 @@ export const getTokenList = createSelector(
 
     return Object.keys(customTokens).reduce((ret, symbol) => ({
       ...ret,
-      [symbol]: customTokens[symbol]
+      [symbol]: {
+        ...customTokens[symbol],
+        isCustom: true
+      }
     }), defaultTokens)
   }
 )

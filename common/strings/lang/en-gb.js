@@ -77,6 +77,7 @@ module.exports = {
       addEntry: 'Add entry',
       addToken: 'Add token',
       addCustomToken: 'Add custom token',
+      editCustomToken: 'Edit custom token',
       editLabel: 'Edit label',
       viewInChainExplorer: 'View in chain explorer',
       onlyShowTokensWithBalance: 'Only show tokens with balances',
@@ -114,7 +115,8 @@ module.exports = {
       addressBook: 'Address book',
       editAddressLabel: 'Edit address label',
       wallet: 'Wallet',
-      addToken: 'Add token'
+      addToken: 'Add token',
+      editToken: 'Edit token'
     },
     addressBook: {
       filterPlaceholder: 'Filter...'
@@ -133,7 +135,8 @@ module.exports = {
         decimalsFieldLabel: 'Decimals',
         decimalsInputPlaceholder: 'e.g. 12',
         addressFieldLabel: 'Contract address',
-        addressInputPlaceholder: '0x...'
+        addressInputPlaceholder: '0x...',
+        areYouSureYouWantToDelete: 'Are you sure you want to remove this custom token?'
       }
     },
     wallet: {
