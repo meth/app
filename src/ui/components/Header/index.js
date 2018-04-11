@@ -93,7 +93,7 @@ export default class Header extends PureComponent {
 
     const syncing = !!_.get(network, 'node.syncing')
     const syncIcon = syncing ? (
-      <Loading />
+      <Loading style={styles.networkButtonLoadingSpinner} />
     ) : null
 
     return (

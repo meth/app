@@ -1,6 +1,12 @@
 import React from 'react'
 import { ActivityIndicator } from 'react-native'
 
-export default ({ color, style }) => (
-  <ActivityIndicator color={color} style={style} size="small" />
+import { value } from '../../styles'
+
+export default ({ color, size, ...props }) => (
+  <ActivityIndicator
+    color={color || value('$loading_spinnerColor')}
+    size={size || 'small'}
+    {...props}
+  />
 )

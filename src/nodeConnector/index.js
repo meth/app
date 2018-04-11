@@ -1,6 +1,7 @@
 import EventEmitter from 'eventemitter3'
 import truffleContract from 'truffle-contract'
 
+import { Erc20 } from '../abi'
 import { Web3MethodFactory } from './web3Methods'
 import EVENT from '../../common/constants/events'
 import STATE from '../../common/constants/states'
@@ -217,7 +218,16 @@ class NodeConnector extends EventEmitter {
   async getContractAt (address, { abi }) {
     const Contract = truffleContract({ abi })
     Contract.setProvider(this._web3Provider)
-    return Contract.at(address)
+    const instance = Contract.at(address)
+
+    // truffle-contract uses a half-assed promise implementation so we need to invoke manually!
+    return new Promise((resolve, reject) => {
+      instance.then(resolve).catch(reject)
+    })
+  }
+
+  async getTokenContractAt (address) {
+    return this.getContractAt(address, { abi: Erc20 })
   }
 
   _updateState (newState, data) {

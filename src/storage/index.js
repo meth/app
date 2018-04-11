@@ -47,6 +47,7 @@ class Storage {
       this._loadAddressBook()
       this._loadBookmarks()
       this._loadDappPermissions()
+      this._loadCustomTokens()
     } catch (err) {
       log.warn(err.toString())
     }
@@ -82,6 +83,16 @@ class Storage {
     }
   }
 
+  async _loadCustomTokens () {
+    log.info('Load custom tokens ...')
+
+    const data = await this._load(this._userKey('customTokens'))
+
+    if (data) {
+      this._store.actions.setupCustomTokens(data)
+    }
+  }
+
   async saveDappPermissions (data) {
     log.debug('Save dapp permissions ...', data)
 
@@ -92,6 +103,12 @@ class Storage {
     log.debug('Save address book ...', data)
 
     await this._save(this._userKey('addressBook'), data)
+  }
+
+  async saveCustomTokens (data) {
+    log.debug('Save custom tokens ...', data)
+
+    await this._save(this._userKey('customTokens'), data)
   }
 
   async _load (key) {

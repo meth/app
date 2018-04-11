@@ -9,7 +9,7 @@ export default () => {
     Object.keys(MODALS).reduce(
       (m, k) => ({
         ...m,
-        [MODALS[k]]: undefined
+        [MODALS[k]]: false
       }),
       {}
     )
@@ -17,7 +17,7 @@ export default () => {
 
   return handleActions(
     {
-      [SHOW]: (state, { payload: { type, data } }) => state.set(type, data || true),
+      [SHOW]: (state, { payload: { type, data = {} } }) => state.set(type, data),
       [HIDE]: (state, { payload: { type } }) => state.set(type, false)
     },
     InitialState

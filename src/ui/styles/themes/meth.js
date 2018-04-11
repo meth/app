@@ -28,6 +28,9 @@ export default {
     backgroundColor: colorBlack,
     textColor: colorGrayLight
   },
+  loading: {
+    spinnerColor: colorWhite
+  },
   content: {
     backgroundColor: colorBlack,
     textColor: colorWhite,

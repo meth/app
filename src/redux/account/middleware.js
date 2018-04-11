@@ -6,12 +6,10 @@ import {
   GENERATE_RAW_TX,
   LOAD_WALLET,
   GENERATE_MNEMONIC,
-  SAVE_DAPP_PERMISSIONS,
-  SAVE_ADDRESS_BOOK_ENTRY,
-  DELETE_ADDRESS_BOOK_ENTRY,
-  TOKEN_BALANCE
+  TOKEN_BALANCE,
+  ADD_CUSTOM_TOKEN,
+  UPDATE_CUSTOM_TOKEN
 } from './actions'
-import { Erc20 } from '../../abi'
 import { t } from '../../../common/strings'
 import { getStore } from '../'
 import { createAction } from '../utils'
@@ -21,12 +19,8 @@ import logger from '../../logger'
 const log = logger.create('walletMiddleware')
 
 // eslint-disable-next-line consistent-return
-export default ({
-  storage, nodeConnector, walletManager
-}) => () => next => async action => {
+export default ({ nodeConnector, walletManager }) => () => next => async action => {
   const { selectors: {
-    getDappPermissions,
-    getAddressBook,
     getTxDeferred,
     getNodeConnection,
     getTokenList
@@ -106,51 +100,12 @@ export default ({
 
       return Promise.resolve(receipt)
     }
-    case SAVE_DAPP_PERMISSIONS: {
-      const { dappId, permissions } = action.payload
-
-      log.debug(`Save dapp permissions (${dappId}) ...`)
-
-      const dappPermissions = getDappPermissions()
-
-      dappPermissions[dappId] = permissions
-
-      await storage.saveDappPermissions(dappPermissions)
-
-      return next(action)
-    }
-    case SAVE_ADDRESS_BOOK_ENTRY: {
-      const { address, data } = action.payload
-
-      log.debug(`Save addressbook entry (${address}) ...`)
-
-      const book = getAddressBook()
-
-      book[address] = data
-
-      await storage.saveAddressBook(book)
-
-      return next(action)
-    }
-    case DELETE_ADDRESS_BOOK_ENTRY: {
-      const { address } = action.payload
-
-      log.debug(`Delete addressbook entry (${address}) ...`)
-
-      const book = getAddressBook()
-
-      delete book[address]
-
-      await storage.saveAddressBook(book)
-
-      return next(action)
-    }
     case TOKEN_BALANCE: {
-      const { token, accountAddress } = action.payload
+      const { symbol, accountAddress } = action.payload
 
-      const { address: tokenContractAddress } = _.get(getTokenList(), token, {})
+      const { contractAddress } = getTokenList()[symbol]
 
-      const contract = await nodeConnector.getContractAt(tokenContractAddress, { abi: Erc20 })
+      const contract = await nodeConnector.getTokenContractAt(contractAddress)
 
       const balance = await contract.balanceOf(accountAddress)
 
@@ -158,6 +113,46 @@ export default ({
         ...action.payload,
         balance
       }))
+    }
+    case ADD_CUSTOM_TOKEN: {
+      const { symbol, details: { contractAddress } } = action.payload
+
+      // ensure token doesn't already exist
+      const existsAlready = _.get(getTokenList(), symbol)
+
+      if (existsAlready) {
+        throw new Error(t('error.tokenAlreadyExists'))
+      }
+
+      // ensure token contract is valid
+      try {
+        const contract = await nodeConnector.getTokenContractAt(contractAddress)
+        await contract.balanceOf('0x29d7d1dd5b6f9c864d9db560d72a247c178ae86b')
+      } catch (err) {
+        throw new Error(t('error.tokenContractNotFound'))
+      }
+
+      return next(action)
+    }
+    case UPDATE_CUSTOM_TOKEN: {
+      const { symbol, details: { symbol: newSymbol, contractAddress } } = action.payload
+
+      // ensure token doesn't already exist
+      const existsAlready = _.get(getTokenList(), symbol)
+
+      if (symbol !== newSymbol && existsAlready) {
+        throw new Error(t('error.tokenAlreadyExists'))
+      }
+
+      // ensure token contract is valid
+      try {
+        const contract = await nodeConnector.getTokenContractAt(contractAddress)
+        await contract.balanceOf('0x29d7d1dd5b6f9c864d9db560d72a247c178ae86b')
+      } catch (err) {
+        throw new Error(t('error.tokenContractNotFound'))
+      }
+
+      return next(action)
     }
     default: {
       return next(action)

@@ -13,6 +13,7 @@ import SendTransactionModal from './containers/modals/SendTransaction'
 import DappPermissionsModal from './containers/modals/DappPermissions'
 import EditAddressModal from './containers/modals/EditAddress'
 import AddressQrModal from './containers/modals/AddressQr'
+import EditTokenModal from './containers/modals/EditToken'
 
 const log = logger.create('Root')
 
@@ -24,7 +25,8 @@ const MODAL_COMPONENTS = {
   [MODALS.SEND_TRANSACTION]: SendTransactionModal,
   [MODALS.DAPP_PERMISSIONS]: DappPermissionsModal,
   [MODALS.EDIT_ADDRESS]: EditAddressModal,
-  [MODALS.ADDRESS_QR]: AddressQrModal
+  [MODALS.ADDRESS_QR]: AddressQrModal,
+  [MODALS.EDIT_TOKEN]: EditTokenModal
 }
 
 @connectStore('modals')
@@ -53,7 +55,7 @@ export default class Root extends PureComponent {
       components.push(<Component key={MODALS.CONNECT_NODE} />)
     } else {
       Object.keys(modals).forEach(key => {
-        if (modals[key]) {
+        if (false !== modals[key]) {
           const Component = MODAL_COMPONENTS[key]
           components.push(<Component key={key} data={modals[key]} />)
         }

@@ -81,7 +81,12 @@ export default create({
     fontSize: '0.7rem',
     paddingVertical: 7
   },
-  tokenTableFilterAddButton: {
+  tokenTableFilterButton: {
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    marginLeft: 5
+  },
+  tokenTableAddButton: {
     paddingVertical: 5,
     paddingHorizontal: 5,
     marginLeft: 5

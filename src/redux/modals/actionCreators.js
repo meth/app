@@ -8,72 +8,54 @@ import {
   LOG,
   DAPP_PERMISSIONS,
   EDIT_ADDRESS,
-  ADDRESS_QR
+  ADDRESS_QR,
+  EDIT_TOKEN
 } from '../../../common/constants/modals'
 
-export const showAlert = createActionCreator(SHOW, msg => ({
-  type: ALERT,
-  data: {
-    type: 'info',
-    msg
-  }
-}))
 
-export const showErrorAlert = createActionCreator(SHOW, msg => ({
-  type: ALERT,
-  data: {
-    type: 'error',
-    msg
-  }
-}))
-
-export const hideAlert = createActionCreator(HIDE, () => ({ type: ALERT }))
-
-export const showLog = createActionCreator(SHOW, () => ({
-  type: LOG
-}))
-export const hideLog = createActionCreator(HIDE, () => ({
-  type: LOG
-}))
-
-export const showConnectionModal = createActionCreator(SHOW, () => ({
-  type: CONNECT_NODE
-}))
-export const hideConnectionModal = createActionCreator(HIDE, () => ({
-  type: CONNECT_NODE
-}))
-
-export const showDappPermissionsModal = createActionCreator(SHOW, dappId => ({
-  type: DAPP_PERMISSIONS,
-  data: { dappId }
-}))
-export const hideDappPermissionsModal = createActionCreator(HIDE, () => ({
-  type: DAPP_PERMISSIONS
-}))
-
-export const showSendTransactionModal = createActionCreator(
-  SHOW,
-  () => ({ type: SEND_TRANSACTION })
-)
-export const hideSendTransactionModal = createActionCreator(
-  HIDE,
-  () => ({ type: SEND_TRANSACTION })
+const modalActionCreator = (action, type, payloadFn) => (
+  createActionCreator(action, (...args) => ({
+    type,
+    ...(payloadFn ? { data: payloadFn(...args) } : {})
+  }))
 )
 
-export const showEditAddressModal = createActionCreator(SHOW, address => ({
-  type: EDIT_ADDRESS,
-  data: { address }
-}))
-export const hideEditAddressModal = createActionCreator(
-  HIDE,
-  () => ({ type: EDIT_ADDRESS })
-)
 
-export const showAddressQrModal = createActionCreator(SHOW, address => ({
-  type: ADDRESS_QR,
-  data: { address }
+export const showAlert = modalActionCreator(SHOW, ALERT, msg => ({
+  type: 'info',
+  msg
 }))
-export const hideAddressQrModal = createActionCreator(
-  HIDE,
-  () => ({ type: ADDRESS_QR })
-)
+
+export const showErrorAlert = modalActionCreator(SHOW, ALERT, msg => ({
+  type: 'error',
+  msg
+}))
+
+export const hideAlert = modalActionCreator(HIDE, ALERT)
+
+export const showLog = modalActionCreator(SHOW, LOG)
+export const hideLog = modalActionCreator(HIDE, LOG)
+
+export const showConnectionModal = modalActionCreator(SHOW, CONNECT_NODE)
+export const hideConnectionModal = modalActionCreator(HIDE, CONNECT_NODE)
+
+export const showDappPermissionsModal = modalActionCreator(SHOW, DAPP_PERMISSIONS, dappId => ({
+  dappId
+}))
+export const hideDappPermissionsModal = modalActionCreator(HIDE, DAPP_PERMISSIONS)
+
+export const showSendTransactionModal = modalActionCreator(SHOW, SEND_TRANSACTION)
+export const hideSendTransactionModal = modalActionCreator(HIDE, SEND_TRANSACTION)
+
+export const showEditAddressModal = modalActionCreator(SHOW, EDIT_ADDRESS, address => ({
+  address
+}))
+export const hideEditAddressModal = modalActionCreator(HIDE, EDIT_ADDRESS)
+
+export const showAddressQrModal = modalActionCreator(SHOW, ADDRESS_QR, address => ({
+  address
+}))
+export const hideAddressQrModal = modalActionCreator(HIDE, ADDRESS_QR)
+
+export const showEditTokenModal = modalActionCreator(SHOW, EDIT_TOKEN)
+export const hideEditTokenModal = modalActionCreator(HIDE, EDIT_TOKEN)

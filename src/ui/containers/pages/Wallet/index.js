@@ -13,6 +13,7 @@ import WalletCard from '../../../components/WalletCard'
 import TokenBalance from '../../../components/TokenBalance'
 import Loading from '../../../components/Loading'
 import Button from '../../../components/Button'
+import IconButton from '../../../components/IconButton'
 import ProgressButton from '../../../components/ProgressButton'
 import Icon from '../../../components/Icon'
 import ErrorBox from '../../../components/ErrorBox'
@@ -25,7 +26,8 @@ const TOKEN_COLUMNS = [ { id: 'address' } ]
 export default class Wallet extends CachePureComponent {
   state = {
     activeCard: 0,
-    checkingBalance: {}
+    checkingBalance: {},
+    showAllTokens: true
   }
 
   render () {
@@ -48,6 +50,7 @@ export default class Wallet extends CachePureComponent {
   }
 
   _renderContent ({ accounts, accountAddresses }) {
+    const { showAllTokens } = this.state
     const { getTokenList } = this.props.selectors
 
     const selectedAccount = this._getSelectedAccount()
@@ -56,20 +59,19 @@ export default class Wallet extends CachePureComponent {
 
     const tokenSymbols = Object.keys(tokens)
 
-    const rows = tokenSymbols.map(token => {
-      const { name, decimals } = (tokens[token] || {})
+    const rows = []
 
-      return ({
-        symbol: {
-          value: token
-        },
-        meta: {
-          name,
-          balance: _.get(selectedAccount.tokens, token),
-          decimals
-        },
-        _filterKey: `${token} ${name || ''}`
-      })
+    tokenSymbols.forEach(token => {
+      const { name, decimals } = (tokens[token] || {})
+      const balance = _.get(selectedAccount.tokens, token)
+
+      if (showAllTokens || balance) {
+        rows.push({
+          symbol: { value: token },
+          meta: { name, balance, decimals },
+          _filterKey: `${token} ${name || ''}`
+        })
+      }
     })
 
     return (
@@ -105,15 +107,24 @@ export default class Wallet extends CachePureComponent {
   }
 
   _renderTokenFilter = defaultRenderFunc => {
+    const { showAllTokens } = this.state
+
     const renderedFilter = defaultRenderFunc()
 
     return (
       <View style={styles.tokenTableFilterRow}>
         {renderedFilter}
-        <Button
-          style={styles.tokenTableFilterAddButton}
-          title={t('button.addToken')}
+        <IconButton
+          icon={{ name: showAllTokens ? 'ios-funnel-outline' : 'ios-funnel' }}
+          style={styles.tokenTableFilterButton}
+          tooltip={t(`button.${showAllTokens ? 'onlyShowTokensWithBalance' : 'showAllTokens'}`)}
+          onPress={this._onPressToggleShowAllTokens}
+        />
+        <IconButton
+          icon={{ name: 'plus' }}
+          style={styles.tokenTableAddButton}
           tooltip={t('button.addCustomToken')}
+          onPress={this._onPressAddToken}
         />
       </View>
     )
@@ -201,6 +212,16 @@ export default class Wallet extends CachePureComponent {
         />
       </Button>
     )
+  }
+
+  _onPressToggleShowAllTokens = () => (
+    this.setState({ showAllTokens: !this.state.showAllTokens })
+  )
+
+  _onPressAddToken = () => {
+    const { showEditTokenModal } = this.props.actions
+
+    showEditTokenModal()
   }
 
   _onCheckTokenBalance = symbol => {

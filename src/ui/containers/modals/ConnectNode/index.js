@@ -84,7 +84,7 @@ export default class ConnectNode extends CachePureComponent {
                 style={styles.blockLinkButton}
                 icon={{ name: 'external-link', style: styles.blockLinkButtonText }}
                 onPress={this._onPressBlockLink}
-                tooltip={t('button.viewDetails')}
+                tooltip={t('button.viewInChainExplorer')}
               />
             ) : null}
           </View>

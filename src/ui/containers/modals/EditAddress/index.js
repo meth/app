@@ -37,7 +37,6 @@ export default class EditAddress extends PureComponent {
 
     this.state = {
       label: _.get(addressBook[address], 'label', ''),
-      canSubmit: this._canSubmitForm(addressBook[address]),
       submitting: false,
       error: null
     }
@@ -54,7 +53,7 @@ export default class EditAddress extends PureComponent {
 
     const network = _.get(getNodeConnection(), 'network.description')
 
-    const { label, submitting, canSubmit } = this.state
+    const { label, submitting } = this.state
 
     return (
       <Modal
@@ -73,7 +72,7 @@ export default class EditAddress extends PureComponent {
         >
           <Form.Field
             name='label'
-            label={t('addressBook.editor.labelFieldLabel')}
+            label={t('modal.editAddress.labelFieldLabel')}
             style={styles.field}
             labelStyle={formStyles.label}
             labelTextStyle={formStyles.labelText}
@@ -82,13 +81,13 @@ export default class EditAddress extends PureComponent {
               onChange={this._onLabelChange}
               value={label}
               style={styles.labelInput}
-              placeholder={t('addressBook.editor.labelInputPlaceholder')}
+              placeholder={t('modal.editAddress.labelInputPlaceholder')}
             />
           </Form.Field>
         </Form>
         <View style={styles.buttons}>
           <ProgressButton
-            disabled={!canSubmit}
+            disabled={!(this.form && this.form.canSubmit())}
             style={styles.button}
             showInProgress={submitting}
             onPress={this.submit}
@@ -103,7 +102,7 @@ export default class EditAddress extends PureComponent {
         {this._renderError()}
         <AskUserConfirmModal
           ref={this._onConfirmModalRef}
-          question={t('addressBook.editor.areYouSureYouWantToDelete')}
+          question={t('modal.editAddress.areYouSureYouWantToDelete')}
           yesButtonText={t('button.yes')}
           noButtonText={t('button.no')}
           onPressYes={this.onDelete}
@@ -172,7 +171,6 @@ export default class EditAddress extends PureComponent {
   onChange = values => {
     this.setState({
       label: values.label,
-      canSubmit: this._canSubmitForm(values),
       error: null
     })
   }
@@ -182,7 +180,7 @@ export default class EditAddress extends PureComponent {
     const { saveAddressBookEntry } = this.props.actions
 
     this.setState({
-      submitting: false,
+      submitting: true,
       error: null
     }, () => {
       saveAddressBookEntry(address, data)
@@ -204,10 +202,6 @@ export default class EditAddress extends PureComponent {
     }
 
     return ret
-  }
-
-  _canSubmitForm (values) {
-    return !(Object.keys(this.validate(values)).length)
   }
 
   submit = () => {

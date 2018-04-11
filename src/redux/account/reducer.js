@@ -7,13 +7,17 @@ import {
   TOKEN_BALANCE,
   ADDRESS_BOOK,
   BOOKMARKS,
+  LOAD_CUSTOM_TOKENS,
   DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
   SEND_TX,
   CANCEL_TX,
-  TX_COMPLETED
+  TX_COMPLETED,
+  ADD_CUSTOM_TOKEN,
+  UPDATE_CUSTOM_TOKEN,
+  REMOVE_CUSTOM_TOKEN
 } from './actions'
 
 export default () => {
@@ -34,6 +38,7 @@ export default () => {
     // },
     accountBalances: {},
     tokenBalances: Immutable.Map({}),
+    customTokens: Immutable.Map({}),
     addressBook: {},
     bookmarks: {},
     dappPermissions: {},
@@ -57,11 +62,11 @@ export default () => {
           .set('accountBalances', payload)
           .set('tokenBalances', tokenBalances)
       },
-      [TOKEN_BALANCE]: (state, { payload: { token, accountAddress, balance } }) => {
+      [TOKEN_BALANCE]: (state, { payload: { symbol, accountAddress, balance } }) => {
         let tokenBalances = state.get('tokenBalances')
 
         let accountEntry = tokenBalances.get(accountAddress)
-        accountEntry = accountEntry.set(token, balance)
+        accountEntry = accountEntry.set(symbol, balance)
         tokenBalances = tokenBalances.set(accountAddress, accountEntry)
 
         return state.set('tokenBalances', tokenBalances)
@@ -96,6 +101,28 @@ export default () => {
         return state.set('addressBook', {
           ...addressBook
         })
+      },
+      /* custom tokens */
+      [LOAD_CUSTOM_TOKENS]: (state, { payload }) => state.set('customTokens', Immutable.Map(payload)),
+      [ADD_CUSTOM_TOKEN]: (state, { payload: { symbol, details } }) => {
+        const customTokens = state.get('customTokens')
+
+        return state.set('customTokens', customTokens.set(symbol, {
+          ...details,
+          symbol
+        }))
+      },
+      [UPDATE_CUSTOM_TOKEN]: (state, { payload: { symbol, details } }) => {
+        let customTokens = state.get('customTokens')
+
+        customTokens = customTokens.delete(symbol).set(details.symbol, details)
+
+        return state.set('customTokens', customTokens)
+      },
+      [REMOVE_CUSTOM_TOKEN]: (state, { payload: { symbol } }) => {
+        const customTokens = state.get('customTokens')
+
+        return state.set('customTokens', customTokens.delete(symbol))
       },
       [SEND_TX]: (state, { payload: { tx, deferred } }) => (
         state

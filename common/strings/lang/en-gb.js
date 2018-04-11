@@ -49,7 +49,9 @@ module.exports = {
       methodCall: 'Error calling method: {method}',
       unexpected: 'Unexpected error!',
       transactionAlreadyInProgress: 'A transaction is already in progress',
-      connectionError: 'There was a connection error'
+      connectionError: 'There was a connection error',
+      tokenAlreadyExists: 'Token already exists',
+      tokenContractNotFound: 'Valid token contract not found'
     },
     home: {
       intro1: 'Welcome to Meth!',
@@ -76,7 +78,9 @@ module.exports = {
       addToken: 'Add token',
       addCustomToken: 'Add custom token',
       editLabel: 'Edit label',
-      viewDetails: 'View details',
+      viewInChainExplorer: 'View in chain explorer',
+      onlyShowTokensWithBalance: 'Only show tokens with balances',
+      showAllTokens: 'Show all tokens',
       sendCrypto: 'Send crypto',
       showQrCode: 'Show QR code',
       yes: 'Yes',
@@ -109,14 +113,27 @@ module.exports = {
     title: {
       addressBook: 'Address book',
       editAddressLabel: 'Edit address label',
-      wallet: 'Wallet'
+      wallet: 'Wallet',
+      addToken: 'Add token'
     },
     addressBook: {
-      filterPlaceholder: 'Filter...',
-      editor: {
+      filterPlaceholder: 'Filter...'
+    },
+    modal: {
+      editAddress: {
         labelInputPlaceholder: 'Enter label...',
         labelFieldLabel: 'Label',
         areYouSureYouWantToDelete: 'Are you sure you want to remove this label?'
+      },
+      editToken: {
+        nameFieldLabel: 'Name',
+        nameInputPlaceholder: 'e.g. My token',
+        symbolFieldLabel: 'Symbol',
+        symbolInputPlaceholder: 'e.g. SNT',
+        decimalsFieldLabel: 'Decimals',
+        decimalsInputPlaceholder: 'e.g. 12',
+        addressFieldLabel: 'Contract address',
+        addressInputPlaceholder: '0x...'
       }
     },
     wallet: {

@@ -33,13 +33,16 @@ export default create({
   },
   networkButton: {
     ...button,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   networkButtonText: {
     ...fontMaker(),
     fontSize: '0.7rem'
   },
-  networkButtonLoading: {
+  networkButtonLoadingSpinner: {
     marginLeft: 5
   }
 })
