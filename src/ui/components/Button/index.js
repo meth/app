@@ -49,7 +49,9 @@ export default class Button extends PureComponent {
     const content = React.Children.count(children) ? (
       React.Children.map(children, child => {
         // if child is a Text or Icon then apply text styles to it
-        if (React.isValidElement(child) && (isType(child, Text) || isType(child, Icon))) {
+        if (React.isValidElement(child)
+              && (isType(child, Text) || isType(child, Icon)))
+        {
           return React.cloneElement(child, {
             style: [].concat(styles.text, textStyle, child.props.style)
           })

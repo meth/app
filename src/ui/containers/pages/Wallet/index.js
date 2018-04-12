@@ -141,7 +141,7 @@ export default class Wallet extends CachePureComponent {
     const accounts = getAccounts()
 
     const address = Object.keys(accounts)[activeCard]
-    const { balance, tokens, label } = accounts[address]
+    const { balance, tokens, label } = (accounts[address] || {})
 
     return {
       address,

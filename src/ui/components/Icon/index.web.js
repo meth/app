@@ -10,7 +10,7 @@ import { addWebFont } from '../../styles'
 addWebFont(faFontUrl, 'FontAwesome')
 addWebFont(ionFontUrl, 'Ionicons')
 
-export default props => {
+const Icon = props => {
   const { name } = props
 
   if (IonIcon.hasIcon(name)) {
@@ -19,3 +19,6 @@ export default props => {
 
   return <FAIcon {...props} />
 }
+
+// we name the component so that the static "name" property is set on the class
+export default Icon
