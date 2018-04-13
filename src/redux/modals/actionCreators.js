@@ -9,7 +9,8 @@ import {
   DAPP_PERMISSIONS,
   EDIT_ADDRESS,
   ADDRESS_QR,
-  EDIT_TOKEN
+  EDIT_TOKEN,
+  ADD_ACCOUNT
 } from '../../../common/constants/modals'
 
 
@@ -61,3 +62,6 @@ export const showEditTokenModal = modalActionCreator(SHOW, EDIT_TOKEN, symbol =>
   symbol
 }))
 export const hideEditTokenModal = modalActionCreator(HIDE, EDIT_TOKEN)
+
+export const showAddAccountModal = modalActionCreator(SHOW, ADD_ACCOUNT)
+export const hideAddAccountModal = modalActionCreator(HIDE, ADD_ACCOUNT)

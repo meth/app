@@ -1,2 +1,1 @@
 export const WEB3_REQUEST = 'WEB3_REQUEST'
-export const GENERATE_ADDRESS = 'GENERATE_ADDRESS'

@@ -1,8 +1,8 @@
 import {
-  setupAccountBalances,
-  setupAddressBook,
-  setupBookmarks,
-  setupDappPermissions,
+  injectAccountBalances,
+  injectAddressBook,
+  injectBookmarks,
+  injectDappPermissions,
   generateMnemonic,
   generateRawTransaction,
   sendRawTransaction,
@@ -39,36 +39,36 @@ describe('generateMnemonic()', () => {
   })
 })
 
-describe('setupAccountBalances()', () => {
+describe('injectAccountBalances()', () => {
   it('returns action', () => {
-    expect(setupAccountBalances(123)).toEqual({
+    expect(injectAccountBalances(123)).toEqual({
       type: ACCOUNT_BALANCES,
       payload: 123
     })
   })
 })
 
-describe('setupAddressBook()', () => {
+describe('injectAddressBook()', () => {
   it('returns action', () => {
-    expect(setupAddressBook(123)).toEqual({
+    expect(injectAddressBook(123)).toEqual({
       type: ADDRESS_BOOK,
       payload: 123
     })
   })
 })
 
-describe('setupBookmarks()', () => {
+describe('injectBookmarks()', () => {
   it('returns action', () => {
-    expect(setupBookmarks(123)).toEqual({
+    expect(injectBookmarks(123)).toEqual({
       type: BOOKMARKS,
       payload: 123
     })
   })
 })
 
-describe('setupDappPermissions()', () => {
+describe('injectDappPermissions()', () => {
   it('returns action', () => {
-    expect(setupDappPermissions(123)).toEqual({
+    expect(injectDappPermissions(123)).toEqual({
       type: DAPP_PERMISSIONS,
       payload: 123
     })

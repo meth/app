@@ -1,11 +1,11 @@
 import { createActionCreator } from '../utils'
 
 import {
-  ACCOUNT_BALANCES,
-  ADDRESS_BOOK,
-  BOOKMARKS,
-  LOAD_CUSTOM_TOKENS,
-  DAPP_PERMISSIONS,
+  INJECT_ACCOUNT_BALANCES,
+  INJECT_ADDRESS_BOOK,
+  INJECT_BOOKMARKS,
+  INJECT_CUSTOM_TOKENS,
+  INJECT_DAPP_PERMISSIONS,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
@@ -15,22 +15,23 @@ import {
   GENERATE_MNEMONIC,
   SEND_TX,
   CANCEL_TX,
-  TOKEN_BALANCE,
+  LOAD_TOKEN_BALANCE,
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
-  REMOVE_CUSTOM_TOKEN
+  REMOVE_CUSTOM_TOKEN,
+  GENERATE_ACCOUNT
 } from './actions'
 
 /* wallet loading */
 export const generateMnemonic = createActionCreator(GENERATE_MNEMONIC)
 export const loadWallet = createActionCreator(LOAD_WALLET)
 
-/* setup reducer data */
-export const setupAccountBalances = createActionCreator(ACCOUNT_BALANCES)
-export const setupAddressBook = createActionCreator(ADDRESS_BOOK)
-export const setupBookmarks = createActionCreator(BOOKMARKS)
-export const setupDappPermissions = createActionCreator(DAPP_PERMISSIONS)
-export const setupCustomTokens = createActionCreator(LOAD_CUSTOM_TOKENS)
+/* inject data (usually from storage) */
+export const injectAccountBalances = createActionCreator(INJECT_ACCOUNT_BALANCES)
+export const injectAddressBook = createActionCreator(INJECT_ADDRESS_BOOK)
+export const injectBookmarks = createActionCreator(INJECT_BOOKMARKS)
+export const injectDappPermissions = createActionCreator(INJECT_DAPP_PERMISSIONS)
+export const injectCustomTokens = createActionCreator(INJECT_CUSTOM_TOKENS)
 
 /* save changes for dapps, etc */
 export const saveDappPermissions =
@@ -52,10 +53,13 @@ export const sendRawTransaction = createActionCreator(SEND_RAW_TX)
 
 /* tokens */
 export const loadTokenBalance =
-  createActionCreator(TOKEN_BALANCE, (symbol, accountAddress) => ({ symbol, accountAddress }))
+  createActionCreator(LOAD_TOKEN_BALANCE, (symbol, accountAddress) => ({ symbol, accountAddress }))
 export const addCustomToken =
   createActionCreator(ADD_CUSTOM_TOKEN, (symbol, details) => ({ symbol, details }))
 export const updateCustomToken =
   createActionCreator(UPDATE_CUSTOM_TOKEN, (symbol, details) => ({ symbol, details }))
 export const removeCustomToken =
   createActionCreator(REMOVE_CUSTOM_TOKEN, symbol => ({ symbol }))
+
+/* accounts */
+export const generateAccount = createActionCreator(GENERATE_ACCOUNT)

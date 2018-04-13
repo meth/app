@@ -53,7 +53,7 @@ export default class EditAddress extends PureComponent {
 
     const network = _.get(getNodeConnection(), 'network.description')
 
-    const { label, submitting } = this.state
+    const { error, label, submitting } = this.state
 
     return (
       <Modal
@@ -99,7 +99,7 @@ export default class EditAddress extends PureComponent {
             title={t('button.delete')}
           />
         </View>
-        {this._renderError()}
+        <ErrorBox style={styles.errorBox} error={error} />
         <AskUserConfirmModal
           ref={this._onConfirmModalRef}
           question={t('modal.editAddress.areYouSureYouWantToDelete')}
@@ -157,14 +157,6 @@ export default class EditAddress extends PureComponent {
           />
         ) : null}
       </View>
-    )
-  }
-
-  _renderError () {
-    const { error } = this.state
-
-    return (!error) ? null : (
-      <ErrorBox style={styles.errorBox} error={error} />
     )
   }
 

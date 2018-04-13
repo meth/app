@@ -37,6 +37,9 @@ walletManager.init({ store, nodeConnector })
 // load config
 store.actions.loadConfig()
 
+// load app data
+storage.loadAppData()
+
 // schedule the loading of alerts
 scheduler.addJob('check_alerts', 300, () => store.actions.loadAlerts())
 

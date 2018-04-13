@@ -6,6 +6,15 @@ import { getCustomTokens } from '../account/selectors'
 
 export const getNodes = state => state.config.get('nodes')
 
+export const getNodesAsFlatList = createSelector(
+  getNodes,
+  nodes => (
+    Object.keys(nodes).reduce((list, category) => (
+      list.concat(nodes[category].connections)
+    ), [])
+  )
+)
+
 const _getTokens = state => state.config.get('tokens')
 
 export const getTokenList = createSelector(

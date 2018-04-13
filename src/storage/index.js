@@ -38,58 +38,86 @@ class Storage {
     this.loadUserData()
   }
 
+  /**
+   * Load app data (call this when app starts)
+   */
+  loadAppData () {
+    this._loadlastConnectedNodeId()
+  }
+
+  /**
+   * Load user data (call this once password and network has been set)
+   */
   loadUserData () {
+    this._loadAddressBook()
+    this._loadBookmarks()
+    this._loadDappPermissions()
+    this._loadCustomTokens()
+  }
+
+  async _loadAddressBook () {
     if (!this._canConstructUserKey()) {
       return
     }
 
-    try {
-      this._loadAddressBook()
-      this._loadBookmarks()
-      this._loadDappPermissions()
-      this._loadCustomTokens()
-    } catch (err) {
-      log.warn(err.toString())
-    }
-  }
-
-  async _loadAddressBook () {
     log.info('Load address book ...')
 
     const data = await this._load(this._userKey('addressBook'))
 
     if (data) {
-      this._store.actions.setupAddressBook(data)
+      this._store.actions.injectAddressBook(data)
     }
   }
 
   async _loadBookmarks () {
+    if (!this._canConstructUserKey()) {
+      return
+    }
+
     log.info('Load bookmarks ...')
 
     const data = await this._load(this._userKey('bookmarks'))
 
     if (data) {
-      this._store.actions.setupBookmarks(data)
+      this._store.actions.injectBookmarks(data)
     }
   }
 
   async _loadDappPermissions () {
+    if (!this._canConstructUserKey()) {
+      return
+    }
+
     log.info('Load dapp permissions ...')
 
     const data = await this._load(this._userKey('dappPermissions'))
 
     if (data) {
-      this._store.actions.setupDappPermissions(data)
+      this._store.actions.injectDappPermissions(data)
     }
   }
 
   async _loadCustomTokens () {
+    if (!this._canConstructUserKey()) {
+      return
+    }
+
     log.info('Load custom tokens ...')
 
     const data = await this._load(this._userKey('customTokens'))
 
     if (data) {
-      this._store.actions.setupCustomTokens(data)
+      this._store.actions.injectCustomTokens(data)
+    }
+  }
+
+  async _loadlastConnectedNodeId () {
+    log.info('Load last connected node id ...')
+
+    const data = await this._load('lastConnectedNodeId')
+
+    if (data) {
+      this._store.actions.injectLastConnectedNodeId(data)
     }
   }
 
@@ -109,6 +137,12 @@ class Storage {
     log.debug('Save custom tokens ...', data)
 
     await this._save(this._userKey('customTokens'), data)
+  }
+
+  async saveLastConnectedNodeId (id) {
+    log.debug('Save last connected node id ...', id)
+
+    await this._save('lastConnectedNodeId', id)
   }
 
   async _load (key) {

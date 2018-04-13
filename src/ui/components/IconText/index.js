@@ -5,7 +5,7 @@ import { View, Text } from 'react-native'
 import styles from './styles'
 import Icon from '../Icon'
 
-export default class IconButton extends PureComponent {
+export default class IconText extends PureComponent {
   static propTypes = {
     icon: PropTypes.shape(Icon.propTypes),
     style: PropTypes.any,

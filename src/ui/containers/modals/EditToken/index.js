@@ -49,7 +49,7 @@ export default class EditToken extends PureComponent {
 
     const network = _.get(getNodeConnection(), 'network.description')
 
-    const { submitting, name, symbol, decimals, contractAddress } = this.state
+    const { error, submitting, name, symbol, decimals, contractAddress } = this.state
 
     return (
       <Modal
@@ -140,7 +140,7 @@ export default class EditToken extends PureComponent {
             />
           ) : null}
         </View>
-        {this._renderError()}
+        <ErrorBox style={styles.errorBox} error={error} />
         <AskUserConfirmModal
           ref={this._onConfirmDeleteModalRef}
           question={t('modal.editToken.areYouSureYouWantToDelete')}
@@ -176,14 +176,6 @@ export default class EditToken extends PureComponent {
           />
         ) : null}
       </View>
-    )
-  }
-
-  _renderError () {
-    const { error } = this.state
-
-    return (!error) ? null : (
-      <ErrorBox style={styles.errorBox} error={error} />
     )
   }
 

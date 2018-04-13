@@ -6,9 +6,10 @@ import {
   GENERATE_RAW_TX,
   LOAD_WALLET,
   GENERATE_MNEMONIC,
-  TOKEN_BALANCE,
+  LOAD_TOKEN_BALANCE,
   ADD_CUSTOM_TOKEN,
-  UPDATE_CUSTOM_TOKEN
+  UPDATE_CUSTOM_TOKEN,
+  GENERATE_ACCOUNT
 } from './actions'
 import { t } from '../../../common/strings'
 import { getStore } from '../'
@@ -29,6 +30,9 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
   switch (action.type) {
     case GENERATE_MNEMONIC: {
       return walletManager.generateMnemonic()
+    }
+    case GENERATE_ACCOUNT: {
+      return walletManager.wallet().generateAddress()
     }
     case LOAD_WALLET: {
       log.debug('Load wallet ...')
@@ -100,7 +104,7 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
 
       return Promise.resolve(receipt)
     }
-    case TOKEN_BALANCE: {
+    case LOAD_TOKEN_BALANCE: {
       const { symbol, accountAddress } = action.payload
 
       const { contractAddress } = getTokenList()[symbol]
@@ -109,7 +113,7 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
 
       const balance = await contract.balanceOf(accountAddress)
 
-      return next(createAction(TOKEN_BALANCE, {
+      return next(createAction(LOAD_TOKEN_BALANCE, {
         ...action.payload,
         balance
       }))

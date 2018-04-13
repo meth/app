@@ -12,11 +12,25 @@ export default () => {
 
   return handleActions(
     {
-      [LOAD_CONFIG]: (state, { payload: { nodes, networks, tokens } }) =>
-        state
-          .set('nodes', nodes)
+      [LOAD_CONFIG]: (state, { payload: { nodes, networks, tokens } }) => {
+        const finalNodes = {}
+
+        // for each node let's decorate with more info for convenience sake
+        Object.keys(nodes).forEach(category => {
+          finalNodes[category] = {
+            connections: nodes[category].connections.map(c => ({
+              ...c,
+              id: JSON.stringify({ category, ...c }),
+              category
+            }))
+          }
+        })
+
+        return state
+          .set('nodes', finalNodes)
           .set('networks', networks)
           .set('tokens', tokens)
+      }
     },
     InitialState
   )

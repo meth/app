@@ -7,7 +7,8 @@ import {
   NODE_CONNECTING,
   NODE_CONNECT_ERROR,
   NEW_BLOCK,
-  SYNCING
+  SYNCING,
+  INJECT_LAST_CONNECTED_NODE_ID
 } from './actions'
 
 export default () => {
@@ -16,11 +17,16 @@ export default () => {
     disconnectionReason: null,
     connection: {},
     latestBlock: null,
-    syncing: false
+    syncing: false,
+    lastConnectedNodeId: null
   })
 
   return handleActions(
     {
+      [INJECT_LAST_CONNECTED_NODE_ID]: (state, { payload: id }) => (
+        state
+          .set('lastConnectedNodeId', id)
+      ),
       [NODE_DISCONNECTED]: (state, { payload: { reason } }) => (
         state
           .set('isConnected', false)
@@ -38,9 +44,10 @@ export default () => {
           .set('connection', {})
           .set('isConnected', false)
       ),
-      [NODE_CONNECTED]: (state, { payload: connection }) => (
+      [NODE_CONNECTED]: (state, { payload: { node, network } }) => (
         state
-          .set('connection', connection)
+          .set('connection', { node, network })
+          .set('lastConnectedNodeId', node.id)
           .set('isConnected', true)
       ),
       [NEW_BLOCK]: (state, { payload: block }) => (

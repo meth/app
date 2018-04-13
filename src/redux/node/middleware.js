@@ -12,6 +12,9 @@ export default ({ nodeConnector }) => () => next => async action => {
       nodeConnecting,
       nodeConnectError,
       nodeConnected
+    },
+    selectors: {
+      getNodesAsFlatList
     }
   } = getStore()
 
@@ -29,7 +32,11 @@ export default ({ nodeConnector }) => () => next => async action => {
       await nodeConnecting()
 
       try {
-        const node = action.payload
+        const node = getNodesAsFlatList().find(({ id }) => id === action.payload)
+
+        if (!node) {
+          throw new Error('Node not found')
+        }
 
         const network = await nodeConnector.connect(node)
 

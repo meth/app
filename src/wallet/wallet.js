@@ -188,7 +188,7 @@ class Wallet extends EventEmitter {
   async _setBalancesAndNotifyStore (balances) {
     this._balances = balances.map(toBN)
 
-    await this._store.actions.setupAccountBalances(this.getAddressBalances())
+    await this._store.actions.injectAccountBalances(this.getAddressBalances())
   }
 
   /**
@@ -257,7 +257,7 @@ class Wallet extends EventEmitter {
 
       let totalAddresses = wallet.getAddressCount() - 20
       if (0 >= totalAddresses) {
-        totalAddresses = 3
+        totalAddresses = 1
       }
 
       log.info(`Discovered addresses: ${totalAddresses}`)

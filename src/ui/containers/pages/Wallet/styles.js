@@ -23,9 +23,10 @@ export default create({
     alignSelf: 'center'
   },
 
-  /* account cards */
+  /* cards scroller */
 
   cardsScrollView: {
+    position: 'relative',
     flex: 0,
     width: '100%',
     marginTop: 10
@@ -42,14 +43,24 @@ export default create({
   walletCardButton_active: {
     borderWidth: 1,
     borderRadius: 0,
-    borderBottomWidth: 0
+    borderBottomColor: '$wallet_card_active_borderBottomColor'
   },
   walletCardButton_inactive: {
     borderWidth: 1,
     borderRadius: 0,
-    borderBottomColor: '$button_walletCard_enabled_hover_borderColor'
+    borderBottomColor: '$wallet_card_inactive_borderBottomColor'
   },
   card: { ...card },
+  addAccountButton: {
+    ...card,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%'
+  },
+  addAccountButtonIcon: {
+    fontSize: '2rem'
+  },
 
   /* tokens */
 

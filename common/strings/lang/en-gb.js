@@ -75,6 +75,8 @@ module.exports = {
     },
     button: {
       addEntry: 'Add entry',
+      addAccount: 'Add account',
+      generateAccount: 'Generate account',
       addToken: 'Add token',
       addCustomToken: 'Add custom token',
       editCustomToken: 'Edit custom token',
@@ -122,6 +124,9 @@ module.exports = {
       filterPlaceholder: 'Filter...'
     },
     modal: {
+      addAccount: {
+        cta: 'To generate an additional account from your password/mnemonic press the button below.'
+      },
       editAddress: {
         labelInputPlaceholder: 'Enter label...',
         labelFieldLabel: 'Label',

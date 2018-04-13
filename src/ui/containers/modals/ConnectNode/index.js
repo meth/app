@@ -176,30 +176,28 @@ export default class ConnectNode extends CachePureComponent {
   )
 
   getOptions () {
-    const { getNodes } = this.props.selectors
+    const { getNodesAsFlatList, getLastConnectedNodeId } = this.props.selectors
 
-    const nodes = getNodes()
+    const nodes = getNodesAsFlatList()
     let { selected } = this.state
 
-    const options = []
+    if (!selected) {
+      selected = getLastConnectedNodeId()
+    }
 
-    _.each(nodes, ({ connections }, category) => {
-      _.each(connections, ({ name, type }, idx) => {
-        const val = `${category}.connections.${idx}`
+    const options = nodes.map(({ id, name, type, category }) => {
+      // select first by default
+      if (!selected) {
+        selected = id
+      }
 
-        // select first by default
-        if (!selected) {
-          selected = val
-        }
-
-        options.push({
-          value: val,
-          label: name || category,
-          type,
-          category,
-          selected: selected === val
-        })
-      })
+      return {
+        value: id,
+        label: name || category,
+        type,
+        category,
+        selected: selected === id
+      }
     })
 
     return options
@@ -213,21 +211,13 @@ export default class ConnectNode extends CachePureComponent {
   }
 
   onConnect = selected => {
-    const {
-      getNodes
-    } = this.props.selectors
-
-    const nodes = getNodes(this.props)
-
-    const node = _.get(nodes, selected)
-
     const { connectNode, hideConnectionModal } = this.props.actions
 
     this.setState({
       connecting: true,
       error: null
     }, () => {
-      connectNode(node)
+      connectNode(selected)
         .then(() => hideConnectionModal())
         .catch(err => {
           this.setState({

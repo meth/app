@@ -8,8 +8,11 @@ import {
   CONNECT_NODE,
   NODE_DISCONNECTED,
   NEW_BLOCK,
-  SYNCING
+  SYNCING,
+  INJECT_LAST_CONNECTED_NODE_ID
 } from './actions'
+
+export const injectLastConnectedNodeId = createActionCreator(INJECT_LAST_CONNECTED_NODE_ID)
 
 export const disconnectNode = createActionCreator(DISCONNECT_NODE)
 

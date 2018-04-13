@@ -71,7 +71,8 @@ export default {
         },
         unit: {
           textColor: colorGray
-        }
+        },
+        borderBottomColor: colorBlack
       },
       inactive: {
         address: {
@@ -85,7 +86,8 @@ export default {
         },
         unit: {
           textColor: colorGrayDarker
-        }
+        },
+        borderBottomColor: colorPurple
       }
     },
     tabBar: {

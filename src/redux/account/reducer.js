@@ -3,12 +3,12 @@ import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
 import {
-  ACCOUNT_BALANCES,
-  TOKEN_BALANCE,
-  ADDRESS_BOOK,
-  BOOKMARKS,
-  LOAD_CUSTOM_TOKENS,
-  DAPP_PERMISSIONS,
+  INJECT_ACCOUNT_BALANCES,
+  INJECT_ADDRESS_BOOK,
+  INJECT_BOOKMARKS,
+  INJECT_CUSTOM_TOKENS,
+  INJECT_DAPP_PERMISSIONS,
+  LOAD_TOKEN_BALANCE,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
@@ -48,7 +48,7 @@ export default () => {
 
   return handleActions(
     {
-      [ACCOUNT_BALANCES]: (state, { payload }) => {
+      [INJECT_ACCOUNT_BALANCES]: (state, { payload }) => {
         // ensure there is a token balance entry for each address
         let tokenBalances = state.get('tokenBalances')
 
@@ -62,7 +62,7 @@ export default () => {
           .set('accountBalances', payload)
           .set('tokenBalances', tokenBalances)
       },
-      [TOKEN_BALANCE]: (state, { payload: { symbol, accountAddress, balance } }) => {
+      [LOAD_TOKEN_BALANCE]: (state, { payload: { symbol, accountAddress, balance } }) => {
         let tokenBalances = state.get('tokenBalances')
 
         let accountEntry = tokenBalances.get(accountAddress)
@@ -72,22 +72,18 @@ export default () => {
         return state.set('tokenBalances', tokenBalances)
       },
       /* bookmarks */
-      [BOOKMARKS]: (state, { payload }) => state.set('bookmarks', payload),
+      [INJECT_BOOKMARKS]: (state, { payload }) => state.set('bookmarks', payload),
       /* dapp permissions */
-      [DAPP_PERMISSIONS]: (state, { payload }) => state.set('dappPermissions', payload),
+      [INJECT_DAPP_PERMISSIONS]: (state, { payload }) => state.set('dappPermissions', payload),
       [SAVE_DAPP_PERMISSIONS]: (state, { payload: { dappId, permissions } }) =>
         state.set('dappPermissions', {
           ...state.get('dappPermissions'),
           [dappId]: permissions
         }),
       /* address book */
-      [ADDRESS_BOOK]: (state, { payload: book }) => {
-        if (book) {
-          return state.set('addressBook', book)
-        }
-
-        return state
-      },
+      [INJECT_ADDRESS_BOOK]: (state, { payload: book }) => (
+        state.set('addressBook', book || {})
+      ),
       [SAVE_ADDRESS_BOOK_ENTRY]: (state, { payload: { address, data } }) =>
         state.set('addressBook', {
           ...state.get('addressBook'),
@@ -103,7 +99,7 @@ export default () => {
         })
       },
       /* custom tokens */
-      [LOAD_CUSTOM_TOKENS]: (state, { payload }) => state.set('customTokens', Immutable.Map(payload)),
+      [INJECT_CUSTOM_TOKENS]: (state, { payload }) => state.set('customTokens', Immutable.Map(payload)),
       [ADD_CUSTOM_TOKEN]: (state, { payload: { symbol, details } }) => {
         const customTokens = state.get('customTokens')
 

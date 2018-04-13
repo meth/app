@@ -12,6 +12,7 @@ import ScrollView from '../../../components/ScrollView'
 import WalletCard from '../../../components/WalletCard'
 import Loading from '../../../components/Loading'
 import Button from '../../../components/Button'
+import Icon from '../../../components/Icon'
 
 
 @connectStore('account', 'modals', 'config')
@@ -78,6 +79,7 @@ export default class Wallet extends CachePureComponent {
           {accountAddresses.map((address, index) => (
             this._renderCard(accounts, address, index)
           ))}
+          {this._renderAddAccountButton()}
         </ScrollView>
         <TokenTable style={styles.tokenTable} account={selectedAccount} />
       </React.Fragment>
@@ -97,7 +99,7 @@ export default class Wallet extends CachePureComponent {
         {...(isActive ? {
           stateOverride: { hovering: true }
         } : null)}
-        onPress={this.bind(this._onSelectCard, index)}
+        onPress={this.bind(this._onPressSelectCard, index)}
       >
         <WalletCard
           isActive={isActive}
@@ -106,33 +108,53 @@ export default class Wallet extends CachePureComponent {
             address,
             ...accounts[address]
           }}
-          onPressSend={this.bind(this._onSend, address)}
-          onPressQrCode={this.bind(this._onQrCode, address)}
-          onPressEditLabel={this.bind(this._onEditLabel, address)}
+          onPressSend={this.bind(this._onPressSend, address)}
+          onPressQrCode={this.bind(this._onPressQrCode, address)}
+          onPressEditLabel={this.bind(this._onPressEditLabel, address)}
         />
       </Button>
     )
   }
 
-  _onSend = address => {
+  _renderAddAccountButton () {
+    return (
+      <Button
+        type='walletCard'
+        key='add'
+        style={[ styles.walletCardButton_inactive, styles.addAccountButton ]}
+        onPress={this._onPressAddAccount}
+        tooltip={t('button.addAccount')}
+      >
+        <Icon name='plus' style={styles.addAccountButtonIcon} />
+      </Button>
+    )
+  }
+
+  _onPressAddAccount = () => {
+    const { showAddAccountModal } = this.props.actions
+
+    showAddAccountModal()
+  }
+
+  _onPressSend = address => {
     const { sendTransaction } = this.props.actions
 
     sendTransaction({ from: address }).catch(() => {})
   }
 
-  _onQrCode = address => {
+  _onPressQrCode = address => {
     const { showAddressQrModal } = this.props.actions
 
     showAddressQrModal(address)
   }
 
-  _onEditLabel = address => {
+  _onPressEditLabel = address => {
     const { showEditAddressModal } = this.props.actions
 
     showEditAddressModal(address)
   }
 
-  _onSelectCard = activeCard => this.setState({ activeCard })
+  _onPressSelectCard = activeCard => this.setState({ activeCard })
 
   _getSelectedAccount () {
     const { getAccounts } = this.props.selectors

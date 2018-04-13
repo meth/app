@@ -14,3 +14,5 @@ export const getNodeState = createSelector(
   getLatestBlock, getSyncing,
   (latestBlock, syncing) => ({ latestBlock, syncing })
 )
+
+export const getLastConnectedNodeId = state => state.node.get('lastConnectedNodeId')
