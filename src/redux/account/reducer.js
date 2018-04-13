@@ -125,8 +125,14 @@ export default () => {
           .set('currentTx', tx)
           .set('currentTxDeferred', deferred)
       ),
-      [CANCEL_TX]: state => state.set('currentTxDeferred', null),
-      [TX_COMPLETED]: state => state.set('currentTxDeferred', null)
+      [CANCEL_TX]: state =>
+        state
+          .set('currentTx', null)
+          .set('currentTxDeferred', null),
+      [TX_COMPLETED]: state =>
+        state
+          .set('currentTx', null)
+          .set('currentTxDeferred', null)
     },
     InitialState
   )
