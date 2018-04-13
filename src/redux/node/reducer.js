@@ -32,6 +32,7 @@ export default () => {
           .set('isConnected', false)
           .set('connection', {})
           .set('disconnectionReason', reason)
+          .set('latestBlock', null)
       ),
       [NODE_CONNECTING]: state => (
         state
@@ -49,6 +50,7 @@ export default () => {
           .set('connection', { node, network })
           .set('lastConnectedNodeId', node.id)
           .set('isConnected', true)
+          .set('latestBlock', null)
       ),
       [NEW_BLOCK]: (state, { payload: block }) => (
         state

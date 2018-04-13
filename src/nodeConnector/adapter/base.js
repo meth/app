@@ -14,6 +14,38 @@ import {
 
 const log = logger.create('Adapter')
 
+
+const SHAREABLE_METHOD_CALLS = {
+  net_version: true,
+  net_listening: true,
+  net_peerCount: true,
+  eth_protocolVersion: true,
+  eth_syncing: true,
+  eth_coinbase: true,
+  eth_mining: true,
+  eth_gasPrice: true,
+  eth_hashrate: true,
+  eth_blockNumber: true,
+  eth_getBalance: true,
+  eth_getStorageAt: true,
+  eth_getTransactionCount: true,
+  eth_getBlockTransactionCountByHash: true,
+  eth_getBlockTransactionCountByNumber: true,
+  eth_getUncleCountByBlockHash: true,
+  eth_getUncleCountByBlockNumber: true,
+  eth_getCode: true,
+  eth_getBlockByHash: true,
+  eth_getBlockByNumber: true,
+  eth_getTransactionByHash: true,
+  eth_getTransactionByBlockHashAndIndex: true,
+  eth_getTransactionByBlockNumberAndIndex: true,
+  eth_getTransactionReceipt: true,
+  eth_getUncleByBlockHashAndIndex: true,
+  eth_getUncleByBlockNumberAndIndex: true,
+  eth_getLogs: true
+}
+
+
 /**
  * Base node connection adapter
  *
@@ -34,6 +66,7 @@ class Adapter extends EventEmitter {
     this._methods = availableMethods
     this._callId = 0 // 'id' incremental counter
     this._state = STATE.DISCONNECTED
+    this._callPromises = {}
 
     this._log = log.create(adapterType)
   }
@@ -142,7 +175,8 @@ class Adapter extends EventEmitter {
   async execMethod (method, params) {
     try {
       this._callId += 1
-      const ret = await this._doExecMethod(this._callId, method, params)
+
+      const ret = await this._doSharedExecMethod(this._callId, method, params)
 
       this._updateState(STATE.CONNECTED)
 
@@ -205,6 +239,49 @@ class Adapter extends EventEmitter {
 
     return Promise.resolve()
   }
+
+
+  /**
+   * Do a shared method execution.
+   *
+   * Certain methods do not need to be repeated. For example, if 5 calls come into
+   * fetch the latest block then only one actual request to the network needs
+   * to be made to satisfy all 5 calls. The logic in this method takes care of
+   * this.
+   *
+   * @return {Promise}
+   */
+  _doSharedExecMethod (id, method, params) {
+    const sig = JSON.stringify({ method, params })
+
+    const existing = this._callPromises[sig]
+
+    if (SHAREABLE_METHOD_CALLS[method] && existing) {
+      this._log.debug(`Call ${id} will piggyback on call ${existing.id} which is in-progress`)
+
+      return existing
+    }
+
+    const promise =
+      this._doExecMethod(id, method, params)
+        .then(data => {
+          delete this._callPromises[sig]
+
+          return data
+        })
+        .catch(err => {
+          delete this._callPromises[sig]
+
+          throw err
+        })
+
+    if (SHAREABLE_METHOD_CALLS[method]) {
+      this._callPromises[sig] = { promise, id }
+    }
+
+    return promise
+  }
+
 
   /**
    * Execute a method, to be implemented by subclasses
