@@ -63,7 +63,7 @@ export default class AddressBook extends CachePureComponent {
       >
         <LabelledAddress
           address={address}
-          label={label || ''}
+          label={label}
         />
       </Button>
     )

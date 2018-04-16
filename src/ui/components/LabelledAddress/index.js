@@ -40,7 +40,7 @@ export default class LabelledAddress extends PureComponent {
       <View style={[ styles.container, style ]}>
         <Text style={[ styles.addressText ].concat(addressTextStyle)}>{finalAddress}</Text>
         <View style={styles.label}>
-          <Text style={[ styles.labelText ].concat(labelTextStyle)}>{label}</Text>
+          <Text style={[ styles.labelText ].concat(labelTextStyle)}>{label || ''}</Text>
           {editButtonProps ? (
             <IconButton
               {...editButtonProps}

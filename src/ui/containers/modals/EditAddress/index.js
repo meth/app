@@ -78,7 +78,6 @@ export default class EditAddress extends PureComponent {
             labelTextStyle={formStyles.labelText}
           >
             <TextInput
-              onChange={this._onLabelChange}
               value={label}
               style={styles.labelInput}
               placeholder={t('modal.editAddress.labelInputPlaceholder')}

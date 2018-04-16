@@ -74,7 +74,7 @@ export default class DappPermissions extends PureComponent {
         <AlertBox
           style={styles.alert}
           type="info"
-          text={t('dappPermissions.pleaseSet')} />
+          text={t('modal.dappPermissions.pleaseSet')} />
 
         {this.renderForm(addresses, permissions)}
 
@@ -123,7 +123,7 @@ export default class DappPermissions extends PureComponent {
         validate={this.validate}
       >
         <Form.Section
-          title={t('dappPermissions.addressPermissions')}
+          title={t('modal.dappPermissions.addressPermissions')}
           style={styles.section}
           layoutStyle={styles.sectionLayout}
           titleTextStyle={styles.sectionTitleText}
@@ -131,7 +131,7 @@ export default class DappPermissions extends PureComponent {
           <Form.Field name={ALL_ADDRESSES} style={styles.field}>
             <Switch
               turnedOn={allAddressesEnabled}
-              label={t(`dappPermissions.${ALL_ADDRESSES}`)} />
+              label={t(`modal.dappPermissions.${ALL_ADDRESSES}`)} />
           </Form.Field>
           {Object.keys(addressList).map(address => (
             <Form.Field key={address} name={address} style={styles.field}>

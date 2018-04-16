@@ -96,7 +96,6 @@ module.exports = {
       confirmAndSendTransaction: 'Send',
       connectToNode: 'Connect',
       disconnectFromNode: 'Disconnect',
-      cancelTransaction: 'Cancel',
       generateRawTransaction: 'Generate raw transaction',
       wallet: 'Wallet',
       addressBook: 'Address book',
@@ -118,12 +117,18 @@ module.exports = {
       editAddressLabel: 'Edit address label',
       wallet: 'Wallet',
       addToken: 'Add token',
-      editToken: 'Edit token'
+      editToken: 'Edit token',
+      sendTransaction: 'Send transaction'
     },
     addressBook: {
       filterPlaceholder: 'Filter...'
     },
     modal: {
+      dappPermissions: {
+        pleaseSet: 'Please decide which addresses this Dapp may access.',
+        addressPermissions: 'Can access addresses',
+        [ALL_ADDRESSES]: 'All my addresses'
+      },
       addAccount: {
         cta: 'To generate an additional account from your password/mnemonic press the button below.'
       },
@@ -142,6 +147,17 @@ module.exports = {
         addressFieldLabel: 'Contract address',
         addressInputPlaceholder: '0x...',
         areYouSureYouWantToDelete: 'Are you sure you want to remove this custom token?'
+      },
+      sendTransaction: {
+        isContractCreationFieldLabel: 'Deploy a contract',
+        fromFieldLabel: 'From',
+        fromInputPlaceholder: '0x...',
+        toFieldLabel: 'To',
+        toInputPlaceholder: '0x...',
+        dataFieldLabel: 'Data',
+        dataInputPlaceholder: '0x...',
+        amountFieldLabel: 'Amount',
+        amountInputPlaceholder: 'Amount in {unit}'
       }
     },
     wallet: {
@@ -160,11 +176,6 @@ module.exports = {
         rpc: 'Ethereum client node connected via RPC.',
         infura: 'Etherum client node hosted by Infura.io, connected to {network}.'
       }
-    },
-    dappPermissions: {
-      pleaseSet: 'Please decide which addresses this Dapp may access.',
-      addressPermissions: 'Can access addresses',
-      [ALL_ADDRESSES]: 'All my addresses'
     }
   }
 }

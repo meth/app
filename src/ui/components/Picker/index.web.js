@@ -15,9 +15,10 @@ export default class Picker extends CachePureComponent {
       label: PropTypes.string,
       category: PropTypes.string
     })).isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     selected: PropTypes.string,
     renderOption: PropTypes.func,
+    renderButtonLabel: PropTypes.func,
     style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
     buttonStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
   }
@@ -30,7 +31,13 @@ export default class Picker extends CachePureComponent {
   render () {
     const { open, popupStyle } = this.state
 
-    const { options, selected, style, buttonStyle } = this.props
+    const {
+      options,
+      selected,
+      style,
+      buttonStyle,
+      renderButtonLabel
+    } = this.props
 
     const { label } = options.find(({ value }) => value === selected)
 
@@ -42,6 +49,7 @@ export default class Picker extends CachePureComponent {
             label={label}
             open={open}
             style={buttonStyle}
+            renderLabel={renderButtonLabel}
           />
         </div>
         {(!open) ? null : (
@@ -95,6 +103,16 @@ export default class Picker extends CachePureComponent {
 
   _onButtonElementRef = elem => {
     this.btnDiv = elem
+  }
+
+  focus () {
+  }
+
+  unfocus () {
+  }
+
+  getValue () {
+    return this.props.selected
   }
 
   onSelect = value => {

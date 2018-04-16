@@ -60,7 +60,16 @@ export default class EditToken extends PureComponent {
           style={styles.titleText}
           text={t(`title.${updatingToken ? 'editToken' : 'addToken'}`)}
         />
-        {this._renderMeta({ network })}
+        {network ? (
+          <View style={styles.meta}>
+            <IconText
+              style={styles.metaIcon}
+              textStyle={styles.metaIconText}
+              icon={{ name: 'plug', style: styles.metaIconText }}
+              text={network}
+            />
+          </View>
+        ) : null}
         <Form
           style={styles.form}
           ref={this._onFormRef}
@@ -76,7 +85,6 @@ export default class EditToken extends PureComponent {
             labelTextStyle={formStyles.labelText}
           >
             <TextInput
-              onChange={this._onLabelChange}
               value={name}
               style={styles.labelInput}
               placeholder={t('modal.editToken.nameInputPlaceholder')}
@@ -90,7 +98,6 @@ export default class EditToken extends PureComponent {
             labelTextStyle={formStyles.labelText}
           >
             <TextInput
-              onChange={this._onLabelChange}
               value={symbol}
               style={styles.labelInput}
               placeholder={t('modal.editToken.symbolInputPlaceholder')}
@@ -104,7 +111,6 @@ export default class EditToken extends PureComponent {
             labelTextStyle={formStyles.labelText}
           >
             <TextInput
-              onChange={this._onLabelChange}
               value={`${decimals}`}
               style={styles.labelInput}
               placeholder={t('modal.editToken.decimalsInputPlaceholder')}
@@ -118,7 +124,6 @@ export default class EditToken extends PureComponent {
             labelTextStyle={formStyles.labelText}
           >
             <TextInput
-              onChange={this._onLabelChange}
               value={contractAddress}
               style={styles.labelInput}
               placeholder={t('modal.editToken.addressInputPlaceholder')}
@@ -158,25 +163,6 @@ export default class EditToken extends PureComponent {
 
   _onFormRef = f => {
     this.form = f
-  }
-
-  _renderMeta ({ network }) {
-    if (network) {
-      return null
-    }
-
-    return (
-      <View style={styles.meta}>
-        {network ? (
-          <IconText
-            style={styles.metaIcon}
-            textStyle={styles.metaIconText}
-            icon={{ name: 'plug', style: styles.metaIconText }}
-            text={network}
-          />
-        ) : null}
-      </View>
-    )
   }
 
   onChange = values => {

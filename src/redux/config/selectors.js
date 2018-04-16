@@ -33,3 +33,5 @@ export const getTokenList = createSelector(
     }), defaultTokens)
   }
 )
+
+export const getLastGasPrice = state => state.config.get('lastGasPrice')

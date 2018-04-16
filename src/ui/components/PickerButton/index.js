@@ -6,10 +6,18 @@ import Button from '../Button'
 import Icon from '../Icon'
 import styles from './styles'
 
-const PickerButton = ({ label, style, onPress, onLayout }) => {
+const PickerButton = ({
+  label,
+  style,
+  onPress,
+  onLayout,
+  renderLabel
+}) => {
   const content = (
     <View style={styles.content}>
-      <Text style={styles.text}>{label}</Text>
+      {renderLabel ? renderLabel(label) : (
+        <Text style={styles.text}>{label}</Text>
+      )}
       <Icon style={styles.iconText} name="sort-desc" />
     </View>
   )
@@ -28,8 +36,8 @@ const PickerButton = ({ label, style, onPress, onLayout }) => {
 PickerButton.propTypes = {
   onPress: PropTypes.func.isRequired,
   label: PropTypes.string,
-  style: PropTypes.oneOfType([ PropTypes.number, PropTypes.array, PropTypes.object ]),
-  onLayout: PropTypes.func
+  style: PropTypes.any,
+  renderLabel: PropTypes.func
 }
 
 export default PickerButton

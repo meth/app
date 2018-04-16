@@ -7,7 +7,8 @@ export default () => {
   const InitialState = Immutable.Map({
     nodes: undefined,
     networks: undefined,
-    tokens: undefined
+    tokens: undefined,
+    lastGasPrice: 1
   })
 
   return handleActions(
