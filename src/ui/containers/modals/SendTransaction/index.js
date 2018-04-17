@@ -30,7 +30,7 @@ export default class SendTransaction extends PureComponent {
     super(props, ctx)
 
     const { getTx, getLastGasPrice } = props.selectors
-    const { from, to, value, gas, data } = getTx()
+    const { from, to, value, gas: gasLimit, data } = getTx()
 
     this.state = {
       generating: false,
@@ -40,9 +40,9 @@ export default class SendTransaction extends PureComponent {
         from,
         to,
         amount: value,
-        gas,
         data,
         unit: 'ETH',
+        gasLimit,
         gasPrice: getLastGasPrice(),
         isContractCreation: (!to && !!data)
       },
@@ -80,7 +80,7 @@ export default class SendTransaction extends PureComponent {
   renderForm () {
     const {
       rawTx,
-      form: { from, to, unit, amount, gas, data, gasPrice, isContractCreation }
+      form: { from, to, unit, amount, data, gasLimit, gasPrice, isContractCreation }
     } = this.state
 
     return (
@@ -199,6 +199,34 @@ export default class SendTransaction extends PureComponent {
             numberOfLines={2}
           />
         </Form.Field>
+        <Form.Layout style={styles.gasRow}>
+          <Form.Field
+            name='gas'
+            label={t('modal.sendTransaction.gasLimitFieldLabel')}
+            style={styles.gasLimitField}
+            labelStyle={formStyles.label}
+            labelTextStyle={formStyles.labelText}
+          >
+            <TextInput
+              value={gasLimit}
+              style={styles.textInput}
+              placeholder={t('modal.sendTransaction.gasLimitInputPlaceholder')}
+            />
+          </Form.Field>
+          <Form.Field
+            name='gasPrice'
+            label={t('modal.sendTransaction.gasPriceFieldLabel')}
+            style={styles.gasPriceField}
+            labelStyle={formStyles.label}
+            labelTextStyle={formStyles.labelText}
+          >
+            <TextInput
+              value={gasPrice}
+              style={styles.textInput}
+              placeholder={t('modal.sendTransaction.gasPriceInputPlaceholder')}
+            />
+          </Form.Field>
+        </Form.Layout>
         {rawTx ? (
           <React.Fragment>
             <Text>{rawTx}</Text>

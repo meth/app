@@ -80,6 +80,18 @@ export default create({
   unitPickerButtonText: {
     fontSize: '0.8rem'
   },
+  /* gas */
+  gasRow: {
+    ...multiFieldRow
+  },
+  gasLimitField: {
+    flex: 0,
+    width: 150,
+    marginRight: 5
+  },
+  gasPriceField: {
+    flex: 1
+  },
 
   /* error box */
 

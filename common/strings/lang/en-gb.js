@@ -160,7 +160,11 @@ module.exports = {
         contractCodeInputPlaceholder: 'Paste code here...',
         amountFieldLabel: 'Amount ({amount} available)',
         amountInputPlaceholder: 'Amount in {unit}',
-        unitFieldLabel: 'Unit'
+        unitFieldLabel: 'Unit',
+        gasLimitFieldLabel: 'Gas limit',
+        gasLimitInputPlaceholder: 'e.g. 21000',
+        gasPriceFieldLabel: 'Gas price (gwei)',
+        gasPriceInputPlaceholder: 'e.g. 2'
       },
       filterPicker: {
         filterPlaceholder: 'Filter...'
