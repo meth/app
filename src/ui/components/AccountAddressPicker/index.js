@@ -29,7 +29,9 @@ export default class AccountAddressPicker extends PureComponent {
         ref={this._onPickerRef}
         options={finalOptions}
         renderOption={this._renderPickerOption}
-        renderButtonLabel={this._renderPickerButtonLabel}
+        button={{
+          renderLabel: this._renderPickerButtonLabel
+        }}
       />
     )
   }

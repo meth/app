@@ -56,7 +56,6 @@ export default class AddressBook extends CachePureComponent {
 
     return (
       <Button
-        data-address={address}
         style={styles.tableRowData}
         type='tableRow'
         onPress={this.bind(this.onSelectEntry, address)}

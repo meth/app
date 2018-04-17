@@ -108,23 +108,23 @@ export default class SendTransaction extends PureComponent {
           />
         </Form.Field>
         {isContractCreation ? null : (
-          <Form.Field
-            name='to'
-            label={t('modal.sendTransaction.toFieldLabel')}
-            style={styles.field}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-          >
-            <TextInput
-              value={to}
-              style={styles.textInput}
-              placeholder={t('modal.sendTransaction.toInputPlaceholder')}
-            />
-          </Form.Field>
+          <Form.Layout style={styles.toRow}>
+            <Form.Field
+              name='to'
+              label={t('modal.sendTransaction.toFieldLabel')}
+              style={styles.toField}
+              labelStyle={formStyles.label}
+              labelTextStyle={formStyles.labelText}
+            >
+              <TextInput
+                value={to}
+                style={styles.textInput}
+                placeholder={t('modal.sendTransaction.toInputPlaceholder')}
+              />
+            </Form.Field>
+          </Form.Layout>
         )}
-        <Form.Layout
-          style={styles.amountRow}
-        >
+        <Form.Layout style={styles.amountRow}>
           <Form.Field
             name='amount'
             label={t('modal.sendTransaction.amountFieldLabel')}

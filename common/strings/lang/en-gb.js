@@ -161,6 +161,9 @@ module.exports = {
         amountFieldLabel: 'Amount',
         amountInputPlaceholder: 'Amount in {unit}',
         unitFieldLabel: 'Unit'
+      },
+      filterPicker: {
+        filterPlaceholder: 'Filter...'
       }
     },
     wallet: {

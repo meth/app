@@ -9,6 +9,14 @@ const fieldRow = {
   width: '90%'
 }
 
+const multiFieldRow = {
+  ...fieldRow,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  alignItems: 'stretch'
+}
+
+
 export default create({
   content: {
     width: 550,
@@ -40,11 +48,18 @@ export default create({
   formButton: {
     marginTop: 20
   },
+  /* to */
+  toRow: {
+    ...multiFieldRow
+  },
+  toField: {
+    flex: 1
+  },
+  toPicker: {
+  },
+  /* amount */
   amountRow: {
-    ...fieldRow,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'stretch'
+    ...multiFieldRow
   },
   amountField: {
     flex: 1

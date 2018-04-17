@@ -18,11 +18,11 @@ export default class Picker extends CachePureComponent {
     onChange: PropTypes.func,
     selected: PropTypes.string,
     renderOption: PropTypes.func,
-    renderButtonLabel: PropTypes.func,
     style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
     button: PropTypes.shape({
       style: PropTypes.any,
-      textStyle: PropTypes.any
+      textStyle: PropTypes.any,
+      renderLabel: PropTypes.func
     })
   }
 
