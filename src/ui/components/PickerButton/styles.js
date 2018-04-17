@@ -7,11 +7,9 @@ const text = {
 
 export default create({
   content: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 5
+    alignItems: 'center'
   },
   text: {
     ...text,
@@ -19,13 +17,11 @@ export default create({
   },
   iconText: {
     ...text,
-    fontSize: '1.2rem'
+    fontSize: '1.2rem',
+    marginTop: -2
   },
 
   ...whenWidthVerySmall({
-    content: {
-      padding: 0
-    },
     text: {
       fontSize: '0.8rem'
     },

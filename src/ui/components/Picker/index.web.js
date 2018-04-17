@@ -20,7 +20,10 @@ export default class Picker extends CachePureComponent {
     renderOption: PropTypes.func,
     renderButtonLabel: PropTypes.func,
     style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
-    buttonStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
+    button: PropTypes.shape({
+      style: PropTypes.any,
+      textStyle: PropTypes.any
+    })
   }
 
   state = {
@@ -35,7 +38,7 @@ export default class Picker extends CachePureComponent {
       options,
       selected,
       style,
-      buttonStyle,
+      button,
       renderButtonLabel
     } = this.props
 
@@ -48,8 +51,8 @@ export default class Picker extends CachePureComponent {
             onPress={this.onPressButton}
             label={label}
             open={open}
-            style={buttonStyle}
             renderLabel={renderButtonLabel}
+            {...button}
           />
         </div>
         {(!open) ? null : (

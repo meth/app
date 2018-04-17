@@ -1,6 +1,9 @@
 import { create, coverParent } from '../../styles'
 
 export default create({
+  popupWrapper: {
+    ...coverParent
+  },
   fadeWrapper: {
     ...coverParent
   },

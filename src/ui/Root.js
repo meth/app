@@ -35,7 +35,7 @@ const MODAL_COMPONENTS = {
 export default class Root extends PureComponent {
   render () {
     return (
-      <PopupContext style={{ flex: 1 }}>
+      <PopupContext>
         <Navigator />
         {this.renderModals()}
       </PopupContext>

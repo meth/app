@@ -6,7 +6,9 @@ import styles from './styles'
 
 export class Popup extends PureComponent {
   static contextTypes = {
-    setPopup: PropTypes.func
+    addPopup: PropTypes.func,
+    updatePopup: PropTypes.func,
+    removePopup: PropTypes.func
   }
 
   static propTypes = {
@@ -15,22 +17,27 @@ export class Popup extends PureComponent {
   }
 
   render () {
-    return <View />
+    return null
   }
 
   componentDidMount () {
-    const { children, style } = this.props
-    const { setPopup } = this.context
+    const { addPopup } = this.context
+    const { style, children: content } = this.props
 
-    setPopup(
-      <View style={[ styles.popup, style ]}>{children}</View>
-    )
+    this.id = addPopup({ style, content })
+  }
+
+  componentDidUpdate () {
+    const { updatePopup } = this.context
+    const { style, children: content } = this.props
+
+    updatePopup(this.id, { style, content })
   }
 
   componentWillUnmount () {
-    const { setPopup } = this.context
+    const { removePopup } = this.context
 
-    setPopup(null)
+    removePopup(this.id)
   }
 }
 
@@ -38,34 +45,63 @@ export class Popup extends PureComponent {
 
 export class PopupContext extends PureComponent {
   static childContextTypes = {
-    setPopup: PropTypes.func
+    addPopup: PropTypes.func,
+    updatePopup: PropTypes.func,
+    removePopup: PropTypes.func
   }
 
   state = {
-    popup: null
+    popups: []
   }
 
   getChildContext () {
     return {
-      setPopup: this.setPopup.bind(this)
+      addPopup: this.addPopup,
+      updatePopup: this.updatePopup,
+      removePopup: this.removePopup
     }
   }
 
-  setPopup (popup) {
+  addPopup = ({ style, content }) => {
+    const id = `${Math.random()}`
+
     this.setState({
-      popup
+      popups: this.state.popups.concat({ id, style, content })
+    })
+
+    return id
+  }
+
+  updatePopup = (id, { content, style }) => {
+    this.state.popups.forEach(p => {
+      if (p.id === id) {
+        p.content = content // eslint-disable-line no-param-reassign
+        p.style = style // eslint-disable-line no-param-reassign
+      }
+    })
+
+    this.setState({
+      popups: [ ...this.state.popups ]
+    })
+  }
+
+  removePopup = idToRemove => {
+    this.setState({
+      popups: this.state.popups.filter(({ id }) => id !== idToRemove)
     })
   }
 
   render () {
-    const { style, children } = this.props
+    const { children } = this.props
 
-    const { popup } = this.state
+    const { popups } = this.state
 
     return (
-      <View style={style}>
+      <View style={styles.popupContext}>
         {children}
-        {popup}
+        {popups.map(({ id, style, content }) => (
+          <View key={id} style={[ styles.popup ].concat(style)}>{content}</View>
+        ))}
       </View>
     )
   }

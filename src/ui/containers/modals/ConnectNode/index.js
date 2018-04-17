@@ -133,7 +133,7 @@ export default class ConnectNode extends CachePureComponent {
         {title}
         <Picker
           style={styles.picker}
-          buttonStyle={styles.pickerButton}
+          button={{ style: styles.pickerButton }}
           options={options}
           selected={selected.value}
           onChange={this.onChange}

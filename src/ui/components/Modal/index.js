@@ -1,40 +1,48 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
+import { Popup } from '../Popup'
 import FadingView from '../FadingView'
 import CloseButton from './CloseButton'
 import TouchableView from '../TouchableView'
 import styles from './styles'
 
-const Modal = ({
-  children,
-  onOverlayPress,
-  overlayStyle,
-  contentStyle,
-  onPressCloseButton,
-  closeButtonStyle
-}) => (
-  <FadingView style={styles.fadeWrapper}>
-    <TouchableView onPress={onOverlayPress} style={[ styles.overlay, overlayStyle ]}>
-      <View style={[ styles.content, contentStyle ]}>
-        {children}
-        {onPressCloseButton ? (
-          <CloseButton
-            style={[ styles.closeButton, closeButtonStyle ]}
-            onPress={onPressCloseButton}
-          />
-        ) : null}
-      </View>
-    </TouchableView>
-  </FadingView>
-)
+export default class Modal extends PureComponent {
+  static propTypes = {
+    overlayStyle: PropTypes.any,
+    contentStyle: PropTypes.any,
+    closeButtonStyle: PropTypes.any,
+    onOverlayPress: PropTypes.func,
+    onPressCloseButton: PropTypes.func
+  }
 
-Modal.propTypes = {
-  overlayStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
-  contentStyle: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
-  onOverlayPress: PropTypes.func,
-  onPressClose: PropTypes.func
+  render () {
+    const {
+      children,
+      onOverlayPress,
+      overlayStyle,
+      contentStyle,
+      onPressCloseButton,
+      closeButtonStyle
+    } = this.props
+
+    return (
+      <Popup style={styles.popupWrapper}>
+        <FadingView style={styles.fadeWrapper}>
+          <TouchableView onPress={onOverlayPress} style={[ styles.overlay ].concat(overlayStyle)}>
+            <View style={[ styles.content ].concat(contentStyle)}>
+              {children}
+              {onPressCloseButton ? (
+                <CloseButton
+                  style={[ styles.closeButton ].concat(closeButtonStyle)}
+                  onPress={onPressCloseButton}
+                />
+              ) : null}
+            </View>
+          </TouchableView>
+        </FadingView>
+      </Popup>
+    )
+  }
 }
-
-export default Modal

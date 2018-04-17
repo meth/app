@@ -156,8 +156,11 @@ module.exports = {
         toInputPlaceholder: '0x...',
         dataFieldLabel: 'Data',
         dataInputPlaceholder: '0x...',
+        contractCodeFieldLabel: 'Contract code',
+        contractCodeInputPlaceholder: 'Paste code here...',
         amountFieldLabel: 'Amount',
-        amountInputPlaceholder: 'Amount in {unit}'
+        amountInputPlaceholder: 'Amount in {unit}',
+        unitFieldLabel: 'Unit'
       }
     },
     wallet: {

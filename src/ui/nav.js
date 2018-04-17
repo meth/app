@@ -46,8 +46,8 @@ export const routes = {
 }
 
 routes.OnceLoggedIn = {
-  screen: Home,
-  path: 'wallet'
+  screen: Home /* needed for nav lib to work, otherwise irrelevant */,
+  path: 'addressBook'
 }
 
 // add route name as key as well so we can compare with nav state later on

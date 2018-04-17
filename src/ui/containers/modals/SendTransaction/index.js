@@ -1,15 +1,18 @@
 import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
+import { isAddress, isHexStrict } from 'web3-utils'
 
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
 import Modal from '../../../components/Modal'
 import Button from '../../../components/Button'
+import ProgressButton from '../../../components/ProgressButton'
 import Switch from '../../../components/Switch'
 import TitleText from '../../../components/TitleText'
 import TextInput from '../../../components/TextInput'
 import ErrorBox from '../../../components/ErrorBox'
+import Picker from '../../../components/Picker'
 import AccountAddressPicker from '../../../components/AccountAddressPicker'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
@@ -71,7 +74,7 @@ export default class SendTransaction extends PureComponent {
   renderForm () {
     const {
       rawTx,
-      form: { from, to, unit, value, gas, data, gasPrice, isContractCreation }
+      form: { from, to, unit, amount, gas, data, gasPrice, isContractCreation }
     } = this.state
 
     return (
@@ -119,22 +122,47 @@ export default class SendTransaction extends PureComponent {
             />
           </Form.Field>
         )}
-        <Form.Field
-          name='amount'
-          label={t('modal.sendTransaction.amountFieldLabel')}
-          style={styles.field}
-          labelStyle={formStyles.label}
-          labelTextStyle={formStyles.labelText}
+        <Form.Layout
+          style={styles.amountRow}
         >
-          <TextInput
-            value={data}
-            style={styles.textInput}
-            placeholder={t('modal.sendTransaction.amountInputPlaceholder', { unit })}
-          />
-        </Form.Field>
+          <Form.Field
+            name='amount'
+            label={t('modal.sendTransaction.amountFieldLabel')}
+            style={styles.amountField}
+            labelStyle={formStyles.label}
+            labelTextStyle={formStyles.labelText}
+          >
+            <TextInput
+              value={amount}
+              style={styles.textInput}
+              placeholder={t('modal.sendTransaction.amountInputPlaceholder', { unit })}
+            />
+          </Form.Field>
+          <Form.Field
+            name='unit'
+            label={t('modal.sendTransaction.unitFieldLabel')}
+            style={styles.unitField}
+            labelStyle={formStyles.label}
+            labelTextStyle={formStyles.labelText}
+          >
+            <Picker
+              style={styles.unitPicker}
+              options={this._getUnitPickerOptions()}
+              selected={unit}
+              button={{
+                style: styles.unitPickerButton,
+                textStyle: styles.unitPickerButtonText
+              }}
+            />
+          </Form.Field>
+        </Form.Layout>
         <Form.Field
           name='data'
-          label={t('modal.sendTransaction.dataFieldLabel')}
+          label={t(
+            isContractCreation
+              ? 'modal.sendTransaction.contractCodeFieldLabel'
+              : 'modal.sendTransaction.dataFieldLabel'
+          )}
           style={styles.field}
           labelStyle={formStyles.label}
           labelTextStyle={formStyles.labelText}
@@ -142,7 +170,11 @@ export default class SendTransaction extends PureComponent {
           <TextInput
             value={data}
             style={styles.textInput}
-            placeholder={t('modal.sendTransaction.dataInputPlaceholder')}
+            placeholder={t(
+              isContractCreation
+                ? 'modal.sendTransaction.contractCodeInputPlaceholder'
+                : 'modal.sendTransaction.dataInputPlaceholder'
+            )}
             multiline={true}
             numberOfLines={2}
           />
@@ -157,7 +189,8 @@ export default class SendTransaction extends PureComponent {
             />
           </React.Fragment>
         ) : (
-          <Button
+          <ProgressButton
+            disabled={this.form && !this.form.canSubmit()}
             title={t('button.generateRawTransaction')}
             onPress={this._generateRawTx}
             style={styles.formButton}
@@ -165,6 +198,10 @@ export default class SendTransaction extends PureComponent {
         )}
       </Form>
     )
+  }
+
+  _onFormRef = r => {
+    this.form = r
   }
 
   _getFromOptions () {
@@ -176,6 +213,15 @@ export default class SendTransaction extends PureComponent {
       ...accounts[address],
       address
     }))
+  }
+
+  _getUnitPickerOptions () {
+    return [
+      {
+        value: 'ETH',
+        label: 'ETH'
+      }
+    ]
   }
 
   _confirmAndSend = () => {
@@ -232,10 +278,6 @@ export default class SendTransaction extends PureComponent {
     }
   }
 
-  _onFormRef = r => {
-    this.form = r
-  }
-
   _onChange = form => {
     this.setState({ form })
   }
@@ -251,12 +293,21 @@ export default class SendTransaction extends PureComponent {
       ret.from = Form.VALIDATION_RESULT.MISSING
     }
 
-    if (!values.to && !values.isContractCreation) {
-      ret.to = Form.VALIDATION_RESULT.MISSING
+    if (!values.isContractCreation) {
+      if (!values.to) {
+        ret.to = Form.VALIDATION_RESULT.MISSING
+      } else if (!isAddress(values.to)) {
+        ret.to = Form.VALIDATION_RESULT.INCORRECT
+      }
     }
 
-    if (!values.data && values.isContractCreation) {
-      ret.data = Form.VALIDATION_RESULT.MISSING
+    if (values.isContractCreation) {
+      if (!values.data) {
+        ret.data = Form.VALIDATION_RESULT.MISSING
+      }
+    }
+    if (values.data && !isHexStrict(values.data)) {
+      ret.data = Form.VALIDATION_RESULT.INCORRECT
     }
 
     if (values.amount && Number.isNaN(parseInt(values.amount, 10))) {
