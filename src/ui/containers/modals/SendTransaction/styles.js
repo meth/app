@@ -56,6 +56,11 @@ export default create({
     flex: 1
   },
   toPicker: {
+    flex: 0,
+    marginLeft: 5
+  },
+  toPickerButtonIcon: {
+    fontSize: '0.8rem'
   },
   /* amount */
   amountRow: {

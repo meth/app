@@ -25,13 +25,17 @@ export const getAccounts = createSelector(
 export const getAddressBook = createSelector(
   _getAccountBalances,
   _getAddressBook,
-  (accounts, addressBook) => Object.keys(addressBook).reduce((m, addr) => ({
-    ...m,
-    [addr]: {
-      ...addressBook[addr],
-      ...(accounts[addr] ? { type: ADDRESS_TYPES.OWN_ACCOUNT } : {})
-    }
-  }), {})
+  (accounts, addressBook) => {
+    const addresses = Object.assign({}, addressBook)
+
+    Object.keys(accounts).forEach(addr => {
+      addresses[addr] = Object.assign({}, addresses[addr], {
+        type: ADDRESS_TYPES.OWN_ACCOUNT
+      })
+    })
+
+    return addresses
+  }
 )
 
 export const getBookMarks = state => state.account.get('bookmarks') || []

@@ -1,4 +1,4 @@
-import { create } from '../../styles'
+import { create } from '../../../styles'
 
 export default create({
   container: {
@@ -13,12 +13,8 @@ export default create({
     width: '100%',
     marginTop: 10
   },
-  tableRow: {
-    paddingVertical: 0
-  },
   tableRowDataButton: {
-    width: '100%',
-    borderRadius: 0
+    width: '100%'
   },
   tableRowDataButtonText: {
     textAlign: 'left'

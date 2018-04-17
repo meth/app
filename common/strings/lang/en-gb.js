@@ -164,6 +164,9 @@ module.exports = {
       },
       filterPicker: {
         filterPlaceholder: 'Filter...'
+      },
+      addressBookPicker: {
+        title: 'Select address'
       }
     },
     wallet: {

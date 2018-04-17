@@ -14,8 +14,16 @@ export const setStore = s => {
 export const connectStore = (...storeSubParts) => Component =>
   connect(
     // mapStateToProps
-    state =>
-      _.reduce(
+    state => {
+      const stateParts = Object.keys(state)
+      const requestedParts = storeSubParts
+
+      const missing = _.difference(requestedParts, stateParts)
+      if (missing.length) {
+        throw new Error(`Invalid store sub-parts requested: ${missing.join(' ')}`)
+      }
+
+      return _.reduce(
         state,
         (m, item, key) => {
           if (!storeSubParts.length || storeSubParts.includes(key)) {
@@ -28,7 +36,8 @@ export const connectStore = (...storeSubParts) => Component =>
           return m
         },
         {}
-      ),
+      )
+    },
     // mapDispatchToProps
     null,
     (stateProps, dispatchProps, ownProps) => ({

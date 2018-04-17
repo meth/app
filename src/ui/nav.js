@@ -7,6 +7,7 @@ import {
 
 import { connectStore } from './helpers/redux'
 import Home from './containers/pages/Home'
+import Test from './containers/pages/Test'
 import GenerateMnemonic from './containers/pages/GenerateMnemonic'
 import LoginMnemonic from './containers/pages/LoginMnemonic'
 import ConfirmNewMnemonic from './containers/pages/ConfirmNewMnemonic'
@@ -18,6 +19,10 @@ export const routes = {
   Home: {
     screen: Home,
     path: ''
+  },
+  Test: {
+    screen: Test,
+    path: 'test'
   },
   GenerateMnemonic: {
     screen: GenerateMnemonic,

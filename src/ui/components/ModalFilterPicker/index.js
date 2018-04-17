@@ -1,12 +1,15 @@
 import _ from 'lodash'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 import { CachePureComponent } from '../../helpers/components'
 import { t } from '../../../../common/strings'
 import Modal from '../Modal'
-import TouchableView from '../TouchableView'
+import TitleText from '../TitleText'
+import Table from '../Table'
+import Button from '../Button'
+import PickerButton from '../PickerButton'
 import styles from './styles'
 
 
@@ -16,12 +19,21 @@ const COLUMNS = [ { id: 'content' } ]
 
 
 export default class ModalFilterPicker extends CachePureComponent {
-  componentWillReceiveProps (newProps) {
-    if ((!this.props.visible && newProps.visible) || (this.props.options !== newProps.options)) {
-      this.setState({
-        filter: ''
-      })
-    }
+  static propTypes = {
+    style: PropTypes.any,
+    selected: PropTypes.string,
+    title: PropTypes.string,
+    button: PropTypes.object,
+    options: PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.string.isRequired
+    })).isRequired,
+    onChange: PropTypes.func.isRequired,
+    onCancel: PropTypes.func,
+    renderOption: PropTypes.func
+  }
+
+  state = {
+    open: false
   }
 
   render () {
@@ -35,7 +47,8 @@ export default class ModalFilterPicker extends CachePureComponent {
       options
     } = this.props
 
-    const { label: selectedLabel } = options.find(({ value }) => value === selected)
+    const selectedOption = options.find(({ value }) => value === selected)
+    const selectedLabel = _.get(selectedOption, 'label')
 
     const rows = options.map(({ value, label }) => ({
       content: {
@@ -48,7 +61,7 @@ export default class ModalFilterPicker extends CachePureComponent {
     return (
       <View style={[ styles.container, style ]}>
         <PickerButton
-          onPress={this.onPressButton}
+          onPress={this._onPressPickerButton}
           label={selectedLabel}
           open={open}
           {...button}
@@ -62,9 +75,7 @@ export default class ModalFilterPicker extends CachePureComponent {
             <TitleText text={title} />
             <Table
               style={styles.table}
-              listStyle={styles.tableList}
               rowStyle={styles.tableRow}
-              filterInputStyle={styles.tableFilter}
               filterPlaceholderText={t('modal.filterPicker.filterPlaceholder')}
               showFilter={true}
               renderHeader={RENDER_HEADER}
@@ -100,7 +111,11 @@ export default class ModalFilterPicker extends CachePureComponent {
     })
   }
 
-  _onPressCloseButton () {
+  _onPressPickerButton = () => {
+    this.open()
+  }
+
+  _onPressCloseButton = () => {
     const { onCancel } = this.props
 
     this.close()
@@ -121,21 +136,24 @@ export default class ModalFilterPicker extends CachePureComponent {
     const label = _.get(row, 'content.label')
 
     return (
-      <TouchableView
-        style={styles.tableRowData}
-        type='modalPickerTableRow'
-        onPress={this.bind(this.onSelectEntry, value)}
+      <Button
+        type='tableRow'
+        style={styles.tableRowDataButton}
+        textStyle={styles.tableRowDataButtonText}
+        onPress={this.bind(this._onSelectEntry, value)}
       >
         {renderOption
-            ? renderOption(row)
-            : <Text style={styles.tableRowText}>{label}</Text>
+          ? renderOption(_.get(row, 'content', {}))
+          : <Text style={styles.tableRowText}>{label}</Text>
         }
-      </TouchableView>
+      </Button>
     )
   }
 
   _onSelectEntry = value => {
     const { onChange } = this.props
+
+    this.close()
 
     if (onChange) {
       onChange(value)

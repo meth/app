@@ -1,33 +1,22 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 
-import Picker from '../Picker'
-import LabelledAddress from '../LabelledAddress'
+import { connectStore } from '../../../helpers/redux'
+import Picker from '../../../components/Picker'
+import LabelledAddress from '../../../components/LabelledAddress'
 import styles from './styles'
 
 
-export default class AccountAddressPicker extends PureComponent {
-  static propTypes = Object.assign({}, Picker.propTypes, {
-    options: PropTypes.arrayOf(PropTypes.shape({
-      address: PropTypes.string.isRequired,
-      label: PropTypes.string
-    })).isRequired
-  })
+@connectStore('account')
+export default class AccountPicker extends PureComponent {
+  static propTypes = _.omit(Picker.propTypes, 'options')
 
   render () {
-    const { options } = this.props
-
-    const finalOptions = options.map(({ address, label }) => ({
-      value: address,
-      label: address,
-      category: label
-    }))
-
     return (
       <Picker
         {...this.props}
         ref={this._onPickerRef}
-        options={finalOptions}
+        options={this._getOptions()}
         renderOption={this._renderPickerOption}
         button={{
           renderLabel: this._renderPickerButtonLabel
@@ -40,28 +29,44 @@ export default class AccountAddressPicker extends PureComponent {
     this.picker = elem
   }
 
-  _renderPickerOption = ({ value, category }) => (
+  _renderPickerOption = ({ value, label }) => (
     <LabelledAddress
       address={value}
-      label={category}
+      label={label}
       addressTextStyle={styles.addressText}
       labelTextStyle={styles.labelText}
     />
   )
 
   _renderPickerButtonLabel = () => {
-    const { selected, options } = this.props
+    const { selected } = this.props
 
-    const { label } = options.find(({ address }) => address === selected)
+    const label = _.get(
+      this._getOptions().find(({ value }) => value === selected),
+      'label',
+      ''
+    )
 
     return (
       <LabelledAddress
-        address={selected}
-        label={label}
+        address={selected || ''}
+        label={label || ''}
         addressTextStyle={styles.addressText}
         labelTextStyle={styles.labelText}
       />
     )
+  }
+
+  _getOptions () {
+    const { getAccounts } = this.props.selectors
+
+    const accounts = getAccounts()
+
+    return Object.keys(accounts).map(address => ({
+      value: address,
+      label: accounts[address].label,
+      category: accounts[address].label
+    }))
   }
 
   focus () {
