@@ -27,7 +27,7 @@ const DEFAULT_PERMISSIONS = {
   [DAPP_PERMISSIONS.ALL_ADDRESSES]: true
 }
 
-@connectStore('api', 'modals', 'account')
+@connectStore('modals', 'account')
 export default class Browser extends CachePureComponent {
   state = {
     tabs: [

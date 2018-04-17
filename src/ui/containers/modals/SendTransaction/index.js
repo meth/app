@@ -1,8 +1,10 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 import { isAddress, isHexStrict } from 'web3-utils'
 
+import { toEthBalance, toTokenBalance } from '../../../../utils/number'
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
 import Modal from '../../../components/Modal'
@@ -18,6 +20,8 @@ import AddressBookPicker from '../../pickers/AddressBookPicker'
 import AccountPicker from '../../pickers/AccountPicker'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
+
+const ETH = 'ETH'
 
 
 @connectStore('account', 'modals')
@@ -143,7 +147,7 @@ export default class SendTransaction extends PureComponent {
         <Form.Layout style={styles.amountRow}>
           <Form.Field
             name='amount'
-            label={t('modal.sendTransaction.amountFieldLabel')}
+            label={t('modal.sendTransaction.amountFieldLabel', { amount: this._getCurrentUnitBalance() })}
             style={styles.amountField}
             labelStyle={formStyles.label}
             labelTextStyle={formStyles.labelText}
@@ -206,7 +210,6 @@ export default class SendTransaction extends PureComponent {
           </React.Fragment>
         ) : (
           <ProgressButton
-            disabled={this.form && !this.form.canSubmit()}
             title={t('button.generateRawTransaction')}
             onPress={this._generateRawTx}
             style={styles.formButton}
@@ -220,13 +223,40 @@ export default class SendTransaction extends PureComponent {
     this.form = r
   }
 
+  _getCurrentUnitBalance () {
+    const { form: { from, unit } } = this.state
+
+    const { getAccounts, getTokenList } = this.props.selectors
+
+    let amountStr = t('ethBalance.unknown')
+    if (ETH === unit) {
+      const { balance } = _.get(getAccounts(), from, {})
+
+      if (balance) {
+        amountStr = toEthBalance(balance)
+      }
+    } else {
+      const { tokens } = _.get(getAccounts(), from, {})
+      const allTokens = getTokenList()
+
+      amountStr = toTokenBalance(tokens[unit].balance, allTokens[unit].decimals)
+    }
+
+    return amountStr
+  }
+
   _getUnitPickerOptions () {
+    const { getAccounts } = this.props.selectors
+    const { form: { from } } = this.state
+
+    const tokens = _.get(getAccounts(), from, {}).tokens || {}
+
     return [
       {
-        value: 'ETH',
-        label: 'ETH'
+        value: ETH,
+        label: ETH
       }
-    ]
+    ].concat(Object.keys(tokens).map(tok => ({ value: tok, label: tok })))
   }
 
   _confirmAndSend = () => {

@@ -1,4 +1,5 @@
 import BN from 'bn.js'
+import { fromWei } from 'web3-utils'
 
 export const isNumber = val => 'number' === typeof val && `${val}` !== 'NaN'
 
@@ -62,3 +63,5 @@ export const toDecimalPlaces = (
 
 export const divideByPowerOfTen = (num, power) =>
   num.div(new BN('10', 10).pow(new BN(`${power}`, 10))).toString(10)
+
+export const toEthBalance = balance => fromWei(balance.toString(10), 'ether')

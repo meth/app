@@ -1,11 +1,11 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Text } from 'react-native'
-import { fromWei } from 'web3-utils'
+
 
 import TouchableView from '../TouchableView'
 import styles from './styles'
-import { toDecimalPlaces } from '../../../utils/number'
+import { toDecimalPlaces, toEthBalance } from '../../../utils/number'
 
 export default class EtherBalance extends PureComponent {
   static propTypes = {
@@ -35,7 +35,7 @@ export default class EtherBalance extends PureComponent {
     if (showWei) {
       amount = balance.toString(10)
     } else {
-      amount = toDecimalPlaces(fromWei(balance.toString(10), 'ether'), 3)
+      amount = toDecimalPlaces(toEthBalance(balance), 3)
     }
 
     return (

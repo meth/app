@@ -158,7 +158,7 @@ module.exports = {
         dataInputPlaceholder: '0x...',
         contractCodeFieldLabel: 'Contract code',
         contractCodeInputPlaceholder: 'Paste code here...',
-        amountFieldLabel: 'Amount',
+        amountFieldLabel: 'Amount ({amount} available)',
         amountInputPlaceholder: 'Amount in {unit}',
         unitFieldLabel: 'Unit'
       },
@@ -179,6 +179,9 @@ module.exports = {
     addressType: {
       [ADDRESS_TYPES.OWN_ACCOUNT]: 'Own account',
       [ADDRESS_TYPES.CONTRACT]: 'Contract'
+    },
+    ethBalance: {
+      unknown: 'Unknown'
     },
     config: {
       node: {
