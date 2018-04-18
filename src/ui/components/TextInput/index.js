@@ -33,7 +33,7 @@ export default class CustomTextInput extends PureComponent {
         autoCorrect={false}
         autoFocus={false}
         {...props}
-        {...(value !== undefined ? { value } : {})}
+        value={value}
         style={inputStyle}
         ref={this._onRef}
         onChangeText={onChange}
