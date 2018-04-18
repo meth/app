@@ -61,7 +61,48 @@ export const toDecimalPlaces = (
   return showCommas ? addCommas(finalValue) : finalValue
 }
 
-export const divideByPowerOfTen = (num, power) =>
-  num.div(new BN('10', 10).pow(new BN(`${power}`, 10))).toString(10)
+export const toFloat = num => {
+  const n = parseFloat(`${num}`, 10)
+  if (Number.isNaN(n)) {
+    return null
+  }
+  return n
+}
+export const toFloatStr = num => {
+  const n = toFloat(num)
+  return null === n ? '' : `${n}`
+}
 
-export const toEthBalance = balance => fromWei(balance.toString(10), 'ether')
+export const toInt = num => {
+  const n = parseInt(`${num}`, 10)
+  if (Number.isNaN(n)) {
+    return null
+  }
+  return n
+}
+export const toIntStr = num => {
+  const n = toInt(num)
+  return null === n ? '' : `${n}`
+}
+
+export const toBN = num => new BN(num, 10)
+
+const getPowerOfTenBN = power => toBN(10).pow(toBN(power))
+
+export const toTokenBalanceStr = (balance, decimals) =>
+  toBN(balance).idiv(getPowerOfTenBN(decimals)).toString(10)
+
+export const toEthStr = balance => fromWei(balance, 'ether')
+
+export const toWeiBN = balance => {
+  // since BN.js does not support decimals we manually convert from ETH to WEI
+  const str = `${balance}`
+  let dotPos = str.indexOf('.')
+  if (0 > dotPos) {
+    dotPos = str.length - 1
+  }
+  return toBN(str.replace('.', '') + '0'.repeat(18 - (str.length - dotPos - 1)))
+}
+
+export const calculateTotalGasBN = (gasLimit, gasPriceInGwei) =>
+  toBN(gasPriceInGwei).imul(getPowerOfTenBN(9)).imul(toBN(gasLimit))

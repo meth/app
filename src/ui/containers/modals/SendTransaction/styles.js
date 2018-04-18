@@ -92,6 +92,18 @@ export default create({
   gasPriceField: {
     flex: 1
   },
+  /* total cost */
+  totalCost: {
+    ...fieldRow,
+    marginTop: 15,
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
+  },
+  totalCostText: {
+    ...text,
+    color: '$modal_content_textColor',
+    textAlign: 'left'
+  },
 
   /* error box */
 

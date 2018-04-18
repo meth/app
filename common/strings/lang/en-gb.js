@@ -164,7 +164,8 @@ module.exports = {
         gasLimitFieldLabel: 'Gas limit',
         gasLimitInputPlaceholder: 'e.g. 21000',
         gasPriceFieldLabel: 'Gas price (gwei)',
-        gasPriceInputPlaceholder: 'e.g. 2'
+        gasPriceInputPlaceholder: 'e.g. 2',
+        totalCost: 'Total cost: {cost} ETH'
       },
       filterPicker: {
         filterPlaceholder: 'Filter...'

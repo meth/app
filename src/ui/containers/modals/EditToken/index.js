@@ -5,6 +5,7 @@ import { View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 import { isAddress } from 'web3-utils'
 
+import { toFloat } from '../../../../utils/number'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
@@ -180,7 +181,7 @@ export default class EditToken extends PureComponent {
     const values = {
       name,
       symbol,
-      decimals: parseInt(decimals, 10),
+      decimals: toFloat(decimals),
       contractAddress
     }
 
@@ -239,9 +240,9 @@ export default class EditToken extends PureComponent {
     if (!values.decimals) {
       ret.decimals = Form.VALIDATION_RESULT.MISSING
     } else {
-      const decInt = parseInt(values.decimals, 10)
+      const decInt = toFloat(values.decimals)
 
-      if (Number.isNaN(decInt) || `${decInt}` !== values.decimals) {
+      if (null === decInt || `${decInt}` !== values.decimals) {
         ret.decimals = Form.VALIDATION_RESULT.INCORRECT
       }
     }

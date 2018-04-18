@@ -4,7 +4,8 @@ import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 import { isAddress, isHexStrict } from 'web3-utils'
 
-import { toEthBalance, toTokenBalance } from '../../../../utils/number'
+import { DEFAULT_GAS_LIMIT } from '../../../../../common/constants/protocol'
+import { toInt, toFloat, toIntStr, toEthStr, toTokenBalanceStr, calculateTotalGasBN, toWeiBN } from '../../../../utils/number'
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
 import Modal from '../../../components/Modal'
@@ -42,8 +43,8 @@ export default class SendTransaction extends PureComponent {
         amount: value,
         data,
         unit: 'ETH',
-        gasLimit,
-        gasPrice: getLastGasPrice(),
+        gasLimit: `${gasLimit || DEFAULT_GAS_LIMIT}`,
+        gasPrice: `${getLastGasPrice()}`,
         isContractCreation: (!to && !!data)
       },
       rawTx: null
@@ -201,7 +202,7 @@ export default class SendTransaction extends PureComponent {
         </Form.Field>
         <Form.Layout style={styles.gasRow}>
           <Form.Field
-            name='gas'
+            name='gasLimit'
             label={t('modal.sendTransaction.gasLimitFieldLabel')}
             style={styles.gasLimitField}
             labelStyle={formStyles.label}
@@ -227,6 +228,11 @@ export default class SendTransaction extends PureComponent {
             />
           </Form.Field>
         </Form.Layout>
+        <View style={styles.totalCost}>
+          <Text style={styles.totalCostText}>
+            {t('modal.sendTransaction.totalCost', { cost: this._getTotalCost() })}
+          </Text>
+        </View>
         {rawTx ? (
           <React.Fragment>
             <Text>{rawTx}</Text>
@@ -251,6 +257,26 @@ export default class SendTransaction extends PureComponent {
     this.form = r
   }
 
+  _getTotalCost () {
+    const { form: { gasLimit, gasPrice, unit, amount } } = this.state
+
+    const parsedGasLimit = toInt(gasLimit)
+    const parsedGasPrice = toInt(gasPrice)
+    if (!parsedGasLimit || !parsedGasPrice) {
+      return ''
+    }
+
+    let totalWei = calculateTotalGasBN(gasLimit, gasPrice)
+
+    // if transferring ETH
+    const parsedAmount = toFloat(amount)
+    if (ETH === unit && parsedAmount) {
+      totalWei = totalWei.add(toWeiBN(parsedAmount))
+    }
+
+    return toEthStr(totalWei)
+  }
+
   _getCurrentUnitBalance () {
     const { form: { from, unit } } = this.state
 
@@ -261,13 +287,13 @@ export default class SendTransaction extends PureComponent {
       const { balance } = _.get(getAccounts(), from, {})
 
       if (balance) {
-        amountStr = toEthBalance(balance)
+        amountStr = toEthStr(balance)
       }
     } else {
       const { tokens } = _.get(getAccounts(), from, {})
       const allTokens = getTokenList()
 
-      amountStr = toTokenBalance(tokens[unit].balance, allTokens[unit].decimals)
+      amountStr = toTokenBalanceStr(tokens[unit].balance, allTokens[unit].decimals)
     }
 
     return amountStr
@@ -355,6 +381,9 @@ export default class SendTransaction extends PureComponent {
       form.to = form.toLookup
     }
 
+    form.gasLimit = toIntStr(form.gasLimit)
+    form.gasPrice = toIntStr(form.gasPrice)
+
     this.setState({ form })
   }
 
@@ -374,6 +403,8 @@ export default class SendTransaction extends PureComponent {
         ret.to = Form.VALIDATION_RESULT.MISSING
       } else if (!isAddress(values.to)) {
         ret.to = Form.VALIDATION_RESULT.INCORRECT
+      } else if (values.to === values.from) {
+        ret.to = Form.VALIDATION_RESULT.INCORRECT
       }
     }
 
@@ -386,8 +417,16 @@ export default class SendTransaction extends PureComponent {
       ret.data = Form.VALIDATION_RESULT.INCORRECT
     }
 
-    if (values.amount && Number.isNaN(parseInt(values.amount, 10))) {
-      ret.data = Form.VALIDATION_RESULT.INCORRECT
+    if (values.amount && null === toFloat(values.amount)) {
+      ret.amount = Form.VALIDATION_RESULT.INCORRECT
+    }
+
+    if (null === toInt(values.gasLimit)) {
+      ret.gasLimit = Form.VALIDATION_RESULT.INCORRECT
+    }
+
+    if (null === toInt(values.gasPrice)) {
+      ret.gasPrice = Form.VALIDATION_RESULT.INCORRECT
     }
 
     return ret
