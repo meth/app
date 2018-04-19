@@ -83,19 +83,58 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
     case GENERATE_RAW_TX: {
       log.debug('Generate raw tx ...')
 
-      const { from, to, value, data, gasLimit, gasPrice } = action.payload
+      const {
+        tx: {
+          from,
+          to,
+          amount,
+          data,
+          gasLimit,
+          gasPrice,
+          unit,
+          isContractCreation
+        }
+      } = action.payload
 
-      // chain id
-      const { network: { chainId } } = getNodeConnection()
-      log.debug(`chainId: ${chainId}`)
+      try {
+        // we may override this below
+        let toOverride = to
 
-      // nonce
-      const nonce = await nodeConnector.rawCall('eth_getTransactionCount', [ from, 'latest' ])
-      log.debug(`nonce: ${nonce}`)
+        // set transfer value
+        let value = ethToWeiStr(amount)
+        // if not deploying a contract and it's a token transfer
+        if (!isContractCreation && ETH !== unit) {
+          value = '0'
+          // TODO: calculate "data" using token transfer()
+        }
 
-      return walletManager.wallet().sign({
-        from, to, value, data, gasLimit, gasPrice, nonce, chainId
-      })
+        // chain id
+        const { network: { chainId } } = getNodeConnection()
+        log.debug(`chainId: ${chainId}`)
+
+        // nonce
+        const nonce = await nodeConnector.rawCall('eth_getTransactionCount', [ from, 'latest' ])
+        log.debug(`nonce: ${nonce}`)
+
+        const rawTx = await walletManager.wallet().sign({
+          from,
+          ...(isContractCreation ? null : { to: toOverride }),
+          value,
+          data,
+          gasLimit,
+          gasPrice,
+          nonce,
+          chainId
+        })
+
+        log.info(`Raw transaction: 0x...(${rawTx.length} chars)`)
+
+        return rawTx
+      } catch (err) {
+        log.warn('Error generating raw tx', err)
+
+        throw new Error(t('error.unableToGenerateRawTx'))
+      }
     }
     case SEND_RAW_TX: {
       const rawTx = action.payload
@@ -162,23 +201,27 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
       return next(action)
     }
     case FETCH_RECOMMENDED_GAS_LIMIT: {
-      const { tx: { from, to, amount, gasPrice, data, unit } } = action.payload
-
-      let value
-      if (ETH === unit) {
-        value = ethToWeiStr(amount)
-      } else {
-        // TODO: if it's a token transfer then need to estimate based on token transfer
-      }
+      const { tx: { from, to, amount, gasPrice, data, unit, isContractCreation } } = action.payload
 
       try {
+        let value
+        if (ETH === unit) {
+          value = ethToWeiStr(amount)
+        } else {
+          // TODO: if it's a token transfer then need to estimate based on token transfer
+        }
+
         const estimate = await nodeConnector.estimateGas({
-          from, to, value, data, gasPrice
+          from,
+          ...(isContractCreation ? null : { to }),
+          value,
+          data,
+          gasPrice
         })
 
         const estimateNum = hexToNumber(estimate)
 
-        log.info(`Gas estimate: ${estimateNum}`)
+        log.debug(`Gas estimate: ${estimateNum}`)
 
         return estimateNum
       } catch (err) {

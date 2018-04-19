@@ -2,10 +2,10 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
-import { isAddress, isHexStrict } from 'web3-utils'
 
 import { DEFAULT_GAS_LIMIT } from '../../../../../common/constants/protocol'
 import { toInt, toFloat, toIntStr, weiToEthStr, toTokenBalanceStr, calculateTotalGasBN, ethToWeiBN } from '../../../../utils/number'
+import { isAddress, isHexStrict, prefixedWith0x, prefixWith0x } from '../../../../utils/string'
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
 import Modal from '../../../components/Modal'
@@ -64,7 +64,7 @@ export default class SendTransaction extends PureComponent {
           text={t('title.sendTransaction')}
         />
         {receipt ? this.renderReceipt(receipt) : this.renderForm()}
-        <ErrorBox error={error} />
+        <ErrorBox error={error} style={styles.errorBox} />
       </Modal>
     )
   }
@@ -238,14 +238,14 @@ export default class SendTransaction extends PureComponent {
             <Text>{rawTx}</Text>
             <Button
               title={t('button.confirmAndSendTransaction')}
-              onPress={this._confirmAndSend}
+              onPress={this.submit}
               style={styles.formButton}
             />
           </React.Fragment>
         ) : (
           <ProgressButton
             title={t('button.generateRawTransaction')}
-            onPress={this._generateRawTx}
+            onPress={this.submit}
             style={styles.formButton}
           />
         )}
@@ -256,7 +256,7 @@ export default class SendTransaction extends PureComponent {
   componentDidUpdate (prevProps, prevState) {
     // re-calculate the gas limit for certain changes
     let shouldRecalculate = false
-    ;[ 'unit', 'to', 'data' ].forEach(f => {
+    ;[ 'unit', 'to', 'data', 'isContractCreation' ].forEach(f => {
       if (this.state.form[f] !== prevState.form[f]) {
         shouldRecalculate = true
       }
@@ -271,12 +271,21 @@ export default class SendTransaction extends PureComponent {
     this._recalculateGasLimit()
   }
 
+  submit = () => {
+    if (this.form) {
+      this.form.validateAndSubmit()
+    }
+  }
+
   _recalculateGasLimit = _.debounce(() => {
-    const { form, form: { from, to, gasLimit } } = this.state
+    const { form, form: { from, to, gasLimit, isContractCreation } } = this.state
     const { fetchRecommendedGasLimit } = this.props.actions
 
-    // both from and to
-    if (!from || !to) {
+    if (!from) {
+      return
+    }
+
+    if (!isContractCreation && !to) {
       return
     }
 
@@ -343,16 +352,20 @@ export default class SendTransaction extends PureComponent {
 
   _getUnitPickerOptions () {
     const { getAccounts } = this.props.selectors
-    const { form: { from } } = this.state
+    const { form: { from, isContractCreation } } = this.state
 
     const tokens = _.get(getAccounts(), from, {}).tokens || {}
 
-    return [
+    const options = [
       {
         value: ETH,
         label: ETH
       }
-    ].concat(Object.keys(tokens).map(tok => ({ value: tok, label: tok })))
+    ]
+
+    return isContractCreation ? options : options.concat(
+      Object.keys(tokens).map(tok => ({ value: tok, label: tok }))
+    )
   }
 
   _confirmAndSend = () => {
@@ -379,31 +392,6 @@ export default class SendTransaction extends PureComponent {
 
   _renderToPickerButtonIcon = () => null
 
-  _generateRawTx = () => {
-    const { getTx } = this.props.selectors
-
-    const { from, to, value, data } = getTx()
-
-    const { gasLimit, gasPrice } = this._gas()
-
-    this.setState({
-      rawTx: null,
-      error: null
-    }, () => {
-      this.props.actions.generateRawTransaction({
-        from, to, value, data, gasLimit, gasPrice
-      })
-        .then(rawTx => {
-          this.setState({
-            rawTx
-          })
-        })
-        .catch(error => {
-          this.setState({ error })
-        })
-    })
-  }
-
   _dismissModal = () => {
     const { receipt } = this.state
 
@@ -423,14 +411,58 @@ export default class SendTransaction extends PureComponent {
       form.to = form.toLookup
     }
 
+    // if toggled to contract deployment then set unit to ETH and set amount to 0
+    if (form.isContractCreation !== this.state.form.isContractCreation) {
+      form.unit = ETH
+      form.amount = '0'
+    }
+
+    // data and addresses must have 0x prefix
+    [ 'data', 'to', 'from' ].forEach(f => {
+      if (form[f] && !prefixedWith0x(form[f])) {
+        form[f] = prefixWith0x(form[f])
+      }
+    })
+
     form.gasLimit = toIntStr(form.gasLimit)
     form.gasPrice = toIntStr(form.gasPrice)
 
-    this.setState({ form })
+    this.setState({
+      form,
+      /* will need to re-generate raw tx */
+      rawTx: null
+    })
   }
 
   _onSubmit = () => {
-    console.log('submit')
+    const { form, rawTx } = this.state
+    const { generateRawTransaction } = this.props.actions
+
+    // ready to generate raw tx
+    if (!rawTx) {
+      this.setState({
+        error: null,
+        generating: true
+      }, () => {
+        generateRawTransaction(form)
+          .then(rawTxStr => {
+            this.setState({
+              generating: false,
+              rawTx: rawTxStr
+            })
+          })
+          .catch(error => {
+            this.setState({
+              generating: false,
+              error
+            })
+          })
+      })
+    }
+    // ready to send raw tx
+    else {
+      // TODO: submit raw tx
+    }
   }
 
   _validate = values => {

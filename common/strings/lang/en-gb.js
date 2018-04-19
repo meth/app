@@ -52,7 +52,8 @@ module.exports = {
       connectionError: 'There was a connection error',
       tokenAlreadyExists: 'Token already exists',
       tokenContractNotFound: 'Valid token contract not found',
-      unableToEstimateGas: 'Unable to estimate gas'
+      unableToEstimateGas: 'Unable to estimate gas',
+      unableToGenerateRawTx: 'Unable to generate raw transaction'
     },
     home: {
       intro1: 'Welcome to Meth!',

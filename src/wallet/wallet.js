@@ -113,17 +113,15 @@ class Wallet extends EventEmitter {
    *
    * @return {String} Raw transaction string.
    */
-  sign ({ nonce, from, to, value, data, gasLimit, gasPrice, chainId }) {
-    return this._hdWallet.sign({
-      nonce,
-      from,
-      to,
-      value,
-      data,
-      gasLimit,
-      gasPrice,
-      chainId
+  async sign ({ nonce, from, to, value, data, gasLimit, gasPrice, chainId }) {
+    const payload = { nonce, from, to, value, data, gasLimit, gasPrice, chainId }
+
+    log.info('Sign transaction', {
+      ...payload,
+      data: data ? `0x...(${data.length} chars)` : data
     })
+
+    return this._hdWallet.sign(payload)
   }
 
   /**

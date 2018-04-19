@@ -49,7 +49,7 @@ export const deleteAddressBookEntry =
 /* transactions */
 export const sendTransaction = createActionCreator(SEND_TX, tx => ({ tx }))
 export const cancelTransaction = createActionCreator(CANCEL_TX)
-export const generateRawTransaction = createActionCreator(GENERATE_RAW_TX)
+export const generateRawTransaction = createActionCreator(GENERATE_RAW_TX, tx => ({ tx }))
 export const sendRawTransaction = createActionCreator(SEND_RAW_TX)
 
 /* tokens */
