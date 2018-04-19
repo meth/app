@@ -10,7 +10,6 @@ import {
   RequestTimeoutError
 } from '../../../utils/errors'
 import AlertBox from '../AlertBox'
-import ExpandingView from '../ExpandingView'
 import styles from './styles'
 
 
@@ -28,24 +27,20 @@ const renderError = error => {
     renderedError = t('error.requestTimeout')
   } else {
     couldBeMethodCallError = true
-    renderedError = String(error)
+    renderedError = error.message || String(error)
   }
 
-  const key = `${error}`
+  const key = String(error)
 
   if (couldBeMethodCallError && _.get(error, 'method')) {
-    const { method, details } = error
+    const { method } = error
 
     renderedError = (
       <View key={key}>
         <Text style={styles.errorText}>
           {t('error.methodCall', { method })}
         </Text>
-        {(!details) ? null : (
-          <Text style={styles.errorText}>
-            {JSON.stringify(details, null, 2)}
-          </Text>
-        )}
+        <Text style={styles.errorText}>{renderedError}</Text>
       </View>
     )
   } else {
@@ -57,7 +52,7 @@ const renderError = error => {
   return renderedError
 }
 
-const ErrorBox = ({ animate, error, style }) => {
+const ErrorBox = ({ error, style, shouldAnimate }) => {
   const errors = [].concat(error).map(renderError)
 
   const validErrors = errors.filter(e => !!e)
@@ -66,21 +61,28 @@ const ErrorBox = ({ animate, error, style }) => {
     return null
   }
 
-  const box = <AlertBox type="error" style={style}>{validErrors}</AlertBox>
-
-  return (!animate) ? box : (
-    <ExpandingView duration={1500} finalMaxHeight={300}>{box}</ExpandingView>
+  return (
+    <AlertBox
+      animate={shouldAnimate ? {
+        finalMaxHeight: 3000,
+        duration: 1500
+      } : null}
+      type="error"
+      style={style}
+    >
+      {validErrors}
+    </AlertBox>
   )
 }
 
 ErrorBox.propTypes = {
-  animate: PropTypes.bool,
+  shouldAnimate: PropTypes.bool,
   error: PropTypes.any,
   style: PropTypes.any
 }
 
 ErrorBox.defaultProps = {
-  animate: true
+  shouldAnimate: true
 }
 
 export default ErrorBox

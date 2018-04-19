@@ -1,7 +1,7 @@
 import BN from 'bn.js'
-import { fromWei } from 'web3-utils'
+import { toBN, fromWei } from 'web3-utils'
 
-export { hexToNumber } from 'web3-utils'
+export { hexToNumber, toHex } from 'web3-utils'
 
 export const isNumber = val => 'number' === typeof val && `${val}` !== 'NaN'
 
@@ -87,12 +87,13 @@ export const toIntStr = num => {
   return null === n ? '' : `${n}`
 }
 
-export const toBN = num => new BN(num, 10)
+export const hexToBN = hex => toBN(hex)
+export const numToBN = num => new BN(num, 10)
 
-const getPowerOfTenBN = power => toBN(10).pow(toBN(power))
+const getPowerOfTenBN = power => numToBN(10).pow(numToBN(power))
 
 export const toTokenBalanceStr = (balance, decimals) =>
-  toBN(balance).idiv(getPowerOfTenBN(decimals)).toString(10)
+  numToBN(balance).idiv(getPowerOfTenBN(decimals)).toString(10)
 
 export const weiToEthStr = balance => fromWei(balance, 'ether')
 
@@ -103,10 +104,12 @@ export const ethToWeiBN = balance => {
   if (0 > dotPos) {
     dotPos = str.length - 1
   }
-  return toBN(str.replace('.', '') + '0'.repeat(18 - (str.length - dotPos - 1)))
+  return numToBN(str.replace('.', '') + '0'.repeat(18 - (str.length - dotPos - 1)))
 }
 
 export const ethToWeiStr = balance => ethToWeiBN(balance).toString(10)
 
+export const gweiToWeiStr = balance => numToBN(balance).toString(10) + '0'.repeat(9)
+
 export const calculateTotalGasBN = (gasLimit, gasPriceInGwei) =>
-  toBN(gasPriceInGwei).imul(getPowerOfTenBN(9)).imul(toBN(gasLimit))
+  numToBN(gasPriceInGwei).imul(getPowerOfTenBN(9)).imul(numToBN(gasLimit))

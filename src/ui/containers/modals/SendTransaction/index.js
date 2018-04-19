@@ -3,11 +3,12 @@ import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
-import { DEFAULT_GAS_LIMIT } from '../../../../../common/constants/protocol'
+import { ETH, DEFAULT_GAS_LIMIT } from '../../../../../common/constants/protocol'
 import { toInt, toFloat, toIntStr, weiToEthStr, toTokenBalanceStr, calculateTotalGasBN, ethToWeiBN } from '../../../../utils/number'
 import { isAddress, isHexStrict, prefixedWith0x, prefixWith0x } from '../../../../utils/string'
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
+import { routes } from '../../../nav'
 import Modal from '../../../components/Modal'
 import Button from '../../../components/Button'
 import ProgressButton from '../../../components/ProgressButton'
@@ -15,14 +16,14 @@ import Switch from '../../../components/Switch'
 import TitleText from '../../../components/TitleText'
 import Icon from '../../../components/Icon'
 import TextInput from '../../../components/TextInput'
+import BlockOfText from '../../../components/BlockOfText'
 import ErrorBox from '../../../components/ErrorBox'
 import Picker from '../../../components/Picker'
+import Loading from '../../../components/Loading'
 import AddressBookPicker from '../../pickers/AddressBookPicker'
 import AccountPicker from '../../pickers/AccountPicker'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
-
-const ETH = 'ETH'
 
 
 @connectStore('account', 'modals')
@@ -34,6 +35,7 @@ export default class SendTransaction extends PureComponent {
     const { from, to, value, gas: gasLimit, data } = getTx()
 
     this.state = {
+      fetchingGasEstimate: false,
       generating: false,
       submitting: false,
       error: null,
@@ -47,12 +49,22 @@ export default class SendTransaction extends PureComponent {
         gasPrice: `${getLastGasPrice()}`,
         isContractCreation: (!to && !!data)
       },
-      rawTx: null
+      rawTx: null,
+      receipt: null
     }
   }
 
   render () {
-    const { error, receipt } = this.state
+    const { error, receipt, rawTx } = this.state
+
+    let content
+    if (receipt) {
+      content = this.renderReceipt()
+    } else if (rawTx) {
+      content = this.renderRawTransaction()
+    } else {
+      content = this.renderForm()
+    }
 
     return (
       <Modal
@@ -63,24 +75,52 @@ export default class SendTransaction extends PureComponent {
           style={styles.titleText}
           text={t('title.sendTransaction')}
         />
-        {receipt ? this.renderReceipt(receipt) : this.renderForm()}
+        {content}
         <ErrorBox error={error} style={styles.errorBox} />
       </Modal>
     )
   }
 
-  renderReceipt (receipt) {
+  renderReceipt () {
+    const { receipt } = this.state
+
     return (
-      <View>
-        <Text>Receipt: {receipt}</Text>
-        <Button title={t('button.close')} onPress={this._dismissModal} />
+      <View style={styles.receipt}>
+        <Text style={styles.receiptIntroText}>{t('modal.sendTransaction.transactionSuccessful')}</Text>
+        <Text style={formStyles.labelText}>{t('modal.sendTransaction.receiptLabel')}</Text>
+        <BlockOfText text={receipt} style={styles.receiptBlock} />
+        <Button title={t('button.trackTransaction')} onPress={this._onPressTrackTransaction} />
+      </View>
+    )
+  }
+
+  renderRawTransaction () {
+    const { rawTx, submitting } = this.state
+
+    return (
+      <View style={styles.rawTransaction}>
+        <Text style={formStyles.labelText}>
+          {t('modal.sendTransaction.rawTransactionLabel')}
+        </Text>
+        <BlockOfText
+          text={rawTx}
+          style={styles.rawTransactionBlock}
+          textStyle={styles.rawTransactionBlockText}
+        />
+        <ProgressButton
+          showInProgress={submitting}
+          title={t('button.confirmAndSendTransaction')}
+          onPress={this._confirmAndSendRawTransaction}
+          style={styles.rawTransactionButton}
+        />
       </View>
     )
   }
 
   renderForm () {
     const {
-      rawTx,
+      generating,
+      fetchingGasEstimate,
       form: { from, to, unit, amount, data, gasLimit, gasPrice, isContractCreation }
     } = this.state
 
@@ -91,6 +131,7 @@ export default class SendTransaction extends PureComponent {
         onChange={this._onChange}
         onSubmit={this._onSubmit}
         validate={this._validate}
+        submitOnReturn={false}
       >
         <Form.Field
           name='isContractCreation'
@@ -207,6 +248,7 @@ export default class SendTransaction extends PureComponent {
             style={styles.gasLimitField}
             labelStyle={formStyles.label}
             labelTextStyle={formStyles.labelText}
+            labelRightContent={fetchingGasEstimate ? <Loading /> : null}
           >
             <TextInput
               value={gasLimit}
@@ -233,22 +275,12 @@ export default class SendTransaction extends PureComponent {
             {t('modal.sendTransaction.totalCost', { cost: this._getTotalCost() })}
           </Text>
         </View>
-        {rawTx ? (
-          <React.Fragment>
-            <Text>{rawTx}</Text>
-            <Button
-              title={t('button.confirmAndSendTransaction')}
-              onPress={this.submit}
-              style={styles.formButton}
-            />
-          </React.Fragment>
-        ) : (
-          <ProgressButton
-            title={t('button.generateRawTransaction')}
-            onPress={this.submit}
-            style={styles.formButton}
-          />
-        )}
+        <ProgressButton
+          showInProgress={generating}
+          title={t('button.generateRawTransaction')}
+          onPress={this.submit}
+          style={styles.formButton}
+        />
       </Form>
     )
   }
@@ -289,19 +321,33 @@ export default class SendTransaction extends PureComponent {
       return
     }
 
-    fetchRecommendedGasLimit(form)
-      .then(estimate => {
-        // only update if estimate is greater than what user currently has
-        if (!gasLimit || toInt(estimate) > toInt(gasLimit)) {
-          this.setState({
-            form: {
-              ...form,
-              gasLimit: toIntStr(estimate)
+    this.setState({
+      fetchingGasEstimate: true
+    }, () => {
+      fetchRecommendedGasLimit(form)
+        .then(estimate => {
+          let toUpdate = {}
+          // only update if estimate is greater than what user currently has
+          if (!gasLimit || toInt(estimate) > toInt(gasLimit)) {
+            toUpdate = {
+              form: {
+                ...form,
+                gasLimit: toIntStr(estimate)
+              }
             }
+          }
+
+          this.setState({
+            fetchingGasEstimate: false,
+            ...toUpdate
           })
-        }
-      })
-      .catch(() => { /* do nothing */ })
+        })
+        .catch(() => {
+          this.setState({
+            fetchingGasEstimate: false
+          })
+        })
+    })
   }, 1000)
 
   _onFormRef = r => {
@@ -368,24 +414,6 @@ export default class SendTransaction extends PureComponent {
     )
   }
 
-  _confirmAndSend = () => {
-    const { rawTx } = this.state
-
-    this.setState({
-      error: null
-    }, () => {
-      this.props.actions.sendRawTransaction(rawTx)
-        .then(receipt => {
-          this.setState({
-            receipt
-          })
-        })
-        .catch(error => {
-          this.setState({ error })
-        })
-    })
-  }
-
   _renderToPickerButtonLabel = () => (
     <Icon style={styles.toPickerButtonIcon} name='search' />
   )
@@ -394,13 +422,22 @@ export default class SendTransaction extends PureComponent {
 
   _dismissModal = () => {
     const { receipt } = this.state
+    const { cancelTransaction, hideSendTransactionModal } = this.props.actions
 
     // only cancel tx if not already succeeded
     if (!receipt) {
-      this.props.actions.cancelTransaction(t('error.userCancelledTransaction'))
+      cancelTransaction(t('error.userCancelledTransaction'))
     } else {
-      this.props.actions.hideSendTransactionModal()
+      hideSendTransactionModal()
     }
+  }
+
+  _onPressTrackTransaction = () => {
+    const { navPush, hideSendTransactionModal } = this.props.actions
+
+    hideSendTransactionModal()
+
+    navPush(routes.Transactions.path)
   }
 
   _onChange = values => {
@@ -435,33 +472,12 @@ export default class SendTransaction extends PureComponent {
   }
 
   _onSubmit = () => {
-    const { form, rawTx } = this.state
-    const { generateRawTransaction } = this.props.actions
+    const { rawTx } = this.state
 
-    // ready to generate raw tx
     if (!rawTx) {
-      this.setState({
-        error: null,
-        generating: true
-      }, () => {
-        generateRawTransaction(form)
-          .then(rawTxStr => {
-            this.setState({
-              generating: false,
-              rawTx: rawTxStr
-            })
-          })
-          .catch(error => {
-            this.setState({
-              generating: false,
-              error
-            })
-          })
-      })
-    }
-    // ready to send raw tx
-    else {
-      // TODO: submit raw tx
+      this._generateRawTransaction()
+    } else {
+      this._confirmAndSendRawTransaction()
     }
   }
 
@@ -504,5 +520,53 @@ export default class SendTransaction extends PureComponent {
     }
 
     return ret
+  }
+
+  _generateRawTransaction () {
+    const { form } = this.state
+    const { generateRawTransaction } = this.props.actions
+
+    this.setState({
+      error: null,
+      generating: true
+    }, () => {
+      generateRawTransaction(form)
+        .then(rawTxStr => {
+          this.setState({
+            generating: false,
+            rawTx: rawTxStr
+          })
+        })
+        .catch(error => {
+          this.setState({
+            generating: false,
+            error
+          })
+        })
+    })
+  }
+
+  _confirmAndSendRawTransaction = () => {
+    const { rawTx } = this.state
+    const { sendRawTransaction } = this.props.actions
+
+    this.setState({
+      error: null,
+      submitting: true
+    }, () => {
+      sendRawTransaction(rawTx)
+        .then(receipt => {
+          this.setState({
+            submitting: false,
+            receipt
+          })
+        })
+        .catch(error => {
+          this.setState({
+            submitting: false,
+            error
+          })
+        })
+    })
   }
 }

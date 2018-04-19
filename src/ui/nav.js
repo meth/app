@@ -14,6 +14,7 @@ import ConfirmNewMnemonic from './containers/pages/ConfirmNewMnemonic'
 import AddressBook from './containers/pages/AddressBook'
 import Wallet from './containers/pages/Wallet'
 import Browser from './containers/pages/Browser'
+import Transactions from './containers/pages/Transactions'
 
 export const routes = {
   Home: {
@@ -47,6 +48,10 @@ export const routes = {
   Browser: {
     screen: Browser,
     path: 'browser'
+  },
+  Transactions: {
+    screen: Transactions,
+    path: 'transactions'
   }
 }
 

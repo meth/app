@@ -1,9 +1,9 @@
 import _ from 'lodash'
 import { EthHdWallet } from 'eth-hd-wallet'
 import EventEmitter from 'eventemitter3'
-import { toBN } from 'web3-utils'
 
 import logger from '../logger'
+import { hexToBN, toHex, toInt } from '../utils/number'
 import { WalletNotLoadedError } from '../utils/errors'
 import EVENT from '../../common/constants/events'
 import STATE from '../../common/constants/states'
@@ -114,10 +114,22 @@ class Wallet extends EventEmitter {
    * @return {String} Raw transaction string.
    */
   async sign ({ nonce, from, to, value, data, gasLimit, gasPrice, chainId }) {
-    const payload = { nonce, from, to, value, data, gasLimit, gasPrice, chainId }
+    const payload = {
+      nonce,
+      from,
+      to,
+      value: toHex(value),
+      data,
+      gasLimit: toHex(gasLimit),
+      gasPrice: toHex(gasPrice),
+      chainId: toInt(chainId)
+    }
 
     log.info('Sign transaction', {
       ...payload,
+      value: `${payload.value} (${value})`,
+      gasLimit: `${payload.gasLimit} (${gasLimit})`,
+      gasPrice: `${payload.gasPrice} (${gasPrice})`,
       data: data ? `0x...(${data.length} chars)` : data
     })
 
@@ -184,7 +196,7 @@ class Wallet extends EventEmitter {
   }
 
   async _setBalancesAndNotifyStore (balances) {
-    this._balances = balances.map(toBN)
+    this._balances = balances.map(hexToBN)
 
     await this._store.actions.injectAccountBalances(this.getAddressBalances())
   }

@@ -103,7 +103,7 @@
     "react-dom": "^16.2.0",
     "react-hot-loader": "next",
     "react-native": "^0.54.0",
-    "react-native-advanced-forms": "^1.1.2",
+    "react-native-advanced-forms": "^1.1.4",
     "react-native-dropdown": "0.0.6",
     "react-native-extended-stylesheet": "^0.6.0",
     "react-native-tabs": "^1.0.9",

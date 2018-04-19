@@ -105,6 +105,43 @@ export default create({
     textAlign: 'left'
   },
 
+  /* raw tx */
+  rawTransaction: {
+    alignItems: 'stretch',
+    width: '90%'
+  },
+  rawTransactionBlock: {
+    height: 50,
+    borderRadius: 5,
+    marginBottom: 20
+  },
+  rawTransactionBlockText: {
+    fontSize: '0.8rem',
+    textAlign: 'left'
+  },
+  rawTransactionButton: {
+    alignSelf: 'center'
+  },
+
+  /* receipt */
+  receipt: {
+    alignItems: 'center'
+  },
+  receiptIntroText: {
+    ...text,
+    ...fontMaker({ weight: 'SemiBold' }),
+    color: '$content_textColor',
+    fontSize: '1.5rem',
+    marginBottom: 15,
+    textAlign: 'center'
+  },
+  receiptBlock: {
+    width: '100%',
+    height: 50,
+    borderRadius: 5,
+    marginBottom: 30
+  },
+
   /* error box */
 
   errorBox: {

@@ -17,7 +17,7 @@ import { ETH } from '../../../common/constants/protocol'
 import { getStore } from '../'
 import { createAction } from '../utils'
 import { SendTransactionError } from '../../utils/errors'
-import { hexToNumber, ethToWeiStr } from '../../utils/number'
+import { hexToNumber, ethToWeiStr, gweiToWeiStr } from '../../utils/number'
 import logger from '../../logger'
 
 const log = logger.create('walletMiddleware')
@@ -98,7 +98,7 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
 
       try {
         // we may override this below
-        let toOverride = to
+        const toOverride = to
 
         // set transfer value
         let value = ethToWeiStr(amount)
@@ -120,9 +120,9 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
           from,
           ...(isContractCreation ? null : { to: toOverride }),
           value,
-          data,
+          ...(data ? { data } : null),
           gasLimit,
-          gasPrice,
+          gasPrice: gweiToWeiStr(gasPrice),
           nonce,
           chainId
         })
@@ -139,12 +139,11 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
     case SEND_RAW_TX: {
       const rawTx = action.payload
 
-      const receipt =
-        await nodeConnector.rawCall('eth_sendRawTransaction', [ rawTx ])
+      const receipt = await nodeConnector.rawCall('eth_sendRawTransaction', [ rawTx ])
 
       await next(createAction(action.type, receipt))
 
-      return Promise.resolve(receipt)
+      return receipt
     }
     case FETCH_TOKEN_BALANCE: {
       const { symbol, accountAddress } = action.payload

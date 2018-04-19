@@ -42,11 +42,13 @@ export default class LoginMnemonic extends PureComponent {
           showInProgress={submitting}
           style={styles.nextButton}
           onPress={this.onSubmit}
-          title={t('button.login')} />
+          title={t('button.login')}
+        />
         <Button
           textStyle={styles.createPasswordButtonText}
           onPress={this.onPressSignUp}
-          title={t('linkButton.dontHavePasswordCreateOne')} />
+          title={t('linkButton.dontHavePasswordCreateOne')}
+        />
       </Layout>
     )
   }

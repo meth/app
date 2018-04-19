@@ -76,6 +76,7 @@ module.exports = {
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
     button: {
+      trackTransaction: 'Track transaction',
       addEntry: 'Add entry',
       addAccount: 'Add account',
       generateAccount: 'Generate account',
@@ -95,7 +96,7 @@ module.exports = {
       close: 'Close',
       login: 'Login',
       getStarted: 'Get started',
-      confirmAndSendTransaction: 'Send',
+      confirmAndSendTransaction: 'Confirm and send',
       connectToNode: 'Connect',
       disconnectFromNode: 'Disconnect',
       generateRawTransaction: 'Generate raw transaction',
@@ -151,6 +152,7 @@ module.exports = {
         areYouSureYouWantToDelete: 'Are you sure you want to remove this custom token?'
       },
       sendTransaction: {
+        transactionSuccessful: 'Transaction successful!',
         isContractCreationFieldLabel: 'Deploy a contract',
         fromFieldLabel: 'From',
         fromInputPlaceholder: '0x...',
@@ -167,7 +169,9 @@ module.exports = {
         gasLimitInputPlaceholder: 'e.g. 21000',
         gasPriceFieldLabel: 'Gas price (gwei)',
         gasPriceInputPlaceholder: 'e.g. 2',
-        totalCost: 'Total cost: {cost} ETH'
+        totalCost: 'Total cost: {cost} ETH',
+        rawTransactionLabel: 'Raw transaction',
+        receiptLabel: 'Transaction receipt'
       },
       filterPicker: {
         filterPlaceholder: 'Filter...'

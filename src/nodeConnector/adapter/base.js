@@ -188,6 +188,16 @@ class Adapter extends EventEmitter {
       err.method = method
       err.params = params
 
+      // when using ganache the 'message' param is JSON string
+      try {
+        const msgDetails = JSON.parse(err.message)
+
+        err.message = msgDetails.message
+        err.subError = msgDetails
+      } catch (err2) {
+        // nothing to do!
+      }
+
       // if connection error then update state
       if (
         instanceOfError(

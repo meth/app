@@ -146,6 +146,10 @@ export default {
       textColor: '#fff'
     }
   },
+  blockOfText: {
+    backgroundColor: colorGrayDarker,
+    textColor: '#fff'
+  },
   log: {
     unseenAlert: {
       backgroundColor: colorGreen,
