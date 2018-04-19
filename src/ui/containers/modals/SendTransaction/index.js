@@ -5,7 +5,7 @@ import Form from 'react-native-advanced-forms'
 import { isAddress, isHexStrict } from 'web3-utils'
 
 import { DEFAULT_GAS_LIMIT } from '../../../../../common/constants/protocol'
-import { toInt, toFloat, toIntStr, toEthStr, toTokenBalanceStr, calculateTotalGasBN, toWeiBN } from '../../../../utils/number'
+import { toInt, toFloat, toIntStr, weiToEthStr, toTokenBalanceStr, calculateTotalGasBN, ethToWeiBN } from '../../../../utils/number'
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
 import Modal from '../../../components/Modal'
@@ -253,6 +253,48 @@ export default class SendTransaction extends PureComponent {
     )
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    // re-calculate the gas limit for certain changes
+    let shouldRecalculate = false
+    ;[ 'unit', 'to', 'data' ].forEach(f => {
+      if (this.state.form[f] !== prevState.form[f]) {
+        shouldRecalculate = true
+      }
+    })
+
+    if (shouldRecalculate) {
+      this._recalculateGasLimit()
+    }
+  }
+
+  componentDidMount () {
+    this._recalculateGasLimit()
+  }
+
+  _recalculateGasLimit = _.debounce(() => {
+    const { form, form: { from, to, gasLimit } } = this.state
+    const { fetchRecommendedGasLimit } = this.props.actions
+
+    // both from and to
+    if (!from || !to) {
+      return
+    }
+
+    fetchRecommendedGasLimit(form)
+      .then(estimate => {
+        // only update if estimate is greater than what user currently has
+        if (!gasLimit || toInt(estimate) > toInt(gasLimit)) {
+          this.setState({
+            form: {
+              ...form,
+              gasLimit: toIntStr(estimate)
+            }
+          })
+        }
+      })
+      .catch(() => { /* do nothing */ })
+  }, 1000)
+
   _onFormRef = r => {
     this.form = r
   }
@@ -271,10 +313,10 @@ export default class SendTransaction extends PureComponent {
     // if transferring ETH
     const parsedAmount = toFloat(amount)
     if (ETH === unit && parsedAmount) {
-      totalWei = totalWei.add(toWeiBN(parsedAmount))
+      totalWei = totalWei.add(ethToWeiBN(parsedAmount))
     }
 
-    return toEthStr(totalWei)
+    return weiToEthStr(totalWei)
   }
 
   _getCurrentUnitBalance () {
@@ -287,7 +329,7 @@ export default class SendTransaction extends PureComponent {
       const { balance } = _.get(getAccounts(), from, {})
 
       if (balance) {
-        amountStr = toEthStr(balance)
+        amountStr = weiToEthStr(balance)
       }
     } else {
       const { tokens } = _.get(getAccounts(), from, {})

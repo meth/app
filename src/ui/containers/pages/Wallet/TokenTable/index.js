@@ -172,7 +172,7 @@ export default class TokenTable extends CachePureComponent {
 
   _onCheckTokenBalance = symbol => {
     const { account: { address } } = this.props
-    const { loadTokenBalance } = this.props.actions
+    const { fetchTokenBalance } = this.props.actions
 
     this.setState({
       checkingBalance: {
@@ -184,7 +184,7 @@ export default class TokenTable extends CachePureComponent {
         [symbol]: false
       }
     }, () => {
-      loadTokenBalance(symbol, address)
+      fetchTokenBalance(symbol, address)
         .then(() => {
           this.setState({
             checkingBalance: {

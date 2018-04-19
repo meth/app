@@ -15,11 +15,12 @@ import {
   GENERATE_MNEMONIC,
   SEND_TX,
   CANCEL_TX,
-  LOAD_TOKEN_BALANCE,
+  FETCH_TOKEN_BALANCE,
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
   REMOVE_CUSTOM_TOKEN,
-  GENERATE_ACCOUNT
+  GENERATE_ACCOUNT,
+  FETCH_RECOMMENDED_GAS_LIMIT
 } from './actions'
 
 /* wallet loading */
@@ -52,8 +53,8 @@ export const generateRawTransaction = createActionCreator(GENERATE_RAW_TX)
 export const sendRawTransaction = createActionCreator(SEND_RAW_TX)
 
 /* tokens */
-export const loadTokenBalance =
-  createActionCreator(LOAD_TOKEN_BALANCE, (symbol, accountAddress) => ({ symbol, accountAddress }))
+export const fetchTokenBalance =
+  createActionCreator(FETCH_TOKEN_BALANCE, (symbol, accountAddress) => ({ symbol, accountAddress }))
 export const addCustomToken =
   createActionCreator(ADD_CUSTOM_TOKEN, (symbol, details) => ({ symbol, details }))
 export const updateCustomToken =
@@ -63,3 +64,7 @@ export const removeCustomToken =
 
 /* accounts */
 export const generateAccount = createActionCreator(GENERATE_ACCOUNT)
+
+/* gas */
+export const fetchRecommendedGasLimit =
+  createActionCreator(FETCH_RECOMMENDED_GAS_LIMIT, tx => ({ tx }))

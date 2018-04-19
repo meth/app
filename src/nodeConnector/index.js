@@ -230,6 +230,10 @@ class NodeConnector extends EventEmitter {
     return this.getContractAt(address, { abi: Erc20 })
   }
 
+  async estimateGas (tx) {
+    return this.rawCall('eth_estimateGas', [ tx ])
+  }
+
   _updateState (newState, data) {
     if (this._state !== newState) {
       this._state = newState

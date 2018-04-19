@@ -42,7 +42,6 @@ export class Popup extends PureComponent {
 }
 
 
-
 export class PopupContext extends PureComponent {
   static childContextTypes = {
     addPopup: PropTypes.func,
@@ -50,9 +49,9 @@ export class PopupContext extends PureComponent {
     removePopup: PropTypes.func
   }
 
-  state = {
-    popups: []
-  }
+  // we track popups outside the state because setState()
+  // isn't synchronous
+  popups = []
 
   getChildContext () {
     return {
@@ -65,41 +64,36 @@ export class PopupContext extends PureComponent {
   addPopup = ({ style, content }) => {
     const id = `${Math.random()}`
 
-    this.setState({
-      popups: this.state.popups.concat({ id, style, content })
-    })
+    this.popups = this.popups.concat({ id, style, content })
+
+    this.forceUpdate()
 
     return id
   }
 
   updatePopup = (id, { content, style }) => {
-    this.state.popups.forEach(p => {
+    this.popups.forEach(p => {
       if (p.id === id) {
         p.content = content // eslint-disable-line no-param-reassign
         p.style = style // eslint-disable-line no-param-reassign
       }
     })
 
-    this.setState({
-      popups: [ ...this.state.popups ]
-    })
+    this.forceUpdate()
   }
 
   removePopup = idToRemove => {
-    this.setState({
-      popups: this.state.popups.filter(({ id }) => id !== idToRemove)
-    })
+    this.popups = this.popups.filter(({ id }) => id !== idToRemove)
+    this.forceUpdate()
   }
 
   render () {
     const { children } = this.props
 
-    const { popups } = this.state
-
     return (
       <View style={styles.popupContext}>
         {children}
-        {popups.map(({ id, style, content }) => (
+        {this.popups.map(({ id, style, content }) => (
           <View key={id} style={[ styles.popup ].concat(style)}>{content}</View>
         ))}
       </View>

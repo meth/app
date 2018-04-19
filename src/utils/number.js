@@ -1,6 +1,8 @@
 import BN from 'bn.js'
 import { fromWei } from 'web3-utils'
 
+export { hexToNumber } from 'web3-utils'
+
 export const isNumber = val => 'number' === typeof val && `${val}` !== 'NaN'
 
 export const addCommas = value => {
@@ -92,9 +94,9 @@ const getPowerOfTenBN = power => toBN(10).pow(toBN(power))
 export const toTokenBalanceStr = (balance, decimals) =>
   toBN(balance).idiv(getPowerOfTenBN(decimals)).toString(10)
 
-export const toEthStr = balance => fromWei(balance, 'ether')
+export const weiToEthStr = balance => fromWei(balance, 'ether')
 
-export const toWeiBN = balance => {
+export const ethToWeiBN = balance => {
   // since BN.js does not support decimals we manually convert from ETH to WEI
   const str = `${balance}`
   let dotPos = str.indexOf('.')
@@ -103,6 +105,8 @@ export const toWeiBN = balance => {
   }
   return toBN(str.replace('.', '') + '0'.repeat(18 - (str.length - dotPos - 1)))
 }
+
+export const ethToWeiStr = balance => ethToWeiBN(balance).toString(10)
 
 export const calculateTotalGasBN = (gasLimit, gasPriceInGwei) =>
   toBN(gasPriceInGwei).imul(getPowerOfTenBN(9)).imul(toBN(gasLimit))

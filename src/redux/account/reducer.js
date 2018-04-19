@@ -8,7 +8,7 @@ import {
   INJECT_BOOKMARKS,
   INJECT_CUSTOM_TOKENS,
   INJECT_DAPP_PERMISSIONS,
-  LOAD_TOKEN_BALANCE,
+  FETCH_TOKEN_BALANCE,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
@@ -62,7 +62,7 @@ export default () => {
           .set('accountBalances', payload)
           .set('tokenBalances', tokenBalances)
       },
-      [LOAD_TOKEN_BALANCE]: (state, { payload: { symbol, accountAddress, balance } }) => {
+      [FETCH_TOKEN_BALANCE]: (state, { payload: { symbol, accountAddress, balance } }) => {
         let tokenBalances = state.get('tokenBalances')
 
         let accountEntry = tokenBalances.get(accountAddress)

@@ -51,7 +51,8 @@ module.exports = {
       transactionAlreadyInProgress: 'A transaction is already in progress',
       connectionError: 'There was a connection error',
       tokenAlreadyExists: 'Token already exists',
-      tokenContractNotFound: 'Valid token contract not found'
+      tokenContractNotFound: 'Valid token contract not found',
+      unableToEstimateGas: 'Unable to estimate gas'
     },
     home: {
       intro1: 'Welcome to Meth!',

@@ -6,15 +6,18 @@ import {
   GENERATE_RAW_TX,
   LOAD_WALLET,
   GENERATE_MNEMONIC,
-  LOAD_TOKEN_BALANCE,
+  FETCH_TOKEN_BALANCE,
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
-  GENERATE_ACCOUNT
+  GENERATE_ACCOUNT,
+  FETCH_RECOMMENDED_GAS_LIMIT
 } from './actions'
 import { t } from '../../../common/strings'
+import { ETH } from '../../../common/constants/protocol'
 import { getStore } from '../'
 import { createAction } from '../utils'
 import { SendTransactionError } from '../../utils/errors'
+import { hexToNumber, ethToWeiStr } from '../../utils/number'
 import logger from '../../logger'
 
 const log = logger.create('walletMiddleware')
@@ -104,7 +107,7 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
 
       return Promise.resolve(receipt)
     }
-    case LOAD_TOKEN_BALANCE: {
+    case FETCH_TOKEN_BALANCE: {
       const { symbol, accountAddress } = action.payload
 
       const { contractAddress } = getTokenList()[symbol]
@@ -113,7 +116,7 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
 
       const balance = await contract.balanceOf(accountAddress)
 
-      return next(createAction(LOAD_TOKEN_BALANCE, {
+      return next(createAction(FETCH_TOKEN_BALANCE, {
         ...action.payload,
         balance
       }))
@@ -157,6 +160,32 @@ export default ({ nodeConnector, walletManager }) => () => next => async action 
       }
 
       return next(action)
+    }
+    case FETCH_RECOMMENDED_GAS_LIMIT: {
+      const { tx: { from, to, amount, gasPrice, data, unit } } = action.payload
+
+      let value
+      if (ETH === unit) {
+        value = ethToWeiStr(amount)
+      } else {
+        // TODO: if it's a token transfer then need to estimate based on token transfer
+      }
+
+      try {
+        const estimate = await nodeConnector.estimateGas({
+          from, to, value, data, gasPrice
+        })
+
+        const estimateNum = hexToNumber(estimate)
+
+        log.info(`Gas estimate: ${estimateNum}`)
+
+        return estimateNum
+      } catch (err) {
+        log.warn('Error fetching gas estimate', action.payload)
+
+        throw new Error(t('error.unableToEstimateGas'))
+      }
     }
     default: {
       return next(action)
