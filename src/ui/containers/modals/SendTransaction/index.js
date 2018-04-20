@@ -61,7 +61,7 @@ export default class SendTransaction extends PureComponent {
     if (receipt) {
       content = this.renderReceipt()
     } else if (rawTx) {
-      content = this.renderRawTransaction()
+      content = this.renderPreConfirmation()
     } else {
       content = this.renderForm()
     }
@@ -88,20 +88,37 @@ export default class SendTransaction extends PureComponent {
       <View style={styles.receipt}>
         <Text style={styles.receiptIntroText}>{t('modal.sendTransaction.transactionSuccessful')}</Text>
         <Text style={formStyles.labelText}>{t('modal.sendTransaction.receiptLabel')}</Text>
-        <BlockOfText text={receipt} style={styles.receiptBlock} />
-        <Button title={t('button.trackTransaction')} onPress={this._onPressTrackTransaction} />
+        <BlockOfText
+          text={receipt}
+          style={styles.receiptBlock}
+          textStyle={styles.receiptBlockText}
+        />
+        <Button
+          style={styles.trackTransactionButton}
+          title={t('button.trackTransaction')}
+          onPress={this._onPressTrackTransaction}
+        />
       </View>
     )
   }
 
-  renderRawTransaction () {
-    const { rawTx, submitting } = this.state
+  renderPreConfirmation () {
+    const {
+      rawTx,
+      submitting,
+      form: { from, to, amount, unit }
+    } = this.state
 
     return (
       <View style={styles.rawTransaction}>
-        <Text style={formStyles.labelText}>
-          {t('modal.sendTransaction.rawTransactionLabel')}
-        </Text>
+        <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.fromLabel')}</Text>
+        <Text style={styles.confirmText}>{from}</Text>
+        <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.toLabel')}</Text>
+        <Text style={styles.confirmText}>{to || t('modal.sendTransaction.contractDeployment')}</Text>
+        <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.amountLabel')}</Text>
+        <Text style={styles.confirmText}>{amount} {unit}</Text>
+        <Text style={styles.confirmText}>{t('modal.sendTransaction.maxCost', { cost: this._getMaxCost() })}</Text>
+        <Text style={formStyles.labelText}>{t('modal.sendTransaction.rawTransactionLabel')}</Text>
         <BlockOfText
           text={rawTx}
           style={styles.rawTransactionBlock}
@@ -139,13 +156,13 @@ export default class SendTransaction extends PureComponent {
         >
           <Switch
             turnedOn={isContractCreation}
-            label={t(`modal.sendTransaction.isContractCreationFieldLabel`)}
+            label={t(`modal.sendTransaction.field.isContractCreationLabel`)}
             labelTextStyle={styles.switchLabelText}
           />
         </Form.Field>
         <Form.Field
           name='from'
-          label={t('modal.sendTransaction.fromFieldLabel')}
+          label={t('modal.sendTransaction.field.fromLabel')}
           style={styles.field}
           labelStyle={formStyles.label}
           labelTextStyle={formStyles.labelText}
@@ -156,7 +173,7 @@ export default class SendTransaction extends PureComponent {
           <Form.Layout style={styles.toRow}>
             <Form.Field
               name='to'
-              label={t('modal.sendTransaction.toFieldLabel')}
+              label={t('modal.sendTransaction.field.toLabel')}
               style={styles.toField}
               labelStyle={formStyles.label}
               labelTextStyle={formStyles.labelText}
@@ -164,7 +181,7 @@ export default class SendTransaction extends PureComponent {
               <TextInput
                 value={to}
                 style={styles.textInput}
-                placeholder={t('modal.sendTransaction.toInputPlaceholder')}
+                placeholder={t('modal.sendTransaction.field.toPlaceholder')}
               />
             </Form.Field>
             <Form.Field
@@ -189,7 +206,7 @@ export default class SendTransaction extends PureComponent {
         <Form.Layout style={styles.amountRow}>
           <Form.Field
             name='amount'
-            label={t('modal.sendTransaction.amountFieldLabel', { amount: this._getCurrentUnitBalance() })}
+            label={t('modal.sendTransaction.field.amountLabel', { amount: this._getCurrentUnitBalance() })}
             style={styles.amountField}
             labelStyle={formStyles.label}
             labelTextStyle={formStyles.labelText}
@@ -197,12 +214,12 @@ export default class SendTransaction extends PureComponent {
             <TextInput
               value={amount}
               style={styles.textInput}
-              placeholder={t('modal.sendTransaction.amountInputPlaceholder', { unit })}
+              placeholder={t('modal.sendTransaction.field.amountPlaceholder', { unit })}
             />
           </Form.Field>
           <Form.Field
             name='unit'
-            label={t('modal.sendTransaction.unitFieldLabel')}
+            label={t('modal.sendTransaction.field.unitLabel')}
             style={styles.unitField}
             labelStyle={formStyles.label}
             labelTextStyle={formStyles.labelText}
@@ -222,8 +239,8 @@ export default class SendTransaction extends PureComponent {
           name='data'
           label={t(
             isContractCreation
-              ? 'modal.sendTransaction.contractCodeFieldLabel'
-              : 'modal.sendTransaction.dataFieldLabel'
+              ? 'modal.sendTransaction.field.contractCodeLabel'
+              : 'modal.sendTransaction.field.dataLabel'
           )}
           style={styles.field}
           labelStyle={formStyles.label}
@@ -234,8 +251,8 @@ export default class SendTransaction extends PureComponent {
             style={styles.textInput}
             placeholder={t(
               isContractCreation
-                ? 'modal.sendTransaction.contractCodeInputPlaceholder'
-                : 'modal.sendTransaction.dataInputPlaceholder'
+                ? 'modal.sendTransaction.field.contractCodePlaceholder'
+                : 'modal.sendTransaction.field.dataPlaceholder'
             )}
             multiline={true}
             numberOfLines={2}
@@ -244,7 +261,7 @@ export default class SendTransaction extends PureComponent {
         <Form.Layout style={styles.gasRow}>
           <Form.Field
             name='gasLimit'
-            label={t('modal.sendTransaction.gasLimitFieldLabel')}
+            label={t('modal.sendTransaction.field.gasLimitLabel')}
             style={styles.gasLimitField}
             labelStyle={formStyles.label}
             labelTextStyle={formStyles.labelText}
@@ -253,12 +270,12 @@ export default class SendTransaction extends PureComponent {
             <TextInput
               value={gasLimit}
               style={styles.textInput}
-              placeholder={t('modal.sendTransaction.gasLimitInputPlaceholder')}
+              placeholder={t('modal.sendTransaction.field.gasLimitPlaceholder')}
             />
           </Form.Field>
           <Form.Field
             name='gasPrice'
-            label={t('modal.sendTransaction.gasPriceFieldLabel')}
+            label={t('modal.sendTransaction.field.gasPriceLabel')}
             style={styles.gasPriceField}
             labelStyle={formStyles.label}
             labelTextStyle={formStyles.labelText}
@@ -266,13 +283,13 @@ export default class SendTransaction extends PureComponent {
             <TextInput
               value={gasPrice}
               style={styles.textInput}
-              placeholder={t('modal.sendTransaction.gasPriceInputPlaceholder')}
+              placeholder={t('modal.sendTransaction.field.gasPricePlaceholder')}
             />
           </Form.Field>
         </Form.Layout>
-        <View style={styles.totalCost}>
-          <Text style={styles.totalCostText}>
-            {t('modal.sendTransaction.totalCost', { cost: this._getTotalCost() })}
+        <View style={styles.maxCost}>
+          <Text style={styles.maxCostText}>
+            {t('modal.sendTransaction.maxCost', { cost: this._getMaxCost() })}
           </Text>
         </View>
         <ProgressButton
@@ -354,7 +371,7 @@ export default class SendTransaction extends PureComponent {
     this.form = r
   }
 
-  _getTotalCost () {
+  _getMaxCost () {
     const { form: { gasLimit, gasPrice, unit, amount } } = this.state
 
     const parsedGasLimit = toInt(gasLimit)

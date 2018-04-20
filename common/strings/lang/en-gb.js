@@ -154,24 +154,29 @@ module.exports = {
       sendTransaction: {
         transactionSuccessful: 'Transaction successful!',
         isContractCreationFieldLabel: 'Deploy a contract',
-        fromFieldLabel: 'From',
-        fromInputPlaceholder: '0x...',
-        toFieldLabel: 'To',
-        toInputPlaceholder: '0x...',
-        dataFieldLabel: 'Data',
-        dataInputPlaceholder: '0x...',
-        contractCodeFieldLabel: 'Contract code',
-        contractCodeInputPlaceholder: 'Paste code here...',
-        amountFieldLabel: 'Amount ({amount} available)',
-        amountInputPlaceholder: 'Amount in {unit}',
-        unitFieldLabel: 'Unit',
-        gasLimitFieldLabel: 'Gas limit',
-        gasLimitInputPlaceholder: 'e.g. 21000',
-        gasPriceFieldLabel: 'Gas price (gwei)',
-        gasPriceInputPlaceholder: 'e.g. 2',
-        totalCost: 'Total cost: {cost} ETH',
+        maxCost: 'Max cost: {cost} ETH',
+        finalAmountLabel: 'Amount',
         rawTransactionLabel: 'Raw transaction',
-        receiptLabel: 'Transaction receipt'
+        receiptLabel: 'Transaction ID',
+        contractDeployment: 'Contract deployment',
+        field: {
+          fromLabel: 'From',
+          fromPlaceholder: '0x...',
+          toLabel: 'To',
+          toPlaceholder: '0x...',
+          dataLabel: 'Data',
+          dataPlaceholder: '0x...',
+          contractCodeLabel: 'Contract code',
+          contractCodePlaceholder: 'Paste code here...',
+          amountLabel: 'Amount',
+          amountWithAvailableLabel: 'Amount ({amount} available)',
+          amountPlaceholder: 'Amount in {unit}',
+          unitLabel: 'Unit',
+          gasLimitLabel: 'Gas limit',
+          gasLimitPlaceholder: 'e.g. 21000',
+          gasPriceLabel: 'Gas price (gwei)',
+          gasPricePlaceholder: 'e.g. 2'
+        }
       },
       filterPicker: {
         filterPlaceholder: 'Filter...'
@@ -193,6 +198,9 @@ module.exports = {
     },
     ethBalance: {
       unknown: 'Unknown'
+    },
+    count: {
+      length: 'length: {num}'
     },
     config: {
       node: {

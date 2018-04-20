@@ -92,20 +92,26 @@ export default create({
   gasPriceField: {
     flex: 1
   },
-  /* total cost */
-  totalCost: {
+  /* max cost */
+  maxCost: {
     ...fieldRow,
     marginTop: 15,
     flexDirection: 'row',
     justifyContent: 'flex-start'
   },
-  totalCostText: {
+  maxCostText: {
     ...text,
     color: '$modal_content_textColor',
     textAlign: 'left'
   },
 
-  /* raw tx */
+  /* pre-confirm step */
+  confirmText: {
+    ...text,
+    fontSize: '0.8rem',
+    color: '$modal_content_textColor',
+    marginBottom: 10
+  },
   rawTransaction: {
     alignItems: 'stretch',
     width: '90%'
@@ -125,7 +131,8 @@ export default create({
 
   /* receipt */
   receipt: {
-    alignItems: 'center'
+    alignItems: 'stretch',
+    width: '90%'
   },
   receiptIntroText: {
     ...text,
@@ -136,10 +143,15 @@ export default create({
     textAlign: 'center'
   },
   receiptBlock: {
-    width: '100%',
     height: 50,
     borderRadius: 5,
     marginBottom: 30
+  },
+  receiptBlockText: {
+    fontSize: '0.8rem'
+  },
+  trackTransactionButton: {
+    alignSelf: 'center'
   },
 
   /* error box */
