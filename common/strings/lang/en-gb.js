@@ -48,6 +48,7 @@ module.exports = {
       requestTimeout: 'Request timed out',
       methodCall: 'Error calling method: {method}',
       unexpected: 'Unexpected error!',
+      unexpectedPleaseRestart: 'Unexpected error. Please restart the app!',
       transactionAlreadyInProgress: 'A transaction is already in progress',
       connectionError: 'There was a connection error',
       tokenAlreadyExists: 'Token already exists',

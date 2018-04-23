@@ -87,13 +87,15 @@ export const toIntStr = num => {
   return null === n ? '' : `${n}`
 }
 
+export const isBN = num => (typeof num === 'object' && num.s && num.e && num.c)
 export const hexToBN = hex => toBN(hex)
-export const numToBN = num => new BN(num, 10)
+export const numToBN = num => (isBN(num) ? num : new BN(num, 10))
 
 const getPowerOfTenBN = power => numToBN(10).pow(numToBN(power))
 
-export const toTokenBalanceStr = (balance, decimals) =>
-  numToBN(balance).idiv(getPowerOfTenBN(decimals)).toString(10)
+export const toTokenBalanceStr = (balance, decimals) => (
+  numToBN(balance).div(getPowerOfTenBN(decimals)).toString(10)
+)
 
 export const weiToEthStr = balance => fromWei(balance, 'ether')
 
@@ -104,12 +106,15 @@ export const ethToWeiBN = balance => {
   if (0 > dotPos) {
     dotPos = str.length - 1
   }
-  return numToBN(str.replace('.', '') + '0'.repeat(18 - (str.length - dotPos - 1)))
+  return numToBN(
+    str.replace('.', '') + '0'.repeat(18 - (str.length - dotPos - 1))
+  )
 }
 
 export const ethToWeiStr = balance => ethToWeiBN(balance).toString(10)
 
-export const gweiToWeiStr = balance => numToBN(balance).toString(10) + '0'.repeat(9)
+export const gweiToWeiStr = balance =>
+  numToBN(balance).toString(10) + '0'.repeat(9)
 
 export const calculateTotalGasBN = (gasLimit, gasPriceInGwei) =>
-  numToBN(gasPriceInGwei).imul(getPowerOfTenBN(9)).imul(numToBN(gasLimit))
+  numToBN(gasPriceInGwei).mul(getPowerOfTenBN(9)).mul(numToBN(gasLimit))

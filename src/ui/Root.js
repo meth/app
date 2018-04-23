@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 
 import MODALS from '../../common/constants/modals'
 import { getModals } from '../redux/modals/selectors'
-import logger from '../logger'
 import { Navigator } from './nav'
 import { connectStore } from './helpers/redux'
 import { PopupContext } from './components/Popup'
@@ -15,8 +14,6 @@ import EditAddressModal from './containers/modals/EditAddress'
 import AddressQrModal from './containers/modals/AddressQr'
 import EditTokenModal from './containers/modals/EditToken'
 import AddAccountModal from './containers/modals/AddAccount'
-
-const log = logger.create('Root')
 
 // modals - in order of importance
 const MODAL_COMPONENTS = {
@@ -40,10 +37,6 @@ export default class Root extends PureComponent {
         {this.renderModals()}
       </PopupContext>
     )
-  }
-
-  componentDidCatch (error, info) {
-    log.error('UI error', error, info)
   }
 
   renderModals () {

@@ -1,4 +1,4 @@
-import { create } from '../../../styles'
+import { create, fontMaker } from '../../../styles'
 
 export default create({
   scrollView: {
@@ -25,5 +25,12 @@ export default create({
   content: {
     flex: 0,
     padding: 20
+  },
+
+  /* UI error */
+  uiErrorText: {
+    ...fontMaker(),
+    fontSize: '1.5rem',
+    color: '$content_textColor'
   }
 })

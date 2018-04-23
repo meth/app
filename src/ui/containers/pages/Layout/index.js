@@ -1,15 +1,30 @@
 import React, { PureComponent } from 'react'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
+import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import Header from '../../../components/Header'
 import ScrollView from '../../../components/ScrollView'
+import BlockOfText from '../../../components/BlockOfText'
 import { routes } from '../../../nav'
 import styles from './styles'
+import logger from '../../../../logger'
 
 @connectStore('account', 'node', 'log', 'modals', 'nav')
 export default class Layout extends PureComponent {
+  state = {
+    uiError: null
+  }
+
+  componentDidCatch (error, info) {
+    logger.error('UI error', error, info)
+
+    this.setState({ uiError: { error, info } })
+  }
+
   render () {
+    const { uiError } = this.state
+
     const {
       getNodeConnection,
       getNodeState,
@@ -27,6 +42,16 @@ export default class Layout extends PureComponent {
     const navState = getCurrentNavState()
 
     const { children, contentStyle } = this.props
+
+    if (uiError) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.uiErrorText}>{t('error.unexpectedPleaseRestart')}</Text>
+          <BlockOfText text={uiError.error.stack} />
+          <BlockOfText text={uiError.info.componentStack} />
+        </View>
+      )
+    }
 
     return (
       <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
