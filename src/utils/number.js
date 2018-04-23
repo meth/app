@@ -1,4 +1,3 @@
-import BN from 'bn.js'
 import { toBN, fromWei } from 'web3-utils'
 
 export { hexToNumber, toHex } from 'web3-utils'
@@ -87,15 +86,13 @@ export const toIntStr = num => {
   return null === n ? '' : `${n}`
 }
 
-export const isBN = num => (typeof num === 'object' && num.s && num.e && num.c)
 export const hexToBN = hex => toBN(hex)
-export const numToBN = num => (isBN(num) ? num : new BN(num, 10))
+export const numToBN = num => toBN(num)
 
 const getPowerOfTenBN = power => numToBN(10).pow(numToBN(power))
 
-export const toTokenBalanceStr = (balance, decimals) => (
+export const toTokenBalanceStr = (balance, decimals) =>
   numToBN(balance).div(getPowerOfTenBN(decimals)).toString(10)
-)
 
 export const weiToEthStr = balance => fromWei(balance, 'ether')
 

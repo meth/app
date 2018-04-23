@@ -227,7 +227,7 @@ class NodeConnector extends EventEmitter {
   }
 
   async getTokenContractAt (address) {
-    return this.getContractAt(address, { abi: Erc20 })
+    return this.getContractAt(address.toLowerCase(), { abi: Erc20 })
   }
 
   async estimateGas (tx) {

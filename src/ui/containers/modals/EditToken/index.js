@@ -184,7 +184,7 @@ export default class EditToken extends PureComponent {
       name,
       symbol,
       decimals: toFloat(decimals),
-      contractAddress
+      contractAddress: contractAddress.toLowerCase()
     }
 
     if (updatingSymbol) {

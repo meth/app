@@ -123,7 +123,7 @@
     "solidarity-react-native": "^1.0.0",
     "truffle-contract": "^3.0.4",
     "underscore-deep-extend": "^1.1.5",
-    "web3": "^0.20.1",
+    "web3": "0.20.1",
     "web3-utils": "^1.0.0-beta.17",
     "webpack": "^3.5.4",
     "webpack-dev-server": "^2.7.1",

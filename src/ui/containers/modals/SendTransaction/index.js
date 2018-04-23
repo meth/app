@@ -206,7 +206,7 @@ export default class SendTransaction extends PureComponent {
         <Form.Layout style={styles.amountRow}>
           <Form.Field
             name='amount'
-            label={t('modal.sendTransaction.field.amountLabel', { amount: this._getCurrentUnitBalance() })}
+            label={t('modal.sendTransaction.field.amountWithAvailableLabel', { amount: this._getCurrentUnitBalance() })}
             style={styles.amountField}
             labelStyle={formStyles.label}
             labelTextStyle={formStyles.labelText}
@@ -407,7 +407,7 @@ export default class SendTransaction extends PureComponent {
       const { tokens } = _.get(getAccounts(), from, {})
       const allTokens = getTokenList()
 
-      amountStr = toTokenBalanceStr(tokens[unit].balance, allTokens[unit].decimals)
+      amountStr = toTokenBalanceStr(tokens[unit], allTokens[unit].decimals)
     }
 
     return amountStr
@@ -463,6 +463,11 @@ export default class SendTransaction extends PureComponent {
     // if "to" address looked up then set it!
     if (form.toLookup !== this.state.form.toLookup) {
       form.to = form.toLookup
+    }
+
+    // lowercase the "to" address
+    if (form.to) {
+      form.to = form.to.toLowerCase()
     }
 
     // if toggled to contract deployment then set unit to ETH and set amount to 0
