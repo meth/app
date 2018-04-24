@@ -5,6 +5,12 @@ const text = {
   textAlign: 'left'
 }
 
+const flexRow = {
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center'
+}
+
 export default create({
   layoutContent: {
     // $outline: 1,
@@ -28,14 +34,13 @@ export default create({
   /* tx row */
   tx: {
     paddingHorizontal: 10,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
+    ...flexRow
   },
   typeIcon: {
     color: '$transactionBlock_icon_textColor',
     fontSize: '1.5rem',
-    marginRight: 15
+    marginRight: 15,
+    width: 25
   },
   txParams: {
     justifyContent: 'space-between',
@@ -43,9 +48,7 @@ export default create({
   },
   txFromTo: {
     marginLeft: 10,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
+    ...flexRow
   },
   id: {
     flexDirection: 'row'
@@ -88,8 +91,35 @@ export default create({
     marginRight: 5
   },
   tokenTransferDetails: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
+    ...flexRow
+  },
+  /* receipt */
+  txReceipt: {
+    ...flexRow,
+    marginTop: 10
+  },
+  statusAcceptedIcon: {
+    color: '$transactionBlock_status_accepted_textColor',
+    fontSize: '0.9rem'
+  },
+  statusRejectedIcon: {
+    color: '$transactionBlock_status_rejected_textColor',
+    fontSize: '0.9rem'
+  },
+  txReceiptBlock: {
+    marginLeft: 20,
+    ...flexRow
+  },
+  txReceiptText: {
+    ...text,
+    fontSize: '0.7rem',
+    color: '$transactionBlock_block_textColor',
+    textTransform: 'lowercase'
+  },
+  receiptLinkButton: {
+    marginLeft: 5
+  },
+  receiptLinkButtonText: {
+    fontSize: '0.7rem'
   }
 })

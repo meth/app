@@ -63,7 +63,18 @@ export default {
       textColor: colorGray
     },
     details: {
+      textColor: colorGrayDarker
+    },
+    block: {
       textColor: colorGrayDark
+    },
+    status: {
+      accepted: {
+        textColor: colorGreen
+      },
+      rejected: {
+        textColor: colorRed
+      }
     }
   },
   balance: {

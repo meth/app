@@ -16,6 +16,7 @@ import {
   SEND_TX,
   CANCEL_TX,
   TX_FLOW_COMPLETED,
+  CHECK_PENDING_TRANSACTIONS,
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
   REMOVE_CUSTOM_TOKEN
@@ -142,7 +143,9 @@ export default () => {
             [ { id, params, ts: Date.now() } ].concat(state.get('transactionHistory'))
           )
           .set('currentTx', null)
-          .set('currentTxDeferred', null)
+          .set('currentTxDeferred', null),
+      [CHECK_PENDING_TRANSACTIONS]: (state, { payload: history }) =>
+        state.set('transactionHistory', [].concat(history))
     },
     InitialState
   )

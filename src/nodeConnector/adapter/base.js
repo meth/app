@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3'
-import { hexToNumber } from 'web3-utils'
 
+import { hexToNumber } from '../../utils/number'
 import EVENT from '../../../common/constants/events'
 import STATE from '../../../common/constants/states'
 import logger from '../../logger'

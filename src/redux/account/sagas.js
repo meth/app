@@ -4,6 +4,7 @@ import {
   LOAD_WALLET,
   SEND_RAW_TX,
   TX_FLOW_COMPLETED,
+  CHECK_PENDING_TRANSACTIONS,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
@@ -31,7 +32,7 @@ function* onTransactionSent (_, { payload: { id, params } }) {
   yield put(createAction(TX_FLOW_COMPLETED, { id, params }))
 }
 
-function* onTransactionFlowCompleted ({ storage }) {
+function* onTransactionHistoryUpdated ({ storage }) {
   const { selectors: { getTransactionHistory } } = getStore()
 
   yield storage.saveTransactionHistory(getTransactionHistory())
@@ -58,7 +59,8 @@ function* onUpdateCustomTokens ({ storage }) {
 export default app => function* saga () {
   yield takeLatest(LOAD_WALLET, onLoadWallet, app)
   yield takeLatest(SEND_RAW_TX, onTransactionSent, app)
-  yield takeLatest(TX_FLOW_COMPLETED, onTransactionFlowCompleted, app)
+  yield takeLatest(TX_FLOW_COMPLETED, onTransactionHistoryUpdated, app)
+  yield takeLatest(CHECK_PENDING_TRANSACTIONS, onTransactionHistoryUpdated, app)
   yield takeLatest(SAVE_DAPP_PERMISSIONS, onUpdateDappPermissions, app)
   yield takeLatest(SAVE_ADDRESS_BOOK_ENTRY, onUpdateAddressBook, app)
   yield takeLatest(DELETE_ADDRESS_BOOK_ENTRY, onUpdateAddressBook, app)
@@ -72,5 +74,5 @@ export const _privateFunctions = {
   onTransactionSent,
   onUpdateDappPermissions,
   onUpdateAddressBook,
-  onTransactionFlowCompleted
+  onTransactionHistoryUpdated
 }

@@ -10,9 +10,11 @@ import {
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
   GENERATE_ACCOUNT,
-  FETCH_RECOMMENDED_GAS_LIMIT
+  FETCH_RECOMMENDED_GAS_LIMIT,
+  CHECK_PENDING_TRANSACTIONS
 } from './actions'
 import { t } from '../../../common/strings'
+import { TRANSACTION_STATUS } from '../../../common/constants/protocol'
 import { getStore } from '../'
 import createTransactionPreprocessor from './transactionPreprocessor'
 import { createAction } from '../utils'
@@ -30,7 +32,8 @@ export default ({ nodeConnector, walletManager }) => {
     const { selectors: {
       getTxDeferred,
       getNodeConnection,
-      getTokenList
+      getTokenList,
+      getTransactionHistory
     } } = getStore()
 
     switch (action.type) {
@@ -198,6 +201,52 @@ export default ({ nodeConnector, walletManager }) => {
 
           throw new Error(t('error.unableToEstimateGas'))
         }
+      }
+      case CHECK_PENDING_TRANSACTIONS: {
+        const allTx = getTransactionHistory()
+        const pendingTx = allTx.filter(tx => !tx.receipt)
+
+        if (!pendingTx.length) {
+          return null
+        }
+
+        log.debug(`Pending transactions: ${pendingTx.length}`)
+
+        try {
+          const receipts = await Promise.all(pendingTx.map(({ id }) => (
+            nodeConnector.rawCall('eth_getTransactionReceipt', [ id ])
+          )))
+
+          receipts.forEach(r => {
+            const {
+              transactionHash,
+              blockHash,
+              blockNumber,
+              gasUsed,
+              contractAddress,
+              status
+            } = r
+
+            const tx = allTx.find(({ id }) => id === transactionHash)
+
+            tx.receipt = {
+              blockHash,
+              blockNumber: hexToNumber(blockNumber),
+              gasUsed: hexToNumber(gasUsed),
+              contractAddress,
+              status: (hexToNumber(status) === 1
+                ? TRANSACTION_STATUS.ACCEPTED
+                : TRANSACTION_STATUS.REJECTED
+              )
+            }
+          })
+
+          return next(createAction(CHECK_PENDING_TRANSACTIONS, allTx))
+        } catch (err) {
+          log.warn('Error fetching transaction receipts', err)
+        }
+
+        return null
       }
       default: {
         return next(action)

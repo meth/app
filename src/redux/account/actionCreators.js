@@ -16,6 +16,7 @@ import {
   GENERATE_MNEMONIC,
   SEND_TX,
   CANCEL_TX,
+  CHECK_PENDING_TRANSACTIONS,
   FETCH_TOKEN_BALANCE,
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
@@ -53,6 +54,7 @@ export const sendTransaction = createActionCreator(SEND_TX, tx => ({ tx }))
 export const cancelTransaction = createActionCreator(CANCEL_TX)
 export const generateRawTransaction = createActionCreator(GENERATE_RAW_TX, tx => ({ tx }))
 export const sendRawTransaction = createActionCreator(SEND_RAW_TX)
+export const checkPendingTransactions = createActionCreator(CHECK_PENDING_TRANSACTIONS)
 
 /* tokens */
 export const fetchTokenBalance =

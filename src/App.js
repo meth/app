@@ -40,8 +40,9 @@ store.actions.loadConfig()
 // load app data
 storage.loadAppData()
 
-// schedule the loading of alerts
+// schedule jobs
 scheduler.addJob('check_alerts', 300, () => store.actions.loadAlerts())
+scheduler.addJob('check_transactions', 20, () => store.actions.checkPendingTransactions())
 
 // root UI
 export default () => (

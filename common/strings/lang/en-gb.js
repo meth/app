@@ -137,7 +137,9 @@ module.exports = {
         [TRANSACTION_TYPE.ETH_TRANSFER]: 'ETH transfer',
         [TRANSACTION_TYPE.TOKEN_TRANSFER]: 'Token transfer'
       },
-      ethSent: '{amount} ETH'
+      ethSent: '{amount} ETH',
+      blockNum: 'Block: {blockNum}',
+      contractAddress: 'Contract: {contractAddress}'
     },
     modal: {
       dappPermissions: {
