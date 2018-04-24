@@ -27,12 +27,17 @@ export default create({
   },
   /* tx row */
   tx: {
-    paddingHorizontal: 5,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'stretch'
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
-  txInfo: {
+  typeIcon: {
+    color: '$transactionBlock_icon_textColor',
+    fontSize: '1.5rem',
+    marginRight: 15
+  },
+  txParams: {
     justifyContent: 'space-between',
     alignItems: 'flex-start'
   },
@@ -41,10 +46,6 @@ export default create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center'
-  },
-  txMeta: {
-    justifyContent: 'center',
-    alignItems: 'flex-end'
   },
   id: {
     flexDirection: 'row'
@@ -65,5 +66,30 @@ export default create({
     fontSize: '0.6rem',
     marginRight: 5,
     color: '$transactionBlock_fromTo_textColor'
+  },
+  txDetails: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  typeText: {
+    ...text,
+    ...fontMaker({ weight: 'SemiBold' }),
+    color: '$transactionBlock_type_textColor',
+    fontSize: '0.7rem',
+    textTransform: 'uppercase'
+  },
+  detailsContent: {
+    marginLeft: 20
+  },
+  detailsText: {
+    color: '$transactionBlock_details_textColor',
+    marginRight: 5
+  },
+  tokenTransferDetails: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   }
 })

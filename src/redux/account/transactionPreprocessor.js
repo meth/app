@@ -25,6 +25,7 @@ export default ({ nodeConnector }) => async tx => {
   } else {
     meta.type = TOKEN_TRANSFER
     meta.recipient = to
+    meta.amount = amount
 
     const { contractAddress } = getTokenList()[unit]
     const contract = await nodeConnector.getTokenContractAt(contractAddress)

@@ -1,20 +1,25 @@
 import React from 'react'
 
 import FAIcon from 'react-native-vector-icons/dist/FontAwesome'
-import IonIcon from 'react-native-vector-icons/dist/Ionicons'
 import faFontUrl from 'react-native-vector-icons/Fonts/FontAwesome.ttf'
+import IonIcon from 'react-native-vector-icons/dist/Ionicons'
 import ionFontUrl from 'react-native-vector-icons/Fonts/Ionicons.ttf'
+import MaterialCommunityIcon from 'react-native-vector-icons/dist/MaterialCommunityIcons'
+import MaterialCommunityFontUrl from 'react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf'
 
 import { addWebFont } from '../../styles'
 
 addWebFont(faFontUrl, 'FontAwesome')
 addWebFont(ionFontUrl, 'Ionicons')
+addWebFont(MaterialCommunityFontUrl, 'Material Design Icons')
 
 const Icon = props => {
   const { name } = props
 
   if (IonIcon.hasIcon(name)) {
     return <IonIcon {...props} />
+  } else if (MaterialCommunityIcon.hasIcon(name)) {
+    return <MaterialCommunityIcon {...props} />
   }
 
   return <FAIcon {...props} />

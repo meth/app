@@ -53,7 +53,16 @@ export default {
     id: {
       textColor: colorWhite
     },
+    icon: {
+      textColor: colorGray
+    },
     fromTo: {
+      textColor: colorGrayDark
+    },
+    type: {
+      textColor: colorGray
+    },
+    details: {
       textColor: colorGrayDark
     }
   },

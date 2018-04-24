@@ -59,7 +59,7 @@ export default class SendTransaction extends PureComponent {
 
     let content
     if (txId) {
-      content = this.renderReceipt()
+      content = this.renderTxId()
     } else if (rawTx) {
       content = this.renderPreConfirmation()
     } else {
@@ -81,7 +81,7 @@ export default class SendTransaction extends PureComponent {
     )
   }
 
-  renderReceipt () {
+  renderTxId () {
     const { txId } = this.state
 
     return (

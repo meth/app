@@ -1,5 +1,6 @@
 const { ALL_ADDRESSES } = require('../../constants/dappPermissions')
 const ADDRESS_TYPES = require('../../constants/addressTypes')
+const { TRANSACTION_TYPE } = require('../../constants/protocol')
 
 module.exports = {
   label: 'English',
@@ -128,6 +129,15 @@ module.exports = {
     },
     addressBook: {
       filterPlaceholder: 'Filter...'
+    },
+    transaction: {
+      type: {
+        [TRANSACTION_TYPE.CONTRACT_CALL]: 'Contract call',
+        [TRANSACTION_TYPE.CONTRACT_CREATION]: 'Contract creation',
+        [TRANSACTION_TYPE.ETH_TRANSFER]: 'ETH transfer',
+        [TRANSACTION_TYPE.TOKEN_TRANSFER]: 'Token transfer'
+      },
+      ethSent: '{amount} ETH'
     },
     modal: {
       dappPermissions: {
