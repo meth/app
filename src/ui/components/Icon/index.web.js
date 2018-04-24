@@ -16,13 +16,15 @@ addWebFont(MaterialCommunityFontUrl, 'Material Design Icons')
 const Icon = props => {
   const { name } = props
 
-  if (IonIcon.hasIcon(name)) {
-    return <IonIcon {...props} />
-  } else if (MaterialCommunityIcon.hasIcon(name)) {
-    return <MaterialCommunityIcon {...props} />
+  if (FAIcon.hasIcon(name)) {
+    return <FAIcon {...props} />
   }
 
-  return <FAIcon {...props} />
+  if (IonIcon.hasIcon(name)) {
+    return <IonIcon {...props} />
+  }
+
+  return <MaterialCommunityIcon {...props} />
 }
 
 // we name the component so that the static "name" property is set on the class
