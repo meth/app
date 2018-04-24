@@ -67,10 +67,7 @@ export default create({
     textTransform: 'lowercase'
   },
   blockLinkButton: {
-    borderWidth: 0,
-    marginLeft: 5,
-    paddingVertical: 2,
-    paddingHorizontal: 3
+    marginLeft: 5
   },
   blockLinkButtonText: {
     fontSize: '0.6rem'

@@ -51,9 +51,15 @@ class Storage {
   loadUserData () {
     this._loadUserData('addressBook', this._store.actions.injectAddressBook)
     this._loadUserData('bookmarks', this._store.actions.injectBookmarks)
-    this._loadUserData('dappPermissions', this._store.actions.injectDappPermissions)
+    this._loadUserData(
+      'dappPermissions',
+      this._store.actions.injectDappPermissions
+    )
     this._loadUserData('customTokens', this._store.actions.injectCustomTokens)
-    this._loadUserData('transactionHistory', this._store.actions.injectTransactionHistory)
+    this._loadUserData(
+      'transactionHistory',
+      this._store.actions.injectTransactionHistory
+    )
   }
 
   async _loadUserData (key, onSuccess) {

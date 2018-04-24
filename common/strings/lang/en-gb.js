@@ -78,6 +78,7 @@ module.exports = {
     },
     button: {
       trackTransaction: 'Track transaction',
+      transactionHistory: 'Transaction history',
       addEntry: 'Add entry',
       addAccount: 'Add account',
       generateAccount: 'Generate account',
@@ -122,7 +123,8 @@ module.exports = {
       wallet: 'Wallet',
       addToken: 'Add token',
       editToken: 'Edit token',
-      sendTransaction: 'Send transaction'
+      sendTransaction: 'Send transaction',
+      transactions: 'Transactions'
     },
     addressBook: {
       filterPlaceholder: 'Filter...'

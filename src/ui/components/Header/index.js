@@ -25,12 +25,13 @@ export default class Header extends PureComponent {
     onPressWallet: PropTypes.func.isRequired,
     onPressAddressBook: PropTypes.func.isRequired,
     onPressBrowser: PropTypes.func.isRequired,
+    onPressTransactions: PropTypes.func.isRequired,
     style: PropTypes.any
   }
 
   render () {
     const { addresses, network, style, navState, routes } = this.props
-    const { onPressAddressBook, onPressBrowser } = this.props
+    const { onPressAddressBook, onPressBrowser, onPressTransactions } = this.props
 
     const ALL_INITIALIZED = network && addresses
 
@@ -42,19 +43,27 @@ export default class Header extends PureComponent {
               {this.renderBalance(addresses)}
               <IconButton
                 type='header'
-                tooltip={t('button.addressBook')}
-                icon={{ name: 'address-book', style: styles.buttonIcon }}
-                style={styles.button}
-                onPress={onPressAddressBook}
-                stateOverride={this._getButtonStateOverride(navState, routes.AddressBook)}
-              />
-              <IconButton
-                type='header'
                 tooltip={t('button.dappBrowser')}
                 icon={{ name: 'globe', style: styles.buttonIcon }}
                 style={styles.button}
                 onPress={onPressBrowser}
                 stateOverride={this._getButtonStateOverride(navState, routes.Browser)}
+              />
+              <IconButton
+                type='header'
+                tooltip={t('button.transactionHistory')}
+                icon={{ name: 'md-swap', style: styles.buttonIcon }}
+                style={styles.button}
+                onPress={onPressTransactions}
+                stateOverride={this._getButtonStateOverride(navState, routes.Transactions)}
+              />
+              <IconButton
+                type='header'
+                tooltip={t('button.addressBook')}
+                icon={{ name: 'md-contacts', style: styles.buttonIcon }}
+                style={styles.button}
+                onPress={onPressAddressBook}
+                stateOverride={this._getButtonStateOverride(navState, routes.AddressBook)}
               />
             </React.Fragment>
           ) : null}

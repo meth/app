@@ -100,10 +100,6 @@ export default () => {
           ...addressBook
         })
       },
-      /* transactions */
-      [INJECT_TRANSACTION_HISTORY]: (state, { payload: txHistory }) => (
-        state.set('transactionHistory', txHistory || [])
-      ),
       /* custom tokens */
       [INJECT_CUSTOM_TOKENS]: (state, { payload }) => state.set('customTokens', Immutable.Map(payload)),
       [ADD_CUSTOM_TOKEN]: (state, { payload: { symbol, details } }) => {
@@ -126,6 +122,10 @@ export default () => {
 
         return state.set('customTokens', customTokens.delete(symbol))
       },
+      /* transactions */
+      [INJECT_TRANSACTION_HISTORY]: (state, { payload: txHistory }) => (
+        state.set('transactionHistory', txHistory || [])
+      ),
       [SEND_TX]: (state, { payload: { tx, deferred } }) => (
         state
           .set('currentTx', tx)
@@ -135,12 +135,12 @@ export default () => {
         state
           .set('currentTx', null)
           .set('currentTxDeferred', null),
-      [TX_FLOW_COMPLETED]: (state, { payload: params }) =>
+      [TX_FLOW_COMPLETED]: (state, { payload: { id, params } }) =>
         state
-          .set('transactionHistory', state.get('transactionHistory').concat({
-            ...state.get('currentTx'),
-            params
-          }))
+          .set(
+            'transactionHistory',
+            [ { id, params, ts: Date.now() } ].concat(state.get('transactionHistory'))
+          )
           .set('currentTx', null)
           .set('currentTxDeferred', null)
     },

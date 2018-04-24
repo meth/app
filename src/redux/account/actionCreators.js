@@ -6,6 +6,7 @@ import {
   INJECT_BOOKMARKS,
   INJECT_CUSTOM_TOKENS,
   INJECT_DAPP_PERMISSIONS,
+  INJECT_TRANSACTION_HISTORY,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
@@ -33,6 +34,7 @@ export const injectAddressBook = createActionCreator(INJECT_ADDRESS_BOOK)
 export const injectBookmarks = createActionCreator(INJECT_BOOKMARKS)
 export const injectDappPermissions = createActionCreator(INJECT_DAPP_PERMISSIONS)
 export const injectCustomTokens = createActionCreator(INJECT_CUSTOM_TOKENS)
+export const injectTransactionHistory = createActionCreator(INJECT_TRANSACTION_HISTORY)
 
 /* save changes for dapps, etc */
 export const saveDappPermissions =

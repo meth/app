@@ -10,18 +10,22 @@ export default ({ nodeConnector }) => async tx => {
   const { from, amount, gasLimit, gasPrice, unit, isContractCreation } = tx
   let { to, data } = tx
   let value
-  let meta
+  const meta = { unit }
 
   // if contract creation
   if (isContractCreation) {
-    meta = { type: CONTRACT_CREATION }
+    meta.type = CONTRACT_CREATION
+
     value = '0'
     to = null
   } else if (ETH === unit) {
-    meta = { type: data ? CONTRACT_CALL : ETH_TRANSFER }
+    meta.type = data ? CONTRACT_CALL : ETH_TRANSFER
+
     value = ethToWeiStr(amount || '0')
   } else {
-    meta = { type: TOKEN_TRANSFER, recipient: to }
+    meta.type = TOKEN_TRANSFER
+    meta.recipient = to
+
     const { contractAddress } = getTokenList()[unit]
     const contract = await nodeConnector.getTokenContractAt(contractAddress)
     data = contract.contract.transfer.getData(to, 0)

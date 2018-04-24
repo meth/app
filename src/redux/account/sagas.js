@@ -28,7 +28,7 @@ function* onTransactionSent (_, { payload: { id, params } }) {
     deferred.resolve(id)
   }
 
-  yield put(createAction(TX_FLOW_COMPLETED, params))
+  yield put(createAction(TX_FLOW_COMPLETED, { id, params }))
 }
 
 function* onTransactionFlowCompleted ({ storage }) {

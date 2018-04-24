@@ -1,42 +1,69 @@
-import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
+import { create, fontMaker } from '../../../styles'
 
-const introText = {
+const text = {
   ...fontMaker(),
-  fontSize: '1rem',
-  textAlign: 'center',
-  color: '$content_textColor',
-  maxWidth: '70%',
-  marginBottom: 20
+  textAlign: 'left'
 }
 
 export default create({
   layoutContent: {
+    // $outline: 1,
     backgroundColor: '$content_backgroundColor',
+    borderTopWidth: 1,
+    borderTopColor: '$content_borderTop_color',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    paddingTop: 10,
+    paddingBottom: 0,
+    height: '95%'
+  },
+  /* table */
+  table: {
+    flex: 1,
+    marginTop: 10,
+    paddingBottom: 20,
+    width: '100%'
+  },
+  /* tx row */
+  tx: {
+    paddingHorizontal: 5,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'stretch'
+  },
+  txInfo: {
+    justifyContent: 'space-between',
+    alignItems: 'flex-start'
+  },
+  txFromTo: {
+    marginLeft: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   },
-  intro1Text: {
-    ...introText,
-    ...fontMaker({ weight: 'Light' }),
-    fontSize: '2.5rem',
-    marginBottom: 30
+  txMeta: {
+    justifyContent: 'center',
+    alignItems: 'flex-end'
   },
-  intro2Text: {
-    ...introText,
-    maxWidth: '50%'
+  id: {
+    flexDirection: 'row'
   },
-  getStartedButton: {
-    marginTop: 20,
-    marginBottom: 100
+  idText: {
+    ...text,
+    color: '$transactionBlock_id_textColor',
+    fontSize: '0.9rem'
   },
-  loginButtonText: {
-    fontSize: '0.65rem'
+  idLinkButton: {
+    marginLeft: 5
   },
-
-  ...whenWidthVerySmall({
-    intro2Text: {
-      maxWidth: '90%'
-    }
-  })
+  idLinkButtonText: {
+    fontSize: '0.9rem'
+  },
+  fromToText: {
+    ...text,
+    fontSize: '0.6rem',
+    marginRight: 5,
+    color: '$transactionBlock_fromTo_textColor'
+  }
 })

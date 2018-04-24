@@ -67,6 +67,7 @@ export default class Layout extends PureComponent {
           onPressWallet={this.showWallet}
           onPressAddressBook={this.showAddressBook}
           onPressBrowser={this.showBrowser}
+          onPressTransactions={this.showTransactions}
         />
         <View style={[ styles.content, contentStyle ]}>
           {children}
@@ -99,5 +100,11 @@ export default class Layout extends PureComponent {
     const { actions: { navPush } } = this.props
 
     navPush(routes.Browser.path)
+  }
+
+  showTransactions = () => {
+    const { actions: { navPush } } = this.props
+
+    navPush(routes.Transactions.path)
   }
 }

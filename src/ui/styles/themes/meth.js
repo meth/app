@@ -49,6 +49,14 @@ export default {
       textColor: colorGrayDark
     }
   },
+  transactionBlock: {
+    id: {
+      textColor: colorWhite
+    },
+    fromTo: {
+      textColor: colorGrayDark
+    }
+  },
   balance: {
     amount: {
       textColor: colorWhite

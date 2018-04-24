@@ -8,7 +8,7 @@ import { CachePureComponent } from '../../../helpers/components'
 import { t, tSub } from '../../../../../common/strings'
 import ProgressButton from '../../../components/ProgressButton'
 import AlertBox from '../../../components/AlertBox'
-import IconButton from '../../../components/IconButton'
+import ChainExplorerIconButton from '../../../components/ChainExplorerIconButton'
 import ErrorBox from '../../../components/ErrorBox'
 import Modal from '../../../components/Modal'
 import Loading from '../../../components/Loading'
@@ -80,11 +80,10 @@ export default class ConnectNode extends CachePureComponent {
           <View style={styles.block}>
             <Text style={styles.blockText}>{t('network.block')}: {hexToNumber(latestBlock.number)}</Text>
             {blockUrl ? (
-              <IconButton
+              <ChainExplorerIconButton
                 style={styles.blockLinkButton}
-                icon={{ name: 'external-link', style: styles.blockLinkButtonText }}
+                textStyle={styles.blockLinkButtonText}
                 onPress={this._onPressBlockLink}
-                tooltip={t('button.viewInChainExplorer')}
               />
             ) : null}
           </View>
