@@ -107,7 +107,10 @@ export default ({ nodeConnector, walletManager }) => {
 
           log.info(`Raw transaction: 0x...(${rawTx.length} chars)`)
 
-          return rawTx
+          return {
+            params: preTx,
+            str: rawTx
+          }
         } catch (err) {
           log.warn('Error generating raw tx', err)
 
@@ -115,13 +118,13 @@ export default ({ nodeConnector, walletManager }) => {
         }
       }
       case SEND_RAW_TX: {
-        const rawTx = action.payload
+        const { params, str } = action.payload
 
-        const receipt = await nodeConnector.rawCall('eth_sendRawTransaction', [ rawTx ])
+        const id = await nodeConnector.rawCall('eth_sendRawTransaction', [ str ])
 
-        await next(createAction(action.type, receipt))
+        await next(createAction(action.type, { id, params }))
 
-        return receipt
+        return id
       }
       case FETCH_TOKEN_BALANCE: {
         const { symbol, accountAddress } = action.payload

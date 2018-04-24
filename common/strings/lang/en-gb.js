@@ -158,7 +158,7 @@ module.exports = {
         maxCost: 'Max cost: {cost} ETH',
         finalAmountLabel: 'Amount',
         rawTransactionLabel: 'Raw transaction',
-        receiptLabel: 'Transaction ID',
+        txIdLabel: 'Transaction ID',
         contractDeployment: 'Contract deployment',
         field: {
           fromLabel: 'From',

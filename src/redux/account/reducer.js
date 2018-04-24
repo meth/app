@@ -8,13 +8,14 @@ import {
   INJECT_BOOKMARKS,
   INJECT_CUSTOM_TOKENS,
   INJECT_DAPP_PERMISSIONS,
+  INJECT_TRANSACTION_HISTORY,
   FETCH_TOKEN_BALANCE,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
   SEND_TX,
   CANCEL_TX,
-  TX_COMPLETED,
+  TX_FLOW_COMPLETED,
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
   REMOVE_CUSTOM_TOKEN
@@ -43,7 +44,8 @@ export default () => {
     bookmarks: {},
     dappPermissions: {},
     currentTx: null,
-    currentTxDeferred: null
+    currentTxDeferred: null,
+    transactionHistory: []
   })
 
   return handleActions(
@@ -98,6 +100,10 @@ export default () => {
           ...addressBook
         })
       },
+      /* transactions */
+      [INJECT_TRANSACTION_HISTORY]: (state, { payload: txHistory }) => (
+        state.set('transactionHistory', txHistory || [])
+      ),
       /* custom tokens */
       [INJECT_CUSTOM_TOKENS]: (state, { payload }) => state.set('customTokens', Immutable.Map(payload)),
       [ADD_CUSTOM_TOKEN]: (state, { payload: { symbol, details } }) => {
@@ -129,8 +135,12 @@ export default () => {
         state
           .set('currentTx', null)
           .set('currentTxDeferred', null),
-      [TX_COMPLETED]: state =>
+      [TX_FLOW_COMPLETED]: (state, { payload: params }) =>
         state
+          .set('transactionHistory', state.get('transactionHistory').concat({
+            ...state.get('currentTx'),
+            params
+          }))
           .set('currentTx', null)
           .set('currentTxDeferred', null)
     },

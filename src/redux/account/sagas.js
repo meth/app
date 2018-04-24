@@ -3,7 +3,7 @@ import { put, takeLatest } from 'redux-saga/effects'
 import {
   LOAD_WALLET,
   SEND_RAW_TX,
-  TX_COMPLETED,
+  TX_FLOW_COMPLETED,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
@@ -19,16 +19,22 @@ function* onLoadWallet ({ storage }, { payload: mnemonic }) {
   yield storage.setMnemonic(mnemonic)
 }
 
-function* onSuccessfulTransaction (_, { payload: receipt }) {
+function* onTransactionSent (_, { payload: { id, params } }) {
   const { selectors: { getTxDeferred } } = getStore()
 
   // resolve the tx promise so that the original caller gets a tx receipt
   const deferred = getTxDeferred()
   if (deferred) {
-    deferred.resolve(receipt)
+    deferred.resolve(id)
   }
 
-  yield put(createAction(TX_COMPLETED))
+  yield put(createAction(TX_FLOW_COMPLETED, params))
+}
+
+function* onTransactionFlowCompleted ({ storage }) {
+  const { selectors: { getTransactionHistory } } = getStore()
+
+  yield storage.saveTransactionHistory(getTransactionHistory())
 }
 
 function* onUpdateDappPermissions ({ storage }) {
@@ -51,7 +57,8 @@ function* onUpdateCustomTokens ({ storage }) {
 
 export default app => function* saga () {
   yield takeLatest(LOAD_WALLET, onLoadWallet, app)
-  yield takeLatest(SEND_RAW_TX, onSuccessfulTransaction, app)
+  yield takeLatest(SEND_RAW_TX, onTransactionSent, app)
+  yield takeLatest(TX_FLOW_COMPLETED, onTransactionFlowCompleted, app)
   yield takeLatest(SAVE_DAPP_PERMISSIONS, onUpdateDappPermissions, app)
   yield takeLatest(SAVE_ADDRESS_BOOK_ENTRY, onUpdateAddressBook, app)
   yield takeLatest(DELETE_ADDRESS_BOOK_ENTRY, onUpdateAddressBook, app)
@@ -62,7 +69,8 @@ export default app => function* saga () {
 
 export const _privateFunctions = {
   onLoadWallet,
-  onSuccessfulTransaction,
+  onTransactionSent,
   onUpdateDappPermissions,
-  onUpdateAddressBook
+  onUpdateAddressBook,
+  onTransactionFlowCompleted
 }

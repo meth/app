@@ -50,15 +50,15 @@ export default class SendTransaction extends PureComponent {
         isContractCreation: (!to && !!data)
       },
       rawTx: null,
-      receipt: null
+      txId: null
     }
   }
 
   render () {
-    const { error, receipt, rawTx } = this.state
+    const { error, txId, rawTx } = this.state
 
     let content
-    if (receipt) {
+    if (txId) {
       content = this.renderReceipt()
     } else if (rawTx) {
       content = this.renderPreConfirmation()
@@ -82,16 +82,16 @@ export default class SendTransaction extends PureComponent {
   }
 
   renderReceipt () {
-    const { receipt } = this.state
+    const { txId } = this.state
 
     return (
-      <View style={styles.receipt}>
-        <Text style={styles.receiptIntroText}>{t('modal.sendTransaction.transactionSuccessful')}</Text>
-        <Text style={formStyles.labelText}>{t('modal.sendTransaction.receiptLabel')}</Text>
+      <View style={styles.txId}>
+        <Text style={styles.txIdIntroText}>{t('modal.sendTransaction.transactionSuccessful')}</Text>
+        <Text style={formStyles.labelText}>{t('modal.sendTransaction.txIdLabel')}</Text>
         <BlockOfText
-          text={receipt}
-          style={styles.receiptBlock}
-          textStyle={styles.receiptBlockText}
+          text={txId}
+          style={styles.txIdBlock}
+          textStyle={styles.txIdBlockText}
         />
         <Button
           style={styles.trackTransactionButton}
@@ -120,7 +120,7 @@ export default class SendTransaction extends PureComponent {
         <Text style={styles.confirmText}>{t('modal.sendTransaction.maxCost', { cost: this._getMaxCost() })}</Text>
         <Text style={formStyles.labelText}>{t('modal.sendTransaction.rawTransactionLabel')}</Text>
         <BlockOfText
-          text={rawTx}
+          text={rawTx.str}
           style={styles.rawTransactionBlock}
           textStyle={styles.rawTransactionBlockText}
         />
@@ -438,11 +438,11 @@ export default class SendTransaction extends PureComponent {
   _renderToPickerButtonIcon = () => null
 
   _dismissModal = () => {
-    const { receipt } = this.state
+    const { txId } = this.state
     const { cancelTransaction, hideSendTransactionModal } = this.props.actions
 
     // only cancel tx if not already succeeded
-    if (!receipt) {
+    if (!txId) {
       cancelTransaction(t('error.userCancelledTransaction'))
     } else {
       hideSendTransactionModal()
@@ -553,10 +553,10 @@ export default class SendTransaction extends PureComponent {
       generating: true
     }, () => {
       generateRawTransaction(form)
-        .then(rawTxStr => {
+        .then(rawTx => {
           this.setState({
             generating: false,
-            rawTx: rawTxStr
+            rawTx
           })
         })
         .catch(error => {
@@ -577,10 +577,10 @@ export default class SendTransaction extends PureComponent {
       submitting: true
     }, () => {
       sendRawTransaction(rawTx)
-        .then(receipt => {
+        .then(txId => {
           this.setState({
             submitting: false,
-            receipt
+            txId
           })
         })
         .catch(error => {

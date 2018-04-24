@@ -49,65 +49,24 @@ class Storage {
    * Load user data (call this once password and network has been set)
    */
   loadUserData () {
-    this._loadAddressBook()
-    this._loadBookmarks()
-    this._loadDappPermissions()
-    this._loadCustomTokens()
+    this._loadUserData('addressBook', this._store.actions.injectAddressBook)
+    this._loadUserData('bookmarks', this._store.actions.injectBookmarks)
+    this._loadUserData('dappPermissions', this._store.actions.injectDappPermissions)
+    this._loadUserData('customTokens', this._store.actions.injectCustomTokens)
+    this._loadUserData('transactionHistory', this._store.actions.injectTransactionHistory)
   }
 
-  async _loadAddressBook () {
+  async _loadUserData (key, onSuccess) {
     if (!this._canConstructUserKey()) {
       return
     }
 
-    log.info('Load address book ...')
+    log.info(`Load ${key} ...`)
 
-    const data = await this._load(this._userKey('addressBook'))
-
-    if (data) {
-      this._store.actions.injectAddressBook(data)
-    }
-  }
-
-  async _loadBookmarks () {
-    if (!this._canConstructUserKey()) {
-      return
-    }
-
-    log.info('Load bookmarks ...')
-
-    const data = await this._load(this._userKey('bookmarks'))
+    const data = await this._load(this._userKey(key))
 
     if (data) {
-      this._store.actions.injectBookmarks(data)
-    }
-  }
-
-  async _loadDappPermissions () {
-    if (!this._canConstructUserKey()) {
-      return
-    }
-
-    log.info('Load dapp permissions ...')
-
-    const data = await this._load(this._userKey('dappPermissions'))
-
-    if (data) {
-      this._store.actions.injectDappPermissions(data)
-    }
-  }
-
-  async _loadCustomTokens () {
-    if (!this._canConstructUserKey()) {
-      return
-    }
-
-    log.info('Load custom tokens ...')
-
-    const data = await this._load(this._userKey('customTokens'))
-
-    if (data) {
-      this._store.actions.injectCustomTokens(data)
+      onSuccess(data)
     }
   }
 
@@ -119,6 +78,12 @@ class Storage {
     if (data) {
       this._store.actions.injectLastConnectedNodeId(data)
     }
+  }
+
+  async saveTransactionHistory (data) {
+    log.debug('Save transaction history ...', data)
+
+    await this._save(this._userKey('transactionHistory'), data)
   }
 
   async saveDappPermissions (data) {

@@ -5,7 +5,7 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
 
-@connectStore('nav')
+@connectStore('nav', 'account')
 export default class Transactions extends PureComponent {
   render () {
     return (

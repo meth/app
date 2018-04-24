@@ -129,12 +129,12 @@ export default create({
     alignSelf: 'center'
   },
 
-  /* receipt */
-  receipt: {
+  /* tx id */
+  txId: {
     alignItems: 'stretch',
     width: '90%'
   },
-  receiptIntroText: {
+  txIdIntroText: {
     ...text,
     ...fontMaker({ weight: 'SemiBold' }),
     color: '$content_textColor',
@@ -142,12 +142,12 @@ export default create({
     marginBottom: 15,
     textAlign: 'center'
   },
-  receiptBlock: {
+  txIdBlock: {
     height: 50,
     borderRadius: 5,
     marginBottom: 30
   },
-  receiptBlockText: {
+  txIdBlockText: {
     fontSize: '0.8rem'
   },
   trackTransactionButton: {
