@@ -5,10 +5,10 @@ import { hexToNumber } from 'web3-utils'
 
 import { connectStore } from '../../../helpers/redux'
 import { CachePureComponent } from '../../../helpers/components'
-import { t, tSub } from '../../../../../common/strings'
+import { t } from '../../../../../common/strings'
 import ProgressButton from '../../../components/ProgressButton'
 import AlertBox from '../../../components/AlertBox'
-import ChainExplorerIconButton from '../../../components/ChainExplorerIconButton'
+import ChainExplorerIconButton from '../../liveComponents/ChainExplorerIconButton'
 import ErrorBox from '../../../components/ErrorBox'
 import Modal from '../../../components/Modal'
 import Loading from '../../../components/Loading'
@@ -61,7 +61,7 @@ export default class ConnectNode extends CachePureComponent {
 
     const {
       node: { type },
-      network: { description: network, chainId, blockUrl }
+      network: { description: network, chainId }
     } = getNodeConnection()
 
     const { latestBlock, syncing } = getNodeState()
@@ -79,11 +79,12 @@ export default class ConnectNode extends CachePureComponent {
         {latestBlock ? (
           <View style={styles.block}>
             <Text style={styles.blockText}>{t('network.block')}: {hexToNumber(latestBlock.number)}</Text>
-            {blockUrl ? (
+            {latestBlock ? (
               <ChainExplorerIconButton
+                linkType='block'
+                blockHash={latestBlock.hash}
                 style={styles.blockLinkButton}
                 textStyle={styles.blockLinkButtonText}
-                onPress={this._onPressBlockLink}
               />
             ) : null}
           </View>
@@ -253,15 +254,5 @@ export default class ConnectNode extends CachePureComponent {
     const { hideConnectionModal } = this.props.actions
 
     hideConnectionModal()
-  }
-
-  _onPressBlockLink = () => {
-    const { openExternalUrl } = this.props.actions
-    const { getNodeConnection, getNodeState } = this.props.selectors
-
-    const { latestBlock } = getNodeState()
-    const { network: { blockUrl } } = getNodeConnection()
-
-    openExternalUrl(tSub(blockUrl, { blockHash: latestBlock.hash }))
   }
 }

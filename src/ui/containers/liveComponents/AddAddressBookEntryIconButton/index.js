@@ -1,24 +1,29 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
 import { connectStore } from '../../../helpers/redux'
+import ADDRESS_TYPES from '../../../../../common/constants/addressTypes'
 import { t } from '../../../../../common/strings'
 import IconButton from '../../../components/IconButton'
 import styles from './styles'
 
 
-@connectStore()
+@connectStore('account')
 export default class AddAddressBookEntryIconButton extends PureComponent {
   static propTypes = {
-    value: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    addressType: PropTypes.oneOf([ ADDRESS_TYPES.ACCOUNT, ADDRESS_TYPES.CONTRACT ]),
     style: PropTypes.any,
     textStyle: PropTypes.any
   }
 
   render () {
-    const { style, textStyle } = this.props
+    const { address, style, textStyle } = this.props
+    const { getAddressBook } = this.props.selectors
+    const addressBook = getAddressBook()
 
-    return (
+    return _.get(addressBook[address], 'label') ? null : (
       <IconButton
         style={[ styles.button ].concat(style)}
         icon={{ name: 'account-multiple-plus', style: [ styles.text ].concat(textStyle) }}
@@ -29,9 +34,9 @@ export default class AddAddressBookEntryIconButton extends PureComponent {
   }
 
   _onPress = () => {
-    const { value } = this.props
+    const { address, addressType } = this.props
     const { showEditAddressModal } = this.props.actions
 
-    showEditAddressModal(value)
+    showEditAddressModal(address, addressType)
   }
 }

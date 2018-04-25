@@ -4,7 +4,8 @@ import { View, Text } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
 import { CachePureComponent } from '../../../helpers/components'
-import { t, tSub } from '../../../../../common/strings'
+import { t } from '../../../../../common/strings'
+import ADDRESS_TYPES from '../../../../../common/constants/addressTypes'
 import { TRANSACTION_TYPE, TRANSACTION_STATUS } from '../../../../../common/constants/protocol'
 import { weiToEthStr } from '../../../../utils/number'
 import styles from './styles'
@@ -13,7 +14,8 @@ import Loading from '../../../components/Loading'
 import Icon from '../../../components/Icon'
 import Table from '../../../components/Table'
 import TitleText from '../../../components/TitleText'
-import ChainExplorerIconButton from '../../../components/ChainExplorerIconButton'
+import ChainExplorerIconButton from '../../liveComponents/ChainExplorerIconButton'
+import AddressText from '../../liveComponents/AddressText'
 
 const RENDER_NULL = () => null
 
@@ -65,12 +67,7 @@ export default class Transactions extends CachePureComponent {
   }
 
   _renderRowData = row => {
-    const { getNodeConnection } = this.props.selectors
-    const { network: { txUrl } } = getNodeConnection()
-
     const { id, params: { from, to } } = row.tx
-
-    const url = txUrl ? tSub(txUrl, { txHash: id }) : null
 
     return (
       <View style={styles.tx}>
@@ -78,13 +75,12 @@ export default class Transactions extends CachePureComponent {
         <View style={styles.txParams}>
           <View style={styles.id}>
             <Text style={styles.idText}>{id}</Text>
-            {url ? (
-              <ChainExplorerIconButton
-                style={styles.idLinkButton}
-                textStyle={styles.idLinkButtonText}
-                onPress={this.bind(this._onPressUrl, url)}
-              />
-            ) : null}
+            <ChainExplorerIconButton
+              linkType='transaction'
+              txHash={id}
+              style={styles.idLinkButton}
+              textStyle={styles.idLinkButtonText}
+            />
           </View>
           <View style={styles.txFromTo}>
             <Text style={styles.fromToText}>{from}</Text>
@@ -161,21 +157,10 @@ export default class Transactions extends CachePureComponent {
   }
 
   _renderReceipt (row) {
-    const { getNodeConnection } = this.props.selectors
-    const { network: { blockUrl, addressUrl } } = getNodeConnection()
-
     const status = _.get(row, 'tx.receipt.status')
     const blockNum = _.get(row, 'tx.receipt.blockNumber')
     const blockHash = _.get(row, 'tx.receipt.blockHash')
     const contractAddress = _.get(row, 'tx.receipt.contractAddress')
-
-    const blockLink = (blockUrl && blockHash)
-      ? tSub(blockUrl, { blockHash })
-      : null
-
-    const contractLink = (contractAddress && addressUrl)
-      ? tSub(addressUrl, { address: contractAddress })
-      : null
 
     let statusContent
     switch (status) {
@@ -198,34 +183,31 @@ export default class Transactions extends CachePureComponent {
         {blockNum ? (
           <View style={styles.txReceiptBlock}>
             <Text style={styles.txReceiptText}>{t('transaction.blockNum', { blockNum })}</Text>
-            {blockLink ? (
-              <ChainExplorerIconButton
-                style={styles.receiptLinkButton}
-                textStyle={styles.receiptLinkButtonText}
-                onPress={this.bind(this._onPressUrl, blockLink)}
-              />
-            ) : null}
+            <ChainExplorerIconButton
+              linkType='block'
+              blockHash={blockHash}
+              style={styles.receiptLinkButton}
+              textStyle={styles.receiptLinkButtonText}
+            />
           </View>
         ) : null}
         {contractAddress ? (
           <View style={styles.txReceiptBlock}>
-            <Text style={styles.txReceiptText}>{t('transaction.contractAddress', { contractAddress })}</Text>
-            {contractLink ? (
-              <ChainExplorerIconButton
-                style={styles.receiptLinkButton}
-                textStyle={styles.receiptLinkButtonText}
-                onPress={this.bind(this._onPressUrl, contractLink)}
-              />
-            ) : null}
+            <AddressText
+              textStyle={styles.txReceiptText}
+              text={t('transaction.contractAddress', { contractAddress })}
+              address={contractAddress}
+              addressType={ADDRESS_TYPES.CONTRACT}
+            />
+            <ChainExplorerIconButton
+              linkType='address'
+              address={contractAddress}
+              style={styles.receiptLinkButton}
+              textStyle={styles.receiptLinkButtonText}
+            />
           </View>
         ) : null}
       </View>
     )
-  }
-
-  _onPressUrl = url => {
-    const { openExternalUrl } = this.props.actions
-
-    openExternalUrl(url)
   }
 }

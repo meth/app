@@ -120,7 +120,8 @@ module.exports = {
     },
     title: {
       addressBook: 'Address book',
-      editAddressLabel: 'Edit address label',
+      editAddressLabel: 'Edit address book entry',
+      addAddressLabel: 'Add to address book',
       wallet: 'Wallet',
       addToken: 'Add token',
       editToken: 'Edit token',
@@ -209,6 +210,7 @@ module.exports = {
     },
     addressType: {
       [ADDRESS_TYPES.OWN_ACCOUNT]: 'Own account',
+      [ADDRESS_TYPES.ACCOUNT]: 'Account',
       [ADDRESS_TYPES.CONTRACT]: 'Contract'
     },
     ethBalance: {

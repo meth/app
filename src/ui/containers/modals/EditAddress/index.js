@@ -22,21 +22,28 @@ import formStyles from '../../../styles/forms'
 export default class EditAddress extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
-      address: PropTypes.string
+      address: PropTypes.string,
+      type: PropTypes.oneOf([
+        ADDRESS_TYPES.ACCOUNT,
+        ADDRESS_TYPES.OWN_ACCOUNT,
+        ADDRESS_TYPES.CONTRACT
+      ])
     }).isRequired
   }
 
   constructor (props, ctx) {
     super(props, ctx)
 
-    const { data: { address } } = this.props
+    const { data: { address, type } } = this.props
 
     const { getAddressBook } = this.props.selectors
 
     const addressBook = getAddressBook()
 
     this.state = {
+      alreadyExists: !!_.get(addressBook[address], 'label'),
       label: _.get(addressBook[address], 'label', ''),
+      type: _.get(addressBook[address], 'type', type),
       submitting: false,
       error: null
     }
@@ -45,22 +52,21 @@ export default class EditAddress extends PureComponent {
   render () {
     const { data: { address } } = this.props
 
-    const { getAddressBook, getNodeConnection } = this.props.selectors
-
-    const addressBook = getAddressBook()
-
-    const type = _.get(addressBook[address], 'type')
+    const { getNodeConnection } = this.props.selectors
 
     const network = _.get(getNodeConnection(), 'network.description')
 
-    const { error, label, submitting } = this.state
+    const { error, label, type, submitting, alreadyExists } = this.state
 
     return (
       <Modal
         contentStyle={styles.content}
         onPressCloseButton={this.close}
       >
-        <TitleText style={styles.titleText} text={t('title.editAddressLabel')} />
+        <TitleText
+          style={styles.titleText}
+          text={t(alreadyExists ? 'title.editAddressLabel' : 'title.addAddressLabel')}
+        />
         <Text style={styles.addressText}>{address}</Text>
         {this._renderMeta({ network, type })}
         <Form
@@ -92,11 +98,13 @@ export default class EditAddress extends PureComponent {
             onPress={this.submit}
             title={t('button.save')}
           />
-          <Button
-            style={styles.button}
-            onPress={this.delete}
-            title={t('button.delete')}
-          />
+          {alreadyExists ? (
+            <Button
+              style={styles.button}
+              onPress={this.delete}
+              title={t('button.delete')}
+            />
+          ) : null}
         </View>
         <ErrorBox style={styles.errorBox} error={error} />
         <AskUserConfirmModal
@@ -125,6 +133,7 @@ export default class EditAddress extends PureComponent {
 
     let typeIcon = null
     switch (type) {
+      case ADDRESS_TYPES.ADDRESS:
       case ADDRESS_TYPES.OWN_ACCOUNT: {
         typeIcon = 'user'
         break
@@ -166,15 +175,16 @@ export default class EditAddress extends PureComponent {
     })
   }
 
-  onSubmit = data => {
+  onSubmit = () => {
     const { data: { address } } = this.props
     const { saveAddressBookEntry } = this.props.actions
+    const { label, type } = this.state
 
     this.setState({
       submitting: true,
       error: null
     }, () => {
-      saveAddressBookEntry(address, data)
+      saveAddressBookEntry(address, { label, type })
         .then(() => this.close())
         .catch(error => {
           this.setState({

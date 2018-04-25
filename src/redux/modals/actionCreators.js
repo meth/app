@@ -48,8 +48,8 @@ export const hideDappPermissionsModal = modalActionCreator(HIDE, DAPP_PERMISSION
 export const showSendTransactionModal = modalActionCreator(SHOW, SEND_TRANSACTION)
 export const hideSendTransactionModal = modalActionCreator(HIDE, SEND_TRANSACTION)
 
-export const showEditAddressModal = modalActionCreator(SHOW, EDIT_ADDRESS, address => ({
-  address
+export const showEditAddressModal = modalActionCreator(SHOW, EDIT_ADDRESS, (address, type) => ({
+  address, type
 }))
 export const hideEditAddressModal = modalActionCreator(HIDE, EDIT_ADDRESS)
 
