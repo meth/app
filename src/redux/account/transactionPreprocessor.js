@@ -1,5 +1,5 @@
 import { ETH, TRANSACTION_TYPE } from '../../../common/constants/protocol'
-import { ethToWeiStr, gweiToWeiStr } from '../../utils/number'
+import { ethToWeiStr, gweiToWeiStr, tokenBalanceToWeiStr } from '../../utils/number'
 import { getStore } from '../'
 
 const { CONTRACT_CALL, CONTRACT_CREATION, TOKEN_TRANSFER, ETH_TRANSFER } = TRANSACTION_TYPE
@@ -27,9 +27,10 @@ export default ({ nodeConnector }) => async tx => {
     meta.recipient = to
     meta.amount = amount
 
-    const { contractAddress } = getTokenList()[unit]
+    const { decimals, contractAddress } = getTokenList()[unit]
     const contract = await nodeConnector.getTokenContractAt(contractAddress)
-    data = contract.contract.transfer.getData(to, 0)
+    const tokenWeiAmount = tokenBalanceToWeiStr(amount || '0', decimals, { hex: true })
+    data = contract.contract.transfer.getData(to, tokenWeiAmount)
     to = contractAddress
   }
 
