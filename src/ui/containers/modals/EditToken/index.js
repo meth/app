@@ -11,6 +11,7 @@ import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
 import ErrorBox from '../../../components/ErrorBox'
 import TextInput from '../../../components/TextInput'
+import AddressTextInput from '../../liveComponents/AddressTextInput'
 import IconText from '../../../components/IconText'
 import ProgressButton from '../../../components/ProgressButton'
 import Button from '../../../components/Button'
@@ -89,7 +90,7 @@ export default class EditToken extends PureComponent {
           >
             <TextInput
               value={name}
-              style={styles.labelInput}
+              style={styles.textInput}
               placeholder={t('modal.editToken.nameInputPlaceholder')}
             />
           </Form.Field>
@@ -102,7 +103,7 @@ export default class EditToken extends PureComponent {
           >
             <TextInput
               value={symbol}
-              style={styles.labelInput}
+              style={styles.textInput}
               placeholder={t('modal.editToken.symbolInputPlaceholder')}
             />
           </Form.Field>
@@ -115,7 +116,7 @@ export default class EditToken extends PureComponent {
           >
             <TextInput
               value={`${decimals}`}
-              style={styles.labelInput}
+              style={styles.textInput}
               placeholder={t('modal.editToken.decimalsInputPlaceholder')}
             />
           </Form.Field>
@@ -126,9 +127,9 @@ export default class EditToken extends PureComponent {
             labelStyle={formStyles.label}
             labelTextStyle={formStyles.labelText}
           >
-            <TextInput
+            <AddressTextInput
               value={contractAddress}
-              style={styles.labelInput}
+              style={styles.textInput}
               placeholder={t('modal.editToken.addressInputPlaceholder')}
             />
           </Form.Field>

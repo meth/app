@@ -35,7 +35,7 @@ export default class AddressTextInput extends PureComponent {
         addButton = (
           <AddAddressBookEntryIconButton
             style={styles.addToAddressBookButton}
-            value={value}
+            address={value}
           />
         )
       }

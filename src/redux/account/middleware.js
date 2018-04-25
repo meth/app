@@ -218,8 +218,6 @@ export default ({ nodeConnector, walletManager }) => {
           )))
 
           receipts.forEach(r => {
-            console.log(r)
-
             const {
               transactionHash,
               blockHash,

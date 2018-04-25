@@ -33,9 +33,6 @@
   },
   "private": {
     "description": "Private",
-    "blockUrl": "https://etherscan.io/block/{blockHash}",
-    "txUrl": "https://etherscan.io/tx/{txHash}",
-    "addressUrl": "https://etherscan.io/address/{address}",
     "chainId": 1337
   }
 }

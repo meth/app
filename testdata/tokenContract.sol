@@ -22,18 +22,22 @@ contract SafeMath {
     function safeAdd(uint a, uint b) public pure returns (uint c) {
         c = a + b;
         require(c >= a);
+        return c;
     }
     function safeSub(uint a, uint b) public pure returns (uint c) {
         require(b <= a);
         c = a - b;
+        return c;
     }
     function safeMul(uint a, uint b) public pure returns (uint c) {
         c = a * b;
         require(a == 0 || c / a == b);
+        return c;
     }
     function safeDiv(uint a, uint b) public pure returns (uint c) {
         require(b > 0);
         c = a / b;
+        return c;
     }
 }
 
@@ -144,7 +148,6 @@ contract FucksToken is ERC20Interface, Owned, SafeMath {
     // - 0 value transfers are allowed
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
-        revert()
         balances[msg.sender] = safeSub(balances[msg.sender], tokens);
         balances[to] = safeAdd(balances[to], tokens);
         Transfer(msg.sender, to, tokens);
