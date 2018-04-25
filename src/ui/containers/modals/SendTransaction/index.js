@@ -85,7 +85,7 @@ export default class SendTransaction extends PureComponent {
 
     return (
       <View style={styles.txId}>
-        <Text style={styles.txIdIntroText}>{t('modal.sendTransaction.transactionSuccessful')}</Text>
+        <Text style={styles.txIdIntroText}>{t('modal.sendTransaction.transactionSent')}</Text>
         <Text style={formStyles.labelText}>{t('modal.sendTransaction.txIdLabel')}</Text>
         <BlockOfText
           text={txId}

@@ -168,7 +168,7 @@ module.exports = {
         areYouSureYouWantToDelete: 'Are you sure you want to remove this custom token?'
       },
       sendTransaction: {
-        transactionSuccessful: 'Transaction successful!',
+        transactionSent: 'Transaction sent',
         isContractCreationFieldLabel: 'Deploy a contract',
         maxCost: 'Max cost: {cost} ETH',
         finalAmountLabel: 'Amount',
