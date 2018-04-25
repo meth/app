@@ -4,6 +4,8 @@ import { TextInput as NativeTextInput } from 'react-native'
 import createStyles from './styles'
 
 export default class CustomTextInput extends PureComponent {
+  static propTypes = NativeTextInput.propTypes
+
   state = {
     fieldState: 'blurred'
   }

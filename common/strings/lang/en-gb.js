@@ -80,7 +80,7 @@ module.exports = {
     button: {
       trackTransaction: 'Track transaction',
       transactionHistory: 'Transaction history',
-      addEntry: 'Add entry',
+      addToAddressBook: 'Add to address book',
       addAccount: 'Add account',
       generateAccount: 'Generate account',
       addToken: 'Add token',

@@ -14,14 +14,13 @@ import Button from '../../../components/Button'
 import ProgressButton from '../../../components/ProgressButton'
 import Switch from '../../../components/Switch'
 import TitleText from '../../../components/TitleText'
-import Icon from '../../../components/Icon'
 import TextInput from '../../../components/TextInput'
 import BlockOfText from '../../../components/BlockOfText'
 import ErrorBox from '../../../components/ErrorBox'
 import Picker from '../../../components/Picker'
 import Loading from '../../../components/Loading'
-import AddressBookPicker from '../../pickers/AddressBookPicker'
-import AccountPicker from '../../pickers/AccountPicker'
+import AddressTextInput from '../../liveComponents/AddressTextInput'
+import AccountPicker from '../../liveComponents/AccountPicker'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
 
@@ -178,27 +177,10 @@ export default class SendTransaction extends PureComponent {
               labelStyle={formStyles.label}
               labelTextStyle={formStyles.labelText}
             >
-              <TextInput
+              <AddressTextInput
                 value={to}
                 style={styles.textInput}
                 placeholder={t('modal.sendTransaction.field.toPlaceholder')}
-              />
-            </Form.Field>
-            <Form.Field
-              name='toLookup'
-              label={' '}
-              labelStyle={formStyles.label}
-              labelTextStyle={formStyles.labelText}
-            >
-              <AddressBookPicker
-                style={styles.toPicker}
-                selected={to}
-                button={{
-                  theme: 'default',
-                  style: styles.toPickerButton,
-                  renderLabel: this._renderToPickerButtonLabel,
-                  renderIcon: this._renderToPickerButtonIcon
-                }}
               />
             </Form.Field>
           </Form.Layout>
@@ -431,12 +413,6 @@ export default class SendTransaction extends PureComponent {
     )
   }
 
-  _renderToPickerButtonLabel = () => (
-    <Icon style={styles.toPickerButtonIcon} name='search' />
-  )
-
-  _renderToPickerButtonIcon = () => null
-
   _dismissModal = () => {
     const { txId } = this.state
     const { cancelTransaction, hideSendTransactionModal } = this.props.actions
@@ -459,11 +435,6 @@ export default class SendTransaction extends PureComponent {
 
   _onChange = values => {
     const form = values
-
-    // if "to" address looked up then set it!
-    if (form.toLookup !== this.state.form.toLookup) {
-      form.to = form.toLookup
-    }
 
     // lowercase the "to" address
     if (form.to) {
