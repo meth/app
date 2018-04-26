@@ -94,6 +94,12 @@ export default ({ nodeConnector, walletManager }) => {
         try {
           const preTx = await preprocessTransaction(tx)
 
+          // estimate gas limit
+          const estimate = hexToNumber(await nodeConnector.estimateGas(preTx))
+          if (estimate > preTx.gasLimit) {
+            preTx.gasLimit = estimate
+          }
+
           // chain id
           const { network: { chainId } } = getNodeConnection()
           log.debug(`chainId: ${chainId}`)

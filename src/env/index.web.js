@@ -10,8 +10,6 @@ const log = logger.create('config')
 
 const globalEvents = new EventEmitter()
 
-
-
 if (typeof window !== 'undefined') {
   window.addEventListener(IPC.UI_TASK, ({ detail: { task, data } }) => {
     log.debug('Recieved UI task IPC command', task)

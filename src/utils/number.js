@@ -93,13 +93,11 @@ const getPowerOfTenBN = power => numToBN(10).pow(numToBN(power))
 
 const _format = (num, { hex } = {}) => (hex ? toHex(num) : num.toString(10))
 
-export const toTokenBalanceStr = (balance, decimals, options) => (
+export const toTokenBalanceStr = (balance, decimals, options) =>
   _format(numToBN(balance).div(getPowerOfTenBN(decimals)), options)
-)
 
-export const tokenBalanceToWeiStr = (balance, decimals, options) => (
+export const tokenBalanceToWeiStr = (balance, decimals, options) =>
   _format(numToBN(balance).mul(getPowerOfTenBN(decimals)), options)
-)
 
 export const weiToEthStr = balance => fromWei(balance, 'ether')
 
@@ -115,7 +113,8 @@ export const ethToWeiBN = balance => {
   )
 }
 
-export const ethToWeiStr = (balance, options) => _format(ethToWeiBN(balance), options)
+export const ethToWeiStr = (balance, options) =>
+  _format(ethToWeiBN(balance), options)
 
 export const gweiToWeiStr = balance =>
   numToBN(balance).toString(10) + '0'.repeat(9)
