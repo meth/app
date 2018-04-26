@@ -59,6 +59,14 @@ export default class Header extends PureComponent {
               />
               <IconButton
                 type='header'
+                tooltip={t('button.contracts')}
+                icon={{ name: 'code', style: styles.buttonIcon }}
+                style={styles.button}
+                onPress={this.showContracts}
+                stateOverride={this._getButtonStateOverride(navState, routes.Contracts)}
+              />
+              <IconButton
+                type='header'
                 tooltip={t('button.transactionHistory')}
                 icon={{ name: 'md-swap', style: styles.buttonIcon }}
                 style={styles.button}
@@ -68,7 +76,7 @@ export default class Header extends PureComponent {
               <IconButton
                 type='header'
                 tooltip={t('button.addressBook')}
-                icon={{ name: 'md-contacts', style: styles.buttonIcon }}
+                icon={{ name: 'address-book-o', style: styles.buttonIcon }}
                 style={styles.button}
                 onPress={this.showAddressBook}
                 stateOverride={this._getButtonStateOverride(navState, routes.AddressBook)}
@@ -166,5 +174,11 @@ export default class Header extends PureComponent {
     const { actions: { navPush } } = this.props
 
     navPush(routes.Transactions.path)
+  }
+
+  showContracts = () => {
+    const { actions: { navPush } } = this.props
+
+    navPush(routes.Contracts.path)
   }
 }

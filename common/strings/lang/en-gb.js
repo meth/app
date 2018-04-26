@@ -106,6 +106,7 @@ module.exports = {
       wallet: 'Wallet',
       addressBook: 'Address book',
       dappBrowser: 'Browser',
+      contracts: 'Contracts',
       iHaveWrittenDownMnemonic: 'I have written down my passphrase carefully',
       iHaveConfirmedMyMnemonic: 'I have successfully confirmed my passphrase',
       pressToRevealMnemonic: 'Press to reveal',
@@ -119,6 +120,7 @@ module.exports = {
       }
     },
     title: {
+      contracts: 'Contracts',
       addressBook: 'Address book',
       editAddressLabel: 'Edit address book entry',
       addAddressLabel: 'Add to address book',

@@ -139,7 +139,7 @@ export default class EditAddress extends PureComponent {
         break
       }
       case ADDRESS_TYPES.CONTRACT: {
-        typeIcon = 'file'
+        typeIcon = 'code'
         break
       }
       default:
