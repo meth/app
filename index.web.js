@@ -2,6 +2,7 @@ import React from 'react'
 import { AppRegistry } from 'react-native'
 import { AppContainer } from 'react-hot-loader'
 
+import { alertUser } from './src/env'
 import App from './src/App'
 
 
@@ -28,13 +29,6 @@ if (module.hot) {
 AppRegistry.runApplication('Meth', {
   rootTag: document.getElementById('react-root')
 })
-
-export const alertUser = msg => {
-  /* eslint-disable no-console */
-  console.error(msg)
-  /* eslint-disable no-alert */
-  window.alert(msg)
-}
 
 // security check
 if (window.require || window.exports || window.module) {

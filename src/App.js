@@ -34,6 +34,7 @@ storage.init({ store })
 nodeConnector.init({ store, walletManager })
 walletManager.init({ store, nodeConnector })
 
+
 // load config
 store.actions.loadConfig()
 

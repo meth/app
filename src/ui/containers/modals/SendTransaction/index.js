@@ -140,6 +140,8 @@ export default class SendTransaction extends PureComponent {
       form: { from, to, unit, amount, data, gasLimit, gasPrice, isContractCreation }
     } = this.state
 
+    const isTokenTransfer = (ETH !== unit)
+
     return (
       <Form
         style={styles.form}
@@ -217,29 +219,31 @@ export default class SendTransaction extends PureComponent {
             />
           </Form.Field>
         </Form.Layout>
-        <Form.Field
-          name='data'
-          label={t(
-            isContractCreation
-              ? 'modal.sendTransaction.field.contractCodeLabel'
-              : 'modal.sendTransaction.field.dataLabel'
-          )}
-          style={styles.field}
-          labelStyle={formStyles.label}
-          labelTextStyle={formStyles.labelText}
-        >
-          <TextInput
-            value={data}
-            style={styles.textInput}
-            placeholder={t(
+        {isTokenTransfer ? null : (
+          <Form.Field
+            name='data'
+            label={t(
               isContractCreation
-                ? 'modal.sendTransaction.field.contractCodePlaceholder'
-                : 'modal.sendTransaction.field.dataPlaceholder'
+                ? 'modal.sendTransaction.field.contractCodeLabel'
+                : 'modal.sendTransaction.field.dataLabel'
             )}
-            multiline={true}
-            numberOfLines={2}
-          />
-        </Form.Field>
+            style={styles.field}
+            labelStyle={formStyles.label}
+            labelTextStyle={formStyles.labelText}
+          >
+            <TextInput
+              value={data}
+              style={styles.textInput}
+              placeholder={t(
+                isContractCreation
+                  ? 'modal.sendTransaction.field.contractCodePlaceholder'
+                  : 'modal.sendTransaction.field.dataPlaceholder'
+              )}
+              multiline={true}
+              numberOfLines={2}
+            />
+          </Form.Field>
+        )}
         <Form.Layout style={styles.gasRow}>
           <Form.Field
             name='gasLimit'
@@ -287,7 +291,7 @@ export default class SendTransaction extends PureComponent {
   componentDidUpdate (prevProps, prevState) {
     // re-calculate the gas limit for certain changes
     let shouldRecalculate = false
-    ;[ 'unit', 'to', 'data', 'isContractCreation' ].forEach(f => {
+    ;[ 'unit', 'to', 'data', 'amount', 'isContractCreation' ].forEach(f => {
       if (this.state.form[f] !== prevState.form[f]) {
         shouldRecalculate = true
       }
@@ -445,6 +449,11 @@ export default class SendTransaction extends PureComponent {
     if (form.isContractCreation !== this.state.form.isContractCreation) {
       form.unit = ETH
       form.amount = '0'
+    }
+
+    // if unit is not ETH then it's a token transfer, so nullify data
+    if (ETH !== form.unit) {
+      form.data = ''
     }
 
     // data and addresses must have 0x prefix

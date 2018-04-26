@@ -5,5 +5,6 @@ module.exports = {
   CLOSE_TAB: 'close-tab',
   EDIT_TAB_URL: 'edit-tab-url',
   GOTO_NEXT_TAB: 'goto-next-tab',
-  GOTO_PREVIOUS_TAB: 'goto-previous-tab'
+  GOTO_PREVIOUS_TAB: 'goto-previous-tab',
+  ESCAPE: 'escape'
 }

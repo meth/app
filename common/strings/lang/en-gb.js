@@ -22,7 +22,7 @@ module.exports = {
       copy: 'Copy',
       paste: 'Paste',
       selectAll: 'Select all',
-      navigation: 'Navigation',
+      browser: 'Browser',
       newTab: 'Open new tab',
       closeTab: 'Close current tab',
       editUrl: 'Edit current tab URL',

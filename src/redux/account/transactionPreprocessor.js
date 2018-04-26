@@ -30,6 +30,7 @@ export default ({ nodeConnector }) => async tx => {
     const { decimals, contractAddress } = getTokenList()[unit]
     const contract = await nodeConnector.getTokenContractAt(contractAddress)
     const tokenWeiAmount = tokenBalanceToWeiStr(amount || '0', decimals, { hex: true })
+
     data = contract.contract.transfer.getData(to, tokenWeiAmount)
     to = contractAddress
   }

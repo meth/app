@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
+import { globalEvents } from '../../../env'
+import UI_TASKS from '../../../../common/constants/ipcUiTasks'
 import { Popup } from '../Popup'
 import FadingView from '../FadingView'
 import CloseButton from './CloseButton'
@@ -44,5 +46,21 @@ export default class Modal extends PureComponent {
         </FadingView>
       </Popup>
     )
+  }
+
+  componentDidMount () {
+    globalEvents.on(UI_TASKS.ESCAPE, this._onDimissModal)
+  }
+
+  componentWillUnmount () {
+    globalEvents.removeListener(UI_TASKS.ESCAPE, this._onDimissModal)
+  }
+
+  _onDimissModal = () => {
+    const { onPressCloseButton } = this.props
+
+    if (onPressCloseButton) {
+      onPressCloseButton()
+    }
   }
 }

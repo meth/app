@@ -127,7 +127,7 @@ class Wallet extends EventEmitter {
 
     log.info('Sign transaction', {
       ...payload,
-      value: `${payload.value} (${value})`,
+      value: value ? `${payload.value} (${value})` : undefined,
       gasLimit: `${payload.gasLimit} (${gasLimit})`,
       gasPrice: `${payload.gasPrice} (${gasPrice})`,
       data: data ? `0x...(${data.length} chars)` : data
