@@ -2,7 +2,7 @@ import React from 'react'
 import { Text } from 'react-native'
 import PropTypes from 'prop-types'
 
-import IconButton from '../../IconButton'
+import IconButton from '../../../../components/IconButton'
 import styles from './styles'
 
 const AlertsButton = ({ style, onPress, unseenAlertsCount }) => (

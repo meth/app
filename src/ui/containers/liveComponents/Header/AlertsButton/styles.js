@@ -1,4 +1,4 @@
-import { create } from '../../../styles'
+import { create } from '../../../../styles'
 
 export default create({
   numbersText: {

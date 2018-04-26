@@ -5,33 +5,41 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 import { fromWei } from 'web3-utils'
 
-import { t } from '../../../../common/strings'
-import Button from '../Button'
-import Loading from '../Loading'
+import { connectStore } from '../../../helpers/redux'
+import { t } from '../../../../../common/strings'
+import Button from '../../../components/Button'
+import Loading from '../../../components/Loading'
 import AlertsButton from './AlertsButton'
-import IconButton from '../IconButton'
+import IconButton from '../../../components/IconButton'
+import { routes } from '../../../nav'
 import styles from './styles'
-import { toDecimalPlaces } from '../../../utils/number'
+import { toDecimalPlaces } from '../../../../utils/number'
 
+@connectStore('account', 'node', 'log', 'modals', 'nav')
 export default class Header extends PureComponent {
   static propTypes = {
-    navState: PropTypes.object.isRequired,
-    routes: PropTypes.object.isRequired,
-    network: PropTypes.object,
-    addresses: PropTypes.object,
-    unseenAlertsCount: PropTypes.number,
-    onPressNetworkInfo: PropTypes.func.isRequired,
-    onPressAlerts: PropTypes.func.isRequired,
-    onPressWallet: PropTypes.func.isRequired,
-    onPressAddressBook: PropTypes.func.isRequired,
-    onPressBrowser: PropTypes.func.isRequired,
-    onPressTransactions: PropTypes.func.isRequired,
     style: PropTypes.any
   }
 
   render () {
-    const { addresses, network, style, navState, routes } = this.props
-    const { onPressAddressBook, onPressBrowser, onPressTransactions } = this.props
+    const {
+      getNodeConnection,
+      getNodeState,
+      getAccounts,
+      getUnseenAlertsCount,
+      getCurrentNavState
+    } = this.props.selectors
+
+    const { network } = getNodeConnection()
+    if (network) {
+      network.node = getNodeState()
+    }
+
+    const addresses = getAccounts()
+    const unseenAlertsCount = getUnseenAlertsCount()
+    const navState = getCurrentNavState()
+
+    const { style } = this.props
 
     const ALL_INITIALIZED = network && addresses
 
@@ -40,13 +48,13 @@ export default class Header extends PureComponent {
         <View style={styles.left}>
           {ALL_INITIALIZED ? (
             <React.Fragment>
-              {this.renderBalance(addresses)}
+              {this.renderBalance(navState, addresses)}
               <IconButton
                 type='header'
                 tooltip={t('button.dappBrowser')}
                 icon={{ name: 'globe', style: styles.buttonIcon }}
                 style={styles.button}
-                onPress={onPressBrowser}
+                onPress={this.showBrowser}
                 stateOverride={this._getButtonStateOverride(navState, routes.Browser)}
               />
               <IconButton
@@ -54,7 +62,7 @@ export default class Header extends PureComponent {
                 tooltip={t('button.transactionHistory')}
                 icon={{ name: 'md-swap', style: styles.buttonIcon }}
                 style={styles.button}
-                onPress={onPressTransactions}
+                onPress={this.showTransactions}
                 stateOverride={this._getButtonStateOverride(navState, routes.Transactions)}
               />
               <IconButton
@@ -62,7 +70,7 @@ export default class Header extends PureComponent {
                 tooltip={t('button.addressBook')}
                 icon={{ name: 'md-contacts', style: styles.buttonIcon }}
                 style={styles.button}
-                onPress={onPressAddressBook}
+                onPress={this.showAddressBook}
                 stateOverride={this._getButtonStateOverride(navState, routes.AddressBook)}
               />
             </React.Fragment>
@@ -70,15 +78,13 @@ export default class Header extends PureComponent {
         </View>
         <View style={styles.right}>
           {network ? this.renderNetwork(network) : null}
-          {this.renderAlerts()}
+          {this.renderAlerts(unseenAlertsCount)}
         </View>
       </View>
     )
   }
 
-  renderBalance (addresses) {
-    const { navState, routes, onPressWallet } = this.props
-
+  renderBalance (navState, addresses) {
     const totalWei = Object.values(addresses).reduce(
       (m, { balance }) => m.add(balance), new BN(0, 2)
     )
@@ -92,14 +98,12 @@ export default class Header extends PureComponent {
         type='header'
         title={`Ξ ${toDecimalPlaces(totalEther, 1)}`}
         stateOverride={this._getButtonStateOverride(navState, routes.Wallet)}
-        onPress={onPressWallet}
+        onPress={this.showWallet}
       />
     )
   }
 
   renderNetwork (network) {
-    const { onPressNetworkInfo } = this.props
-
     const syncing = !!_.get(network, 'node.syncing')
     const syncIcon = syncing ? (
       <Loading style={styles.networkButtonLoadingSpinner} />
@@ -107,7 +111,7 @@ export default class Header extends PureComponent {
 
     return (
       <Button
-        onPress={onPressNetworkInfo}
+        onPress={this.showConnectionInfo}
         style={styles.networkButton}
         type='header'>
           <Text style={styles.networkButtonText}>{network.description}</Text>
@@ -116,15 +120,13 @@ export default class Header extends PureComponent {
     )
   }
 
-  renderAlerts () {
-    const { unseenAlertsCount, onPressAlerts } = this.props
-
+  renderAlerts (unseenAlertsCount) {
     return (
       <View style={styles.alert}>
         <AlertsButton
           style={styles.button}
           unseenAlertsCount={unseenAlertsCount}
-          onPress={onPressAlerts}
+          onPress={this.showLog}
         />
       </View>
     )
@@ -132,5 +134,37 @@ export default class Header extends PureComponent {
 
   _getButtonStateOverride (navState, route) {
     return (navState.routeName === route.routeName) ? { hovering: true } : null
+  }
+
+  showConnectionInfo = () => {
+    this.props.actions.showConnectionModal()
+  }
+
+  showLog = () => {
+    this.props.actions.showLog()
+  }
+
+  showWallet = () => {
+    const { actions: { navPush } } = this.props
+
+    navPush(routes.Wallet.path)
+  }
+
+  showAddressBook = () => {
+    const { actions: { navPush } } = this.props
+
+    navPush(routes.AddressBook.path)
+  }
+
+  showBrowser = () => {
+    const { actions: { navPush } } = this.props
+
+    navPush(routes.Browser.path)
+  }
+
+  showTransactions = () => {
+    const { actions: { navPush } } = this.props
+
+    navPush(routes.Transactions.path)
   }
 }
