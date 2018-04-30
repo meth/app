@@ -21,6 +21,8 @@ import Picker from '../../../components/Picker'
 import Loading from '../../../components/Loading'
 import AddressTextInput from '../../liveComponents/AddressTextInput'
 import AccountPicker from '../../liveComponents/AccountPicker'
+import TransactionId from '../../liveComponents/TransactionView/TransactionId'
+import TransactionReceipt from '../../liveComponents/TransactionView/TransactionReceipt'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
 
@@ -58,7 +60,7 @@ export default class SendTransaction extends PureComponent {
 
     let content
     if (txId) {
-      content = this.renderTxId()
+      content = this.renderConfirmation()
     } else if (rawTx) {
       content = this.renderPreConfirmation()
     } else {
@@ -80,21 +82,31 @@ export default class SendTransaction extends PureComponent {
     )
   }
 
-  renderTxId () {
+  renderConfirmation () {
     const { txId } = this.state
+    const { getTransactionHistory } = this.props.selectors
+
+    const transactions = getTransactionHistory()
+    const tx = transactions.find(({ id }) => id === txId)
 
     return (
-      <View style={styles.txId}>
-        <Text style={styles.txIdIntroText}>{t('modal.sendTransaction.transactionSent')}</Text>
-        <Text style={formStyles.labelText}>{t('modal.sendTransaction.txIdLabel')}</Text>
-        <BlockOfText
-          text={txId}
-          style={styles.txIdBlock}
-          textStyle={styles.txIdBlockText}
-        />
+      <View style={styles.txConfirmation}>
+        <Text style={styles.txConfirmationIntroText}>{t('modal.sendTransaction.transactionSent')}</Text>
+        {tx ? (
+          <View style={styles.txConfirmationContent}>
+            <TransactionId
+              tx={tx}
+              style={styles.txConfirmationId}
+              textStyle={styles.txConfirmationIdText}
+            />
+            <TransactionReceipt tx={tx} style={styles.txConfirmationReceipt} />
+          </View>
+        ) : (
+          <Loading />
+        )}
         <Button
           style={styles.trackTransactionButton}
-          title={t('button.trackTransaction')}
+          title={t('button.viewTransactions')}
           onPress={this._onPressTrackTransaction}
         />
       </View>

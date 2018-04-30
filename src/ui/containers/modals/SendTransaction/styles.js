@@ -122,29 +122,33 @@ export default create({
     alignSelf: 'center'
   },
 
-  /* tx id */
-  txId: {
+  /* tx confirmation */
+  txConfirmation: {
     alignItems: 'stretch',
     width: '90%'
   },
-  txIdIntroText: {
+  txConfirmationIntroText: {
     ...text,
     ...fontMaker({ weight: 'SemiBold' }),
     color: '$content_textColor',
     fontSize: '1.5rem',
-    marginBottom: 15,
+    marginBottom: 30,
     textAlign: 'center'
   },
-  txIdBlock: {
-    height: 50,
-    borderRadius: 5,
-    marginBottom: 30
+  txConfirmationId: {
+    justifyContent: 'center',
+    marginBottom: 20
   },
-  txIdBlockText: {
-    fontSize: '0.8rem'
+  txConfirmationIdText: {
+    fontSize: '0.6rem',
+    color: '$modal_sendTransaction_txId_textColor'
+  },
+  txConfirmationReceipt: {
+    justifyContent: 'center'
   },
   trackTransactionButton: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    marginTop: 30
   },
 
   /* error box */

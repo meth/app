@@ -226,6 +226,11 @@ export default {
     },
     editAddress: {
       metaTextColor: colorGray
+    },
+    sendTransaction: {
+      txId: {
+        textColor: colorGrayLight
+      }
     }
   },
   form: {

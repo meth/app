@@ -63,7 +63,9 @@ export default class Modal extends PureComponent {
     }
   }
 
-  dismissIfPossible = () => {
+  canBeDismissed = () => !!this.props.onPressCloseButton
+
+  dismiss = () => {
     const { onPressCloseButton } = this.props
 
     if (onPressCloseButton) {
@@ -75,8 +77,11 @@ export default class Modal extends PureComponent {
 
 // if user presses ESC key we want top-most modal to be dismissed
 globalEvents.on(UI_TASKS.ESCAPE, () => {
-  const modal = Modal.stack.pop()
-  if (modal) {
-    modal.dismissIfPossible()
+  const modal = Modal.stack[Modal.stack.length - 1]
+  if (modal && modal.canBeDismissed()) {
+    // only remove from list if it can be dismissed
+    Modal.stack.pop()
+    // dismiss it
+    modal.dismiss()
   }
 })

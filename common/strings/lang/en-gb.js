@@ -78,7 +78,7 @@ module.exports = {
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
     button: {
-      trackTransaction: 'Track transaction',
+      viewTransactions: 'View transactions',
       transactionHistory: 'Transaction history',
       addToAddressBook: 'Add to address book',
       addAccount: 'Add account',
@@ -170,12 +170,11 @@ module.exports = {
         areYouSureYouWantToDelete: 'Are you sure you want to remove this custom token?'
       },
       sendTransaction: {
-        transactionSent: 'Transaction sent',
+        transactionSent: 'Transaction sent!',
         isContractCreationFieldLabel: 'Deploy a contract',
         maxCost: 'Max cost: {cost} ETH',
         finalAmountLabel: 'Amount',
         rawTransactionLabel: 'Raw transaction',
-        txIdLabel: 'Transaction ID',
         contractDeployment: 'Contract deployment',
         field: {
           fromLabel: 'From',

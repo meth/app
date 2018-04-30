@@ -3,16 +3,16 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
+import ADDRESS_TYPES from '../../../../../common/constants/addressTypes'
 import AddAddressBookEntryIconButton from '../AddAddressBookEntryIconButton'
 import styles from './styles'
-
 
 @connectStore('account')
 export default class AddressText extends PureComponent {
   static propTypes = {
     text: PropTypes.string.isRequired,
     address: PropTypes.string.isRequired,
-    addressType: AddAddressBookEntryIconButton.propTypes.addressType,
+    addressType: PropTypes.oneOf([ ADDRESS_TYPES.ACCOUNT, ADDRESS_TYPES.CONTRACT ]),
     style: PropTypes.any,
     textStyle: PropTypes.any
   }
