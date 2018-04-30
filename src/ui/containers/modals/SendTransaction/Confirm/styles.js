@@ -6,6 +6,9 @@ const text = {
 }
 
 export default create({
+  container: {
+    alignItems: 'center'
+  },
   confirmText: {
     ...text,
     fontSize: '0.8rem',

@@ -6,6 +6,9 @@ const text = {
 }
 
 export default create({
+  container: {
+    alignItems: 'center'
+  },
   txConfirmation: {
     alignItems: 'stretch',
     width: '90%'

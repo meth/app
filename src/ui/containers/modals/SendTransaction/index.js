@@ -23,21 +23,18 @@ const TAB_ROUTES = [
   { key: TAB.DONE, title: t('modal.sendTransaction.tab.done') }
 ]
 
-const indexOfTab = tabKey => TAB_ROUTES.indexOf(({ key }) => key === tabKey)
+const indexOfTab = tabKey => TAB_ROUTES.findIndex(({ key }) => key === tabKey)
 
 
 @connectStore('modals')
 export default class SendTransaction extends PureComponent {
   state = {
-    selectedTabIndex: indexOfTab(TAB.EDIT),
     form: null,
     rawTx: null,
     txId: null
   }
 
   render () {
-    const { selectedTabIndex } = this.state
-
     return (
       <Modal
         contentStyle={styles.content}
@@ -48,8 +45,9 @@ export default class SendTransaction extends PureComponent {
           text={t('title.sendTransaction')}
         />
         <TabView
+          ref={this._onTabViewRef}
           routes={TAB_ROUTES}
-          index={selectedTabIndex}
+          initialIndex={indexOfTab(TAB.EDIT)}
           onIndexChange={this._onSelectedTabIndexChange}
           getScene={this._getTabScene}
           canJumpToTab={this._canJumpToTab}
@@ -59,6 +57,10 @@ export default class SendTransaction extends PureComponent {
         />
       </Modal>
     )
+  }
+
+  _onTabViewRef = ref => {
+    this.tabView = ref
   }
 
   _getTabScene = key => {
@@ -92,35 +94,25 @@ export default class SendTransaction extends PureComponent {
   }
 
   _onSelectedTabIndexChange = selectedTabIndex => {
-    let { form, rawTx, txId } = this.state
-
     // if going back to editing then nullify raw tx and final id
     if (indexOfTab(TAB.EDIT) === selectedTabIndex) {
-      rawTx = null
-      txId = null
-      form = null
+      this.setState({
+        rawTx: null,
+        txId: null,
+        form: null
+      })
     }
-
-    this.setState({
-      selectedTabIndex,
-      rawTx,
-      txId,
-      form
-    })
   }
 
   _onGeneratedRawTransaction = (form, rawTx) => {
-    this.setState({
-      form,
-      rawTx,
-      selectedTabIndex: indexOfTab(TAB.CONFIRM)
+    this.setState({ form, rawTx }, () => {
+      this.tabView.jumpTo(TAB.CONFIRM)
     })
   }
 
   _onSentTransaction = txId => {
-    this.setState({
-      txId,
-      selectedTabIndex: indexOfTab(TAB.DONE)
+    this.setState({ txId }, () => {
+      this.tabView.jumpTo(TAB.DONE)
     })
   }
 

@@ -176,12 +176,12 @@ module.exports = {
           done: 'Done!'
         },
         transactionSent: 'Transaction sent!',
-        isContractCreationFieldLabel: 'Deploy a contract',
         maxCost: 'Max cost: {cost} ETH',
         finalAmountLabel: 'Amount',
         rawTransactionLabel: 'Raw transaction',
         contractDeployment: 'Contract deployment',
         field: {
+          isContractCreationLabel: 'Deploy a contract',
           fromLabel: 'From',
           fromPlaceholder: '0x...',
           toLabel: 'To',

@@ -27,29 +27,31 @@ export default class Confirm extends PureComponent {
     const { error, submitting } = this.state
 
     return (
-      <View style={styles.rawTransaction}>
-        <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.fromLabel')}</Text>
-        <Text style={styles.confirmText}>{from}</Text>
-        <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.toLabel')}</Text>
-        <Text style={styles.confirmText}>{to || t('modal.sendTransaction.contractDeployment')}</Text>
-        <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.amountLabel')}</Text>
-        <Text style={styles.confirmText}>{amount} {unit}</Text>
-        <Text style={styles.confirmText}>{t('modal.sendTransaction.maxCost', {
-          cost: getMaxCost({ amount, unit, gasLimit, gasPrice })
-        })}</Text>
-        <Text style={formStyles.labelText}>{t('modal.sendTransaction.rawTransactionLabel')}</Text>
-        <BlockOfText
-          text={rawTx.str}
-          style={styles.rawTransactionBlock}
-          textStyle={styles.rawTransactionBlockText}
-        />
-        <ProgressButton
-          showInProgress={submitting}
-          title={t('button.confirmAndSendTransaction')}
-          onPress={this._confirmAndSendRawTransaction}
-          style={styles.rawTransactionButton}
-        />
-        <ErrorBox error={error} style={styles.errorBox} />
+      <View style={styles.container}>
+        <View style={styles.rawTransaction}>
+          <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.fromLabel')}</Text>
+          <Text style={styles.confirmText}>{from}</Text>
+          <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.toLabel')}</Text>
+          <Text style={styles.confirmText}>{to || t('modal.sendTransaction.contractDeployment')}</Text>
+          <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.amountLabel')}</Text>
+          <Text style={styles.confirmText}>{amount} {unit}</Text>
+          <Text style={styles.confirmText}>{t('modal.sendTransaction.maxCost', {
+            cost: getMaxCost({ amount, unit, gasLimit, gasPrice })
+          })}</Text>
+          <Text style={formStyles.labelText}>{t('modal.sendTransaction.rawTransactionLabel')}</Text>
+          <BlockOfText
+            text={rawTx.str}
+            style={styles.rawTransactionBlock}
+            textStyle={styles.rawTransactionBlockText}
+          />
+          <ProgressButton
+            showInProgress={submitting}
+            title={t('button.confirmAndSendTransaction')}
+            onPress={this._confirmAndSendRawTransaction}
+            style={styles.rawTransactionButton}
+          />
+          <ErrorBox error={error} style={styles.errorBox} />
+        </View>
       </View>
     )
   }

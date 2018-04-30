@@ -6,6 +6,7 @@ import styles from './styles'
 
 export default class TabView extends PureComponent {
   static propTypes = {
+    initialIndex: PropTypes.number,
     routes: PropTypes.arrayOf(PropTypes.shape({
       key: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
@@ -15,25 +16,28 @@ export default class TabView extends PureComponent {
   }
 
   static defaultProps = {
+    initialIndex: 0,
     canJumpToTab: () => true
   }
 
   constructor (props, ctx) {
     super(props, ctx)
 
-    const { index, routes } = this.props
+    const { initialIndex, routes } = this.props
 
     this.state = {
-      index: index || 0, routes
+      index: initialIndex || 0,
+      routes
     }
   }
 
   componentWillReceiveProps (props) {
-    const { index, routes } = props
+    const { routes } = props
 
-    if (index !== this.state.index || routes !== this.state.routes) {
+    if (routes !== this.state.routes) {
       this.setState({
-        index: index || 0, routes
+        index: 0,
+        routes
       })
     }
   }
@@ -44,6 +48,7 @@ export default class TabView extends PureComponent {
         swipeEnabled={false}
         animationEnabled={true}
         navigationState={this.state}
+        onIndexChange={this._handleIndexChange}
         renderScene={this._renderScene}
         renderHeader={this._renderHeader}
         onIndexChange={this._handleIndexChange}
@@ -52,7 +57,15 @@ export default class TabView extends PureComponent {
     )
   }
 
-  _handleIndexChange = index => this.setState({ index })
+  _handleIndexChange = index => {
+    const { onIndexChange } = this.props
+
+    this.setState({ index }, () => {
+      if (onIndexChange) {
+        onIndexChange(index)
+      }
+    })
+  }
 
   _renderHeader = headerProps => {
     const { tabBarStyle, tabStyle, labelTextStyle, indicatorStyle } = this.props
@@ -68,8 +81,11 @@ export default class TabView extends PureComponent {
     )
   }
 
-  _renderScene = ({ route: { key }, focused }) => {
+  _renderScene = ({ route: { key }, jumpTo, focused }) => {
     const { getScene } = this.props
+
+    // externally accessible
+    this.jumpTo = jumpTo
 
     return focused ? getScene(key) : null
   }

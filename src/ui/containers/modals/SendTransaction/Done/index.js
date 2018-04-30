@@ -21,27 +21,29 @@ export default class Done extends PureComponent {
     const tx = transactions.find(({ id }) => id === txId)
 
     return (
-      <View style={styles.txConfirmation}>
-        <Text style={styles.txConfirmationIntroText}>
-          {t('modal.sendTransaction.transactionSent')}
-        </Text>
-        {tx ? (
-          <View style={styles.txConfirmationContent}>
-            <TransactionId
-              tx={tx}
-              style={styles.txConfirmationId}
-              textStyle={styles.txConfirmationIdText}
-            />
-            <TransactionReceipt tx={tx} style={styles.txConfirmationReceipt} />
-          </View>
-        ) : (
-          <Loading />
-        )}
-        <Button
-          style={styles.trackTransactionButton}
-          title={t('button.viewTransactions')}
-          onPress={this._onPressTrackTransaction}
-        />
+      <View style={styles.container}>
+        <View style={styles.txConfirmation}>
+          <Text style={styles.txConfirmationIntroText}>
+            {t('modal.sendTransaction.transactionSent')}
+          </Text>
+          {tx ? (
+            <View style={styles.txConfirmationContent}>
+              <TransactionId
+                tx={tx}
+                style={styles.txConfirmationId}
+                textStyle={styles.txConfirmationIdText}
+              />
+              <TransactionReceipt tx={tx} style={styles.txConfirmationReceipt} />
+            </View>
+          ) : (
+            <Loading />
+          )}
+          <Button
+            style={styles.trackTransactionButton}
+            title={t('button.viewTransactions')}
+            onPress={this._onPressTrackTransaction}
+          />
+        </View>
       </View>
     )
   }

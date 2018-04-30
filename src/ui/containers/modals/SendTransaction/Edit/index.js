@@ -428,9 +428,9 @@ export default class Edit extends PureComponent {
           this.setState({
             generating: false
           }, () => {
-            const { onRawTransaction } = this.props
+            const { onGeneratedRawTransaction } = this.props
 
-            onRawTransaction(rawTx)
+            onGeneratedRawTransaction(form, rawTx)
           })
         })
         .catch(error => {

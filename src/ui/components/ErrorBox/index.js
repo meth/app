@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import React from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 
@@ -52,37 +52,39 @@ const renderError = error => {
   return renderedError
 }
 
-const ErrorBox = ({ error, style, shouldAnimate }) => {
-  const errors = [].concat(error).map(renderError)
-
-  const validErrors = errors.filter(e => !!e)
-
-  if (!validErrors.length) {
-    return null
+export default class ErrorBox extends PureComponent {
+  static propTypes = {
+    shouldAnimate: PropTypes.bool,
+    error: PropTypes.any,
+    style: PropTypes.any
   }
 
-  return (
-    <AlertBox
-      animate={shouldAnimate ? {
-        finalMaxHeight: 3000,
-        duration: 1500
-      } : null}
-      type="error"
-      style={style}
-    >
-      {validErrors}
-    </AlertBox>
-  )
-}
+  static defaultProps = {
+    shouldAnimate: true
+  }
 
-ErrorBox.propTypes = {
-  shouldAnimate: PropTypes.bool,
-  error: PropTypes.any,
-  style: PropTypes.any
-}
+  render () {
+    const { error, style, shouldAnimate } = this.props
 
-ErrorBox.defaultProps = {
-  shouldAnimate: true
-}
+    const errors = [].concat(error).map(renderError)
 
-export default ErrorBox
+    const validErrors = errors.filter(e => !!e)
+
+    if (!validErrors.length) {
+      return null
+    }
+
+    return (
+      <AlertBox
+        animate={shouldAnimate ? {
+          finalMaxHeight: 3000,
+          duration: 1500
+        } : null}
+        type="error"
+        style={style}
+      >
+        {validErrors}
+      </AlertBox>
+    )
+  }
+}
