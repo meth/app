@@ -170,6 +170,11 @@ module.exports = {
         areYouSureYouWantToDelete: 'Are you sure you want to remove this custom token?'
       },
       sendTransaction: {
+        tab: {
+          edit: 'Edit',
+          confirm: 'Confirm',
+          done: 'Done!'
+        },
         transactionSent: 'Transaction sent!',
         isContractCreationFieldLabel: 'Deploy a contract',
         maxCost: 'Max cost: {cost} ETH',

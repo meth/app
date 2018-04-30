@@ -106,6 +106,7 @@
     "react-native-advanced-forms": "^1.1.4",
     "react-native-dropdown": "0.0.6",
     "react-native-extended-stylesheet": "^0.6.0",
+    "react-native-tab-view": "^0.0.77",
     "react-native-tabs": "^1.0.9",
     "react-native-vector-icons": "^4.6.0",
     "react-native-web": "^0.5.4",

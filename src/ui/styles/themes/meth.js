@@ -41,6 +41,16 @@ export default {
       textColor: colorGrayDark
     }
   },
+  tabView: {
+    backgroundColor: colorBlack,
+    indicatorColor: colorGray,
+    tab: {
+      backgroundColor: colorGrayDark
+    },
+    label: {
+      textColor: colorWhite
+    }
+  },
   addressBook: {
     address: {
       textColor: colorWhite

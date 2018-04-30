@@ -1,0 +1,36 @@
+import { create, fontMaker } from '../../../../styles'
+
+const text = {
+  ...fontMaker(),
+  color: '$modal_content_textColor'
+}
+
+export default create({
+  txConfirmation: {
+    alignItems: 'stretch',
+    width: '90%'
+  },
+  txConfirmationIntroText: {
+    ...text,
+    ...fontMaker({ weight: 'SemiBold' }),
+    color: '$content_textColor',
+    fontSize: '1.5rem',
+    marginBottom: 30,
+    textAlign: 'center'
+  },
+  txConfirmationId: {
+    justifyContent: 'center',
+    marginBottom: 20
+  },
+  txConfirmationIdText: {
+    fontSize: '0.6rem',
+    color: '$modal_sendTransaction_txId_textColor'
+  },
+  txConfirmationReceipt: {
+    justifyContent: 'center'
+  },
+  trackTransactionButton: {
+    alignSelf: 'center',
+    marginTop: 30
+  }
+})

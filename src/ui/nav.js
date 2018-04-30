@@ -75,6 +75,7 @@ export const router = StackRouter(routes, {
     tabBarVisible: false
   })
 })
+router.initialPath = 'login'
 
 // custom navigator - see https://reactnavigation.org/docs/navigators/custom
 @connectStore('nav')

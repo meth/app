@@ -1,12 +1,10 @@
-import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
+import { create, fontMaker } from '../../../styles'
 
-const introText = {
+const text = {
   ...fontMaker(),
   fontSize: '1rem',
   textAlign: 'center',
-  color: '$content_textColor',
-  maxWidth: '70%',
-  marginBottom: 20
+  color: '$content_textColor'
 }
 
 export default create({
@@ -14,29 +12,26 @@ export default create({
     backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'stretch'
   },
-  intro1Text: {
-    ...introText,
-    ...fontMaker({ weight: 'Light' }),
-    fontSize: '2.5rem',
-    marginBottom: 30
+  tabBar: {
+    flex: 1,
+    height: 30,
+    backgroundColor: '#000',
+    shadowOpacity: 0
   },
-  intro2Text: {
-    ...introText,
-    maxWidth: '50%'
+  tab: {
+    backgroundColor: '#000',
+    paddingVertical: 0
   },
-  getStartedButton: {
-    marginTop: 20,
-    marginBottom: 100
+  indicator: {
+    backgroundColor: '#333'
   },
-  loginButtonText: {
-    fontSize: '0.65rem'
+  label: {
+    ...text,
+    fontSize: '0.5rem'
   },
-
-  ...whenWidthVerySmall({
-    intro2Text: {
-      maxWidth: '90%'
-    }
-  })
+  tabContentText: {
+    ...text
+  }
 })
