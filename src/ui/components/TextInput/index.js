@@ -17,7 +17,6 @@ export default class CustomTextInput extends PureComponent {
       onSubmit,
       error,
       style,
-      errorStyle,
       ...props
     } = this.props
 
@@ -26,7 +25,7 @@ export default class CustomTextInput extends PureComponent {
     const { styles, placeholderTextColor } = createStyles(fieldState)
 
     const inputStyle = (error)
-      ? [ styles.error ].concat(errorStyle)
+      ? [ styles.error ].concat(style)
       : [ styles.normal ].concat(style)
 
     return (

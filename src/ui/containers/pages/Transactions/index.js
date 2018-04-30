@@ -135,7 +135,7 @@ export default class Transactions extends CachePureComponent {
 
         content = (
           <View style={styles.tokenTransferDetails}>
-            <Text style={styles.detailsText}>{amount} {unit}</Text>
+            <Text style={styles.detailsText}>{amount || 0} {unit}</Text>
             <Icon name='long-arrow-right' style={styles.detailsText} />
             <Text style={styles.detailsText}>{recipient}</Text>
           </View>

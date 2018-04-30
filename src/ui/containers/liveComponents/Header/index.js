@@ -49,14 +49,16 @@ export default class Header extends PureComponent {
           {ALL_INITIALIZED ? (
             <React.Fragment>
               {this.renderBalance(navState, addresses)}
-              <IconButton
-                type='header'
-                tooltip={t('button.dappBrowser')}
-                icon={{ name: 'globe', style: styles.buttonIcon }}
-                style={styles.button}
-                onPress={this.showBrowser}
-                stateOverride={this._getButtonStateOverride(navState, routes.Browser)}
-              />
+              {/*
+                <IconButton
+                  type='header'
+                  tooltip={t('button.dappBrowser')}
+                  icon={{ name: 'globe', style: styles.buttonIcon }}
+                  style={styles.button}
+                  onPress={this.showBrowser}
+                  stateOverride={this._getButtonStateOverride(navState, routes.Browser)}
+                />
+              */}
               <IconButton
                 type='header'
                 tooltip={t('button.contracts')}

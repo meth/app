@@ -10,7 +10,10 @@ import CloseButton from './CloseButton'
 import TouchableView from '../TouchableView'
 import styles from './styles'
 
+
 export default class Modal extends PureComponent {
+  static stack = []
+
   static propTypes = {
     overlayStyle: PropTypes.any,
     contentStyle: PropTypes.any,
@@ -49,14 +52,18 @@ export default class Modal extends PureComponent {
   }
 
   componentDidMount () {
-    globalEvents.on(UI_TASKS.ESCAPE, this._onDimissModal)
+    Modal.stack.push(this)
   }
 
   componentWillUnmount () {
-    globalEvents.removeListener(UI_TASKS.ESCAPE, this._onDimissModal)
+    const index = Modal.stack.indexOf(this)
+
+    if (0 <= index) {
+      Modal.stack.splice(index, 1)
+    }
   }
 
-  _onDimissModal = () => {
+  dismissIfPossible = () => {
     const { onPressCloseButton } = this.props
 
     if (onPressCloseButton) {
@@ -64,3 +71,12 @@ export default class Modal extends PureComponent {
     }
   }
 }
+
+
+// if user presses ESC key we want top-most modal to be dismissed
+globalEvents.on(UI_TASKS.ESCAPE, () => {
+  const modal = Modal.stack.pop()
+  if (modal) {
+    modal.dismissIfPossible()
+  }
+})
