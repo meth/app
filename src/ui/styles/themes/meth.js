@@ -156,6 +156,12 @@ export default {
       }
     }
   },
+  contracts: {
+    actionBlock: {
+      borderColor: colorGrayDark,
+      backgroundColor: colorBlack
+    }
+  },
   browser: {
     tabBar: {
       backgroundColor: colorGrayLight,

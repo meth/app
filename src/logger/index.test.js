@@ -13,7 +13,7 @@ describe('logger', () => {
   })
 
   afterEach(() => {
-    ;[ 'debug', 'info', 'warn', 'error' ].forEach(method => {
+    [ 'debug', 'info', 'warn', 'error' ].forEach(method => {
       console[method] = this.consoleMethods[method]
     })
   })

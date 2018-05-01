@@ -1,4 +1,14 @@
-import { create, whenWidthSmall } from '../../../styles'
+import { create, fontMaker } from '../../../styles'
+
+const text = {
+  ...fontMaker(),
+  color: '$modal_content_textColor'
+}
+
+const fieldRow = {
+  marginBottom: 15,
+  width: '90%'
+}
 
 export default create({
   layoutContent: {
@@ -13,11 +23,30 @@ export default create({
     paddingBottom: 0,
     height: '95%'
   },
-
-  ...whenWidthSmall({
-    layoutContent: {
-      alignItems: 'center',
-      width: '95%'
-    }
-  })
+  form: {
+    marginTop: 30,
+    alignItems: 'flex-start',
+    width: '100%'
+  },
+  field: {
+    ...fieldRow
+  },
+  textInput: {
+    width: '100%'
+  },
+  picker: {
+  },
+  pickerButton: {
+    width: 500
+  },
+  /* method */
+  actionBlockContainer: {
+    marginTop: 25,
+    width: '100%',
+    padding: 20,
+    borderWidth: 1,
+    borderColor: '$contracts_actionBlock_borderColor',
+    borderStyle: 'dashed',
+    backgroundColor: '$contracts_actionBlock_backgroundColor'
+  }
 })

@@ -207,6 +207,16 @@ module.exports = {
         title: 'Select address'
       }
     },
+    contracts: {
+      checkingContract: 'Checking contract',
+      field: {
+        addressLabel: 'Contract address',
+        addressPlaceholder: '0x...',
+        abiLabel: 'ABI',
+        abiPlaceholder: '{ ...JSON string... }',
+        methodLabel: 'Method'
+      }
+    },
     wallet: {
       tokens: {
         noneConfigured: 'No tokens current configured',

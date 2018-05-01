@@ -61,7 +61,7 @@ export const routes = {
 }
 
 routes.OnceLoggedIn = {
-  ...routes.Wallet
+  ...routes.Contracts
 }
 
 // add route name as key as well so we can compare with nav state later on
