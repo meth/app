@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
+import { ETH, DEFAULT_GAS_LIMIT } from '../../../../../common/constants/protocol'
 import Modal from '../../../components/Modal'
 import Edit from './Edit'
 import Confirm from './Confirm'
@@ -26,12 +27,28 @@ const TAB_ROUTES = [
 const indexOfTab = tabKey => TAB_ROUTES.findIndex(({ key }) => key === tabKey)
 
 
-@connectStore('modals')
+@connectStore('account', 'modals')
 export default class SendTransaction extends PureComponent {
-  state = {
-    form: null,
-    rawTx: null,
-    txId: null
+  constructor (props, ctx) {
+    super(props, ctx)
+
+    const { getTx, getLastGasPrice } = props.selectors
+    const { from, to, value, gas: gasLimit, data } = getTx()
+
+    this.state = {
+      params: {
+        from,
+        to,
+        amount: value,
+        data,
+        unit: ETH,
+        gasLimit: `${gasLimit || DEFAULT_GAS_LIMIT}`,
+        gasPrice: `${getLastGasPrice()}`,
+        isContractCreation: (!to && !!data)
+      },
+      rawTx: null,
+      txId: null
+    }
   }
 
   render () {
@@ -64,15 +81,15 @@ export default class SendTransaction extends PureComponent {
   }
 
   _getTabScene = key => {
-    const { form, rawTx, txId } = this.state
+    const { params, rawTx, txId } = this.state
 
     switch (key) {
       case TAB.EDIT:
-        return <Edit onGeneratedRawTransaction={this._onGeneratedRawTransaction} />
+        return <Edit params={params} onGeneratedRawTransaction={this._onGeneratedRawTransaction} />
       case TAB.CONFIRM:
-        return <Confirm form={form} rawTx={rawTx} onSentTransaction={this._onSentTransaction} />
+        return <Confirm params={params} rawTx={rawTx} onSentTransaction={this._onSentTransaction} />
       case TAB.DONE:
-        return <Done form={form} txId={txId} />
+        return <Done txId={txId} />
       default:
         return null
     }
@@ -98,14 +115,13 @@ export default class SendTransaction extends PureComponent {
     if (indexOfTab(TAB.EDIT) === selectedTabIndex) {
       this.setState({
         rawTx: null,
-        txId: null,
-        form: null
+        txId: null
       })
     }
   }
 
-  _onGeneratedRawTransaction = (form, rawTx) => {
-    this.setState({ form, rawTx }, () => {
+  _onGeneratedRawTransaction = (params, rawTx) => {
+    this.setState({ params, rawTx }, () => {
       this.tabView.jumpTo(TAB.CONFIRM)
     })
   }

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
-import { ETH, DEFAULT_GAS_LIMIT } from '../../../../../../common/constants/protocol'
+import { ETH } from '../../../../../../common/constants/protocol'
 import { toInt, toFloat, toIntStr, weiToEthStr, toTokenBalanceStr, calculateTotalGasBN, ethToWeiBN } from '../../../../../utils/number'
 import { isAddress, isHexStrict, prefixedWith0x, prefixWith0x } from '../../../../../utils/string'
 import { connectStore } from '../../../../helpers/redux'
@@ -26,23 +26,13 @@ export default class Edit extends PureComponent {
   constructor (props, ctx) {
     super(props, ctx)
 
-    const { getTx, getLastGasPrice } = props.selectors
-    const { from, to, value, gas: gasLimit, data } = getTx()
+    const { params: form } = this.props
 
     this.state = {
       fetchingGasEstimate: false,
       generating: false,
       error: null,
-      form: {
-        from,
-        to,
-        amount: value,
-        data,
-        unit: 'ETH',
-        gasLimit: `${gasLimit || DEFAULT_GAS_LIMIT}`,
-        gasPrice: `${getLastGasPrice()}`,
-        isContractCreation: (!to && !!data)
-      }
+      form
     }
   }
 

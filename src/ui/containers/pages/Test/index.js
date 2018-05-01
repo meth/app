@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
-import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view'
+import { TabViewAnimated, TabBar } from 'react-native-tab-view'
 
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -8,7 +8,6 @@ import Layout from '../Layout'
 
 const Overview = () => <Text style={styles.tabContentText}>Overview</Text>
 const Transactions = () => <Text style={styles.tabContentText}>Transactions</Text>
-const Scene3 = () => <Text style={styles.tabContentText}>Scene3</Text>
 
 @connectStore('nav')
 export default class Test extends PureComponent {

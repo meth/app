@@ -21,7 +21,7 @@ export default class Confirm extends PureComponent {
   render () {
     const {
       rawTx,
-      form: { from, to, amount, unit, gasLimit, gasPrice }
+      params: { from, to, amount, unit, gasLimit, gasPrice }
     } = this.props
 
     const { error, submitting } = this.state
