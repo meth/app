@@ -209,6 +209,7 @@ module.exports = {
     },
     contracts: {
       checkingContract: 'Checking contract',
+      cannotCallMethodDueToParams: `Meth can currenly only execute methods which take parameters of the following types: {types}`,
       field: {
         addressLabel: 'Contract address',
         addressPlaceholder: '0x...',

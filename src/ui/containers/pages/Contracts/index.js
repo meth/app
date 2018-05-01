@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
+import { getSupportedParamTypes, canRenderMethodParams, renderMethodParams } from './ethereum-abi-ui'
 import { t } from '../../../../../common/strings'
 import { isAddress, prefixedWith0x, prefixWith0x } from '../../../../utils/string'
 import { getAbiFunctionNames } from '../../../../utils/contracts'
@@ -10,6 +11,7 @@ import styles from './styles'
 import formStyles from '../../../styles/forms'
 import Layout from '../Layout'
 import TitleText from '../../../components/TitleText'
+import AlertBox from '../../../components/AlertBox'
 import Loading from '../../../components/Loading'
 import Picker from '../../../components/Picker'
 import TextInput from '../../../components/TextInput'
@@ -52,7 +54,7 @@ export default class AddressBook extends PureComponent {
       abi
     } = this.state
 
-    const { methodOptions, selectedMethodOptionKey } = this._getMethodPickerOptions()
+    const { methodOptions, selectedMethodName } = this._getMethodPickerOptions()
 
     return (
       <View style={styles.form}>
@@ -84,13 +86,34 @@ export default class AddressBook extends PureComponent {
                 style={styles.picker}
                 button={{ style: styles.pickerButton }}
                 options={methodOptions}
-                selected={selectedMethodOptionKey}
+                selected={selectedMethodName}
                 onChange={this._onSelectMethod}
               />
             </View>
+            {this._renderParams(abi, selectedMethodName)}
           </View>
         ) : null}
         <ErrorBox error={error} style={styles.errorBox} />
+      </View>
+    )
+  }
+
+  _renderParams (abi, method) {
+    const can = canRenderMethodParams(abi, method)
+
+    return (
+      <View style={styles.methodParams}>
+        {can ? (
+          <Text>test</Text>
+        ) : (
+          <AlertBox
+            animate={true}
+            type='info'
+            text={t('contracts.cannotCallMethodDueToParams', {
+              types: getSupportedParamTypes().join(', ')
+            })}
+          />
+        )}
       </View>
     )
   }
@@ -122,7 +145,7 @@ export default class AddressBook extends PureComponent {
 
     return {
       methodOptions: options,
-      selectedMethodOptionKey: selectedOption.value
+      selectedMethodName: selectedOption.value
     }
   }
 

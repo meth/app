@@ -6,7 +6,9 @@ export const getAbiFunctionNames = abi => {
       json = JSON.parse(json)
     }
 
-    return json.filter(({ type }) => type === 'function').map(({ name }) => name)
+    return json
+      .filter(({ type }) => type === 'function')
+      .map(({ name }) => name)
   } catch (err) {
     return null
   }

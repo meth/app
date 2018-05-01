@@ -48,5 +48,11 @@ export default create({
     borderColor: '$contracts_actionBlock_borderColor',
     borderStyle: 'dashed',
     backgroundColor: '$contracts_actionBlock_backgroundColor'
+  },
+  methodParams: {
+    marginLeft: 20
+  },
+  cannotCallMethodDueToParamsText: {
+    ...text
   }
 })
