@@ -1,9 +1,12 @@
-import { SUPPORTED_INPUT_TYPES, buildInput } from './inputTypes'
+import { TYPES, buildType } from './types'
 import { getMethodDefinition } from './utils'
+import * as ALL_FIELD_TYPES from './fieldTypes'
 
-export const getSupportedParamTypes = () => SUPPORTED_INPUT_TYPES
+export const FIELD_TYPES = ALL_FIELD_TYPES
 
-export const canRenderMethodParams = (abi, method) => {
+export const getSupportedParamTypes = () => TYPES
+
+const _canRenderMethodTypes = (abi, method, typeCategory) => {
   const def = getMethodDefinition(abi, method)
   if (!def) {
     return false
@@ -11,10 +14,10 @@ export const canRenderMethodParams = (abi, method) => {
 
   let can = true
 
-  def.inputs.forEach(input => {
-    const { type } = input
+  def[typeCategory].forEach(item => {
+    const { type } = item
 
-    can = can && SUPPORTED_INPUT_TYPES.reduce((m, st) => (
+    can = can && TYPES.reduce((m, st) => (
       m || type.startsWith(st)
     ), false)
   })
@@ -22,9 +25,11 @@ export const canRenderMethodParams = (abi, method) => {
   return can
 }
 
+export const canRenderMethodParams = (abi, method) => _canRenderMethodTypes(abi, method, 'inputs')
+
 export const renderMethodParams = (abi, method, renderField) => {
   if (!canRenderMethodParams(abi, method)) {
-    throw new Error('Cannot render method, not all types supported')
+    throw new Error('Cannot render inputs, not all types supported')
   }
 
   const def = getMethodDefinition(abi, method)
@@ -33,12 +38,31 @@ export const renderMethodParams = (abi, method, renderField) => {
   }
 
   def.inputs.forEach(input => {
-    const instance = buildInput(input)
+    const instance = buildType(input)
 
-    renderField(input.name, {
-      type: instance.fieldType(),
+    renderField(input.name, instance.fieldType(), {
+      placeholder: instance.placeholderText(),
       isValid: arg => instance.isValid(arg),
       sanitize: arg => instance.sanitize(arg)
     })
+  })
+}
+
+export const canRenderMethodOutputs = (abi, method) => _canRenderMethodTypes(abi, method, 'outputs')
+
+export const renderMethodOutputs = (abi, method, renderValue) => {
+  if (!canRenderMethodOutputs(abi, method)) {
+    throw new Error('Cannot render outputs, not all types supported')
+  }
+
+  const def = getMethodDefinition(abi, method)
+  if (!def) {
+    return
+  }
+
+  def.outputs.forEach(output => {
+    const instance = buildType(output)
+
+    renderValue(output.name, instance.fieldType())
   })
 }

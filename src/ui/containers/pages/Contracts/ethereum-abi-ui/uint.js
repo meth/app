@@ -12,6 +12,7 @@ export default class Uint {
     this.minInt = 0
   }
   fieldType = () => NUMBER
+  placeholderText = () => `123...`
   isValid = val => {
     const v = parseInt(val, 10)
 

@@ -23,7 +23,7 @@ export default create({
     paddingBottom: 0,
     height: '95%'
   },
-  form: {
+  container: {
     marginTop: 30,
     alignItems: 'flex-start',
     width: '100%'
@@ -34,25 +34,29 @@ export default create({
   textInput: {
     width: '100%'
   },
+  switchLabelText: {
+    ...text,
+    fontSize: '0.8rem'
+  },
   picker: {
   },
   pickerButton: {
     width: 500
   },
+  submitButton: {
+    marginTop: 30
+  },
   /* method */
-  actionBlockContainer: {
-    marginTop: 25,
-    width: '100%',
+  methodContainer: {
+    marginTop: 25
+  },
+  paramsContainer: {
+  },
+  paramsForm: {
     padding: 20,
     borderWidth: 1,
-    borderColor: '$contracts_actionBlock_borderColor',
+    borderColor: '$contracts_params_borderColor',
     borderStyle: 'dashed',
-    backgroundColor: '$contracts_actionBlock_backgroundColor'
-  },
-  methodParams: {
-    marginLeft: 20
-  },
-  cannotCallMethodDueToParamsText: {
-    ...text
+    backgroundColor: '$contracts_params_backgroundColor'
   }
 })

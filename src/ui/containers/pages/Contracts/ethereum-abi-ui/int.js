@@ -12,6 +12,7 @@ export default class Int {
     this.minInt = -this.maxInt
   }
   fieldType = () => NUMBER
+  placeholderText = () => `123...`
   isValid = val => {
     const v = parseInt(val, 10)
 

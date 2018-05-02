@@ -78,6 +78,8 @@ module.exports = {
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
     button: {
+      executeLocalContractCall: 'Execute (local call)',
+      executeTransactionContractCall: 'Execute (transaction)',
       viewTransactions: 'View transactions',
       transactionHistory: 'Transaction history',
       addToAddressBook: 'Add to address book',
@@ -210,6 +212,8 @@ module.exports = {
     contracts: {
       checkingContract: 'Checking contract',
       cannotCallMethodDueToParams: `Meth can currenly only execute methods which take parameters of the following types: {types}`,
+      cannotRenderMethodOutputsDueToTypes: `Unable to render method call result due to unsupported types`,
+      methodHasNoParams: 'Method has no parameters',
       field: {
         addressLabel: 'Contract address',
         addressPlaceholder: '0x...',

@@ -157,7 +157,7 @@ export default {
     }
   },
   contracts: {
-    actionBlock: {
+    params: {
       borderColor: colorGrayDark,
       backgroundColor: colorBlack
     }

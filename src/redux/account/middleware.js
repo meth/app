@@ -11,7 +11,8 @@ import {
   UPDATE_CUSTOM_TOKEN,
   GENERATE_ACCOUNT,
   FETCH_RECOMMENDED_GAS_LIMIT,
-  CHECK_PENDING_TRANSACTIONS
+  CHECK_PENDING_TRANSACTIONS,
+  EXECUTE_CONTRACT_CALL
 } from './actions'
 import { t } from '../../../common/strings'
 import { TRANSACTION_STATUS } from '../../../common/constants/protocol'
@@ -20,6 +21,7 @@ import createTransactionPreprocessor from './transactionPreprocessor'
 import { createAction } from '../utils'
 import { SendTransactionError } from '../../utils/errors'
 import { hexToNumber } from '../../utils/number'
+import { getOrderedMethodParams } from '../../utils/contracts'
 import logger from '../../logger'
 
 const log = logger.create('walletMiddleware')
@@ -29,12 +31,18 @@ export default ({ nodeConnector, walletManager }) => {
   const preprocessTransaction = createTransactionPreprocessor({ nodeConnector })
 
   return () => next => async action => {
-    const { selectors: {
-      getTxDeferred,
-      getNodeConnection,
-      getTokenList,
-      getTransactionHistory
-    } } = getStore()
+    const {
+      actions: {
+        sendTransaction
+      },
+      selectors: {
+        getMainAccountAddress,
+        getTxDeferred,
+        getNodeConnection,
+        getTokenList,
+        getTransactionHistory
+      }
+    } = getStore()
 
     switch (action.type) {
       case GENERATE_MNEMONIC: {
@@ -253,6 +261,24 @@ export default ({ nodeConnector, walletManager }) => {
         }
 
         return null
+      }
+      case EXECUTE_CONTRACT_CALL: {
+        const { address, abi, method, params, localCall } = action.payload
+
+        const orderedParams = getOrderedMethodParams(abi, method, params)
+        const contract = await nodeConnector.getContractAt(address, { abi })
+
+        // local call
+        if (localCall) {
+          return contract[method].call(...orderedParams)
+        }
+
+        // transaction call
+        return sendTransaction({
+          from: getMainAccountAddress(),
+          data: contract.contract[method].getData(...orderedParams),
+          to: address
+        })
       }
       default: {
         return next(action)

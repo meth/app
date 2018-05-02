@@ -13,6 +13,11 @@ export const getCustomTokens = createSelector(
   customTokens => customTokens.toObject()
 )
 
+export const getMainAccountAddress = createSelector(
+  _getAccountBalances,
+  balances => Object.keys(balances)[0]
+)
+
 export const getAccounts = createSelector(
   _getAccountBalances,
   _getTokenBalances,

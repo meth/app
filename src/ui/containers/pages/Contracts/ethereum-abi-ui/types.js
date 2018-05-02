@@ -4,13 +4,6 @@ import UintType from './uint'
 import IntType from './int'
 import StringType from './string'
 
-export const SUPPORTED_INPUT_TYPES = [
-  'address',
-  'bool',
-  'string',
-  'int',
-  'uint'
-]
 
 const MAPPING = {
   address: AddressType,
@@ -20,18 +13,20 @@ const MAPPING = {
   uint: UintType
 }
 
-export const buildInput = input => {
-  const { type } = input
+export const TYPES = Object.keys(MAPPING)
+
+export const buildType = item => {
+  const { type } = item
 
   let instance
-  Object.keys(MAPPING).forEach(supportedType => {
+  Object.keys(TYPES).forEach(supportedType => {
     if (type.startsWith(supportedType)) {
       instance = new MAPPING[supportedType](type)
     }
   })
 
   if (!instance) {
-    throw new Error(`Unsupported input type: ${type}`)
+    throw new Error(`Unsupported type: ${type}`)
   }
 
   return instance

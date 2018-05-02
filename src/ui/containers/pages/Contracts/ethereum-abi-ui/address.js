@@ -3,6 +3,7 @@ import { TEXT } from './fieldTypes'
 
 export default class Address {
   fieldType = () => TEXT
+  placeholderText = () => '0x...'
   isValid = addr => addr && isAddress(addr)
   sanitize = addr => {
     if (addr) {

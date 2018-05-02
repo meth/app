@@ -22,7 +22,8 @@ import {
   UPDATE_CUSTOM_TOKEN,
   REMOVE_CUSTOM_TOKEN,
   GENERATE_ACCOUNT,
-  FETCH_RECOMMENDED_GAS_LIMIT
+  FETCH_RECOMMENDED_GAS_LIMIT,
+  EXECUTE_CONTRACT_CALL
 } from './actions'
 
 /* wallet loading */
@@ -72,3 +73,6 @@ export const generateAccount = createActionCreator(GENERATE_ACCOUNT)
 /* gas */
 export const fetchRecommendedGasLimit =
   createActionCreator(FETCH_RECOMMENDED_GAS_LIMIT, tx => ({ tx }))
+
+/* contracts */
+export const executeContractCall = createActionCreator(EXECUTE_CONTRACT_CALL)
