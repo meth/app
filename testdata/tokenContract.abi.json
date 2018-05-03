@@ -37,6 +37,33 @@
 		"type": "function"
 	},
 	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "tokenOwner",
+				"type": "address"
+			}
+		],
+		"name": "hasTokensNonConstant",
+		"outputs": [
+			{
+				"name": "account",
+				"type": "address"
+			},
+			{
+				"name": "has",
+				"type": "bool"
+			},
+			{
+				"name": "balance",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"constant": true,
 		"inputs": [],
 		"name": "totalSupply",

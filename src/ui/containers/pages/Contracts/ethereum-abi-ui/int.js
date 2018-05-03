@@ -1,3 +1,4 @@
+import BN from 'bn.js'
 import { NUMBER } from './fieldTypes'
 
 export default class Int {
@@ -7,20 +8,21 @@ export default class Int {
     if (!M.length) {
       M = '256'
     }
-    M = parseInt(M, 10)
-    this.maxInt = 2 ** M
-    this.minInt = -this.maxInt
+    this.maxInt = new BN('2', 10).pow(new BN(M, 10))
+    this.minInt = this.maxInt.neg()
   }
   fieldType = () => NUMBER
   placeholderText = () => `123...`
   isValid = val => {
-    const v = parseInt(val, 10)
+    const v = parseInt(`${val}`, 10)
 
     if (Number.isNaN(v)) {
       return false
     }
 
-    return v >= this.minInt && v <= this.maxInt
+    const bv = new BN(v, '10')
+
+    return bv.gte(this.minInt) && bv.lte(this.maxInt)
   }
   sanitize = v => (v || '').trim()
 }

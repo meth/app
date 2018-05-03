@@ -27,7 +27,7 @@ const renderError = error => {
     renderedError = t('error.requestTimeout')
   } else {
     couldBeMethodCallError = true
-    renderedError = error.message || String(error)
+    renderedError = error.message || error.error || String(error)
   }
 
   const key = String(error)

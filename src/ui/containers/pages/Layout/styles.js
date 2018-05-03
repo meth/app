@@ -1,10 +1,6 @@
 import { create, fontMaker } from '../../../styles'
 
 export default create({
-  scrollView: {
-    flex: 1,
-    minHeight: '100%'
-  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -18,6 +14,12 @@ export default create({
     flex: 0,
     height: 36,
     paddingVertical: 5
+  },
+
+  /* scroll view */
+
+  scrollView: {
+    flex: 1
   },
 
   /* content */

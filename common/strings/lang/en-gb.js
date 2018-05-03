@@ -78,8 +78,8 @@ module.exports = {
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
     button: {
-      executeLocalContractCall: 'Execute (local call)',
-      executeTransactionContractCall: 'Execute (transaction)',
+      executeLocalContractCall: 'Execute (via local call)',
+      executeTransactionContractCall: 'Execute (via transaction)',
       viewTransactions: 'View transactions',
       transactionHistory: 'Transaction history',
       addToAddressBook: 'Add to address book',

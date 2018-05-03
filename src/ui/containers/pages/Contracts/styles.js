@@ -25,6 +25,7 @@ export default create({
   },
   container: {
     marginTop: 30,
+    paddingBottom: 20,
     alignItems: 'flex-start',
     width: '100%'
   },
@@ -64,5 +65,9 @@ export default create({
   },
   resultValueText: {
     ...text
+  },
+  /* error */
+  errorBox: {
+    marginTop: 15
   }
 })

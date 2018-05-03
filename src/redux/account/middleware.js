@@ -32,9 +32,6 @@ export default ({ nodeConnector, walletManager }) => {
 
   return () => next => async action => {
     const {
-      actions: {
-        sendTransaction
-      },
       selectors: {
         getMainAccountAddress,
         getTxDeferred,
@@ -274,11 +271,7 @@ export default ({ nodeConnector, walletManager }) => {
         }
 
         // transaction call
-        return sendTransaction({
-          from: getMainAccountAddress(),
-          data: contract.contract[method].getData(...orderedParams),
-          to: address
-        })
+        return contract[method](...orderedParams.concat({ from: getMainAccountAddress() }))
       }
       default: {
         return next(action)

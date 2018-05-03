@@ -191,8 +191,8 @@ export default class AddressBook extends PureComponent {
     if (submitting) {
       content = <Loading />
     }
-    // if no outputs
-    else if (!methodHasOutputs(abi, selectedMethod)) {
+    // if no outputs or was tx call
+    else if (!results.length || !methodHasOutputs(abi, selectedMethod)) {
       resultsTitle = t('contracts.success')
     }
     // if can't render outputs
@@ -401,6 +401,8 @@ export default class AddressBook extends PureComponent {
     const { executeContractCall } = this.props.actions
     const { address, abi, selectedMethod: method, params } = this.state
 
+    const localCall = isAbiFunctionReadOnly(abi, method)
+
     this.setState({
       submitting: true,
       results: null,
@@ -411,11 +413,16 @@ export default class AddressBook extends PureComponent {
         abi,
         method,
         params,
-        localCall: isAbiFunctionReadOnly(abi, method)
+        localCall
       })
-        .then(result => {
+        .then(receipt => {
+          let results = []
+          if (localCall) {
+            results = Array.isArray(receipt) ? receipt : [ receipt ]
+          }
+
           this.setState({
-            results: Array.isArray(result) ? result : [ result ],
+            results,
             submitting: false
           })
         })

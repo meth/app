@@ -130,11 +130,11 @@ contract FucksToken is ERC20Interface, Owned, SafeMath {
     }
 
 
-    // ------------------------------------------------------------------------
-    // Total supply
-    // ------------------------------------------------------------------------
     function hasTokens(address tokenOwner) public constant returns (address account, bool has, uint balance) {
-        return (address, 0 < balances[tokenOwner], balances[tokenOwner]);
+        return (tokenOwner, 0 < balances[tokenOwner], balances[tokenOwner]);
+    }
+    function hasTokensNonConstant(address tokenOwner) public returns (address account, bool has, uint balance) {
+        return (tokenOwner, 0 < balances[tokenOwner], balances[tokenOwner]);
     }
 
     // ------------------------------------------------------------------------

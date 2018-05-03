@@ -35,12 +35,15 @@ export default class Layout extends PureComponent {
     }
 
     return (
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
+      <View style={styles.container}>
         <Header style={styles.header} />
-        <View style={[ styles.content, contentStyle ]}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={[ styles.content, contentStyle ]}
+        >
           {children}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     )
   }
 }
