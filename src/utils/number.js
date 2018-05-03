@@ -86,12 +86,15 @@ export const toIntStr = num => {
   return null === n ? '' : `${n}`
 }
 
+
 export const hexToBN = hex => toBN(hex)
 export const numToBN = num => toBN(num)
 
 const getPowerOfTenBN = power => numToBN(10).pow(numToBN(power))
 
 const _format = (num, { hex } = {}) => (hex ? toHex(num) : num.toString(10))
+
+export const toNumberStr = num => _format(toBN(num))
 
 export const toTokenBalanceStr = (balance, decimals, options) =>
   _format(numToBN(balance).div(getPowerOfTenBN(decimals)), options)

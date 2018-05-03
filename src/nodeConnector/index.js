@@ -116,7 +116,7 @@ class NodeConnector extends EventEmitter {
       const network = foundNetwork
         ? { ...foundNetwork }
         : // if no match found then assume it's a private network
-          { ...this._networks.private }
+        { ...this._networks.private }
 
       network.id = networkId
       network.genesisBlock = block.hash

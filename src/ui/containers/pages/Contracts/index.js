@@ -12,7 +12,7 @@ import {
 } from './ethereum-abi-ui'
 import { t } from '../../../../../common/strings'
 import { isAddress, prefixedWith0x, prefixWith0x } from '../../../../utils/string'
-import { toIntStr } from '../../../../utils/number'
+import { toNumberStr } from '../../../../utils/number'
 import { getAbiFunctionNames, isAbiFunctionReadOnly, methodHasOutputs } from '../../../../utils/contracts'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -295,10 +295,10 @@ export default class AddressBook extends PureComponent {
 
     switch (fieldType) {
       case FIELD_TYPES.NUMBER:
-        finalValue = toIntStr(value)
+        finalValue = toNumberStr(value)
         break
       case FIELD_TYPES.BOOLEAN:
-        finalValue = (toIntStr(value) === '1')
+        finalValue = (toNumberStr(value) === '1')
         break
       default:
         finalValue = value
