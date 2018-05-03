@@ -8,9 +8,10 @@ const parseAbi = abi => {
   return json
 }
 
-const parseAndGetMethod = (abi, methodName) => parseAbi(abi).find(
-  ({ name, type }) => type === 'function' && name === methodName
-)
+const parseAndGetMethod = (abi, methodName) =>
+  parseAbi(abi).find(
+    ({ name, type }) => type === 'function' && name === methodName
+  )
 
 export const getAbiFunctionNames = abi => {
   try {

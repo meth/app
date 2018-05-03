@@ -184,7 +184,8 @@ export default class AddressBook extends PureComponent {
       return null
     }
 
-    let content
+    let content = null
+    let resultsTitle = t('contracts.results')
 
     // if still executing
     if (submitting) {
@@ -192,12 +193,7 @@ export default class AddressBook extends PureComponent {
     }
     // if no outputs
     else if (!methodHasOutputs(abi, selectedMethod)) {
-      content = (
-        <AlertBox
-          type='info'
-          text={t('contracts.success')}
-        />
-      )
+      resultsTitle = t('contracts.success')
     }
     // if can't render outputs
     else if (!canRenderMethodOutputs(abi, selectedMethod)) {
@@ -222,7 +218,7 @@ export default class AddressBook extends PureComponent {
 
     return (
       <View style={styles.results}>
-        <Text style={formStyles.labelText}>{t('contracts.results')}</Text>
+        <Text style={formStyles.labelText}>{resultsTitle}</Text>
         {content}
       </View>
     )
