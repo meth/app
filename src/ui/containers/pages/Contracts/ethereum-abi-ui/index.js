@@ -50,7 +50,7 @@ export const renderMethodParams = (abi, method, renderField) => {
 
 export const canRenderMethodOutputs = (abi, method) => _canRenderMethodTypes(abi, method, 'outputs')
 
-export const renderMethodOutputs = (abi, method, renderValue) => {
+export const renderMethodOutputs = (abi, method, results, renderValue) => {
   if (!canRenderMethodOutputs(abi, method)) {
     throw new Error('Cannot render outputs, not all types supported')
   }
@@ -60,9 +60,9 @@ export const renderMethodOutputs = (abi, method, renderValue) => {
     return
   }
 
-  def.outputs.forEach(output => {
+  def.outputs.forEach((output, index) => {
     const instance = buildType(output)
 
-    renderValue(output.name, instance.fieldType())
+    renderValue(output.name, index, instance.fieldType(), results[index])
   })
 }

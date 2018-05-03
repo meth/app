@@ -12,7 +12,8 @@ import {
 } from './ethereum-abi-ui'
 import { t } from '../../../../../common/strings'
 import { isAddress, prefixedWith0x, prefixWith0x } from '../../../../utils/string'
-import { getAbiFunctionNames, isAbiFunctionReadOnly } from '../../../../utils/contracts'
+import { toIntStr } from '../../../../utils/number'
+import { getAbiFunctionNames, isAbiFunctionReadOnly, methodHasOutputs } from '../../../../utils/contracts'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
@@ -38,7 +39,7 @@ export default class AddressBook extends PureComponent {
     selectedMethod: null,
     abiFunctions: null,
     error: null,
-    result: null,
+    results: null,
     submitting: false
   }
 
@@ -105,7 +106,7 @@ export default class AddressBook extends PureComponent {
             {this._renderParamsForm(abi, selectedMethod)}
           </View>
         ) : null}
-        {this._renderResult()}
+        {this._renderResults()}
         <ErrorBox error={error} style={styles.errorBox} />
       </View>
     )
@@ -114,7 +115,7 @@ export default class AddressBook extends PureComponent {
   _onAbiChange = abi => {
     this.setState({
       abi,
-      result: null,
+      results: null,
       error: null
     }, this._recalculateMethodPickerOptions)
   }
@@ -133,7 +134,7 @@ export default class AddressBook extends PureComponent {
 
     this.setState({
       address,
-      result: null,
+      results: null,
       error: null
     }, this._recalculateMethodPickerOptions)
   }
@@ -141,7 +142,7 @@ export default class AddressBook extends PureComponent {
   _onSelectMethod = selectedMethod => {
     this.setState({
       selectedMethod,
-      result: null,
+      results: null,
       error: null
     })
   }
@@ -176,33 +177,53 @@ export default class AddressBook extends PureComponent {
   }
 
 
-  _renderResult () {
-    const { abi, selectedMethod, result } = this.state
+  _renderResults () {
+    const { submitting, abi, selectedMethod, results } = this.state
 
-    if (!result) {
+    if (!results && !submitting) {
       return null
     }
 
-    if (!canRenderMethodOutputs(abi, selectedMethod)) {
-      return (
+    let content
+
+    // if still executing
+    if (submitting) {
+      content = <Loading />
+    }
+    // if no outputs
+    else if (!methodHasOutputs(abi, selectedMethod)) {
+      content = (
+        <AlertBox
+          type='info'
+          text={t('contracts.success')}
+        />
+      )
+    }
+    // if can't render outputs
+    else if (!canRenderMethodOutputs(abi, selectedMethod)) {
+      content = (
         <AlertBox
           type='info'
           text={t('contracts.cannotRenderMethodOutputsDueToTypes')}
         />
       )
     }
+    // render outputs!
+    else {
+      content = []
 
-    const uiContainer = []
-
-    renderMethodOutputs(
-      abi,
-      selectedMethod,
-      this._buildRenderOutputMethod(uiContainer)
-    )
+      renderMethodOutputs(
+        abi,
+        selectedMethod,
+        results,
+        this._buildRenderOutputMethod(content)
+      )
+    }
 
     return (
       <View style={styles.results}>
-        {uiContainer}
+        <Text style={formStyles.labelText}>{t('contracts.results')}</Text>
+        {content}
       </View>
     )
   }
@@ -273,6 +294,25 @@ export default class AddressBook extends PureComponent {
     this.paramsForm = ref
   }
 
+  _buildRenderOutputMethod = uiContainer => (name, index, fieldType, value) => {
+    let finalValue
+
+    switch (fieldType) {
+      case FIELD_TYPES.NUMBER:
+        finalValue = toIntStr(value)
+        break
+      case FIELD_TYPES.BOOLEAN:
+        finalValue = (toIntStr(value) === '1')
+        break
+      default:
+        finalValue = value
+    }
+
+    uiContainer.push(
+      <Text key={`output${index}`} style={styles.resultValueText}>{finalValue}</Text>
+    )
+  }
+
   _buildRenderFieldMethod = (uiContainer, helpers) =>
     (name, fieldType, { placeholder, isValid, sanitize }) => {
       const { params } = this.state
@@ -337,7 +377,7 @@ export default class AddressBook extends PureComponent {
 
     this.setState({
       params,
-      result: null,
+      results: null,
       error: null
     })
   }
@@ -367,7 +407,7 @@ export default class AddressBook extends PureComponent {
 
     this.setState({
       submitting: true,
-      result: null,
+      results: null,
       error: null
     }, () => {
       executeContractCall({
@@ -379,7 +419,7 @@ export default class AddressBook extends PureComponent {
       })
         .then(result => {
           this.setState({
-            result,
+            results: Array.isArray(result) ? result : [ result ],
             submitting: false
           })
         })

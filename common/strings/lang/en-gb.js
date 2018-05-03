@@ -214,6 +214,8 @@ module.exports = {
       cannotCallMethodDueToParams: `Meth can currenly only execute methods which take parameters of the following types: {types}`,
       cannotRenderMethodOutputsDueToTypes: `Unable to render method call result due to unsupported types`,
       methodHasNoParams: 'Method has no parameters',
+      results: 'Results',
+      success: 'Success!',
       field: {
         addressLabel: 'Contract address',
         addressPlaceholder: '0x...',

@@ -8,9 +8,9 @@ const parseAbi = abi => {
   return json
 }
 
-const parseAndGetMethod = (abi, methodName) => {
-  return parseAbi(abi).find(({ name, type }) => type === 'function' && name === methodName)
-}
+const parseAndGetMethod = (abi, methodName) => parseAbi(abi).find(
+  ({ name, type }) => type === 'function' && name === methodName
+)
 
 export const getAbiFunctionNames = abi => {
   try {
@@ -28,11 +28,14 @@ export const isAbiFunctionReadOnly = (abi, methodName) => {
   return stateMutability === 'pure' || stateMutability === 'view'
 }
 
-
 export const getOrderedMethodParams = (abi, methodName, params) => {
   const { inputs } = parseAndGetMethod(abi, methodName)
 
-  return inputs.reduce((m, { name }) => (
-    m.concat(params[name])
-  ), [])
+  return inputs.reduce((m, { name }) => m.concat(params[name]), [])
+}
+
+export const methodHasOutputs = (abi, methodName) => {
+  const { outputs } = parseAndGetMethod(abi, methodName)
+
+  return outputs && !!outputs.length
 }

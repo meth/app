@@ -48,7 +48,6 @@ export default create({
   },
   /* method */
   methodContainer: {
-    marginTop: 25
   },
   paramsContainer: {
   },
@@ -58,5 +57,12 @@ export default create({
     borderColor: '$contracts_params_borderColor',
     borderStyle: 'dashed',
     backgroundColor: '$contracts_params_backgroundColor'
+  },
+  /* outputs */
+  results: {
+    marginTop: 20
+  },
+  resultValueText: {
+    ...text
   }
 })
