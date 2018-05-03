@@ -86,7 +86,6 @@ export const toIntStr = num => {
   return null === n ? '' : `${n}`
 }
 
-
 export const hexToBN = hex => toBN(hex)
 export const numToBN = num => toBN(num)
 

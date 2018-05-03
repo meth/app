@@ -298,14 +298,14 @@ export default class AddressBook extends PureComponent {
         finalValue = toNumberStr(value)
         break
       case FIELD_TYPES.BOOLEAN:
-        finalValue = (toNumberStr(value) === '1')
+        finalValue = !!value
         break
       default:
         finalValue = value
     }
 
     uiContainer.push(
-      <Text key={`output${index}`} style={styles.resultValueText}>{finalValue}</Text>
+      <Text key={`output${index}`} style={styles.resultValueText}>{`${finalValue}`}</Text>
     )
   }
 
