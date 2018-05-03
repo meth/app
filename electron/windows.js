@@ -97,7 +97,7 @@ class Window extends EventEmitter {
     })
 
     const url = config.url || (Settings.inProductionMode
-      ? `file://${Settings.appResDir()}/index.html#${type}`
+      ? `file://${Settings.appWebDir()}/index.html#${type}`
       : `http://localhost:3000/#${type}`
     )
 

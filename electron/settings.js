@@ -12,7 +12,7 @@ const CONFIG = {
 try {
   /* eslint-disable global-require */
   /* eslint-disable import/no-unresolved */
-  _.extend(CONFIG, require('./config/appConfig.json'))
+  _.extend(CONFIG, require('../appConfig.json'))
   /* eslint-enable global-require */
   /* eslint-enable import/no-unresolved */
 } catch (err) {
@@ -69,8 +69,8 @@ class Settings {
     return app.getPath('userData')
   }
 
-  get appResDir () {
-    return path.resolve(path.join(__dirname, '..'))
+  get appWebDir () {
+    return path.resolve(path.join(__dirname, '..', 'build', 'web'))
   }
 
   get logLevel () {

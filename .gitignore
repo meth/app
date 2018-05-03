@@ -9,6 +9,9 @@ coverage
 # build
 vendor/
 build/
+package/
+release/
+appConfig.json
 
 # misc
 .DS_Store
