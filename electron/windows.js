@@ -1,4 +1,5 @@
 const path = require('path')
+const URL = require('url')
 const { BrowserWindow } = require('electron')
 const EventEmitter = require('eventemitter3')
 
@@ -96,12 +97,11 @@ class Window extends EventEmitter {
       this.emit('hide', e)
     })
 
-    const url = config.url || (Settings.inProductionMode
-      ? `file://${Settings.appWebDir()}/index.html#${type}`
-      : `http://localhost:3000/#${type}`
-    )
-
-    this.load(url)
+    if (Settings.inProductionMode) {
+      this.loadFile('index.html')
+    } else {
+      this.loadUrl(config.url || `http://localhost:3000/#${type}`)
+    }
   }
 
   /**
@@ -147,7 +147,7 @@ class Window extends EventEmitter {
     return this._onContentReady
   }
 
-  load (url) {
+  loadUrl (url) {
     if (this._isDestroyed) {
       return
     }
@@ -155,6 +155,18 @@ class Window extends EventEmitter {
     this._log.info(`Load URL: ${url}`)
 
     this._window.loadURL(url)
+  }
+
+  loadFile (file) {
+    this._log.debug(`Load file: ${file}`)
+
+    const url = URL.format({
+      protocol: 'file',
+      slashes: true,
+      pathname: path.join(Settings.appWebDir, 'index.html')
+    })
+
+    this.loadUrl(url)
   }
 
   send (...args) {

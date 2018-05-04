@@ -16,7 +16,7 @@
     "test": "jest",
     "test-cov": "jest --coverage --collectCoverageFrom=src/**/*.js --coverageDirectory=coverage/",
     "codecov": "codecov",
-    "release": "./scripts/buildRelease.sh",
+    "package": "yarn web:prod && ./scripts/buildPackages.sh",
     "build": "yarn lint:js && yarn test && yarn package"
   },
   "repository": {
@@ -46,15 +46,18 @@
   "homepage": "https://github.com/meth-project/meth-browser#readme",
   "dependencies": {
     "chalk": "^2.0.1",
+    "electron-devtools-installer": "^2.2.0",
     "eventemitter3": "^2.0.3",
+    "i21n": "^1.2.0",
     "lodash": "^4.17.4",
     "logarama": "^3.2.0",
-    "underscore-deep-extend": "^1.1.5"
+    "underscore-deep-extend": "^1.1.5",
+    "yargs": "^8.0.2"
   },
   "devDependencies": {
     "add-asset-html-webpack-plugin": "^2.1.0",
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "8.1.1",
     "babel-jest-assertions": "0.0.2",
     "babel-loader": "^7.1.1",
     "babel-plugin-react-transform": "^2.0.2",
@@ -76,8 +79,7 @@
     "codecov": "^3.0.0",
     "color": "^2.0.0",
     "date-fns": "^1.29.0",
-    "electron": "^1.8.2",
-    "electron-devtools-installer": "^2.2.0",
+    "electron": "1.8.2",
     "electron-packager": "^12.0.2",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.0",
@@ -94,7 +96,6 @@
     "html-webpack-plugin": "^2.30.1",
     "http-serve": "^1.0.1",
     "husky": "^0.14.3",
-    "i21n": "^1.2.0",
     "immutable": "^3.8.1",
     "immutable-state-machine": "^1.2.0",
     "interpolate-html-plugin": "^2.0.0",
@@ -117,7 +118,7 @@
     "react-native-tabs": "^1.0.9",
     "react-native-vector-icons": "^4.6.0",
     "react-native-web": "^0.5.4",
-    "react-navigation": "^1.0.0-beta.11",
+    "react-navigation": "1.0.0-beta.19",
     "react-proxy": "^1.1.8",
     "react-qr-svg": "^2.1.0",
     "react-redux": "^5.0.5",
@@ -133,8 +134,7 @@
     "web3": "0.20.1",
     "web3-utils": "^1.0.0-beta.17",
     "webpack": "^3.5.4",
-    "webpack-dev-server": "^2.7.1",
-    "yargs": "^8.0.2"
+    "webpack-dev-server": "^2.7.1"
   },
   "jest": {
     "setupFiles": [

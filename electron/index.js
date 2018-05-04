@@ -11,6 +11,10 @@ global.Ipc = new IpcImpl()
 
 const isOSX = 'darwin' === process.platform
 
+if (Settings.inProductionMode) {
+  log.info('Running in Production mode!')
+}
+
 let mainWindow
 
 const createMainWindow = () => {

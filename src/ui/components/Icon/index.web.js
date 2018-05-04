@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 
 import FAIcon from 'react-native-vector-icons/dist/FontAwesome'
 import faFontUrl from 'react-native-vector-icons/Fonts/FontAwesome.ttf'
@@ -13,19 +13,18 @@ addWebFont(faFontUrl, 'FontAwesome')
 addWebFont(ionFontUrl, 'Ionicons')
 addWebFont(MaterialCommunityFontUrl, 'Material Design Icons')
 
-const Icon = props => {
-  const { name } = props
+export default class Icon extends PureComponent {
+  render () {
+    const { name } = this.props
 
-  if (FAIcon.hasIcon(name)) {
-    return <FAIcon {...props} />
+    if (FAIcon.hasIcon(name)) {
+      return <FAIcon {...this.props} />
+    }
+
+    if (IonIcon.hasIcon(name)) {
+      return <IonIcon {...this.props} />
+    }
+
+    return <MaterialCommunityIcon {...this.props} />
   }
-
-  if (IonIcon.hasIcon(name)) {
-    return <IonIcon {...props} />
-  }
-
-  return <MaterialCommunityIcon {...props} />
 }
-
-// we name the component so that the static "name" property is set on the class
-export default Icon

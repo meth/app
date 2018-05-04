@@ -129,11 +129,19 @@ _Note: not all issues are automatically fixable_.
 It's worth installing the `prettier-atom` and `linter-eslint` plugins for Atom if
 that's your editor - it will make your life easier.
 
-## Publshing
+## Packaging and publishing
 
 ### Win/Mac/Linux
 
-_Note: You will need to install Wine for Windows packaging to work, see https://github.com/electron-userland/electron-packager#building-windows-apps-from-non-windows-platforms_
+Note: You will need to install Wine for Windows packaging to work, see https://github.com/electron-userland/electron-packager#building-windows-apps-from-non-windows-platforms
+
+To build installation packages for do:
+
+```shell
+$ yarn package
+```
+
+The `packages` folder will contain the built output.
 
 
 

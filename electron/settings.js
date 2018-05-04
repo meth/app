@@ -1,7 +1,7 @@
 const { app } = require('electron')
 const path = require('path')
 
-const _ = require('./settings')
+const _ = require('./lodash')
 const packageJson = require('../package.json')
 
 
@@ -70,7 +70,7 @@ class Settings {
   }
 
   get appWebDir () {
-    return path.resolve(path.join(__dirname, '..', 'build', 'web'))
+    return path.resolve(path.join(app.getAppPath(), 'build', 'web'))
   }
 
   get logLevel () {
