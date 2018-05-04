@@ -9,7 +9,7 @@ coverage
 # build
 vendor/
 build/
-packages/
+out/
 appConfig.json
 
 # misc

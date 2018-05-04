@@ -46,7 +46,7 @@ node issues will be handled within the Browser app itself.
 
 **Setup and installation**
 
-  * [Node.js 8.0.0](http://nodejs.org) **<- we recommend using this exact version!**
+  * [Node.js 8.10.0](http://nodejs.org) **<- we recommend using this exact version!**
   * [Yarn 1.0+](yarnpkg.com)
 
 Once Node is installed, install the dependencies:
@@ -131,9 +131,11 @@ that's your editor - it will make your life easier.
 
 ## Packaging and publishing
 
+These instructions are for running on OS X - this is currently the only supported dev platform.
+
 ### Win/Mac/Linux
 
-Note: You will need to install Wine for Windows packaging to work, see https://github.com/electron-userland/electron-packager#building-windows-apps-from-non-windows-platforms
+**You will need to install Wine for Windows packaging to work, see https://github.com/electron-userland/electron-packager#building-windows-apps-from-non-windows-platforms**
 
 To build installation packages for do:
 

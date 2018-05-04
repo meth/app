@@ -1,8 +1,9 @@
 {
   "name": "meth-browser",
   "version": "1.0.0",
-  "productName": "Meth browser",
-  "description": "Meth browser",
+  "productName": "Meth",
+  "author": "",
+  "description": "Cross-platform Ethereum wallet and DApp browser with sync",
   "main": "electron/index.js",
   "scripts": {
     "electron": "electron -r babel-register ./electron",
@@ -16,7 +17,8 @@
     "test": "jest",
     "test-cov": "jest --coverage --collectCoverageFrom=src/**/*.js --coverageDirectory=coverage/",
     "codecov": "codecov",
-    "package": "yarn web:prod && ./scripts/buildPackages.sh",
+    "package": "yarn web:prod && echo '{\"mode\":\"production\"}' > ./appConfig.json && yarn forge:package && rm ./appConfig.json",
+    "forge:package": "rm -rf ./out && electron-forge package",
     "build": "yarn lint:js && yarn test && yarn package"
   },
   "repository": {
@@ -38,7 +40,6 @@
     "geth",
     "parity"
   ],
-  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/meth-project/meth-browser/issues"
@@ -55,6 +56,7 @@
     "yargs": "^8.0.2"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.1",
     "add-asset-html-webpack-plugin": "^2.1.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "8.1.1",
@@ -80,7 +82,7 @@
     "color": "^2.0.0",
     "date-fns": "^1.29.0",
     "electron": "1.8.2",
-    "electron-packager": "^12.0.2",
+    "electron-forge": "electron-userland/electron-forge#8ffab0b44527bd274b0f0d646786fef55a2bfcf4",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.0",
     "eslint-plugin-import": "^2.7.0",
@@ -92,6 +94,7 @@
     "file-loader": "^0.11.2",
     "flat": "^4.0.0",
     "got": "^7.1.0",
+    "graceful-fs": "^4.1.11",
     "happypack": "^4.0.0-beta.2",
     "html-webpack-plugin": "^2.30.1",
     "http-serve": "^1.0.1",
@@ -140,5 +143,8 @@
     "setupFiles": [
       "./.jest/setupConsole.js"
     ]
+  },
+  "config": {
+    "forge": "./.forge.config.js"
   }
 }
