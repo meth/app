@@ -17,8 +17,11 @@
     "test": "jest",
     "test-cov": "jest --coverage --collectCoverageFrom=src/**/*.js --coverageDirectory=coverage/",
     "codecov": "codecov",
-    "package": "yarn web:prod && echo '{\"mode\":\"production\"}' > ./appConfig.json && yarn forge:package && rm ./appConfig.json",
-    "forge:package": "rm -rf ./out && electron-forge package",
+    "package": "yarn web:prod && echo '{\"mode\":\"production\"}' > ./appConfig.json && rm -rf ./out && yarn forge:package && rm ./appConfig.json",
+    "forge:package": "yarn forge:package:mac && yarn forge:package:win && yarn forge:package:linux",
+    "forge:package:mac": "electron-forge package --arch=x64 --platform=darwin",
+    "forge:package:win": "electron-forge package --arch=x64 --platform=win32",
+    "forge:package:linux": "electron-forge package --arch=x64 --platform=linux",
     "build": "yarn lint:js && yarn test && yarn package"
   },
   "repository": {

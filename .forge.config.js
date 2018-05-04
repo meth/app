@@ -21,8 +21,6 @@ const shouldIncludePath = filePath => PATHS_TO_INCLUDE.reduce((soFar, p) => (
 
 module.exports = {
   packagerConfig: {
-    arch: 'x64',
-    platform: 'darwin',
     appCopyright: 'Copyright (c) HiddenTao Ltd 2018',
     appCategoryType: 'public.app-category.finance',
     prune: true,
