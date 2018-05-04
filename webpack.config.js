@@ -155,7 +155,7 @@ const addAssetHtmlFiles = (env) => {
       filepath: require.resolve(paths[0]),
       includeSourcemap: false,
       outputPath: 'js/vendor',
-      publicPath: 'js/vendor',
+      publicPath: './js/vendor',
     }
   })
 }
@@ -197,7 +197,7 @@ const BuildConfig = (env = { development: false }) => ({
   output: {
     path: productionBuildFolder,
     filename: 'js/[name]-[hash:16].js',
-    publicPath: '.'
+    publicPath: './'
   },
   plugins: [
     new CleanWebpackPlugin([productionBuildFolder], { root: __dirname, verbose: true }),
