@@ -43,7 +43,7 @@
     "geth",
     "parity"
   ],
-  "license": "MIT",
+  "license": "AGPLv3",
   "bugs": {
     "url": "https://github.com/meth-project/meth-browser/issues"
   },

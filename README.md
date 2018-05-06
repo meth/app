@@ -145,6 +145,9 @@ $ yarn package
 
 The `packages` folder will contain the built output.
 
+_Note: To run the built Linux executable on Ubuntu you will first need to do
+`apt-get install libgconf-2-4`._
+
 
 
 ## License
