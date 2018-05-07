@@ -64,9 +64,12 @@ const loaders = (env) => ([
     ],
   },
   {
-    // Many react-native libraries do not compile their ES6 JS.
     test: /\.js$/,
-    include: /node_modules\/react-native-/,
+    // Some NPM module don't compile their ES6
+    include: [
+      /node_modules\/react-native-/,
+      /node_modules\/pouchdb-adapter-asyncstorage/
+    ],
     // react-native-web is already compiled.
     exclude: /node_modules\/react-native-web\//,
     loader: 'happypack/loader',
@@ -145,6 +148,8 @@ const VendorConfig = (env) => ({
   resolve: resolve,
 })
 
+const createPublicPath = (env, str) => `${env.development ? '' : '.'}/${str}`
+
 const addAssetHtmlFiles = (env) => {
   return Object.keys(VendorConfig(env).entry).map((name) => {
     const fileGlob = `${name}*.dll.js`
@@ -155,7 +160,7 @@ const addAssetHtmlFiles = (env) => {
       filepath: require.resolve(paths[0]),
       includeSourcemap: false,
       outputPath: 'js/vendor',
-      publicPath: './js/vendor',
+      publicPath: createPublicPath(env, 'js/vendor')
     }
   })
 }
@@ -197,7 +202,7 @@ const BuildConfig = (env = { development: false }) => ({
   output: {
     path: productionBuildFolder,
     filename: 'js/[name]-[hash:16].js',
-    publicPath: './'
+    publicPath: createPublicPath(env, '')
   },
   plugins: [
     new CleanWebpackPlugin([productionBuildFolder], { root: __dirname, verbose: true }),

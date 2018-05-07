@@ -10,7 +10,7 @@ coverage
 vendor/
 build/
 out/
-appConfig.json
+appConfig*.json
 
 # misc
 .DS_Store

@@ -1,7 +1,11 @@
 import { AsyncStorage } from 'react-native'
+import PouchDB from 'pouchdb-core'
+import PouchDBAsyncStorageAdapter from 'pouchdb-adapter-asyncstorage'
 
 import logger from '../logger'
 import { sha256 } from '../utils/crypto'
+
+PouchDBAsyncStorageAdapter(PouchDB)
 
 const log = logger.create('Storage')
 
@@ -10,10 +14,11 @@ const log = logger.create('Storage')
  * be expected to fail at any time.
  */
 class Storage {
-  init ({ store }) {
+  init ({ config, store }) {
     log.debug('Initializing ...')
 
     this._store = store
+    this._syncUrl = config.getBackendUrl()
   }
 
   async setMnemonic (mnemonic) {
@@ -21,8 +26,9 @@ class Storage {
 
     log.info(`Set storage mnemonic: ${hash} ...`)
 
-    this._mnemonic = hash
+    this._mnemonicHash = hash
 
+    this.setupDatabases()
     this.loadUserData()
   }
 
@@ -35,7 +41,52 @@ class Storage {
 
     this._network = genesisBlock
 
+    this.setupDatabases()
     this.loadUserData()
+  }
+
+  /**
+   * Setup db replication sync
+   * @return {[type]} [description]
+   */
+  setupDatabases () {
+    // cancel existing syncs
+    if (this._db) {
+      Object.keys(this._db).forEach(dbKey => {
+        const { sync } = this._db[dbKey]
+
+        sync.cancel()
+      })
+    }
+
+    this._db = [
+      'transactions',
+      'addressBook',
+      'bookmarks',
+      'dappPermissions',
+      'customTokens'
+    ].reduce((ret, dbName) => {
+      // eslint-disable-next-line no-param-reassign
+      ret[dbName] = new PouchDB(this._dbKey(dbName), { adapter: 'asyncstorage' })
+      return ret
+    }, {})
+
+    // this._dbSync = PouchDB.sync(dbKey, `${this._syncUrl}/${dbKey}`, {
+    //   live: true,
+    //   retry: true
+    // }).on('change', info => {
+    //   log.debug('db sync: change', info)
+    // }).on('paused', err => {
+    //   console.log('replication paused')
+    // }).on('active', () => {
+    //   console.log('replication resumed')
+    // }).on('denied', err => {
+    //   console.log('replication denied')
+    // }).on('complete', info => {
+    //   console.log('replication complete')
+    // }).on('error', err => {
+    //   console.log('replication error', err)
+    // })
   }
 
   /**
@@ -139,11 +190,19 @@ class Storage {
       log.throw('Mnemonic and network need to be set')
     }
 
-    return `${this._mnemonic}-${this._network}-${key}`
+    return `${this._mnemonicHash}-${this._network}-${key}`
   }
 
   _canConstructUserKey () {
-    return !!this._mnemonic && !!this._network
+    return !!this._mnemonicHash && !!this._network
+  }
+
+  _dbKey (dbName) {
+    if (!this._canConstructUserKey()) {
+      return null
+    }
+
+    return `${this._mnemonicHash}-${this._network}-${dbName}`
   }
 }
 

@@ -30,7 +30,7 @@ setupFonts()
 const store = setupStore({ config, storage, nodeConnector, walletManager, router })
 reduxConnectorSetStore(store)
 logSetStore(store)
-storage.init({ store })
+storage.init({ config, store })
 nodeConnector.init({ store, walletManager })
 walletManager.init({ store, nodeConnector })
 

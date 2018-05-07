@@ -71,13 +71,22 @@ $ "/path/to/meth-browser/node_modules/.bin/solidarity"
 ✨  Done in 3.29s.
 ```
 
+**App config**
+
+Run `yarn setup:dev` to generate `appConfig.json`. Then edit the file and enter the
+
+URL for your dev deployment of the [Meth backend sync server](https://github.com/meth-browser/server):
+
+```js
+{
+  "mode": "development",
+  "backend": "https://meth-server-atyyzvgfve.now.sh/db"
+}
+```
+
 **Geth development chain**
 
-Start a local Geth private network. We recommend using [geth-private](https://github.com/hiddentao/geth-private):
-
-```shell
-$ geth-private
-```
+Start a local Geth private network. We recommend using [Ganache](https://github.com/trufflesuite/ganache).
 
 **Electron desktop app**
 
@@ -132,6 +141,17 @@ that's your editor - it will make your life easier.
 ## Packaging and publishing
 
 These instructions are for running on OS X - this is currently the only supported dev platform.
+
+**App config**
+
+Run `yarn setup:prod` to setup `appConfig.json` for production builds. It will
+look like this:
+
+```js
+{
+  "mode": "production"
+}
+```
 
 ### Win/Mac/Linux
 

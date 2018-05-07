@@ -7,7 +7,7 @@
   "main": "electron/index.js",
   "scripts": {
     "electron": "electron -r babel-register ./electron",
-    "web": "rm -rf ./appConfig.json && webpack --env.development --env.vendor && webpack-dev-server --env.development",
+    "web": "yarn setup:dev && webpack --env.development --env.vendor && webpack-dev-server --env.development",
     "web:prod": "webpack --env.production --env.vendor && webpack --env.production --progress",
     "web:serve": "http-serve -p 3001 --gzip true ./build/web",
     "precommit": "yarn prettier && yarn lint:js:fix",
@@ -17,7 +17,9 @@
     "test": "jest",
     "test-cov": "jest --coverage --collectCoverageFrom=src/**/*.js --coverageDirectory=coverage/",
     "codecov": "codecov",
-    "package": "yarn web:prod && echo '{\"mode\":\"production\"}' > ./appConfig.json && rm -rf ./out && yarn forge:package && rm ./appConfig.json",
+    "package": "yarn setup:prod && yarn web:prod && rm -rf ./out && yarn forge:package",
+    "setup:dev": "node scripts/setupAppConfig.js development",
+    "setup:prod": "node scripts/setupAppConfig.js production",
     "forge:package": "yarn forge:package:mac && yarn forge:package:win && yarn forge:package:linux",
     "forge:package:mac": "electron-forge package --arch=x64 --platform=darwin",
     "forge:package:win": "electron-forge package --arch=x64 --platform=win32",
@@ -43,7 +45,7 @@
     "geth",
     "parity"
   ],
-  "license": "AGPLv3",
+  "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/meth-project/meth-browser/issues"
   },
@@ -110,6 +112,8 @@
     "knuth-shuffle": "^1.0.8",
     "lodash-webpack-plugin": "^0.11.4",
     "logarama": "^3.2.0",
+    "pouchdb-adapter-asyncstorage": "^6.4.1",
+    "pouchdb-core": "^6.4.3",
     "prettier-miscellaneous": "^1.5.3",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.0",
@@ -134,6 +138,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.6",
     "reselect": "^3.0.1",
+    "sjcl": "^1.0.7",
     "solidarity": "^1.0.0",
     "solidarity-react-native": "^1.0.0",
     "truffle-contract": "^3.0.4",
