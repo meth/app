@@ -22,7 +22,7 @@ export const encrypt = (key, data) => {
   const plaintext = JSON.stringify(data)
   const iv = getRandomBytes(16)
 
-  const ret = Base64.btoa(sjcl.encrypt(password, plaintext, {
+  return Base64.btoa(sjcl.encrypt(password, plaintext, {
     cipher: 'aes',
     iter: 1000,
     mode: 'gcm',
@@ -30,8 +30,6 @@ export const encrypt = (key, data) => {
     ts: 128,
     ks: 256
   }))
-
-  return ret
 }
 
 export const decrypt = (key, ciphertext) => {

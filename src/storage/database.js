@@ -45,7 +45,13 @@ export default class Database {
       data: await this._encrypt(data)
     }
 
-    const existing = await this._db.get(_id)
+    let existing
+    try {
+      existing = await this._db.get(_id)
+    } catch (__) {
+      /* existing item not found */
+    }
+
     if (existing) {
       finalDoc._rev = existing._rev
 
@@ -70,7 +76,7 @@ export default class Database {
   }
 
   async _decrypt (str) {
-    this._log.debug('decrypt')
+    this._log.debug('decrypt', str)
 
     try {
       return decrypt(this._encryptionKey, str)
@@ -90,7 +96,7 @@ export default class Database {
 
     const { rows } = await this._db.allDocs()
 
-    const decrypted = await Promise.all(rows.map(d => this._decrypt(d.data)))
+    const decrypted = await Promise.all(rows.map(({ doc: { data } }) => this._decrypt(data)))
 
     this._storeInject(decrypted.filter(d => !!d))
   }
