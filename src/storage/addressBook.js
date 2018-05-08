@@ -1,8 +1,12 @@
 import Database from './database'
 
 export default class AddressBook extends Database {
-  constructor (authKey, encryptionKey) {
-    super('addressBook', authKey, encryptionKey)
+  constructor (store, authKey, encryptionKey) {
+    super('addressBook', {
+      storeInject: store.actions.injectAddressBook,
+      authKey,
+      encryptionKey
+    })
   }
 
   async addOrUpdate (doc) {
@@ -11,9 +15,7 @@ export default class AddressBook extends Database {
     return this._addOrUpdate(this._generateId(address), doc)
   }
 
-  async remove (doc) {
-    const { address } = doc
-
+  async remove (address) {
     return this._remove(this._generateId(address))
   }
 }

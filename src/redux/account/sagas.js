@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { put, takeLatest } from 'redux-saga/effects'
 
 import {
@@ -20,7 +21,7 @@ function* onLoadWallet ({ storage }, { payload: mnemonic }) {
   yield storage.setMnemonic(mnemonic)
 }
 
-function* onTransactionSent (_, { payload: { id, params } }) {
+function* onTransactionSent (__, { payload: { id, params } }) {
   const { selectors: { getTxDeferred } } = getStore()
 
   // resolve the tx promise so that the original caller gets a tx receipt
@@ -29,13 +30,24 @@ function* onTransactionSent (_, { payload: { id, params } }) {
     deferred.resolve(id)
   }
 
-  yield put(createAction(TX_FLOW_COMPLETED, { id, params }))
+  yield put(createAction(TX_FLOW_COMPLETED, {
+    id,
+    params: _.omit(params, 'data') // remove heavy params
+  }))
 }
 
-function* onTransactionHistoryUpdated ({ storage }) {
+function* onTransactionFlowCompleted ({ storage }, { payload: { id } }) {
   const { selectors: { getTransactionHistory } } = getStore()
 
-  yield storage.saveTransactionHistory(getTransactionHistory())
+  const tx = getTransactionHistory().find(({ id: txId }) => txId === id)
+
+  yield storage.transactions.addOrUpdate(tx)
+}
+
+function* onCheckedPendingTransactions ({ storage }, { payload }) {
+  yield Promise.all(
+    payload.map(tx => storage.transactions.addOrUpdate(tx))
+  )
 }
 
 function* onUpdateDappPermissions ({ storage }) {
@@ -44,35 +56,51 @@ function* onUpdateDappPermissions ({ storage }) {
   yield storage.saveDappPermissions(getDappPermissions())
 }
 
-function* onUpdateAddressBook ({ storage }) {
+function* onSaveAddressBookEntry ({ storage }, { payload: { address } }) {
   const { selectors: { getAddressBook } } = getStore()
 
-  yield storage.saveAddressBook(getAddressBook())
+  const entry = getAddressBook()[address]
+
+  yield storage.addressBook.addOrUpdate({
+    ...entry,
+    address
+  })
 }
 
-function* onUpdateCustomTokens ({ storage }) {
-  const { selectors: { getCustomTokens } } = getStore()
+function* onDeleteAddressBookEntry ({ storage }, { payload: { address } }) {
+  yield storage.addressBook.remove(address)
+}
 
-  yield storage.saveCustomTokens(getCustomTokens())
+function* onAddCustomToken ({ storage }, { payload: { symbol, details } }) {
+  yield storage.customTokens.addOrUpdate({
+    ...details,
+    symbol
+  })
+}
+
+function* onUpdateCustomToken ({ storage }, { payload: { symbol, details } }) {
+  yield storage.customTokens.addOrUpdate({
+    ...details,
+    symbol
+  })
+}
+
+function* onRemoveCustomToken ({ storage }, { payload: { symbol } }) {
+  yield storage.customTokens.remove(symbol)
 }
 
 export default app => function* saga () {
   yield takeLatest(LOAD_WALLET, onLoadWallet, app)
   yield takeLatest(SEND_RAW_TX, onTransactionSent, app)
-  yield takeLatest(TX_FLOW_COMPLETED, onTransactionHistoryUpdated, app)
-  yield takeLatest(CHECK_PENDING_TRANSACTIONS, onTransactionHistoryUpdated, app)
+  yield takeLatest(TX_FLOW_COMPLETED, onTransactionFlowCompleted, app)
+  yield takeLatest(CHECK_PENDING_TRANSACTIONS, onCheckedPendingTransactions, app)
   yield takeLatest(SAVE_DAPP_PERMISSIONS, onUpdateDappPermissions, app)
-  yield takeLatest(SAVE_ADDRESS_BOOK_ENTRY, onUpdateAddressBook, app)
-  yield takeLatest(DELETE_ADDRESS_BOOK_ENTRY, onUpdateAddressBook, app)
-  yield takeLatest(ADD_CUSTOM_TOKEN, onUpdateCustomTokens, app)
-  yield takeLatest(UPDATE_CUSTOM_TOKEN, onUpdateCustomTokens, app)
-  yield takeLatest(REMOVE_CUSTOM_TOKEN, onUpdateCustomTokens, app)
+  yield takeLatest(SAVE_ADDRESS_BOOK_ENTRY, onSaveAddressBookEntry, app)
+  yield takeLatest(DELETE_ADDRESS_BOOK_ENTRY, onDeleteAddressBookEntry, app)
+  yield takeLatest(ADD_CUSTOM_TOKEN, onAddCustomToken, app)
+  yield takeLatest(UPDATE_CUSTOM_TOKEN, onUpdateCustomToken, app)
+  yield takeLatest(REMOVE_CUSTOM_TOKEN, onRemoveCustomToken, app)
 }
 
 export const _privateFunctions = {
-  onLoadWallet,
-  onTransactionSent,
-  onUpdateDappPermissions,
-  onUpdateAddressBook,
-  onTransactionHistoryUpdated
 }

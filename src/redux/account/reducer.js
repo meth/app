@@ -84,8 +84,12 @@ export default () => {
           [dappId]: permissions
         }),
       /* address book */
-      [INJECT_ADDRESS_BOOK]: (state, { payload: book }) => (
-        state.set('addressBook', book || {})
+      [INJECT_ADDRESS_BOOK]: (state, { payload: book = [] }) => (
+        state.set('addressBook', book.reduce((m, v) => {
+          // eslint-disable-next-line no-param-reassign
+          m[v.address] = v
+          return m
+        }, {}))
       ),
       [SAVE_ADDRESS_BOOK_ENTRY]: (state, { payload: { address, data } }) =>
         state.set('addressBook', {
@@ -102,7 +106,13 @@ export default () => {
         })
       },
       /* custom tokens */
-      [INJECT_CUSTOM_TOKENS]: (state, { payload }) => state.set('customTokens', Immutable.Map(payload)),
+      [INJECT_CUSTOM_TOKENS]: (state, { payload = [] }) => (
+        state.set('customTokens', Immutable.Map(payload.reduce((m, v) => {
+          // eslint-disable-next-line no-param-reassign
+          m[v.symbol] = v
+          return m
+        }, {})))
+      ),
       [ADD_CUSTOM_TOKEN]: (state, { payload: { symbol, details } }) => {
         const customTokens = state.get('customTokens')
 
@@ -114,7 +124,7 @@ export default () => {
       [UPDATE_CUSTOM_TOKEN]: (state, { payload: { symbol, details } }) => {
         let customTokens = state.get('customTokens')
 
-        customTokens = customTokens.delete(symbol).set(details.symbol, details)
+        customTokens = customTokens.delete(symbol).set(symbol, details)
 
         return state.set('customTokens', customTokens)
       },
@@ -124,8 +134,8 @@ export default () => {
         return state.set('customTokens', customTokens.delete(symbol))
       },
       /* transactions */
-      [INJECT_TRANSACTION_HISTORY]: (state, { payload: txHistory }) => (
-        state.set('transactionHistory', txHistory || [])
+      [INJECT_TRANSACTION_HISTORY]: (state, { payload = [] }) => (
+        state.set('transactionHistory', payload)
       ),
       [SEND_TX]: (state, { payload: { tx, deferred } }) => (
         state
@@ -144,8 +154,19 @@ export default () => {
           )
           .set('currentTx', null)
           .set('currentTxDeferred', null),
-      [CHECK_PENDING_TRANSACTIONS]: (state, { payload: history }) =>
-        state.set('transactionHistory', [].concat(history))
+      [CHECK_PENDING_TRANSACTIONS]: (state, { payload: updatedTransactions }) => {
+        const txHistory = state.get('transactionHistory')
+
+        for (let i = 0; txHistory.length > i; i += 1) {
+          const matching = updatedTransactions.find(({ id }) => id === txHistory[i].id)
+
+          if (matching) {
+            txHistory.splice(i, 1, matching)
+          }
+        }
+
+        return state.set('transactionHistory', [].concat(txHistory))
+      }
     },
     InitialState
   )

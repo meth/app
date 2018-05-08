@@ -53,9 +53,6 @@ export const load = async (fileName, skipCache = false) => {
   return CACHE[fileName]
 }
 
-
-const LOCAL_CONFIG = Object.assign({
-
-}, require('../../appConfig.json'))
+const LOCAL_CONFIG = Object.assign({}, require('../../appConfig.json'))
 
 export const getBackendUrl = () => LOCAL_CONFIG.backend

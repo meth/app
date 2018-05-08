@@ -252,7 +252,7 @@ export default ({ nodeConnector, walletManager }) => {
             }
           })
 
-          return next(createAction(CHECK_PENDING_TRANSACTIONS, allTx))
+          return next(createAction(CHECK_PENDING_TRANSACTIONS, pendingTx))
         } catch (err) {
           log.warn('Error fetching transaction receipts', err)
         }
