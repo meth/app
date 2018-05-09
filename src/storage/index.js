@@ -68,22 +68,25 @@ class Storage {
   }
 
   /**
-   * Setup db replication sync
-   * @return {[type]} [description]
+   * Setup databases
    */
   setupDatabases () {
     this.shutdownDatabases()
 
-    const { authKey, encryptionKey } = this._generateKeys()
-
-    if (!authKey || !encryptionKey) {
+    if (!this._mnemonic || !this._network) {
       return
     }
 
+    const key = sha512(this._mnemonic)
+    const authKey = key.substr(0, 64)
+    const encryptionKey = key.substr(64)
+
+    const dbParams = [ this._store, this._network, authKey, encryptionKey ]
+
     this._db = {
-      transactions: new Transactions(this._store, authKey, encryptionKey),
-      addressBook: new AddressBook(this._store, authKey, encryptionKey),
-      customTokens: new CustomTokens(this._store, authKey, encryptionKey)
+      transactions: new Transactions(...dbParams),
+      addressBook: new AddressBook(...dbParams),
+      customTokens: new CustomTokens(...dbParams)
     }
 
     // this._dbSync = PouchDB.sync(dbKey, `${this._syncUrl}/${dbKey}`, {
@@ -207,19 +210,6 @@ class Storage {
   //
   //   return `${this._mnemonicHash}-${this._network}-${key}`
   // }
-
-  _generateKeys () {
-    if (!this._mnemonic || !this._network) {
-      return {}
-    }
-
-    const key = sha512(`${this._mnemonic}-${this._network}`)
-
-    return {
-      authKey: key.substr(0, 64),
-      encryptionKey: key.substr(64)
-    }
-  }
 
   // _canConstructUserKey () {
   //   return !!this._mnemonic && !!this._network

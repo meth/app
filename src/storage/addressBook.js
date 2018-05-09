@@ -1,10 +1,10 @@
 import Database from './database'
 
 export default class AddressBook extends Database {
-  constructor (store, authKey, encryptionKey) {
+  constructor (store, networkId, authKey, encryptionKey) {
     super('addressBook', {
       storeInject: store.actions.injectAddressBook,
-      authKey,
+      authKey: `${authKey}-${networkId}`,
       encryptionKey
     })
   }

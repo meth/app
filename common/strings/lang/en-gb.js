@@ -161,7 +161,7 @@ module.exports = {
         areYouSureYouWantToDelete: 'Are you sure you want to remove this label?'
       },
       editToken: {
-        nameFieldLabel: 'Name',
+        nameFieldLabel: 'Description',
         nameInputPlaceholder: 'e.g. My token',
         symbolFieldLabel: 'Symbol',
         symbolInputPlaceholder: 'e.g. SNT',

@@ -21,6 +21,10 @@ export default _.memoize(state => {
       error: {
         ...baseStyle,
         backgroundColor: `$form_textInput_error_backgroundColor`
+      },
+      disabled: {
+        ...baseStyle,
+        backgroundColor: `$form_textInput_disabled_backgroundColor`
       }
     }),
     placeholderTextColor: value(`$form_textInput_${state}_placeholderTextColor`)

@@ -1,10 +1,10 @@
 import Database from './database'
 
 export default class Transactions extends Database {
-  constructor (store, authKey, encryptionKey) {
+  constructor (store, networkId, authKey, encryptionKey) {
     super('transactions', {
       storeInject: store.actions.injectTransactionHistory,
-      authKey,
+      authKey: `${authKey}-${networkId}`,
       encryptionKey
     })
   }

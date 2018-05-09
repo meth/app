@@ -82,6 +82,20 @@ export default class EditToken extends PureComponent {
           validate={this.validate}
         >
           <Form.Field
+            name='symbol'
+            label={t('modal.editToken.symbolFieldLabel')}
+            style={styles.field}
+            labelStyle={formStyles.label}
+            labelTextStyle={formStyles.labelText}
+          >
+            <TextInput
+              disabled={!!updatingToken}
+              value={symbol}
+              style={styles.textInput}
+              placeholder={t('modal.editToken.symbolInputPlaceholder')}
+            />
+          </Form.Field>
+          <Form.Field
             name='name'
             label={t('modal.editToken.nameFieldLabel')}
             style={styles.field}
@@ -92,19 +106,6 @@ export default class EditToken extends PureComponent {
               value={name}
               style={styles.textInput}
               placeholder={t('modal.editToken.nameInputPlaceholder')}
-            />
-          </Form.Field>
-          <Form.Field
-            name='symbol'
-            label={t('modal.editToken.symbolFieldLabel')}
-            style={styles.field}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-          >
-            <TextInput
-              value={symbol}
-              style={styles.textInput}
-              placeholder={t('modal.editToken.symbolInputPlaceholder')}
             />
           </Form.Field>
           <Form.Field

@@ -96,7 +96,9 @@ export default class Database {
 
     const { rows } = await this._db.allDocs()
 
-    const decrypted = await Promise.all(rows.map(({ doc: { data } }) => this._decrypt(data)))
+    const decrypted = await Promise.all(
+      rows.map(({ doc: { data } }) => this._decrypt(data))
+    )
 
     this._storeInject(decrypted.filter(d => !!d))
   }

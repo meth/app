@@ -13,6 +13,7 @@ export default class CustomTextInput extends PureComponent {
   render () {
     const {
       value,
+      disabled,
       onChange,
       onSubmit,
       error,
@@ -24,9 +25,14 @@ export default class CustomTextInput extends PureComponent {
 
     const { styles, placeholderTextColor } = createStyles(fieldState)
 
-    const inputStyle = (error)
-      ? [ styles.error ].concat(style)
-      : [ styles.normal ].concat(style)
+    let inputStyle
+    if (disabled) {
+      inputStyle = [ styles.disabled ].concat(style)
+    } else if (error) {
+      inputStyle = [ styles.error ].concat(style)
+    } else {
+      inputStyle = [ styles.normal ].concat(style)
+    }
 
     return (
       <NativeTextInput
@@ -34,6 +40,7 @@ export default class CustomTextInput extends PureComponent {
         autoCorrect={false}
         autoFocus={false}
         {...props}
+        disabled={disabled}
         value={value}
         style={inputStyle}
         ref={this._onRef}

@@ -1,10 +1,10 @@
 import Database from './database'
 
 export default class CustomTokens extends Database {
-  constructor (store, authKey, encryptionKey) {
+  constructor (store, networkId, authKey, encryptionKey) {
     super('customTokens', {
       storeInject: store.actions.injectCustomTokens,
-      authKey,
+      authKey: `${authKey}-${networkId}`,
       encryptionKey
     })
   }

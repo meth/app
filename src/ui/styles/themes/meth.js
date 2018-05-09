@@ -265,6 +265,9 @@ export default {
       },
       error: {
         backgroundColor: colorYellowLight
+      },
+      disabled: {
+        backgroundColor: colorGray
       }
     },
     picker: {
