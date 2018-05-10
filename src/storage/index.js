@@ -60,8 +60,10 @@ class Storage {
   }
 
   shutdownDatabases () {
+    log.info('Shutdown databases ...')
+
     Object.keys(this._db).forEach(dbKey => {
-      this._db[dbKey].destroy()
+      this._db[dbKey].shutdown()
     })
 
     this._db = {}
@@ -77,6 +79,8 @@ class Storage {
       return
     }
 
+    log.info('Setup databases ...')
+
     const key = sha512(this._mnemonic)
     const authKey = key.substr(0, 64)
     const encryptionKey = key.substr(64)
@@ -88,23 +92,6 @@ class Storage {
       addressBook: new AddressBook(...dbParams),
       customTokens: new CustomTokens(...dbParams)
     }
-
-    // this._dbSync = PouchDB.sync(dbKey, `${this._syncUrl}/${dbKey}`, {
-    //   live: true,
-    //   retry: true
-    // }).on('change', info => {
-    //   log.debug('db sync: change', info)
-    // }).on('paused', err => {
-    //   console.log('replication paused')
-    // }).on('active', () => {
-    //   console.log('replication resumed')
-    // }).on('denied', err => {
-    //   console.log('replication denied')
-    // }).on('complete', info => {
-    //   console.log('replication complete')
-    // }).on('error', err => {
-    //   console.log('replication error', err)
-    // })
   }
 
   /**
@@ -113,37 +100,6 @@ class Storage {
   loadAppData () {
     this._loadlastConnectedNodeId()
   }
-
-  /**
-   * Load user data (call this once password and network has been set)
-   */
-  // loadUserData () {
-  //   this._loadUserData('addressBook', this._store.actions.injectAddressBook)
-  //   this._loadUserData('bookmarks', this._store.actions.injectBookmarks)
-  //   this._loadUserData(
-  //     'dappPermissions',
-  //     this._store.actions.injectDappPermissions
-  //   )
-  //   this._loadUserData('customTokens', this._store.actions.injectCustomTokens)
-  //   this._loadUserData(
-  //     'transactionHistory',
-  //     this._store.actions.injectTransactionHistory
-  //   )
-  // }
-
-  // async _loadUserData (key, onSuccess) {
-  //   if (!this._canConstructUserKey()) {
-  //     return
-  //   }
-  //
-  //   log.info(`Load ${key} ...`)
-  //
-  //   const data = await this._load(this._userKey(key))
-  //
-  //   if (data) {
-  //     onSuccess(data)
-  //   }
-  // }
 
   async _loadlastConnectedNodeId () {
     log.info('Load last connected node id ...')
@@ -154,31 +110,7 @@ class Storage {
       this._store.actions.injectLastConnectedNodeId(data)
     }
   }
-  //
-  // async saveTransactionHistory (data) {
-  //   log.debug('Save transaction history ...', data)
-  //
-  //   await this._save(this._userKey('transactionHistory'), data)
-  // }
-  //
-  // async saveDappPermissions (data) {
-  //   log.debug('Save dapp permissions ...', data)
-  //
-  //   await this._save(this._userKey('dappPermissions'), data)
-  // }
-  //
-  // async saveAddressBook (data) {
-  //   log.debug('Save address book ...', data)
-  //
-  //   await this._save(this._userKey('addressBook'), data)
-  // }
-  //
-  // async saveCustomTokens (data) {
-  //   log.debug('Save custom tokens ...', data)
-  //
-  //   await this._save(this._userKey('customTokens'), data)
-  // }
-  //
+
   async saveLastConnectedNodeId (id) {
     log.debug('Save last connected node id ...', id)
 
@@ -202,26 +134,6 @@ class Storage {
 
     return AsyncStorage.setItem(key, JSON.stringify(value))
   }
-
-  // _userKey (key) {
-  //   if (!this._canConstructUserKey()) {
-  //     log.throw('Mnemonic and network need to be set')
-  //   }
-  //
-  //   return `${this._mnemonicHash}-${this._network}-${key}`
-  // }
-
-  // _canConstructUserKey () {
-  //   return !!this._mnemonic && !!this._network
-  // }
-
-  // _dbKey (dbName) {
-  //   if (!this._canConstructUserKey()) {
-  //     return null
-  //   }
-  //
-  //   return `${this._mnemonicHash}-${this._network}-${dbName}`
-  // }
 }
 
 export default new Storage()

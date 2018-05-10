@@ -25,7 +25,7 @@ if (!config || config.mode !== mode) {
   config = { mode }
 
   if ('production' === mode) {
-    config.backend = 'https://sync.meth-browser.com'
+    config.backend = 'https://meth.app/db'
   }
 
   fs.writeFileSync(FP, JSON.stringify(config, null, 2))

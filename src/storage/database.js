@@ -1,28 +1,80 @@
 import PouchDB from 'pouchdb-core'
 import PouchDBAsyncStorageAdapter from 'pouchdb-adapter-asyncstorage'
+import PouchDBHttpAdapter from 'pouchdb-adapter-http'
+import PouchDBReplication from 'pouchdb-replication'
 
 import logger from '../logger'
 import { sha256, encrypt, decrypt } from '../utils/crypto'
+import { getBackendUrl } from '../config'
 
+PouchDB.plugin(PouchDBReplication)
+PouchDB.plugin(PouchDBHttpAdapter)
 PouchDBAsyncStorageAdapter(PouchDB)
 
 export default class Database {
   constructor (dbName, { storeInject, authKey, encryptionKey }) {
     this._storeInject = storeInject
     this._encryptionKey = encryptionKey
-    this._dbName = `${authKey}-${dbName}`
+    this._dbName = `${authKey}-${dbName}`.toLowerCase() /* replication requires lowercase db names */
     this._db = new PouchDB(this._dbName, { adapter: 'asyncstorage' })
     this._log = logger.create(`db-${dbName}`)
 
     this._log.info(`Setting up: ${this._dbName}`)
 
     this._reload()
+
+    this.startSync()
   }
 
-  async destroy () {
+  shutdown () {
+    this.stopSync()
+  }
+
+  stopSync () {
     if (this._sync) {
+      this._log.info('Stop sync ...')
+
       this._sync.cancel()
     }
+  }
+
+  startSync () {
+    this.stopSync()
+
+    this._log.info('Start sync ...')
+
+    const backendUrl = `${getBackendUrl()}/${this._dbName}`
+
+    this._db.replicate.from(backendUrl)
+      .on('error', this._onReplicationError)
+      .on('complete', () => {
+        this._sync = PouchDB.sync(this._dbName, backendUrl, {
+          live: true,
+          retry: true,
+          batch_size: 20
+        })
+          .on('error', this._onReplicationError)
+          .on('change', ({ direction }) => {
+            if ('pull' === direction) {
+              this._log.debug('replication pull')
+              this._reload()
+            } else {
+              this._log.debug('replication push')
+            }
+          })
+          .on('paused', () => {
+            this._log.trace('replication paused')
+          })
+          .on('active', () => {
+            this._log.trace('replication resumed')
+          })
+          .on('denied', err => {
+            this._log.warn('replication denied', err)
+          })
+          .on('complete', () => {
+            this._log.debug('replication complete')
+          })
+      })
   }
 
   async loadAll () {
@@ -101,5 +153,9 @@ export default class Database {
     )
 
     this._storeInject(decrypted.filter(d => !!d))
+  }
+
+  _onReplicationError = err => {
+    this._log.warn('replication error', err)
   }
 }

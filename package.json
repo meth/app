@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meth-project/meth-browser.git"
+    "url": "git+https://github.com/meth-browser/app.git"
   },
   "keywords": [
     "ethereum",
@@ -47,9 +47,9 @@
   ],
   "license": "AGPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/meth-project/meth-browser/issues"
+    "url": "https://github.com/meth-browser/app/issues"
   },
-  "homepage": "https://github.com/meth-project/meth-browser#readme",
+  "homepage": "https://github.com/meth-browser/app#readme",
   "dependencies": {
     "chalk": "^2.0.1",
     "electron-devtools-installer": "^2.2.0",
@@ -115,7 +115,9 @@
     "lodash-webpack-plugin": "^0.11.4",
     "logarama": "^3.2.0",
     "pouchdb-adapter-asyncstorage": "^6.4.1",
+    "pouchdb-adapter-http": "^6.4.3",
     "pouchdb-core": "^6.4.3",
+    "pouchdb-replication": "^6.4.3",
     "prettier-miscellaneous": "^1.5.3",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.0",

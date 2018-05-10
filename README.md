@@ -75,7 +75,7 @@ $ "/path/to/meth-browser/node_modules/.bin/solidarity"
 
 Run `yarn setup:dev` to generate `appConfig.json`. Then edit the file and enter the
 
-URL for your dev deployment of the [Meth backend sync server](https://github.com/meth-browser/server):
+URL for your dev deployment of the [Meth backend](https://github.com/meth-browser/server). For example:
 
 ```js
 {
@@ -84,9 +84,9 @@ URL for your dev deployment of the [Meth backend sync server](https://github.com
 }
 ```
 
-**Geth development chain**
+**Private Ethereum chain**
 
-Start a local Geth private network. We recommend using [Ganache](https://github.com/trufflesuite/ganache).
+Start a local private Ethereum blockchain. We recommend using [Ganache](https://github.com/trufflesuite/ganache).
 
 **Electron desktop app**
 
