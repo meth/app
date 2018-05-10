@@ -14,22 +14,21 @@ const text = {
   textAlign: 'center'
 }
 
-export default _.memoize(({ type = 'default', disabled, hovering = false }) => {
+export default _.memoize(({ type = 'default', disabled, buttonState = 'default' }) => {
   const subtype = `${type}_${disabled ? 'disabled' : 'enabled'}`
-  const state = hovering ? 'hover' : 'default'
 
   return create({
     // $outline: 1,
     box: {
       ...box,
-      borderColor: `$button_${subtype}_${state}_borderColor`,
-      backgroundColor: `$button_${subtype}_${state}_backgroundColor`,
-      opacity: () => value(`$button_${subtype}_${state}_opacity`, 1)
+      borderColor: `$button_${subtype}_${buttonState}_borderColor`,
+      backgroundColor: `$button_${subtype}_${buttonState}_backgroundColor`,
+      opacity: () => value(`$button_${subtype}_${buttonState}_opacity`, 1)
     },
     text: {
       ...text,
-      color: `$button_${subtype}_${state}_textColor`,
-      opacity: () => value(`$button_${subtype}_${state}_opacity`, 1)
+      color: `$button_${subtype}_${buttonState}_textColor`,
+      opacity: () => value(`$button_${subtype}_${buttonState}_opacity`, 1)
     }
   })
 })

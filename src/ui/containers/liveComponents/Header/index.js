@@ -143,7 +143,9 @@ export default class Header extends PureComponent {
   }
 
   _getButtonStateOverride (navState, route) {
-    return (navState.routeName === route.routeName) ? { hovering: true } : null
+    return (navState.routeName === route.routeName) ? {
+      buttonState: 'active'
+    } : null
   }
 
   showConnectionInfo = () => {

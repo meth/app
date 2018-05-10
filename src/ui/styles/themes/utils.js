@@ -4,7 +4,8 @@ export const generateButtonStyles = props => ({
   spinnerColor: props.spinnerColor,
   enabled: {
     default: props.default,
-    hover: props.hover
+    hover: props.hover,
+    active: props.active
   },
   disabled: {
     default: {

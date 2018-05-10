@@ -32,19 +32,19 @@ export default class Button extends PureComponent {
   }
 
   state = {
-    hovering: false
+    buttonState: 'default'
   }
 
   render () {
     const { disabled, title, tooltip, type, style, textStyle, onLayout
       , stateOverride, children } = this.props
 
-    let { hovering } = this.state
-    if (_.get(stateOverride, 'hovering') !== undefined) {
-      ({ hovering } = stateOverride)
+    let { buttonState } = this.state
+    if (_.get(stateOverride, 'buttonState') !== undefined) {
+      ({ buttonState } = stateOverride)
     }
 
-    const styles = createStyles({ type, disabled, hovering })
+    const styles = createStyles({ type, disabled, buttonState })
 
     const content = React.Children.count(children) ? (
       React.Children.map(children, child => {
@@ -85,7 +85,7 @@ export default class Button extends PureComponent {
       onStartHover()
     }
 
-    this.setState({ hovering: true })
+    this.setState({ buttonState: 'hover' })
   }
 
   onEndHover = () => {
@@ -95,7 +95,7 @@ export default class Button extends PureComponent {
       onEndHover()
     }
 
-    this.setState({ hovering: false })
+    this.setState({ buttonState: 'default' })
   }
 
   onPress = e => {

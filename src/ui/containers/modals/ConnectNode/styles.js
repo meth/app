@@ -19,8 +19,8 @@ export default create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
-  picker: {
-    marginBottom: 20
+  formWrapper: {
+    marginBottom: 10
   },
   pickerButton: {
     width: 300

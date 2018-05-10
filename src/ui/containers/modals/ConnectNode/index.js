@@ -10,6 +10,7 @@ import ProgressButton from '../../../components/ProgressButton'
 import AlertBox from '../../../components/AlertBox'
 import ChainExplorerIconButton from '../../liveComponents/ChainExplorerIconButton'
 import ErrorBox from '../../../components/ErrorBox'
+import FormWrapper from '../../../components/FormWrapper'
 import Modal from '../../../components/Modal'
 import Loading from '../../../components/Loading'
 import Picker from '../../../components/Picker'
@@ -131,14 +132,15 @@ export default class ConnectNode extends CachePureComponent {
     return (
       <View style={styles.form}>
         {title}
-        <Picker
-          style={styles.picker}
-          button={{ style: styles.pickerButton }}
-          options={options}
-          selected={selected.value}
-          onChange={this.onChange}
-          renderOption={this._renderPickerOption}
-        />
+        <FormWrapper style={styles.formWrapper}>
+          <Picker
+            button={{ style: styles.pickerButton }}
+            options={options}
+            selected={selected.value}
+            onChange={this.onChange}
+            renderOption={this._renderPickerOption}
+          />
+        </FormWrapper>
         <AlertBox
           style={styles.desc}
           type='info'

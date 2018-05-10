@@ -5,8 +5,8 @@ const introText = {
   fontSize: '1rem',
   color: '$content_textColor',
   textAlign: 'center',
-  maxWidth: '70%',
-  marginBottom: 20
+  maxWidth: '75%',
+  marginBottom: 25
 }
 
 export default create({
@@ -25,15 +25,17 @@ export default create({
     ...introText,
     ...fontMaker({ weight: 'Bold' }),
     fontSize: '0.8rem',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    width: '60%'
   },
   mnemonic: {
-    marginTop: 20,
     maxWidth: '90%'
   },
   nextButton: {
-    marginTop: 40,
-    marginBottom: 30
+    marginTop: 40
+  },
+  loginButton: {
+    marginTop: 40
   },
   loginButtonText: {
     fontSize: '0.65rem'

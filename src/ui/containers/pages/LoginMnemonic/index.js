@@ -8,6 +8,7 @@ import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import ErrorBox from '../../../components/ErrorBox'
+import FormWrapper from '../../../components/FormWrapper'
 import ProgressButton from '../../../components/ProgressButton'
 import Button from '../../../components/Button'
 import TextInput from '../../../components/TextInput'
@@ -30,14 +31,15 @@ export default class LoginMnemonic extends PureComponent {
     return (
       <Layout contentStyle={styles.layoutContent}>
         <Text style={styles.introText}>{t('mnemonic.enterYourMnemonic')}</Text>
-        <TextInput
-          style={styles.textInput}
-          onChange={this.onChange}
-          defaultValue={this.state.mnemonic}
-          placeholder={t('mnemonic.inputPlaceholderText')}
-          onSubmitEditing={this.onSubmit}
-        />
-        {error ? <ErrorBox error={error} /> : null}
+        <FormWrapper style={styles.formWrapper}>
+          <TextInput
+            onChange={this.onChange}
+            defaultValue={this.state.mnemonic}
+            placeholder={t('mnemonic.inputPlaceholderText')}
+            onSubmitEditing={this.onSubmit}
+          />
+          {error ? <ErrorBox error={error} /> : null}
+        </FormWrapper>
         <ProgressButton
           showInProgress={submitting}
           style={styles.nextButton}

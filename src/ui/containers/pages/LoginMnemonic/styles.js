@@ -21,15 +21,15 @@ export default create({
     ...fontMaker({ weight: 'Light' }),
     marginBottom: 40
   },
-  textInput: {
+  formWrapper: {
     width: '70%'
   },
   nextButton: {
     marginTop: 40,
-    marginBottom: 40
+    marginBottom: 70
   },
   createPasswordButtonText: {
-    fontSize: '0.65rem'
+    fontSize: '0.6rem'
   },
 
   ...whenWidthVerySmall({

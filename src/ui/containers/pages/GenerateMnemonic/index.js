@@ -27,17 +27,21 @@ export default class GenerateMnemonic extends PureComponent {
   }
 
   render () {
-    const { error, mnemonic } = this.state
+    const { error, mnemonic, revealed } = this.state
 
     return (
       <Layout contentStyle={styles.layoutContent}>
         <Text style={styles.intro1Text}>{t('mnemonic.intro1')}</Text>
         <Text style={styles.intro2Text}>{t('mnemonic.intro2')}</Text>
         {(!mnemonic) ? <Loading /> : (
-          <MnemonicDisplay mnemonic={mnemonic} style={styles.mnemonic} />
+          <MnemonicDisplay
+            mnemonic={mnemonic}
+            style={styles.mnemonic}
+            onPress={this._onPressRevealMnemonic}
+          />
         )}
         {error ? <ErrorBox error={error} /> : null}
-        {(!mnemonic) ? null : (
+        {(!mnemonic || !revealed) ? null : (
           <Button
             style={styles.nextButton}
             onPress={this.onPressConfirm}
@@ -45,6 +49,7 @@ export default class GenerateMnemonic extends PureComponent {
           />
         )}
         <Button
+          style={styles.loginButton}
           textStyle={styles.loginButtonText}
           onPress={this.onPressLogin}
           title={t('linkButton.alreadyHavePasswordLogin')} />
@@ -64,5 +69,11 @@ export default class GenerateMnemonic extends PureComponent {
     const { mnemonic } = this.state
 
     navPush(routes.ConfirmNewMnemonic.path, { mnemonic })
+  }
+
+  _onPressRevealMnemonic = () => {
+    this.setState({
+      revealed: true
+    })
   }
 }

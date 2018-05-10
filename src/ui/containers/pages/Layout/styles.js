@@ -3,6 +3,7 @@ import { create, fontMaker } from '../../../styles'
 export default create({
   container: {
     flex: 1,
+    backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch'

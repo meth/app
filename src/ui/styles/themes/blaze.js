@@ -1,58 +1,175 @@
-import Color from 'color'
+import { generateButtonStyles } from './utils'
+import {
+  colorTransparent,
+  colorRed,
+  colorOrange,
+  colorGreen,
+  colorYellowLight,
+  colorBlack,
+  colorWhite,
+  colorGrayLightest,
+  colorGrayLight,
+  colorGray,
+  colorGrayDark,
+  colorGrayDarker,
+  colorGrayDarkest,
+  toRGBA,
+  lighten
+} from '../../../utils/colors'
+
+const colorHoneyDew = '#f0fff1'
+const colorTeaGreen = '#c2f8cb'
+const colorMagicMint = '#b3e9c7'
+
+const colorViolet = '#5603AD'
+const colorVioletLight = lighten(colorViolet, 0.5)
+const colorUbe = '#8367C7'
 
 export const ROOT_FONT_SIZE = 18
-
-const color1 = '#2c3e50'
-const color2 = '#2980b9'
-const color3 = '#3498db'
-const color4 = '#bedb39'
-const color5 = '#fd7400'
-const color6 = '#1F8A70'
-const color7 = '#FFE11A'
-
-const colorBlack = '#000'
-const colorWhite = '#fff'
-const colorLightGray = '#ccc'
-const colorGray = '#9a9a9a'
-const colorDarkGray = '#777'
-
-/* https://color.adobe.com/Copy-of-Vitamin-C-color-theme-10071328/edit/?copy=true&base=2&rule=Custom&selected=4&name=Copy%20of%20Copy%20of%20Vitamin%20C&mode=rgb&rgbvalues=0,0.2627450980392157,0.34509803921568627,0.12156862745098039,0.5411764705882353,0.4392156862745098,0.7450980392156863,0.8588235294117647,0.2235294117647059,1,0.8823529411764706,0.10196078431372549,0.9921568627450981,0.4549019607843137,0&swatchOrder=0,1,2,3,4 */
-
-const toRgbWithAlpha = (color, opacity) => (
-  `rgba(${
-    Color(color && color.hex ? color.hex() : color).rgb().array().join(', ')
-  }, ${opacity})`
-)
-
-
-const buttonDisabledStyles = {
-  default: {
-    borderColor: colorLightGray,
-    backgroundColor: colorLightGray,
-    textColor: colorGray
-  },
-  hover: {
-    borderColor: colorLightGray,
-    backgroundColor: colorLightGray,
-    textColor: colorGray
-  }
-}
-
 
 export default {
   rem: ROOT_FONT_SIZE,
   header: {
-    backgroundColor: color1,
-    textColor: colorLightGray,
-    dividerColor: Color(color1).lighten(0.5).hex()
+    backgroundColor: colorWhite,
+    textColor: colorGrayDarker
   },
-  startScreen: {
-    backgroundColor: color1,
-    textColor: colorWhite
+  loading: {
+    spinnerColor: colorViolet
+  },
+  content: {
+    backgroundColor: colorWhite,
+    textColor: colorGrayDarker,
+    borderTop: {
+      color: colorGrayDarker
+    },
+    title: {
+      textColor: colorGrayDarker
+    }
+  },
+  tabView: {
+    backgroundColor: colorBlack,
+    indicatorColor: colorGray,
+    tab: {
+      backgroundColor: colorGrayDark
+    },
+    label: {
+      textColor: colorWhite
+    }
+  },
+  addressBook: {
+    address: {
+      textColor: colorWhite
+    },
+    label: {
+      textColor: colorGrayDark
+    }
+  },
+  transactionBlock: {
+    id: {
+      textColor: colorWhite
+    },
+    icon: {
+      textColor: colorGray
+    },
+    fromTo: {
+      textColor: colorGrayDark
+    },
+    type: {
+      textColor: colorGray
+    },
+    details: {
+      textColor: colorGrayDarker
+    },
+    block: {
+      textColor: colorGrayDark
+    },
+    status: {
+      accepted: {
+        textColor: colorGreen
+      },
+      rejected: {
+        textColor: colorRed
+      }
+    }
+  },
+  balance: {
+    amount: {
+      textColor: colorWhite
+    },
+    unit: {
+      textColor: colorGrayDark
+    }
+  },
+  wallet: {
+    card: {
+      active: {
+        address: {
+          textColor: colorGrayLight
+        },
+        label: {
+          textColor: colorGrayDark
+        },
+        amount: {
+          textColor: colorWhite
+        },
+        unit: {
+          textColor: colorGray
+        },
+        borderBottomColor: colorBlack
+      },
+      inactive: {
+        address: {
+          textColor: colorGrayDark
+        },
+        label: {
+          textColor: colorGrayDarkest
+        },
+        amount: {
+          textColor: colorGrayDarker
+        },
+        unit: {
+          textColor: colorGrayDarker
+        },
+        borderBottomColor: colorViolet
+      }
+    },
+    tabBar: {
+      backgroundColor: colorTransparent,
+      item: {
+        inactive: {
+          backgroundColor: colorTransparent,
+          textColor: colorViolet
+        },
+        active: {
+          backgroundColor: colorViolet,
+          textColor: colorWhite
+        }
+      }
+    },
+    tokens: {
+      symbol: {
+        textColor: colorGray
+      },
+      name: {
+        textColor: colorGrayDarker
+      },
+      balance: {
+        textColor: colorGrayLight
+      },
+      tableMessage: {
+        textColor: colorGray
+      }
+    }
+  },
+  contracts: {
+    params: {
+      borderColor: colorGrayDark,
+      backgroundColor: colorBlack
+    }
   },
   browser: {
     tabBar: {
-      backgroundColor: color2,
+      backgroundColor: colorGrayLight,
       tab: {
         inactive: {
           borderColor: '#999',
@@ -70,91 +187,125 @@ export default {
   },
   alert: {
     error: {
-      backgroundColor: color5,
-      textColor: '#fff'
+      backgroundColor: colorRed,
+      textColor: colorWhite
     },
     info: {
-      backgroundColor: '#aaf',
-      textColor: '#fff'
+      backgroundColor: colorMagicMint,
+      textColor: colorGrayDarker
     }
+  },
+  blockOfText: {
+    backgroundColor: colorGrayDarker,
+    textColor: '#fff'
   },
   log: {
     unseenAlert: {
-      backgroundColor: color2,
+      backgroundColor: colorGreen,
       textColor: colorWhite,
-      metaTextColor: Color(color2).lighten(0.2).hex()
+      metaTextColor: lighten(colorGreen, 0.4)
     },
     event: {
-      backgroundColor: colorWhite,
-      textColor: colorBlack,
-      metaTextColor: colorLightGray,
-      warnColor: color7,
-      errorColor: color5,
-      alertColor: color2
+      backgroundColor: colorBlack,
+      textColor: colorWhite,
+      metaTextColor: colorGrayLight,
+      warnColor: colorYellowLight,
+      errorColor: colorOrange,
+      alertColor: colorGreen
     }
   },
   modal: {
     content: {
-      backgroundColor: color1,
-      textColor: colorWhite
+      backgroundColor: colorWhite,
+      textColor: colorGrayDarker
     },
     overlay: {
-      backgroundColor: toRgbWithAlpha(colorWhite, 0.8)
+      backgroundColor: toRGBA(colorBlack, 0.6)
     },
     alert: {
       overlay: {
-        backgroundColor: toRgbWithAlpha(colorBlack, 0.8)
+        backgroundColor: toRGBA(colorBlack, 0.75)
       }
+    },
+    confirm: {
+      overlay: {
+        backgroundColor: toRGBA(colorBlack, 0.75)
+      },
+      backgroundColor: colorGrayDarkest,
+      textColor: colorWhite
     },
     log: {
       overlay: {
-        backgroundColor: toRgbWithAlpha(colorWhite, 0.8)
+        backgroundColor: toRGBA(colorWhite, 0.4)
+      },
+      content: {
+        dividerColor: colorGrayDarker
       }
     },
     connectNode: {
       darkTextColor: colorGray
+    },
+    editAddress: {
+      metaTextColor: colorGray
+    },
+    sendTransaction: {
+      txId: {
+        textColor: colorGrayLight
+      }
     }
   },
   form: {
+    wrapper: {
+      backgroundColor: colorHoneyDew
+    },
     textInput: {
       blurred: {
-        borderColor: 'transparent',
+        borderColor: colorGrayDarker,
         backgroundColor: colorWhite,
-        textColor: colorBlack,
+        textColor: colorGrayDarker,
         placeholderTextColor: colorGray
       },
       focussed: {
-        borderColor: 'transparent',
+        borderColor: colorBlack,
         backgroundColor: colorWhite,
         textColor: colorBlack,
         placeholderTextColor: colorGray
+      },
+      error: {
+        backgroundColor: colorYellowLight
+      },
+      disabled: {
+        backgroundColor: colorGray
       }
     },
     picker: {
-      borderColor: color1,
+      borderColor: colorBlack,
       backgroundColor: colorWhite,
-      hoverBackgroundColor: colorLightGray,
-      textColor: color1
+      hoverBackgroundColor: colorGrayLight,
+      textColor: colorBlack,
+      category: {
+        textColor: colorGray
+      }
     },
     section: {
       layout: {
-        borderColor: colorLightGray
+        borderColor: colorGrayLight
       },
       title: {
-        textColor: colorLightGray
+        textColor: colorGrayLight
       }
     },
     switch: {
       on: {
-        trackColor: color2,
+        trackColor: colorGrayDarker,
         thumbColor: colorWhite,
         label: {
           textColor: colorWhite
         }
       },
       off: {
-        trackColor: colorLightGray,
-        thumbColor: colorDarkGray,
+        trackColor: colorGrayLight,
+        thumbColor: colorGrayDark,
         label: {
           textColor: colorGray
         }
@@ -163,8 +314,8 @@ export default {
     checkbox: {
       on: {
         box: {
-          backgroundColor: color2,
-          borderColor: color2,
+          backgroundColor: colorGray,
+          borderColor: colorGray,
           tickIcon: {
             color: colorWhite,
             opacity: 1
@@ -190,103 +341,131 @@ export default {
     }
   },
   button: {
-    picker: {
-      enabled: {
-        default: {
-          borderColor: colorWhite,
-          backgroundColor: color1,
-          textColor: colorWhite
-        },
-        hover: {
-          borderColor: colorWhite,
-          backgroundColor: color1,
-          textColor: colorWhite
-        }
+    picker: generateButtonStyles({
+      default: {
+        borderColor: colorGrayDark,
+        backgroundColor: colorWhite,
+        textColor: colorGrayDarker
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    mask: {
-      enabled: {
-        default: {
-          borderColor: color6,
-          backgroundColor: toRgbWithAlpha(color6, 0.97),
-          textColor: colorWhite
-        },
-        hover: {
-          borderColor: color6,
-          backgroundColor: toRgbWithAlpha(Color(color6).lighten(0.2), 0.97),
-          textColor: colorWhite
-        }
+      hover: {
+        borderColor: colorGrayDarker,
+        backgroundColor: colorWhite,
+        textColor: colorGrayDarker
+      }
+    }),
+    mask: generateButtonStyles({
+      default: {
+        borderColor: colorViolet,
+        backgroundColor: toRGBA(colorViolet, 0.97),
+        textColor: colorWhite
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    browserTab: {
-      enabled: {
-        default: {
-          borderColor: 'transparent',
-          backgroundColor: 'transparent',
-          textColor: colorGray
-        },
-        hover: {
-          borderColor: 'transparent',
-          backgroundColor: colorGray,
-          textColor: colorLightGray
-        }
+      hover: {
+        borderColor: colorViolet,
+        backgroundColor: colorVioletLight,
+        textColor: colorWhite
+      }
+    }),
+    walletCard: generateButtonStyles({
+      default: {
+        borderColor: colorUbe,
+        backgroundColor: colorTransparent,
+        textColor: colorUbe
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    browserPanel: {
-      enabled: {
-        default: {
-          borderColor: 'transparent',
-          backgroundColor: 'transparent',
-          textColor: color3
-        },
-        hover: {
-          borderColor: 'transparent',
-          backgroundColor: color3,
-          textColor: color2
-        }
+      hover: {
+        borderColor: colorViolet,
+        backgroundColor: colorTransparent,
+        textColor: colorViolet
+      }
+    }),
+    browserTab: generateButtonStyles({
+      default: {
+        borderColor: 'transparent',
+        backgroundColor: 'transparent',
+        textColor: colorGray
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    header: {
-      enabled: {
-        default: {
-          borderColor: 'transparent',
-          backgroundColor: 'transparent',
-          textColor: colorGray
-        },
-        hover: {
-          borderColor: 'transparent',
-          backgroundColor: Color(color1).lighten(0.5).hex(),
-          textColor: colorWhite
-        }
+      hover: {
+        borderColor: 'transparent',
+        backgroundColor: colorGray,
+        textColor: colorGrayLight
+      }
+    }),
+    browserPanel: generateButtonStyles({
+      default: {
+        borderColor: 'transparent',
+        backgroundColor: 'transparent',
+        textColor: colorGrayLight
       },
-      disabled: { ...buttonDisabledStyles }
-    },
-    default: {
-      enabled: {
-        default: {
-          borderColor: color4,
-          backgroundColor: color4,
-          textColor: color1
-        },
-        hover: {
-          borderColor: color4,
-          backgroundColor: Color(color4).lighten(0.2).hex(),
-          textColor: color1
-        }
+      hover: {
+        borderColor: 'transparent',
+        backgroundColor: colorGrayLight,
+        textColor: colorGray
+      }
+    }),
+    header: generateButtonStyles({
+      default: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorViolet
       },
-      disabled: { ...buttonDisabledStyles }
-    }
+      hover: {
+        borderColor: colorTransparent,
+        backgroundColor: colorVioletLight,
+        textColor: colorWhite
+      },
+      active: {
+        borderColor: colorTransparent,
+        backgroundColor: colorViolet,
+        textColor: colorWhite
+      }
+    }),
+    tableRow: generateButtonStyles({
+      default: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorWhite
+      },
+      hover: {
+        borderColor: colorUbe,
+        backgroundColor: colorUbe,
+        textColor: colorWhite
+      }
+    }),
+    default: generateButtonStyles({
+      spinnerColor: colorWhite,
+      default: {
+        borderColor: colorViolet,
+        backgroundColor: colorViolet,
+        textColor: colorWhite
+      },
+      hover: {
+        borderColor: colorViolet,
+        backgroundColor: colorVioletLight,
+        textColor: colorWhite
+      }
+    })
   },
   mnemonic: {
     confirmationBox: {
-      backgroundColor: color7,
-      textColor: color1
+      topBorderColor: colorGrayDarker
     },
-    backgroundColor: color3,
-    textColor: colorWhite
+    backgroundColor: colorMagicMint,
+    textColor: colorBlack
+  },
+  table: {
+    default: {
+      header: {
+        backgroundColor: colorWhite,
+        textColor: colorGrayDark
+      },
+      rowOdd: {
+        backgroundColor: colorGrayLightest
+      },
+      rowEven: {
+        backgroundColor: colorGrayLight
+      },
+      column: {
+        textColor: colorGrayDark
+      }
+    }
   }
 }

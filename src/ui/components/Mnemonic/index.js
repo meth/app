@@ -137,7 +137,8 @@ export class MnemonicConfirmator extends CachePureComponent {
 export class MnemonicDisplay extends PureComponent {
   static propTypes = {
     mnemonic: PropTypes.string.isRequired,
-    style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
+    style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ]),
+    onPress: PropTypes.func
   }
 
   state = {
@@ -198,6 +199,12 @@ export class MnemonicDisplay extends PureComponent {
 
   onPressMask = () => {
     this.setState({ show: true })
+
+    const { onPress } = this.props
+
+    if (onPress) {
+      onPress()
+    }
   }
 
   _getWordsPerColumn () {

@@ -20,6 +20,7 @@ import formStyles from '../../../styles/forms'
 import Layout from '../Layout'
 import TitleText from '../../../components/TitleText'
 import AlertBox from '../../../components/AlertBox'
+import FormWrapper from '../../../components/FormWrapper'
 import ProgressButton from '../../../components/ProgressButton'
 import Loading from '../../../components/Loading'
 import Picker from '../../../components/Picker'
@@ -70,7 +71,7 @@ export default class AddressBook extends PureComponent {
     } = this.state
 
     return (
-      <View style={styles.container}>
+      <FormWrapper style={styles.container}>
         <View style={styles.field}>
           <Text style={formStyles.labelText}>{t('contracts.field.addressLabel')}</Text>
           <AddressTextInput
@@ -108,7 +109,7 @@ export default class AddressBook extends PureComponent {
         ) : null}
         {this._renderResults()}
         <ErrorBox error={error} style={styles.errorBox} />
-      </View>
+      </FormWrapper>
     )
   }
 
