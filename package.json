@@ -87,7 +87,7 @@
     "codecov": "^3.0.0",
     "color": "^2.0.0",
     "date-fns": "^1.29.0",
-    "electron": "1.8.2",
+    "electron": "1.8.4",
     "electron-forge": "electron-userland/electron-forge#8ffab0b44527bd274b0f0d646786fef55a2bfcf4",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.0",
