@@ -45,7 +45,8 @@ export default class Database {
 
     const backendUrl = `${getBackendUrl()}/${this._dbName}`
 
-    this._db.replicate.from(backendUrl)
+    this._db.replicate
+      .from(backendUrl)
       .on('error', this._onReplicationError)
       .on('complete', () => {
         this._sync = PouchDB.sync(this._dbName, backendUrl, {
