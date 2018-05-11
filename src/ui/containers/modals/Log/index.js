@@ -1,84 +1,51 @@
 import React, { PureComponent } from 'react'
-import { View, Text } from 'react-native'
 
-import { formatDate } from '../../../../utils/datetime'
 import { connectStore } from '../../../helpers/redux'
-import ScrollView from '../../../components/ScrollView'
+import TabView from '../../../components/TabView'
+import AlertsTab from './Alerts'
+import LogsTab from './Logs'
 import Modal from '../../../components/Modal'
-import { LEVELS } from '../../../../../common/constants/log'
+import { t } from '../../../../../common/strings'
 import styles from './styles'
 
-const { INFO, WARN, ERROR, ALERT } = LEVELS
-
-const LEVEL_TO_STYLE_MAP = {
-  [INFO]: styles.info,
-  [WARN]: styles.warn,
-  [ERROR]: styles.error,
-  [ALERT]: styles.alert
+const TAB = {
+  ALERTS: 'ALERTS',
+  LOG: 'LOG'
 }
+
+const TAB_ROUTES = [
+  { key: TAB.ALERTS, title: t('log.tab.alerts') },
+  { key: TAB.LOG, title: t('log.tab.log') }
+]
+
 
 @connectStore('modals', 'log')
 export default class Log extends PureComponent {
   render () {
-    const { getUnseenAlerts, getLogWithoutUnseenAlerts } = this.props.selectors
-
-    const unseenAlerts = [ ...getUnseenAlerts() ]
-    const log = [ ...getLogWithoutUnseenAlerts() ]
-
-    // want the items in reverse chrono order
-    unseenAlerts.reverse()
-    log.reverse()
-
     return (
-      <Modal overlayStyle={styles.overlay}
+      <Modal
+        contentStyle={styles.content}
         onPressCloseButton={this.close}
-        closeButtonStyle={styles.closeButton}>
-          <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.scrollContent}>
-            {this.renderAlerts(unseenAlerts)}
-            {this.renderLog(log)}
-          </ScrollView>
+        closeButtonStyle={styles.closeButton}
+      >
+        <TabView
+          routes={TAB_ROUTES}
+          initialIndex={0}
+          getScene={this._getTabScene}
+        />
       </Modal>
     )
   }
 
-  renderAlerts (events) {
-    return events.map(({ msg, ts }, index) => (
-      <View style={styles.unseenAlert} key={index}>
-        <Text style={styles.unseenAlertText}>
-          {msg}
-        </Text>
-        <Text style={styles.unseenAlertMetaText}>
-          {formatDate(ts)}
-        </Text>
-      </View>
-    ))
-  }
-
-  renderLog (events) {
-    return events.map(({ level, msg, ts, cat }, index) => (
-      <View style={styles.event} key={index}>
-        <View style={styles.eventMsg}>
-          {INFO === level ? null : (
-            <Text style={[ styles.eventLevelText, LEVEL_TO_STYLE_MAP[level] ]}>
-              [{level}]
-            </Text>
-          )}
-          <Text style={styles.eventMsgText}>
-            {msg}
-          </Text>
-        </View>
-        <View style={styles.eventMeta}>
-          {(!cat) ? null : (
-            <Text style={styles.eventMetaText}>
-              {cat}
-            </Text>
-          )}
-          <Text style={styles.eventMetaText}>
-            {formatDate(ts)}
-          </Text>
-        </View>
-      </View>
-    ))
+  _getTabScene = key => {
+    switch (key) {
+      case TAB.ALERTS:
+        return <AlertsTab />
+      case TAB.LOG:
+        return <LogsTab />
+      default:
+        return null
+    }
   }
 
   close = () => {

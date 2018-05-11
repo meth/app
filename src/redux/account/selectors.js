@@ -22,19 +22,16 @@ export const getAccounts = createSelector(
   _getAccountBalances,
   _getTokenBalances,
   _getAddressBook,
-  _getCustomTokens,
-  (balances, tokenBalances, addressBook, customTokens) => {
-    const customTokensArr = Object.keys(customTokens.toObject())
-
-    return Object.keys(balances).reduce((m, addr) => ({
+  (balances, tokenBalances, addressBook) => (
+    Object.keys(balances).reduce((m, addr) => ({
       ...m,
       [addr]: {
         balance: balances[addr],
         ...(addressBook[addr] ? { label: addressBook[addr].label } : {}),
-        tokens: _.pick(tokenBalances.get(addr).toObject(), customTokensArr)
+        tokens: tokenBalances.get(addr).toObject()
       }
     }), {})
-  }
+  )
 )
 
 export const getAddressBook = createSelector(

@@ -8,13 +8,15 @@ import {
   colorBlack,
   colorWhite,
   colorGrayLightest,
+  colorGrayLighter,
   colorGrayLight,
   colorGray,
   colorGrayDark,
   colorGrayDarker,
   colorGrayDarkest,
   toRGBA,
-  lighten
+  lighten,
+  darken
 } from '../../../utils/colors'
 
 const colorHoneyDew = '#f0fff1'
@@ -66,26 +68,26 @@ export default {
   },
   transactionBlock: {
     id: {
-      textColor: colorWhite
+      textColor: colorGrayDarkest
     },
     icon: {
-      textColor: colorGray
+      textColor: colorGrayDarker
     },
     fromTo: {
       textColor: colorGrayDark
     },
     type: {
-      textColor: colorGray
+      textColor: colorGrayDark
     },
     details: {
-      textColor: colorGrayDarker
+      textColor: colorGrayDark
     },
     block: {
-      textColor: colorGrayDark
+      textColor: colorGrayDarker
     },
     status: {
       accepted: {
-        textColor: colorGreen
+        textColor: darken(colorMagicMint, 0.5)
       },
       rejected: {
         textColor: colorRed
@@ -148,16 +150,16 @@ export default {
     },
     tokens: {
       symbol: {
-        textColor: colorGray
-      },
-      name: {
         textColor: colorGrayDarker
       },
+      name: {
+        textColor: colorGray
+      },
       balance: {
-        textColor: colorGrayLight
+        textColor: colorGrayDarker
       },
       tableMessage: {
-        textColor: colorGray
+        textColor: colorGrayDarker
       }
     }
   },
@@ -201,17 +203,17 @@ export default {
   },
   log: {
     unseenAlert: {
-      backgroundColor: colorGreen,
-      textColor: colorWhite,
-      metaTextColor: lighten(colorGreen, 0.4)
+      backgroundColor: colorMagicMint,
+      textColor: colorGrayDarkest,
+      metaTextColor: colorGray
     },
     event: {
-      backgroundColor: colorBlack,
-      textColor: colorWhite,
-      metaTextColor: colorGrayLight,
-      warnColor: colorYellowLight,
-      errorColor: colorOrange,
-      alertColor: colorGreen
+      backgroundColor: colorWhite,
+      textColor: colorGrayDarkest,
+      metaTextColor: colorGrayDark,
+      warnColor: colorOrange,
+      errorColor: colorRed,
+      alertColor: colorTeaGreen
     }
   },
   modal: {
@@ -242,9 +244,6 @@ export default {
         dividerColor: colorGrayDarker
       }
     },
-    connectNode: {
-      darkTextColor: colorGray
-    },
     editAddress: {
       metaTextColor: colorGray
     },
@@ -257,6 +256,9 @@ export default {
   form: {
     wrapper: {
       backgroundColor: colorHoneyDew
+    },
+    label: {
+      textColor: colorGrayDarker
     },
     textInput: {
       blurred: {
@@ -275,7 +277,7 @@ export default {
         backgroundColor: colorYellowLight
       },
       disabled: {
-        backgroundColor: colorGray
+        backgroundColor: colorGrayLight
       }
     },
     picker: {
@@ -401,7 +403,8 @@ export default {
         textColor: colorGray
       }
     }),
-    header: generateButtonStyles({
+    text: generateButtonStyles({
+      spinnerColor: colorViolet,
       default: {
         borderColor: colorTransparent,
         backgroundColor: colorTransparent,

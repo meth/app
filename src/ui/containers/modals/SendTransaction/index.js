@@ -68,9 +68,6 @@ export default class SendTransaction extends PureComponent {
           onIndexChange={this._onSelectedTabIndexChange}
           getScene={this._getTabScene}
           canJumpToTab={this._canJumpToTab}
-          tabBarStyle={styles.tabBar}
-          tabStyle={styles.tab}
-          labelTextStyle={styles.tabLabelText}
         />
       </Modal>
     )

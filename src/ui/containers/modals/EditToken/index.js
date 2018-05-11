@@ -12,7 +12,7 @@ import Modal from '../../../components/Modal'
 import ErrorBox from '../../../components/ErrorBox'
 import TextInput from '../../../components/TextInput'
 import AddressTextInput from '../../liveComponents/AddressTextInput'
-import IconText from '../../../components/IconText'
+import FormWrapper from '../../../components/FormWrapper'
 import ProgressButton from '../../../components/ProgressButton'
 import Button from '../../../components/Button'
 import TitleText from '../../../components/TitleText'
@@ -20,7 +20,7 @@ import AskUserConfirmModal from '../../../components/AskUserConfirmModal'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
 
-@connectStore('modals', 'account', 'node')
+@connectStore('modals', 'account')
 export default class EditToken extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
@@ -49,10 +49,6 @@ export default class EditToken extends PureComponent {
   render () {
     const { data: { symbol: updatingToken } } = this.props
 
-    const { getNodeConnection } = this.props.selectors
-
-    const network = _.get(getNodeConnection(), 'network.description')
-
     const { error, submitting, name, symbol, decimals, contractAddress } = this.state
 
     return (
@@ -64,77 +60,68 @@ export default class EditToken extends PureComponent {
           style={styles.titleText}
           text={t(`title.${updatingToken ? 'editToken' : 'addToken'}`)}
         />
-        {network ? (
-          <View style={styles.meta}>
-            <IconText
-              style={styles.metaIcon}
-              textStyle={styles.metaIconText}
-              icon={{ name: 'plug', style: styles.metaIconText }}
-              text={network}
-            />
-          </View>
-        ) : null}
-        <Form
-          style={styles.form}
-          ref={this._onFormRef}
-          onChange={this.onChange}
-          onSubmit={this.onSubmit}
-          validate={this.validate}
-        >
-          <Form.Field
-            name='symbol'
-            label={t('modal.editToken.symbolFieldLabel')}
-            style={styles.field}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
+        <FormWrapper style={styles.formWrapper}>
+          <Form
+            ref={this._onFormRef}
+            onChange={this.onChange}
+            onSubmit={this.onSubmit}
+            validate={this.validate}
           >
-            <TextInput
-              disabled={!!updatingToken}
-              value={symbol}
-              style={styles.textInput}
-              placeholder={t('modal.editToken.symbolInputPlaceholder')}
-            />
-          </Form.Field>
-          <Form.Field
-            name='name'
-            label={t('modal.editToken.nameFieldLabel')}
-            style={styles.field}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-          >
-            <TextInput
-              value={name}
-              style={styles.textInput}
-              placeholder={t('modal.editToken.nameInputPlaceholder')}
-            />
-          </Form.Field>
-          <Form.Field
-            name='decimals'
-            label={t('modal.editToken.decimalsFieldLabel')}
-            style={styles.field}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-          >
-            <TextInput
-              value={`${decimals}`}
-              style={styles.textInput}
-              placeholder={t('modal.editToken.decimalsInputPlaceholder')}
-            />
-          </Form.Field>
-          <Form.Field
-            name='contractAddress'
-            label={t('modal.editToken.addressFieldLabel')}
-            style={styles.field}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-          >
-            <AddressTextInput
-              value={contractAddress}
-              style={styles.textInput}
-              placeholder={t('modal.editToken.addressInputPlaceholder')}
-            />
-          </Form.Field>
-        </Form>
+            <Form.Field
+              name='symbol'
+              label={t('modal.editToken.symbolFieldLabel')}
+              style={styles.field}
+              labelStyle={formStyles.label}
+              labelTextStyle={formStyles.labelText}
+            >
+              <TextInput
+                disabled={!!updatingToken}
+                value={symbol}
+                style={styles.textInput}
+                placeholder={t('modal.editToken.symbolInputPlaceholder')}
+              />
+            </Form.Field>
+            <Form.Field
+              name='name'
+              label={t('modal.editToken.nameFieldLabel')}
+              style={styles.field}
+              labelStyle={formStyles.label}
+              labelTextStyle={formStyles.labelText}
+            >
+              <TextInput
+                value={name}
+                style={styles.textInput}
+                placeholder={t('modal.editToken.nameInputPlaceholder')}
+              />
+            </Form.Field>
+            <Form.Field
+              name='decimals'
+              label={t('modal.editToken.decimalsFieldLabel')}
+              style={styles.field}
+              labelStyle={formStyles.label}
+              labelTextStyle={formStyles.labelText}
+            >
+              <TextInput
+                value={`${decimals}`}
+                style={styles.textInput}
+                placeholder={t('modal.editToken.decimalsInputPlaceholder')}
+              />
+            </Form.Field>
+            <Form.Field
+              name='contractAddress'
+              label={t('modal.editToken.addressFieldLabel')}
+              style={styles.field}
+              labelStyle={formStyles.label}
+              labelTextStyle={formStyles.labelText}
+            >
+              <AddressTextInput
+                value={contractAddress}
+                style={styles.textInput}
+                placeholder={t('modal.editToken.addressInputPlaceholder')}
+              />
+            </Form.Field>
+          </Form>
+        </FormWrapper>
         <View style={styles.buttons}>
           <ProgressButton
             style={styles.button}

@@ -42,7 +42,8 @@ store.actions.loadConfig()
 storage.loadAppData()
 
 // schedule jobs
-scheduler.addJob('check_alerts', 300, () => store.actions.loadAlerts())
+// scheduler.addJob('check_alerts', 300, () => store.actions.loadAlerts())
+store.actions.loadAlerts()
 scheduler.addJob('check_transactions', 20, () => store.actions.checkPendingTransactions())
 
 // root UI

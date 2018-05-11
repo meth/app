@@ -39,7 +39,7 @@ export default create({
 
   /* form */
 
-  form: {
+  formWrapper: {
     marginTop: 10,
     width: '70%'
   },

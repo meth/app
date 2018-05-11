@@ -12,7 +12,7 @@ const { ALERT } = LEVELS
 const sortByDateComparator = buildSortComparator('ts')
 
 const trimEvents = events =>
-  (events.length > MAX_ITEMS ? events.slice(events.length - MAX_ITEMS) : events)
+  (events.length > MAX_ITEMS ? events.slice(events.length - MAX_ITEMS) : [].concat(events))
 
 
 export default () => {

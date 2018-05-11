@@ -8,7 +8,7 @@ import styles from './styles'
 const AlertsButton = ({ style, onPress, unseenAlertsCount }) => (
   <IconButton
     style={style}
-    type='header'
+    type='text'
     onPress={onPress}
     icon={{ name: 'bell-o' }}>
       {unseenAlertsCount ? (

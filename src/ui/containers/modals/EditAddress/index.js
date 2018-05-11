@@ -12,13 +12,14 @@ import ErrorBox from '../../../components/ErrorBox'
 import TextInput from '../../../components/TextInput'
 import IconText from '../../../components/IconText'
 import ProgressButton from '../../../components/ProgressButton'
+import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
 import TitleText from '../../../components/TitleText'
 import AskUserConfirmModal from '../../../components/AskUserConfirmModal'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
 
-@connectStore('modals', 'account', 'node')
+@connectStore('modals', 'account')
 export default class EditAddress extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
@@ -52,10 +53,6 @@ export default class EditAddress extends PureComponent {
   render () {
     const { data: { address } } = this.props
 
-    const { getNodeConnection } = this.props.selectors
-
-    const network = _.get(getNodeConnection(), 'network.description')
-
     const { error, label, type, submitting, alreadyExists } = this.state
 
     return (
@@ -68,28 +65,29 @@ export default class EditAddress extends PureComponent {
           text={t(alreadyExists ? 'title.editAddressLabel' : 'title.addAddressLabel')}
         />
         <Text style={styles.addressText}>{address}</Text>
-        {this._renderMeta({ network, type })}
-        <Form
-          style={styles.form}
-          ref={this._onFormRef}
-          onChange={this.onChange}
-          onSubmit={this.onSubmit}
-          validate={this.validate}
-        >
-          <Form.Field
-            name='label'
-            label={t('modal.editAddress.labelFieldLabel')}
-            style={styles.field}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
+        {this._renderMeta({ type })}
+        <FormWrapper style={styles.formWrapper}>
+          <Form
+            ref={this._onFormRef}
+            onChange={this.onChange}
+            onSubmit={this.onSubmit}
+            validate={this.validate}
           >
-            <TextInput
-              value={label}
-              style={styles.labelInput}
-              placeholder={t('modal.editAddress.labelInputPlaceholder')}
-            />
-          </Form.Field>
-        </Form>
+            <Form.Field
+              name='label'
+              label={t('modal.editAddress.labelFieldLabel')}
+              style={styles.field}
+              labelStyle={formStyles.label}
+              labelTextStyle={formStyles.labelText}
+            >
+              <TextInput
+                value={label}
+                style={styles.labelInput}
+                placeholder={t('modal.editAddress.labelInputPlaceholder')}
+              />
+            </Form.Field>
+          </Form>
+        </FormWrapper>
         <View style={styles.buttons}>
           <ProgressButton
             disabled={!(this.form && this.form.canSubmit())}
@@ -126,8 +124,8 @@ export default class EditAddress extends PureComponent {
     this.form = f
   }
 
-  _renderMeta ({ network, type }) {
-    if (!(network || type)) {
+  _renderMeta ({ type }) {
+    if (!type) {
       return null
     }
 
@@ -154,14 +152,6 @@ export default class EditAddress extends PureComponent {
             textStyle={styles.metaIconText}
             icon={{ name: typeIcon, style: styles.metaIconText }}
             text={t(`addressType.${type}`)}
-          />
-        ) : null}
-        {network ? (
-          <IconText
-            style={styles.metaIcon}
-            textStyle={styles.metaIconText}
-            icon={{ name: 'plug', style: styles.metaIconText }}
-            text={network}
           />
         ) : null}
       </View>

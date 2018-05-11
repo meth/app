@@ -2,6 +2,7 @@ import logger from '../logger'
 import configMiddleware from './config/middleware'
 import nodeMiddleware from './node/middleware'
 import apiMiddleware from './api/middleware'
+import logMiddleware from './log/middleware'
 import accountMiddleware from './account/middleware'
 
 const log = logger.create('Middleware')
@@ -19,6 +20,7 @@ export const createMiddleware = app => [
   },
   // now we can add our actual middlware
   configMiddleware(app),
+  logMiddleware(app),
   nodeMiddleware(app),
   apiMiddleware(app),
   accountMiddleware(app)

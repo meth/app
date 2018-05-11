@@ -11,11 +11,5 @@ export default create({
   titleText: {
     marginBottom: 15,
     alignSelf: 'center'
-  },
-  tabBar: {
-  },
-  tab: {
-  },
-  tabLabelText: {
   }
 })

@@ -125,6 +125,7 @@ export default class TokenTable extends CachePureComponent {
           <Text style={styles.tokenNameText}>{name}</Text>
           {isCustom ? (
             <IconButton
+              type='text'
               icon={{ name: 'pencil' }}
               style={styles.editTokenButton}
               tooltip={t('button.editCustomToken')}
@@ -134,7 +135,7 @@ export default class TokenTable extends CachePureComponent {
         </View>
         <View style={styles.tokenRowRight}>
           <ErrorBox error={error} style={styles.tokenErrorBox} />
-          {balance ? (
+          {(0 <= balance) ? (
             <TokenBalance
               balance={balance}
               decimals={decimals}
@@ -142,6 +143,7 @@ export default class TokenTable extends CachePureComponent {
             />
           ) : null}
           <ProgressButton
+            type='text'
             tooltip={t('wallet.tokens.checkBalance')}
             style={styles.tokenCheckButton}
             onPress={this.bind(this._onCheckTokenBalance, symbol)}

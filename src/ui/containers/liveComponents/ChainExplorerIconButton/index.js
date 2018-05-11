@@ -51,6 +51,7 @@ export default class ChainExplorerIconButton extends CachePureComponent {
 
     return url ? (
       <IconButton
+        type='text'
         style={[ styles.button ].concat(style)}
         icon={{ name: 'md-link', style: [ styles.text ].concat(textStyle) }}
         onPress={this.bind(this._onPress, url)}

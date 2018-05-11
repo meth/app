@@ -65,6 +65,7 @@ export default class WalletCard extends PureComponent {
         />
         <View style={styles.transButtons}>
           <IconButton
+            type='text'
             disabled={!isActive}
             tooltip={t('button.sendCrypto')}
             style={styles.transButton}
@@ -72,6 +73,7 @@ export default class WalletCard extends PureComponent {
             onPress={this._onPressSend}
           />
           <IconButton
+            type='text'
             disabled={!isActive}
             tooltip={t('button.showQrCode')}
             icon={{ name: 'qrcode' }}

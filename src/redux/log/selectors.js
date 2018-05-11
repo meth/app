@@ -6,17 +6,17 @@ const { ALERT } = LEVELS
 
 const getRawLog = state => state.log.get('events')
 
-export const getUnseenAlerts = createSelector(
+export const getAlerts = createSelector(
   getRawLog,
-  events => events.filter(e => e.level === ALERT && !e.seen)
+  events => events.filter(e => e.level === ALERT)
 )
 
-export const getLogWithoutUnseenAlerts = createSelector(
+export const getLogWithoutAlerts = createSelector(
   getRawLog,
-  events => events.filter(e => e.level !== ALERT || e.seen)
+  events => events.filter(e => e.level !== ALERT)
 )
 
 export const getUnseenAlertsCount = createSelector(
-  getUnseenAlerts,
-  alerts => alerts.length
+  getAlerts,
+  alerts => alerts.filter(a => !a.seen).length
 )

@@ -51,7 +51,7 @@ export default class Header extends PureComponent {
               {this.renderBalance(navState, addresses)}
               {/*
                 <IconButton
-                  type='header'
+                  type='text'
                   tooltip={t('button.dappBrowser')}
                   icon={{ name: 'globe', style: styles.buttonIcon }}
                   style={styles.button}
@@ -60,7 +60,7 @@ export default class Header extends PureComponent {
                 />
               */}
               <IconButton
-                type='header'
+                type='text'
                 tooltip={t('button.contracts')}
                 icon={{ name: 'code', style: styles.buttonIcon }}
                 style={styles.button}
@@ -68,7 +68,7 @@ export default class Header extends PureComponent {
                 stateOverride={this._getButtonStateOverride(navState, routes.Contracts)}
               />
               <IconButton
-                type='header'
+                type='text'
                 tooltip={t('button.transactionHistory')}
                 icon={{ name: 'md-swap', style: styles.buttonIcon }}
                 style={styles.button}
@@ -76,7 +76,7 @@ export default class Header extends PureComponent {
                 stateOverride={this._getButtonStateOverride(navState, routes.Transactions)}
               />
               <IconButton
-                type='header'
+                type='text'
                 tooltip={t('button.addressBook')}
                 icon={{ name: 'address-book-o', style: styles.buttonIcon }}
                 style={styles.button}
@@ -105,7 +105,7 @@ export default class Header extends PureComponent {
       <Button
         tooltip={t('button.wallet')}
         style={styles.button}
-        type='header'
+        type='text'
         title={`Ξ ${toDecimalPlaces(totalEther, 1)}`}
         stateOverride={this._getButtonStateOverride(navState, routes.Wallet)}
         onPress={this.showWallet}
@@ -123,7 +123,7 @@ export default class Header extends PureComponent {
       <Button
         onPress={this.showConnectionInfo}
         style={styles.networkButton}
-        type='header'>
+        type='text'>
           <Text style={styles.networkButtonText}>{network.description}</Text>
           {syncIcon}
       </Button>

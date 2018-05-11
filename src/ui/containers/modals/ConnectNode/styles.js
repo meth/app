@@ -1,7 +1,12 @@
 import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
 
-const text = {
+const titleText = {
   ...fontMaker({ weight: 'Light' }),
+  color: '$modal_content_textColor'
+}
+
+const text = {
+  ...fontMaker(),
   color: '$modal_content_textColor'
 }
 
@@ -38,7 +43,7 @@ export default create({
   /* when conneted */
 
   networkText: {
-    ...text,
+    ...titleText,
     fontSize: '1.4rem'
   },
   typeText: {
@@ -51,7 +56,6 @@ export default create({
     ...text,
     fontSize: '0.7rem',
     marginTop: 10,
-    color: '$modal_connectNode_darkTextColor',
     textTransform: 'lowercase'
   },
   block: {
@@ -63,7 +67,6 @@ export default create({
   blockText: {
     ...text,
     fontSize: '0.7rem',
-    color: '$modal_connectNode_darkTextColor',
     textTransform: 'lowercase'
   },
   blockLinkButton: {
@@ -76,7 +79,6 @@ export default create({
     ...text,
     fontSize: '0.7rem',
     marginTop: 10,
-    color: '$modal_connectNode_darkTextColor',
     textTransform: 'lowercase'
   },
 

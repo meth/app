@@ -77,6 +77,12 @@ module.exports = {
       dontHavePasswordCreateOne: 'Don\'t have a passphrase yet? Create one here',
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
+    log: {
+      tab: {
+        alerts: 'Alerts',
+        log: 'Log'
+      }
+    },
     button: {
       executeLocalContractCall: 'Execute (via local call)',
       executeTransactionContractCall: 'Execute (via transaction)',

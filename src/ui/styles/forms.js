@@ -7,7 +7,7 @@ export default create({
   },
   labelText: {
     ...fontMaker({ weight: 'Light' }),
-    color: '$content_title_textColor',
+    color: '$form_label_textColor',
     fontSize: '0.7rem',
     marginBottom: 2
   }
