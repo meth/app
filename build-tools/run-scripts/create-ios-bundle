@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+rm -rf build-tools/deploy/data/ios.assets
+mkdir -p build-tools/deploy/data/ios.assets
+node_modules/.bin/react-native bundle --platform ios --entry-file index.ios.js --bundle-output build-tools/deploy/data/ios.assets/main.jsbundle --assets-dest build-tools/deploy/data/ios.assets --dev false

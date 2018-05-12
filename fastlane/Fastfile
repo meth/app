@@ -1,0 +1,141 @@
+fastlane_version "2.75.1"
+
+default_platform :ios
+
+projectFolder = ENV['PWD']
+pathToReleaseApk = "android/app/build/outputs/apk/release/app-release.apk"
+pathToPlayApiPrivateKeyJson = "build-tools/deploy/google-play-service-account.json"
+
+
+# codePushAccessKey = ENV['CODEPUSH_ACCESS_KEY']
+# sh "cd #{projectFolder} && node_modules/.bin/code-push logout || true"
+# sh "cd #{projectFolder} && node_modules/.bin/code-push login --accessKey #{codePushAccessKey}"
+#
+nodeExec = "#{projectFolder}/node_modules/.bin/babel-node"
+
+# app config
+buildConfig = JSON.parse(File.read("#{projectFolder}/build-tools/deploy/data/buildConfig.json"))
+
+# release notes
+sh "#{nodeExec} #{projectFolder}/build-tools/deploy/create-release-notes.js"
+releaseNotes = File.read("#{projectFolder}/build-tools/deploy/data/releaseNotes.txt")
+
+platform :ios do
+  desc "Submit a new Beta Build to Apple TestFlight"
+  lane :beta do
+    ensure_git_branch(branch: "qa")
+
+    match(type: "appstore", readonly: true, shallow_clone: true)
+
+    increment_build_number(
+      xcodeproj: "./ios/meth.xcodeproj",
+      build_number: buildConfig["appBuildNumber"]
+    )
+
+    increment_version_number(
+      xcodeproj: "./ios/meth.xcodeproj",
+      version_number: buildConfig["appVersion"]
+    )
+
+    gym(
+      clean: true,
+      export_method: 'app-store',
+      workspace: "./ios/meth.xcworkspace",
+      scheme: "coindex",
+      output_directory: "./build-tools/deploy/data"
+    )
+
+    testflight(
+      skip_submission: true,
+      changelog: releaseNotes
+    )
+  end
+
+  desc "Submit a new Production Build to Apple"
+  lane :production do
+    match(type: "appstore", readonly: true, shallow_clone: true)
+
+    ensure_git_branch(branch: "master")
+
+    increment_build_number(
+      xcodeproj: "./ios/meth.xcodeproj",
+      build_number: buildConfig["appBuildNumber"]
+    )
+
+    increment_version_number(
+      xcodeproj: "./ios/meth.xcodeproj",
+      version_number: buildConfig["appVersion"]
+    )
+
+    gym(
+      clean: true,
+      export_method: 'app-store',
+      workspace: "./ios/meth.xcworkspace",
+      scheme: "coindex",
+      output_directory: "./build-tools/deploy/data"
+    )
+
+    deliver(
+      submit_for_review: false,
+      automatic_release: false,
+      force: true,
+      ipa: "./build-tools/deploy/data/meth.ipa",
+      skip_metadata: true,
+      skip_screenshots: true,
+      app_rating_config_path: "./fastlane/deliver/rating_config.json"
+    )
+  end
+end
+
+
+platform :android do
+  desc "Do a dev build"
+  lane :dev do
+    gradle(
+      project_dir: "./android",
+      task: "assemble",
+      flavor: "defaultConfig",
+      build_type: "Release",
+    )
+  end
+
+  desc "Submit a new Beta Build to TestFairy"
+  lane :beta do
+    ensure_git_branch(branch: "qa")
+
+    gradle(
+      project_dir: "./android",
+      task: "assemble",
+      build_type: "Release",
+      properties: {
+        'versionCode' => buildConfig["appBuildNumber"],
+        'versionName' => buildConfig["appVersion"],
+      }
+    )
+
+    sh "#{nodeExec} #{projectFolder}/build-tools/deploy/testfairy-apk-upload.js '#{projectFolder}/#{pathToReleaseApk}'"
+  end
+
+  desc "Submit a new Production Build to Google Play"
+  lane :production do
+    ensure_git_branch(branch: "master")
+
+    gradle(
+      project_dir: "./android",
+      task: "assemble",
+      build_type: "Release",
+      properties: {
+        'versionCode' => buildConfig["appBuildNumber"],
+        'versionName' => buildConfig["appVersion"]
+      }
+    )
+
+    sh "cd #{projectFolder} && openssl aes-256-cbc -d -in #{pathToPlayApiPrivateKeyJson}.aes256 -out #{pathToPlayApiPrivateKeyJson} -pass pass:$PLAY_API_ENC_KEY"
+
+    supply(
+      package_name: CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier),
+      apk: pathToReleaseApk,
+      json_key: pathToPlayApiPrivateKeyJson
+    )
+  end
+end

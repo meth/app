@@ -22,3 +22,22 @@ appConfig*.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# android
+assets/
+build/
+android/.idea
+.gradle/
+Config.java
+
+# ios
+Pods
+config.h
+
+# mobile build
+buildConfig.json
+fastlane/report.xml
+*.ipa
+*.apk
+build-tools/deploy/data
+google-play-service-account.json

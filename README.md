@@ -88,19 +88,6 @@ URL for your dev deployment of the [Meth backend](https://github.com/meth-browse
 
 Start a local private Ethereum blockchain. We recommend using [Ganache](https://github.com/trufflesuite/ganache).
 
-**Electron desktop app**
-
-To build frontend for development:
-
-```shell
-$ yarn web
-```
-
-To start the electron backend and full UI:
-
-```shell
-$ yarn electron
-```
 
 **Unit tests**
 
@@ -116,7 +103,44 @@ To run with coverage:
 $ yarn test-cov
 ```
 
-### Code style (ESLint)
+### Desktop development
+
+To build frontend for development:
+
+```shell
+$ yarn web:dev
+```
+
+To start the electron backend and full UI:
+
+```shell
+$ yarn web:electron
+```
+
+### Mobile development
+
+First, always ensure you run the mobile setup script:
+
+```shell
+$ yarn mobile:setup-dev
+```
+
+Run the react native packager in one terminal:
+
+```shell
+$ yarn mobile:packager
+```
+
+Now run the platform you want (`ios` or `android`), e.g:
+
+```shell
+$ yarn mobile:android
+```
+
+_Note: Running the react native packager will automatically result in the
+web packager output folder (`out/`) being deleted, to avoid module collisions_.
+
+### Code style (ESLint)
 
 We use [eslint](http://eslint.org/) to enforce a strict coding style. We've set
 it up to auto-lint code upon Git commit. You can manually run the linter
@@ -160,10 +184,10 @@ look like this:
 To build installation packages for do:
 
 ```shell
-$ yarn package
+$ yarn web:package
 ```
 
-The `packages` folder will contain the built output.
+The `out/` folder will contain the built output.
 
 _Note: To run the built Linux executable on Ubuntu you will first need to do
 `apt-get install libgconf-2-4`._

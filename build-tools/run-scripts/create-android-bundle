@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+rm -rf build-tools/deploy/data/android.assets
+mkdir -p build-tools/deploy/data/android.assets
+node_modules/.bin/react-native bundle --platform android --entry-file index.android.js --bundle-output build-tools/deploy/data/android.assets/index.android.bundle --assets-dest build-tools/deploy/data/android.assets --dev false
