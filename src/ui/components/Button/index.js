@@ -3,8 +3,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Text } from 'react-native'
 
-import { isType } from '../../helpers/components'
-import Icon from '../Icon'
 import TouchableView from '../TouchableView'
 import createStyles from './styles'
 
@@ -21,14 +19,18 @@ export default class Button extends PureComponent {
     onLayout: PropTypes.func,
     onStartHover: PropTypes.func,
     onEndHover: PropTypes.func,
-    stateOverride: PropTypes.object
+    stateOverride: PropTypes.object,
+    childShouldInheritTextStyle: PropTypes.bool,
+    childTextStylePropName: PropTypes.string
   }
 
   static defaultProps = {
     disabled: false,
     type: 'default',
     title: '',
-    stateOverride: null
+    stateOverride: null,
+    childShouldInheritTextStyle: false,
+    childTextStylePropName: 'style'
   }
 
   state = {
@@ -37,7 +39,7 @@ export default class Button extends PureComponent {
 
   render () {
     const { disabled, title, tooltip, type, style, textStyle, onLayout
-      , stateOverride, children } = this.props
+      , stateOverride, children, childShouldInheritTextStyle, childTextStylePropName } = this.props
 
     let { buttonState } = this.state
     if (_.get(stateOverride, 'buttonState') !== undefined) {
@@ -49,11 +51,11 @@ export default class Button extends PureComponent {
     const content = React.Children.count(children) ? (
       React.Children.map(children, child => {
         // if child is a Text or Icon then apply text styles to it
-        if (React.isValidElement(child)
-              && (isType(child, Text) || isType(child, Icon)))
-        {
+        if (React.isValidElement(child) && childShouldInheritTextStyle) {
           return React.cloneElement(child, {
-            style: [].concat(styles.text, textStyle, child.props.style)
+            [childTextStylePropName]: [].concat(
+              styles.text, textStyle, child.props[childTextStylePropName]
+            )
           })
         }
 

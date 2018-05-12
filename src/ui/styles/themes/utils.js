@@ -1,13 +1,13 @@
 import { darken } from '../../../utils/colors'
 
-export const generateButtonStyles = props => ({
+export const generateButtonStyles = (props, disabled = null) => ({
   spinnerColor: props.spinnerColor,
   enabled: {
     default: props.default,
     hover: props.hover,
     active: props.active
   },
-  disabled: {
+  disabled: disabled || {
     default: {
       borderColor: darken(props.default.borderColor, 0.5),
       backgroundColor: darken(props.default.backgroundColor, 0.5),

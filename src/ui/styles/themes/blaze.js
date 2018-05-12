@@ -3,7 +3,6 @@ import {
   colorTransparent,
   colorRed,
   colorOrange,
-  colorGreen,
   colorYellowLight,
   colorBlack,
   colorWhite,
@@ -25,14 +24,14 @@ const colorMagicMint = '#b3e9c7'
 
 const colorViolet = '#5603AD'
 const colorVioletLight = lighten(colorViolet, 0.5)
-const colorUbe = '#8367C7'
+// const colorUbe = '#8367C7'
 
 export const ROOT_FONT_SIZE = 18
 
 export default {
   rem: ROOT_FONT_SIZE,
   header: {
-    backgroundColor: colorWhite,
+    backgroundColor: colorGrayLightest,
     textColor: colorGrayDarker
   },
   loading: {
@@ -42,7 +41,7 @@ export default {
     backgroundColor: colorWhite,
     textColor: colorGrayDarker,
     borderTop: {
-      color: colorGrayDarker
+      color: colorGrayLight
     },
     title: {
       textColor: colorGrayDarker
@@ -60,10 +59,10 @@ export default {
   },
   addressBook: {
     address: {
-      textColor: colorWhite
+      textColor: colorGrayDarkest
     },
     label: {
-      textColor: colorGrayDark
+      textColor: colorGray
     }
   },
   transactionBlock: {
@@ -106,31 +105,31 @@ export default {
     card: {
       active: {
         address: {
-          textColor: colorGrayLight
+          textColor: colorGrayDarkest
         },
         label: {
           textColor: colorGrayDark
         },
         amount: {
-          textColor: colorWhite
+          textColor: colorBlack
         },
         unit: {
-          textColor: colorGray
+          textColor: colorGrayDarker
         },
-        borderBottomColor: colorBlack
+        borderBottomColor: colorWhite
       },
       inactive: {
         address: {
-          textColor: colorGrayDark
+          textColor: colorGrayLight
         },
         label: {
-          textColor: colorGrayDarkest
+          textColor: colorGrayLighter
         },
         amount: {
-          textColor: colorGrayDarker
+          textColor: colorGrayLight
         },
         unit: {
-          textColor: colorGrayDarker
+          textColor: colorGrayLighter
         },
         borderBottomColor: colorViolet
       }
@@ -166,7 +165,7 @@ export default {
   contracts: {
     params: {
       borderColor: colorGrayDark,
-      backgroundColor: colorBlack
+      backgroundColor: colorMagicMint
     }
   },
   browser: {
@@ -198,8 +197,8 @@ export default {
     }
   },
   blockOfText: {
-    backgroundColor: colorGrayDarker,
-    textColor: '#fff'
+    backgroundColor: colorMagicMint,
+    textColor: colorGrayDarkest
   },
   log: {
     unseenAlert: {
@@ -249,7 +248,7 @@ export default {
     },
     sendTransaction: {
       txId: {
-        textColor: colorGrayLight
+        textColor: colorGrayDark
       }
     }
   },
@@ -369,9 +368,9 @@ export default {
     }),
     walletCard: generateButtonStyles({
       default: {
-        borderColor: colorUbe,
+        borderColor: colorGrayLight,
         backgroundColor: colorTransparent,
-        textColor: colorUbe
+        textColor: colorGrayLight
       },
       hover: {
         borderColor: colorViolet,
@@ -403,6 +402,30 @@ export default {
         textColor: colorGray
       }
     }),
+    textWithBorder: generateButtonStyles({
+      spinnerColor: colorWhite,
+      default: {
+        borderColor: colorViolet,
+        backgroundColor: colorTransparent,
+        textColor: colorViolet
+      },
+      hover: {
+        borderColor: colorViolet,
+        backgroundColor: colorVioletLight,
+        textColor: colorWhite
+      }
+    }, {
+      default: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorGrayLight
+      },
+      hover: {
+        borderColor: colorTransparent,
+        backgroundColor: colorGrayLight,
+        textColor: colorGray
+      }
+    }),
     text: generateButtonStyles({
       spinnerColor: colorViolet,
       default: {
@@ -425,11 +448,11 @@ export default {
       default: {
         borderColor: colorTransparent,
         backgroundColor: colorTransparent,
-        textColor: colorWhite
+        textColor: colorBlack
       },
       hover: {
-        borderColor: colorUbe,
-        backgroundColor: colorUbe,
+        borderColor: colorViolet,
+        backgroundColor: colorVioletLight,
         textColor: colorWhite
       }
     }),

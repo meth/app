@@ -7,6 +7,7 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
 import Table from '../../../components/Table'
+import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
 import LabelledAddress from '../../../components/LabelledAddress'
 import TitleText from '../../../components/TitleText'
@@ -38,7 +39,7 @@ export default class AddressBook extends CachePureComponent {
           style={styles.table}
           listStyle={styles.tableList}
           rowStyle={styles.tableRow}
-          filterInputStyle={styles.tableFilter}
+          renderFilter={this._renderFilter}
           filterPlaceholderText={t('addressBook.filterPlaceholder')}
           showFilter={true}
           renderHeader={RENDER_HEADER}
@@ -50,6 +51,12 @@ export default class AddressBook extends CachePureComponent {
     )
   }
 
+  _renderFilter = defaultRenderFunc => (
+    <FormWrapper style={styles.tableFilter}>
+      {defaultRenderFunc()}
+    </FormWrapper>
+  )
+
   _renderRowData = row => {
     const address = _.get(row, 'address.value')
     const label = _.get(row, 'address.label')
@@ -59,11 +66,10 @@ export default class AddressBook extends CachePureComponent {
         style={styles.tableRowData}
         type='tableRow'
         onPress={this.bind(this.onSelectEntry, address)}
+        childShouldInheritTextStyle={true}
+        childTextStylePropName='addressTextStyle'
       >
-        <LabelledAddress
-          address={address}
-          label={label}
-        />
+        <LabelledAddress address={address} label={label} />
       </Button>
     )
   }

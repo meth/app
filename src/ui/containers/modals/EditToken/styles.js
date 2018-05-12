@@ -37,7 +37,7 @@ export default create({
 
   formWrapper: {
     marginTop: 10,
-    width: '70%'
+    width: '80%'
   },
   field: {
     marginBottom: 15

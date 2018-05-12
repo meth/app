@@ -9,7 +9,7 @@ export default create({
   // $outline: 1,
 
   content: {
-    width: 500,
+    width: 600,
     height: 'auto',
     justifyContent: 'space-around',
     alignItems: 'center',

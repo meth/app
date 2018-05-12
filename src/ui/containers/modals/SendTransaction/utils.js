@@ -16,5 +16,5 @@ export const getMaxCost = ({ gasLimit, gasPrice, unit, amount }) => {
     totalWei = totalWei.add(ethToWeiBN(parsedAmount))
   }
 
-  return weiToEthStr(totalWei)
+  return `${weiToEthStr(totalWei)} ETH`
 }

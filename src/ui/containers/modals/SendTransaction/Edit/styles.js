@@ -76,8 +76,8 @@ export default create({
   /* max cost */
   maxCost: {
     ...fieldRow,
-    marginTop: 15,
-    flexDirection: 'row',
+    marginBottom: 0,
+    flexDirection: 'column',
     justifyContent: 'flex-start'
   },
   maxCostText: {

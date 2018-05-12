@@ -18,7 +18,7 @@ export default create({
     ...fontMaker({ weight: 'SemiBold' }),
     color: '$content_textColor',
     fontSize: '1.5rem',
-    marginBottom: 30,
+    marginBottom: 20,
     textAlign: 'center'
   },
   txConfirmationId: {
@@ -26,7 +26,7 @@ export default create({
     marginBottom: 20
   },
   txConfirmationIdText: {
-    fontSize: '0.6rem',
+    fontSize: '0.7rem',
     color: '$modal_sendTransaction_txId_textColor'
   },
   txConfirmationReceipt: {

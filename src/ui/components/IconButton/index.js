@@ -14,7 +14,7 @@ export default class IconButton extends PureComponent {
     const { icon, children, ...props } = this.props
 
     return (
-      <Button {...props}>
+      <Button {...props} childShouldInheritTextStyle={true}>
         {children || <Icon {...icon} />}
       </Button>
     )

@@ -81,7 +81,8 @@ module.exports = {
       tab: {
         alerts: 'Alerts',
         log: 'Log'
-      }
+      },
+      noAlertsYet: 'No alerts yet!'
     },
     button: {
       executeLocalContractCall: 'Execute (via local call)',
@@ -138,6 +139,9 @@ module.exports = {
       sendTransaction: 'Send transaction',
       transactions: 'Transactions'
     },
+    transactions: {
+      noneYet: 'You haven\'t created any transactions in Meth yet'
+    },
     addressBook: {
       filterPlaceholder: 'Filter...'
     },
@@ -184,7 +188,7 @@ module.exports = {
           done: 'Done!'
         },
         transactionSent: 'Transaction sent!',
-        maxCost: 'Max cost: {cost} ETH',
+        maxCost: 'Max cost',
         finalAmountLabel: 'Amount',
         rawTransactionLabel: 'Raw transaction',
         contractDeployment: 'Contract deployment',

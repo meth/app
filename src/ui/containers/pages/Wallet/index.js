@@ -124,6 +124,7 @@ export default class Wallet extends CachePureComponent {
         style={[ styles.walletCardButton_inactive, styles.addAccountButton ]}
         onPress={this._onPressAddAccount}
         tooltip={t('button.addAccount')}
+        childShouldInheritTextStyle={true}
       >
         <Icon name='plus' style={styles.addAccountButtonIcon} />
       </Button>

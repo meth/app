@@ -23,7 +23,7 @@ import AlertBox from '../../../components/AlertBox'
 import FormWrapper from '../../../components/FormWrapper'
 import ProgressButton from '../../../components/ProgressButton'
 import Loading from '../../../components/Loading'
-import Picker from '../../../components/Picker'
+import ModalFilterPicker from '../../../components/ModalFilterPicker'
 import TextInput from '../../../components/TextInput'
 import Switch from '../../../components/Switch'
 import ErrorBox from '../../../components/ErrorBox'
@@ -70,46 +70,53 @@ export default class AddressBook extends PureComponent {
       selectedMethod
     } = this.state
 
+    const { paramsForm, button } = methodPickerOptions
+      ? this._buildParamsFormAndSubmitButton(abi, selectedMethod)
+      : { paramsForm: null, button: null }
+
     return (
-      <FormWrapper style={styles.container}>
-        <View style={styles.field}>
-          <Text style={formStyles.labelText}>{t('contracts.field.addressLabel')}</Text>
-          <AddressTextInput
-            value={address}
-            onChange={this._onAddressChange}
-            style={styles.textInput}
-            placeholder={t('contracts.field.addressPlaceholder')}
-          />
-        </View>
-        <View style={styles.field}>
-          <Text style={formStyles.labelText}>{t('contracts.field.abiLabel')}</Text>
-          <TextInput
-            value={abi}
-            style={styles.textInput}
-            placeholder={t('contracts.field.abiPlaceholder')}
-            multiline={true}
-            numberOfLines={5}
-            onChange={this._onAbiChange}
-          />
-        </View>
-        {methodPickerOptions ? (
-          <View style={styles.methodContainer}>
-            <View style={styles.field}>
-              <Text style={formStyles.labelText}>{t('contracts.field.methodLabel')}</Text>
-              <Picker
-                style={styles.picker}
-                button={{ style: styles.pickerButton }}
-                options={methodPickerOptions}
-                selected={selectedMethod}
-                onChange={this._onSelectMethod}
-              />
-            </View>
-            {this._renderParamsForm(abi, selectedMethod)}
+      <View style={styles.container}>
+        <FormWrapper style={styles.formWrapper}>
+          <View style={styles.field}>
+            <Text style={formStyles.labelText}>{t('contracts.field.addressLabel')}</Text>
+            <AddressTextInput
+              value={address}
+              onChange={this._onAddressChange}
+              style={styles.textInput}
+              placeholder={t('contracts.field.addressPlaceholder')}
+            />
           </View>
-        ) : null}
+          <View style={styles.field}>
+            <Text style={formStyles.labelText}>{t('contracts.field.abiLabel')}</Text>
+            <TextInput
+              value={abi}
+              style={styles.textInput}
+              placeholder={t('contracts.field.abiPlaceholder')}
+              multiline={true}
+              numberOfLines={5}
+              onChange={this._onAbiChange}
+            />
+          </View>
+          {methodPickerOptions ? (
+            <View style={styles.methodContainer}>
+              <View style={styles.field}>
+                <Text style={formStyles.labelText}>{t('contracts.field.methodLabel')}</Text>
+                <ModalFilterPicker
+                  style={styles.picker}
+                  button={{ style: styles.pickerButton }}
+                  options={methodPickerOptions}
+                  selected={selectedMethod}
+                  onChange={this._onSelectMethod}
+                />
+              </View>
+              {paramsForm}
+            </View>
+          ) : null}
+        </FormWrapper>
+        {button}
         {this._renderResults()}
         <ErrorBox error={error} style={styles.errorBox} />
-      </FormWrapper>
+      </View>
     )
   }
 
@@ -225,7 +232,7 @@ export default class AddressBook extends PureComponent {
     )
   }
 
-  _renderParamsForm (abi, method) {
+  _buildParamsFormAndSubmitButton (abi, method) {
     const { submitting } = this.state
 
     const can = canRenderMethodParams(abi, method)
@@ -272,19 +279,17 @@ export default class AddressBook extends PureComponent {
 
     const isReadOnlyMethod = isAbiFunctionReadOnly(abi, method)
 
-    return (
-      <View style={styles.paramsContainer}>
-        {content}
-        {can ? (
-          <ProgressButton
-            showInProgress={submitting}
-            title={t(isReadOnlyMethod ? 'button.executeLocalContractCall' : 'button.executeTransactionContractCall')}
-            onPress={this._onPressSubmit}
-            style={styles.submitButton}
-          />
-        ) : null}
-      </View>
-    )
+    return {
+      paramsForm: <View style={styles.paramsContainer}>{content}</View>,
+      button: (can ? (
+        <ProgressButton
+          showInProgress={submitting}
+          title={t(isReadOnlyMethod ? 'button.executeLocalContractCall' : 'button.executeTransactionContractCall')}
+          onPress={this._onPressSubmit}
+          style={styles.submitButton}
+        />
+      ) : null)
+    }
   }
 
   _onParamsFormRef = ref => {

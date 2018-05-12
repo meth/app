@@ -17,12 +17,20 @@ export default class ProgressButton extends PureComponent {
   }
 
   render () {
-    const { type, showInProgress, onPress, children, ...props } = this.props
+    const {
+      type,
+      showInProgress,
+      onPress,
+      children,
+      childShouldInheritTextStyle,
+      ...props
+    } = this.props
 
     return (
       <Button
         onPress={showInProgress ? null : onPress}
         type={type}
+        childShouldInheritTextStyle={showInProgress ? false : childShouldInheritTextStyle}
         {...props}>
           {(!showInProgress) ? children : (
             <Loading color={value(`$button_${type}_spinnerColor`)} />

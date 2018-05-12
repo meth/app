@@ -13,6 +13,9 @@ export default create({
     paddingBottom: 0,
     height: '95%'
   },
+  noTransactionsYetAlert: {
+    marginTop: 15
+  },
   /* table */
   table: {
     flex: 1,

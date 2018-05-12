@@ -2,18 +2,18 @@ import _ from 'lodash'
 import React, { PureComponent } from 'react'
 
 import { connectStore } from '../../../helpers/redux'
-import Picker from '../../../components/Picker'
+import ModalFilterPicker from '../../../components/ModalFilterPicker'
 import LabelledAddress from '../../../components/LabelledAddress'
 import styles from './styles'
 
 
 @connectStore('account')
 export default class AccountPicker extends PureComponent {
-  static propTypes = _.omit(Picker.propTypes, 'options')
+  static propTypes = _.omit(ModalFilterPicker.propTypes, 'options')
 
   render () {
     return (
-      <Picker
+      <ModalFilterPicker
         {...this.props}
         ref={this._onPickerRef}
         options={this._getOptions()}

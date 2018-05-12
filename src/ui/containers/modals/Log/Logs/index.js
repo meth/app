@@ -29,7 +29,7 @@ export default class Logs extends PureComponent {
   renderEvents () {
     const { getLogWithoutAlerts } = this.props.selectors
 
-    const events = getLogWithoutAlerts()
+    const events = [ ...getLogWithoutAlerts() ]
     events.reverse()
 
     return events.map(({ level, msg, ts, cat }, index) => (

@@ -24,10 +24,14 @@ export default create({
     height: '95%'
   },
   container: {
-    marginTop: 30,
+    marginTop: 20,
     paddingBottom: 20,
     alignItems: 'flex-start',
     width: '100%'
+  },
+  formWrapper: {
+    width: '100%',
+    alignItems: 'flex-start'
   },
   field: {
     ...fieldRow
@@ -45,7 +49,7 @@ export default create({
     width: 500
   },
   submitButton: {
-    marginTop: 30
+    marginTop: 20
   },
   /* method */
   methodContainer: {

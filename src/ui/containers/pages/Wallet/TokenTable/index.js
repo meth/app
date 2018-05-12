@@ -9,6 +9,7 @@ import { t } from '../../../../../../common/strings'
 import styles from './styles'
 import TokenBalance from '../../../../components/TokenBalance'
 import IconButton from '../../../../components/IconButton'
+import FormWrapper from '../../../../components/FormWrapper'
 import ProgressButton from '../../../../components/ProgressButton'
 import Icon from '../../../../components/Icon'
 import ErrorBox from '../../../../components/ErrorBox'
@@ -76,7 +77,7 @@ export default class TokenTable extends CachePureComponent {
     const renderedFilter = defaultRenderFunc()
 
     return (
-      <View style={styles.tableFilterRow}>
+      <FormWrapper style={styles.tableFilterRow}>
         {renderedFilter}
         <IconButton
           icon={{ name: showAllTokens ? 'ios-funnel-outline' : 'ios-funnel' }}
@@ -90,7 +91,7 @@ export default class TokenTable extends CachePureComponent {
           tooltip={t('button.addCustomToken')}
           onPress={this._onPressAddToken}
         />
-      </View>
+      </FormWrapper>
     )
   }
 
@@ -125,8 +126,8 @@ export default class TokenTable extends CachePureComponent {
           <Text style={styles.tokenNameText}>{name}</Text>
           {isCustom ? (
             <IconButton
-              type='text'
-              icon={{ name: 'pencil' }}
+              type='textWithBorder'
+              icon={{ name: 'pencil', style: styles.editTokenButtonText }}
               style={styles.editTokenButton}
               tooltip={t('button.editCustomToken')}
               onPress={this.bind(this._onPressEditCustomToken, symbol)}
@@ -143,13 +144,14 @@ export default class TokenTable extends CachePureComponent {
             />
           ) : null}
           <ProgressButton
-            type='text'
+            type='textWithBorder'
             tooltip={t('wallet.tokens.checkBalance')}
             style={styles.tokenCheckButton}
             onPress={this.bind(this._onCheckTokenBalance, symbol)}
             showInProgress={checkingBalance[symbol]}
+            childShouldInheritTextStyle={true}
           >
-            <Icon name='refresh' />
+            <Icon name='refresh' style={styles.tokenCheckButtonText} />
           </ProgressButton>
         </View>
       </React.Fragment>

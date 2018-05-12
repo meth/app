@@ -41,8 +41,9 @@ export default create({
   /* card */
 
   walletCardButton_active: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 0,
+    borderColor: '$button_walletCard_enabled_hover_borderColor',
     borderBottomColor: '$wallet_card_active_borderBottomColor'
   },
   walletCardButton_inactive: {

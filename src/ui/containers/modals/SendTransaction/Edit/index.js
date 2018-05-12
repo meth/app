@@ -13,6 +13,7 @@ import Switch from '../../../../components/Switch'
 import TextInput from '../../../../components/TextInput'
 import ErrorBox from '../../../../components/ErrorBox'
 import Picker from '../../../../components/Picker'
+import FormWrapper from '../../../../components/FormWrapper'
 import Loading from '../../../../components/Loading'
 import AddressTextInput from '../../../liveComponents/AddressTextInput'
 import AccountPicker from '../../../liveComponents/AccountPicker'
@@ -47,143 +48,146 @@ export default class Edit extends PureComponent {
     const isTokenTransfer = (ETH !== unit)
 
     return (
-      <Form
-        style={styles.form}
-        ref={this._onFormRef}
-        onChange={this._onChange}
-        onSubmit={this._onSubmit}
-        validate={this._validate}
-        submitOnReturn={false}
-      >
-        <Form.Field
-          name='isContractCreation'
-          style={styles.field}
-        >
-          <Switch
-            turnedOn={isContractCreation}
-            label={t(`modal.sendTransaction.field.isContractCreationLabel`)}
-            labelTextStyle={styles.switchLabelText}
-          />
-        </Form.Field>
-        <Form.Field
-          name='from'
-          label={t('modal.sendTransaction.field.fromLabel')}
-          style={styles.field}
-          labelStyle={formStyles.label}
-          labelTextStyle={formStyles.labelText}
-        >
-          <AccountPicker selected={from} />
-        </Form.Field>
-        {isContractCreation ? null : (
-          <Form.Layout style={styles.toRow}>
+      <View style={styles.form}>
+        <FormWrapper style={styles.form}>
+          <Form
+            style={styles.form}
+            ref={this._onFormRef}
+            onChange={this._onChange}
+            onSubmit={this._onSubmit}
+            validate={this._validate}
+            submitOnReturn={false}
+          >
             <Form.Field
-              name='to'
-              label={t('modal.sendTransaction.field.toLabel')}
-              style={styles.toField}
+              name='isContractCreation'
+              style={styles.field}
+            >
+              <Switch
+                turnedOn={isContractCreation}
+                label={t(`modal.sendTransaction.field.isContractCreationLabel`)}
+                labelTextStyle={styles.switchLabelText}
+              />
+            </Form.Field>
+            <Form.Field
+              name='from'
+              label={t('modal.sendTransaction.field.fromLabel')}
+              style={styles.field}
               labelStyle={formStyles.label}
               labelTextStyle={formStyles.labelText}
             >
-              <AddressTextInput
-                value={to}
-                style={styles.textInput}
-                placeholder={t('modal.sendTransaction.field.toPlaceholder')}
-              />
+              <AccountPicker selected={from} />
             </Form.Field>
-          </Form.Layout>
-        )}
-        <Form.Layout style={styles.amountRow}>
-          <Form.Field
-            name='amount'
-            label={t('modal.sendTransaction.field.amountWithAvailableLabel', { amount: this._getCurrentUnitBalance() })}
-            style={styles.amountField}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-          >
-            <TextInput
-              value={amount}
-              style={styles.textInput}
-              placeholder={t('modal.sendTransaction.field.amountPlaceholder', { unit })}
-            />
-          </Form.Field>
-          <Form.Field
-            name='unit'
-            label={t('modal.sendTransaction.field.unitLabel')}
-            style={styles.unitField}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-          >
-            <Picker
-              style={styles.unitPicker}
-              options={this._getUnitPickerOptions()}
-              selected={unit}
-              button={{
-                style: styles.unitPickerButton,
-                textStyle: styles.unitPickerButtonText
-              }}
-            />
-          </Form.Field>
-        </Form.Layout>
-        {isTokenTransfer ? null : (
-          <Form.Field
-            name='data'
-            label={t(
-              isContractCreation
-                ? 'modal.sendTransaction.field.contractCodeLabel'
-                : 'modal.sendTransaction.field.dataLabel'
+            {isContractCreation ? null : (
+              <Form.Layout style={styles.toRow}>
+                <Form.Field
+                  name='to'
+                  label={t('modal.sendTransaction.field.toLabel')}
+                  style={styles.toField}
+                  labelStyle={formStyles.label}
+                  labelTextStyle={formStyles.labelText}
+                >
+                  <AddressTextInput
+                    value={to}
+                    style={styles.textInput}
+                    placeholder={t('modal.sendTransaction.field.toPlaceholder')}
+                  />
+                </Form.Field>
+              </Form.Layout>
             )}
-            style={styles.field}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-          >
-            <TextInput
-              value={data}
-              style={styles.textInput}
-              placeholder={t(
-                isContractCreation
-                  ? 'modal.sendTransaction.field.contractCodePlaceholder'
-                  : 'modal.sendTransaction.field.dataPlaceholder'
-              )}
-              multiline={true}
-              numberOfLines={2}
-            />
-          </Form.Field>
-        )}
-        <Form.Layout style={styles.gasRow}>
-          <Form.Field
-            name='gasLimit'
-            label={t('modal.sendTransaction.field.gasLimitLabel')}
-            style={styles.gasLimitField}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-            labelRightContent={fetchingGasEstimate ? <Loading /> : null}
-          >
-            <TextInput
-              value={gasLimit}
-              style={styles.textInput}
-              placeholder={t('modal.sendTransaction.field.gasLimitPlaceholder')}
-            />
-          </Form.Field>
-          <Form.Field
-            name='gasPrice'
-            label={t('modal.sendTransaction.field.gasPriceLabel')}
-            style={styles.gasPriceField}
-            labelStyle={formStyles.label}
-            labelTextStyle={formStyles.labelText}
-          >
-            <TextInput
-              value={gasPrice}
-              style={styles.textInput}
-              placeholder={t('modal.sendTransaction.field.gasPricePlaceholder')}
-            />
-          </Form.Field>
-        </Form.Layout>
-        <View style={styles.maxCost}>
-          <Text style={styles.maxCostText}>
-            {t('modal.sendTransaction.maxCost', {
-              cost: getMaxCost({ gasLimit, gasPrice, unit, amount })
-            })}
-          </Text>
-        </View>
+            <Form.Layout style={styles.amountRow}>
+              <Form.Field
+                name='amount'
+                label={t('modal.sendTransaction.field.amountWithAvailableLabel', { amount: this._getCurrentUnitBalance() })}
+                style={styles.amountField}
+                labelStyle={formStyles.label}
+                labelTextStyle={formStyles.labelText}
+              >
+                <TextInput
+                  value={amount}
+                  style={styles.textInput}
+                  placeholder={t('modal.sendTransaction.field.amountPlaceholder', { unit })}
+                />
+              </Form.Field>
+              <Form.Field
+                name='unit'
+                label={t('modal.sendTransaction.field.unitLabel')}
+                style={styles.unitField}
+                labelStyle={formStyles.label}
+                labelTextStyle={formStyles.labelText}
+              >
+                <Picker
+                  style={styles.unitPicker}
+                  options={this._getUnitPickerOptions()}
+                  selected={unit}
+                  button={{
+                    style: styles.unitPickerButton,
+                    textStyle: styles.unitPickerButtonText
+                  }}
+                />
+              </Form.Field>
+            </Form.Layout>
+            {isTokenTransfer ? null : (
+              <Form.Field
+                name='data'
+                label={t(
+                  isContractCreation
+                    ? 'modal.sendTransaction.field.contractCodeLabel'
+                    : 'modal.sendTransaction.field.dataLabel'
+                )}
+                style={styles.field}
+                labelStyle={formStyles.label}
+                labelTextStyle={formStyles.labelText}
+              >
+                <TextInput
+                  value={data}
+                  style={styles.textInput}
+                  placeholder={t(
+                    isContractCreation
+                      ? 'modal.sendTransaction.field.contractCodePlaceholder'
+                      : 'modal.sendTransaction.field.dataPlaceholder'
+                  )}
+                  multiline={true}
+                  numberOfLines={2}
+                />
+              </Form.Field>
+            )}
+            <Form.Layout style={styles.gasRow}>
+              <Form.Field
+                name='gasLimit'
+                label={t('modal.sendTransaction.field.gasLimitLabel')}
+                style={styles.gasLimitField}
+                labelStyle={formStyles.label}
+                labelTextStyle={formStyles.labelText}
+                labelRightContent={fetchingGasEstimate ? <Loading /> : null}
+              >
+                <TextInput
+                  value={gasLimit}
+                  style={styles.textInput}
+                  placeholder={t('modal.sendTransaction.field.gasLimitPlaceholder')}
+                />
+              </Form.Field>
+              <Form.Field
+                name='gasPrice'
+                label={t('modal.sendTransaction.field.gasPriceLabel')}
+                style={styles.gasPriceField}
+                labelStyle={formStyles.label}
+                labelTextStyle={formStyles.labelText}
+              >
+                <TextInput
+                  value={gasPrice}
+                  style={styles.textInput}
+                  placeholder={t('modal.sendTransaction.field.gasPricePlaceholder')}
+                />
+              </Form.Field>
+            </Form.Layout>
+            <View style={styles.maxCost}>
+              <Text style={formStyles.labelText}>{t('modal.sendTransaction.maxCost')}</Text>
+              <Text style={styles.maxCostText}>
+                {getMaxCost({ gasLimit, gasPrice, unit, amount })}
+              </Text>
+            </View>
+          </Form>
+        </FormWrapper>
         <ProgressButton
           showInProgress={generating}
           title={t('button.generateRawTransaction')}
@@ -191,7 +195,7 @@ export default class Edit extends PureComponent {
           style={styles.formButton}
         />
         <ErrorBox error={error} style={styles.errorBox} />
-      </Form>
+      </View>
     )
   }
 

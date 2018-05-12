@@ -47,6 +47,7 @@ export default class WalletCard extends PureComponent {
           addressTextStyle={styles.addressText}
           labelTextStyle={styles.labelText}
           editButtonProps={onPressEditLabel ? {
+            type: 'textWithBorder',
             disabled: !isActive,
             style: styles.labelEditButton,
             icon: {
@@ -65,7 +66,7 @@ export default class WalletCard extends PureComponent {
         />
         <View style={styles.transButtons}>
           <IconButton
-            type='text'
+            type='textWithBorder'
             disabled={!isActive}
             tooltip={t('button.sendCrypto')}
             style={styles.transButton}
@@ -73,7 +74,7 @@ export default class WalletCard extends PureComponent {
             onPress={this._onPressSend}
           />
           <IconButton
-            type='text'
+            type='textWithBorder'
             disabled={!isActive}
             tooltip={t('button.showQrCode')}
             icon={{ name: 'qrcode' }}

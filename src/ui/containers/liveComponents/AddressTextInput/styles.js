@@ -14,7 +14,8 @@ export default create({
     marginLeft: 5
   },
   pickerButtonIcon: {
-    fontSize: '0.8rem'
+    fontSize: '0.8rem',
+    color: '$button_default_enabled_default_textColor'
   },
   addToAddressBookButton: {
     flex: 0,

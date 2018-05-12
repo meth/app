@@ -6,6 +6,7 @@ import { t } from '../../../../../common/strings'
 import styles from './styles'
 import Layout from '../Layout'
 import Loading from '../../../components/Loading'
+import AlertBox from '../../../components/AlertBox'
 import Table from '../../../components/Table'
 import TitleText from '../../../components/TitleText'
 import TransactionView from '../../liveComponents/TransactionView'
@@ -32,6 +33,16 @@ export default class Transactions extends CachePureComponent {
   renderContent () {
     const { getTransactionHistory } = this.props.selectors
     const transactions = getTransactionHistory()
+
+    if (!transactions.length) {
+      return (
+        <AlertBox
+          style={styles.noTransactionsYetAlert}
+          type='info'
+          text={t('transactions.noneYet')}
+        />
+      )
+    }
 
     const rows = transactions.map(({ id, params, receipt, ts }) => ({
       tx: {

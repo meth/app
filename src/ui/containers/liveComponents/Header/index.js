@@ -123,9 +123,11 @@ export default class Header extends PureComponent {
       <Button
         onPress={this.showConnectionInfo}
         style={styles.networkButton}
-        type='text'>
-          <Text style={styles.networkButtonText}>{network.description}</Text>
-          {syncIcon}
+        type='text'
+        childShouldInheritTextStyle={true}
+      >
+        <Text style={styles.networkButtonText}>{network.description}</Text>
+        {syncIcon}
       </Button>
     )
   }

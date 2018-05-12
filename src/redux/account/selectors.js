@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { createSelector } from 'reselect'
 
 import ADDRESS_TYPES from '../../../common/constants/addressTypes'

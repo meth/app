@@ -76,7 +76,11 @@ export default create({
     marginRight: 5
   },
   tokenCheckButton: {
-    borderWidth: 0
+    paddingVertical: 3,
+    paddingHorizontal: 4
+  },
+  tokenCheckButtonText: {
+    fontSize: '0.5rem'
   },
   tokenErrorBox: {
     paddingVertical: 1,
@@ -84,7 +88,11 @@ export default create({
     marginRight: 5
   },
   editTokenButton: {
-    borderWidth: 0,
-    marginLeft: 5
+    marginLeft: 5,
+    paddingVertical: 2,
+    paddingHorizontal: 3
+  },
+  editTokenButtonText: {
+    fontSize: '0.5rem'
   }
 })

@@ -35,8 +35,7 @@ export const createStyles = _.memoize(state => create({
   },
   labelEditButton: {
     paddingVertical: 2,
-    paddingHorizontal: 3,
-    borderWidth: 0
+    paddingHorizontal: 3
   },
   labelEditButtonText: {
     fontSize: '0.5rem'
@@ -70,6 +69,5 @@ export const createStyles = _.memoize(state => create({
     width: '90%'
   },
   transButton: {
-    borderWidth: 0
   }
 }))

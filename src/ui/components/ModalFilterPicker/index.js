@@ -141,6 +141,7 @@ export default class ModalFilterPicker extends CachePureComponent {
         style={styles.tableRowDataButton}
         textStyle={styles.tableRowDataButtonText}
         onPress={this.bind(this._onSelectEntry, value)}
+        childShouldInheritTextStyle={!renderOption}
       >
         {renderOption
           ? renderOption(_.get(row, 'content', {}))

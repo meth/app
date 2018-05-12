@@ -35,9 +35,8 @@ export default class Confirm extends PureComponent {
           <Text style={styles.confirmText}>{to || t('modal.sendTransaction.contractDeployment')}</Text>
           <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.amountLabel')}</Text>
           <Text style={styles.confirmText}>{amount} {unit}</Text>
-          <Text style={styles.confirmText}>{t('modal.sendTransaction.maxCost', {
-            cost: getMaxCost({ amount, unit, gasLimit, gasPrice })
-          })}</Text>
+          <Text style={formStyles.labelText}>{t('modal.sendTransaction.maxCost')}</Text>
+          <Text style={styles.confirmText}>{getMaxCost({ amount, unit, gasLimit, gasPrice })}</Text>
           <Text style={formStyles.labelText}>{t('modal.sendTransaction.rawTransactionLabel')}</Text>
           <BlockOfText
             text={rawTx.str}
