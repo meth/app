@@ -403,7 +403,7 @@ export default {
       }
     }),
     textWithBorder: generateButtonStyles({
-      spinnerColor: colorWhite,
+      spinnerColor: colorViolet,
       default: {
         borderColor: colorViolet,
         backgroundColor: colorTransparent,

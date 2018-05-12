@@ -76,11 +76,12 @@ export default create({
     marginRight: 5
   },
   tokenCheckButton: {
-    paddingVertical: 3,
-    paddingHorizontal: 4
+    marginRight: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 6
   },
   tokenCheckButtonText: {
-    fontSize: '0.5rem'
+    fontSize: '0.6rem'
   },
   tokenErrorBox: {
     paddingVertical: 1,
