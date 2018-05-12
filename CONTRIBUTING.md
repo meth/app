@@ -5,10 +5,7 @@
 **Prior to submitting, please search -and read- _both_ open and closed issues -as
 your issue may already exist.**
 
-If you wish to submit a general suggestion for Meth (e.g. something longer term)
-please post in our [ideas repository](https://github.com/meth-project/ideas) instead.
-
-Please ensure your issue is in the predefined [issue format](ISSUE_TEMPLATE.md).
+If your issue is a bug please ensure it is in the predefined [issue format](ISSUE_TEMPLATE.md).
 
 ## Pull Requests
 
