@@ -2,7 +2,7 @@
   "name": "meth-browser",
   "version": "1.0.0",
   "productName": "Meth",
-  "author": "",
+  "author": "Ramesh Nair <ram@hiddentao.com>",
   "description": "Cross-platform Ethereum wallet and DApp browser with sync",
   "main": "electron/index.js",
   "scripts": {
