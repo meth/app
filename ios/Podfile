@@ -8,6 +8,8 @@
     # pod 'Mixpanel', '~> 3.1'
     # pod 'Instabug'
 
+    pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
     target 'methTests' do
       inherit! :search_paths
       # Pods for testing

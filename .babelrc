@@ -1,19 +1,19 @@
 {
   "presets": [
-    "react-native",
+    "react-native"
   ],
   "plugins": [
-    "transform-runtime",
     "transform-react-display-name",
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    ["rewrite-require", {
+      "aliases": {
+        "crypto": "crypto-browserify",
+        "stream": "stream-browserify",
+        "vm": "vm-browserify"
+      }
+    }]
   ],
   "env": {
-    "development": {
-      "plugins": [
-        "transform-react-jsx-source",
-        "react-hot-loader/babel",
-      ]
-    },
     "test": {
       "plugins": [
         "babel-jest-assertions"

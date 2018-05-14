@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import net.rhogan.rnsecurerandom.RNSecureRandomPackage;
 import com.instabug.library.Instabug;
 import com.instabug.library.InstabugColorTheme;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SvgPackage(),
             new RNSecureRandomPackage(),
           new VectorIconsPackage()
       );

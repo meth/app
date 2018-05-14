@@ -30,7 +30,29 @@ const plugins = (env) => [
     '__DEV__': env.development === true,
   })),
   new HappyPack({
-    loaders: ['babel-loader'],
+    loaders: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            'react-native'
+          ],
+          plugins: [
+            'transform-runtime',
+            'transform-react-display-name',
+            'transform-decorators-legacy'
+          ],
+          env: {
+            development: {
+              plugins: [
+                'transform-react-jsx-source',
+                'react-hot-loader/babel'
+              ]
+            }
+          }
+        }
+      }
+    ]
   }),
   ifDev(env, new webpack.HotModuleReplacementPlugin()),
   ifDev(env, new webpack.NamedModulesPlugin()),

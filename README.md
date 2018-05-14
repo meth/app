@@ -141,6 +141,8 @@ Run the react native packager in one terminal:
 $ yarn mobile:dev
 ```
 
+_Note: use `yarn mobile:dev --reset-cache` to do a clean package rebuild at any time_.
+
 Now, for Android do:
 
 ```shell
