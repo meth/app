@@ -31,8 +31,7 @@ export default create({
   receiptText: {
     ...text,
     fontSize: '0.7rem',
-    color: '$transactionBlock_block_textColor',
-    textTransform: 'lowercase'
+    color: '$transactionBlock_block_textColor'
   },
   receiptLinkButton: {
     marginLeft: 5

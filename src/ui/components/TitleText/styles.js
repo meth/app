@@ -4,7 +4,6 @@ export default create({
   text: {
     ...fontMaker({ weight: 'Light' }),
     fontSize: '0.8rem',
-    color: '$content_title_textColor',
-    textTransform: 'uppercase'
+    color: '$content_title_textColor'
   }
 })

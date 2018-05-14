@@ -20,7 +20,6 @@ export default create({
   unitText: {
     ...text,
     ...fontMaker({ weight: 'Light' }),
-    textTransform: 'uppercase',
     color: '$balance_unit_textColor',
     fontSize: '0.6rem'
   }

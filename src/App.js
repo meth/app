@@ -2,7 +2,7 @@ import React from 'react'
 import { YellowBox } from 'react-native'
 import { Provider } from 'react-redux'
 
-import setupFonts from './fonts'
+import { setupFonts } from './fonts'
 import { setupStore } from './redux'
 import * as config from './config'
 import nodeConnector from './nodeConnector'

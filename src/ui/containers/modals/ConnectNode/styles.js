@@ -49,14 +49,12 @@ export default create({
   typeText: {
     ...text,
     marginTop: 10,
-    fontSize: '0.7rem',
-    textTransform: 'lowercase'
+    fontSize: '0.7rem'
   },
   chainIdText: {
     ...text,
     fontSize: '0.7rem',
-    marginTop: 10,
-    textTransform: 'lowercase'
+    marginTop: 10
   },
   block: {
     marginTop: 10,
@@ -66,8 +64,7 @@ export default create({
   },
   blockText: {
     ...text,
-    fontSize: '0.7rem',
-    textTransform: 'lowercase'
+    fontSize: '0.7rem'
   },
   blockLinkButton: {
     marginLeft: 5
@@ -78,8 +75,7 @@ export default create({
   syncingText: {
     ...text,
     fontSize: '0.7rem',
-    marginTop: 10,
-    textTransform: 'lowercase'
+    marginTop: 10
   },
 
   /* error display */

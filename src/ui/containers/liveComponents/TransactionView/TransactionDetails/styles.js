@@ -20,8 +20,7 @@ export default create({
     ...text,
     ...fontMaker({ weight: 'SemiBold' }),
     color: '$transactionBlock_type_textColor',
-    fontSize: '0.7rem',
-    textTransform: 'uppercase'
+    fontSize: '0.7rem'
   },
   detailsContent: {
     marginLeft: 20

@@ -1,10 +1,10 @@
 import flatten from 'flat'
-import { Platform, Dimensions } from 'react-native'
+import { Dimensions } from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
+import { isWeb, isAndroid, isIos } from '../../utils/deviceInfo'
 import defaultTheme from './themes'
-
-const isWebPlatform = ('web' === Platform.OS)
+import { FONTS } from '../../fonts'
 
 EStyleSheet.build(flatten(defaultTheme, { delimiter: '_' }))
 
@@ -55,7 +55,7 @@ export const dropShadower = (
 })
 
 export const fontMaker = (options = {}) => {
-  const { name, weight, style } = Object.assign(
+  const params = Object.assign(
     {
       name: 'OpenSans',
       weight: null,
@@ -64,35 +64,40 @@ export const fontMaker = (options = {}) => {
     options
   )
 
-  return (isWebPlatform) ? {
-    fontFamily: `${name}${weight || ''}${style || ''}`,
-    ...transparentBg
-  } : {
-    fontFamily: name,
-    fontWeight: weight,
-    fontStyle: style,
-    ...transparentBg
-  }
-}
+  const { name } = params
+  let { weight, style } = params
 
-export const addWebFont = (url, name, { weight = null, style = null } = {}) => {
-  // Generate required css
-  const fontStyles = `@font-face {
-    src: url(${url});
-    font-family: ${name}${weight || ''}${style || ''};
-  }`
-
-  // Create stylesheet
-  const styleElem = document.createElement('style')
-  styleElem.type = 'text/css'
-  if (styleElem.styleSheet) {
-    styleElem.styleSheet.cssText = fontStyles
-  } else {
-    styleElem.appendChild(document.createTextNode(fontStyles))
+  if (isWeb) {
+    return {
+      fontFamily: `${name}${weight || ''}${style || ''}`,
+      ...transparentBg
+    }
   }
 
-  // Inject stylesheet
-  document.head.appendChild(styleElem)
+  if (isAndroid) {
+    weight = FONTS[name].weights[weight] ? weight : ''
+    style = FONTS[name].styles[style] ? style : ''
+
+    const suffix = weight + style
+
+    return {
+      fontFamily: `${name}${suffix ? `-${suffix}` : ''}`
+    }
+  }
+
+  if (isIos) {
+    weight = FONTS[name].weights[weight] || FONTS[name].weights.Normal
+    style = FONTS[name].styles[style] || 'normal'
+
+    return {
+      fontFamily: name,
+      fontWeight: weight,
+      fontStyle: style,
+      ...transparentBg
+    }
+  }
+
+  return null
 }
 
 const SCREEN_WIDTH_SMALL = 700
