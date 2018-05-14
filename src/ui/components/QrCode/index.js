@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { QRCode } from 'react-qr-svg'
 import { View } from 'react-native'
 
+import QRCode from './component'
 import styles from './styles'
 
 export default class QrCode extends PureComponent {

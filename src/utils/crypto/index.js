@@ -8,10 +8,10 @@ export const sha256 = data => _sha256(JSON.stringify(data))
 
 export const sha512 = data => _sha512(JSON.stringify(data))
 
-export const encrypt = (key, data) => {
+export const encrypt = async (key, data) => {
   const password = sjcl.codec.hex.toBits(key)
   const plaintext = JSON.stringify(data)
-  const iv = getRandomBytes(16)
+  const iv = await getRandomBytes(16)
 
   return Base64.btoa(sjcl.encrypt(password, plaintext, {
     cipher: 'aes',
@@ -23,7 +23,7 @@ export const encrypt = (key, data) => {
   }))
 }
 
-export const decrypt = (key, ciphertext) => {
+export const decrypt = async (key, ciphertext) => {
   const password = sjcl.codec.hex.toBits(key)
 
   const data = sjcl.decrypt(password, Base64.atob(ciphertext))

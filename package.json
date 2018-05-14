@@ -30,7 +30,7 @@
     "mobile:setup-dev": "INSTABUG=false ANALYTICS=false node_modules/.bin/babel-node build-tools/prebuild/setup.js",
     "mobile:setup-qa": "INSTABUG=true ANALYTICS=true BUILD_MODE=qa INC_BUILD_NUMBER=true node_modules/.bin/babel-node build-tools/prebuild/setup.js",
     "mobile:setup-prod": "INSTABUG=true ANALYTICS=true BUILD_MODE=prod INC_BUILD_NUMBER=true node_modules/.bin/babel-node build-tools/prebuild/setup.js",
-    "mobile:packager": "yarn web:package-clean && yarn react-native start",
+    "mobile:dev": "yarn web:package-clean && yarn react-native start",
     "mobile:ios": "build-tools/run-scripts/run-ios",
     "mobile:android": "build-tools/run-scripts/run-android"
   },
@@ -139,6 +139,8 @@
     "react-native-advanced-forms": "^1.1.6",
     "react-native-dropdown": "0.0.6",
     "react-native-extended-stylesheet": "^0.6.0",
+    "react-native-qrcode": "^0.2.6",
+    "react-native-securerandom": "^0.1.1",
     "react-native-tab-view": "^0.0.77",
     "react-native-tabs": "^1.0.9",
     "react-native-vector-icons": "^4.6.0",
@@ -163,6 +165,11 @@
     "web3-utils": "^1.0.0-beta.17",
     "webpack": "^3.5.4",
     "webpack-dev-server": "^2.7.1"
+  },
+  "rnpm": {
+    "assets": [
+      "src/fonts"
+    ]
   },
   "jest": {
     "setupFiles": [

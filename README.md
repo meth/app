@@ -48,6 +48,7 @@ node issues will be handled within the Browser app itself.
 
   * [Node.js 8.10.0](http://nodejs.org) **<- we recommend using this exact version!**
   * [Yarn 1.0+](yarnpkg.com)
+  * [RubyGems](https://rubygems.org)
 
 Once Node is installed, install the dependencies:
 
@@ -119,7 +120,16 @@ $ yarn web:electron
 
 ### Mobile development
 
-First, always ensure you run the mobile setup script:
+Ensure you have all necessary tools:
+
+```shell
+$ brew install watchman
+$ xcode-select --install
+$ gem install bundler
+$ bundle update
+```
+
+Ensure you run the mobile setup script (dev mode):
 
 ```shell
 $ yarn mobile:setup-dev
@@ -128,13 +138,27 @@ $ yarn mobile:setup-dev
 Run the react native packager in one terminal:
 
 ```shell
-$ yarn mobile:packager
+$ yarn mobile:dev
 ```
 
-Now run the platform you want (`ios` or `android`), e.g:
+Now, for Android do:
 
 ```shell
 $ yarn mobile:android
+```
+
+For iOS you will need to update the certificates and provisioning profiles:
+
+```shell
+$ bundle exec fastlane match --readonly development
+$ bundle exec fastlane match --readonly adhoc
+$ bundle exec fastlane match --readonly appstore
+```
+
+Then do:
+
+```shell
+$ yarn mobile:ios
 ```
 
 _Note: Running the react native packager will automatically result in the

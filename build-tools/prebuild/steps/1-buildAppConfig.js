@@ -38,7 +38,7 @@ module.exports = config => {
   doInfoStep('Writing buildConfig.json', () => {
     const { BUILD_MODE, INSTABUG, ANALYTICS } = config
 
-    const { buildNumber, appVersion } = getInfoFrombuildConfigRepo(config)
+    const { buildNumber, appVersion } = { buildNumber: 1, appVersion: '1.0.0' }//getInfoFrombuildConfigRepo(config)
 
     const baseMode = require(appAssetPath('buildConfig.js'))
     const buildMode = require(appAssetPath('buildConfig.js', BUILD_MODE))
