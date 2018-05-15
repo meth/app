@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
-import { routes } from '../../../nav'
+import { routes } from '../../../nav/routes'
+import { addRouteListener } from '../../../nav'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -23,11 +24,16 @@ export default class GenerateMnemonic extends PureComponent {
   }
 
   componentDidMount () {
-    const { generateMnemonic } = this.props.actions
+    this._generateMnemonic()
 
-    generateMnemonic()
-      .then(mnemonic => this.setState({ mnemonic }))
-      .catch(error => this.setState({ error }))
+    // every time we return to this screen we want to re-generate the mnemonic
+    this._routeListener = addRouteListener('GenerateMnemonic', this._generateMnemonic)
+  }
+
+  componentWillUnmount () {
+    if (this._routeListener) {
+      this._routeListener.remove()
+    }
   }
 
   render () {
@@ -79,5 +85,13 @@ export default class GenerateMnemonic extends PureComponent {
     this.setState({
       revealed: true
     })
+  }
+
+  _generateMnemonic = () => {
+    const { generateMnemonic } = this.props.actions
+
+    generateMnemonic()
+      .then(mnemonic => this.setState({ mnemonic }))
+      .catch(error => this.setState({ error }))
   }
 }

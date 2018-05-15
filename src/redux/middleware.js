@@ -1,5 +1,6 @@
 import logger from '../logger'
 import configMiddleware from './config/middleware'
+import navMiddleware from './nav/middleware'
 import nodeMiddleware from './node/middleware'
 import apiMiddleware from './api/middleware'
 import logMiddleware from './log/middleware'
@@ -19,6 +20,7 @@ export const createMiddleware = app => [
     }
   },
   // now we can add our actual middlware
+  navMiddleware(app),
   configMiddleware(app),
   logMiddleware(app),
   nodeMiddleware(app),

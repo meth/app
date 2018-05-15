@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
-import { routes } from '../../../nav'
+import { routes, onceLoggedInRoute } from '../../../nav/routes'
 import logger from '../../../../logger'
 import { instanceOfError, UnableToConnectError } from '../../../../utils/errors'
 import { t } from '../../../../../common/strings'
@@ -72,9 +72,9 @@ export default class LoginMnemonic extends PureComponent {
   }
 
   onSubmit = () => {
-    const { actions: { navPush, loadWallet } } = this.props
+    const { actions: { navReset, loadWallet } } = this.props
 
-    const postSuccessPath = routes.OnceLoggedIn.path
+    const postSuccessPath = onceLoggedInRoute.path
 
     this.setState({
       error: null,
@@ -83,7 +83,7 @@ export default class LoginMnemonic extends PureComponent {
       // timeout to give the UI time to re-render
       setTimeout(() => {
         loadWallet(this.state.mnemonic)
-          .then(() => navPush(postSuccessPath))
+          .then(() => navReset(postSuccessPath))
           .catch(error => {
             log.debug(error)
 
@@ -94,9 +94,9 @@ export default class LoginMnemonic extends PureComponent {
               })
             }
 
-            return navPush(postSuccessPath)
+            return navReset(postSuccessPath)
           })
-      })
+      }, 1)
     })
   }
 }

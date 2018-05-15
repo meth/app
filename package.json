@@ -151,6 +151,7 @@
     "react-native-vector-icons": "^4.6.0",
     "react-native-web": "^0.5.4",
     "react-navigation": "^2.0.1",
+    "react-navigation-redux-helpers": "^1.0.6",
     "react-proxy": "^1.1.8",
     "react-qr-svg": "^2.1.0",
     "react-redux": "^5.0.5",

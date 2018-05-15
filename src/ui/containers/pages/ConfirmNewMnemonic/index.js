@@ -1,9 +1,10 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
 import logger from '../../../../logger'
 import { instanceOfError, UnableToConnectError } from '../../../../utils/errors'
-import { routes } from '../../../nav'
+import { onceLoggedInRoute } from '../../../nav/routes'
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
 import styles from './styles'
@@ -26,9 +27,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
   }
 
   render () {
-    const {
-      navigation: { currentRoute: { params: { mnemonic } } }
-    } = this.props
+    const { mnemonic } = _.get(this.props.navigation, 'state.params', {})
 
     const { error, success } = this.state
 
@@ -43,7 +42,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
         <MnemonicConfirmator
           onSuccess={this.onSuccessfulConfirmation}
           style={styles.confirmator}
-          mnemonic={mnemonic}
+          mnemonic={mnemonic || ''}
         />
         {errorBox}
         <Button
@@ -82,16 +81,14 @@ export default class ConfirmNewMnemonic extends PureComponent {
   }
 
   onProceed = () => {
-    const {
-      navigation: { currentRoute: { params: { mnemonic } } },
-      actions: { navPush, loadWallet }
-    } = this.props
+    const { navReset, loadWallet } = this.props.actions
+    const mnemonic = this._getMnemonic()
 
-    const postSuccessPath = routes.OnceLoggedIn.path
+    const postSuccessPath = onceLoggedInRoute.path
 
     return this.setState({ error: null }, () => {
       loadWallet(mnemonic)
-        .then(() => navPush(postSuccessPath))
+        .then(() => navReset(postSuccessPath))
         .catch(error => {
           log.debug(error)
 
@@ -99,8 +96,14 @@ export default class ConfirmNewMnemonic extends PureComponent {
             return this.setState({ error })
           }
 
-          return navPush(postSuccessPath)
+          return navReset(postSuccessPath)
         })
     })
+  }
+
+  _getMnemonic () {
+    const { mnemonic } = _.get(this.props.navigation, 'state.params', {})
+
+    return mnemonic
   }
 }

@@ -43,6 +43,7 @@ export const connectStore = (...storeSubParts) => Component =>
     (stateProps, dispatchProps, ownProps) => ({
       ...stateProps,
       ...ownProps,
+      dispatch: store.dispatch,
       actions: store.actions,
       selectors: store.selectors
     }),
