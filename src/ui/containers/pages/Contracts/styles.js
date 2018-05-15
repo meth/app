@@ -24,7 +24,6 @@ export default create({
     height: '95%'
   },
   container: {
-    marginTop: 20,
     paddingBottom: 20,
     alignItems: 'flex-start',
     width: '100%'

@@ -18,7 +18,7 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
 import Layout from '../Layout'
-import TitleText from '../../../components/TitleText'
+import PageTitleText from '../../../components/PageTitleText'
 import AlertBox from '../../../components/AlertBox'
 import FormWrapper from '../../../components/FormWrapper'
 import ProgressButton from '../../../components/ProgressButton'
@@ -55,7 +55,7 @@ export default class AddressBook extends PureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <TitleText text={t('title.contracts')} />
+        <PageTitleText text={t('title.contracts')} />
         {haveAccounts ? (
           this._renderContent()
         ) : (

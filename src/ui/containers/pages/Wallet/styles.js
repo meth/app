@@ -28,8 +28,7 @@ export default create({
   cardsScrollView: {
     position: 'relative',
     flex: 0,
-    width: '100%',
-    marginTop: 10
+    width: '100%'
   },
   cardsContent: {
     flexDirection: 'row',

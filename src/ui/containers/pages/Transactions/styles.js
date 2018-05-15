@@ -19,7 +19,6 @@ export default create({
   /* table */
   table: {
     flex: 1,
-    marginTop: 10,
     paddingBottom: 20,
     width: '100%'
   },

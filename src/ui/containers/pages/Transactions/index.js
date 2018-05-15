@@ -8,7 +8,7 @@ import Layout from '../Layout'
 import Loading from '../../../components/Loading'
 import AlertBox from '../../../components/AlertBox'
 import Table from '../../../components/Table'
-import TitleText from '../../../components/TitleText'
+import PageTitleText from '../../../components/PageTitleText'
 import TransactionView from '../../liveComponents/TransactionView'
 
 const RENDER_NULL = () => null
@@ -28,7 +28,7 @@ export default class Transactions extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <TitleText text={t('title.transactions')} />
+        <PageTitleText text={t('title.transactions')} />
         {network ? this.renderContent() : <Loading />}
       </Layout>
     )

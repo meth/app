@@ -7,7 +7,7 @@ import { t } from '../../../../../common/strings'
 import styles from './styles'
 import Layout from '../Layout'
 import TokenTable from './TokenTable'
-import TitleText from '../../../components/TitleText'
+import PageTitleText from '../../../components/PageTitleText'
 import ScrollView from '../../../components/ScrollView'
 import WalletCard from '../../../components/WalletCard'
 import Loading from '../../../components/Loading'
@@ -36,7 +36,7 @@ export default class Wallet extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <TitleText text={t('title.wallet')} />
+        <PageTitleText text={t('title.wallet')} />
         {accountAddresses.length ? (
           this._renderContent({ accounts, accountAddresses })
         ) : (

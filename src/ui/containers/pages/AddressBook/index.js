@@ -10,7 +10,7 @@ import Table from '../../../components/Table'
 import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
 import LabelledAddress from '../../../components/LabelledAddress'
-import TitleText from '../../../components/TitleText'
+import PageTitleText from '../../../components/PageTitleText'
 
 const RENDER_HEADER = () => null
 
@@ -38,7 +38,7 @@ export default class AddressBook extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <TitleText text={t('title.addressBook')} />
+        <PageTitleText text={t('title.addressBook')} />
         <Table
           style={styles.table}
           listStyle={styles.tableList}
