@@ -16,6 +16,10 @@ const log = logger.create('ConfirmNewMnemonic')
 
 @connectStore('nav', 'account', 'modals')
 export default class ConfirmNewMnemonic extends PureComponent {
+  static navigationOptions = {
+    title: t('title.confirmWallet')
+  }
+
   state = {
     success: false,
     error: null

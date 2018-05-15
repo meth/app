@@ -1,4 +1,5 @@
 import { loadJSON } from '../utils/fetch'
+import packageJson from '../../package.json'
 import alerts from './alerts.json'
 import networks from './networks.json'
 import nodes from './nodes.json'
@@ -57,3 +58,5 @@ export const load = async (fileName, skipCache = false) => {
 const LOCAL_CONFIG = Object.assign({}, require('../../appConfig.json'))
 
 export const getBackendUrl = () => LOCAL_CONFIG.backend
+
+export const getAppName = () => packageJson.productName

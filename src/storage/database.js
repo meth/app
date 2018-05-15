@@ -15,7 +15,7 @@ export default class Database {
   constructor (dbName, { storeInject, authKey, encryptionKey }) {
     this._storeInject = storeInject
     this._encryptionKey = encryptionKey
-    this._dbName = `${authKey}-${dbName}`.toLowerCase() /* replication requires lowercase db names */
+    this._dbName = `${authKey}-${dbName}`.toLowerCase() /* Replication requires lowercase db names */
     this._db = new PouchDB(this._dbName, { adapter: 'asyncstorage' })
     this._log = logger.create(`db-${dbName}`)
 
@@ -57,23 +57,23 @@ export default class Database {
           .on('error', this._onReplicationError)
           .on('change', ({ direction }) => {
             if ('pull' === direction) {
-              this._log.debug('replication pull')
+              this._log.debug('Replication pull')
               this._reload()
             } else {
-              this._log.debug('replication push')
+              this._log.debug('Replication push')
             }
           })
           .on('paused', () => {
-            this._log.trace('replication paused')
+            this._log.trace('Replication paused')
           })
           .on('active', () => {
-            this._log.trace('replication resumed')
+            this._log.trace('Replication resumed')
           })
           .on('denied', err => {
-            this._log.warn('replication denied', err)
+            this._log.warn('Replication denied', err)
           })
           .on('complete', () => {
-            this._log.debug('replication complete')
+            this._log.debug('Replication complete')
           })
       })
   }
@@ -157,6 +157,6 @@ export default class Database {
   }
 
   _onReplicationError = err => {
-    this._log.warn('replication error', err)
+    this._log.warn(`Replication error: ${err}`)
   }
 }

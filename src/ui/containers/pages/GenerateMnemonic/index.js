@@ -13,6 +13,10 @@ import Layout from '../Layout'
 
 @connectStore('nav', 'account')
 export default class GenerateMnemonic extends PureComponent {
+  static navigationOptions = {
+    title: t('title.createWallet')
+  }
+
   state = {
     mnemonic: null,
     error: null

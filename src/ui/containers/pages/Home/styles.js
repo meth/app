@@ -5,7 +5,7 @@ const introText = {
   fontSize: '1rem',
   textAlign: 'center',
   color: '$content_textColor',
-  maxWidth: '70%',
+  maxWidth: '90%',
   marginBottom: 20
 }
 

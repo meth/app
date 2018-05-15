@@ -32,6 +32,10 @@ import AddressTextInput from '../../liveComponents/AddressTextInput'
 
 @connectStore('account')
 export default class AddressBook extends PureComponent {
+  static navigationOptions = {
+    title: t('title.contracts')
+  }
+
   state = {
     address: '',
     abi: '',

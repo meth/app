@@ -15,9 +15,7 @@ export default create({
     padding: 30,
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: 400,
-    height: 'auto'
+    alignItems: 'center'
   },
   form: {
     flexDirection: 'column',

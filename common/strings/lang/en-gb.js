@@ -1,6 +1,7 @@
 const { ALL_ADDRESSES } = require('../../constants/dappPermissions')
 const ADDRESS_TYPES = require('../../constants/addressTypes')
 const { TRANSACTION_TYPE } = require('../../constants/protocol')
+const { productName } = require('../../../package.json')
 
 module.exports = {
   label: 'English',
@@ -58,8 +59,8 @@ module.exports = {
       unableToGenerateRawTx: 'Unable to generate raw transaction'
     },
     home: {
-      intro1: 'Welcome to Meth!',
-      intro2: 'Let\'s get your wallet setup so that you can start using Ethereum Dapps!'
+      intro1: `Welcome to ${productName}!`,
+      intro2: 'Let\'s get your wallet setup so that you can start using Ethereum Dapps.'
     },
     mnemonic: {
       intro1: 'We have generated a passphrase for you.',
@@ -73,8 +74,8 @@ module.exports = {
       inputPlaceholderText: 'separate each word by a space ...'
     },
     linkButton: {
-      alreadyHavePasswordLogin: 'Already have a passphrase? Login here',
-      dontHavePasswordCreateOne: 'Don\'t have a passphrase yet? Create one here',
+      alreadyHavePasswordLogin: 'I already have a wallet',
+      dontHavePasswordCreateOne: 'Don\'t have a wallet yet? Create one here',
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
     log: {
@@ -107,7 +108,7 @@ module.exports = {
       delete: 'Delete',
       close: 'Close',
       login: 'Login',
-      getStarted: 'Get started',
+      createNewWallet: 'Create new wallet',
       confirmAndSendTransaction: 'Confirm and send',
       connectToNode: 'Connect',
       disconnectFromNode: 'Disconnect',
@@ -129,6 +130,9 @@ module.exports = {
       }
     },
     title: {
+      login: 'Login',
+      createWallet: 'Create wallet',
+      confirmWallet: 'Confirm wallet',
       contracts: 'Contracts',
       addressBook: 'Address book',
       editAddressLabel: 'Edit address book entry',

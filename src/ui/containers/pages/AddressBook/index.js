@@ -19,6 +19,10 @@ const COLUMNS = [ { id: 'address' } ]
 
 @connectStore('nav', 'account')
 export default class AddressBook extends CachePureComponent {
+  static navigationOptions = {
+    title: t('title.addressBook')
+  }
+
   render () {
     const { getAddressBook } = this.props.selectors
 

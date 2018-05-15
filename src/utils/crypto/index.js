@@ -3,9 +3,13 @@ import sjcl from 'sjcl'
 
 import getRandomBytes from './random'
 
-export const sha256 = data => sjcl.hash.sha256.hash(JSON.stringify(data))
+export const sha256 = data => sjcl.codec.hex.fromBits(
+  sjcl.hash.sha256.hash(JSON.stringify(data))
+)
 
-export const sha512 = data => sjcl.hash.sha512.hash(JSON.stringify(data))
+export const sha512 = data => sjcl.codec.hex.fromBits(
+  sjcl.hash.sha512.hash(JSON.stringify(data))
+)
 
 export const encrypt = async (key, data) => {
   const password = sjcl.codec.hex.toBits(key)

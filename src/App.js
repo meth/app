@@ -18,8 +18,11 @@ import { setStore as reduxConnectorSetStore } from './ui/helpers/redux'
 if (YellowBox) {
   YellowBox.ignoreWarnings([
     '%cWarning: a promise was created in a handler',
+    'Module RCTImageLoader requires main queue setup',
     'Remote debugger is in a background tab',
-    'Warning: In next release empty section headers'
+    'Warning: In next release empty section headers',
+    'Meth/db',
+    'Warning: isMounted'
   ])
 }
 

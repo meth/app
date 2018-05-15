@@ -18,6 +18,10 @@ const log = logger.create('LoginMnemonic')
 
 @connectStore('nav')
 export default class LoginMnemonic extends PureComponent {
+  static navigationOptions = {
+    title: t('title.login')
+  }
+
   state = {
     mnemonic: 'fringe media suggest gesture intact raise aisle pupil exclude spatial hand lottery',
     // mnemonic: null,

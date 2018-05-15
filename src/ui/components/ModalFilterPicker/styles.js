@@ -5,8 +5,7 @@ export default create({
     flex: 0
   },
   modalContent: {
-    width: 500,
-    minHeight: 500
+    minHeight: '80%'
   },
   table: {
     flex: 1,

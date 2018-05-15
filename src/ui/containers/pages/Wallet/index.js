@@ -17,6 +17,10 @@ import Icon from '../../../components/Icon'
 
 @connectStore('account', 'modals', 'config')
 export default class Wallet extends CachePureComponent {
+  static navigationOptions = {
+    title: t('title.wallet')
+  }
+
   state = {
     activeCard: 0,
     checkingBalance: {},

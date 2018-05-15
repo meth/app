@@ -17,6 +17,10 @@ const COLUMNS = [ { id: 'tx' } ]
 
 @connectStore('nav', 'account')
 export default class Transactions extends CachePureComponent {
+  static navigationOptions = {
+    title: t('title.transactions')
+  }
+
   render () {
     const { getNodeConnection } = this.props.selectors
 

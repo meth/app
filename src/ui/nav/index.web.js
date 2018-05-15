@@ -5,17 +5,17 @@ import {
   StackRouter
 } from 'react-navigation'
 
-import { connectStore } from './helpers/redux'
-import Home from './containers/pages/Home'
-import Test from './containers/pages/Test'
-import GenerateMnemonic from './containers/pages/GenerateMnemonic'
-import LoginMnemonic from './containers/pages/LoginMnemonic'
-import ConfirmNewMnemonic from './containers/pages/ConfirmNewMnemonic'
-import AddressBook from './containers/pages/AddressBook'
-import Contracts from './containers/pages/Contracts'
-import Wallet from './containers/pages/Wallet'
-import Browser from './containers/pages/Browser'
-import Transactions from './containers/pages/Transactions'
+import { connectStore } from '../helpers/redux'
+import Home from '../containers/pages/Home'
+import Test from '../containers/pages/Test'
+import GenerateMnemonic from '../containers/pages/GenerateMnemonic'
+import LoginMnemonic from '../containers/pages/LoginMnemonic'
+import ConfirmNewMnemonic from '../containers/pages/ConfirmNewMnemonic'
+import AddressBook from '../containers/pages/AddressBook'
+import Contracts from '../containers/pages/Contracts'
+import Wallet from '../containers/pages/Wallet'
+import Browser from '../containers/pages/Browser'
+import Transactions from '../containers/pages/Transactions'
 
 export const routes = {
   Home: {

@@ -1,4 +1,4 @@
-import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
+import { create, fontMaker, whenWidthSmall, whenWidthVerySmall } from '../../../styles'
 
 const text = {
   ...fontMaker(),
@@ -32,11 +32,14 @@ export default create({
     fontSize: '0.6rem'
   },
 
+  ...whenWidthSmall({
+    formWrapper: {
+      width: '95%'
+    }
+  }),
+
   ...whenWidthVerySmall({
     introText: {
-      width: '90%'
-    },
-    textInput: {
       width: '90%'
     }
   })

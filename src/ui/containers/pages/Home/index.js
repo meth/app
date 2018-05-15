@@ -3,6 +3,7 @@ import { Text } from 'react-native'
 
 import { routes } from '../../../nav'
 import { t } from '../../../../../common/strings'
+import { getAppName } from '../../../../config'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Button from '../../../components/Button'
@@ -10,6 +11,10 @@ import Layout from '../Layout'
 
 @connectStore('nav')
 export default class Home extends PureComponent {
+  static navigationOptions = {
+    title: getAppName()
+  }
+
   render () {
     return (
       <Layout contentStyle={styles.layoutContent}>
@@ -22,7 +27,7 @@ export default class Home extends PureComponent {
         <Button
           style={styles.getStartedButton}
           onPress={this.onPressStart}
-          title={t('button.getStarted')} />
+          title={t('button.createNewWallet')} />
         <Button
           textStyle={styles.loginButtonText}
           onPress={this.onPressLogin}

@@ -1,6 +1,6 @@
-import { RESET, PUSH, BACK } from './actions'
+import { NavigationActions } from 'react-navigation'
 
-const NavigationActions = require('react-navigation/lib/NavigationActions').default
+import { RESET, PUSH, BACK } from './actions'
 
 describe('RESET', () => {
   it('matches RESET in react-navigation', () => {

@@ -9,9 +9,7 @@ export default ({ type }) => create({
     backgroundColor: `$alert_${type}_backgroundColor`,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    width: 400,
-    height: 'auto'
+    alignItems: 'center'
   },
   text: {
     ...fontMaker(),
@@ -26,9 +24,6 @@ export default ({ type }) => create({
   },
 
   ...whenWidthVerySmall({
-    content: {
-      width: '90%'
-    },
     text: {
       fontSize: '1.2rem'
     },

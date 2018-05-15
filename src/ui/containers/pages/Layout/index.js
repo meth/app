@@ -36,7 +36,7 @@ export default class Layout extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <Header style={styles.header} />
+        {/* <Header style={styles.header} /> */}
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={[ styles.content, contentStyle ]}

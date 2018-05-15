@@ -74,7 +74,7 @@ export class MnemonicConfirmator extends CachePureComponent {
               {jumbled.map(word => (
                 <Button
                   key={word}
-                  onPress={this.onAddWord}
+                  onPress={this.bind(this.onAddWord, word)}
                   title={word}
                   style={styles.wordWrapperButton}
                   textStyle={[
@@ -88,7 +88,7 @@ export class MnemonicConfirmator extends CachePureComponent {
               {selected.map(word => (
                 <Button
                   key={word}
-                  onPress={this.onRemoveWord}
+                  onPress={this.bind(this.onRemoveWord, word)}
                   title={word}
                   style={styles.wordWrapperButton}
                   textStyle={styles.wordText}
@@ -103,9 +103,7 @@ export class MnemonicConfirmator extends CachePureComponent {
     )
   }
 
-  onAddWord = e => {
-    const word = e.target.innerText
-
+  onAddWord = word => {
     const { selected } = this.state
 
     const index = selected.indexOf(word)
@@ -118,9 +116,7 @@ export class MnemonicConfirmator extends CachePureComponent {
     }
   }
 
-  onRemoveWord = e => {
-    const word = e.target.innerText
-
+  onRemoveWord = word => {
     const { selected } = this.state
 
     const index = selected.indexOf(word)

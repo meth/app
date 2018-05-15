@@ -150,7 +150,7 @@
     "react-native-tabs": "^1.0.9",
     "react-native-vector-icons": "^4.6.0",
     "react-native-web": "^0.5.4",
-    "react-navigation": "1.0.0-beta.19",
+    "react-navigation": "^2.0.1",
     "react-proxy": "^1.1.8",
     "react-qr-svg": "^2.1.0",
     "react-redux": "^5.0.5",
