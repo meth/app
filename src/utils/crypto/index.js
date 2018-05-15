@@ -10,7 +10,7 @@ export const sha512 = data => sjcl.hash.sha512.hash(JSON.stringify(data))
 export const encrypt = async (key, data) => {
   const password = sjcl.codec.hex.toBits(key)
   const plaintext = JSON.stringify(data)
-  const iv = await getRandomBytes(16)
+  const iv = await getRandomBytes(16, true)
 
   return Base64.encode(sjcl.encrypt(password, plaintext, {
     cipher: 'aes',

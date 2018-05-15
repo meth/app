@@ -34,7 +34,7 @@ export default class LoginMnemonic extends PureComponent {
         <FormWrapper style={styles.formWrapper}>
           <TextInput
             onChange={this.onChange}
-            defaultValue={this.state.mnemonic}
+            value={this.state.mnemonic}
             placeholder={t('mnemonic.inputPlaceholderText')}
             onSubmitEditing={this.onSubmit}
           />
@@ -55,9 +55,9 @@ export default class LoginMnemonic extends PureComponent {
     )
   }
 
-  onChange = e => {
+  onChange = mnemonic => {
     this.setState({
-      mnemonic: e.target.value
+      mnemonic
     })
   }
 

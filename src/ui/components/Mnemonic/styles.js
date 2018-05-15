@@ -37,7 +37,6 @@ export default create({
     alignItems: 'center',
     borderTopWidth: 1,
     borderTopColor: '$mnemonic_confirmationBox_topBorderColor',
-    borderStyle: 'dashed',
     minHeight: 40,
     borderRadius: 5,
     marginTop: 10,

@@ -1,5 +1,8 @@
 import { generateSecureRandom } from 'react-native-securerandom'
 
+import log from '../../../logger'
+import getInsecureRandomBytes from './insecure'
+
 const convertUint8ArrayToUint32Array = uint8 => {
   const uint32 = new Uint32Array(uint8.length / 4)
 
@@ -18,8 +21,14 @@ const convertUint8ArrayToUint32Array = uint8 => {
   return uint32
 }
 
-export default async numBytes => (
-  Array.from(
-    convertUint8ArrayToUint32Array(await generateSecureRandom(numBytes))
-  )
-)
+export default async (numBytes, as32bitWords = false) => {
+  try {
+    const bytes = await generateSecureRandom(numBytes)
+
+    return Array.from(as32bitWords ? convertUint8ArrayToUint32Array(bytes) : bytes)
+  } catch (err) {
+    log.error('Error fetching secure random bytes', err)
+
+    return getInsecureRandomBytes(numBytes, as32bitWords)
+  }
+}

@@ -3,7 +3,10 @@ const define = ClassName => {
     constructor (...args) {
       super(...args)
 
-      Error.captureStackTrace(this, A)
+      if (Error.captureStackTrace) {
+        Error.captureStackTrace(this, A)
+      }
+
       this.name = ClassName
       this.type = ClassName
     }

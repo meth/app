@@ -1,23 +1,13 @@
-import log from '../../../logger'
+import getInsecureRandomBytes from './insecure'
 
-const getInsecureRandomBytes = numBytes => {
-  log.warn('Using insecure random bytes generator!')
-
-  const ret = []
-
-  for (let i = 0; numBytes / 4 > i; i += 1) {
-    ret.push(Math.random() * 2147483647 /* 2**31-1 */)
-  }
-
-  return ret
-}
-
-export default async numBytes => {
+export default async (numBytes, as32bitWords = false) => {
   if (!window.crypto.getRandomValues) {
     return getInsecureRandomBytes(numBytes)
   }
 
-  const array = new Uint32Array(numBytes / 4)
+  const array = as32bitWords
+    ? new Uint32Array(numBytes / 4)
+    : new Uint8Array(numBytes)
 
   window.crypto.getRandomValues(array)
 

@@ -33,11 +33,23 @@ export const initialSetup = () => {
   addWebFont(OpenSans, 'OpenSans')
   addWebFont(OpenSansBold, 'OpenSans', { weight: 'Bold' })
   addWebFont(OpenSansItalic, 'OpenSans', { style: 'Italic' })
-  addWebFont(OpenSansBoldItalic, 'OpenSans', { weight: 'Bold', style: 'Italic' })
+  addWebFont(OpenSansBoldItalic, 'OpenSans', {
+    weight: 'Bold',
+    style: 'Italic'
+  })
   addWebFont(OpenSansExtraBold, 'OpenSans', { weight: 'ExtraBold' })
-  addWebFont(OpenSansExtraBoldItalic, 'OpenSans', { weight: 'ExtraBold', style: 'Italic' })
+  addWebFont(OpenSansExtraBoldItalic, 'OpenSans', {
+    weight: 'ExtraBold',
+    style: 'Italic'
+  })
   addWebFont(OpenSansLight, 'OpenSans', { weight: 'Light' })
-  addWebFont(OpenSansLightItalic, 'OpenSans', { weight: 'Light', style: 'Italic' })
+  addWebFont(OpenSansLightItalic, 'OpenSans', {
+    weight: 'Light',
+    style: 'Italic'
+  })
   addWebFont(OpenSansSemiBold, 'OpenSans', { weight: 'SemiBold' })
-  addWebFont(OpenSansSemiBoldItalic, 'OpenSans', { weight: 'SemiBold', style: 'Italic' })
+  addWebFont(OpenSansSemiBoldItalic, 'OpenSans', {
+    weight: 'SemiBold',
+    style: 'Italic'
+  })
 }

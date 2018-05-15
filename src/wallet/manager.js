@@ -1,6 +1,8 @@
 import Bip39 from 'bip39'
+import { Buffer } from 'buffer'
 
 import Wallet from './wallet'
+import getRandomBytes from '../utils/crypto/random'
 import { mnemonicToList } from '../utils/mnemonic'
 
 const app = {
@@ -19,7 +21,12 @@ export const init = ({ store, nodeConnector }) => {
  * @return {String}
  */
 export const generateMnemonic = async () => {
-  const str = Bip39.generateMnemonic(256)
+  // we need to pass-in a custom RNG otherwise it will error, see https://github.com/bitcoinjs/bip39/blob/master/index.js#L115
+  const randomBytes = await getRandomBytes(64) // 32 words (32-bits each)
+  const str = Bip39.generateMnemonic(
+    256,
+    numBytes => Buffer.from(randomBytes.slice(0, numBytes))
+  )
 
   // check for duplicates
   const words = {}

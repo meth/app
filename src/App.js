@@ -47,8 +47,10 @@ store.actions.loadAlerts()
 scheduler.addJob('check_transactions', 20, () => store.actions.checkPendingTransactions())
 
 // root UI
-export default () => (
+const App = () => (
   <Provider store={store}>
     <Root />
   </Provider>
 )
+
+export default App
