@@ -15,8 +15,6 @@ export default create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    paddingTop: 10,
-    paddingBottom: 0,
     height: '95%'
   },
   topLevelLoading: {

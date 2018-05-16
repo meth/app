@@ -162,7 +162,7 @@
     "redux-saga": "^0.15.6",
     "reselect": "^3.0.1",
     "shelljs": "^0.8.2",
-    "sjcl": "meth-browser/sjcl#4ea47d0e9777b2dfe641cc4b5a1d2a33a42cb19b",
+    "sjcl": "meth-browser/sjcl#28e3c78ee0df5c299cb69e3606fa3fb966ed2e4b",
     "solidarity": "^1.0.0",
     "solidarity-react-native": "^1.0.0",
     "stream-browserify": "^2.0.1",

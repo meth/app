@@ -79,7 +79,7 @@ export default class Database {
   }
 
   async loadAll () {
-    return this._injectIntoStore(await this._db.allDocs())
+    return this._reload()
   }
 
   async addOrUpdate (/* doc */) {
@@ -93,9 +93,18 @@ export default class Database {
   async _addOrUpdate (_id, data) {
     this._log.debug('add/update doc', _id, data)
 
+    let encryptedData
+    try {
+      encryptedData = await this._encrypt(data)
+    } catch (err) {
+      this._log.error('Encrytion error, skipping addOrUpdate', err)
+
+      return null
+    }
+
     const finalDoc = {
       _id,
-      data: await this._encrypt(data)
+      data: encryptedData
     }
 
     let existing
@@ -131,13 +140,7 @@ export default class Database {
   async _decrypt (str) {
     this._log.debug('decrypt', str)
 
-    try {
-      return decrypt(this._encryptionKey, str)
-    } catch (err) {
-      this._log.error('Decryption error', err)
-    }
-
-    return null
+    return decrypt(this._encryptionKey, str)
   }
 
   _generateId (parts) {
@@ -149,9 +152,16 @@ export default class Database {
 
     const { rows } = await this._db.allDocs()
 
-    const decrypted = await Promise.all(
-      rows.map(({ doc: { data } }) => this._decrypt(data))
-    )
+    let decrypted
+    try {
+      decrypted = await Promise.all(
+        rows.map(({ doc: { data } }) => this._decrypt(data))
+      )
+    } catch (err) {
+      this._log.error('Decryption error, skipping reload', err)
+
+      return
+    }
 
     this._storeInject(decrypted.filter(d => !!d))
   }

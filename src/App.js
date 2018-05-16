@@ -14,7 +14,6 @@ import { router } from './ui/nav'
 import { setStore as logSetStore } from './logger'
 import { setStore as reduxConnectorSetStore } from './ui/helpers/redux'
 
-// eslint-disable-next-line no-console
 if (YellowBox) {
   YellowBox.ignoreWarnings([
     '%cWarning: a promise was created in a handler',

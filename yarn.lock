@@ -10048,9 +10048,9 @@ single-line-log@^1.1.2:
   dependencies:
     string-width "^1.0.1"
 
-sjcl@meth-browser/sjcl#4ea47d0e9777b2dfe641cc4b5a1d2a33a42cb19b:
+sjcl@meth-browser/sjcl#28e3c78ee0df5c299cb69e3606fa3fb966ed2e4b:
   version "1.0.7"
-  resolved "https://codeload.github.com/meth-browser/sjcl/tar.gz/4ea47d0e9777b2dfe641cc4b5a1d2a33a42cb19b"
+  resolved "https://codeload.github.com/meth-browser/sjcl/tar.gz/28e3c78ee0df5c299cb69e3606fa3fb966ed2e4b"
 
 slash@^1.0.0:
   version "1.0.0"
