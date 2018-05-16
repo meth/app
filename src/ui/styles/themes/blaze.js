@@ -426,6 +426,19 @@ export default {
         textColor: colorGray
       }
     }),
+    mobileHeader: generateButtonStyles({
+      spinnerColor: colorGrayDarkest,
+      default: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorGrayDarkest
+      },
+      hover: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorGrayDarkest
+      }
+    }),
     text: generateButtonStyles({
       spinnerColor: colorViolet,
       default: {

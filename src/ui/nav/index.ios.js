@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
-import { Text } from 'react-native'
 import { StackActions, createStackNavigator, createDrawerNavigator } from 'react-navigation'
 
 import { connectStore } from '../helpers/redux'
+import MobileHeader from '../containers/liveComponents/MobileHeader'
 import { getStore } from '../../redux'
 import baseRoutes from './routes'
 import { addListener } from './reduxIntegration'
@@ -48,15 +48,8 @@ const LoggedInStack = createStackNavigator({
   })
 }, {
   headerMode: 'float',
-  navigationOptions: ({ navigation }) => ({
-    headerStyle: { backgroundColor: '#4C3E54' },
-    headerLeft: <Text onPress={() => (
-      getStore().actions.navToggleDrawer(
-        navigation.navigate('DrawerOpen')
-      )
-    )}>Menu</Text>,
-    title: 'Welcome!',
-    headerTintColor: '#fff'
+  navigationOptions: () => ({
+    header: props => <MobileHeader {...props} />
   })
 })
 
