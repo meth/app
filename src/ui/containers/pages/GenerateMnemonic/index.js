@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
-import { routes } from '../../../nav/routes'
-import { addRouteListener } from '../../../nav'
+import { addRouteListener, routes } from '../../../nav'
 import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -24,9 +23,7 @@ export default class GenerateMnemonic extends PureComponent {
   }
 
   componentDidMount () {
-    this._generateMnemonic()
-
-    // every time we return to this screen we want to re-generate the mnemonic
+    // whenever we hit this screen we want to re-generate the mnemonic
     this._routeListener = addRouteListener('GenerateMnemonic', this._generateMnemonic)
   }
 
@@ -68,17 +65,17 @@ export default class GenerateMnemonic extends PureComponent {
   }
 
   onPressLogin = () => {
-    const { actions: { navPush } } = this.props
+    const { navGo } = this.props.actions
 
-    navPush(routes.LoginMnemonic.path)
+    navGo(routes.LoginMnemonic.routeName)
   }
 
   onPressConfirm = () => {
-    const { actions: { navPush } } = this.props
-
     const { mnemonic } = this.state
 
-    navPush(routes.ConfirmNewMnemonic.path, { mnemonic })
+    const { navGo } = this.props.actions
+
+    navGo(routes.ConfirmNewMnemonic.routeName, { mnemonic })
   }
 
   _onPressRevealMnemonic = () => {
@@ -90,8 +87,13 @@ export default class GenerateMnemonic extends PureComponent {
   _generateMnemonic = () => {
     const { generateMnemonic } = this.props.actions
 
-    generateMnemonic()
-      .then(mnemonic => this.setState({ mnemonic }))
-      .catch(error => this.setState({ error }))
+    this.setState({
+      mnemonic: null,
+      revealed: false
+    }, () => {
+      generateMnemonic()
+        .then(mnemonic => this.setState({ mnemonic }))
+        .catch(error => this.setState({ error }))
+    })
   }
 }

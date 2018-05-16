@@ -18,6 +18,8 @@ import Icon from '../../../components/Icon'
 @connectStore('account', 'modals', 'config')
 export default class Wallet extends CachePureComponent {
   static navigationOptions = {
+    gesturesEnabled: false,
+    drawerLabel: t('title.wallet'),
     title: t('title.wallet')
   }
 

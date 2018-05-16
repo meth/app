@@ -18,6 +18,8 @@ const COLUMNS = [ { id: 'tx' } ]
 @connectStore('nav', 'account')
 export default class Transactions extends CachePureComponent {
   static navigationOptions = {
+    gesturesEnabled: false,
+    drawerLabel: t('title.transactions'),
     title: t('title.transactions')
   }
 

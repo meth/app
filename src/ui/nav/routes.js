@@ -9,48 +9,22 @@ import Wallet from '../containers/pages/Wallet'
 import Browser from '../containers/pages/Browser'
 import Transactions from '../containers/pages/Transactions'
 
-export const routes = {
-  Home: {
-    screen: Home,
-    path: ''
-  },
-  Test: {
-    screen: Test,
-    path: 'test'
-  },
-  GenerateMnemonic: {
-    screen: GenerateMnemonic,
-    path: 'generate'
-  },
-  LoginMnemonic: {
-    screen: LoginMnemonic,
-    path: 'login'
-  },
-  ConfirmNewMnemonic: {
-    screen: ConfirmNewMnemonic,
-    path: 'confirm'
-  },
-  Wallet: {
-    screen: Wallet,
-    path: 'wallet'
-  },
-  AddressBook: {
-    screen: AddressBook,
-    path: 'addressBook'
-  },
-  Contracts: {
-    screen: Contracts,
-    path: 'contracts'
-  },
-  Browser: {
-    screen: Browser,
-    path: 'browser'
-  },
-  Transactions: {
-    screen: Transactions,
-    path: 'transactions'
-  }
+const routes = {
+  Home: { screen: Home },
+  Test: { screen: Test },
+  GenerateMnemonic: { screen: GenerateMnemonic },
+  LoginMnemonic: { screen: LoginMnemonic },
+  ConfirmNewMnemonic: { screen: ConfirmNewMnemonic },
+  Wallet: { screen: Wallet },
+  AddressBook: { screen: AddressBook },
+  Contracts: { screen: Contracts },
+  Browser: { screen: Browser },
+  Transactions: { screen: Transactions }
 }
 
-export const initialRoute = routes.LoginMnemonic
-export const onceLoggedInRoute = routes.Wallet
+// add route name to object
+Object.keys(routes).forEach(r => {
+  routes[r].routeName = r
+})
+
+export default routes

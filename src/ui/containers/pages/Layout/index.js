@@ -38,6 +38,7 @@ export default class Layout extends PureComponent {
       <View style={styles.container}>
         <Header style={styles.header} />
         <ScrollView
+          alwaysBounceVertical={false}
           style={styles.scrollView}
           contentContainerStyle={[ styles.content, contentStyle ]}
         >

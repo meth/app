@@ -159,32 +159,32 @@ export default class Header extends PureComponent {
   }
 
   showWallet = () => {
-    const { actions: { navPush } } = this.props
+    const { navGo } = this.props.actions
 
-    navPush(routes.Wallet.path)
+    navGo(routes.Wallet.routeName)
   }
 
   showAddressBook = () => {
-    const { actions: { navPush } } = this.props
+    const { navGo } = this.props.actions
 
-    navPush(routes.AddressBook.path)
+    navGo(routes.AddressBook.routeName)
   }
 
   showBrowser = () => {
-    const { actions: { navPush } } = this.props
+    const { navGo } = this.props.actions
 
-    navPush(routes.Browser.path)
+    navGo(routes.Browser.routeName)
   }
 
   showTransactions = () => {
-    const { actions: { navPush } } = this.props
+    const { navGo } = this.props.actions
 
-    navPush(routes.Transactions.path)
+    navGo(routes.Transactions.routeName)
   }
 
   showContracts = () => {
-    const { actions: { navPush } } = this.props
+    const { navGo } = this.props.actions
 
-    navPush(routes.Contracts.path)
+    navGo(routes.Contracts.routeName)
   }
 }

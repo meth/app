@@ -1,14 +1,82 @@
 import React, { PureComponent } from 'react'
-import { StackActions, createStackNavigator } from 'react-navigation'
+import { Text } from 'react-native'
+import { StackActions, createStackNavigator, createDrawerNavigator } from 'react-navigation'
 
 import { connectStore } from '../helpers/redux'
-import { routes, initialRoute } from './routes'
+import { getStore } from '../../redux'
+import baseRoutes from './routes'
 import { addListener } from './reduxIntegration'
 
-const AppNavigator = createStackNavigator(routes)
+const disableGesturesProps = {
+  gesturesEnabled: false,
+  gestureResponseDistance: {
+    horizontal: 0,
+    vertical: 0
+  }
+}
 
-export const { router } = AppNavigator
-router.initialPath = initialRoute.path
+const {
+  Home,
+  LoginMnemonic,
+  GenerateMnemonic,
+  ConfirmNewMnemonic,
+  AddressBook,
+  Contracts,
+  Transactions,
+  Wallet
+} = baseRoutes
+
+
+const LoggedOutStack = createStackNavigator({
+  Home,
+  LoginMnemonic,
+  GenerateMnemonic,
+  ConfirmNewMnemonic
+}, {
+  ...disableGesturesProps,
+  headerMode: 'none',
+  mode: 'card',
+  initialRouteName: Home.routeName
+})
+
+const LoggedInStack = createStackNavigator({
+  LoggedInDrawer: createDrawerNavigator({
+    Wallet,
+    Contracts,
+    Transactions,
+    AddressBook
+  })
+}, {
+  headerMode: 'float',
+  navigationOptions: ({ navigation }) => ({
+    headerStyle: { backgroundColor: '#4C3E54' },
+    headerLeft: <Text onPress={() => (
+      getStore().actions.navToggleDrawer(
+        navigation.navigate('DrawerOpen')
+      )
+    )}>Menu</Text>,
+    title: 'Welcome!',
+    headerTintColor: '#fff'
+  })
+})
+
+const RootNavigator = createStackNavigator({
+  LoggedOutStack,
+  LoggedInStack
+}, {
+  ...disableGesturesProps,
+  headerMode: 'none',
+  initialRouteName: 'LoggedOutStack'
+})
+
+
+export const routes = {
+  ...baseRoutes
+}
+
+export const { router } = RootNavigator
+
+export const onceLoggedInRouteName = 'LoggedInStack'
 
 @connectStore('nav')
 export class Navigator extends PureComponent {
@@ -16,7 +84,7 @@ export class Navigator extends PureComponent {
     const { nav: state, dispatch } = this.props
 
     return (
-      <AppNavigator
+      <RootNavigator
         navigation={{
           dispatch,
           state,
@@ -28,9 +96,9 @@ export class Navigator extends PureComponent {
 }
 
 export const addRouteListener = (screenName, cb) => (
-  addListener('action', ({ action: { type }, state }) => {
+  addListener('action', ({ action: { type } }) => {
     if (StackActions.COMPLETE_TRANSITION === type) {
-      const { routeName } = state.routes[state.index]
+      const { routeName } = getStore().selectors.getCurrentRoute()
 
       if (routeName === screenName) {
         cb()

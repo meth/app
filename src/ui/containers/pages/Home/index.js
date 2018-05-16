@@ -37,14 +37,14 @@ export default class Home extends PureComponent {
   }
 
   onPressStart = () => {
-    const { actions: { navPush } } = this.props
+    const { navGo } = this.props.actions
 
-    navPush(routes.GenerateMnemonic.path)
+    navGo(routes.GenerateMnemonic.routeName)
   }
 
   onPressLogin = () => {
-    const { actions: { navPush } } = this.props
+    const { navGo } = this.props.actions
 
-    navPush(routes.LoginMnemonic.path)
+    navGo(routes.LoginMnemonic.routeName)
   }
 }

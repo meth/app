@@ -7,6 +7,7 @@ import { sha512 } from '../utils/crypto'
 import AddressBook from './addressBook'
 import CustomTokens from './customTokens'
 import Transactions from './transactions'
+import AppSettings from './appSettings'
 
 PouchDBAsyncStorageAdapter(PouchDB)
 
@@ -59,6 +60,10 @@ class Storage {
     return this._db.customTokens
   }
 
+  get settings () {
+    return this._db.settings
+  }
+
   shutdownDatabases () {
     log.info('Shutdown databases ...')
 
@@ -90,7 +95,8 @@ class Storage {
     this._db = {
       transactions: new Transactions(...dbParams),
       addressBook: new AddressBook(...dbParams),
-      customTokens: new CustomTokens(...dbParams)
+      customTokens: new CustomTokens(...dbParams),
+      appSettings: new AppSettings(...dbParams)
     }
   }
 

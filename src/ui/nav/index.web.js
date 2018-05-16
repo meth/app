@@ -5,22 +5,21 @@ import {
   StackRouter
 } from 'react-navigation'
 
-import { routes, initialRoute } from './routes'
+import baseRoutes from './routes'
 import { connectStore } from '../helpers/redux'
 
 
-// add route name as key as well so we can compare with nav state later on
-Object.keys(routes).forEach(routeName => {
-  // eslint-disable-next-line no-param-reassign
-  routes[routeName].routeName = routeName
-})
-
-export const router = StackRouter(routes, {
+export const router = StackRouter(baseRoutes, {
   navigationOptions: () => ({
     tabBarVisible: false
   })
 })
-router.initialPath = initialRoute.path
+
+export const routes = {
+  ...baseRoutes
+}
+
+export const onceLoggedInRouteName = routes.Wallet.routeName
 
 // custom navigator - see https://reactnavigation.org/docs/navigators/custom
 @connectStore('nav')

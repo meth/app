@@ -48,6 +48,10 @@ export const setupStore = app => {
     {}
   )
 
+  // store.subscribe(() => {
+  //   console.warn(JSON.stringify(store.getState().nav, null, 2))
+  // })
+
   return store
 }
 

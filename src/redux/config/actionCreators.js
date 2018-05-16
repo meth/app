@@ -3,8 +3,11 @@ import { createActionCreator } from '../utils'
 import {
   LOAD_CONFIG,
   OPEN_EXTERNAL_URL,
-  FETCH_SAFE_GAS_PRICE
+  FETCH_SAFE_GAS_PRICE,
+  INJECT_USER_APP_SETTINGS
 } from './actions'
+
+export const injectUserAppSettings = createActionCreator(INJECT_USER_APP_SETTINGS)
 
 export const loadConfig = createActionCreator(LOAD_CONFIG)
 

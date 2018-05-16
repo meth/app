@@ -1,15 +1,15 @@
-import { createActionCreator } from '../utils'
+import { NavigationActions, StackActions, DrawerActions } from 'react-navigation'
 
-import { BACK, PUSH, RESET } from './actions'
+export const navBack = ({ key, immediate }) => NavigationActions.back({ key, immediate })
 
-export const navBack = createActionCreator(BACK)
+export const navGo = (routeName, params) => NavigationActions.navigate({ routeName, params })
 
-export const navPush = createActionCreator(PUSH, (path, params = {}) => ({
-  path,
+export const navReset = (routeName, params) => ({
+  type: StackActions.RESET,
+  routeName,
   params
-}))
+})
 
-export const navReset = createActionCreator(RESET, (path, params = {}) => ({
-  path,
-  params
-}))
+export const navToggleDrawer = () => DrawerActions.toggleDrawer()
+
+export const navCloseDrawer = () => DrawerActions.closeDrawer()

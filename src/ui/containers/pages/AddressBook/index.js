@@ -20,6 +20,8 @@ const COLUMNS = [ { id: 'address' } ]
 @connectStore('nav', 'account')
 export default class AddressBook extends CachePureComponent {
   static navigationOptions = {
+    gesturesEnabled: false,
+    drawerLabel: t('title.addressBook'),
     title: t('title.addressBook')
   }
 

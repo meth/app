@@ -49,10 +49,10 @@ export default class Done extends PureComponent {
   }
 
   _onPressTrackTransaction = () => {
-    const { navPush, hideSendTransactionModal } = this.props.actions
+    const { hideSendTransactionModal, navGo } = this.props.actions
 
     hideSendTransactionModal()
 
-    navPush(routes.Transactions.path)
+    navGo(routes.Transactions.path)
   }
 }

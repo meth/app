@@ -1,34 +1,22 @@
 import { handleActions } from 'redux-actions'
+import { StackActions, DrawerActions, NavigationActions } from 'react-navigation'
 
-import { PUSH, RESET, BACK } from './actions'
-
-const injectParams = (state, params) => {
-  if (params) {
-    // eslint-disable-next-line no-param-reassign
-    state.routes[state.routes.length - 1].params = params
-  }
-
-  return state
-}
-
+const { RESET } = StackActions
+const { NAVIGATE, BACK } = NavigationActions
+const { TOGGLE_DRAWER, CLOSE_DRAWER } = DrawerActions
 
 export default ({ router }) => {
-  const InitialState = router.getStateForAction(
-    router.getActionForPathAndParams(router.initialPath)
-  )
+  const InitialState = router.getStateForAction(NavigationActions.init())
 
   return handleActions(
     {
       [BACK]: (state, action) => router.getStateForAction(action, state),
-      [RESET]: (state, { payload: { path, params } }) =>
-        injectParams(router.getStateForAction(
-          router.getActionForPathAndParams(path)
-        ), params),
-      [PUSH]: (state, { payload: { path, params } }) =>
-        injectParams(router.getStateForAction(
-          router.getActionForPathAndParams(path),
-          state
-        ), params)
+      [NAVIGATE]: (state, action) => router.getStateForAction(action, state),
+      [RESET]: (state, { routeName, params }) => router.getStateForAction(
+        NavigationActions.navigate({ routeName, params })
+      ),
+      [TOGGLE_DRAWER]: (state, action) => router.getStateForAction(action, state),
+      [CLOSE_DRAWER]: (state, action) => router.getStateForAction(action, state)
     },
     InitialState
   )

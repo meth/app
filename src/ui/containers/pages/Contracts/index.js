@@ -33,6 +33,8 @@ import AddressTextInput from '../../liveComponents/AddressTextInput'
 @connectStore('account')
 export default class AddressBook extends PureComponent {
   static navigationOptions = {
+    gesturesEnabled: false,
+    drawerLabel: t('title.contracts'),
     title: t('title.contracts')
   }
 

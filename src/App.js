@@ -1,5 +1,5 @@
 import React from 'react'
-import { YellowBox } from 'react-native'
+import { YellowBox, SafeAreaView } from 'react-native'
 import { Provider } from 'react-redux'
 
 import { setupFonts } from './fonts'
@@ -51,9 +51,11 @@ scheduler.addJob('check_transactions', 20, () => store.actions.checkPendingTrans
 
 // root UI
 const App = () => (
-  <Provider store={store}>
-    <Root />
-  </Provider>
+  <SafeAreaView style={{ flex: 1 }}>
+    <Provider store={store}>
+      <Root />
+    </Provider>
+  </SafeAreaView>
 )
 
 export default App

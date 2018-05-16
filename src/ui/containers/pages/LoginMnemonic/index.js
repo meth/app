@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
-import { routes, onceLoggedInRoute } from '../../../nav/routes'
+import { onceLoggedInRouteName, routes } from '../../../nav'
 import logger from '../../../../logger'
 import { instanceOfError, UnableToConnectError } from '../../../../utils/errors'
 import { t } from '../../../../../common/strings'
@@ -66,15 +66,13 @@ export default class LoginMnemonic extends PureComponent {
   }
 
   onPressSignUp = () => {
-    const { actions: { navPush } } = this.props
+    const { navGo } = this.props.actions
 
-    navPush(routes.GenerateMnemonic.path)
+    navGo(routes.GenerateMnemonic.routeName)
   }
 
   onSubmit = () => {
-    const { actions: { navReset, loadWallet } } = this.props
-
-    const postSuccessPath = onceLoggedInRoute.path
+    const { navReset, loadWallet } = this.props.actions
 
     this.setState({
       error: null,
@@ -83,7 +81,7 @@ export default class LoginMnemonic extends PureComponent {
       // timeout to give the UI time to re-render
       setTimeout(() => {
         loadWallet(this.state.mnemonic)
-          .then(() => navReset(postSuccessPath))
+          .then(() => navReset(onceLoggedInRouteName))
           .catch(error => {
             log.debug(error)
 
@@ -94,7 +92,7 @@ export default class LoginMnemonic extends PureComponent {
               })
             }
 
-            return navReset(postSuccessPath)
+            return navReset(onceLoggedInRouteName)
           })
       }, 1)
     })
