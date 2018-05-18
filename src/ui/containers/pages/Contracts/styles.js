@@ -18,10 +18,8 @@ export default create({
     borderTopColor: '$content_borderTop_color',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    paddingTop: 10,
-    paddingBottom: 0,
-    height: '95%'
+    alignItems: 'stretch',
+    padding: 10
   },
   container: {
     paddingBottom: 20,

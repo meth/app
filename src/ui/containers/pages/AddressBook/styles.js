@@ -1,22 +1,19 @@
 import { create, whenWidthSmall } from '../../../styles'
 
 export default create({
+  // $outline: 1,
   layoutContent: {
-    // $outline: 1,
     backgroundColor: '$content_backgroundColor',
     borderTopWidth: 1,
     borderTopColor: '$content_borderTop_color',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    paddingTop: 10,
-    paddingBottom: 0,
-    height: '95%'
+    alignItems: 'stretch',
+    height: '100%'
   },
   table: {
     flex: 1,
-    paddingBottom: 20,
-    minWidth: '70%'
+    width: '100%'
   },
   tableFilter: {
     marginBottom: 5

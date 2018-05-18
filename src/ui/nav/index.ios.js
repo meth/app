@@ -3,6 +3,7 @@ import { StackActions, createStackNavigator, createDrawerNavigator } from 'react
 
 import { connectStore } from '../helpers/redux'
 import MobileHeader from '../containers/liveComponents/MobileHeader'
+import MobileDrawer from '../containers/liveComponents/MobileDrawer'
 import { getStore } from '../../redux'
 import baseRoutes from './routes'
 import { addListener } from './reduxIntegration'
@@ -45,6 +46,8 @@ const LoggedInStack = createStackNavigator({
     Contracts,
     Transactions,
     AddressBook
+  }, {
+    contentComponent: MobileDrawer
   })
 }, {
   headerMode: 'float',

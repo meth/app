@@ -8,18 +8,15 @@ export default create({
     borderTopColor: '$content_borderTop_color',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    paddingTop: 10,
-    paddingBottom: 0,
-    height: '95%'
+    alignItems: 'stretch'
   },
   noTransactionsYetAlert: {
-    marginTop: 15
+    marginTop: 10,
+    marginHorizontal: 10
   },
   /* table */
   table: {
     flex: 1,
-    paddingBottom: 20,
     width: '100%'
   },
   /* tx row */

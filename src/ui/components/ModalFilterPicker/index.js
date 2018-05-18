@@ -27,7 +27,7 @@ export default class ModalFilterPicker extends CachePureComponent {
     options: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.string.isRequired
     })).isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     onCancel: PropTypes.func,
     renderOption: PropTypes.func
   }

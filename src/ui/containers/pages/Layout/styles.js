@@ -6,7 +6,8 @@ export default create({
     backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    width: '100%'
   },
 
   /* header */
@@ -20,14 +21,15 @@ export default create({
   /* scroll view */
 
   scrollView: {
-    flex: 1
+    flex: 1,
+    width: '100%'
   },
 
   /* content */
 
   content: {
     flex: 0,
-    padding: 20
+    width: '100%'
   },
 
   /* UI error */

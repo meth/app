@@ -44,7 +44,7 @@ export default {
       color: colorGrayLight
     },
     title: {
-      textColor: colorGrayDarker
+      textColor: colorGrayDarkest
     }
   },
   tabView: {
@@ -424,6 +424,19 @@ export default {
         borderColor: colorTransparent,
         backgroundColor: colorGrayLight,
         textColor: colorGray
+      }
+    }),
+    mobileDrawer: generateButtonStyles({
+      spinnerColor: colorViolet,
+      default: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorViolet
+      },
+      hover: {
+        borderColor: colorTransparent,
+        backgroundColor: colorVioletLight,
+        textColor: colorWhite
       }
     }),
     mobileHeader: generateButtonStyles({

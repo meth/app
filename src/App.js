@@ -50,7 +50,7 @@ scheduler.addJob('check_transactions', 20, () => store.actions.checkPendingTrans
 
 // root UI
 const App = () => (
-  <SafeAreaView style={{ flex: 1 }}>
+  <SafeAreaView style={{ flex: 1 }} forceInset={{ top: 'always', horizontal: 'never' }}>
     <Provider store={store}>
       <Root />
     </Provider>

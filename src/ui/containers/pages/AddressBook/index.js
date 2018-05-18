@@ -51,7 +51,7 @@ export default class AddressBook extends CachePureComponent {
           renderHeader={RENDER_HEADER}
           renderRowData={this._renderRowData}
           columns={COLUMNS}
-          rows={rows}
+          rows={[ ...rows, ...rows, ...rows, ...rows ]}
         />
       </Layout>
     )
