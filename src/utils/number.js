@@ -126,7 +126,8 @@ export const calculateTotalGasBN = (gasLimit, gasPriceInGwei) =>
 
 export const getTotalAccountsBalanceAsStr = accounts => {
   const totalWei = Object.values(accounts).reduce(
-    (m, { balance }) => m.add(balance), numToBN(0)
+    (m, { balance }) => m.add(balance),
+    numToBN(0)
   )
 
   const totalEther = fromWei(totalWei, 'ether')

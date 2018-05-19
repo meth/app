@@ -2,7 +2,6 @@ import { create } from '../../../styles'
 
 export default create({
   content: {
-    width: 600,
     height: 'auto',
     flexDirection: 'column',
     justifyContent: 'space-around',
