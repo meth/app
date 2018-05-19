@@ -1,9 +1,7 @@
 import _ from 'lodash'
-import BN from 'bn.js'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
-import { fromWei } from 'web3-utils'
 
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
@@ -13,7 +11,7 @@ import AlertsButton from './AlertsButton'
 import IconButton from '../../../components/IconButton'
 import { routes } from '../../../nav'
 import styles from './styles'
-import { toDecimalPlaces } from '../../../../utils/number'
+import { getTotalAccountsBalanceAsStr } from '../../../../utils/number'
 
 @connectStore('account', 'node', 'log', 'modals', 'nav')
 export default class Header extends PureComponent {
@@ -95,18 +93,12 @@ export default class Header extends PureComponent {
   }
 
   renderBalance (navState, addresses) {
-    const totalWei = Object.values(addresses).reduce(
-      (m, { balance }) => m.add(balance), new BN(0, 2)
-    )
-
-    const totalEther = fromWei(totalWei, 'ether')
-
     return (
       <Button
         tooltip={t('button.wallet')}
         style={styles.button}
         type='text'
-        title={`Ξ ${toDecimalPlaces(totalEther, 1)}`}
+        title={getTotalAccountsBalanceAsStr(addresses)}
         stateOverride={this._getButtonStateOverride(navState, routes.Wallet)}
         onPress={this.showWallet}
       />

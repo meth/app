@@ -1,19 +1,25 @@
+import _ from 'lodash'
 import React from 'react'
-import { SafeAreaView, View } from 'react-native'
+import { SafeAreaView, View, Text } from 'react-native'
 
+import { t } from '../../../../../common/strings'
 import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
+import { routes } from '../../../nav'
 import ScrollView from '../../../components/ScrollView'
+import Loading from '../../../components/Loading'
 import Button from '../../../components/Button'
 import styles from './styles'
+import { getTotalAccountsBalanceAsStr } from '../../../../utils/number'
 
 
-@connectStore('nav')
+@connectStore('nav', 'node', 'account', 'log')
 export default class MobileDrawer extends CachePureComponent {
   render () {
     const { descriptors } = this.props
-    const { getCurrentRoute } = this.props.selectors
+    const { getCurrentRoute, getAccounts } = this.props.selectors
 
+    const accounts = getAccounts()
     const { routeName: currentRouteName } = getCurrentRoute()
 
     const pages = Object.keys(descriptors).map(desc => {
@@ -22,11 +28,17 @@ export default class MobileDrawer extends CachePureComponent {
         state: { routeName }
       } = descriptors[desc]
 
+      const title = routes.Wallet.routeName === routeName
+        ? `${drawerLabel}: ${getTotalAccountsBalanceAsStr(accounts)}`
+        : drawerLabel
+
       return (
         <Button
+          style={styles.button}
+          textStyle={styles.buttonText}
           key={desc}
           type='mobileDrawer'
-          title={drawerLabel}
+          title={title}
           onPress={this.bind(this._onPressRoute, routeName)}
           {...(routeName === currentRouteName ? {
             stateOverride: {
@@ -37,27 +49,68 @@ export default class MobileDrawer extends CachePureComponent {
       )
     })
 
-    // console.warn(JSON.stringify(this.props, null, 2))
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+      >
+        <SafeAreaView style={styles.container}>
           <View style={styles.topItems}>
             {pages}
           </View>
           <View style={styles.bottomItems}>
-            <Button
-              type='mobileDrawer'
-              title={'Network'}
-              onPress={this._onPressNetwork}
-            />
-            <Button
-              type='mobileDrawer'
-              title={'Log'}
-              onPress={this._onPressLog}
-            />
+            {this._renderNetworkButton()}
+            {this._renderLogButton()}
           </View>
         </SafeAreaView>
       </ScrollView>
+    )
+  }
+
+  _renderLogButton () {
+    const { getUnseenAlertsCount } = this.props.selectors
+
+    return (
+      <Button
+        style={styles.button}
+        textStyle={styles.buttonText}
+        type='mobileDrawer'
+        title={t('title.mobileMenu.log', { numAlerts: getUnseenAlertsCount })}
+        onPress={this._onPressLog}
+      />
+    )
+  }
+
+  _renderNetworkButton () {
+    const {
+      getNodeConnection,
+      getNodeState
+    } = this.props.selectors
+
+    const { network } = getNodeConnection()
+    if (network) {
+      network.node = getNodeState()
+    }
+
+    const syncing = !!_.get(network, 'node.syncing')
+    const syncIcon = syncing ? (
+      <Loading style={styles.networkButtonLoadingSpinner} />
+    ) : null
+
+    return (
+      <Button
+        style={styles.button}
+        textStyle={styles.buttonText}
+        type='mobileDrawer'
+        onPress={this._onPressNetwork}
+        childShouldInheritTextStyle={true}
+      >
+        <Text>
+          {t('title.mobileMenu.network', { network: _.get(network, 'description') })}
+        </Text>
+        {syncIcon}
+      </Button>
     )
   }
 

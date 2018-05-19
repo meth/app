@@ -123,3 +123,13 @@ export const gweiToWeiStr = balance =>
 
 export const calculateTotalGasBN = (gasLimit, gasPriceInGwei) =>
   numToBN(gasPriceInGwei).mul(getPowerOfTenBN(9)).mul(numToBN(gasLimit))
+
+export const getTotalAccountsBalanceAsStr = accounts => {
+  const totalWei = Object.values(accounts).reduce(
+    (m, { balance }) => m.add(balance), numToBN(0)
+  )
+
+  const totalEther = fromWei(totalWei, 'ether')
+
+  return `Ξ ${toDecimalPlaces(totalEther, 1)}`
+}

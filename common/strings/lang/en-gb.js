@@ -141,7 +141,11 @@ module.exports = {
       addToken: 'Add token',
       editToken: 'Edit token',
       sendTransaction: 'Send transaction',
-      transactions: 'Transactions'
+      transactions: 'Transactions',
+      mobileMenu: {
+        network: 'Network ({network})',
+        log: 'Log ({numAlerts} alerts)'
+      }
     },
     transactions: {
       noneYet: 'You haven\'t created any transactions in Meth yet'

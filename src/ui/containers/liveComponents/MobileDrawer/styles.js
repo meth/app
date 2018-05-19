@@ -1,14 +1,38 @@
 import { create } from '../../../styles'
 
 export default create({
+  scrollView: {
+    height: '100%'
+  },
+  scrollContent: {
+    height: '100%'
+  },
   container: {
-    flex: 1,
+    height: '100%',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyContent: 'space-between'
   },
   topItems: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch'
   },
   bottomItems: {
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    alignItems: 'stretch'
+  },
+  button: {
+    borderRadius: 0,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  buttonText: {
+    textAlign: 'left'
+  },
+  networkButtonLoadingSpinner: {
+    marginLeft: 5
   }
 })
