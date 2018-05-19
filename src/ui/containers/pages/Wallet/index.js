@@ -7,15 +7,12 @@ import { t } from '../../../../../common/strings'
 import styles from './styles'
 import Layout from '../Layout'
 import TokenTable from './TokenTable'
+import Cards from './Cards'
 import PageTitleText from '../../../components/PageTitleText'
-import ScrollView from '../../../components/ScrollView'
-import WalletCard from '../../../components/WalletCard'
 import Loading from '../../../components/Loading'
-import Button from '../../../components/Button'
-import Icon from '../../../components/Icon'
 
 
-@connectStore('account', 'modals', 'config')
+@connectStore('account', 'config')
 export default class Wallet extends CachePureComponent {
   static navigationOptions = {
     gesturesEnabled: false,
@@ -34,134 +31,39 @@ export default class Wallet extends CachePureComponent {
 
     const accounts = getAccounts()
 
-    const accountAddresses = Object.keys(accounts)
-
     return (
       <Layout contentStyle={styles.layoutContent}>
         <PageTitleText text={t('title.wallet')} />
-        {accountAddresses.length ? (
-          this._renderContent({ accounts, accountAddresses })
-        ) : (
+        {_.isEmpty(accounts) ? (
           <Loading style={styles.topLevelLoading} />
+        ) : (
+          this._renderContent(accounts)
         )}
       </Layout>
     )
   }
 
-  _renderContent ({ accounts, accountAddresses }) {
-    const { showAllTokens } = this.state
-    const { getTokenList } = this.props.selectors
+  _renderContent (accounts) {
+    const { activeCard } = this.state
 
     const selectedAccount = this._getSelectedAccount()
 
-    const tokens = getTokenList()
-
-    const tokenSymbols = Object.keys(tokens)
-
-    const rows = []
-
-    tokenSymbols.forEach(token => {
-      const { name, decimals } = (tokens[token] || {})
-      const balance = _.get(selectedAccount.tokens, token)
-
-      if (showAllTokens || balance) {
-        rows.push({
-          symbol: { value: token },
-          meta: { name, balance, decimals },
-          _filterKey: `${token} ${name || ''}`
-        })
-      }
-    })
-
     return (
       <React.Fragment>
-        <ScrollView
-          style={styles.cardsScrollView}
-          contentContainerStyle={styles.cardsContent}
-          horizontal={true}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-        >
-          {accountAddresses.map((address, index) => (
-            this._renderCard(accounts, address, index)
-          ))}
-          {this._renderAddAccountButton()}
-        </ScrollView>
+        <Cards
+          activeCard={activeCard}
+          accounts={accounts}
+          style={styles.cards}
+          onSelectCard={this._onPressSelectCard}
+        />
         <TokenTable style={styles.tokenTable} account={selectedAccount} />
       </React.Fragment>
     )
   }
 
-  _renderCard (accounts, address, index) {
-    const { activeCard } = this.state
-
-    const isActive = index === activeCard
-
-    return (
-      <Button
-        type='walletCard'
-        key={address}
-        style={isActive ? styles.walletCardButton_active : styles.walletCardButton_inactive}
-        {...(isActive ? {
-          stateOverride: { hovering: true }
-        } : null)}
-        onPress={this.bind(this._onPressSelectCard, index)}
-      >
-        <WalletCard
-          isActive={isActive}
-          style={styles.card}
-          account={{
-            address,
-            ...accounts[address]
-          }}
-          onPressSend={this.bind(this._onPressSend, address)}
-          onPressQrCode={this.bind(this._onPressQrCode, address)}
-          onPressEditLabel={this.bind(this._onPressEditLabel, address)}
-        />
-      </Button>
-    )
+  _onPressSelectCard = activeCard => {
+    this.setState({ activeCard })
   }
-
-  _renderAddAccountButton () {
-    return (
-      <Button
-        type='walletCard'
-        key='add'
-        style={[ styles.walletCardButton_inactive, styles.addAccountButton ]}
-        onPress={this._onPressAddAccount}
-        tooltip={t('button.addAccount')}
-        childShouldInheritTextStyle={true}
-      >
-        <Icon name='plus' style={styles.addAccountButtonIcon} />
-      </Button>
-    )
-  }
-
-  _onPressAddAccount = () => {
-    const { showAddAccountModal } = this.props.actions
-
-    showAddAccountModal()
-  }
-
-  _onPressSend = address => {
-    const { sendTransaction } = this.props.actions
-
-    sendTransaction({ from: address }).catch(() => {})
-  }
-
-  _onPressQrCode = address => {
-    const { showAddressQrModal } = this.props.actions
-
-    showAddressQrModal(address)
-  }
-
-  _onPressEditLabel = address => {
-    const { showEditAddressModal } = this.props.actions
-
-    showEditAddressModal(address)
-  }
-
-  _onPressSelectCard = activeCard => this.setState({ activeCard })
 
   _getSelectedAccount () {
     const { getAccounts } = this.props.selectors

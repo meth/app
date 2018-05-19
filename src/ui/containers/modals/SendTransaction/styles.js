@@ -2,7 +2,7 @@ import { create } from '../../../styles'
 
 export default create({
   content: {
-    height: 'auto',
+    height: '90%',
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'stretch'
