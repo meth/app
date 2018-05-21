@@ -11,6 +11,7 @@ const text = {
 
 export default create({
   layoutContent: {
+    flex: 1,
     backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -28,8 +29,11 @@ export default create({
     marginTop: 40,
     marginBottom: 70
   },
+  nextButtonText: {
+    fontSize: '1rem'
+  },
   createPasswordButtonText: {
-    fontSize: '0.6rem'
+    fontSize: '0.7rem'
   },
 
   ...whenWidthSmall({

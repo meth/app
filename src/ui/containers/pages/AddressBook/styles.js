@@ -3,6 +3,7 @@ import { create, whenWidthSmall } from '../../../styles'
 export default create({
   // $outline: 1,
   layoutContent: {
+    flex: 1,
     backgroundColor: '$content_backgroundColor',
     borderTopWidth: 1,
     borderTopColor: '$content_borderTop_color',

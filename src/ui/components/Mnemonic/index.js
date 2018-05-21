@@ -181,11 +181,12 @@ export class MnemonicDisplay extends PureComponent {
             <Button
               onPress={this.onPressMask}
               type='mask'
-              style={styles.maskButton}>
-                  <Icon name="lock" style={styles.maskButtonIcon} />
-                  <Text style={styles.maskButtonText}>
-                    {t('button.pressToRevealMnemonic')}
-                  </Text>
+              style={styles.maskButton}
+            >
+              <Icon name="lock" style={styles.maskButtonIcon} />
+              <Text style={styles.maskButtonText}>
+                {t('button.pressToRevealMnemonic')}
+              </Text>
             </Button>
           )}
         </View>

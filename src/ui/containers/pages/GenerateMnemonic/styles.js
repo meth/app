@@ -11,6 +11,7 @@ const introText = {
 
 export default create({
   layoutContent: {
+    paddingVertical: 50,
     backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -34,11 +35,14 @@ export default create({
   nextButton: {
     marginTop: 40
   },
+  nextButtonText: {
+    fontSize: '1rem'
+  },
   loginButton: {
     marginTop: 40
   },
   loginButtonText: {
-    fontSize: '0.65rem'
+    fontSize: '0.7rem'
   },
 
   ...whenWidthVerySmall({

@@ -57,4 +57,20 @@ export const getTx = state => state.account.get('currentTx')
 
 export const getTxDeferred = state => state.account.get('currentTxDeferred')
 
-export const getTransactionHistory = state => state.account.get('transactionHistory')
+export const getTransactionHistory = createSelector(
+  state => state.account.get('transactionHistory'),
+  history => {
+    const r = [ ...history ]
+    r.sort((a, b) => (a.ts < b.ts ? -1 : 1))
+    return r
+  }
+)
+
+export const getReverseTransactionHistory = createSelector(
+  getTransactionHistory,
+  history => {
+    const r = [ ...history ]
+    r.reverse()
+    return r
+  }
+)

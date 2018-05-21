@@ -94,6 +94,7 @@ export default class ConnectNode extends CachePureComponent {
         <Text style={styles.syncingText}>{t('network.syncing')}: {t('network.sync.percent', { percent: syncPercent })}</Text>
         <ProgressButton
           style={styles.button}
+          testStyle={styles.buttonText}
           showInProgress={disconnecting}
           onPress={this.onDisconnect}
           title={t('button.disconnectFromNode')} />

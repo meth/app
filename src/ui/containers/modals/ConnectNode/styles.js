@@ -32,6 +32,9 @@ export default create({
     marginTop: 25,
     width: 200
   },
+  buttonText: {
+    fontSize: '1rem'
+  },
   title: {
     ...text,
     fontSize: '1.2rem',

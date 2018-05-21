@@ -40,8 +40,8 @@ export default class Transactions extends CachePureComponent {
   }
 
   renderContent () {
-    const { getTransactionHistory } = this.props.selectors
-    const transactions = getTransactionHistory()
+    const { getReverseTransactionHistory } = this.props.selectors
+    const transactions = getReverseTransactionHistory()
 
     if (!transactions.length) {
       return (

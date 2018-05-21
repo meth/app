@@ -8,19 +8,19 @@ export default ({ type }) => create({
     padding: 30,
     backgroundColor: `$alert_${type}_backgroundColor`,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center'
   },
   text: {
     ...fontMaker(),
     fontSize: '1.5rem',
     textAlign: 'left',
-    color: `$alert_${type}_textColor`
+    color: `$alert_${type}_textColor`,
+    marginLeft: 30
   },
   icon: {
     fontSize: '2rem',
-    color: `$alert_${type}_textColor`,
-    marginRight: 30
+    color: `$alert_${type}_textColor`
   },
 
   ...whenWidthVerySmall({

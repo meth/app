@@ -28,7 +28,6 @@ export default create({
   /* content */
 
   content: {
-    flex: 1,
     width: '100%'
   },
 

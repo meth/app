@@ -10,6 +10,7 @@ const text = {
 
 export default create({
   layoutContent: {
+    paddingVertical: 50,
     backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -32,8 +33,11 @@ export default create({
     marginTop: 40,
     marginBottom: 30
   },
+  nextButtonText: {
+    fontSize: '1rem'
+  },
   goBackButtonText: {
-    fontSize: '0.65rem'
+    fontSize: '0.7rem'
   },
 
   ...whenWidthVerySmall({

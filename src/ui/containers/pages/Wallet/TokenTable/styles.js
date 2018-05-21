@@ -39,7 +39,8 @@ export default create({
     ...fontMaker({ style: 'Italic' }),
     color: '$wallet_tokens_tableMessage_textColor',
     fontSize: '0.8rem',
-    marginTop: 5
+    marginTop: 5,
+    paddingHorizontal: 10
   },
   tokenRow: {
     flexDirection: 'row',

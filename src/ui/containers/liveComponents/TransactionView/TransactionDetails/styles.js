@@ -23,6 +23,7 @@ export default create({
     fontSize: '0.7rem'
   },
   detailsContent: {
+    flex: 1,
     marginLeft: 20
   },
   detailsText: {
@@ -30,6 +31,7 @@ export default create({
     marginRight: 5
   },
   tokenTransferDetails: {
-    ...flexRow
+    ...flexRow,
+    flexWrap: 'wrap'
   }
 })

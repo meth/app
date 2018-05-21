@@ -51,6 +51,7 @@ export default class GenerateMnemonic extends PureComponent {
         {(!mnemonic || !revealed) ? null : (
           <Button
             style={styles.nextButton}
+            textStyle={styles.nextButtonText}
             onPress={this.onPressConfirm}
             title={t('button.iHaveWrittenDownMnemonic')}
           />

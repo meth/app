@@ -47,6 +47,7 @@ export default class LoginMnemonic extends PureComponent {
         <ProgressButton
           showInProgress={submitting}
           style={styles.nextButton}
+          textStyle={styles.nextButtonText}
           onPress={this.onSubmit}
           title={t('button.login')}
         />

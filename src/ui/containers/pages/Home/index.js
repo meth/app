@@ -26,6 +26,7 @@ export default class Home extends PureComponent {
         </Text>
         <Button
           style={styles.getStartedButton}
+          textStyle={styles.getStartedButtonText}
           onPress={this.onPressStart}
           title={t('button.createNewWallet')} />
         <Button

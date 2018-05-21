@@ -4,6 +4,7 @@ export default create({
   // $outline: 1,
 
   layoutContent: {
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start'

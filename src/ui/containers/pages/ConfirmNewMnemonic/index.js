@@ -47,6 +47,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
         {errorBox}
         <Button
           style={styles.nextButton}
+          textStyle={styles.nextButtonText}
           disabled={!success}
           onPress={this.onProceed}
           onDisabledPress={this.onCantProceed}

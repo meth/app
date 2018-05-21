@@ -13,7 +13,8 @@ const flexRow = {
 
 export default create({
   container: {
-    ...flexRow
+    ...flexRow,
+    flexWrap: 'wrap'
   },
   text: {
     ...text,

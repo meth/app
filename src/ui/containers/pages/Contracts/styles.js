@@ -12,14 +12,14 @@ const fieldRow = {
 
 export default create({
   layoutContent: {
-    // $outline: 1,
+    flex: 1,
+    padding: 10,
     backgroundColor: '$content_backgroundColor',
     borderTopWidth: 1,
     borderTopColor: '$content_borderTop_color',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    padding: 10
+    alignItems: 'stretch'
   },
   container: {
     paddingBottom: 20,

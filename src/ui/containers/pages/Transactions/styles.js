@@ -2,7 +2,7 @@ import { create } from '../../../styles'
 
 export default create({
   layoutContent: {
-    // $outline: 1,
+    flex: 1,
     backgroundColor: '$content_backgroundColor',
     borderTopWidth: 1,
     borderTopColor: '$content_borderTop_color',

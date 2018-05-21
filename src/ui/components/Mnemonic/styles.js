@@ -63,7 +63,7 @@ export default create({
   },
   maskButtonText: {
     ...maskText,
-    fontSize: '1rem'
+    fontSize: '1.2rem'
   },
   wordColumns: {
     flex: 0,
