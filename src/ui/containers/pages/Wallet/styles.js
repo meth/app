@@ -13,10 +13,17 @@ export default create({
     alignSelf: 'center'
   },
 
+  /* cards */
+
+  cards: {
+    flex: 0.5,
+    width: '100%'
+  },
+
   /* tokens */
 
   tokenTable: {
-    flex: 1,
+    flex: 0.5,
     marginTop: 10,
     width: '100%',
     alignItems: 'stretch',

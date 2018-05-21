@@ -2,42 +2,30 @@ import { create } from '../../../../styles'
 
 const card = {
   width: 250,
-  minHeight: 250
+  height: 250
 }
 
 export default create({
-  /* cards scroller */
-  scrollView: {
-    flex: 0,
-    width: '100%'
+  container: {
+    justifyContent: 'center',
+    alignItems: 'stretch'
   },
-  scrollViewContent: {
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
-
-  /* card */
-
   cardButton_active: {
     borderWidth: 2,
     borderRadius: 0,
-    borderColor: '$button_walletCard_enabled_hover_borderColor',
-    borderBottomColor: '$wallet_card_active_borderBottomColor'
+    borderColor: '$button_walletCard_enabled_hover_borderColor'
   },
   cardButton_inactive: {
     borderWidth: 1,
-    borderRadius: 0,
-    borderBottomColor: '$wallet_card_inactive_borderBottomColor'
+    borderRadius: 0
   },
   card: { ...card },
   addAccountButton: {
     ...card,
+    height: '100%',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%'
+    alignItems: 'center'
   },
   addAccountButtonIcon: {
     fontSize: '2rem'

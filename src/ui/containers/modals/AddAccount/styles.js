@@ -9,8 +9,6 @@ export default create({
   // $outline: 1,
 
   content: {
-    width: 400,
-    height: 'auto',
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingVertical: 40

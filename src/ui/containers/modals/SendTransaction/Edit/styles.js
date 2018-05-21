@@ -50,6 +50,14 @@ export default create({
   amountField: {
     flex: 1
   },
+  setMaxAmountButton: {
+    paddingHorizontal: 0,
+    paddingVertical: 0
+  },
+  setMaxAmountButtonText: {
+    fontSize: '0.6rem',
+    marginRight: 5
+  },
   unitField: {
     flex: 0,
     width: 100,

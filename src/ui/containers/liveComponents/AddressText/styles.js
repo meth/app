@@ -6,9 +6,10 @@ export default create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  text: {
+  copyableTextContainer: {
+    flex: 1
   },
-  addToAddressBookButton: {
+  button: {
     flex: 0,
     marginLeft: 5
   }

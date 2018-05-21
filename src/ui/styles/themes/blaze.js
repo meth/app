@@ -1,4 +1,5 @@
 import { generateButtonStyles } from './utils'
+import { isWeb } from '../../../utils/deviceInfo'
 import {
   colorTransparent,
   colorRed,
@@ -115,8 +116,7 @@ export default {
         },
         unit: {
           textColor: colorGrayDarker
-        },
-        borderBottomColor: colorWhite
+        }
       },
       inactive: {
         address: {
@@ -130,8 +130,7 @@ export default {
         },
         unit: {
           textColor: colorGrayLighter
-        },
-        borderBottomColor: colorViolet
+        }
       }
     },
     tabBar: {
@@ -159,6 +158,17 @@ export default {
       },
       tableMessage: {
         textColor: colorGrayDarker
+      }
+    },
+    swiper: {
+      backgroundColor: colorGrayLightest,
+      navDot: {
+        inactive: {
+          backgroundColor: colorGray
+        },
+        active: {
+          backgroundColor: colorGrayDarkest
+        }
       }
     }
   },
@@ -366,16 +376,27 @@ export default {
         textColor: colorWhite
       }
     }),
-    walletCard: generateButtonStyles({
+    walletCard: generateButtonStyles(isWeb ? {
       default: {
         borderColor: colorGrayLight,
-        backgroundColor: colorTransparent,
+        backgroundColor: colorWhite,
         textColor: colorGrayLight
       },
       hover: {
         borderColor: colorViolet,
-        backgroundColor: colorTransparent,
+        backgroundColor: colorWhite,
         textColor: colorViolet
+      }
+    } : {
+      default: {
+        borderColor: colorGrayLight,
+        backgroundColor: colorWhite,
+        textColor: colorGrayLight
+      },
+      hover: {
+        borderColor: colorGrayLight,
+        backgroundColor: colorWhite,
+        textColor: colorGrayLight
       }
     }),
     browserTab: generateButtonStyles({

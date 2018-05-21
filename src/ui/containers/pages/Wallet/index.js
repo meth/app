@@ -51,9 +51,9 @@ export default class Wallet extends CachePureComponent {
     return (
       <React.Fragment>
         <Cards
+          style={styles.cards}
           activeCard={activeCard}
           accounts={accounts}
-          style={styles.cards}
           onSelectCard={this._onPressSelectCard}
         />
         <TokenTable style={styles.tokenTable} account={selectedAccount} />

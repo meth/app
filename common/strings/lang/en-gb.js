@@ -85,7 +85,15 @@ module.exports = {
       },
       noAlertsYet: 'No alerts yet!'
     },
+    tooltip: {
+      setMaximumAmount: 'Set maximum amount'
+    },
+    toast: {
+      copiedToClipboard: 'Copied to clipboard'
+    },
     button: {
+      copyToClipboard: 'Copy to clipboard',
+      setMax: 'Set max.',
       executeLocalContractCall: 'Execute (via local call)',
       executeTransactionContractCall: 'Execute (via transaction)',
       viewTransactions: 'View transactions',
@@ -162,7 +170,7 @@ module.exports = {
       },
       ethSent: '{amount} ETH',
       blockNum: 'Block: {blockNum}',
-      contractAddress: 'Contract: {contractAddress}'
+      contractLabel: 'Contract'
     },
     modal: {
       dappPermissions: {

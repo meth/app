@@ -53,6 +53,6 @@ export default class Done extends PureComponent {
 
     hideSendTransactionModal()
 
-    navGo(routes.Transactions.path)
+    navGo(routes.Transactions.routeName)
   }
 }

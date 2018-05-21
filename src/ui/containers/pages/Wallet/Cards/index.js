@@ -1,11 +1,12 @@
 import React from 'react'
+import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { CachePureComponent } from '../../../../helpers/components'
 import { connectStore } from '../../../../helpers/redux'
 import { t } from '../../../../../../common/strings'
 import styles from './styles'
-import ScrollView from '../../../../components/ScrollView'
+import Container from './Container'
 import WalletCard from '../../../../components/WalletCard'
 import Button from '../../../../components/Button'
 import Icon from '../../../../components/Icon'
@@ -21,26 +22,22 @@ export default class Cards extends CachePureComponent {
   }
 
   render () {
-    const { style, accounts } = this.props
-    const accountAddresses = Object.keys(accounts)
+    const { style, accounts, activeCard } = this.props
 
     return (
-      <ScrollView
-        style={[ styles.scrollView ].concat(style)}
-        contentContainerStyle={styles.scrollViewContent}
-        horizontal={true}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-      >
-        {accountAddresses.map((address, index) => (
-          this._renderCard(accounts, address, index)
-        ))}
-        {this._renderAddAccountButton()}
-      </ScrollView>
+      <View style={[ styles.container ].concat(style)}>
+        <Container
+          accounts={accounts}
+          activeCard={activeCard}
+          renderCard={this._renderCard}
+          renderAddAccountButton={this._renderAddAccountButton}
+          onSelectCard={this._onPressSelectCard}
+        />
+      </View>
     )
   }
 
-  _renderCard (accounts, address, index) {
+  _renderCard = (accounts, address, index) => {
     const { activeCard } = this.props
 
     const isActive = index === activeCard
@@ -73,20 +70,18 @@ export default class Cards extends CachePureComponent {
     )
   }
 
-  _renderAddAccountButton () {
-    return (
-      <Button
-        type='walletCard'
-        key='add'
-        style={[ styles.cardButton_inactive, styles.addAccountButton ]}
-        onPress={this._onPressAddAccount}
-        tooltip={t('button.addAccount')}
-        childShouldInheritTextStyle={true}
-      >
-        <Icon name='plus' style={styles.addAccountButtonIcon} />
-      </Button>
-    )
-  }
+  _renderAddAccountButton = () => (
+    <Button
+      type='walletCard'
+      key='add'
+      style={[ styles.cardButton_inactive, styles.addAccountButton ]}
+      onPress={this._onPressAddAccount}
+      tooltip={t('button.addAccount')}
+      childShouldInheritTextStyle={true}
+    >
+      <Icon name='plus' style={styles.addAccountButtonIcon} />
+    </Button>
+  )
 
   _onPressAddAccount = () => {
     const { showAddAccountModal } = this.props.actions

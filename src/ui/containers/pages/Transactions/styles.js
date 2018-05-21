@@ -10,6 +10,9 @@ export default create({
     justifyContent: 'flex-start',
     alignItems: 'stretch'
   },
+  topLevelLoading: {
+    flex: 1
+  },
   noTransactionsYetAlert: {
     marginTop: 10,
     marginHorizontal: 10
@@ -21,6 +24,6 @@ export default create({
   },
   /* tx row */
   tx: {
-    paddingHorizontal: 10
+    width: '100%'
   }
 })

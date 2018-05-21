@@ -12,9 +12,11 @@ import ProgressButton from '../../../../components/ProgressButton'
 import Switch from '../../../../components/Switch'
 import TextInput from '../../../../components/TextInput'
 import ErrorBox from '../../../../components/ErrorBox'
+import ScrollView from '../../../../components/ScrollView'
 import Picker from '../../../../components/Picker'
 import FormWrapper from '../../../../components/FormWrapper'
 import Loading from '../../../../components/Loading'
+import LinkButton from '../../../../components/LinkButton'
 import AddressTextInput from '../../../liveComponents/AddressTextInput'
 import AccountPicker from '../../../liveComponents/AccountPicker'
 import styles from './styles'
@@ -48,7 +50,7 @@ export default class Edit extends PureComponent {
     const isTokenTransfer = (ETH !== unit)
 
     return (
-      <View style={styles.form}>
+      <ScrollView contentContainerStyle={styles.form}>
         <FormWrapper style={styles.form}>
           <Form
             style={styles.form}
@@ -97,10 +99,11 @@ export default class Edit extends PureComponent {
             <Form.Layout style={styles.amountRow}>
               <Form.Field
                 name='amount'
-                label={t('modal.sendTransaction.field.amountWithAvailableLabel', { amount: this._getCurrentUnitBalance() })}
+                label={t('modal.sendTransaction.field.amountLabel')}
                 style={styles.amountField}
                 labelStyle={formStyles.label}
                 labelTextStyle={formStyles.labelText}
+                labelRightContent={this._renderSetMaxAmountLinkButton()}
               >
                 <TextInput
                   value={amount}
@@ -195,7 +198,7 @@ export default class Edit extends PureComponent {
           style={styles.formButton}
         />
         <ErrorBox error={error} style={styles.errorBox} />
-      </View>
+      </ScrollView>
     )
   }
 
@@ -266,6 +269,28 @@ export default class Edit extends PureComponent {
 
   _onFormRef = r => {
     this.form = r
+  }
+
+  _renderSetMaxAmountLinkButton () {
+    return (
+      <LinkButton
+        style={styles.setMaxAmountButton}
+        textStyle={styles.setMaxAmountButtonText}
+        type='text'
+        title={t('button.setMax')}
+        tooltip={t('tooltip.setMaximumAmount')}
+        onPress={this._onPressSetMaxAmount}
+      />
+    )
+  }
+
+  _onPressSetMaxAmount = () => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        amount: this._getCurrentUnitBalance()
+      }
+    })
   }
 
   _getMaxCost () {

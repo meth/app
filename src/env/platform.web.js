@@ -4,7 +4,7 @@ import IPC from '../../common/constants/ipc'
 import BACKEND_TASKS from '../../common/constants/ipcBackendTasks'
 import UI_TASKS from '../../common/constants/ipcUiTasks'
 
-const alertUser = msg => {
+const alert = msg => {
   /* eslint-disable no-console */
   console.error(msg)
   /* eslint-disable no-alert */
@@ -39,5 +39,5 @@ export default ({ log, globalEvents }) => {
     }
   }
 
-  return { alertUser, openExternalUrl }
+  return { alert, openExternalUrl }
 }

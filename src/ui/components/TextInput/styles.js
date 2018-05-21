@@ -10,7 +10,9 @@ export default _.memoize(state => {
     borderRadius: 5,
     borderColor: `$form_textInput_${state}_borderColor`,
     backgroundColor: `$form_textInput_${state}_backgroundColor`,
-    color: `$form_textInput_${state}_textColor`
+    color: `$form_textInput_${state}_textColor`,
+    /* for mult-line inputs limit the height */
+    maxHeight: 250
   }
 
   return {

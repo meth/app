@@ -41,7 +41,7 @@ export default create({
 
   formWrapper: {
     marginTop: 10,
-    width: '70%'
+    width: '90%'
   },
   field: {},
   errorBox: {

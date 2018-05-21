@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
 import { t } from '../../../../../common/strings'
@@ -15,6 +15,7 @@ import ProgressButton from '../../../components/ProgressButton'
 import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
 import TitleText from '../../../components/TitleText'
+import CopyableText from '../../../components/CopyableText'
 import AskUserConfirmModal from '../../../components/AskUserConfirmModal'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
@@ -64,7 +65,10 @@ export default class EditAddress extends PureComponent {
           style={styles.titleText}
           text={t(alreadyExists ? 'title.editAddressLabel' : 'title.addAddressLabel')}
         />
-        <Text style={styles.addressText}>{address}</Text>
+        <CopyableText
+          textStyle={styles.addressText}
+          text={address}
+        />
         {this._renderMeta({ type })}
         <FormWrapper style={styles.formWrapper}>
           <Form

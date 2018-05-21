@@ -31,7 +31,10 @@ export default class Transactions extends CachePureComponent {
     return (
       <Layout contentStyle={styles.layoutContent}>
         <PageTitleText text={t('title.transactions')} />
-        {network ? this.renderContent() : <Loading />}
+        {network
+          ? this.renderContent()
+          : <Loading style={styles.topLevelLoading} />
+        }
       </Layout>
     )
   }

@@ -37,8 +37,8 @@ const TransactionReceipt = ({ tx, style }) => {
     <View style={[ styles.container ].concat(style)}>
       {statusContent}
       {blockNum ? (
-        <View style={styles.receiptBlock}>
-          <Text style={styles.receiptText}>{t('transaction.blockNum', { blockNum })}</Text>
+        <View style={styles.blockNumBlock}>
+          <Text style={styles.blockNumText}>{t('transaction.blockNum', { blockNum })}</Text>
           <ChainExplorerIconButton
             linkType='block'
             blockHash={blockHash}
@@ -49,9 +49,13 @@ const TransactionReceipt = ({ tx, style }) => {
       ) : null}
       {contractAddress ? (
         <View style={styles.receiptBlock}>
+          <Text style={styles.addressPrefixText}>
+            {t('transaction.contractLabel')}:
+          </Text>
           <AddressText
-            textStyle={styles.receiptText}
-            text={t('transaction.contractAddress', { contractAddress })}
+            style={styles.addressTextContainer}
+            textStyle={styles.addressText}
+            text={contractAddress}
             address={contractAddress}
             addressType={ADDRESS_TYPES.CONTRACT}
           />
