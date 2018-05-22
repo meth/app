@@ -237,6 +237,10 @@ export default class Edit extends PureComponent {
   _recalculateAmountBasedOnUpdatedMaxCost = () => {
     const { form, form: { gasLimit, gasPrice, unit, amount } } = this.state
 
+    if (!gasLimit || !gasPrice) {
+      return
+    }
+
     // recalculate amount based on new max cost
     const newAmount = recalculateAmountBasedOnMaxCostAndAvailableBalance(
       { gasLimit, gasPrice, unit, amount },
@@ -254,10 +258,10 @@ export default class Edit extends PureComponent {
   }
 
   _recalculateGasLimit = _.debounce(() => {
-    const { form, form: { from, to, gasLimit, isContractCreation } } = this.state
+    const { form, form: { from, gasPrice, to, gasLimit, isContractCreation } } = this.state
     const { fetchRecommendedGasLimit } = this.props.actions
 
-    if (!from) {
+    if (!from || !gasPrice) {
       return
     }
 
