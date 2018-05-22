@@ -291,7 +291,7 @@ export default class Edit extends PureComponent {
           })
         })
     })
-  }, 1000)
+  }, 250)
 
   _onFormRef = r => {
     this.form = r
