@@ -48,7 +48,7 @@ export default class EtherBalance extends PureComponent {
         </Text>
         {showUnits ? (
           <Text style={[ styles.unitText ].concat(unitTextStyle)}>
-            {showWei ? 'Wei' : 'Eth'}
+            {(showWei ? 'Wei' : 'Eth').toUpperCase()}
           </Text>
         ) : null}
       </TouchableView>

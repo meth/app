@@ -36,7 +36,7 @@ export default class EditToken extends PureComponent {
     const { getCustomTokens } = this.props.selectors
 
     const token = _.get(getCustomTokens(), symbol, {
-      decimals: 12
+      decimals: 18
     })
 
     this.state = {

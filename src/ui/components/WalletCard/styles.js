@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { create, fontMaker } from '../../styles'
+import { create, fontMaker, perWidth } from '../../styles'
 
 const text = {
   ...fontMaker(),
@@ -49,7 +49,7 @@ export const createStyles = _.memoize(state => create({
   },
   amountText: {
     textAlign: 'center',
-    fontSize: '1.7rem',
+    fontSize: perWidth('1.7rem', '1.4rem'),
     maxWidth: '90%',
     color: `$wallet_card_${state}_amount_textColor`
   },

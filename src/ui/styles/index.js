@@ -129,3 +129,15 @@ export const whenWidthSmall = props => ({
 export const whenWidthVerySmall = props => ({
   [`@media (max-width: ${SCREEN_WIDTH_VERY_SMALL}px)`]: props
 })
+
+const _or = (a, ...b) => (a !== undefined ? a : _or(...b))
+
+export const perWidth = (normal, small, verySmall) => {
+  if (isScreenWidthVerySmall()) {
+    return _or(verySmall, small, normal)
+  } else if (isScreenWidthSmall()) {
+    return _or(small, normal)
+  }
+
+  return normal
+}
