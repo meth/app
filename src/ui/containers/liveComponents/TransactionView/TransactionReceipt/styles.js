@@ -50,7 +50,7 @@ export default create({
     ...text
   },
   receiptLinkButton: {
-    marginLeft: 5
+    marginLeft: 3
   },
   receiptLinkButtonText: {
     fontSize: '0.7rem'

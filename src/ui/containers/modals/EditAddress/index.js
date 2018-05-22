@@ -16,6 +16,7 @@ import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
 import TitleText from '../../../components/TitleText'
 import CopyableText from '../../../components/CopyableText'
+import ChainExplorerIconButton from '../../liveComponents/ChainExplorerIconButton'
 import AskUserConfirmModal from '../../../components/AskUserConfirmModal'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
@@ -65,10 +66,18 @@ export default class EditAddress extends PureComponent {
           style={styles.titleText}
           text={t(alreadyExists ? 'title.editAddressLabel' : 'title.addAddressLabel')}
         />
-        <CopyableText
-          textStyle={styles.addressText}
-          text={address}
-        />
+        <View style={styles.addressBlock}>
+          <CopyableText
+            style={styles.address}
+            textStyle={styles.addressText}
+            text={address}
+          />
+          <ChainExplorerIconButton
+            linkType='address'
+            address={address}
+            style={styles.chainLinkButton}
+          />
+        </View>
         {this._renderMeta({ type })}
         <FormWrapper style={styles.formWrapper}>
           <Form

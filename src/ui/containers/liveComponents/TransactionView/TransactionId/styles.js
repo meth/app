@@ -17,12 +17,13 @@ export default create({
     ...flexRow
   },
   idText: {
+    flex: 1,
     ...text,
     color: '$transactionBlock_id_textColor',
     fontSize: '0.9rem'
   },
   idLinkButton: {
-    marginLeft: 5
+    marginLeft: 3
   },
   idLinkButtonText: {
     fontSize: '0.9rem'

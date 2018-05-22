@@ -59,12 +59,6 @@ const TransactionReceipt = ({ tx, style }) => {
             address={contractAddress}
             addressType={ADDRESS_TYPES.CONTRACT}
           />
-          <ChainExplorerIconButton
-            linkType='address'
-            address={contractAddress}
-            style={styles.receiptLinkButton}
-            textStyle={styles.receiptLinkButtonText}
-          />
         </View>
       ) : null}
     </View>

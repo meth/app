@@ -5,6 +5,12 @@ const text = {
   color: '$modal_content_textColor'
 }
 
+const flexRow = {
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center'
+}
+
 export default create({
   // $outline: 1,
 
@@ -18,15 +24,22 @@ export default create({
   titleText: {
     marginBottom: 20
   },
+  addressBlock: {
+    ...flexRow
+  },
+  address: {
+    flex: 1
+  },
   addressText: {
     ...text,
     fontSize: '0.8rem'
   },
+  chainLinkButton: {
+    marginLeft: 3
+  },
   meta: {
     marginTop: 5,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
+    ...flexRow
   },
   metaIcon: {
     marginHorizontal: 10

@@ -68,7 +68,7 @@ export default create({
     fontSize: '0.7rem'
   },
   blockLinkButton: {
-    marginLeft: 5
+    marginLeft: 3
   },
   blockLinkButtonText: {
     fontSize: '0.6rem'
