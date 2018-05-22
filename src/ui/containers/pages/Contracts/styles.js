@@ -7,12 +7,12 @@ const text = {
 
 const fieldRow = {
   marginBottom: 15,
-  width: '90%'
+  width: '100%'
 }
 
 export default create({
   layoutContent: {
-    flex: 1,
+    flex: 0,
     padding: 10,
     backgroundColor: '$content_backgroundColor',
     borderTopWidth: 1,
@@ -20,6 +20,9 @@ export default create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch'
+  },
+  topLevelLoading: {
+    flex: 1
   },
   container: {
     paddingBottom: 20,
@@ -43,13 +46,14 @@ export default create({
   picker: {
   },
   pickerButton: {
-    width: 500
+    width: '100%'
   },
   submitButton: {
     marginTop: 20
   },
   /* method */
   methodContainer: {
+    width: '100%'
   },
   paramsContainer: {
   },
@@ -64,8 +68,12 @@ export default create({
   results: {
     marginTop: 20
   },
+  resultValue: {
+    minWidth: '50%'
+  },
   resultValueText: {
-    ...text
+    ...text,
+    textAlign: 'left'
   },
   /* error */
   errorBox: {

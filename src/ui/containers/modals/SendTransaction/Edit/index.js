@@ -106,7 +106,7 @@ export default class Edit extends PureComponent {
                 labelRightContent={this._renderSetMaxAmountLinkButton()}
               >
                 <TextInput
-                  value={amount}
+                  value={toIntStr(amount)}
                   style={styles.textInput}
                   placeholder={t('modal.sendTransaction.field.amountPlaceholder', { unit })}
                 />
@@ -164,7 +164,7 @@ export default class Edit extends PureComponent {
                 labelRightContent={fetchingGasEstimate ? <Loading /> : null}
               >
                 <TextInput
-                  value={gasLimit}
+                  value={toIntStr(gasLimit)}
                   style={styles.textInput}
                   placeholder={t('modal.sendTransaction.field.gasLimitPlaceholder')}
                 />
@@ -177,7 +177,7 @@ export default class Edit extends PureComponent {
                 labelTextStyle={formStyles.labelText}
               >
                 <TextInput
-                  value={gasPrice}
+                  value={toIntStr(gasPrice)}
                   style={styles.textInput}
                   placeholder={t('modal.sendTransaction.field.gasPricePlaceholder')}
                 />

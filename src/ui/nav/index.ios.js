@@ -48,7 +48,7 @@ const LoggedInStack = createStackNavigator({
     AddressBook
   }, {
     contentComponent: MobileDrawer,
-    initialRouteName: Transactions.routeName
+    initialRouteName: Contracts.routeName
   })
 }, {
   headerMode: 'float',

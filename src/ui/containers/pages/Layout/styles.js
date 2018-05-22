@@ -22,13 +22,15 @@ export default create({
 
   scrollView: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    height: 'auto'
   },
 
   /* content */
 
   content: {
-    width: '100%'
+    width: '100%',
+    height: 'auto'
   },
 
   /* UI error */
