@@ -15,7 +15,6 @@ export default class CardsContainer extends PureComponent {
   }
 
   render () {
-    // const { renderCard, renderAddAccountButton } = this.props
     const {
       accounts,
       renderCard,
@@ -29,7 +28,8 @@ export default class CardsContainer extends PureComponent {
         style={styles.swiper}
         loop={false}
         onIndexChanged={onSelectCard}
-        showsPagination={false}
+        showsPagination={true}
+        paginationStyle={styles.nav}
         dotStyle={styles.navDot}
         activeDotStyle={styles.activeNavDot}
       >
