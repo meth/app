@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
 import { ETH } from '../../../../../../common/constants/protocol'
-import { toInt, toFloat, toIntStr, weiToEthStr, toTokenBalanceStr, calculateTotalGasBN, ethToWeiBN } from '../../../../../utils/number'
+import { toInt, toFloat, toFloatStr, toIntStr, weiToEthStr, toTokenBalanceStr } from '../../../../../utils/number'
 import { isAddress, isHexStrict, prefixedWith0x, prefixWith0x } from '../../../../../utils/string'
 import { connectStore } from '../../../../helpers/redux'
 import { t } from '../../../../../../common/strings'
@@ -21,7 +21,10 @@ import AddressTextInput from '../../../liveComponents/AddressTextInput'
 import AccountPicker from '../../../liveComponents/AccountPicker'
 import styles from './styles'
 import formStyles from '../../../../styles/forms'
-import { getMaxCost } from '../utils'
+import {
+  getMaxCostEthWithSuffixStr,
+  recalculateAmountBasedOnMaxCostAndAvailableBalance
+} from '../utils'
 
 
 @connectStore('account')
@@ -106,7 +109,7 @@ export default class Edit extends PureComponent {
                 labelRightContent={this._renderSetMaxAmountLinkButton()}
               >
                 <TextInput
-                  value={toIntStr(amount)}
+                  value={toFloatStr(amount)}
                   style={styles.textInput}
                   placeholder={t('modal.sendTransaction.field.amountPlaceholder', { unit })}
                 />
@@ -186,7 +189,7 @@ export default class Edit extends PureComponent {
             <View style={styles.maxCost}>
               <Text style={formStyles.labelText}>{t('modal.sendTransaction.maxCost')}</Text>
               <Text style={styles.maxCostText}>
-                {getMaxCost({ gasLimit, gasPrice, unit, amount })}
+                {getMaxCostEthWithSuffixStr({ gasLimit, gasPrice, unit, amount })}
               </Text>
             </View>
           </Form>
@@ -204,15 +207,20 @@ export default class Edit extends PureComponent {
 
   componentDidUpdate (prevProps, prevState) {
     // re-calculate the gas limit for certain changes
-    let shouldRecalculate = false
-    ;[ 'unit', 'to', 'data', 'amount', 'isContractCreation' ].forEach(f => {
+    const changed = {}
+    ;[ 'unit', 'to', 'data', 'amount', 'gasLimit', 'gasPrice', 'isContractCreation' ].forEach(f => {
       if (this.state.form[f] !== prevState.form[f]) {
-        shouldRecalculate = true
+        changed[f] = true
       }
     })
 
-    if (shouldRecalculate) {
+    if (!_.isEmpty(changed)) {
       this._recalculateGasLimit()
+    }
+
+    // if either gas limit, gas price or amount changed then recalculate amount
+    if (changed.amount || changed.gasLimit || changed.gasPrice) {
+      this._recalculateAmountBasedOnUpdatedMaxCost()
     }
   }
 
@@ -223,6 +231,25 @@ export default class Edit extends PureComponent {
   submit = () => {
     if (this.form) {
       this.form.validateAndSubmit()
+    }
+  }
+
+  _recalculateAmountBasedOnUpdatedMaxCost = () => {
+    const { form, form: { gasLimit, gasPrice, unit, amount } } = this.state
+
+    // recalculate amount based on new max cost
+    const newAmount = recalculateAmountBasedOnMaxCostAndAvailableBalance(
+      { gasLimit, gasPrice, unit, amount },
+      this._getCurrentUnitBalance()
+    )
+
+    if (newAmount !== amount) {
+      this.setState({
+        form: {
+          ...form,
+          amount: newAmount
+        }
+      })
     }
   }
 
@@ -243,20 +270,19 @@ export default class Edit extends PureComponent {
     }, () => {
       fetchRecommendedGasLimit(form)
         .then(estimate => {
-          let toUpdate = {}
-          // only update if estimate is greater than what user currently has
+          const newFormValues = {}
+
+          // update limit if estimate is greater than what user currently has
           if (!gasLimit || toInt(estimate) > toInt(gasLimit)) {
-            toUpdate = {
-              form: {
-                ...form,
-                gasLimit: toIntStr(estimate)
-              }
-            }
+            newFormValues.gasLimit = toIntStr(estimate)
           }
 
           this.setState({
             fetchingGasEstimate: false,
-            ...toUpdate
+            form: {
+              ...form,
+              ...newFormValues
+            }
           })
         })
         .catch(() => {
@@ -291,26 +317,6 @@ export default class Edit extends PureComponent {
         amount: this._getCurrentUnitBalance()
       }
     })
-  }
-
-  _getMaxCost () {
-    const { form: { gasLimit, gasPrice, unit, amount } } = this.state
-
-    const parsedGasLimit = toInt(gasLimit)
-    const parsedGasPrice = toInt(gasPrice)
-    if (!parsedGasLimit || !parsedGasPrice) {
-      return ''
-    }
-
-    let totalWei = calculateTotalGasBN(gasLimit, gasPrice)
-
-    // if transferring ETH
-    const parsedAmount = toFloat(amount)
-    if (ETH === unit && parsedAmount) {
-      totalWei = totalWei.add(ethToWeiBN(parsedAmount))
-    }
-
-    return weiToEthStr(totalWei)
   }
 
   _getCurrentUnitBalance () {

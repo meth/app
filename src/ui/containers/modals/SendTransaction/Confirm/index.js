@@ -7,8 +7,9 @@ import styles from './styles'
 import formStyles from '../../../../styles/forms'
 import ErrorBox from '../../../../components/ErrorBox'
 import ProgressButton from '../../../../components/ProgressButton'
+import ScrollView from '../../../../components/ScrollView'
 import BlockOfText from '../../../../components/BlockOfText'
-import { getMaxCost } from '../utils'
+import { getMaxCostEthWithSuffixStr } from '../utils'
 
 
 @connectStore('account')
@@ -27,7 +28,7 @@ export default class Confirm extends PureComponent {
     const { error, submitting } = this.state
 
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.rawTransaction}>
           <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.fromLabel')}</Text>
           <Text style={styles.confirmText}>{from}</Text>
@@ -36,7 +37,9 @@ export default class Confirm extends PureComponent {
           <Text style={formStyles.labelText}>{t('modal.sendTransaction.field.amountLabel')}</Text>
           <Text style={styles.confirmText}>{amount} {unit}</Text>
           <Text style={formStyles.labelText}>{t('modal.sendTransaction.maxCost')}</Text>
-          <Text style={styles.confirmText}>{getMaxCost({ amount, unit, gasLimit, gasPrice })}</Text>
+          <Text style={styles.confirmText}>
+            {getMaxCostEthWithSuffixStr({ amount, unit, gasLimit, gasPrice })}
+          </Text>
           <Text style={formStyles.labelText}>{t('modal.sendTransaction.rawTransactionLabel')}</Text>
           <BlockOfText
             text={rawTx.str}
@@ -51,7 +54,7 @@ export default class Confirm extends PureComponent {
           />
           <ErrorBox error={error} style={styles.errorBox} />
         </View>
-      </View>
+      </ScrollView>
     )
   }
 

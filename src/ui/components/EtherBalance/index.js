@@ -5,7 +5,7 @@ import { Text } from 'react-native'
 
 import TouchableView from '../TouchableView'
 import styles from './styles'
-import { toDecimalPlaces, weiToEthStr } from '../../../utils/number'
+import { toDecimalPlaces, weiToEthStr, toNumberStr } from '../../../utils/number'
 
 export default class EtherBalance extends PureComponent {
   static propTypes = {
@@ -33,7 +33,7 @@ export default class EtherBalance extends PureComponent {
 
     let amount
     if (showWei) {
-      amount = balance.toString(10)
+      amount = toNumberStr(balance)
     } else {
       amount = toDecimalPlaces(weiToEthStr(balance), 3)
     }

@@ -93,7 +93,7 @@ module.exports = {
     },
     button: {
       copyToClipboard: 'Copy to clipboard',
-      setMax: 'Set max.',
+      setMax: 'Set max',
       executeLocalContractCall: 'Execute (via local call)',
       executeTransactionContractCall: 'Execute (via transaction)',
       viewTransactions: 'View transactions',

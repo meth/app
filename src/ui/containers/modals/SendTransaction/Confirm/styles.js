@@ -6,7 +6,7 @@ const text = {
 }
 
 export default create({
-  container: {
+  scrollViewContent: {
     alignItems: 'center'
   },
   confirmText: {

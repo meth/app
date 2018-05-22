@@ -1,20 +1,47 @@
 import { ETH } from '../../../../../common/constants/protocol'
-import { toInt, toFloat, weiToEthStr, calculateTotalGasBN, ethToWeiBN } from '../../../../utils/number'
+import { numToBN, toInt, toFloat, weiToEthStr, calculateTotalGasBN, ethToWeiBN } from '../../../../utils/number'
 
-export const getMaxCost = ({ gasLimit, gasPrice, unit, amount }) => {
+const _getMaxCostWeiBN = ({ gasLimit, gasPrice, unit, amount }) => {
   const parsedGasLimit = toInt(gasLimit)
   const parsedGasPrice = toInt(gasPrice)
   if (!parsedGasLimit || !parsedGasPrice) {
     return ''
   }
 
-  let totalWei = calculateTotalGasBN(gasLimit, gasPrice)
+  const totalWeiBN = calculateTotalGasBN(gasLimit, gasPrice)
 
   // if transferring ETH
   const parsedAmount = toFloat(amount)
   if (ETH === unit && parsedAmount) {
-    totalWei = totalWei.add(ethToWeiBN(parsedAmount))
+    totalWeiBN.iadd(ethToWeiBN(parsedAmount))
   }
 
-  return `${weiToEthStr(totalWei)} ETH`
+  return totalWeiBN
 }
+
+export const recalculateAmountBasedOnMaxCostAndAvailableBalance =
+  ({ gasLimit, gasPrice, unit, amount }, balanceEth) => {
+    const maxWeiBN = _getMaxCostWeiBN({ gasLimit, gasPrice, unit, amount })
+    const balanceWeiBN = ethToWeiBN(balanceEth)
+
+    // if need more balance than is available
+    const parsedAmount = toFloat(amount)
+    if (parsedAmount && maxWeiBN.gt(balanceWeiBN)) {
+      const amountWeiBN = ethToWeiBN(parsedAmount)
+
+      // reduce amount until we have enough to complete the transaction
+      amountWeiBN.isub(maxWeiBN.sub(balanceWeiBN))
+
+      if (amountWeiBN.gte(numToBN(0))) {
+        return weiToEthStr(amountWeiBN)
+      }
+
+      return '0'
+    }
+
+    return amount
+  }
+
+export const getMaxCostEthWithSuffixStr = ({ gasLimit, gasPrice, unit, amount }) => (
+  `${weiToEthStr(_getMaxCostWeiBN({ gasLimit, gasPrice, unit, amount }))} ${ETH}`
+)

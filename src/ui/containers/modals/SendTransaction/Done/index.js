@@ -9,6 +9,7 @@ import styles from './styles'
 import TransactionId from '../../../liveComponents/TransactionView/TransactionId'
 import TransactionReceipt from '../../../liveComponents/TransactionView/TransactionReceipt'
 import Button from '../../../../components/Button'
+import ScrollView from '../../../../components/ScrollView'
 
 
 @connectStore('account')
@@ -21,7 +22,7 @@ export default class Done extends PureComponent {
     const tx = transactions.find(({ id }) => id === txId)
 
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.txConfirmation}>
           <Text style={styles.txConfirmationIntroText}>
             {t('modal.sendTransaction.transactionSent')}
@@ -44,7 +45,7 @@ export default class Done extends PureComponent {
             onPress={this._onPressTrackTransaction}
           />
         </View>
-      </View>
+      </ScrollView>
     )
   }
 

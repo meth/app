@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { hexToNumber, toHex, toBN, fromWei } from 'web3-utils'
 
 export { hexToNumber, toHex }
@@ -89,7 +90,7 @@ export const toIntStr = num => {
 export const hexToBN = hex => toBN(hex)
 export const numToBN = num => toBN(num)
 
-const getPowerOfTenBN = power => numToBN(10).pow(numToBN(power))
+const getPowerOfTenBN = _.memoize(power => numToBN(10).pow(numToBN(power)))
 
 const _format = (num, { hex } = {}) => (hex ? toHex(num) : num.toString(10))
 
@@ -130,7 +131,7 @@ export const getTotalAccountsBalanceAsStr = accounts => {
     numToBN(0)
   )
 
-  const totalEther = fromWei(totalWei, 'ether')
+  const totalEther = weiToEthStr(totalWei, 'ether')
 
   return `Ξ ${toDecimalPlaces(totalEther, 1)}`
 }
