@@ -8,11 +8,12 @@ import styles from './styles'
 export default class QrCode extends PureComponent {
   static propTypes = {
     input: PropTypes.string.isRequired,
-    style: PropTypes.any
+    style: PropTypes.any,
+    size: PropTypes.number.isRequired
   }
 
   render () {
-    const { input, style } = this.props
+    const { input, style, size } = this.props
 
     return (
       <View style={[ styles.container, style ]}>
@@ -20,6 +21,7 @@ export default class QrCode extends PureComponent {
           bgColor="#FFFFFF"
           fgColor="#000000"
           level="L"
+          size={size}
           value={input}
         />
       </View>

@@ -18,20 +18,15 @@ export default create({
 
   /* address text */
 
+  address: {
+    marginBottom: 30,
+    maxWidth: '90%'
+  },
   addressText: {
     ...text,
     ...fontMaker({ weight: 'SemiBold' }),
     textAlign: 'center',
-    fontSize: '1rem',
-    marginBottom: 30,
-    maxWidth: '90%'
-  },
-
-  /* qr code */
-
-  qrCode: {
-    width: '40%',
-    height: 'auto'
+    fontSize: '1rem'
   },
 
   /* responsive layout */
