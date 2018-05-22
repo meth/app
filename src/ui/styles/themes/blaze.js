@@ -308,7 +308,7 @@ export default {
     },
     switch: {
       on: {
-        trackColor: colorGrayDarker,
+        trackColor: colorViolet,
         thumbColor: colorWhite,
         label: {
           textColor: colorWhite

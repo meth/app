@@ -23,6 +23,8 @@ export default class CustomSwitch extends Component {
           trackColor={trackColor}
           activeThumbColor={thumbColor}
           activeTrackColor={trackColor}
+          tintColor={trackColor}
+          onTintColor={trackColor}
           style={[ styles.switch, switchStyle ]}
           value={turnedOn}
           onValueChange={this.onPress}
