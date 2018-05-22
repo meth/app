@@ -20,6 +20,10 @@ export default create({
     flex: 0.5,
     width: '100%'
   },
+  addAccountAlertBox: {
+    marginTop: 10,
+    alignSelf: 'center'
+  },
 
   /* tokens */
 

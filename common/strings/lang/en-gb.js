@@ -179,7 +179,7 @@ module.exports = {
         [ALL_ADDRESSES]: 'All my addresses'
       },
       addAccount: {
-        cta: 'To generate an additional account from your password/mnemonic press the button below.'
+        cta: 'To generate an additional account from your passphrase press the button below.'
       },
       editAddress: {
         labelInputPlaceholder: 'Enter label...',
@@ -251,6 +251,7 @@ module.exports = {
       }
     },
     wallet: {
+      pressButtonAboveToAddAccount: 'Press button above to add a new account!',
       tokens: {
         noneConfigured: 'No tokens current configured',
         filterPlaceholder: 'Filter tokens...',

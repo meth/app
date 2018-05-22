@@ -9,6 +9,7 @@ import Layout from '../Layout'
 import TokenTable from './TokenTable'
 import Cards from './Cards'
 import PageTitleText from '../../../components/PageTitleText'
+import AlertBox from '../../../components/AlertBox'
 import Loading from '../../../components/Loading'
 
 
@@ -48,6 +49,8 @@ export default class Wallet extends CachePureComponent {
 
     const selectedAccount = this._getSelectedAccount()
 
+    const numAccounts = Object.keys(accounts).length
+
     return (
       <React.Fragment>
         <Cards
@@ -56,7 +59,15 @@ export default class Wallet extends CachePureComponent {
           accounts={accounts}
           onSelectCard={this._onPressSelectCard}
         />
-        <TokenTable style={styles.tokenTable} account={selectedAccount} />
+        {numAccounts <= activeCard ? (
+          <AlertBox
+            style={styles.addAccountAlertBox}
+            type='info'
+            text={t('wallet.pressButtonAboveToAddAccount')}
+          />
+        ) : (
+          <TokenTable style={styles.tokenTable} account={selectedAccount} />
+        )}
       </React.Fragment>
     )
   }
