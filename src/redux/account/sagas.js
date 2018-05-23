@@ -2,7 +2,7 @@ import _ from 'lodash'
 import { put, takeLatest } from 'redux-saga/effects'
 
 import {
-  LOAD_WALLET,
+  SAVE_PIN,
   SEND_RAW_TX,
   TX_FLOW_COMPLETED,
   CHECK_PENDING_TRANSACTIONS,
@@ -16,10 +16,6 @@ import {
 import { createAction } from '../utils'
 import { getStore } from '../'
 
-
-function* onLoadWallet ({ storage }, { payload: mnemonic }) {
-  yield storage.setMnemonic(mnemonic)
-}
 
 function* onTransactionSent (__, { payload: { id, params } }) {
   const { selectors: { getTxDeferred } } = getStore()
@@ -89,8 +85,18 @@ function* onRemoveCustomToken ({ storage }, { payload: { symbol } }) {
   yield storage.customTokens.remove(symbol)
 }
 
+
+function* onSavePin ({ storage }) {
+  const store = getStore()
+
+  yield storage.appSettings.addOrUpdate({
+    name: 'pin',
+    value: store.selectors.getSecurityPin()
+  })
+}
+
+
 export default app => function* saga () {
-  yield takeLatest(LOAD_WALLET, onLoadWallet, app)
   yield takeLatest(SEND_RAW_TX, onTransactionSent, app)
   yield takeLatest(TX_FLOW_COMPLETED, onTransactionFlowCompleted, app)
   yield takeLatest(CHECK_PENDING_TRANSACTIONS, onCheckedPendingTransactions, app)
@@ -100,6 +106,7 @@ export default app => function* saga () {
   yield takeLatest(ADD_CUSTOM_TOKEN, onAddCustomToken, app)
   yield takeLatest(UPDATE_CUSTOM_TOKEN, onUpdateCustomToken, app)
   yield takeLatest(REMOVE_CUSTOM_TOKEN, onRemoveCustomToken, app)
+  yield takeLatest(SAVE_PIN, onSavePin, app)
 }
 
 export const _privateFunctions = {

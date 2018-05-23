@@ -1,10 +1,14 @@
 import React, { PureComponent } from 'react'
 
+import { t } from '../../common/strings'
 import MODALS from '../../common/constants/modals'
+import UI_TASKS from '../../common/constants/ipcUiTasks'
+import { globalEvents } from '../env'
 import { getModals } from '../redux/modals/selectors'
 import { Navigator } from './nav'
 import { connectStore } from './helpers/redux'
 import { PopupContext } from './components/Popup'
+import ConfirmPinModal from './components/ConfirmPinModal'
 import LogModal from './containers/modals/Log'
 import AlertModal from './containers/modals/Alert'
 import ConnectNodeModal from './containers/modals/ConnectNode'
@@ -28,18 +32,32 @@ const MODAL_COMPONENTS = {
   [MODALS.ADD_ACCOUNT]: AddAccountModal
 }
 
-@connectStore('modals')
+@connectStore('modals', 'account')
 export default class Root extends PureComponent {
+  componentDidMount () {
+    globalEvents.addListener(UI_TASKS.APP_ACTIVE, this._onAppActive)
+  }
+
+  componentWillUnmount () {
+    globalEvents.removeListener(UI_TASKS.APP_ACTIVE, this._onAppActive)
+  }
+
   render () {
     return (
       <PopupContext>
         <Navigator />
-        {this.renderModals()}
+        {this._renderModals()}
+        <ConfirmPinModal
+          ref={this._onConfirmModalRef}
+          title={t('modal.confirmPin.pleaseEnterPinToContinue')}
+          onSuccess={this._onPinConfirmationSuccess}
+          onCancel={this._onPinConfirmationFailure}
+        />
       </PopupContext>
     )
   }
 
-  renderModals () {
+  _renderModals () {
     const modals = getModals(this.props)
 
     const components = []
@@ -58,5 +76,27 @@ export default class Root extends PureComponent {
     }
 
     return components.length ? components : null
+  }
+
+  _onConfirmModalRef = ref => {
+    this.confirmPinModal = ref
+  }
+
+  _onAppActive = () => {
+    const { getSecurityPin } = this.props.selectors
+
+    const pin = getSecurityPin()
+
+    if (pin) {
+      this.confirmPinModal.show(pin)
+    }
+  }
+
+  _onPinConfirmationSuccess = () => {}
+
+  _onPinConfirmationFailure = () => {
+    const { closeWallet } = this.props.actions
+
+    closeWallet()
   }
 }

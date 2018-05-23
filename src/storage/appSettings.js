@@ -3,7 +3,7 @@ import Database from './database'
 export default class AppSettings extends Database {
   constructor (store, _, authKey, encryptionKey) {
     super('appSettings', {
-      storeInject: store.actions.injectUserAppSettings,
+      storeInject: store.actions.injectAppSettings,
       authKey,
       encryptionKey
     })

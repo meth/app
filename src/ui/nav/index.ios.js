@@ -41,7 +41,7 @@ const LoggedOutStack = createStackNavigator({
   ...disableGesturesProps,
   headerMode: 'none',
   mode: 'card',
-  initialRouteName: LoginMnemonic.routeName
+  initialRouteName: Home.routeName
 })
 
 const LoggedInStack = createStackNavigator({

@@ -6,6 +6,14 @@ const _getAccountBalances = state => state.account.get('accountBalances')
 const _getTokenBalances = state => state.account.get('tokenBalances')
 const _getAddressBook = state => state.account.get('addressBook')
 const _getCustomTokens = state => state.account.get('customTokens')
+const _getAppSettings = state => state.account.get('appSettings')
+
+export const getSecurityPin = createSelector(
+  _getAppSettings,
+  settings => settings.get('pin')
+)
+
+export const areAppSettingsLoaded = state => state.config.get('appSettingsLoaded')
 
 export const getCustomTokens = createSelector(
   _getCustomTokens,

@@ -9,24 +9,29 @@ import {
   INJECT_CUSTOM_TOKENS,
   INJECT_DAPP_PERMISSIONS,
   INJECT_TRANSACTION_HISTORY,
+  INJECT_APP_SETTINGS,
   FETCH_TOKEN_BALANCE,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
+  CLOSE_WALLET,
   SEND_TX,
   CANCEL_TX,
   TX_FLOW_COMPLETED,
   CHECK_PENDING_TRANSACTIONS,
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
-  REMOVE_CUSTOM_TOKEN
+  REMOVE_CUSTOM_TOKEN,
+  SAVE_PIN
 } from './actions'
 
 export default () => {
-  const InitialState = Immutable.Map({
+  const initialState = () => Immutable.Map({
     accountBalances: {},
     tokenBalances: Immutable.Map({}),
     customTokens: Immutable.Map({}),
+    appSettings: Immutable.Map({}),
+    appSettingsLoaded: false,
     addressBook: {},
     bookmarks: {},
     dappPermissions: {},
@@ -37,6 +42,24 @@ export default () => {
 
   return handleActions(
     {
+      [CLOSE_WALLET]: () => initialState(),
+      /* settings and pin */
+      [INJECT_APP_SETTINGS]: (state, { payload }) => {
+        // data is stored in db as a table/list, so conver to object first
+        const obj = payload.reduce((ret, { name, value }) => {
+          // eslint-disable-next-line no-param-reassign
+          ret[name] = value
+          return ret
+        }, {})
+
+        return state
+          .set('appSettings', Immutable.Map(obj))
+          .set('appSettingsLoaded', true)
+      },
+      [SAVE_PIN]: (state, { payload: pin }) => (
+        state.set('appSettings', state.get('appSettings').set('pin', pin))
+      ),
+      /* accounts and tokens */
       [INJECT_ACCOUNT_BALANCES]: (state, { payload }) => {
         // ensure there is a token balance entry for each address
         let tokenBalances = state.get('tokenBalances')
@@ -154,6 +177,6 @@ export default () => {
         return state.set('transactionHistory', [].concat(txHistory))
       }
     },
-    InitialState
+    initialState()
   )
 }

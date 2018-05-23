@@ -1,4 +1,5 @@
 import EventEmitter from 'eventemitter3'
+import { AppState } from 'react-native'
 import Toast from 'react-native-root-toast'
 
 import setupPlatformEnv from './platform'
@@ -21,6 +22,14 @@ const toast = msg => {
     delay: 0
   })
 }
+
+AppState.addEventListener('change', state => {
+  if ('active' === state) {
+    globalEvents.emit(UI_TASKS.APP_ACTIVE)
+  } else {
+    globalEvents.emit(UI_TASKS.APP_INACTIVE)
+  }
+})
 
 module.exports = {
   ...UI_TASKS,

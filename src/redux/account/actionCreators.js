@@ -7,17 +7,20 @@ import {
   INJECT_CUSTOM_TOKENS,
   INJECT_DAPP_PERMISSIONS,
   INJECT_TRANSACTION_HISTORY,
+  INJECT_APP_SETTINGS,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
   GENERATE_RAW_TX,
   SEND_RAW_TX,
   LOAD_WALLET,
+  CLOSE_WALLET,
   GENERATE_MNEMONIC,
   SEND_TX,
   CANCEL_TX,
   CHECK_PENDING_TRANSACTIONS,
   FETCH_TOKEN_BALANCE,
+  SAVE_PIN,
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
   REMOVE_CUSTOM_TOKEN,
@@ -29,8 +32,10 @@ import {
 /* wallet loading */
 export const generateMnemonic = createActionCreator(GENERATE_MNEMONIC)
 export const loadWallet = createActionCreator(LOAD_WALLET)
+export const closeWallet = createActionCreator(CLOSE_WALLET)
 
 /* inject data (usually from storage) */
+export const injectAppSettings = createActionCreator(INJECT_APP_SETTINGS)
 export const injectAccountBalances = createActionCreator(INJECT_ACCOUNT_BALANCES)
 export const injectAddressBook = createActionCreator(INJECT_ADDRESS_BOOK)
 export const injectBookmarks = createActionCreator(INJECT_BOOKMARKS)
@@ -39,6 +44,7 @@ export const injectCustomTokens = createActionCreator(INJECT_CUSTOM_TOKENS)
 export const injectTransactionHistory = createActionCreator(INJECT_TRANSACTION_HISTORY)
 
 /* save changes for dapps, etc */
+export const savePin = createActionCreator(SAVE_PIN)
 export const saveDappPermissions =
   createActionCreator(SAVE_DAPP_PERMISSIONS, (dappId, permissions) => ({
     dappId, permissions

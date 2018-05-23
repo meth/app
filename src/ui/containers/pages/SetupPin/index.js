@@ -13,7 +13,7 @@ import ConfirmPinModal from '../../../components/ConfirmPinModal'
 
 
 
-@connectStore('config')
+@connectStore('account')
 export default class SetupPin extends PureComponent {
   static navigationOptions = {
     title: t('title.setupPin')

@@ -10,8 +10,8 @@ import PinEntry from '../../../components/PinEntry'
 import Button from '../../../components/Button'
 
 
-@connectStore('config')
-export default class SetupPin extends PureComponent {
+@connectStore('account')
+export default class EnterPinAfterLogin extends PureComponent {
   static navigationOptions = {
     title: t('title.enterPin')
   }

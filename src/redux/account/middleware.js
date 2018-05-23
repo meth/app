@@ -1,10 +1,12 @@
 import _ from 'lodash'
+
 import {
   SEND_TX,
   CANCEL_TX,
   SEND_RAW_TX,
   GENERATE_RAW_TX,
   LOAD_WALLET,
+  CLOSE_WALLET,
   GENERATE_MNEMONIC,
   FETCH_TOKEN_BALANCE,
   ADD_CUSTOM_TOKEN,
@@ -27,7 +29,7 @@ import logger from '../../logger'
 const log = logger.create('walletMiddleware')
 
 // eslint-disable-next-line consistent-return
-export default ({ nodeConnector, walletManager }) => {
+export default ({ storage, nodeConnector, walletManager }) => {
   const preprocessTransaction = createTransactionPreprocessor({ nodeConnector })
 
   return () => next => async action => {
@@ -48,6 +50,18 @@ export default ({ nodeConnector, walletManager }) => {
       case GENERATE_ACCOUNT: {
         return walletManager.wallet().generateAddress()
       }
+      case CLOSE_WALLET: {
+        log.debug('Close wallet ...')
+
+        // clear all data
+        await walletManager.unload()
+        await storage.setMnemonic()
+
+        // logout
+        getStore().actions.navLogout()
+
+        return next(action)
+      }
       case LOAD_WALLET: {
         log.debug('Load wallet ...')
 
@@ -55,6 +69,7 @@ export default ({ nodeConnector, walletManager }) => {
         log.debug(`Mnemonic: ${mnemonic}`)
 
         await walletManager.load(mnemonic)
+        await storage.setMnemonic(mnemonic)
 
         return next(action)
       }

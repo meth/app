@@ -42,7 +42,7 @@ class Storage {
     this._mnemonic = mnemonic
 
     if (!this._mnemonic) {
-      this.shutdownDatabases(...PER_MNEMONIC_DBS)
+      this.shutdownDatabases(...PER_MNEMONIC_DBS, ...PER_NETWORK_DBS)
     } else {
       this.setupDatabases(...PER_MNEMONIC_DBS)
     }
@@ -94,6 +94,10 @@ class Storage {
    * Setup per-mnemonic databases
    */
   setupDatabases (...dbKeys) {
+    if (!this._mnemonic) {
+      return
+    }
+
     const key = sha512(this._mnemonic)
     const authKey = key.substr(0, 64)
     const encryptionKey = key.substr(64)
