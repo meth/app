@@ -95,7 +95,8 @@ export default class PinEntry extends CachePureComponent {
         if (MAX_LENGTH <= pin.length) {
           const { onPinEntered } = this.props
 
-          onPinEntered(pin.join(''))
+          /* minor delay for UI updates to go through */
+          setTimeout(() => onPinEntered(pin.join('')), 200)
         }
       })
     }
