@@ -23,6 +23,8 @@ export default class GenerateMnemonic extends PureComponent {
   }
 
   componentDidMount () {
+    this._generateMnemonic()
+
     // whenever we hit this screen we want to re-generate the mnemonic
     this._routeListener = addRouteListener('GenerateMnemonic', this._generateMnemonic)
   }

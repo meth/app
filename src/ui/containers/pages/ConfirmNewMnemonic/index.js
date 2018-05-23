@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
 
 import logger from '../../../../logger'
-import { onceLoggedInRouteName, routes } from '../../../nav'
+import { routes } from '../../../nav'
 import { instanceOfError, UnableToConnectError } from '../../../../utils/errors'
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
@@ -80,12 +80,12 @@ export default class ConfirmNewMnemonic extends PureComponent {
   }
 
   onProceed = () => {
-    const { navReset, loadWallet } = this.props.actions
+    const { navPostLogin, loadWallet } = this.props.actions
     const mnemonic = this._getMnemonic()
 
     return this.setState({ error: null }, () => {
       loadWallet(mnemonic)
-        .then(() => navReset(onceLoggedInRouteName))
+        .then(() => navPostLogin())
         .catch(error => {
           log.debug(error)
 
@@ -93,7 +93,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
             return this.setState({ error })
           }
 
-          return navReset(onceLoggedInRouteName)
+          return navPostLogin()
         })
     })
   }
