@@ -147,7 +147,7 @@
     "react-native-root-toast": "^3.0.1",
     "react-native-securerandom": "^0.1.1",
     "react-native-svg": "^6.3.1",
-    "react-native-swiper": "^1.5.13",
+    "react-native-swiper-flatlist": "^1.0.7",
     "react-native-tab-view": "^0.0.77",
     "react-native-tabs": "^1.0.9",
     "react-native-vector-icons": "^4.6.0",

@@ -1,7 +1,8 @@
-import { create } from '../../../../../styles'
+import { create, getWindowDimensions } from '../../../../../styles'
 
 export default create({
   swiper: {
+    flex: 1,
     backgroundColor: '$wallet_swiper_backgroundColor'
   },
   nav: {
@@ -14,7 +15,7 @@ export default create({
     backgroundColor: '$wallet_swiper_navDot_active_backgroundColor'
   },
   card: {
-    width: '100%',
+    width: getWindowDimensions().width,
     height: '100%',
     paddingVertical: 10,
     paddingBottom: 20,

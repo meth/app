@@ -97,7 +97,7 @@ export default {
   pin: {
     number: {
       borderColor: colorGrayLight,
-      textColor: colorGray
+      textColor: colorGrayDark
     },
     hiddenChar: {
       textColor: colorBlack
