@@ -184,7 +184,8 @@ module.exports = {
     },
     modal: {
       confirmPin: {
-        pleaseConfirmYourPin: 'Please confirm your code'
+        pleaseConfirmYourPin: 'Please confirm your code',
+        pleaseEnterPinToConfirmTransaction: 'Please enter your security code to confirm the transaction'
       },
       dappPermissions: {
         pleaseSet: 'Please decide which addresses this Dapp may access.',

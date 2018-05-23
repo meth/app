@@ -9,10 +9,11 @@ import ErrorBox from '../../../../components/ErrorBox'
 import ProgressButton from '../../../../components/ProgressButton'
 import ScrollView from '../../../../components/ScrollView'
 import BlockOfText from '../../../../components/BlockOfText'
+import ConfirmPinModal from '../../../../components/ConfirmPinModal'
 import { getMaxCostEthWithSuffixStr } from '../utils'
 
 
-@connectStore('account')
+@connectStore('account', 'config')
 export default class Confirm extends PureComponent {
   state = {
     error: null,
@@ -49,16 +50,34 @@ export default class Confirm extends PureComponent {
           <ProgressButton
             showInProgress={submitting}
             title={t('button.confirmAndSendTransaction')}
-            onPress={this._confirmAndSendRawTransaction}
+            onPress={this._confirm}
             style={styles.rawTransactionButton}
           />
           <ErrorBox error={error} style={styles.errorBox} />
         </View>
+        <ConfirmPinModal
+          ref={this._onConfirmModalRef}
+          title={t('modal.confirmPin.pleaseEnterPinToConfirmTransaction')}
+          onSuccess={this._onConfirmed}
+          onCancel={this._onNotConfirmed}
+        />
       </ScrollView>
     )
   }
 
-  _confirmAndSendRawTransaction = () => {
+  _onConfirmModalRef = ref => {
+    this.confirmModal = ref
+  }
+
+  _confirm = () => {
+    const { getSecurityPin } = this.props.selectors
+
+    this.confirmModal.show(getSecurityPin())
+  }
+
+  _onNotConfirmed = () => {}
+
+  _onConfirmed = () => {
     const { rawTx } = this.props
     const { sendRawTransaction } = this.props.actions
 
