@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 
 import { CachePureComponent } from '../../../../helpers/components'
 import { connectStore } from '../../../../helpers/redux'
-import { t } from '../../../../../../common/strings'
 import styles from './styles'
 import Container from './Container'
 import WalletCard from '../../../../components/WalletCard'
@@ -29,7 +28,7 @@ export default class Cards extends CachePureComponent {
         <Container
           accounts={accounts}
           activeCard={activeCard}
-          renderCard={this._renderCard}
+          renderCard={this._renderAccountCard}
           renderAddAccountButton={this._renderAddAccountButton}
           onSelectCard={this._onPressSelectCard}
         />
@@ -37,7 +36,7 @@ export default class Cards extends CachePureComponent {
     )
   }
 
-  _renderCard = (accounts, address, index) => {
+  _renderCard = (key, index, renderCardContent, extraProps = {}) => {
     const { activeCard } = this.props
 
     const isActive = index === activeCard
@@ -45,7 +44,7 @@ export default class Cards extends CachePureComponent {
     return (
       <Button
         type='walletCard'
-        key={address}
+        key={key}
         style={isActive
           ? styles.cardButton_active
           : styles.cardButton_inactive
@@ -53,40 +52,42 @@ export default class Cards extends CachePureComponent {
         {...(isActive ? {
           stateOverride: { hovering: true }
         } : null)}
-        onPress={this.bind(this._onPressSelectCard, index)}
+        onPress={this.bind(this._onPressSelectCard, index, key)}
+        {...extraProps}
       >
-        <WalletCard
-          isActive={isActive}
-          style={styles.card}
-          account={{
-            address,
-            ...accounts[address]
-          }}
-          onPressSend={this.bind(this._onPressSend, address)}
-          onPressQrCode={this.bind(this._onPressQrCode, address)}
-          onPressEditLabel={this.bind(this._onPressEditLabel, address)}
-        />
+        {renderCardContent(isActive)}
       </Button>
     )
   }
 
-  _renderAddAccountButton = () => (
-    <Button
-      type='walletCard'
-      key='add'
-      style={[ styles.cardButton_inactive, styles.addAccountButton ]}
-      onPress={this._onPressAddAccount}
-      tooltip={t('button.addAccount')}
-      childShouldInheritTextStyle={true}
-    >
-      <Icon name='plus' style={styles.addAccountButtonIcon} />
-    </Button>
+  _renderAccountCard = (accounts, address, index) => (
+    this._renderCard(address, index, isActive => (
+      <WalletCard
+        isActive={isActive}
+        style={styles.card}
+        account={{
+          address,
+          ...accounts[address]
+        }}
+        onPressSend={this.bind(this._onPressSend, address)}
+        onPressQrCode={this.bind(this._onPressQrCode, address)}
+        onPressEditLabel={this.bind(this._onPressEditLabel, address)}
+      />
+    ))
   )
 
-  _onPressAddAccount = () => {
-    const { showAddAccountModal } = this.props.actions
+  _renderAddAccountButton = () => {
+    const { accounts } = this.props
 
-    showAddAccountModal()
+    const index = Object.keys(accounts).length
+
+    return this._renderCard('add', index, () => (
+      <View style={styles.addAccountButton}>
+        <Icon name='plus' style={styles.addAccountButtonIcon} />
+      </View>
+    ), {
+      onPress: this._onPressAddAccount
+    })
   }
 
   _onPressSend = address => {
@@ -107,9 +108,15 @@ export default class Cards extends CachePureComponent {
     showEditAddressModal(address)
   }
 
-  _onPressSelectCard = activeCard => {
+  _onPressAddAccount = () => {
+    const { showAddAccountModal } = this.props.actions
+
+    showAddAccountModal()
+  }
+
+  _onPressSelectCard = index => {
     const { onSelectCard } = this.props
 
-    onSelectCard(activeCard)
+    onSelectCard(index)
   }
 }

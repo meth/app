@@ -44,7 +44,8 @@ export default create({
     alignItems: 'center'
   },
   numberText: {
-    ...fontMaker({ weight: 'Light' }),
-    color: '$pin_number_textColor'
+    ...fontMaker({ weight: 'SemiBold' }),
+    color: '$pin_number_textColor',
+    fontSize: '1rem'
   }
 })
