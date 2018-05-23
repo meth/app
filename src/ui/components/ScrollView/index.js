@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 
-export default props => (
+const CustomScrollView = props => (
   <ScrollView
     showsVerticalScrollIndicator={true}
     showsHorizontalScrollIndicator={false}
@@ -9,3 +9,6 @@ export default props => (
     {...props}
   />
 )
+
+
+export default CustomScrollView

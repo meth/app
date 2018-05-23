@@ -21,6 +21,8 @@ const {
   LoginMnemonic,
   GenerateMnemonic,
   ConfirmNewMnemonic,
+  EnterPinAfterLogin,
+  SetupPin,
   AddressBook,
   Contracts,
   Transactions,
@@ -32,12 +34,14 @@ const LoggedOutStack = createStackNavigator({
   Home,
   LoginMnemonic,
   GenerateMnemonic,
-  ConfirmNewMnemonic
+  ConfirmNewMnemonic,
+  EnterPinAfterLogin,
+  SetupPin
 }, {
   ...disableGesturesProps,
   headerMode: 'none',
   mode: 'card',
-  initialRouteName: LoginMnemonic.routeName
+  initialRouteName: SetupPin.routeName
 })
 
 const LoggedInStack = createStackNavigator({

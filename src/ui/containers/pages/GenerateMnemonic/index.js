@@ -11,7 +11,7 @@ import Loading from '../../../components/Loading'
 import { MnemonicDisplay } from '../../../components/Mnemonic'
 import Layout from '../Layout'
 
-@connectStore('nav', 'account')
+@connectStore('account')
 export default class GenerateMnemonic extends PureComponent {
   static navigationOptions = {
     title: t('title.createWallet')

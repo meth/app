@@ -35,3 +35,10 @@ export const getTokenList = createSelector(
 )
 
 export const getLastGasPrice = state => state.config.get('lastGasPrice')
+
+const _getAppSettings = state => state.config.get('appSettings') || {}
+
+export const getSecurityPin = createSelector(
+  _getAppSettings,
+  settings => settings.pin || null
+)

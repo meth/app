@@ -138,6 +138,9 @@ module.exports = {
       }
     },
     title: {
+      setupPin: 'Setup pin',
+      confirmPin: 'Confirm pin',
+      enterPin: 'Enter pin',
       login: 'Login',
       createWallet: 'Create wallet',
       confirmWallet: 'Confirm wallet',
@@ -154,6 +157,10 @@ module.exports = {
         network: 'Network ({network})',
         log: 'Log ({numAlerts} alerts)'
       }
+    },
+    setupPin: {
+      intro1: 'Please setup a 4-digit code for additional security.',
+      intro2: 'Meth will prompt you for this code when sending transactions.'
     },
     transactions: {
       noneYet: 'You haven\'t created any transactions in Meth yet'
@@ -173,6 +180,9 @@ module.exports = {
       contractLabel: 'Contract'
     },
     modal: {
+      confirmPin: {
+        pleaseConfirmYourPin: 'Please confirm your code',
+      },
       dappPermissions: {
         pleaseSet: 'Please decide which addresses this Dapp may access.',
         addressPermissions: 'Can access addresses',
@@ -216,7 +226,7 @@ module.exports = {
           toPlaceholder: '0x...',
           dataLabel: 'Data',
           dataPlaceholder: '0x...',
-          contractCodeLabel: 'Contract code',
+          contractCodeLabel: 'Contract bytecode',
           contractCodePlaceholder: 'Paste code here...',
           amountLabel: 'Amount',
           amountWithAvailableLabel: 'Amount ({amount} available)',

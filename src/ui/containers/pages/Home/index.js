@@ -9,7 +9,7 @@ import styles from './styles'
 import Button from '../../../components/Button'
 import Layout from '../Layout'
 
-@connectStore('nav')
+@connectStore()
 export default class Home extends PureComponent {
   static navigationOptions = {
     title: getAppName()

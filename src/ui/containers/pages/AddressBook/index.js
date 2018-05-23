@@ -17,7 +17,7 @@ const RENDER_HEADER = () => null
 const COLUMNS = [ { id: 'address' } ]
 
 
-@connectStore('nav', 'account')
+@connectStore('account')
 export default class AddressBook extends CachePureComponent {
   static navigationOptions = {
     gesturesEnabled: false,

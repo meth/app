@@ -94,6 +94,15 @@ export default {
       }
     }
   },
+  pin: {
+    number: {
+      borderColor: colorGrayLight,
+      textColor: colorGray
+    },
+    hiddenChar: {
+      textColor: colorBlack
+    }
+  },
   balance: {
     amount: {
       textColor: colorWhite

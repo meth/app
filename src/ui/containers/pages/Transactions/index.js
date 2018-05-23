@@ -15,7 +15,7 @@ const RENDER_NULL = () => null
 
 const COLUMNS = [ { id: 'tx' } ]
 
-@connectStore('nav', 'account')
+@connectStore('account')
 export default class Transactions extends CachePureComponent {
   static navigationOptions = {
     gesturesEnabled: false,
