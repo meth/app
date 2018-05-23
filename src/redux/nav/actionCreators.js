@@ -1,6 +1,6 @@
 import { NavigationActions, StackActions, DrawerActions } from 'react-navigation'
 
-import { NAV_POST_LOGIN } from './actions'
+import { NAV_POST_LOGIN, NAV_POST_PIN } from './actions'
 import { createActionCreator } from '../utils'
 
 
@@ -15,6 +15,8 @@ export const navReset = (routeName, params) => ({
 })
 
 export const navPostLogin = createActionCreator(NAV_POST_LOGIN)
+
+export const navPostPin = createActionCreator(NAV_POST_PIN)
 
 export const navToggleDrawer = () => DrawerActions.toggleDrawer()
 

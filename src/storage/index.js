@@ -13,6 +13,16 @@ PouchDBAsyncStorageAdapter(PouchDB)
 
 const log = logger.create('Storage')
 
+const DBCLASS = {
+  addressBook: AddressBook,
+  customTokens: CustomTokens,
+  transactions: Transactions,
+  appSettings: AppSettings
+}
+
+const PER_NETWORK_DBS = [ 'transactions', 'addressBook', 'customTokens' ]
+const PER_MNEMONIC_DBS = [ 'appSettings' ]
+
 /**
  * Writing to storage should be considered volatile, and storage calls should
  * be expected to fail at any time.
@@ -31,21 +41,25 @@ class Storage {
 
     this._mnemonic = mnemonic
 
-    this.setupDatabases()
+    if (!this._mnemonic) {
+      this.shutdownDatabases(...PER_MNEMONIC_DBS)
+    } else {
+      this.setupDatabases(...PER_MNEMONIC_DBS)
+    }
   }
 
   async setNetwork ({ description, genesisBlock } = {}) {
     if (!genesisBlock) {
       log.info('Clear storage network key')
 
-      this.shutdownDatabases()
+      this.shutdownDatabases(...PER_NETWORK_DBS)
     } else {
       log.info(`Set storage network key: ${description} - ${genesisBlock} ...`)
+
+      this._network = genesisBlock
+
+      this.setupDatabases(...PER_NETWORK_DBS)
     }
-
-    this._network = genesisBlock
-
-    this.setupDatabases()
   }
 
   get transactions () {
@@ -60,44 +74,42 @@ class Storage {
     return this._db.customTokens
   }
 
-  get settings () {
-    return this._db.settings
+  get appSettings () {
+    return this._db.appSettings
   }
 
-  shutdownDatabases () {
-    log.info('Shutdown databases ...')
+  shutdownDatabases (...dbKeys) {
+    dbKeys.forEach(dbKey => {
+      if (this._db[dbKey]) {
+        log.info(`Shutdown database: ${dbKey} ...`)
 
-    Object.keys(this._db).forEach(dbKey => {
-      this._db[dbKey].shutdown()
+        this._db[dbKey].shutdown()
+
+        delete this._db[dbKey]
+      }
     })
-
-    this._db = {}
   }
 
   /**
-   * Setup databases
+   * Setup per-mnemonic databases
    */
-  setupDatabases () {
-    this.shutdownDatabases()
-
-    if (!this._mnemonic || !this._network) {
-      return
-    }
-
-    log.info('Setup databases ...')
-
+  setupDatabases (...dbKeys) {
     const key = sha512(this._mnemonic)
     const authKey = key.substr(0, 64)
     const encryptionKey = key.substr(64)
 
-    const dbParams = [ this._store, this._network, authKey, encryptionKey ]
+    dbKeys.forEach(dbKey => {
+      log.info(`Setup database: ${dbKey} ...`)
 
-    this._db = {
-      transactions: new Transactions(...dbParams),
-      addressBook: new AddressBook(...dbParams),
-      customTokens: new CustomTokens(...dbParams),
-      appSettings: new AppSettings(...dbParams)
-    }
+      this.shutdownDatabases(dbKey)
+
+      this._db[dbKey] = new DBCLASS[dbKey](
+        this._store,
+        this._network,
+        authKey,
+        encryptionKey
+      )
+    })
   }
 
   /**

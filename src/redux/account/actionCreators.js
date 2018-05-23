@@ -38,7 +38,6 @@ export const injectDappPermissions = createActionCreator(INJECT_DAPP_PERMISSIONS
 export const injectCustomTokens = createActionCreator(INJECT_CUSTOM_TOKENS)
 export const injectTransactionHistory = createActionCreator(INJECT_TRANSACTION_HISTORY)
 
-
 /* save changes for dapps, etc */
 export const saveDappPermissions =
   createActionCreator(SAVE_DAPP_PERMISSIONS, (dappId, permissions) => ({
@@ -50,6 +49,7 @@ export const saveAddressBookEntry =
   }))
 export const deleteAddressBookEntry =
   createActionCreator(DELETE_ADDRESS_BOOK_ENTRY, address => ({ address }))
+
 
 /* transactions */
 export const sendTransaction = createActionCreator(SEND_TX, tx => ({ tx }))

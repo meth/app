@@ -42,7 +42,7 @@ export default class ConfirmPinModal extends PureComponent {
     if (this.state.pin === pin) {
       const { onSuccess } = this.props
 
-      this.setState({ show: false, pin: null }, onSuccess)
+      this.setState({ show: false, pin: null }, () => onSuccess(pin))
     }
   }
 

@@ -41,7 +41,7 @@ const LoggedOutStack = createStackNavigator({
   ...disableGesturesProps,
   headerMode: 'none',
   mode: 'card',
-  initialRouteName: SetupPin.routeName
+  initialRouteName: LoginMnemonic.routeName
 })
 
 const LoggedInStack = createStackNavigator({
@@ -77,7 +77,7 @@ export const routes = {
 
 export const { router } = RootNavigator
 
-export const onceLoggedInRouteName = 'LoggedInStack'
+export const onceAuthenticatedRouteName = 'LoggedInStack'
 
 @connectStore('nav')
 export class Navigator extends PureComponent {

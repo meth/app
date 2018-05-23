@@ -19,7 +19,7 @@ export const routes = {
   ...baseRoutes
 }
 
-export const onceLoggedInRouteName = routes.Wallet.routeName
+export const onceAuthenticatedRouteName = routes.Wallet.routeName
 
 // custom navigator - see https://reactnavigation.org/docs/navigators/custom
 @connectStore('nav')

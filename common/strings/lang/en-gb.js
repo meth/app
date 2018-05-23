@@ -89,7 +89,8 @@ module.exports = {
       setMaximumAmount: 'Set maximum amount'
     },
     toast: {
-      copiedToClipboard: 'Copied to clipboard'
+      copiedToClipboard: 'Copied to clipboard',
+      pinSetupSuccessfully: 'Code setup successfully'
     },
     button: {
       copyToClipboard: 'Copy to clipboard',
@@ -159,8 +160,10 @@ module.exports = {
       }
     },
     setupPin: {
-      intro1: 'Please setup a 4-digit code for additional security.',
-      intro2: 'Meth will prompt you for this code when sending transactions.'
+      intro1: 'Let\'s setup a 4-digit code for additional security.',
+      intro2: 'Meth will prompt you for this code when sending transactions.',
+      enterPin: 'Please enter your security code.',
+      forgotMyPinCreateNewOne: 'I forgot my code! Setup a new one'
     },
     transactions: {
       noneYet: 'You haven\'t created any transactions in Meth yet'
@@ -181,7 +184,7 @@ module.exports = {
     },
     modal: {
       confirmPin: {
-        pleaseConfirmYourPin: 'Please confirm your code',
+        pleaseConfirmYourPin: 'Please confirm your code'
       },
       dappPermissions: {
         pleaseSet: 'Please decide which addresses this Dapp may access.',

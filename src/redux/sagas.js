@@ -1,5 +1,6 @@
 import { all, call } from 'redux-saga/effects'
 
+import Logger from '../logger'
 import modals from './modals/sagas'
 import node from './node/sagas'
 import config from './config/sagas'
@@ -12,11 +13,17 @@ export const createSagas = app => {
   const accountSaga = account(app)
 
   return function* allSagas () {
-    yield all([
-      call(modalsSaga),
-      call(nodeSaga),
-      call(configSaga),
-      call(accountSaga)
-    ])
+    try {
+      yield all([
+        call(modalsSaga),
+        call(nodeSaga),
+        call(configSaga),
+        call(accountSaga)
+      ])
+    } catch (err) {
+      Logger.error(err.message)
+      // keep going!
+      yield allSagas()
+    }
   }
 }

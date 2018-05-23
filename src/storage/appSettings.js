@@ -1,10 +1,10 @@
 import Database from './database'
 
 export default class AppSettings extends Database {
-  constructor (store, networkId, authKey, encryptionKey) {
+  constructor (store, _, authKey, encryptionKey) {
     super('appSettings', {
       storeInject: store.actions.injectUserAppSettings,
-      authKey /* settings are not network-specific */,
+      authKey,
       encryptionKey
     })
   }

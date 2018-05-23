@@ -31,5 +31,11 @@ export default create({
   },
   pin: {
     marginTop: 10
+  },
+  loadingIndicator: {
+    marginTop: 20
+  },
+  errorBox: {
+    marginTop: 20
   }
 })
