@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
-import { knuthShuffle } from 'knuth-shuffle'
 
 import { CachePureComponent } from '../../helpers/components'
 import { t } from '../../../../common/strings'
@@ -55,8 +54,13 @@ export class MnemonicConfirmator extends CachePureComponent {
     const { mnemonic } = this.props
 
     if (!jumbled) {
+      // we'll actually just the words alphabetically so
+      // that it's easier for the user to find what they want
+      const words = mnemonic.split(' ')
+      words.sort()
+
       this.setState({
-        jumbled: knuthShuffle(mnemonic.split(' ')),
+        jumbled: words,
         selected: []
       })
     }

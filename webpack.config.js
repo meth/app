@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+/* eslint-disable import/no-dynamic-require */
 const path = require('path')
 const glob = require('glob')
 const webpack = require('webpack')
@@ -16,18 +18,18 @@ const ifProd = (env, plugin) => (env.production === true ? plugin : () => undefi
 const vendorBuildFolder = path.join(__dirname, 'build', 'vendor')
 const productionBuildFolder = path.join(__dirname, 'build', 'web')
 
-const plugins = (env) => [
+const plugins = env => [
   ifDev(env, new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('development'),
-    '__DEV__': env.development === true,
+    __DEV__: env.development === true
   })),
   ifTest(env, new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production'),
-    '__DEV__': env.development === true,
+    __DEV__: env.development === true
   })),
   ifProd(env, new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production'),
-    '__DEV__': env.development === true,
+    __DEV__: env.development === true
   })),
   new HappyPack({
     loaders: [
@@ -58,7 +60,8 @@ const plugins = (env) => [
   ifDev(env, new webpack.NamedModulesPlugin()),
   ifProd(env, new LodashModuleReplacementPlugin()),
   ifProd(env, new webpack.optimize.ModuleConcatenationPlugin()),
-  ifProd(env, new webpack.optimize.AggressiveMergingPlugin()),
+  ifProd(env, new webpack.optimize.AggressiveMergingPlugin())
+
   // ifProd(env, new webpack.optimize.UglifyJsPlugin({
   //   mangle: true,
   //   compress: {
@@ -76,43 +79,45 @@ const plugins = (env) => [
   // })),
 ]
 
-const loaders = (env) => ([
+const loaders = () => ([
   {
     test: /\.ttf$/,
     loader: 'file-loader',
     include: [
       path.resolve(__dirname, 'node_modules', 'react-native-vector-icons'),
-      path.resolve(__dirname, 'src', 'fonts'),
-    ],
+      path.resolve(__dirname, 'src', 'fonts')
+    ]
   },
   {
     test: /\.js$/,
     // Some NPM module don't compile their ES6
     include: [
       /node_modules\/react-native-/,
+      /node_modules\/react-navigation/,
+      /node_modules\/static-container/,
       /node_modules\/pouchdb-adapter-asyncstorage/
     ],
     // react-native-web is already compiled.
     exclude: /node_modules\/react-native-web\//,
     loader: 'happypack/loader',
-    query: { cacheDirectory: true },
+    query: { cacheDirectory: true }
   },
   {
     test: /\.(gif|jpe?g|png|svg)$/,
     loader: 'url-loader',
-    query: { name: 'images/[name]-[hash:16].[ext]' },
+    query: { name: 'images/[name]-[hash:16].[ext]' }
   },
   {
     test: /\.(mp3|wav)$/,
     loader: 'file-loader',
-    query: { name: 'sounds/[name]-[hash:16].[ext]' },
-  },
+    query: { name: 'sounds/[name]-[hash:16].[ext]' }
+  }
 ])
 
 const resolve = {
   alias: {
     'react-native': 'react-native-web',
-    // 'react-navigation': 'react-navigation/lib/react-navigation.js',
+    'react-navigation-redux-helpers': '@meth/react-navigation-redux-helpers'
   },
   extensions: [
     '.web.js',
@@ -121,31 +126,31 @@ const resolve = {
   ]
 }
 
-const VendorConfig = (env) => ({
+const VendorConfig = env => ({
   entry: {
     // Note: you can't have inter-dependencies between these dlls otherwise they break
     // Put react-native-web / react dependencies in here.
-    'react': [
+    react: [
       'react-native-web',
-      'react-navigation',
+      'react-navigation'
     ],
     // Put any other other core libs in here. (immutable, redux, localforage, etc.)
-    'core': [
+    core: [
       'bluebird',
       'immutable',
       'immutable-state-machine',
       'i21n',
-      'lodash',
-    ],
+      'lodash'
+    ]
   },
   output: {
     path: vendorBuildFolder,
     filename: '[name]-[hash:16].dll.js',
-    library: '[name]',
+    library: '[name]'
   },
   module: {
     noParse: /localforage\/dist\/localforage.js/,
-    loaders: loaders(env),
+    loaders: loaders(env)
   },
   plugins: [
     new CleanWebpackPlugin([
@@ -164,16 +169,16 @@ const VendorConfig = (env) => ({
 
     new webpack.DllPlugin({
       name: '[name]',
-      path: path.join(vendorBuildFolder, '[name]-manifest.json'),
-    }),
+      path: path.join(vendorBuildFolder, '[name]-manifest.json')
+    })
   ],
-  resolve: resolve,
+  resolve
 })
 
 const createPublicPath = (env, str) => `${env.development ? '' : '.'}/${str}`
 
-const addAssetHtmlFiles = (env) => {
-  return Object.keys(VendorConfig(env).entry).map((name) => {
+const addAssetHtmlFiles = env => (
+  Object.keys(VendorConfig(env).entry).map(name => {
     const fileGlob = `${name}*.dll.js`
     const paths = glob.sync(path.join(VendorConfig(env).output.path, fileGlob))
     if (paths.length === 0) throw new Error(`Could not find ${fileGlob}!`)
@@ -185,7 +190,7 @@ const addAssetHtmlFiles = (env) => {
       publicPath: createPublicPath(env, 'js/vendor')
     }
   })
-}
+)
 
 const BuildConfig = (env = { development: false }) => ({
   devServer: {
@@ -194,16 +199,16 @@ const BuildConfig = (env = { development: false }) => ({
     hot: true,
     // serve index.html in place of 404 responses to allow HTML5 history
     historyApiFallback: true,
-    port: 3000,
+    port: 3000
   },
   devtool: env.development ? 'cheap-module-eval-source-map' : 'cheap-module-source-map',
   entry: {
     app: env.development ? [
       'react-hot-loader/patch',
-      path.join(__dirname, 'index.web.js'),
+      path.join(__dirname, 'index.web.js')
     ] : [
       path.join(__dirname, 'index.web.js')
-    ],
+    ]
   },
   module: {
     loaders: [
@@ -214,11 +219,10 @@ const BuildConfig = (env = { development: false }) => ({
         exclude: /node_modules/,
         include: [
           path.resolve(__dirname, 'index.web.js'),
-          path.resolve(__dirname, 'src'),
-          // path.resolve(__dirname, '../node_modules/react-native-vector-icons'),
+          path.resolve(__dirname, 'src')
         ],
-        query: { cacheDirectory: true },
-      },
+        query: { cacheDirectory: true }
+      }
     ]
   },
   output: {
@@ -227,11 +231,11 @@ const BuildConfig = (env = { development: false }) => ({
     publicPath: createPublicPath(env, '')
   },
   plugins: [
-    new CleanWebpackPlugin([productionBuildFolder], { root: __dirname, verbose: true }),
+    new CleanWebpackPlugin([ productionBuildFolder ], { root: __dirname, verbose: true }),
     ...Object.keys(VendorConfig(env).entry).map(name =>
       new webpack.DllReferencePlugin({
         context: process.cwd(),
-        manifest: require(path.join(VendorConfig(env).output.path, `${name}-manifest.json`)),
+        manifest: require(path.join(VendorConfig(env).output.path, `${name}-manifest.json`))
       })),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
@@ -249,11 +253,11 @@ const BuildConfig = (env = { development: false }) => ({
       }
     }),
     new AddAssetHtmlPlugin(addAssetHtmlFiles(env)),
-    ...plugins(env),
+    ...plugins(env)
   ],
-  resolve: resolve,
+  resolve
 })
 
-module.exports = (env = { development: false, vendor: false }) => {
-  return (env.vendor ? VendorConfig(env) : BuildConfig(env))
-}
+module.exports = (env = { development: false, vendor: false }) => (
+  (env.vendor ? VendorConfig(env) : BuildConfig(env))
+)

@@ -1,5 +1,5 @@
 import Base64 from 'base-64'
-import sjcl from 'sjcl'
+import sjcl from '@meth/sjcl'
 
 import getRandomBytes from './random'
 

@@ -25,7 +25,8 @@ export default class Header extends PureComponent {
       getNodeState,
       getAccounts,
       getUnseenAlertsCount,
-      getCurrentNavState
+      getCurrentRoute,
+      getSecurityPin
     } = this.props.selectors
 
     const { network } = getNodeConnection()
@@ -33,20 +34,22 @@ export default class Header extends PureComponent {
       network.node = getNodeState()
     }
 
+    const securityPin = getSecurityPin()
+
     const addresses = getAccounts()
     const unseenAlertsCount = getUnseenAlertsCount()
-    const navState = getCurrentNavState()
+    const currentRoute = getCurrentRoute()
 
     const { style } = this.props
 
-    const ALL_INITIALIZED = network && addresses
+    const ALL_INITIALIZED = network && addresses && securityPin
 
     return (
       <View style={[ styles.container, style ]}>
         <View style={styles.left}>
           {ALL_INITIALIZED ? (
             <React.Fragment>
-              {this.renderBalance(navState, addresses)}
+              {this.renderBalance(currentRoute, addresses)}
               {/*
                 <IconButton
                   type='text'
@@ -63,7 +66,7 @@ export default class Header extends PureComponent {
                 icon={{ name: 'code', style: styles.buttonIcon }}
                 style={styles.button}
                 onPress={this.showContracts}
-                stateOverride={this._getButtonStateOverride(navState, routes.Contracts)}
+                stateOverride={this._getButtonStateOverride(currentRoute, routes.Contracts)}
               />
               <IconButton
                 type='text'
@@ -71,7 +74,7 @@ export default class Header extends PureComponent {
                 icon={{ name: 'md-swap', style: styles.buttonIcon }}
                 style={styles.button}
                 onPress={this.showTransactions}
-                stateOverride={this._getButtonStateOverride(navState, routes.Transactions)}
+                stateOverride={this._getButtonStateOverride(currentRoute, routes.Transactions)}
               />
               <IconButton
                 type='text'
@@ -79,7 +82,7 @@ export default class Header extends PureComponent {
                 icon={{ name: 'address-book-o', style: styles.buttonIcon }}
                 style={styles.button}
                 onPress={this.showAddressBook}
-                stateOverride={this._getButtonStateOverride(navState, routes.AddressBook)}
+                stateOverride={this._getButtonStateOverride(currentRoute, routes.AddressBook)}
               />
             </React.Fragment>
           ) : null}
@@ -92,14 +95,14 @@ export default class Header extends PureComponent {
     )
   }
 
-  renderBalance (navState, addresses) {
+  renderBalance (currentRoute, addresses) {
     return (
       <Button
         tooltip={t('button.wallet')}
         style={styles.button}
         type='text'
         title={getTotalAccountsBalanceAsStr(addresses)}
-        stateOverride={this._getButtonStateOverride(navState, routes.Wallet)}
+        stateOverride={this._getButtonStateOverride(currentRoute, routes.Wallet)}
         onPress={this.showWallet}
       />
     )
@@ -136,8 +139,8 @@ export default class Header extends PureComponent {
     )
   }
 
-  _getButtonStateOverride (navState, route) {
-    return (navState.routeName === route.routeName) ? {
+  _getButtonStateOverride (currentRoute, route) {
+    return (currentRoute.routeName === route.routeName) ? {
       buttonState: 'active'
     } : null
   }

@@ -12,6 +12,7 @@ import selectors from './selectors'
 import { createReducers } from './reducers'
 import { createMiddleware } from './middleware'
 import { createSagas } from './sagas'
+import { middleware as reactNavigationMiddleware } from '../ui/nav/reduxIntegration'
 
 let store
 
@@ -22,7 +23,11 @@ export const setupStore = app => {
   const sagas = createSagas(app)
 
   store = compose(
-    applyMiddleware(...appMiddleware, sagaMiddleware),
+    applyMiddleware(
+      ...appMiddleware,
+      reactNavigationMiddleware,
+      sagaMiddleware
+    ),
     window && window.devToolsExtension ? window.devToolsExtension() : f => f
   )(createStore)(combineReducers(reducers))
 
