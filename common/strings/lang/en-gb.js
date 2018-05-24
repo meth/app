@@ -156,7 +156,8 @@ module.exports = {
       transactions: 'Transactions',
       mobileMenu: {
         network: 'Network ({network})',
-        log: 'Log ({numAlerts} alerts)'
+        log: 'Log ({numAlerts} alerts)',
+        logout: 'Logout'
       }
     },
     setupPin: {

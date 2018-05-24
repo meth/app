@@ -62,6 +62,7 @@ export default class MobileDrawer extends CachePureComponent {
           <View style={styles.bottomItems}>
             {this._renderNetworkButton()}
             {this._renderLogButton()}
+            {this._renderLogoutButton()}
           </View>
         </SafeAreaView>
       </ScrollView>
@@ -78,6 +79,18 @@ export default class MobileDrawer extends CachePureComponent {
         type='mobileDrawer'
         title={t('title.mobileMenu.log', { numAlerts: getUnseenAlertsCount })}
         onPress={this._onPressLog}
+      />
+    )
+  }
+
+  _renderLogoutButton () {
+    return (
+      <Button
+        style={styles.button}
+        textStyle={styles.buttonText}
+        type='mobileDrawer'
+        title={t('title.mobileMenu.logout')}
+        onPress={this._onPressLogout}
       />
     )
   }
@@ -112,6 +125,12 @@ export default class MobileDrawer extends CachePureComponent {
         {syncIcon}
       </Button>
     )
+  }
+
+  _onPressLogout = () => {
+    const { closeWallet } = this.props.actions
+
+    closeWallet()
   }
 
   _onPressRoute = routeName => {
