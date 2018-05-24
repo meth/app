@@ -170,7 +170,7 @@ export default {
       }
     },
     swiper: {
-      backgroundColor: colorGrayLightest,
+      backgroundColor: colorWhite,
       navDot: {
         inactive: {
           backgroundColor: colorGray

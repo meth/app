@@ -3,7 +3,47 @@ import { View } from 'react-native'
 import Swiper from 'react-native-swiper-flatlist'
 import PropTypes from 'prop-types'
 
+import TouchableView from '../../../../../components/TouchableView'
 import styles from './styles.ios'
+
+
+class NavDots extends PureComponent {
+  static propTypes = {
+    scrollToIndex: PropTypes.func.isRequired,
+    data: PropTypes.array,
+    paginationIndex: PropTypes.number
+  };
+
+  static defaultProps = {
+    data: [],
+    paginationIndex: 0
+  };
+
+  render () {
+    const {
+      data,
+      paginationIndex,
+      scrollToIndex
+    } = this.props
+
+    return (
+      <View style={styles.nav}>
+        {data.map((_, index) => (
+          <TouchableView
+            style={
+              (paginationIndex === index)
+                ? styles.activeNavDot
+                : styles.inactiveNavDot
+            }
+            key={index}
+            onPress={() => scrollToIndex(index)}
+          />
+        ))}
+      </View>
+    )
+  }
+}
+
 
 export default class CardsContainer extends PureComponent {
   static propTypes = {
@@ -30,6 +70,7 @@ export default class CardsContainer extends PureComponent {
         <Swiper
           index={activeCard}
           showPagination={true}
+          PaginationComponent={NavDots}
           onMomentumScrollEnd={this._onSelectCard}
         >
           {accountAddresses.map((address, index) => (

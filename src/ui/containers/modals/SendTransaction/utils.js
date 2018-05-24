@@ -21,22 +21,26 @@ const _getMaxCostWeiBN = ({ gasLimit, gasPrice, unit, amount }) => {
 
 export const recalculateAmountBasedOnMaxCostAndAvailableBalance =
   ({ gasLimit, gasPrice, unit, amount }, balanceEth) => {
-    const maxWeiBN = _getMaxCostWeiBN({ gasLimit, gasPrice, unit, amount })
-    const balanceWeiBN = ethToWeiBN(balanceEth)
+    try {
+      const maxWeiBN = _getMaxCostWeiBN({ gasLimit, gasPrice, unit, amount })
+      const balanceWeiBN = ethToWeiBN(balanceEth)
 
-    // if need more balance than is available
-    const parsedAmount = toFloat(amount)
-    if (parsedAmount && maxWeiBN.gt(balanceWeiBN)) {
-      const amountWeiBN = ethToWeiBN(parsedAmount)
+      // if need more balance than is available
+      const parsedAmount = toFloat(amount)
+      if (parsedAmount && maxWeiBN.gt(balanceWeiBN)) {
+        const amountWeiBN = ethToWeiBN(parsedAmount)
 
-      // reduce amount until we have enough to complete the transaction
-      amountWeiBN.isub(maxWeiBN.sub(balanceWeiBN))
+        // reduce amount until we have enough to complete the transaction
+        amountWeiBN.isub(maxWeiBN.sub(balanceWeiBN))
 
-      if (amountWeiBN.gte(numToBN(0))) {
-        return weiToEthStr(amountWeiBN)
+        if (amountWeiBN.gte(numToBN(0))) {
+          return weiToEthStr(amountWeiBN)
+        }
+
+        return '0'
       }
-
-      return '0'
+    } catch (err) {
+      // fall through to default
     }
 
     return amount
