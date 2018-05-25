@@ -41,6 +41,7 @@ export default class LoginMnemonic extends PureComponent {
             value={this.state.mnemonic}
             placeholder={t('mnemonic.inputPlaceholderText')}
             onSubmitEditing={this.onSubmit}
+            secureTextEntry={true}
           />
           {error ? <ErrorBox error={error} /> : null}
         </FormWrapper>

@@ -9,7 +9,7 @@ export default create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    maxWidth: perWidth(600, '100%'),
+    maxWidth: perWidth(700, '100%'),
     paddingTop: perWidth(10, 0),
     paddingRight: perWidth(10, 0),
     paddingLeft: perWidth(10, 0)

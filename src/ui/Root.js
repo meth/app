@@ -83,16 +83,16 @@ export default class Root extends PureComponent {
   }
 
   _onAppActive = () => {
-    const { getSecurityPin } = this.props.selectors
+    const { isUserAuthenticated, getSecurityPin } = this.props.selectors
 
-    const pin = getSecurityPin()
-
-    if (pin) {
-      this.confirmPinModal.show(pin)
+    if (isUserAuthenticated()) {
+      this.confirmPinModal.show(getSecurityPin())
     }
   }
 
-  _onPinConfirmationSuccess = () => {}
+  _onPinConfirmationSuccess = () => {
+    // nothing to do! UI will automatically show the right thing
+  }
 
   _onPinConfirmationFailure = () => {
     const { closeWallet } = this.props.actions

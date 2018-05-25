@@ -48,7 +48,7 @@ export default class AddressTextInput extends PureComponent {
           value={value}
           placeholder={placeholder}
           style={styles.textInput}
-          {...props}
+          {..._.omit(props, 'dispatch', 'account', 'actions', 'selectors')}
         />
         <AddressBookPicker
           style={styles.picker}

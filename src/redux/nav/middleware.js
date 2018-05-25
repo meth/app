@@ -1,3 +1,5 @@
+import { NavigationActions } from 'react-navigation'
+
 import { NAV_POST_LOGIN, NAV_POST_PIN } from './actions'
 import { navReset, navGo } from './actionCreators'
 import { getStore } from '../'
@@ -9,11 +11,22 @@ export default () => ({ dispatch }) => next => async action => {
   const {
     selectors: {
       areAppSettingsLoaded,
-      getSecurityPin
+      getSecurityPin,
+      getCurrentRoute
     }
   } = getStore()
 
   switch (action.type) {
+    case NavigationActions.NAVIGATE: {
+      const { routeName } = action
+
+      // only proceed if not already at route (prevents crashes in desktop app)
+      if (getCurrentRoute().routeName !== routeName) {
+        return next(action)
+      }
+
+      break
+    }
     case NAV_POST_PIN: {
       return dispatch(navReset(onceAuthenticatedRouteName))
     }

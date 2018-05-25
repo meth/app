@@ -42,9 +42,19 @@ class Storage {
     this._mnemonic = mnemonic
 
     if (!this._mnemonic) {
-      this.shutdownDatabases(...PER_MNEMONIC_DBS, ...PER_NETWORK_DBS)
+      this.shutdownDatabases(...PER_MNEMONIC_DBS)
+
+      // if network is connected shutdown the network dbs
+      if (this._network) {
+        this.shutdownDatabases(...PER_NETWORK_DBS)
+      }
     } else {
       this.setupDatabases(...PER_MNEMONIC_DBS)
+
+      // if network is connected setup the network dbs
+      if (this._network) {
+        this.setupDatabases(...PER_NETWORK_DBS)
+      }
     }
   }
 

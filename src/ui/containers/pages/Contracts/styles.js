@@ -1,4 +1,4 @@
-import { create, fontMaker } from '../../../styles'
+import { create, fontMaker, perWidth } from '../../../styles'
 
 const text = {
   ...fontMaker(),
@@ -19,7 +19,8 @@ export default create({
     borderTopColor: '$content_borderTop_color',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    maxWidth: perWidth(700, '100%')
   },
   topLevelLoading: {
     flex: 1
