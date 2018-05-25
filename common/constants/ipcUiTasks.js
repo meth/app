@@ -6,7 +6,6 @@ module.exports = {
   EDIT_TAB_URL: 'edit-tab-url',
   GOTO_NEXT_TAB: 'goto-next-tab',
   GOTO_PREVIOUS_TAB: 'goto-previous-tab',
-  ESCAPE: 'escape',
   APP_ACTIVE: 'app-active',
   APP_INACTIVE: 'app-inactive'
 }

@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 import IPC from '../../common/constants/ipc'
 import BACKEND_TASKS from '../../common/constants/ipcBackendTasks'
-import UI_TASKS from '../../common/constants/ipcUiTasks'
+import KEY from '../../common/constants/keys'
 
 const alert = msg => {
   /* eslint-disable no-console */
@@ -33,8 +33,17 @@ export default ({ log, globalEvents }) => {
     document.onkeydown = event => {
       const evt = event || window.event
       const key = _.get(evt, 'key', '000').toLowerCase().substr(0, 3)
+
       if ('esc' === key || 27 === evt.keyCode) {
-        globalEvents.emit(UI_TASKS.ESCAPE)
+        globalEvents.emit(KEY.ESCAPE)
+      }
+
+      if (8 === evt.keyCode) {
+        globalEvents.emit(KEY.BACKSPACE)
+      }
+
+      if (48 <= evt.keyCode && 57 >= evt.keyCode) {
+        globalEvents.emit(KEY.NUMBER, evt.keyCode - 48)
       }
     }
   }

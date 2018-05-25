@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 
+import KEYS from '../../../../common/constants/keys'
 import { t } from '../../../../common/strings'
+import { globalEvents } from '../../../env'
 import { CachePureComponent } from '../../helpers/components'
 import IconButton from '../IconButton'
 import TouchableView from '../TouchableView'
@@ -24,6 +26,16 @@ export default class PinEntry extends CachePureComponent {
 
   state = {
     pin: []
+  }
+
+  componentDidMount () {
+    globalEvents.addListener(KEYS.NUMBER, this._onPressNumber)
+    globalEvents.addListener(KEYS.BACKSPACE, this._onPressDelete)
+  }
+
+  componentWillUnmount () {
+    globalEvents.removeListener(KEYS.NUMBER, this._onPressNumber)
+    globalEvents.removeListener(KEYS.BACKSPACE, this._onPressDelete)
   }
 
   render () {
