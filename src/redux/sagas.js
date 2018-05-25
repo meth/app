@@ -2,12 +2,14 @@ import { all, call } from 'redux-saga/effects'
 
 import Logger from '../logger'
 import modals from './modals/sagas'
+import nav from './nav/sagas'
 import node from './node/sagas'
 import config from './config/sagas'
 import account from './account/sagas'
 
 export const createSagas = app => {
   const modalsSaga = modals(app)
+  const navSaga = nav(app)
   const nodeSaga = node(app)
   const configSaga = config(app)
   const accountSaga = account(app)
@@ -16,6 +18,7 @@ export const createSagas = app => {
     try {
       yield all([
         call(modalsSaga),
+        call(navSaga),
         call(nodeSaga),
         call(configSaga),
         call(accountSaga)

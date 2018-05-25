@@ -76,11 +76,7 @@ export default class PinEntry extends CachePureComponent {
   }
 
   _onPressDelete = () => {
-    const { pin } = this.state
-
-    pin.pop()
-
-    this.setState({ pin: [ ...pin ] })
+    this.setState({ pin: [] })
   }
 
   _onPressNumber = number => {

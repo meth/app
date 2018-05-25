@@ -1,4 +1,4 @@
-import { create, whenWidthSmall } from '../../../styles'
+import { create, perWidth } from '../../../styles'
 
 export default create({
   // $outline: 1,
@@ -10,7 +10,11 @@ export default create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    height: '100%'
+    height: '100%',
+    maxWidth: perWidth(600, '100%'),
+    paddingTop: perWidth(10, 0),
+    paddingRight: perWidth(10, 0),
+    paddingLeft: perWidth(10, 0)
   },
   table: {
     flex: 1,
@@ -33,15 +37,5 @@ export default create({
     alignItems: 'flex-start',
     padding: 20,
     borderRadius: 0
-  },
-
-  ...whenWidthSmall({
-    layoutContent: {
-      alignItems: 'center',
-      width: '95%'
-    },
-    table: {
-      width: '100%'
-    }
-  })
+  }
 })

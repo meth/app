@@ -26,7 +26,7 @@ export default class Header extends PureComponent {
       getAccounts,
       getUnseenAlertsCount,
       getCurrentRoute,
-      getSecurityPin
+      isUserAuthenticated
     } = this.props.selectors
 
     const { network } = getNodeConnection()
@@ -34,7 +34,7 @@ export default class Header extends PureComponent {
       network.node = getNodeState()
     }
 
-    const securityPin = getSecurityPin()
+    const userAuthenticated = isUserAuthenticated()
 
     const addresses = getAccounts()
     const unseenAlertsCount = getUnseenAlertsCount()
@@ -42,7 +42,7 @@ export default class Header extends PureComponent {
 
     const { style } = this.props
 
-    const ALL_INITIALIZED = network && addresses && securityPin
+    const ALL_INITIALIZED = network && addresses && userAuthenticated
 
     return (
       <View style={[ styles.container, style ]}>

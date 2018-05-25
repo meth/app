@@ -13,7 +13,9 @@ export const getSecurityPin = createSelector(
   settings => settings.get('pin')
 )
 
-export const areAppSettingsLoaded = state => state.config.get('appSettingsLoaded')
+export const isUserAuthenticated = state => state.account.get('userAuthenticated')
+
+export const areAppSettingsLoaded = state => state.account.get('appSettingsLoaded')
 
 export const getCustomTokens = createSelector(
   _getCustomTokens,

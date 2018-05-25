@@ -1,4 +1,4 @@
-import { create, coverParent } from '../../styles'
+import { create, coverParent, perWidth } from '../../styles'
 
 export default create({
   popupWrapper: {
@@ -15,7 +15,7 @@ export default create({
   },
   content: {
     backgroundColor: '$modal_content_backgroundColor',
-    width: '90%',
+    width: perWidth(500, '90%'),
     height: 'auto',
     flex: 0,
     padding: 20,

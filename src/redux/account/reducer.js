@@ -10,6 +10,7 @@ import {
   INJECT_DAPP_PERMISSIONS,
   INJECT_TRANSACTION_HISTORY,
   INJECT_APP_SETTINGS,
+  AUTHENTICATED,
   FETCH_TOKEN_BALANCE,
   SAVE_DAPP_PERMISSIONS,
   SAVE_ADDRESS_BOOK_ENTRY,
@@ -32,6 +33,7 @@ export default () => {
     customTokens: Immutable.Map({}),
     appSettings: Immutable.Map({}),
     appSettingsLoaded: false,
+    userAuthenticated: false,
     addressBook: {},
     bookmarks: {},
     dappPermissions: {},
@@ -59,6 +61,8 @@ export default () => {
       [SAVE_PIN]: (state, { payload: pin }) => (
         state.set('appSettings', state.get('appSettings').set('pin', pin))
       ),
+      /* track if user authenticated */
+      [AUTHENTICATED]: state => state.set('userAuthenticated', true),
       /* accounts and tokens */
       [INJECT_ACCOUNT_BALANCES]: (state, { payload }) => {
         // ensure there is a token balance entry for each address
