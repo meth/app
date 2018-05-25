@@ -33,19 +33,19 @@ export default create({
     justifyContent: 'space-around',
     alignItems: 'center'
   },
-  number: {
+  numberButton: {
     margin: 10,
     width: 50,
     height: 50,
     borderWidth: 1,
     borderRadius: 50,
-    borderColor: '$pin_number_borderColor',
+    paddingVertical: 0,
+    paddingHorizontal: 0,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  numberText: {
+  numberButtonText: {
     ...fontMaker({ weight: 'SemiBold' }),
-    color: '$pin_number_textColor',
     fontSize: '1rem'
   }
 })

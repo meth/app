@@ -95,10 +95,6 @@ export default {
     }
   },
   pin: {
-    number: {
-      borderColor: colorGrayLight,
-      textColor: colorGrayDark
-    },
     hiddenChar: {
       textColor: colorBlack
     }
@@ -430,6 +426,18 @@ export default {
         borderColor: 'transparent',
         backgroundColor: colorGrayLight,
         textColor: colorGray
+      }
+    }),
+    pinEntry: generateButtonStyles({
+      default: {
+        borderColor: colorGrayLight,
+        backgroundColor: colorTransparent,
+        textColor: colorGrayDark
+      },
+      hover: {
+        borderColor: colorViolet,
+        backgroundColor: colorVioletLight,
+        textColor: colorWhite
       }
     }),
     textWithBorder: generateButtonStyles({

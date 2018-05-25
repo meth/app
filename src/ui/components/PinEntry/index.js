@@ -7,7 +7,7 @@ import { t } from '../../../../common/strings'
 import { globalEvents } from '../../../env'
 import { CachePureComponent } from '../../helpers/components'
 import IconButton from '../IconButton'
-import TouchableView from '../TouchableView'
+import Button from '../Button'
 import styles from './styles'
 
 const ROWS = [
@@ -47,13 +47,14 @@ export default class PinEntry extends CachePureComponent {
         {ROWS.map((row, rowIndex) => (
           <View key={rowIndex} style={styles.row}>
             {row.map((number, nIndex) => (
-              <TouchableView
+              <Button
+                type='pinEntry'
                 key={nIndex}
-                style={styles.number}
+                style={styles.numberButton}
+                textStyle={styles.numberButtonText}
                 onPress={this.bind(this._onPressNumber, number)}
-              >
-                <Text style={styles.numberText}>{number}</Text>
-              </TouchableView>
+                title={number}
+              />
             ))}
           </View>
         ))}
