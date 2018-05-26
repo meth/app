@@ -1,14 +1,17 @@
 import { create, dropShadower } from '../../../../styles'
-import { isIos, isAndroid } from '../../../../../utils/deviceInfo'
+import { isIos, isAndroid, isWeb } from '../../../../../utils/deviceInfo'
 
 const card = {
   width: 250,
   height: 230
 }
 
-const cardButton = ((isIos || isAndroid) ? {
-  ...dropShadower(2)
-} : {})
+const cardButton = {
+  borderRadius: 0,
+  ...((isIos || isAndroid) ? {
+    ...dropShadower(2)
+  } : {})
+}
 
 
 export default create({
@@ -18,12 +21,14 @@ export default create({
   },
   cardButton_active: {
     ...cardButton,
-    borderRadius: 0,
-    borderColor: '$button_walletCard_enabled_hover_borderColor'
+    borderColor: '$button_walletCard_enabled_hover_borderColor',
+    ...(isWeb ? { borderBottomWidth: 0 } : {})
   },
   cardButton_inactive: {
     ...cardButton,
-    borderRadius: 0
+    ...(isWeb ? {
+      borderBottomColor: '$button_walletCard_enabled_hover_borderColor'
+    } : {})
   },
   card: {
     ...card

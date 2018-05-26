@@ -1,6 +1,4 @@
-import { create } from '../../../styles'
-
-export default create({
+module.exports = {
   // $outline: 1,
 
   layoutContent: {
@@ -13,11 +11,13 @@ export default create({
     flex: 1,
     alignSelf: 'center'
   },
+  pageTitleText: {
+    margin: 10
+  },
 
   /* cards */
 
   cards: {
-    flex: 0.5,
     width: '100%'
   },
   addAccountAlertBox: {
@@ -28,10 +28,9 @@ export default create({
   /* tokens */
 
   tokenTable: {
-    flex: 0.5,
     marginTop: 10,
     width: '100%',
     alignItems: 'stretch',
     paddingBottom: 10
   }
-})
+}

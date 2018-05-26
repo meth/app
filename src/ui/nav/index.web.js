@@ -61,7 +61,7 @@ export const routes = {
 
 export const { router } = RootNavigator
 
-export const onceAuthenticatedRouteName = Transactions.routeName
+export const onceAuthenticatedRouteName = Wallet.routeName
 
 @connectStore('nav')
 export class Navigator extends PureComponent {

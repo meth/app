@@ -34,7 +34,7 @@ export default class Wallet extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <PageTitleText text={t('title.wallet')} />
+        <PageTitleText text={t('title.wallet')} style={styles.pageTitleText} />
         {_.isEmpty(accounts) ? (
           <Loading style={styles.topLevelLoading} />
         ) : (
