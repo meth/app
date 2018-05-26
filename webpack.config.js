@@ -40,7 +40,7 @@ const plugins = env => [
             'react-native'
           ],
           plugins: [
-            'transform-runtime',
+            [ 'transform-runtime', { polyfill: false } ],
             'transform-react-display-name',
             'transform-decorators-legacy'
           ],

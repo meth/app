@@ -1,3 +1,3 @@
-import QrCode from './component.ios'
+import QrCodeComponent from './component.ios'
 
-export default QrCode
+export default QrCodeComponent

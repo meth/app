@@ -43,6 +43,10 @@ export class Popup extends PureComponent {
 
 
 export class PopupContext extends PureComponent {
+  static propTypes = {
+    style: PropTypes.any
+  }
+
   static childContextTypes = {
     addPopup: PropTypes.func,
     updatePopup: PropTypes.func,
@@ -88,10 +92,10 @@ export class PopupContext extends PureComponent {
   }
 
   render () {
-    const { children } = this.props
+    const { style: containerStyle, children } = this.props
 
     return (
-      <View style={styles.popupContext}>
+      <View style={[ styles.popupContext, containerStyle ]}>
         {children}
         {this.popups.map(({ id, style, content }) => (
           <View key={id} style={[ styles.popup ].concat(style)}>{content}</View>

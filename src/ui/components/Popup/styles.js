@@ -1,8 +1,7 @@
-import { create, coverParent } from '../../styles'
+import { create } from '../../styles'
 
 export default create({
   popupContext: {
-    ...coverParent
   },
   popup: {
     position: 'absolute'

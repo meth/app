@@ -6,8 +6,7 @@ export default create({
     backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    width: '100%'
+    alignItems: 'stretch'
   },
 
   /* header */

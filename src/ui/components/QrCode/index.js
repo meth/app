@@ -22,7 +22,7 @@ export default class QrCode extends PureComponent {
           fgColor="#000000"
           level="L"
           size={size}
-          value={input}
+          input={input}
         />
       </View>
     )

@@ -43,7 +43,7 @@ const RootNavigator = createStackNavigator({
 }, {
   ...disableGesturesProps,
   headerMode: 'none',
-  initialRouteName: 'Home',
+  initialRouteName: Home.routeName,
   /* Disable animations, see https://github.com/react-navigation/react-navigation/issues/1254#issuecomment-297457689 */
   transitionConfig: () => ({
     transitionSpec: {

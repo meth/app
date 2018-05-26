@@ -1,6 +1,7 @@
+import React from 'react'
 import { QRCode as WebQRCode } from 'react-qr-svg'
 
-const QrCode = ({ input, size, ...props }) => (
+const QrCodeComponent = ({ input, size, ...props }) => (
   <WebQRCode
     {...props}
     value={input}
@@ -11,4 +12,4 @@ const QrCode = ({ input, size, ...props }) => (
   />
 )
 
-export default QrCode
+export default QrCodeComponent

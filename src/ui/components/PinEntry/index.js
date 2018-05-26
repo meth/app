@@ -53,7 +53,7 @@ export default class PinEntry extends CachePureComponent {
                 style={styles.numberButton}
                 textStyle={styles.numberButtonText}
                 onPress={this.bind(this._onPressNumber, number)}
-                title={number}
+                title={`${number}`}
               />
             ))}
           </View>

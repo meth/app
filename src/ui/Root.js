@@ -6,6 +6,7 @@ import UI_TASKS from '../../common/constants/ipcUiTasks'
 import { globalEvents } from '../env'
 import { getModals } from '../redux/modals/selectors'
 import { Navigator } from './nav'
+import { getWindowDimensions } from './styles'
 import { connectStore } from './helpers/redux'
 import { PopupContext } from './components/Popup'
 import ConfirmPinModal from './components/ConfirmPinModal'
@@ -43,8 +44,10 @@ export default class Root extends PureComponent {
   }
 
   render () {
+    const { width, height } = getWindowDimensions()
+
     return (
-      <PopupContext>
+      <PopupContext style={{ width, height }}>
         <Navigator />
         {this._renderModals()}
         <ConfirmPinModal
