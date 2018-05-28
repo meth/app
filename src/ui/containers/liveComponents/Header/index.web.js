@@ -90,6 +90,7 @@ export default class Header extends PureComponent {
         <View style={styles.right}>
           {network ? this.renderNetwork(network) : null}
           {this.renderAlerts(unseenAlertsCount)}
+          {userAuthenticated ? this.renderLogout() : null}
         </View>
       </View>
     )
@@ -119,6 +120,7 @@ export default class Header extends PureComponent {
         onPress={this.showConnectionInfo}
         style={styles.networkButton}
         type='text'
+        tooltip={t('tooltip.showConnectionInfo')}
         childShouldInheritTextStyle={true}
       >
         <Text style={styles.networkButtonText}>{network.description}</Text>
@@ -136,6 +138,18 @@ export default class Header extends PureComponent {
           onPress={this.showLog}
         />
       </View>
+    )
+  }
+
+  renderLogout () {
+    return (
+      <IconButton
+        type='text'
+        tooltip={t('tooltip.logout')}
+        icon={{ name: 'logout', style: styles.buttonIcon }}
+        style={styles.button}
+        onPress={this.logout}
+      />
     )
   }
 
@@ -181,5 +195,11 @@ export default class Header extends PureComponent {
     const { navGo } = this.props.actions
 
     navGo(routes.Contracts.routeName)
+  }
+
+  logout = () => {
+    const { closeWallet } = this.props.actions
+
+    closeWallet()
   }
 }

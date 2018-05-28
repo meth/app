@@ -2,6 +2,7 @@ import React from 'react'
 import { Text } from 'react-native'
 import PropTypes from 'prop-types'
 
+import { t } from '../../../../../../common/strings'
 import IconButton from '../../../../components/IconButton'
 import styles from './styles'
 
@@ -10,6 +11,7 @@ const AlertsButton = ({ style, onPress, unseenAlertsCount }) => (
     style={style}
     type='text'
     onPress={onPress}
+    tooltip={t('tooltip.logAlerts')}
     icon={{ name: 'bell-o' }}>
       {unseenAlertsCount ? (
         <Text style={styles.numbersText}>{unseenAlertsCount}</Text>

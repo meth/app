@@ -86,7 +86,10 @@ module.exports = {
       noAlertsYet: 'No alerts yet!'
     },
     tooltip: {
-      setMaximumAmount: 'Set maximum amount'
+      setMaximumAmount: 'Set maximum amount',
+      logAlerts: 'Log and alerts',
+      showConnectionInfo: 'Show connection info',
+      logout: 'Logout'
     },
     toast: {
       copiedToClipboard: 'Copied to clipboard',
