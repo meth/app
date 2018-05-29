@@ -11,31 +11,11 @@ const disableGesturesProps = {
 
 export default routes => {
   const {
-    Home,
-    LoginMnemonic,
-    GenerateMnemonic,
-    ConfirmNewMnemonic,
-    EnterPinAfterLogin,
-    SetupPin,
-    AddressBook,
-    Contracts,
-    Transactions,
-    Wallet,
-    Browser
+    Home
   } = routes
 
   return createStackNavigator({
-    Home,
-    LoginMnemonic,
-    GenerateMnemonic,
-    ConfirmNewMnemonic,
-    EnterPinAfterLogin,
-    SetupPin,
-    AddressBook,
-    Contracts,
-    Transactions,
-    Wallet,
-    Browser
+    ...routes
   }, {
     ...disableGesturesProps,
     headerMode: 'none',

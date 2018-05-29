@@ -8,7 +8,6 @@ import Layout from '../Layout'
 import Loading from '../../../components/Loading'
 import AlertBox from '../../../components/AlertBox'
 import Table from '../../../components/Table'
-import PageTitleText from '../../../components/PageTitleText'
 import TransactionView from '../../liveComponents/TransactionView'
 
 const RENDER_NULL = () => null
@@ -18,7 +17,6 @@ const COLUMNS = [ { id: 'tx' } ]
 @connectStore('account')
 export default class Transactions extends CachePureComponent {
   static navigationOptions = {
-    gesturesEnabled: false,
     drawerLabel: t('title.transactions'),
     title: t('title.transactions')
   }
@@ -30,7 +28,6 @@ export default class Transactions extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <PageTitleText text={t('title.transactions')} />
         {network
           ? this.renderContent()
           : <Loading style={styles.topLevelLoading} />

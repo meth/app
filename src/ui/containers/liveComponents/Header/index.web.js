@@ -9,6 +9,7 @@ import Button from '../../../components/Button'
 import Loading from '../../../components/Loading'
 import AlertsButton from './AlertsButton'
 import IconButton from '../../../components/IconButton'
+import TitleText from '../../../components/TitleText'
 import { routes } from '../../../nav'
 import styles from './styles'
 import { getTotalAccountsBalanceAsStr } from '../../../../utils/number'
@@ -85,12 +86,23 @@ export default class Header extends PureComponent {
             </React.Fragment>
           ) : null}
         </View>
+        <View style={styles.middle}>
+          {userAuthenticated ? this.renderTitle(currentRoute) : null}
+        </View>
         <View style={styles.right}>
           {network ? this.renderNetwork(network) : null}
           {this.renderAlerts(unseenAlertsCount)}
           {userAuthenticated ? this.renderLogout() : null}
         </View>
       </View>
+    )
+  }
+
+  renderTitle ({ routeName }) {
+    const title = _.get(routes[routeName], 'screen.navigationOptions.title', '')
+
+    return (
+      <TitleText style={styles.pageTitle} text={title} />
     )
   }
 

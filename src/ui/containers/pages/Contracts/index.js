@@ -18,7 +18,6 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
 import Layout from '../Layout'
-import PageTitleText from '../../../components/PageTitleText'
 import AlertBox from '../../../components/AlertBox'
 import FormWrapper from '../../../components/FormWrapper'
 import ProgressButton from '../../../components/ProgressButton'
@@ -34,7 +33,6 @@ import AddressTextInput from '../../liveComponents/AddressTextInput'
 @connectStore('account')
 export default class AddressBook extends PureComponent {
   static navigationOptions = {
-    gesturesEnabled: false,
     drawerLabel: t('title.contracts'),
     title: t('title.contracts')
   }
@@ -58,7 +56,6 @@ export default class AddressBook extends PureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <PageTitleText text={t('title.contracts')} />
         {haveAccounts ? (
           this._renderContent()
         ) : (

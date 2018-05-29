@@ -54,6 +54,7 @@ export default routes => {
       initialRouteName: Wallet.routeName
     })
   }, {
+    ...disableGesturesProps,
     headerMode: 'float',
     navigationOptions: () => ({
       header: props => <MobileHeader {...props} />

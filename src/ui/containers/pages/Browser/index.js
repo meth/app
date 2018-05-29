@@ -19,7 +19,6 @@ import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
-import PageTitleText from '../../../components/PageTitleText'
 import BrowserTabBar from '../../../components/BrowserTabBar'
 import BrowserTabView from '../../../components/BrowserTabView'
 
@@ -31,6 +30,11 @@ const DEFAULT_PERMISSIONS = {
 
 @connectStore('account')
 export default class Browser extends CachePureComponent {
+  static navigationOptions = {
+    drawerLabel: t('title.browser'),
+    title: t('title.browser')
+  }
+
   state = {
     tabs: [
       {
@@ -77,7 +81,6 @@ export default class Browser extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <PageTitleText text={t('title.browser')} />
         <BrowserTabBar
           tabs={tabs}
           onSort={this.onSortTabs}

@@ -8,7 +8,6 @@ import styles from './styles'
 import Layout from '../Layout'
 import TokenTable from './TokenTable'
 import Cards from './Cards'
-import PageTitleText from '../../../components/PageTitleText'
 import AlertBox from '../../../components/AlertBox'
 import Loading from '../../../components/Loading'
 
@@ -16,7 +15,6 @@ import Loading from '../../../components/Loading'
 @connectStore('account', 'config')
 export default class Wallet extends CachePureComponent {
   static navigationOptions = {
-    gesturesEnabled: false,
     drawerLabel: t('title.wallet'),
     title: t('title.wallet')
   }
@@ -34,7 +32,6 @@ export default class Wallet extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <PageTitleText text={t('title.wallet')} style={styles.pageTitleText} />
         {_.isEmpty(accounts) ? (
           <Loading style={styles.topLevelLoading} />
         ) : (

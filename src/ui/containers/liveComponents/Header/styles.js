@@ -5,6 +5,12 @@ const button = {
   borderRadius: 0
 }
 
+const flexRow = {
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  alignItems: 'center'
+}
+
 export default create({
   container: {
     backgroundColor: '$header_backgroundColor',
@@ -13,14 +19,17 @@ export default create({
     alignItems: 'center'
   },
   left: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
+    ...flexRow
   },
   right: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center'
+    ...flexRow
+  },
+  middle: {
+    ...flexRow
+  },
+  pageTitle: {
+    color: '$header_textColor',
+    textAlign: 'center'
   },
   section: {
     paddingHorizontal: 10

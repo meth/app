@@ -10,7 +10,6 @@ import Table from '../../../components/Table'
 import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
 import LabelledAddress from '../../../components/LabelledAddress'
-import PageTitleText from '../../../components/PageTitleText'
 
 const RENDER_HEADER = () => null
 
@@ -20,7 +19,6 @@ const COLUMNS = [ { id: 'address' } ]
 @connectStore('account')
 export default class AddressBook extends CachePureComponent {
   static navigationOptions = {
-    gesturesEnabled: false,
     drawerLabel: t('title.addressBook'),
     title: t('title.addressBook')
   }
@@ -40,7 +38,6 @@ export default class AddressBook extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
-        <PageTitleText text={t('title.addressBook')} />
         <Table
           style={styles.table}
           listStyle={styles.tableList}

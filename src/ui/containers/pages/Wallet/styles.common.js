@@ -1,3 +1,5 @@
+import { perWidth } from '../../../styles'
+
 module.exports = {
   // $outline: 1,
 
@@ -18,7 +20,8 @@ module.exports = {
   /* cards */
 
   cards: {
-    width: '100%'
+    width: '100%',
+    marginTop: perWidth(10, 0)
   },
   addAccountAlertBox: {
     marginTop: 10,
