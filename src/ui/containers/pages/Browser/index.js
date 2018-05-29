@@ -4,6 +4,7 @@ import { View } from 'react-native'
 
 import DAPP_PERMISSIONS from '../../../../../common/constants/dappPermissions'
 import STATE from '../../../../../common/constants/states'
+import { t } from '../../../../../common/strings'
 import { createDappId } from '../../../../utils/dapp'
 import {
   globalEvents,
@@ -18,6 +19,7 @@ import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
+import PageTitleText from '../../../components/PageTitleText'
 import BrowserTabBar from '../../../components/BrowserTabBar'
 import BrowserTabView from '../../../components/BrowserTabView'
 
@@ -27,15 +29,15 @@ const DEFAULT_PERMISSIONS = {
   [DAPP_PERMISSIONS.ALL_ADDRESSES]: true
 }
 
-@connectStore('modals', 'account')
+@connectStore('account')
 export default class Browser extends CachePureComponent {
   state = {
     tabs: [
       {
         active: true,
         id: newTabId(),
-        label: 'Google',
-        url: 'https://google.com/'
+        label: 'Meth',
+        url: 'https://meth.app'
       }
     ]
   }
@@ -45,7 +47,7 @@ export default class Browser extends CachePureComponent {
 
     const dappPermissions = getDappPermissions()
 
-    const tabs = this.state.tabs.filter(t => t)
+    const tabs = _.compact(this.state.tabs)
 
     const browserViews = tabs.map(tab => {
       const { id, active, url } = tab
@@ -75,6 +77,7 @@ export default class Browser extends CachePureComponent {
 
     return (
       <Layout contentStyle={styles.layoutContent}>
+        <PageTitleText text={t('title.browser')} />
         <BrowserTabBar
           tabs={tabs}
           onSort={this.onSortTabs}
@@ -144,7 +147,7 @@ export default class Browser extends CachePureComponent {
   gotoNextTab = () => {
     const { tabs } = this.state
 
-    let index = Math.max(0, tabs.findIndex(t => !!t.active))
+    let index = Math.max(0, tabs.findIndex(tab => !!tab.active))
 
     index = (tabs.length - 1 === index) ? 0 : index += 1
 
@@ -154,7 +157,7 @@ export default class Browser extends CachePureComponent {
   gotoPreviousTab = () => {
     const { tabs } = this.state
 
-    let index = Math.max(0, tabs.findIndex(t => !!t.active))
+    let index = Math.max(0, tabs.findIndex(tab => !!tab.active))
 
     index = (0 === index) ? tabs.length - 1 : index -= 1
 
@@ -162,19 +165,19 @@ export default class Browser extends CachePureComponent {
   }
 
   onTabUrlChange = (id, url) => {
-    this._updateTabs(t => {
-      if (t.id === id) {
+    this._updateTabs(tab => {
+      if (tab.id === id) {
         // eslint-disable-next-line no-param-reassign
-        t.url = url
+        tab.url = url
       }
     })
   }
 
   onTabTitleChange = (id, title) => {
-    this._updateTabs(t => {
-      if (t.id === id) {
+    this._updateTabs(tab => {
+      if (tab.id === id) {
         // eslint-disable-next-line no-param-reassign
-        t.label = title
+        tab.label = title
       }
     })
   }
@@ -184,10 +187,10 @@ export default class Browser extends CachePureComponent {
     // we don't update the display too often, by using a timer.
     clearTimeout(this._tabStatusTimer)
     this._tabStatusTimer = setTimeout(() => {
-      this._updateTabs(t => {
-        if (t.id === id) {
+      this._updateTabs(tab => {
+        if (tab.id === id) {
           // eslint-disable-next-line no-param-reassign
-          t.status = status
+          tab.status = status
         }
       })
     }, 300)
@@ -198,19 +201,19 @@ export default class Browser extends CachePureComponent {
   }
 
   onSelectTab = id => {
-    this._updateTabs(t => {
+    this._updateTabs(tab => {
       // eslint-disable-next-line no-param-reassign
-      t.active = t.id === id
+      tab.active = tab.id === id
     })
   }
 
   onCloseTab = id => {
-    this._filterTabs(t => t.id !== id)
+    this._filterTabs(tab => tab.id !== id)
   }
 
   onEditPermissions = id => {
     const { tabs } = this.state
-    const tab = tabs.find(t => t.id === id)
+    const tab = tabs.find(tab_ => tab_.id === id)
 
     if (tab) {
       const { showDappPermissionsModal } = this.props.actions

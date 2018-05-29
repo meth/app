@@ -15,8 +15,6 @@ export default create({
     flex: 0,
     padding: 10,
     backgroundColor: '$content_backgroundColor',
-    borderTopWidth: 1,
-    borderTopColor: '$content_borderTop_color',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',

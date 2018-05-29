@@ -2,7 +2,13 @@ import { create, coverParent } from '../../../styles'
 
 export default create({
   layoutContent: {
-    padding: 0
+    flex: 0,
+    padding: 10,
+    backgroundColor: '$content_backgroundColor',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    width: '100%'
   },
   browserViews: {
     position: 'relative',

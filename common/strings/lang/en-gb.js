@@ -157,6 +157,7 @@ module.exports = {
       editToken: 'Edit token',
       sendTransaction: 'Send transaction',
       transactions: 'Transactions',
+      browser: 'Browser',
       mobileMenu: {
         network: 'Network ({network})',
         log: 'Log ({numAlerts} alerts)',
