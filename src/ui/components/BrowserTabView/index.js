@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import PropTypes from 'prop-types'
@@ -9,23 +10,26 @@ import IconButton from '../IconButton'
 import TextInput from '../TextInput'
 import WebView from '../WebView'
 
+
 export default class BrowserTabView extends PureComponent {
   static propTypes = {
     ...WebView.propTypes,
-    editDappPermissions: PropTypes.func.isRequired
+    editDappPermissions: PropTypes.func.isRequired,
+    onShowBookmarks: PropTypes.func.isRequired
   }
 
-  constructor (props, ctx) {
-    super(props, ctx)
-
-    this.state = {
+  static getDerivedStateFromProps (props, state) {
+    return _.get(props, 'url') !== _.get(state, 'url') ? {
+      ...state,
       url: props.url
-    }
+    } : (state || {})
   }
+
+  state = {}
 
   render () {
     const { url } = this.state
-    const { editDappPermissions } = this.props
+    const { onShowBookmarks } = this.props
 
     return (
       <View style={styles.container}>
@@ -55,17 +59,33 @@ export default class BrowserTabView extends PureComponent {
             ref={this._onAddressInputRef}
             value={url}
             onChange={this.onChangeUrl}
-            onSubmitEditing={this.onEnterUrl}
+            onSubmit={this.onEnterUrl}
             style={styles.navUrlInput}
             selectTextOnFocus
           />
           <IconButton
-            type='browserTab'
-            tooltip={t('button.browser.editPermissions')}
-            icon={{ name: 'gear' }}
-            style={styles.navIconButton}
-            onPress={editDappPermissions}
+            type='browserAddressPanel'
+            tooltip={t('button.browser.editBookmark')}
+            icon={{ name: 'star' }}
+            onPress={this._onEditBookmark}
+            style={styles.bookmarkButton}
           />
+          <IconButton
+            type='browserTab'
+            tooltip={t('button.browser.showBookmarks')}
+            icon={{ name: 'bookmark' }}
+            style={styles.navIconButton}
+            onPress={onShowBookmarks}
+          />
+          {/*
+            <IconButton
+              type='browserTab'
+              tooltip={t('button.browser.editPermissions')}
+              icon={{ name: 'gear' }}
+              style={styles.navIconButton}
+              onPress={editDappPermissions}
+            />
+          */}
         </View>
         <View style={styles.webView}>
           <WebView
@@ -87,22 +107,19 @@ export default class BrowserTabView extends PureComponent {
     this.webView = v
   }
 
-  componentWillReceiveProps (newProps) {
-    const { url } = newProps
+  _onEditBookmark = () => {
+    const { url } = this.state
+    const { onEditBookmark } = this.props
 
-    if (url !== this.state.url) {
-      this.setState({ url })
-    }
+    onEditBookmark(url)
   }
 
-  onChangeUrl = e => {
-    this.setState({
-      url: e.target.value
-    })
+  onChangeUrl = url => {
+    this.setState({ url })
   }
 
-  onEnterUrl = e => {
-    this.webView.openUrl(addProtocol(e.target.value))
+  onEnterUrl = () => {
+    this.webView.openUrl(addProtocol(this.state.url))
   }
 
   back = () => {

@@ -1,21 +1,19 @@
-import { create, coverParent } from '../../../styles'
+import { create } from '../../../styles'
 
 export default create({
   layoutContent: {
-    flex: 0,
-    padding: 10,
+    flex: 1,
     backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    width: '100%'
+    alignItems: 'stretch'
   },
   browserViews: {
     position: 'relative',
     flex: 1
   },
   activeView: {
-    ...coverParent
+    flex: 1
   },
   inactiveView: {
     height: 0,

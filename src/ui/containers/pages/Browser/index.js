@@ -3,6 +3,7 @@ import React from 'react'
 import { View } from 'react-native'
 
 import DAPP_PERMISSIONS from '../../../../../common/constants/dappPermissions'
+import API from '../../../../../common/constants/api'
 import STATE from '../../../../../common/constants/states'
 import { t } from '../../../../../common/strings'
 import { createDappId } from '../../../../utils/dapp'
@@ -21,12 +22,15 @@ import styles from './styles'
 import Layout from '../Layout'
 import BrowserTabBar from '../../../components/BrowserTabBar'
 import BrowserTabView from '../../../components/BrowserTabView'
+import BookmarksModal from '../../modals/Bookmarks'
 
 const newTabId = () => _.random(1, 1000000000)
 
 const DEFAULT_PERMISSIONS = {
   [DAPP_PERMISSIONS.ALL_ADDRESSES]: true
 }
+
+const API_METHOD_NAMES = Object.values(API)
 
 @connectStore('account')
 export default class Browser extends CachePureComponent {
@@ -53,6 +57,8 @@ export default class Browser extends CachePureComponent {
 
     const tabs = _.compact(this.state.tabs)
 
+    const apiMethods = _.pick(this.props.actions, ...API_METHOD_NAMES)
+
     const browserViews = tabs.map(tab => {
       const { id, active, url } = tab
 
@@ -66,14 +72,16 @@ export default class Browser extends CachePureComponent {
             }}
             url={url}
             permissions={dappPermissions[createDappId(tab)] || DEFAULT_PERMISSIONS}
-            apiMethods={this.props.actions}
+            apiMethods={apiMethods}
+            editDappPermissions={this.bind(this.onEditPermissions, id)}
             onUrlChange={this.bind(this.onTabUrlChange, id)}
             onLoading={this.bind(this.onTabStatusChange, id, STATE.LOADING)}
             onLoaded={this.bind(this.onTabStatusChange, id, STATE.LOADED)}
             onLoadingError={this.bind(this.onTabStatusChange, id, STATE.ERROR)}
             onTitleChange={this.bind(this.onTabTitleChange, id)}
             onOpenNewWindow={this.openNewTab}
-            editDappPermissions={this.bind(this.onEditPermissions, id)}
+            onShowBookmarks={this.onShowBookmarks}
+            onEditBookmark={this.bind(this.onEditBookmark, id)}
           />
         </View>
       )
@@ -89,6 +97,7 @@ export default class Browser extends CachePureComponent {
           onNewTab={this.openNewTab}
         />
         <View style={styles.browserViews}>{browserViews}</View>
+        <BookmarksModal ref={this._onBookmarksModalRef} />
       </Layout>
     )
   }
@@ -111,30 +120,50 @@ export default class Browser extends CachePureComponent {
     globalEvents.off(GOTO_NEXT_TAB, this.gotoNextTab)
   }
 
+  _onBookmarksModalRef = r => {
+    this.bookmarksModal = r
+  }
+
+  onShowBookmarks = () => {
+    this.bookmarksModal.getWrappedInstance().show()
+  }
+
   openActiveTabDevTools = () => {
     if (this.activeTabView) {
       this.activeTabView.openDevTools()
     }
   }
 
+  onEditBookmark = id => {
+    const { tabs } = this.state
+    const tab = tabs.find(tab_ => tab_.id === id)
+
+    if (tab) {
+      const { showEditBookmarkModal } = this.props.actions
+
+      showEditBookmarkModal(tab.url, tab.label)
+    }
+  }
+
   openNewTab = url => {
     const id = newTabId()
 
-    this.state.tabs.push({
-      id,
-      label: url || 'about:blank',
-      url: url || 'about:blank',
-      active: true,
-      status: STATE.LOADING
+    this.setState({
+      tabs: [ ...this.state.tabs, {
+        id,
+        label: url || 'about:blank',
+        url: url || 'about:blank',
+        status: STATE.LOADING
+      } ]
+    }, () => {
+      this.onSelectTab(id)
     })
-
-    this.onSelectTab(id)
   }
 
   closeActiveTab = () => {
     const { tabs } = this.state
 
-    const tab = tabs.find(({ active }) => active)
+    const tab = tabs.find(({ active }) => !!active)
 
     if (tab) {
       this.onCloseTab(tab.id)

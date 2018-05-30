@@ -16,7 +16,7 @@ import ProgressButton from '../../../components/ProgressButton'
 import { extractAddressPermissions } from '../../../../utils/dapp'
 import styles from './styles'
 
-@connectStore('modals', 'account')
+@connectStore('account')
 export default class DappPermissions extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({

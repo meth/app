@@ -43,7 +43,7 @@ const RootNavigator = createNavigator(routes)
 
 export const { router } = RootNavigator
 
-export const onceAuthenticatedRouteName = Browser.routeName
+export const onceAuthenticatedRouteName = routes.Browser.routeName
 
 @connectStore('nav')
 export class Navigator extends PureComponent {

@@ -8,6 +8,7 @@ import {
   LOG,
   DAPP_PERMISSIONS,
   EDIT_ADDRESS,
+  EDIT_BOOKMARK,
   ADDRESS_QR,
   EDIT_TOKEN,
   ADD_ACCOUNT
@@ -52,6 +53,11 @@ export const showEditAddressModal = modalActionCreator(SHOW, EDIT_ADDRESS, (addr
   address, type
 }))
 export const hideEditAddressModal = modalActionCreator(HIDE, EDIT_ADDRESS)
+
+export const showEditBookmarkModal = modalActionCreator(SHOW, EDIT_BOOKMARK, (url, label) => ({
+  url, label
+}))
+export const hideEditBookmarkModal = modalActionCreator(HIDE, EDIT_BOOKMARK)
 
 export const showAddressQrModal = modalActionCreator(SHOW, ADDRESS_QR, address => ({
   address

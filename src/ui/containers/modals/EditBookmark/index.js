@@ -5,57 +5,51 @@ import { View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
 import { t } from '../../../../../common/strings'
-import ADDRESS_TYPES from '../../../../../common/constants/addressTypes'
 import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
 import ErrorBox from '../../../components/ErrorBox'
 import TextInput from '../../../components/TextInput'
-import IconText from '../../../components/IconText'
 import ProgressButton from '../../../components/ProgressButton'
 import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
 import TitleText from '../../../components/TitleText'
 import CopyableText from '../../../components/CopyableText'
-import ChainExplorerIconButton from '../../liveComponents/ChainExplorerIconButton'
 import AskUserConfirmModal from '../../../components/AskUserConfirmModal'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
 
 @connectStore('account')
-export default class EditAddress extends PureComponent {
+export default class EditBookmark extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
-      address: PropTypes.string,
-      type: PropTypes.oneOf([
-        ADDRESS_TYPES.ACCOUNT,
-        ADDRESS_TYPES.OWN_ACCOUNT,
-        ADDRESS_TYPES.CONTRACT
-      ])
+      url: PropTypes.string.isRequired,
+      label: PropTypes.string
     }).isRequired
   }
 
   constructor (props, ctx) {
     super(props, ctx)
 
-    const { data: { address, type } } = this.props
+    const { data: { url: editUrl, label: editLabel } } = this.props
 
-    const { getAddressBook } = this.props.selectors
+    const { getBookmarks } = this.props.selectors
 
-    const addressBook = getAddressBook()
+    const bookmarks = getBookmarks()
+
+    const found = bookmarks.find(({ url }) => url === editUrl)
 
     this.state = {
-      alreadyExists: !!_.get(addressBook[address], 'label'),
-      label: _.get(addressBook[address], 'label', ''),
-      type: _.get(addressBook[address], 'type', type),
+      alreadyExists: !!found,
+      label: _.get(found, 'label', editLabel || ''),
       submitting: false,
       error: null
     }
   }
 
   render () {
-    const { data: { address } } = this.props
+    const { data: { url } } = this.props
 
-    const { error, label, type, submitting, alreadyExists } = this.state
+    const { error, label, submitting, alreadyExists } = this.state
 
     return (
       <Modal
@@ -64,21 +58,15 @@ export default class EditAddress extends PureComponent {
       >
         <TitleText
           style={styles.titleText}
-          text={t(alreadyExists ? 'title.editAddressLabel' : 'title.addAddressLabel')}
+          text={t(alreadyExists ? 'title.editBookmark' : 'title.addBookmark')}
         />
         <View style={styles.addressBlock}>
           <CopyableText
             style={styles.address}
             textStyle={styles.addressText}
-            text={address}
-          />
-          <ChainExplorerIconButton
-            linkType='address'
-            address={address}
-            style={styles.chainLinkButton}
+            text={url}
           />
         </View>
-        {this._renderMeta({ type })}
         <FormWrapper style={styles.formWrapper}>
           <Form
             ref={this._onFormRef}
@@ -88,7 +76,7 @@ export default class EditAddress extends PureComponent {
           >
             <Form.Field
               name='label'
-              label={t('modal.editAddress.labelFieldLabel')}
+              label={t('modal.editBookmark.labelFieldLabel')}
               style={styles.field}
               labelStyle={formStyles.label}
               labelTextStyle={formStyles.labelText}
@@ -96,7 +84,7 @@ export default class EditAddress extends PureComponent {
               <TextInput
                 value={label}
                 style={styles.labelInput}
-                placeholder={t('modal.editAddress.labelInputPlaceholder')}
+                placeholder={t('modal.editBookmark.labelInputPlaceholder')}
               />
             </Form.Field>
           </Form>
@@ -137,40 +125,6 @@ export default class EditAddress extends PureComponent {
     this.form = f
   }
 
-  _renderMeta ({ type }) {
-    if (!type) {
-      return null
-    }
-
-    let typeIcon = null
-    switch (type) {
-      case ADDRESS_TYPES.ADDRESS:
-      case ADDRESS_TYPES.OWN_ACCOUNT: {
-        typeIcon = 'user'
-        break
-      }
-      case ADDRESS_TYPES.CONTRACT: {
-        typeIcon = 'code'
-        break
-      }
-      default:
-        break
-    }
-
-    return (
-      <View style={styles.meta}>
-        {typeIcon ? (
-          <IconText
-            style={styles.metaIcon}
-            textStyle={styles.metaIconText}
-            icon={{ name: typeIcon, style: styles.metaIconText }}
-            text={t(`addressType.${type}`)}
-          />
-        ) : null}
-      </View>
-    )
-  }
-
   onChange = values => {
     this.setState({
       label: values.label,
@@ -179,15 +133,15 @@ export default class EditAddress extends PureComponent {
   }
 
   onSubmit = () => {
-    const { data: { address } } = this.props
-    const { saveAddressBookEntry } = this.props.actions
-    const { label, type } = this.state
+    const { data: { url } } = this.props
+    const { saveBookmark } = this.props.actions
+    const { label } = this.state
 
     this.setState({
       submitting: true,
       error: null
     }, () => {
-      saveAddressBookEntry(address, { label, type })
+      saveBookmark(url, label)
         .then(() => this.close())
         .catch(error => {
           this.setState({
@@ -221,14 +175,14 @@ export default class EditAddress extends PureComponent {
   }
 
   onDelete = () => {
-    const { data: { address } } = this.props
-    const { deleteAddressBookEntry } = this.props.actions
+    const { data: { url } } = this.props
+    const { deleteBookmark } = this.props.actions
 
     this.setState({
       submitting: false,
       error: null
     }, () => {
-      deleteAddressBookEntry(address)
+      deleteBookmark(url)
         .then(() => this.close())
         .catch(error => {
           this.setState({
@@ -240,8 +194,8 @@ export default class EditAddress extends PureComponent {
   }
 
   close = () => {
-    const { hideEditAddressModal } = this.props.actions
+    const { hideEditBookmarkModal } = this.props.actions
 
-    hideEditAddressModal()
+    hideEditBookmarkModal()
   }
 }

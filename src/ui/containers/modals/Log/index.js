@@ -19,7 +19,7 @@ const TAB_ROUTES = [
 ]
 
 
-@connectStore('modals', 'log')
+@connectStore('log')
 export default class Log extends PureComponent {
   render () {
     return (

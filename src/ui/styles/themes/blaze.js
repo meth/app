@@ -185,20 +185,21 @@ export default {
   },
   browser: {
     tabBar: {
-      backgroundColor: colorGrayLight,
+      backgroundColor: colorGray,
       tab: {
         inactive: {
-          borderColor: '#999',
-          backgroundColor: '#ccc'
+          borderColor: colorGray,
+          backgroundColor: colorGrayLight
         },
         active: {
-          borderColor: '#666',
-          backgroundColor: '#eee'
+          borderColor: colorGrayDark,
+          backgroundColor: colorGrayLighter
         }
       }
     },
     navBar: {
-      borderBottomColor: '#ccc'
+      borderBottomColor: colorGrayLight,
+      backgroundColor: colorGrayLighter
     }
   },
   alert: {
@@ -343,7 +344,7 @@ export default {
       },
       off: {
         box: {
-          backgroundColor: 'transparent',
+          backgroundColor: colorTransparent,
           borderColor: colorGray,
           tickIcon: {
             color: colorGray,
@@ -404,28 +405,40 @@ export default {
         textColor: colorGrayLight
       }
     }),
-    browserTab: generateButtonStyles({
+    browserAddressBar: generateButtonStyles({
       default: {
-        borderColor: 'transparent',
-        backgroundColor: 'transparent',
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
         textColor: colorGray
       },
       hover: {
-        borderColor: 'transparent',
-        backgroundColor: colorGray,
-        textColor: colorGrayLight
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorViolet
+      }
+    }),
+    browserTab: generateButtonStyles({
+      default: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorGray
+      },
+      hover: {
+        borderColor: colorTransparent,
+        backgroundColor: colorViolet,
+        textColor: colorWhite
       }
     }),
     browserPanel: generateButtonStyles({
       default: {
-        borderColor: 'transparent',
-        backgroundColor: 'transparent',
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
         textColor: colorGrayLight
       },
       hover: {
-        borderColor: 'transparent',
-        backgroundColor: colorGrayLight,
-        textColor: colorGray
+        borderColor: colorTransparent,
+        backgroundColor: colorViolet,
+        textColor: colorWhite
       }
     }),
     pinEntry: generateButtonStyles({

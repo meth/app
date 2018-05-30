@@ -6,7 +6,6 @@
 const { ipcRenderer: ipc } = require('electron')
 const IPC = require('../../common/constants/ipc')
 const API = require('../../common/constants/api')
-const API_METHOD_NAMES = require('../../common/constants/apiMethodNames')
 
 
 
@@ -83,7 +82,7 @@ window.web3 = new Web3(new Web3IpcProvider())
 
 window.DappBrowser = Object.keys(API).reduce((ret, command) => {
   // eslint-disable-next-line no-param-reassign
-  ret[API_METHOD_NAMES[command]] = params => sendIpc(IPC.API, {
+  ret[API[command]] = params => sendIpc(IPC.API, {
     command,
     params
   })

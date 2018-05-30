@@ -20,7 +20,7 @@ import AskUserConfirmModal from '../../../components/AskUserConfirmModal'
 import styles from './styles'
 import formStyles from '../../../styles/forms'
 
-@connectStore('modals', 'account')
+@connectStore('account')
 export default class EditToken extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({

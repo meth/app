@@ -16,7 +16,7 @@ import Loading from '../../../components/Loading'
 import Picker from '../../../components/Picker'
 import styles from './styles'
 
-@connectStore('config', 'node', 'modals')
+@connectStore('config', 'node')
 export default class ConnectNode extends CachePureComponent {
   state = {
     disconnecting: false,

@@ -9,17 +9,13 @@ const disableGesturesProps = {
   }
 }
 
-export default routes => {
-  const {
-    Home
-  } = routes
-
-  return createStackNavigator({
+export default routes => (
+  createStackNavigator({
     ...routes
   }, {
     ...disableGesturesProps,
     headerMode: 'none',
-    initialRouteName: Home.routeName,
+    initialRouteName: routes.Home.routeName,
     /* Disable animations, see https://github.com/react-navigation/react-navigation/issues/1254#issuecomment-297457689 */
     transitionConfig: () => ({
       transitionSpec: {
@@ -29,4 +25,4 @@ export default routes => {
       }
     })
   })
-}
+)

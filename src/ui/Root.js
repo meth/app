@@ -16,6 +16,7 @@ import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
 import DappPermissionsModal from './containers/modals/DappPermissions'
 import EditAddressModal from './containers/modals/EditAddress'
+import EditBookmarkModal from './containers/modals/EditBookmark'
 import AddressQrModal from './containers/modals/AddressQr'
 import EditTokenModal from './containers/modals/EditToken'
 import AddAccountModal from './containers/modals/AddAccount'
@@ -28,6 +29,7 @@ const MODAL_COMPONENTS = {
   [MODALS.SEND_TRANSACTION]: SendTransactionModal,
   [MODALS.DAPP_PERMISSIONS]: DappPermissionsModal,
   [MODALS.EDIT_ADDRESS]: EditAddressModal,
+  [MODALS.EDIT_BOOKMARK]: EditBookmarkModal,
   [MODALS.ADDRESS_QR]: AddressQrModal,
   [MODALS.EDIT_TOKEN]: EditTokenModal,
   [MODALS.ADD_ACCOUNT]: AddAccountModal

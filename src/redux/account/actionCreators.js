@@ -24,6 +24,8 @@ import {
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
   REMOVE_CUSTOM_TOKEN,
+  SAVE_BOOKMARK,
+  DELETE_BOOKMARK,
   GENERATE_ACCOUNT,
   FETCH_RECOMMENDED_GAS_LIMIT,
   EXECUTE_CONTRACT_CALL
@@ -56,6 +58,10 @@ export const saveAddressBookEntry =
 export const deleteAddressBookEntry =
   createActionCreator(DELETE_ADDRESS_BOOK_ENTRY, address => ({ address }))
 
+export const saveBookmark = createActionCreator(SAVE_BOOKMARK, (url, label) => ({
+  url, label
+}))
+export const deleteBookmark = createActionCreator(DELETE_BOOKMARK, url => ({ url }))
 
 /* transactions */
 export const sendTransaction = createActionCreator(SEND_TX, tx => ({ tx }))

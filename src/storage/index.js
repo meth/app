@@ -8,6 +8,7 @@ import AddressBook from './addressBook'
 import CustomTokens from './customTokens'
 import Transactions from './transactions'
 import AppSettings from './appSettings'
+import Bookmarks from './bookmarks'
 
 PouchDBAsyncStorageAdapter(PouchDB)
 
@@ -15,13 +16,14 @@ const log = logger.create('Storage')
 
 const DBCLASS = {
   addressBook: AddressBook,
+  bookmarks: Bookmarks,
   customTokens: CustomTokens,
   transactions: Transactions,
   appSettings: AppSettings
 }
 
 const PER_NETWORK_DBS = [ 'transactions', 'addressBook', 'customTokens' ]
-const PER_MNEMONIC_DBS = [ 'appSettings' ]
+const PER_MNEMONIC_DBS = [ 'appSettings', 'bookmarks' ]
 
 /**
  * Writing to storage should be considered volatile, and storage calls should

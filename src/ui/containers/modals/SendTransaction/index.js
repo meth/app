@@ -27,7 +27,7 @@ const TAB_ROUTES = [
 const indexOfTab = tabKey => TAB_ROUTES.findIndex(({ key }) => key === tabKey)
 
 
-@connectStore('account', 'modals')
+@connectStore('account')
 export default class SendTransaction extends PureComponent {
   constructor (props, ctx) {
     super(props, ctx)

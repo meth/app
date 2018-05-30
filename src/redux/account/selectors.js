@@ -7,6 +7,18 @@ const _getTokenBalances = state => state.account.get('tokenBalances')
 const _getAddressBook = state => state.account.get('addressBook')
 const _getCustomTokens = state => state.account.get('customTokens')
 const _getAppSettings = state => state.account.get('appSettings')
+const _getBookmarks = state => state.account.get('bookmarks')
+
+export const getBookmarks = createSelector(
+  _getBookmarks,
+  bookmarks => {
+    const obj = bookmarks.toObject()
+
+    return Object.keys(obj).map(url => ({
+      url, label: obj[url]
+    }))
+  }
+)
 
 export const getSecurityPin = createSelector(
   _getAppSettings,

@@ -94,7 +94,7 @@ class Settings {
   }
 
   get preloadBasePath () {
-    return path.resolve(path.join(__dirname, 'preloader'))
+    return path.resolve(path.join(__dirname, 'preload'))
   }
 }
 

@@ -23,7 +23,9 @@ import {
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
   REMOVE_CUSTOM_TOKEN,
-  SAVE_PIN
+  SAVE_PIN,
+  SAVE_BOOKMARK,
+  DELETE_BOOKMARK
 } from './actions'
 
 export default () => {
@@ -32,10 +34,10 @@ export default () => {
     tokenBalances: Immutable.Map({}),
     customTokens: Immutable.Map({}),
     appSettings: Immutable.Map({}),
+    bookmarks: Immutable.Map({}),
     appSettingsLoaded: false,
     userAuthenticated: false,
     addressBook: {},
-    bookmarks: {},
     dappPermissions: {},
     currentTx: null,
     currentTxDeferred: null,
@@ -88,7 +90,23 @@ export default () => {
         return state.set('tokenBalances', tokenBalances)
       },
       /* bookmarks */
-      [INJECT_BOOKMARKS]: (state, { payload }) => state.set('bookmarks', payload),
+      [INJECT_BOOKMARKS]: (state, { payload }) => {
+        // data is stored in db as a table/list, so conver to object first
+        const obj = payload.reduce((ret, { url, label }) => {
+          // eslint-disable-next-line no-param-reassign
+          ret[url] = label
+          return ret
+        }, {})
+
+
+        return state.set('bookmarks', Immutable.Map(obj))
+      },
+      [SAVE_BOOKMARK]: (state, { payload: { url, label } }) => (
+        state.set('bookmarks', state.get('bookmarks').set(url, label))
+      ),
+      [DELETE_BOOKMARK]: (state, { payload: { url } }) => (
+        state.set('bookmarks', state.get('bookmarks').delete(url))
+      ),
       /* dapp permissions */
       [INJECT_DAPP_PERMISSIONS]: (state, { payload }) => state.set('dappPermissions', payload),
       [SAVE_DAPP_PERMISSIONS]: (state, { payload: { dappId, permissions } }) =>

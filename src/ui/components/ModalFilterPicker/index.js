@@ -10,6 +10,7 @@ import TitleText from '../TitleText'
 import Table from '../Table'
 import Button from '../Button'
 import PickerButton from '../PickerButton'
+import FormWrapper from '../FormWrapper'
 import styles from './styles'
 
 
@@ -29,7 +30,8 @@ export default class ModalFilterPicker extends CachePureComponent {
     })).isRequired,
     onChange: PropTypes.func,
     onCancel: PropTypes.func,
-    renderOption: PropTypes.func
+    renderOption: PropTypes.func,
+    renderButton: PropTypes.func
   }
 
   state = {
@@ -41,14 +43,10 @@ export default class ModalFilterPicker extends CachePureComponent {
 
     const {
       style,
-      selected,
       title,
-      button,
-      options
+      options,
+      renderButton
     } = this.props
-
-    const selectedOption = options.find(({ value }) => value === selected)
-    const selectedLabel = _.get(selectedOption, 'label')
 
     const rows = options.map(({ value, label }) => ({
       content: {
@@ -60,12 +58,7 @@ export default class ModalFilterPicker extends CachePureComponent {
 
     return (
       <View style={[ styles.container, style ]}>
-        <PickerButton
-          onPress={this._onPressPickerButton}
-          label={selectedLabel}
-          open={open}
-          {...button}
-        />
+        {renderButton ? renderButton(this._renderButton) : this._renderButton()}
         {(!open) ? null : (
           <Modal
             ref={this._onModalRef}
@@ -78,6 +71,7 @@ export default class ModalFilterPicker extends CachePureComponent {
               rowStyle={styles.tableRow}
               filterPlaceholderText={t('modal.filterPicker.filterPlaceholder')}
               showFilter={true}
+              renderFilter={this._renderFilter}
               renderHeader={RENDER_HEADER}
               renderRowData={this._renderRowData}
               columns={COLUMNS}
@@ -128,6 +122,34 @@ export default class ModalFilterPicker extends CachePureComponent {
   _onModalRef = e => {
     this.modal = e
   }
+
+  _renderButton = () => {
+    const { open } = this.state
+
+    const {
+      selected,
+      button,
+      options
+    } = this.props
+
+    const selectedOption = options.find(({ value }) => value === selected)
+    const selectedLabel = _.get(selectedOption, 'label')
+
+    return (
+      <PickerButton
+        onPress={this._onPressPickerButton}
+        label={selectedLabel}
+        open={open}
+        {...button}
+      />
+    )
+  }
+
+  _renderFilter = defaultRenderFunc => (
+    <FormWrapper>
+      {defaultRenderFunc()}
+    </FormWrapper>
+  )
 
   _renderRowData = row => {
     const { renderOption } = this.props

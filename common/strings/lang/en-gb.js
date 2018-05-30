@@ -138,7 +138,9 @@ module.exports = {
         reload: 'Reload',
         editPermissions: 'Edit permissions',
         newTab: 'Open new tab',
-        closeTab: 'Close tab'
+        closeTab: 'Close tab',
+        showBookmarks: 'Show bookmarks',
+        editBookmark: 'Edit bookmark'
       }
     },
     title: {
@@ -150,6 +152,8 @@ module.exports = {
       confirmWallet: 'Confirm wallet',
       contracts: 'Contracts',
       addressBook: 'Address book',
+      editBookmark: 'Edit bookmark',
+      addBookmark: 'Add bookmark',
       editAddressLabel: 'Edit address book entry',
       addAddressLabel: 'Add to address book',
       wallet: 'Wallet',
@@ -158,6 +162,7 @@ module.exports = {
       sendTransaction: 'Send transaction',
       transactions: 'Transactions',
       browser: 'Browser',
+      bookmarks: 'Bookmarks',
       mobileMenu: {
         network: 'Network ({network})',
         log: 'Log ({numAlerts} alerts)',
