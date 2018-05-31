@@ -3,20 +3,20 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { t } from '../../../../common/strings'
+import NavBar from './NavBar'
 import styles from './styles'
 import { addProtocol } from '../../../utils/url'
-import IconButton from '../IconButton'
-import TextInput from '../TextInput'
 import WebView from '../WebView'
 
 
 export default class BrowserTabView extends PureComponent {
   static propTypes = {
     ...WebView.propTypes,
+    uniqueId: PropTypes.string,
     hasBookmark: PropTypes.bool,
-    editDappPermissions: PropTypes.func.isRequired,
-    onShowBookmarks: PropTypes.func.isRequired
+    onEditDappPermissions: PropTypes.func.isRequired,
+    onShowBookmarks: PropTypes.func.isRequired,
+    onEditBookmark: PropTypes.func.isRequired
   }
 
   static getDerivedStateFromProps (props, state) {
@@ -34,65 +34,19 @@ export default class BrowserTabView extends PureComponent {
 
     return (
       <View style={styles.container}>
-        <View style={styles.navBar}>
-          <IconButton
-            type='browserTab'
-            tooltip={t('button.browser.back')}
-            icon={{ name: 'chevron-left' }}
-            style={styles.navIconButton}
-            onPress={this.back}
-          />
-          <IconButton
-            type='browserTab'
-            tooltip={t('button.browser.forward')}
-            icon={{ name: 'chevron-right' }}
-            style={styles.navIconButton}
-            onPress={this.forward}
-          />
-          <IconButton
-            type='browserTab'
-            tooltip={t('button.browser.reload')}
-            icon={{ name: 'refresh' }}
-            style={styles.navIconButton}
-            onPress={this.refresh}
-          />
-          <TextInput
-            ref={this._onAddressInputRef}
-            value={url}
-            onChange={this.onChangeUrl}
-            onSubmit={this.onEnterUrl}
-            style={styles.navUrlInput}
-            selectTextOnFocus
-          />
-          <IconButton
-            type='browserAddressInput'
-            tooltip={t('button.browser.editBookmark')}
-            icon={{ name: 'star' }}
-            onPress={this._onEditBookmark}
-            style={styles.bookmarkButton}
-            {...(hasBookmark ? {
-              stateOverride: {
-                buttonState: 'hover'
-              }
-            } : null)}
-          />
-          <IconButton
-            type='browserTab'
-            tooltip={t('button.browser.showBookmarks')}
-            icon={{ name: 'bookmark' }}
-            style={styles.navIconButton}
-            onPress={onShowBookmarks}
-          />
-          {/*
-            <IconButton
-              type='browserTab'
-              tooltip={t('button.browser.editPermissions')}
-              icon={{ name: 'gear' }}
-              style={styles.navIconButton}
-              onPress={editDappPermissions}
-            />
-          */}
-        </View>
+        <NavBar
+          style={styles.navBar}
+          onAddressInputRef={this._onAddressInputRef}
+          url={url}
+          hasBookmark={hasBookmark}
+          onBack={this.back}
+          onForward={this.forward}
+          onRefresh={this.refresh}
+          onChange={this.onChangeUrl}
+          onSubmit={this.onEnterUrl}
+          onEditBookmark={this._onEditBookmark}
+          onShowBookmarks={onShowBookmarks}
+        />
         <View style={styles.webView}>
           <WebView
             {...this.props}

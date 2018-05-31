@@ -9,8 +9,8 @@ const disableGesturesProps = {
   }
 }
 
-export default routes => (
-  createStackNavigator({
+export default routes => {
+  const Navigator = createStackNavigator({
     ...routes
   }, {
     ...disableGesturesProps,
@@ -25,4 +25,8 @@ export default routes => (
       }
     })
   })
-)
+
+  Navigator.onceAuthenticatedRouteName = routes.Wallet.routeName
+
+  return Navigator
+}

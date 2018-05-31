@@ -51,7 +51,7 @@ export default routes => {
       AddressBook
     }, {
       contentComponent: MobileDrawer,
-      initialRouteName: Wallet.routeName
+      initialRouteName: Browser.routeName
     })
   }, {
     ...disableGesturesProps,
@@ -61,7 +61,7 @@ export default routes => {
     })
   })
 
-  return createStackNavigator({
+  const Navigator = createStackNavigator({
     LoggedOutStack,
     LoggedInStack
   }, {
@@ -69,4 +69,8 @@ export default routes => {
     headerMode: 'none',
     initialRouteName: 'LoggedOutStack'
   })
+
+  Navigator.onceAuthenticatedRouteName = 'LoggedInStack'
+
+  return Navigator
 }

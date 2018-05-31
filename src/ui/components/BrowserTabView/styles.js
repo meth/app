@@ -20,17 +20,6 @@ export default create({
     alignItems: 'stretch',
     position: 'relative'
   },
-  navIconButton: {
-    flex: 0
-  },
-  navUrlInput: {
-    flex: 1,
-    marginHorizontal: 5
-  },
-  bookmarkButton: {
-    position: 'absolute',
-    right: 40
-  },
   webView: {
     flex: 1
   }

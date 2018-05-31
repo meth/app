@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import React from 'react'
-import { View } from 'react-native'
 
 import DAPP_PERMISSIONS from '../../../../../common/constants/dappPermissions'
 import API from '../../../../../common/constants/api'
@@ -13,6 +12,7 @@ import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
+import BrowserViewsContainer from './BrowserViewsContainer'
 import BrowserTabBar from '../../../components/BrowserTabBar'
 import BrowserTabView from '../../../components/BrowserTabView'
 import BookmarksModal from '../../modals/Bookmarks'
@@ -44,45 +44,8 @@ export default class Browser extends CachePureComponent {
   }
 
   render () {
-    const { getDappPermissions, getBookmarks } = this.props.selectors
-
-    const dappPermissions = getDappPermissions()
-    const bookmarks = getBookmarks()
-
     const tabs = _.compact(this.state.tabs)
-
-    const apiMethods = _.pick(this.props.actions, ...API_METHOD_NAMES)
-
-    const browserViews = tabs.map(tab => {
-      const { id, active, url } = tab
-
-      const bookmark = bookmarks.find(({ url: bUrl }) => bUrl === url)
-
-      return (
-        <View key={id} style={active ? styles.activeView : styles.inactiveView}>
-          <BrowserTabView
-            ref={view => {
-              if (active) {
-                this.activeTabView = view
-              }
-            }}
-            url={url}
-            hasBookmark={!!bookmark}
-            permissions={dappPermissions[createDappId(tab)] || DEFAULT_PERMISSIONS}
-            apiMethods={apiMethods}
-            editDappPermissions={this.bind(this.onEditPermissions, id)}
-            onUrlChange={this.bind(this.onTabUrlChange, id)}
-            onLoading={this.bind(this.onTabStatusChange, id, STATE.LOADING)}
-            onLoaded={this.bind(this.onTabStatusChange, id, STATE.LOADED)}
-            onLoadingError={this.bind(this.onTabStatusChange, id, STATE.ERROR)}
-            onTitleChange={this.bind(this.onTabTitleChange, id)}
-            onOpenNewWindow={this.openNewTab}
-            onShowBookmarks={this.onShowBookmarks}
-            onEditBookmark={this.bind(this.onEditBookmark, id)}
-          />
-        </View>
-      )
-    })
+    const activeIndex = tabs.findIndex(tab => !!tab.active)
 
     return (
       <Layout contentStyle={styles.layoutContent}>
@@ -93,7 +56,12 @@ export default class Browser extends CachePureComponent {
           onClose={this.onCloseTab}
           onNewTab={this.openNewTab}
         />
-        <View style={styles.browserViews}>{browserViews}</View>
+        <BrowserViewsContainer
+          style={styles.browserViews}
+          activeIndex={activeIndex}
+          views={this._buildViews()}
+        >
+        </BrowserViewsContainer>
         <BookmarksModal
           ref={this._onBookmarksModalRef}
           onEditBookmark={this.editBookmark}
@@ -127,6 +95,49 @@ export default class Browser extends CachePureComponent {
 
   _onBookmarksModalRef = r => {
     this.bookmarksModal = r
+  }
+
+  _buildViews () {
+    const { getDappPermissions, getBookmarks } = this.props.selectors
+
+    const dappPermissions = getDappPermissions()
+    const bookmarks = getBookmarks()
+
+    const tabs = _.compact(this.state.tabs)
+    const apiMethods = _.pick(this.props.actions, ...API_METHOD_NAMES)
+
+    return tabs.map(tab => {
+      const { id, active, url } = tab
+
+      const bookmark = bookmarks.find(({ url: bUrl }) => bUrl === url)
+
+      return {
+        id,
+        active,
+        renderedChild: (
+          <BrowserTabView
+            ref={view => {
+              if (active) {
+                this.activeTabView = view
+              }
+            }}
+            url={url}
+            hasBookmark={!!bookmark}
+            permissions={dappPermissions[createDappId(tab)] || DEFAULT_PERMISSIONS}
+            apiMethods={apiMethods}
+            onEditDappPermissions={this.bind(this.onEditPermissions, id)}
+            onUrlChange={this.bind(this.onTabUrlChange, id)}
+            onLoading={this.bind(this.onTabStatusChange, id, STATE.LOADING)}
+            onLoaded={this.bind(this.onTabStatusChange, id, STATE.LOADED)}
+            onLoadingError={this.bind(this.onTabStatusChange, id, STATE.ERROR)}
+            onTitleChange={this.bind(this.onTabTitleChange, id)}
+            onOpenNewWindow={this.openNewTab}
+            onShowBookmarks={this.onShowBookmarks}
+            onEditBookmark={this.bind(this.onEditBookmark, id)}
+          />
+        )
+      }
+    })
   }
 
   onShowBookmarks = () => {

@@ -42,8 +42,7 @@ Object.keys(routes).forEach(r => {
 const RootNavigator = createNavigator(routes)
 
 export const { router } = RootNavigator
-
-export const onceAuthenticatedRouteName = routes.Browser.routeName
+export const { onceAuthenticatedRouteName } = RootNavigator
 
 @connectStore('nav')
 export class Navigator extends PureComponent {
