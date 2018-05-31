@@ -1,4 +1,4 @@
-import { create, getWindowDimensions } from '../../../../../styles'
+import { create, getWindowDimensions } from '../../../../../../styles'
 
 const navDot = {
   flex: 0,

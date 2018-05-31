@@ -1,15 +1,20 @@
-import { create } from '../../../../../styles'
+import { create, getWindowDimensions } from '../../../../../styles'
+
+const { width, height } = getWindowDimensions()
 
 export default create({
   container: {
-    position: 'relative'
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    paddingTop: 30
   },
-  activeView: {
-    flex: 1
+  card: {
+    width: width * 0.5,
+    height: height * 0.5
   },
-  inactiveView: {
-    height: 0,
-    width: 0,
-    transform: [ { translateX: -5000 }, { translateY: -5000 } ]
+  tabsButtonContainer: {
+    marginLeft: 5
   }
 })

@@ -17,7 +17,7 @@ import BrowserTabBar from '../../../components/BrowserTabBar'
 import BrowserTabView from '../../../components/BrowserTabView'
 import BookmarksModal from '../../modals/Bookmarks'
 
-const newTabId = () => _.random(1, 1000000000)
+const newTabId = () => `${_.random(1, 1000000000)}`
 
 const DEFAULT_PERMISSIONS = {
   [DAPP_PERMISSIONS.ALL_ADDRESSES]: true
@@ -34,6 +34,78 @@ export default class Browser extends CachePureComponent {
 
   state = {
     tabs: [
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
+      {
+        active: true,
+        id: newTabId(),
+        label: 'Meth',
+        url: 'https://meth.app'
+      },
       {
         active: true,
         id: newTabId(),
@@ -60,6 +132,7 @@ export default class Browser extends CachePureComponent {
           style={styles.browserViews}
           activeIndex={activeIndex}
           views={this._buildViews()}
+          onSelectView={this.onSelectTab}
         >
         </BrowserViewsContainer>
         <BookmarksModal

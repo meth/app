@@ -16,7 +16,8 @@ export default class BrowserTabView extends PureComponent {
     hasBookmark: PropTypes.bool,
     onEditDappPermissions: PropTypes.func.isRequired,
     onShowBookmarks: PropTypes.func.isRequired,
-    onEditBookmark: PropTypes.func.isRequired
+    onEditBookmark: PropTypes.func.isRequired,
+    renderAfterAddressInput: PropTypes.func
   }
 
   static getDerivedStateFromProps (props, state) {
@@ -30,7 +31,7 @@ export default class BrowserTabView extends PureComponent {
 
   render () {
     const { url } = this.state
-    const { onShowBookmarks, hasBookmark } = this.props
+    const { onShowBookmarks, hasBookmark, renderAfterAddressInput } = this.props
 
     return (
       <View style={styles.container}>
@@ -46,6 +47,7 @@ export default class BrowserTabView extends PureComponent {
           onSubmit={this.onEnterUrl}
           onEditBookmark={this._onEditBookmark}
           onShowBookmarks={onShowBookmarks}
+          renderAfterAddressInput={renderAfterAddressInput}
         />
         <View style={styles.webView}>
           <WebView

@@ -9021,6 +9021,12 @@ react-native-advanced-forms@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/react-native-advanced-forms/-/react-native-advanced-forms-1.1.6.tgz#573a2e69cc3f3e0ce1667ab70390d4605d18da48"
 
+react-native-coverflow@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-coverflow/-/react-native-coverflow-0.1.7.tgz#f9cebbeb84601bc4fd623fda05d32aeae2ba3f38"
+  dependencies:
+    prop-types "^15.6.0"
+
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"

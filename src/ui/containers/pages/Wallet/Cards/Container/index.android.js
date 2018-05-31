@@ -1,3 +1,1 @@
-import CardsContainer from './index.ios'
-
-export default CardsContainer
+module.exports = require('./mobile')

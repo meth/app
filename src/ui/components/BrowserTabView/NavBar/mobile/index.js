@@ -13,7 +13,8 @@ export default class NavBar extends PureComponent {
     url: PropTypes.string.isRequired,
     hasBookmark: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    renderAfterAddressInput: PropTypes.func
   }
 
   render () {
@@ -22,7 +23,8 @@ export default class NavBar extends PureComponent {
       onAddressInputRef,
       url,
       onChange,
-      onSubmit
+      onSubmit,
+      renderAfterAddressInput
     } = this.props
 
     return (
@@ -35,6 +37,7 @@ export default class NavBar extends PureComponent {
           style={styles.navUrlInput}
           selectTextOnFocus
         />
+        {renderAfterAddressInput ? renderAfterAddressInput() : null}
       </View>
     )
   }
