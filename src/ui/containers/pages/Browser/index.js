@@ -4,19 +4,11 @@ import { View } from 'react-native'
 
 import DAPP_PERMISSIONS from '../../../../../common/constants/dappPermissions'
 import API from '../../../../../common/constants/api'
+import IPC_UI_TASKS from '../../../../../common/constants/ipcUiTasks'
 import STATE from '../../../../../common/constants/states'
 import { t } from '../../../../../common/strings'
 import { createDappId } from '../../../../utils/dapp'
-import {
-  globalEvents,
-  OPEN_ACTIVE_TAB_DEV_TOOLS,
-  OPEN_NEW_TAB,
-  RELOAD_TAB,
-  CLOSE_TAB,
-  EDIT_TAB_URL,
-  GOTO_PREVIOUS_TAB,
-  GOTO_NEXT_TAB
-} from '../../../../env'
+import { globalEvents } from '../../../../env'
 import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -112,23 +104,25 @@ export default class Browser extends CachePureComponent {
   }
 
   componentDidMount () {
-    globalEvents.on(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
-    globalEvents.on(OPEN_NEW_TAB, this.openNewTab)
-    globalEvents.on(RELOAD_TAB, this.reloadActiveTab)
-    globalEvents.on(CLOSE_TAB, this.closeActiveTab)
-    globalEvents.on(EDIT_TAB_URL, this.editActiveTabUrl)
-    globalEvents.on(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
-    globalEvents.on(GOTO_NEXT_TAB, this.gotoNextTab)
+    globalEvents.on(IPC_UI_TASKS.OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
+    globalEvents.on(IPC_UI_TASKS.OPEN_BOOKMARKS, this.onShowBookmarks)
+    globalEvents.on(IPC_UI_TASKS.OPEN_NEW_TAB, this.openNewTab)
+    globalEvents.on(IPC_UI_TASKS.RELOAD_TAB, this.reloadActiveTab)
+    globalEvents.on(IPC_UI_TASKS.CLOSE_TAB, this.closeActiveTab)
+    globalEvents.on(IPC_UI_TASKS.EDIT_TAB_URL, this.editActiveTabUrl)
+    globalEvents.on(IPC_UI_TASKS.GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
+    globalEvents.on(IPC_UI_TASKS.GOTO_NEXT_TAB, this.gotoNextTab)
   }
 
   componentWillUnmount () {
-    globalEvents.off(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
-    globalEvents.off(OPEN_NEW_TAB, this.openNewTab)
-    globalEvents.off(RELOAD_TAB, this.reloadActiveTab)
-    globalEvents.off(CLOSE_TAB, this.closeActiveTab)
-    globalEvents.off(EDIT_TAB_URL, this.editActiveTabUrl)
-    globalEvents.off(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
-    globalEvents.off(GOTO_NEXT_TAB, this.gotoNextTab)
+    globalEvents.off(IPC_UI_TASKS.OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
+    globalEvents.off(IPC_UI_TASKS.OPEN_BOOKMARKS, this.onShowBookmarks)
+    globalEvents.off(IPC_UI_TASKS.OPEN_NEW_TAB, this.openNewTab)
+    globalEvents.off(IPC_UI_TASKS.RELOAD_TAB, this.reloadActiveTab)
+    globalEvents.off(IPC_UI_TASKS.CLOSE_TAB, this.closeActiveTab)
+    globalEvents.off(IPC_UI_TASKS.EDIT_TAB_URL, this.editActiveTabUrl)
+    globalEvents.off(IPC_UI_TASKS.GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
+    globalEvents.off(IPC_UI_TASKS.GOTO_NEXT_TAB, this.gotoNextTab)
   }
 
   _onBookmarksModalRef = r => {

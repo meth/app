@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 
-import KEYS from '../../../../common/constants/keys'
+import IPC_UI_TASKS from '../../../../common/constants/ipcUiTasks'
 import { t } from '../../../../common/strings'
 import { globalEvents } from '../../../env'
 import { CachePureComponent } from '../../helpers/components'
@@ -29,13 +29,13 @@ export default class PinEntry extends CachePureComponent {
   }
 
   componentDidMount () {
-    globalEvents.addListener(KEYS.NUMBER, this._onPressNumber)
-    globalEvents.addListener(KEYS.BACKSPACE, this._onPressDelete)
+    globalEvents.on(IPC_UI_TASKS.KEY_NUMBER, this._onPressNumber)
+    globalEvents.on(IPC_UI_TASKS.KEY_BACKSPACE, this._onPressDelete)
   }
 
   componentWillUnmount () {
-    globalEvents.removeListener(KEYS.NUMBER, this._onPressNumber)
-    globalEvents.removeListener(KEYS.BACKSPACE, this._onPressDelete)
+    globalEvents.off(IPC_UI_TASKS.KEY_NUMBER, this._onPressNumber)
+    globalEvents.off(IPC_UI_TASKS.KEY_BACKSPACE, this._onPressDelete)
   }
 
   render () {

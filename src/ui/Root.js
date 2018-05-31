@@ -38,7 +38,7 @@ const MODAL_COMPONENTS = {
 @connectStore('modals', 'account')
 export default class Root extends PureComponent {
   componentDidMount () {
-    globalEvents.addListener(UI_TASKS.APP_ACTIVE, this._onAppActive)
+    globalEvents.on(UI_TASKS.APP_ACTIVE, this._onAppActive)
   }
 
   componentWillUnmount () {

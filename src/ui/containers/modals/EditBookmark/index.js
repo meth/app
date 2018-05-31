@@ -108,7 +108,7 @@ export default class EditBookmark extends PureComponent {
         <ErrorBox style={styles.errorBox} error={error} />
         <AskUserConfirmModal
           ref={this._onConfirmModalRef}
-          question={t('modal.editAddress.areYouSureYouWantToDelete')}
+          question={t('modal.editBookmark.areYouSureYouWantToDelete')}
           yesButtonText={t('button.yes')}
           noButtonText={t('button.no')}
           onPressYes={this.onDelete}

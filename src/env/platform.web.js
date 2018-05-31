@@ -1,8 +1,9 @@
-import _ from 'lodash'
+import hotkeys from 'hotkeys-js'
 
 import IPC from '../../common/constants/ipc'
 import BACKEND_TASKS from '../../common/constants/ipcBackendTasks'
-import KEY from '../../common/constants/keys'
+import IPC_UI_TASKS from '../../common/constants/ipcUiTasks'
+
 
 const alert = msg => {
   /* eslint-disable no-console */
@@ -22,30 +23,23 @@ const openExternalUrl = url => {
   )
 }
 
-export default ({ log, globalEvents }) => {
+export default ({ globalEvents }) => {
   if (typeof window !== 'undefined') {
-    window.addEventListener(IPC.UI_TASK, ({ detail: { task, data } }) => {
-      log.debug('Recieved UI task IPC command', task)
-
-      globalEvents.emit(task, data)
+    hotkeys('command+shift+r,ctrl+shift+r', () => window.location.reload())
+    hotkeys('command+alt+u,ctrl+alt+u', () => globalEvents.emit(IPC_UI_TASKS.OPEN_ACTIVE_TAB_DEV_TOOLS))
+    hotkeys('command+r,ctrl+r', () => globalEvents.emit(IPC_UI_TASKS.RELOAD_TAB))
+    hotkeys('command+t,ctrl+t', () => globalEvents.emit(IPC_UI_TASKS.OPEN_NEW_TAB))
+    hotkeys('command+w,ctrl+w', () => globalEvents.emit(IPC_UI_TASKS.CLOSE_TAB))
+    hotkeys('command+l,ctrl+l', () => globalEvents.emit(IPC_UI_TASKS.EDIT_TAB_URL))
+    hotkeys('command+b,ctrl+b', () => globalEvents.emit(IPC_UI_TASKS.OPEN_BOOKMARKS))
+    hotkeys('command+alt+right,ctrl+alt+right', () => globalEvents.emit(IPC_UI_TASKS.GOTO_NEXT_TAB))
+    hotkeys('command+alt+left,ctrl+alt+left', () => globalEvents.emit(IPC_UI_TASKS.GOTO_PREVIOUS_TAB))
+    hotkeys('esc', () => globalEvents.emit(IPC_UI_TASKS.KEY_ESCAPE))
+    hotkeys('backspace', () => globalEvents.emit(IPC_UI_TASKS.KEY_BACKSPACE))
+    hotkeys('0,1,2,3,4,5,6,7,8,9', () => {
+      const keyCodes = hotkeys.getPressedKeyCodes()
+      globalEvents.emit(IPC_UI_TASKS.KEY_NUMBER, (keyCodes || [ 48 ])[0] - 48)
     })
-
-    document.onkeydown = event => {
-      const evt = event || window.event
-      const key = _.get(evt, 'key', '000').toLowerCase().substr(0, 3)
-
-      if ('esc' === key || 27 === evt.keyCode) {
-        globalEvents.emit(KEY.ESCAPE)
-      }
-
-      if (8 === evt.keyCode) {
-        globalEvents.emit(KEY.BACKSPACE)
-      }
-
-      if (48 <= evt.keyCode && 57 >= evt.keyCode) {
-        globalEvents.emit(KEY.NUMBER, evt.keyCode - 48)
-      }
-    }
   }
 
   return { alert, openExternalUrl }

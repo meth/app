@@ -5434,6 +5434,10 @@ hosted-git-info@^2.1.4:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.6.0.tgz#23235b29ab230c576aab0d4f13fc046b0b038222"
 
+hotkeys-js@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/hotkeys-js/-/hotkeys-js-3.3.2.tgz#a4f1289243b24c91b20c365b64472f2ad530e678"
+
 hpack.js@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/hpack.js/-/hpack.js-2.1.6.tgz#87774c0949e513f42e84575b3c45681fade2a0b2"

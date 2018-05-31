@@ -212,6 +212,11 @@ module.exports = {
         labelFieldLabel: 'Label',
         areYouSureYouWantToDelete: 'Are you sure you want to remove this label?'
       },
+      editBookmark: {
+        labelInputPlaceholder: 'Enter label...',
+        labelFieldLabel: 'Label',
+        areYouSureYouWantToDelete: 'Are you sure you want to remove this bookmark?'
+      },
       editToken: {
         nameFieldLabel: 'Description',
         nameInputPlaceholder: 'e.g. My token',

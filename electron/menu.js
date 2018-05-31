@@ -1,7 +1,6 @@
 const { Menu, app } = require('electron')
 const Windows = require('./windows')
 const { t } = require('../common/strings')
-const UI_TASKS = require('../common/constants/ipcUiTasks')
 
 
 exports.setup = () => {
@@ -10,8 +9,6 @@ exports.setup = () => {
       label: t('menu.application'),
       submenu: [
         { label: t('menu.about'), selector: 'orderFrontStandardAboutPanel:' },
-        { type: 'separator' },
-        { label: t('menu.reload'), accelerator: 'Shift+Command+R', click: () => Windows.getMainWindow().reload() },
         { type: 'separator' },
         { label: t('menu.quit'), accelerator: 'Command+Q', click: () => app.quit() }
       ]
@@ -29,22 +26,9 @@ exports.setup = () => {
       ]
     },
     {
-      label: t('menu.browser'),
-      submenu: [
-        { label: t('menu.reloadTab'), accelerator: 'Command+R', click: () => Windows.getMainWindow().send(UI_TASKS.RELOAD_TAB) },
-        { label: t('menu.closeTab'), accelerator: 'Command+W', click: () => Windows.getMainWindow().send(UI_TASKS.CLOSE_TAB) },
-        { label: t('menu.editUrl'), accelerator: 'Command+L', click: () => Windows.getMainWindow().send(UI_TASKS.EDIT_TAB_URL) },
-        { type: 'separator' },
-        { label: t('menu.previousTab'), accelerator: 'Alt+Command+Left', click: () => Windows.getMainWindow().send(UI_TASKS.GOTO_PREVIOUS_TAB) },
-        { label: t('menu.nextTab'), accelerator: 'Alt+Command+Right', click: () => Windows.getMainWindow().send(UI_TASKS.GOTO_NEXT_TAB) },
-        { label: t('menu.newTab'), accelerator: 'Command+T', click: () => Windows.getMainWindow().send(UI_TASKS.OPEN_NEW_TAB) }
-      ]
-    },
-    {
       label: t('menu.developer'),
       submenu: [
-        { label: t('menu.devTools'), accelerator: 'Alt+Command+I', click: () => Windows.getMainWindow().openDevTools() },
-        { label: t('menu.activeTabDevTools'), accelerator: 'Alt+Command+U', click: () => Windows.getMainWindow().send(UI_TASKS.OPEN_ACTIVE_TAB_DEV_TOOLS) }
+        { label: t('menu.devTools'), accelerator: 'Alt+Command+I', click: () => Windows.getMainWindow().openDevTools() }
       ]
     }
   ]

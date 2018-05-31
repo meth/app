@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { globalEvents } from '../../../env'
-import KEY from '../../../../common/constants/keys'
+import IPC_UI_TASKS from '../../../../common/constants/ipcUiTasks'
 import { Popup } from '../Popup'
 import FadingView from '../FadingView'
 import CloseButton from './CloseButton'
@@ -76,7 +76,7 @@ export default class Modal extends PureComponent {
 
 
 // if user presses ESC key we want top-most modal to be dismissed
-globalEvents.on(KEY.ESCAPE, () => {
+globalEvents.on(IPC_UI_TASKS.KEY_ESCAPE, () => {
   const modal = Modal.stack[Modal.stack.length - 1]
   if (modal && modal.canBeDismissed()) {
     // only remove from list if it can be dismissed
