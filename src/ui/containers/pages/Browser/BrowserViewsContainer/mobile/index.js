@@ -38,11 +38,11 @@ export default class MobileBrowserViewsContainer extends PureComponent {
       <View style={styles.container}>
         <CoverFlow
           initialSelection={activeIndex}
+          wingSpan={38}
           spacing={150}
-          rotation={50}
+          rotation={70}
           midRotation={50}
-          scaleDown={0.95}
-          scaleFurther={0.9}
+          perspective={790}
           onChange={() => {}}
           onPress={this._onSelectCard}
         >
