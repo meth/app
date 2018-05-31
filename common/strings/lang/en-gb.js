@@ -25,6 +25,7 @@ module.exports = {
       selectAll: 'Select all',
       browser: 'Browser',
       newTab: 'Open new tab',
+      reloadTab: 'Reload current tab',
       closeTab: 'Close current tab',
       editUrl: 'Edit current tab URL',
       previousTab: 'Goto previous tab',

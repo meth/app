@@ -11,6 +11,7 @@ import {
   globalEvents,
   OPEN_ACTIVE_TAB_DEV_TOOLS,
   OPEN_NEW_TAB,
+  RELOAD_TAB,
   CLOSE_TAB,
   EDIT_TAB_URL,
   GOTO_PREVIOUS_TAB,
@@ -97,7 +98,11 @@ export default class Browser extends CachePureComponent {
           onNewTab={this.openNewTab}
         />
         <View style={styles.browserViews}>{browserViews}</View>
-        <BookmarksModal ref={this._onBookmarksModalRef} />
+        <BookmarksModal
+          ref={this._onBookmarksModalRef}
+          onEditBookmark={this.editBookmark}
+          onSelectBookmark={this.openNewTab}
+        />
       </Layout>
     )
   }
@@ -105,6 +110,7 @@ export default class Browser extends CachePureComponent {
   componentDidMount () {
     globalEvents.on(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
     globalEvents.on(OPEN_NEW_TAB, this.openNewTab)
+    globalEvents.on(RELOAD_TAB, this.reloadActiveTab)
     globalEvents.on(CLOSE_TAB, this.closeActiveTab)
     globalEvents.on(EDIT_TAB_URL, this.editActiveTabUrl)
     globalEvents.on(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
@@ -114,6 +120,7 @@ export default class Browser extends CachePureComponent {
   componentWillUnmount () {
     globalEvents.off(OPEN_ACTIVE_TAB_DEV_TOOLS, this.openActiveTabDevTools)
     globalEvents.off(OPEN_NEW_TAB, this.openNewTab)
+    globalEvents.off(RELOAD_TAB, this.reloadActiveTab)
     globalEvents.off(CLOSE_TAB, this.closeActiveTab)
     globalEvents.off(EDIT_TAB_URL, this.editActiveTabUrl)
     globalEvents.off(GOTO_PREVIOUS_TAB, this.gotoPreviousTab)
@@ -139,10 +146,14 @@ export default class Browser extends CachePureComponent {
     const tab = tabs.find(tab_ => tab_.id === id)
 
     if (tab) {
-      const { showEditBookmarkModal } = this.props.actions
-
-      showEditBookmarkModal(tab.url, tab.label)
+      this.editBookmark(tab.url, tab.label)
     }
+  }
+
+  editBookmark (url, label) {
+    const { showEditBookmarkModal } = this.props.actions
+
+    showEditBookmarkModal(url, label)
   }
 
   openNewTab = url => {
@@ -158,6 +169,12 @@ export default class Browser extends CachePureComponent {
     }, () => {
       this.onSelectTab(id)
     })
+  }
+
+  reloadActiveTab = () => {
+    if (this.activeTabView) {
+      this.activeTabView.refresh()
+    }
   }
 
   closeActiveTab = () => {
@@ -240,6 +257,13 @@ export default class Browser extends CachePureComponent {
   }
 
   onCloseTab = id => {
+    const { tabs } = this.state
+
+    // if only one tab left then don't close
+    if (1 >= tabs.length) {
+      return
+    }
+
     this._filterTabs(tab => tab.id !== id)
   }
 
@@ -268,7 +292,7 @@ export default class Browser extends CachePureComponent {
     const { tabs } = this.state
 
     const final = []
-    let newActiveIndex = -1
+    let lastActiveTabIndex = -1
 
     Object.keys(tabs).forEach(index => {
       const tab = tabs[index]
@@ -277,17 +301,19 @@ export default class Browser extends CachePureComponent {
       if (cb(tab)) {
         final.push(tab)
       }
-      // if tab was active then we may need to select a new active tab
+      // if tab was active then record its index
       else if (tab.active) {
-        newActiveIndex = index
+        lastActiveTabIndex = index
       }
     })
 
-    // if another tab should be made "active"
-    if (final.length <= newActiveIndex) {
-      newActiveIndex = final.length - 1
-      // make new tab active
-      final[newActiveIndex].active = true
+    if (0 <= lastActiveTabIndex) {
+      if (final.length <= lastActiveTabIndex) {
+        // if last tab was closed then show new last tab as active
+        final[final.length - 1].active = true
+      } else {
+        final[lastActiveTabIndex].active = true
+      }
     }
 
     this.setState({

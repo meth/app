@@ -2,6 +2,7 @@ module.exports = {
   RELOAD: 'reload',
   OPEN_ACTIVE_TAB_DEV_TOOLS: 'open-active-tab-dev-tools',
   OPEN_NEW_TAB: 'open-new-tab',
+  RELOAD_TAB: 'reload-tab',
   CLOSE_TAB: 'close-tab',
   EDIT_TAB_URL: 'edit-tab-url',
   GOTO_NEXT_TAB: 'goto-next-tab',

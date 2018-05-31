@@ -90,6 +90,10 @@ class Storage {
     return this._db.appSettings
   }
 
+  get bookmarks () {
+    return this._db.bookmarks
+  }
+
   shutdownDatabases (...dbKeys) {
     dbKeys.forEach(dbKey => {
       if (this._db[dbKey]) {

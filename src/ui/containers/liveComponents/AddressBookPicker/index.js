@@ -18,7 +18,7 @@ export default class AddressBookPicker extends PureComponent {
         title={t('modal.addressBookPicker.title')}
         {...this.props}
         options={this._getOptions()}
-        renderOption={this._renderPickerOption}
+        renderOptionText={this._renderPickerOptionText}
       />
     )
   }
@@ -34,7 +34,7 @@ export default class AddressBookPicker extends PureComponent {
     }))
   }
 
-  _renderPickerOption = ({ value, label }) => (
+  _renderPickerOptionText = ({ value, label }) => (
     <LabelledAddress
       address={value}
       label={label}

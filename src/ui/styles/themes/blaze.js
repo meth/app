@@ -266,6 +266,14 @@ export default {
       txId: {
         textColor: colorGrayDark
       }
+    },
+    bookmarks: {
+      url: {
+        textColor: colorGray
+      },
+      label: {
+        textColor: colorGrayDarker
+      }
     }
   },
   form: {
@@ -405,7 +413,7 @@ export default {
         textColor: colorGrayLight
       }
     }),
-    browserAddressBar: generateButtonStyles({
+    browserAddressInput: generateButtonStyles({
       default: {
         borderColor: colorTransparent,
         backgroundColor: colorTransparent,

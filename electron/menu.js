@@ -11,7 +11,7 @@ exports.setup = () => {
       submenu: [
         { label: t('menu.about'), selector: 'orderFrontStandardAboutPanel:' },
         { type: 'separator' },
-        { label: t('menu.reload'), accelerator: 'Command+R', click: () => Windows.getMainWindow().reload() },
+        { label: t('menu.reload'), accelerator: 'Shift+Command+R', click: () => Windows.getMainWindow().reload() },
         { type: 'separator' },
         { label: t('menu.quit'), accelerator: 'Command+Q', click: () => app.quit() }
       ]
@@ -31,6 +31,7 @@ exports.setup = () => {
     {
       label: t('menu.browser'),
       submenu: [
+        { label: t('menu.reloadTab'), accelerator: 'Command+R', click: () => Windows.getMainWindow().send(UI_TASKS.RELOAD_TAB) },
         { label: t('menu.closeTab'), accelerator: 'Command+W', click: () => Windows.getMainWindow().send(UI_TASKS.CLOSE_TAB) },
         { label: t('menu.editUrl'), accelerator: 'Command+L', click: () => Windows.getMainWindow().send(UI_TASKS.EDIT_TAB_URL) },
         { type: 'separator' },

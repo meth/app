@@ -64,7 +64,7 @@ export default class BrowserTabView extends PureComponent {
             selectTextOnFocus
           />
           <IconButton
-            type='browserAddressPanel'
+            type='browserAddressInput'
             tooltip={t('button.browser.editBookmark')}
             icon={{ name: 'star' }}
             onPress={this._onEditBookmark}

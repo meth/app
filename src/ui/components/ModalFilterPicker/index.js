@@ -152,10 +152,15 @@ export default class ModalFilterPicker extends CachePureComponent {
   )
 
   _renderRowData = row => {
-    const { renderOption } = this.props
+    const { renderOption, renderOptionText } = this.props
 
-    const value = _.get(row, 'content.value')
-    const label = _.get(row, 'content.label')
+    const content = _.get(row, 'content', {})
+
+    if (renderOption) {
+      return renderOption(content)
+    }
+
+    const { value, label } = content
 
     return (
       <Button
@@ -163,10 +168,10 @@ export default class ModalFilterPicker extends CachePureComponent {
         style={styles.tableRowDataButton}
         textStyle={styles.tableRowDataButtonText}
         onPress={this.bind(this._onSelectEntry, value)}
-        childShouldInheritTextStyle={!renderOption}
+        childShouldInheritTextStyle={!renderOptionText}
       >
-        {renderOption
-          ? renderOption(_.get(row, 'content', {}))
+        {renderOptionText
+          ? renderOptionText()
           : <Text style={styles.tableRowText}>{label}</Text>
         }
       </Button>

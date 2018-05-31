@@ -17,7 +17,7 @@ export default class AccountPicker extends PureComponent {
         {...this.props}
         ref={this._onPickerRef}
         options={this._getOptions()}
-        renderOption={this._renderPickerOption}
+        renderOptionText={this._renderPickerOptionText}
         button={{
           renderLabel: this._renderPickerButtonLabel
         }}
@@ -29,7 +29,7 @@ export default class AccountPicker extends PureComponent {
     this.picker = elem
   }
 
-  _renderPickerOption = ({ value, label }) => (
+  _renderPickerOptionText = ({ value, label }) => (
     <LabelledAddress
       address={value}
       label={label}

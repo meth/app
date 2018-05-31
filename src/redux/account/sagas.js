@@ -11,7 +11,9 @@ import {
   DELETE_ADDRESS_BOOK_ENTRY,
   ADD_CUSTOM_TOKEN,
   UPDATE_CUSTOM_TOKEN,
-  REMOVE_CUSTOM_TOKEN
+  REMOVE_CUSTOM_TOKEN,
+  SAVE_BOOKMARK,
+  DELETE_BOOKMARK
 } from './actions'
 import { createAction } from '../utils'
 import { getStore } from '../'
@@ -86,6 +88,17 @@ function* onRemoveCustomToken ({ storage }, { payload: { symbol } }) {
 }
 
 
+function* onSaveBookmark ({ storage }, { payload: { url, label } }) {
+  yield storage.bookmarks.addOrUpdate({
+    url, label
+  })
+}
+
+
+function* onDeleteBookmark ({ storage }, { payload: { url } }) {
+  yield storage.bookmarks.remove(url)
+}
+
 function* onSavePin ({ storage }) {
   const store = getStore()
 
@@ -107,6 +120,8 @@ export default app => function* saga () {
   yield takeLatest(UPDATE_CUSTOM_TOKEN, onUpdateCustomToken, app)
   yield takeLatest(REMOVE_CUSTOM_TOKEN, onRemoveCustomToken, app)
   yield takeLatest(SAVE_PIN, onSavePin, app)
+  yield takeLatest(SAVE_BOOKMARK, onSaveBookmark, app)
+  yield takeLatest(DELETE_BOOKMARK, onDeleteBookmark, app)
 }
 
 export const _privateFunctions = {

@@ -139,7 +139,7 @@ export default class ConnectNode extends CachePureComponent {
             options={options}
             selected={selected.value}
             onChange={this.onChange}
-            renderOption={this._renderPickerOption}
+            renderOptionText={this._renderPickerOptionText}
           />
         </FormWrapper>
         <AlertBox
@@ -171,7 +171,7 @@ export default class ConnectNode extends CachePureComponent {
     ]} />
   }
 
-  _renderPickerOption = ({ label, type }) => (
+  _renderPickerOptionText = ({ label, type }) => (
     <View style={styles.pickerOption}>
       <Text style={styles.pickerOptionLabelText}>{label}</Text>
       <Text style={styles.pickerOptionCategoryText}>{type}</Text>
