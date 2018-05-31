@@ -14,6 +14,7 @@ import WebView from '../WebView'
 export default class BrowserTabView extends PureComponent {
   static propTypes = {
     ...WebView.propTypes,
+    hasBookmark: PropTypes.bool,
     editDappPermissions: PropTypes.func.isRequired,
     onShowBookmarks: PropTypes.func.isRequired
   }
@@ -29,7 +30,7 @@ export default class BrowserTabView extends PureComponent {
 
   render () {
     const { url } = this.state
-    const { onShowBookmarks } = this.props
+    const { onShowBookmarks, hasBookmark } = this.props
 
     return (
       <View style={styles.container}>
@@ -69,6 +70,11 @@ export default class BrowserTabView extends PureComponent {
             icon={{ name: 'star' }}
             onPress={this._onEditBookmark}
             style={styles.bookmarkButton}
+            {...(hasBookmark ? {
+              stateOverride: {
+                buttonState: 'hover'
+              }
+            } : null)}
           />
           <IconButton
             type='browserTab'

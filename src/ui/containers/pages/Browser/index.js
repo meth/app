@@ -52,9 +52,10 @@ export default class Browser extends CachePureComponent {
   }
 
   render () {
-    const { getDappPermissions } = this.props.selectors
+    const { getDappPermissions, getBookmarks } = this.props.selectors
 
     const dappPermissions = getDappPermissions()
+    const bookmarks = getBookmarks()
 
     const tabs = _.compact(this.state.tabs)
 
@@ -62,6 +63,8 @@ export default class Browser extends CachePureComponent {
 
     const browserViews = tabs.map(tab => {
       const { id, active, url } = tab
+
+      const bookmark = bookmarks.find(({ url: bUrl }) => bUrl === url)
 
       return (
         <View key={id} style={active ? styles.activeView : styles.inactiveView}>
@@ -72,6 +75,7 @@ export default class Browser extends CachePureComponent {
               }
             }}
             url={url}
+            hasBookmark={!!bookmark}
             permissions={dappPermissions[createDappId(tab)] || DEFAULT_PERMISSIONS}
             apiMethods={apiMethods}
             editDappPermissions={this.bind(this.onEditPermissions, id)}
