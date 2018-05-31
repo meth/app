@@ -36,10 +36,12 @@ export default ({ globalEvents }) => {
     hotkeys('command+alt+left,ctrl+alt+left', () => globalEvents.emit(IPC_UI_TASKS.GOTO_PREVIOUS_TAB))
     hotkeys('esc', () => globalEvents.emit(IPC_UI_TASKS.KEY_ESCAPE))
     hotkeys('backspace', () => globalEvents.emit(IPC_UI_TASKS.KEY_BACKSPACE))
-    hotkeys('0,1,2,3,4,5,6,7,8,9', () => {
-      const keyCodes = hotkeys.getPressedKeyCodes()
-      globalEvents.emit(IPC_UI_TASKS.KEY_NUMBER, (keyCodes || [ 48 ])[0] - 48)
-    })
+    hotkeys('0,1,2,3,4,5,6,7,8,9', () => (
+      globalEvents.emit(
+        IPC_UI_TASKS.KEY_NUMBER,
+        (hotkeys.getPressedKeyCodes() || [ 48 ]).pop() - 48
+      )
+    ))
   }
 
   return { alert, openExternalUrl }
