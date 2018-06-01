@@ -592,6 +592,12 @@
     cross-spawn-promise "^0.10.1"
     fs-extra "^5.0.0"
 
+"@meth/react-native-coverflow@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@meth/react-native-coverflow/-/react-native-coverflow-0.1.7.tgz#55fafccb3c043c6757c53d0f07a315825b818283"
+  dependencies:
+    prop-types "^15.6.0"
+
 "@meth/react-navigation-redux-helpers@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@meth/react-navigation-redux-helpers/-/react-navigation-redux-helpers-1.1.1.tgz#bb2202660a531f814ab0836d359ee1422c7c5ef8"
@@ -4613,7 +4619,7 @@ fbjs-scripts@^0.8.1:
     semver "^5.1.0"
     through2 "^2.0.0"
 
-fbjs@^0.8.0, fbjs@^0.8.14, fbjs@^0.8.16, fbjs@^0.8.9:
+fbjs@^0.8.0, fbjs@^0.8.14, fbjs@^0.8.16, fbjs@^0.8.3, fbjs@^0.8.9:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -9021,12 +9027,6 @@ react-native-advanced-forms@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/react-native-advanced-forms/-/react-native-advanced-forms-1.1.6.tgz#573a2e69cc3f3e0ce1667ab70390d4605d18da48"
 
-react-native-coverflow@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/react-native-coverflow/-/react-native-coverflow-0.1.7.tgz#f9cebbeb84601bc4fd623fda05d32aeae2ba3f38"
-  dependencies:
-    prop-types "^15.6.0"
-
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-native-dismiss-keyboard/-/react-native-dismiss-keyboard-1.0.0.tgz#32886242b3f2317e121f3aeb9b0a585e2b879b49"
@@ -9139,6 +9139,12 @@ react-native-web@0.6.1:
     normalize-css-color "^1.0.2"
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.3"
+
+react-native-wkwebview-reborn@^1.20.0:
+  version "1.20.0"
+  resolved "https://registry.yarnpkg.com/react-native-wkwebview-reborn/-/react-native-wkwebview-reborn-1.20.0.tgz#15f7a097fed4b1d242933ced25b49eddb6f9499f"
+  dependencies:
+    fbjs "^0.8.3"
 
 react-native@^0.55.4:
   version "0.55.4"

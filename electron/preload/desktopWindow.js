@@ -10,7 +10,6 @@
 const { ipcRenderer, webFrame } = require('electron')
 const IPC = require('../../common/constants/ipc')
 const BACKEND_TASKS = require('../../common/constants/ipcBackendTasks')
-const UI_TASKS = require('../../common/constants/ipcUiTasks')
 const Settings = require('../settings')
 
 // fn: send IPC to backend
@@ -27,25 +26,6 @@ window.addEventListener('message', ({ data = {} }) => {
     sendIpcToBackend(task, params)
   } else {
     // do nothing, it's likely something to do with tools, e.g. webpack
-  }
-})
-
-// handle backend ipc: notify UI
-ipcRenderer.on(IPC.UI_TASK, (e, task, data) => {
-  switch (task) {
-    case UI_TASKS.RELOAD: {
-      return window.location.reload()
-    }
-    default: {
-      return webFrame.executeJavaScript(`
-        window.dispatchEvent(new CustomEvent('${IPC.UI_TASK}', {
-          detail: {
-            task: "${task}",
-            data: ${JSON.stringify(data)}
-          }
-        }));
-      `)
-    }
   }
 })
 

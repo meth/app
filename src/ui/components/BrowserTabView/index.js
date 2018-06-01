@@ -51,7 +51,7 @@ export default class BrowserTabView extends PureComponent {
         />
         <View style={styles.webView}>
           <WebView
-            {...this.props}
+            {..._.pick(this.props, Object.keys(WebView.propTypes))}
             onRedirect={this.props.onUrlChange}
             onNewTitle={this.props.onTitleChange}
             ref={this._onWebViewRef}

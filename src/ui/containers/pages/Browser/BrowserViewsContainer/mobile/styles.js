@@ -1,33 +1,28 @@
-import { create, coverParent, getWindowDimensions } from '../../../../../styles'
-
-const { width, height } = getWindowDimensions()
+import { create, coverParent } from '../../../../../styles'
 
 export default create({
-  coverFlowContainer: {
-    flex: 0,
-    height: '100%',
-    backgroundColor: '$browser_coverFlow_backgroundColor',
+
+  /* non-cover-flow mode */
+
+  container: {
+    flex: 1,
+    position: 'relative',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    paddingTop: 50,
-    position: 'relative'
+    backgroundColor: '$browser_coverFlow_backgroundColor'
   },
+  tabsButton: {
+    marginLeft: 5
+  },
+
+  /* coverflow mode */
+
   coverFlow: {
     backgroundColor: '$browser_coverFlow_backgroundColor'
   },
-  card: {
-    position: 'relative',
-    width: width * 0.5,
-    minHeight: height * 0.5
-  },
   cardBlockingOverlay: {
     ...coverParent
-  },
-  tabsButtonContainer: {
-    marginLeft: 5
-  },
-  tabsButton: {
   },
   cardsNav: {
     position: 'absolute',

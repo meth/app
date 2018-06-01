@@ -43,74 +43,8 @@ export default class Browser extends CachePureComponent {
       {
         active: true,
         id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
-      },
-      {
-        active: true,
-        id: newTabId(),
-        label: 'Meth',
-        url: 'https://meth.app'
+        label: 'Google',
+        url: 'https://google.com'
       }
     ]
   }

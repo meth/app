@@ -1,3 +1,1 @@
-import WebView from './index.ios'
-
-export default WebView
+module.exports = require('./rn')

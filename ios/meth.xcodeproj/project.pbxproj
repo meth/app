@@ -24,6 +24,7 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1E984D8B4BC946098B536295 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BA94FA1E6EC4C4A906A0FAC /* Feather.ttf */; };
 		2130BE0D20B452D2008B0A49 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BE0920B452C1008B0A49 /* libRNSVG.a */; };
+		2130BE4920C17FAF008B0A49 /* libRCTWKWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BE3420C17F9F008B0A49 /* libRCTWKWebView.a */; };
 		21A253F51FF7FFA7001CE3C2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A253F31FF7FFA7001CE3C2 /* LaunchScreen.xib */; };
 		2B4B4F3AC20A4C82A27816D6 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1C600F317E2450186877F5F /* OpenSans-LightItalic.ttf */; };
 		303DD582C9594C98807DE327 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C1A0CA5A5B47669CA05385 /* Ionicons.ttf */; };
@@ -150,6 +151,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 94DDAC5C1F3D024300EED511;
 			remoteInfo = "RNSVG-tvOS";
+		};
+		2130BE3320C17F9F008B0A49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2130BE1C20C17F9F008B0A49 /* RCTWKWebView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0974579A1D2A440A000D9368;
+			remoteInfo = RCTWKWebView;
 		};
 		2176D5601EFD596500ABEF46 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -362,6 +370,7 @@
 		14C1A0CA5A5B47669CA05385 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		1C1643E41416BB344A4DCDFC /* libPods-meth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-meth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2130BDDF20B452C0008B0A49 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
+		2130BE1C20C17F9F008B0A49 /* RCTWKWebView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWKWebView.xcodeproj; path = "../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView.xcodeproj"; sourceTree = "<group>"; };
 		21A253F41FF7FFA7001CE3C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = meth/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		21EF82F61EDB48DC00FA3413 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = meth/config.h; sourceTree = "<group>"; };
 		289EE85785014BA19A4610AD /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -409,6 +418,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2130BE4920C17FAF008B0A49 /* libRCTWKWebView.a in Frameworks */,
 				2130BE0D20B452D2008B0A49 /* libRNSVG.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
@@ -575,6 +585,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2130BE1D20C17F9F008B0A49 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2130BE3420C17F9F008B0A49 /* libRCTWKWebView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		2176D5431EFD596400ABEF46 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +642,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2130BE1C20C17F9F008B0A49 /* RCTWKWebView.xcodeproj */,
 				2130BDDF20B452C0008B0A49 /* RNSVG.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -821,6 +840,10 @@
 					ProjectRef = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
 				},
 				{
+					ProductGroup = 2130BE1D20C17F9F008B0A49 /* Products */;
+					ProjectRef = 2130BE1C20C17F9F008B0A49 /* RCTWKWebView.xcodeproj */;
+				},
+				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
@@ -935,6 +958,13 @@
 			fileType = archive.ar;
 			path = "libRNSVG-tvOS.a";
 			remoteRef = 2130BE0A20B452C1008B0A49 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2130BE3420C17F9F008B0A49 /* libRCTWKWebView.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTWKWebView.a;
+			remoteRef = 2130BE3320C17F9F008B0A49 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		2176D5611EFD596500ABEF46 /* libRNVectorIcons.a */ = {

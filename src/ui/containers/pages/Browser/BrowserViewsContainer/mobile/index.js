@@ -1,11 +1,25 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
-import CoverFlow from 'react-native-coverflow'
+import { View, Animated } from 'react-native'
+import CoverFlow from '@meth/react-native-coverflow'
 
+import { getWindowDimensions } from '../../../../../styles'
 import Button from '../../../../../components/Button'
 import IconButton from '../../../../../components/IconButton'
 import styles from './styles'
+
+
+const { width, height } = getWindowDimensions()
+
+const ANIMATION_DURATION = 100
+
+const FULLVIEW_CARD_TOP_MARGIN = 0
+const FULLVIEW_CARD_WIDTH = width
+const FULLVIEW_CARD_HEIGHT = height - 20
+
+const COVERFLOW_CARD_TOP_MARGIN = 50
+const COVERFLOW_CARD_WIDTH = width * 0.5
+const COVERFLOW_CARD_HEIGHT = height * 0.5
 
 
 export default class MobileBrowserViewsContainer extends PureComponent {
@@ -21,23 +35,24 @@ export default class MobileBrowserViewsContainer extends PureComponent {
   }
 
   state = {
-    coverFlowMode: false
+    coverFlowMode: false,
+    cardMarginTop: new Animated.Value(FULLVIEW_CARD_TOP_MARGIN),
+    cardWidth: new Animated.Value(FULLVIEW_CARD_WIDTH),
+    cardHeight: new Animated.Value(FULLVIEW_CARD_HEIGHT)
   }
 
   render () {
     const { views, activeIndex } = this.props
-    const { coverFlowMode } = this.state
+    const { coverFlowMode, cardWidth, cardHeight, cardMarginTop } = this.state
 
-    if (!coverFlowMode) {
-      return (
-        React.cloneElement(views[activeIndex].renderedChild, {
-          renderAfterAddressInput: this._renderAfterAddressInput
-        })
-      )
-    }
+    /*
+    Note: we still render all views in non-cover-flow mode to prevent React
+    from re-mounting them when switching between coverflow and non-coverflow
+    (see https://github.com/reactjs/rfcs/pull/34)
+    */
 
     return (
-      <View style={styles.coverFlowContainer}>
+      <View style={styles.container}>
         <CoverFlow
           style={styles.coverFlow}
           initialSelection={activeIndex}
@@ -48,15 +63,28 @@ export default class MobileBrowserViewsContainer extends PureComponent {
           perspective={790}
           onChange={this._onChangeCard}
           onPress={this._onSelectCard}
+          disableInteraction={!coverFlowMode}
         >
-          {views.map(({ id, renderedChild }) => (
-            <View key={id} style={styles.card}>
-              {renderedChild}
-              <View style={styles.cardBlockingOverlay} />
-            </View>
+          {views.map(({ id, renderedChild }, index) => (
+            <Animated.View
+              key={id}
+              style={{
+                position: 'relative',
+                top: cardMarginTop,
+                width: cardWidth,
+                height: cardHeight
+              }}
+            >
+              {React.cloneElement(renderedChild, {
+                renderAfterAddressInput: (index === activeIndex && !coverFlowMode)
+                  ? this._renderAfterAddressInput
+                  : null
+              })}
+              {coverFlowMode ? <View style={styles.cardBlockingOverlay} /> : null}
+            </Animated.View>
           ))}
         </CoverFlow>
-        {this._renderCoverFlowNav()}
+        {coverFlowMode ? this._renderCoverFlowNav() : null}
       </View>
     )
   }
@@ -93,14 +121,12 @@ export default class MobileBrowserViewsContainer extends PureComponent {
     const { views } = this.props
 
     return (
-      <View style={styles.tabsButtonContainer}>
-        <Button
-          style={styles.tabsButton}
-          type='textWithBorder'
-          title={`${views.length}`}
-          onPress={this._showCoverFlow}
-        />
-      </View>
+      <Button
+        style={styles.tabsButton}
+        type='textWithBorder'
+        title={`${views.length}`}
+        onPress={this._showCoverFlow}
+      />
     )
   }
 
@@ -110,6 +136,12 @@ export default class MobileBrowserViewsContainer extends PureComponent {
     this.setState({
       coverFlowMode: true,
       coverFlowIndex: activeIndex
+    }, () => {
+      this._animateCardDimensions(
+        COVERFLOW_CARD_TOP_MARGIN,
+        COVERFLOW_CARD_WIDTH,
+        COVERFLOW_CARD_HEIGHT
+      )
     })
   }
 
@@ -124,9 +156,16 @@ export default class MobileBrowserViewsContainer extends PureComponent {
 
     onSelect(views[index].id)
 
-    this.setState({
-      coverFlowMode: false
-    })
+    this._animateCardDimensions(
+      FULLVIEW_CARD_TOP_MARGIN,
+      FULLVIEW_CARD_WIDTH,
+      FULLVIEW_CARD_HEIGHT,
+      () => {
+        this.setState({
+          coverFlowMode: false
+        })
+      }
+    )
   }
 
   _onClose = () => {
@@ -134,5 +173,24 @@ export default class MobileBrowserViewsContainer extends PureComponent {
     const { views, onClose } = this.props
 
     onClose(views[coverFlowIndex].id)
+  }
+
+  _animateCardDimensions (newMarginTop, newWidth, newHeight, cb) {
+    const { cardWidth, cardHeight, cardMarginTop } = this.state
+
+    Animated.parallel([
+      Animated.timing(cardMarginTop, {
+        toValue: newMarginTop,
+        duration: ANIMATION_DURATION
+      }),
+      Animated.timing(cardWidth, {
+        toValue: newWidth,
+        duration: ANIMATION_DURATION
+      }),
+      Animated.timing(cardHeight, {
+        toValue: newHeight,
+        duration: ANIMATION_DURATION
+      })
+    ]).start(cb)
   }
 }

@@ -70,6 +70,7 @@
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.1",
+    "@meth/react-native-coverflow": "^0.1.7",
     "@meth/react-navigation-redux-helpers": "^1.1.1",
     "@meth/sjcl": "^1.0.7",
     "add-asset-html-webpack-plugin": "^2.1.0",
@@ -145,7 +146,6 @@
     "react-hot-loader": "next",
     "react-native": "^0.55.4",
     "react-native-advanced-forms": "^1.1.6",
-    "react-native-coverflow": "^0.1.7",
     "react-native-dropdown": "0.0.6",
     "react-native-extended-stylesheet": "^0.6.0",
     "react-native-qrcode-svg": "^5.0.6",
@@ -157,6 +157,7 @@
     "react-native-tabs": "^1.0.9",
     "react-native-vector-icons": "^4.6.0",
     "react-native-web": "0.6.1",
+    "react-native-wkwebview-reborn": "^1.20.0",
     "react-navigation": "^2.0.1",
     "react-navigation-redux-helpers": "^1.1.1",
     "react-proxy": "^1.1.8",
