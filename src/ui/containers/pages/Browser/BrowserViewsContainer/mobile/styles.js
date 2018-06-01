@@ -35,7 +35,7 @@ export default create({
   closeButton: {
     width: 40,
     height: 36,
-    marginBottom: 50,
+    marginBottom: 30,
     borderRadius: 40
   },
   navDots: {

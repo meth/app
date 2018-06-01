@@ -11,15 +11,12 @@ import styles from './styles'
 
 const { width, height } = getWindowDimensions()
 
-const ANIMATION_DURATION = 100
-
-const FULLVIEW_CARD_TOP_MARGIN = 0
-const FULLVIEW_CARD_WIDTH = width
-const FULLVIEW_CARD_HEIGHT = height - 20
-
-const COVERFLOW_CARD_TOP_MARGIN = 50
-const COVERFLOW_CARD_WIDTH = width * 0.5
-const COVERFLOW_CARD_HEIGHT = height * 0.5
+const ANIMATION_CONFIG = {
+  duration: 100,
+  useNativeDriver: true
+}
+const CARD_WIDTH = width
+const CARD_HEIGHT = height - 20
 
 
 export default class MobileBrowserViewsContainer extends PureComponent {
@@ -36,14 +33,13 @@ export default class MobileBrowserViewsContainer extends PureComponent {
 
   state = {
     coverFlowMode: false,
-    cardMarginTop: new Animated.Value(FULLVIEW_CARD_TOP_MARGIN),
-    cardWidth: new Animated.Value(FULLVIEW_CARD_WIDTH),
-    cardHeight: new Animated.Value(FULLVIEW_CARD_HEIGHT)
+    cardScale: new Animated.Value(1),
+    cardTranslateY: new Animated.Value(0)
   }
 
   render () {
     const { views, activeIndex } = this.props
-    const { coverFlowMode, cardWidth, cardHeight, cardMarginTop } = this.state
+    const { coverFlowMode, cardScale, cardTranslateY } = this.state
 
     /*
     Note: we still render all views in non-cover-flow mode to prevent React
@@ -70,9 +66,12 @@ export default class MobileBrowserViewsContainer extends PureComponent {
               key={id}
               style={{
                 position: 'relative',
-                top: cardMarginTop,
-                width: cardWidth,
-                height: cardHeight
+                width: CARD_WIDTH,
+                height: CARD_HEIGHT,
+                transform: [
+                  { scale: cardScale },
+                  { translateY: cardTranslateY }
+                ]
               }}
             >
               {React.cloneElement(renderedChild, {
@@ -137,11 +136,7 @@ export default class MobileBrowserViewsContainer extends PureComponent {
       coverFlowMode: true,
       coverFlowIndex: activeIndex
     }, () => {
-      this._animateCardDimensions(
-        COVERFLOW_CARD_TOP_MARGIN,
-        COVERFLOW_CARD_WIDTH,
-        COVERFLOW_CARD_HEIGHT
-      )
+      this._animateCardDimensions(0.5, -100)
     })
   }
 
@@ -156,16 +151,11 @@ export default class MobileBrowserViewsContainer extends PureComponent {
 
     onSelect(views[index].id)
 
-    this._animateCardDimensions(
-      FULLVIEW_CARD_TOP_MARGIN,
-      FULLVIEW_CARD_WIDTH,
-      FULLVIEW_CARD_HEIGHT,
-      () => {
-        this.setState({
-          coverFlowMode: false
-        })
-      }
-    )
+    this._animateCardDimensions(1, 0, () => {
+      this.setState({
+        coverFlowMode: false
+      })
+    })
   }
 
   _onClose = () => {
@@ -175,21 +165,17 @@ export default class MobileBrowserViewsContainer extends PureComponent {
     onClose(views[coverFlowIndex].id)
   }
 
-  _animateCardDimensions (newMarginTop, newWidth, newHeight, cb) {
-    const { cardWidth, cardHeight, cardMarginTop } = this.state
+  _animateCardDimensions (newScale, newTranslateY, cb) {
+    const { cardScale, cardTranslateY } = this.state
 
     Animated.parallel([
-      Animated.timing(cardMarginTop, {
-        toValue: newMarginTop,
-        duration: ANIMATION_DURATION
+      Animated.timing(cardScale, {
+        toValue: newScale,
+        ...ANIMATION_CONFIG
       }),
-      Animated.timing(cardWidth, {
-        toValue: newWidth,
-        duration: ANIMATION_DURATION
-      }),
-      Animated.timing(cardHeight, {
-        toValue: newHeight,
-        duration: ANIMATION_DURATION
+      Animated.timing(cardTranslateY, {
+        toValue: newTranslateY,
+        ...ANIMATION_CONFIG
       })
     ]).start(cb)
   }
