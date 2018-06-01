@@ -4,6 +4,7 @@ import { View } from 'react-native'
 import CoverFlow from 'react-native-coverflow'
 
 import Button from '../../../../../components/Button'
+import IconButton from '../../../../../components/IconButton'
 import styles from './styles'
 
 
@@ -15,7 +16,8 @@ export default class MobileBrowserViewsContainer extends PureComponent {
       renderedChild: PropTypes.element
     })),
     style: PropTypes.any,
-    onSelectView: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
   }
 
   state = {
@@ -35,23 +37,54 @@ export default class MobileBrowserViewsContainer extends PureComponent {
     }
 
     return (
-      <View style={styles.container}>
+      <View style={styles.coverFlowContainer}>
         <CoverFlow
+          style={styles.coverFlow}
           initialSelection={activeIndex}
           wingSpan={38}
           spacing={150}
           rotation={70}
           midRotation={50}
           perspective={790}
-          onChange={() => {}}
+          onChange={this._onChangeCard}
           onPress={this._onSelectCard}
         >
           {views.map(({ id, renderedChild }) => (
             <View key={id} style={styles.card}>
               {renderedChild}
+              <View style={styles.cardBlockingOverlay} />
             </View>
           ))}
         </CoverFlow>
+        {this._renderCoverFlowNav()}
+      </View>
+    )
+  }
+
+  _renderCoverFlowNav () {
+    const { coverFlowIndex } = this.state
+    const { views } = this.props
+
+    const dots = []
+    for (let i = 0; views.length > i; i += 1) {
+      dots.push(
+        <View
+          key={i}
+          style={[ styles.navDot ].concat(coverFlowIndex === i ? styles.activeNavDot : null)}
+        />
+      )
+    }
+
+    return (
+      <View style={styles.cardsNav}>
+        <IconButton
+          style={styles.closeButton}
+          onPress={this._onClose}
+          icon={{ name: 'close' }}
+        />
+        <View style={styles.navDots}>
+          {dots}
+        </View>
       </View>
     )
   }
@@ -62,6 +95,7 @@ export default class MobileBrowserViewsContainer extends PureComponent {
     return (
       <View style={styles.tabsButtonContainer}>
         <Button
+          style={styles.tabsButton}
           type='textWithBorder'
           title={`${views.length}`}
           onPress={this._showCoverFlow}
@@ -71,18 +105,34 @@ export default class MobileBrowserViewsContainer extends PureComponent {
   }
 
   _showCoverFlow = () => {
+    const { activeIndex } = this.props
+
     this.setState({
-      coverFlowMode: true
+      coverFlowMode: true,
+      coverFlowIndex: activeIndex
+    })
+  }
+
+  _onChangeCard = index => {
+    this.setState({
+      coverFlowIndex: index
     })
   }
 
   _onSelectCard = index => {
-    const { onSelectView, views } = this.props
+    const { onSelect, views } = this.props
 
-    onSelectView(views[index].id)
+    onSelect(views[index].id)
 
     this.setState({
       coverFlowMode: false
     })
+  }
+
+  _onClose = () => {
+    const { coverFlowIndex } = this.state
+    const { views, onClose } = this.props
+
+    onClose(views[coverFlowIndex].id)
   }
 }

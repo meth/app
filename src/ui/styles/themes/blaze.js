@@ -200,6 +200,17 @@ export default {
     navBar: {
       borderBottomColor: colorGrayLight,
       backgroundColor: colorGrayLighter
+    },
+    coverFlow: {
+      backgroundColor: colorGrayDark,
+      navDot: {
+        default: {
+          backgroundColor: colorGrayLight
+        },
+        active: {
+          backgroundColor: colorGrayDarkest
+        }
+      }
     }
   },
   alert: {

@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 
-const WebView = () => <View />
-
-export default WebView
+export default class WebView extends PureComponent {
+  render () {
+    return <View />
+  }
+}

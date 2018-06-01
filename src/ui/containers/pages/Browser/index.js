@@ -132,7 +132,8 @@ export default class Browser extends CachePureComponent {
           style={styles.browserViews}
           activeIndex={activeIndex}
           views={this._buildViews()}
-          onSelectView={this.onSelectTab}
+          onSelect={this.onSelectTab}
+          onClose={this.onCloseTab}
         >
         </BrowserViewsContainer>
         <BookmarksModal
