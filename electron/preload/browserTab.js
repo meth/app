@@ -5,7 +5,6 @@
  */
 const { ipcRenderer: ipc } = require('electron')
 const IPC = require('../../common/constants/ipc')
-const API = require('../../common/constants/api')
 
 
 
@@ -50,8 +49,6 @@ ipc.on(IPC.WEBVIEW, (e, { id, error, response }) => {
 
 /* Setup web3 */
 
-const Web3 = require('web3')
-
 class Web3IpcProvider {
   isConnected () {
     return true
@@ -76,15 +73,6 @@ class Web3IpcProvider {
   }
 }
 
-window.web3 = new Web3(new Web3IpcProvider())
-
-/* Meth API */
-
-window.DappBrowser = Object.keys(API).reduce((ret, command) => {
-  // eslint-disable-next-line no-param-reassign
-  ret[API[command]] = params => sendIpc(IPC.API, {
-    command,
-    params
-  })
-  return ret
-}, {})
+window.web3 = {
+  currentProvider: new Web3IpcProvider()
+}

@@ -1,3 +1,1 @@
-import getRandomBytes from './index.ios'
-
-export default getRandomBytes
+module.exports = require('./index.ios')

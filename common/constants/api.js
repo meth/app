@@ -1,2 +1,4 @@
 /* ID: methodName */
-module.exports = {}
+module.exports = {
+  WEB3_REQUEST: 'web3Request'
+}

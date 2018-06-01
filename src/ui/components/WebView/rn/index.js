@@ -1,9 +1,14 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import WebView from 'react-native-wkwebview-reborn'
+import { WebView } from 'react-native'
+// import WebView from 'react-native-wkwebview-reborn'
 
-import IPC from '../../../../../common/constants/ipc'
+import Logger from '../../../../logger'
+import jsToInject from './preload'
 import { handleWebViewIpcRequest } from '../ipcHandlers'
+
+const log = Logger.create('RnWebView')
 
 export default class RnWebView extends PureComponent {
   static propTypes = {
@@ -29,6 +34,7 @@ export default class RnWebView extends PureComponent {
           width: '100%',
           height: '100%'
         }}
+        injectedJavaScript={jsToInject()}
         openNewWindowInWebView={true}
         onError={this.onLoadingError}
         onLoadStart={this.onLoading}
@@ -56,8 +62,26 @@ export default class RnWebView extends PureComponent {
   onLoadingError = () => {
     this.props.onLoadingError()
   }
-  onMessage = (...args) => {
-    console.warn('msg', args)
+  onMessage = ev => {
+    try {
+      const { id, type, payload } = JSON.parse(_.get(ev, 'nativeEvent.data', '{}'))
+
+      const { permissions, apiMethods } = this.props
+
+      handleWebViewIpcRequest(type, payload, { permissions, apiMethods })
+        .then(response => {
+          this._sendToWebView({ id, response })
+        })
+        .catch(err => {
+          this._sendToWebView({ id, error: err.toString() })
+        })
+    } catch (err) {
+      log.warn(err)
+    }
+  }
+
+  _sendToWebView (data) {
+    this.webView.injectJavaScript(`window.handleIpcResponse(${JSON.stringify(data)});`)
   }
 
   /* public methods */
