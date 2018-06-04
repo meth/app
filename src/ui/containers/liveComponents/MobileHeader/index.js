@@ -17,13 +17,12 @@ export default class MobileHeader extends PureComponent {
     this.props.scene.descriptor.options = Object.assign(
       this.props.scene.descriptor.options, {
         headerLeft: this._renderMenuButton(),
+        headerRight: this._renderHeaderRight(this.props.scene.descriptor),
         headerTitle: _.get(routes, `${routeName}.screen.navigationOptions.title`, '')
       }
     )
 
-    return (
-      <Header {...this.props} />
-    )
+    return <Header {...this.props} />
   }
 
   _renderMenuButton () {
@@ -34,6 +33,18 @@ export default class MobileHeader extends PureComponent {
         onPress={this._onToggleMenu}
       />
     )
+  }
+
+  _renderHeaderRight ({ state }) {
+    const { routeName } = state.routes[state.index] || {}
+
+    if (routeName) {
+      const HeaderRightComponent = _.get(routes, `${routeName}.screen.navigationOptions.headerRightComponent`)
+
+      return <HeaderRightComponent />
+    }
+
+    return null
   }
 
   _onToggleMenu = () => {

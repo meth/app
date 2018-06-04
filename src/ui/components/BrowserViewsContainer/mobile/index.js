@@ -4,9 +4,9 @@ import { View, Animated } from 'react-native'
 import CoverFlow from '@meth/react-native-coverflow'
 import { Header } from 'react-navigation'
 
-import { getWindowDimensions } from '../../../../../styles'
-import Button from '../../../../../components/Button'
-import IconButton from '../../../../../components/IconButton'
+import { getWindowDimensions } from '../../../styles'
+import Button from '../../Button'
+import IconButton from '../../IconButton'
 import styles from './styles'
 
 

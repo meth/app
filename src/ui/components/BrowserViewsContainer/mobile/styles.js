@@ -1,4 +1,4 @@
-import { create, coverParent } from '../../../../../styles'
+import { create, coverParent } from '../../../styles'
 
 export default create({
 
