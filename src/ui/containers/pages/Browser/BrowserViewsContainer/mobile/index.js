@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { View, Animated } from 'react-native'
 import CoverFlow from '@meth/react-native-coverflow'
+import { Header } from 'react-navigation'
 
 import { getWindowDimensions } from '../../../../../styles'
 import Button from '../../../../../components/Button'
@@ -16,7 +17,7 @@ const ANIMATION_CONFIG = {
   useNativeDriver: true
 }
 const CARD_WIDTH = width
-const CARD_HEIGHT = height - 20
+const CARD_HEIGHT = height - Header.HEIGHT
 
 
 export default class MobileBrowserViewsContainer extends PureComponent {
