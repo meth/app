@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import styles from './styles'
 import TextInput from '../../../TextInput'
+import BrowserTabMenu from '../../../BrowserTabMenu'
 
 
 export default class NavBar extends PureComponent {
@@ -14,6 +15,9 @@ export default class NavBar extends PureComponent {
     hasBookmark: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    onRefresh: PropTypes.func.isRequired,
+    onEditBookmark: PropTypes.func.isRequired,
+    onShowBookmarks: PropTypes.func.isRequired,
     renderAfterAddressInput: PropTypes.func
   }
 
@@ -24,7 +28,11 @@ export default class NavBar extends PureComponent {
       url,
       onChange,
       onSubmit,
-      renderAfterAddressInput
+      renderAfterAddressInput,
+      onRefresh,
+      onEditBookmark,
+      onShowBookmarks,
+      hasBookmark
     } = this.props
 
     return (
@@ -38,6 +46,13 @@ export default class NavBar extends PureComponent {
           selectTextOnFocus
         />
         {renderAfterAddressInput ? renderAfterAddressInput() : null}
+        <BrowserTabMenu
+          style={styles.tabMenu}
+          onRefresh={onRefresh}
+          hasBookmark={hasBookmark}
+          onEditBookmark={onEditBookmark}
+          onShowBookmarks={onShowBookmarks}
+        />
       </View>
     )
   }

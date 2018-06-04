@@ -1,1 +1,1 @@
-module.exports = require('./index.ios')
+module.exports = require('./mobile')

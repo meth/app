@@ -141,7 +141,8 @@ module.exports = {
         newTab: 'Open new tab',
         closeTab: 'Close tab',
         showBookmarks: 'Show bookmarks',
-        editBookmark: 'Edit bookmark'
+        editBookmark: 'Edit bookmark',
+        addBookmark: 'Add bookmark'
       }
     },
     title: {

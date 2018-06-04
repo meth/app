@@ -211,6 +211,11 @@ export default {
           backgroundColor: colorGrayDarkest
         }
       }
+    },
+    mobileMenu: {
+      backgroundColor: colorWhite,
+      shadowColor: colorGrayDarker,
+      optionBorderColor: colorGrayLight
     }
   },
   alert: {

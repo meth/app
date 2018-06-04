@@ -35,13 +35,15 @@ export default class MobileHeader extends PureComponent {
     )
   }
 
-  _renderHeaderRight ({ state }) {
-    const { routeName } = state.routes[state.index] || {}
+  _renderHeaderRight ({ state } = {}) {
+    const { routeName } = state.routes[state.index]
 
     if (routeName) {
       const HeaderRightComponent = _.get(routes, `${routeName}.screen.navigationOptions.headerRightComponent`)
 
-      return <HeaderRightComponent />
+      if (HeaderRightComponent) {
+        return <HeaderRightComponent />
+      }
     }
 
     return null

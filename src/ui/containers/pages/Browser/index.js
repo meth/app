@@ -13,7 +13,6 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
 import BrowserViewsContainer from '../../../components/BrowserViewsContainer'
-import BrowserTabMenu from '../../../components/BrowserTabMenu'
 import BrowserTabBar from '../../../components/BrowserTabBar'
 import BrowserTabView from '../../../components/BrowserTabView'
 import BookmarksModal from '../../modals/Bookmarks'
@@ -30,8 +29,7 @@ const API_METHOD_NAMES = Object.values(API)
 export default class Browser extends CachePureComponent {
   static navigationOptions = {
     drawerLabel: t('title.browser'),
-    title: t('title.browser'),
-    headerRightComponent: BrowserTabMenu
+    title: t('title.browser')
   }
 
   state = {
