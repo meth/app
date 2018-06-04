@@ -128,7 +128,14 @@ export default class Database {
   async _remove (_id) {
     this._log.debug('remove doc', _id)
 
-    return this._db.remove(_id)
+    let existing
+    try {
+      existing = await this._db.get(_id)
+    } catch (__) {
+      return 0
+    }
+
+    return this._db.remove(existing)
   }
 
   async _encrypt (data) {
