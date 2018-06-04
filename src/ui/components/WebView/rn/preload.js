@@ -1,5 +1,5 @@
-/* eslint-disable */
 import IPC from '../../../../../common/constants/ipc'
+import { isAndroid } from '../../../../utils/deviceInfo'
 
 export default () => `
 (function () {
@@ -13,7 +13,13 @@ export default () => `
     })
 
     try {
-      window.postMessage(JSON.stringify({ id, type, payload }), '*')
+      const msg = JSON.stringify({ id, type, payload })
+
+      if (${isAndroid}) {
+        window.postMessage(msg, '*')
+      } else {
+        window.webkit.messageHandlers.reactNative.postMessage(msg, '*')
+      }
     } catch (err) {
       alert(err)
     }
@@ -21,7 +27,7 @@ export default () => `
     return promise
   }
 
-  window.handleIpcResponse = obj => {
+  window.receivedMessageFromReactNative = obj => {
     try {
       const { id, error, response } = obj
 
@@ -71,4 +77,3 @@ export default () => `
   }
 })()
 `
-/* eslint-enable */

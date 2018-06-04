@@ -1,12 +1,11 @@
 import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { WebView } from 'react-native'
-// import WebView from 'react-native-wkwebview-reborn'
 
+import WebView from './component'
 import Logger from '../../../../logger'
-import jsToInject from './preload'
 import { handleWebViewIpcRequest } from '../ipcHandlers'
+import preloadJs from './preload'
 
 const log = Logger.create('RnWebView')
 
@@ -29,18 +28,12 @@ export default class RnWebView extends PureComponent {
     return (
       <WebView
         ref={this._onWebViewRef}
-        source={{ uri: url }}
-        style={{
-          width: '100%',
-          height: '100%'
-        }}
-        injectedJavaScript={jsToInject()}
-        openNewWindowInWebView={true}
-        onError={this.onLoadingError}
-        onLoadStart={this.onLoading}
-        onLoad={this.onLoading}
-        onLoadEnd={this.onLoaded}
-        onNavigationStateChange={this.onNavigate}
+        url={url}
+        jsToInject={preloadJs()}
+        onLoadingError={this.onLoadingError}
+        onLoading={this.onLoading}
+        onLoaded={this.onLoaded}
+        onNavigate={this.onNavigate}
         onMessage={this.onMessage}
       />
     )
@@ -81,7 +74,7 @@ export default class RnWebView extends PureComponent {
   }
 
   _sendToWebView (data) {
-    this.webView.injectJavaScript(`window.handleIpcResponse(${JSON.stringify(data)});`)
+    this.webView.inject(`window.receivedMessageFromReactNative(${JSON.stringify(data)});`)
   }
 
   /* public methods */
