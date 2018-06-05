@@ -54,11 +54,13 @@ export default class MobileBrowserViewsContainer extends PureComponent {
           ref={this._onCoverFlowRef}
           style={styles.coverFlow}
           initialSelection={activeIndex}
-          wingSpan={coverFlowMode ? 38 : width}
+          wingSpan={38}
+          /* When adding a new tab and programmatically showing it we will see other cards
+          - to avoid this we increase spacing in non-coverflow mode */
           spacing={coverFlowMode ? 150 : width}
-          rotation={coverFlowMode ? 70 : 0}
-          midRotation={coverFlowMode ? 50 : 0}
-          perspective={coverFlowMode ? 790 : 1}
+          rotation={70}
+          midRotation={50}
+          perspective={790}
           onChange={this._onChangeCard}
           onPress={this._onSelectCard}
           disableInteraction={!coverFlowMode}
@@ -120,11 +122,13 @@ export default class MobileBrowserViewsContainer extends PureComponent {
 
     return (
       <View style={styles.cardsNav}>
-        <IconButton
-          style={styles.closeButton}
-          onPress={this._onClose}
-          icon={{ name: 'close' }}
-        />
+        {(1 < views.length) ? (
+          <IconButton
+            style={styles.closeButton}
+            onPress={this._onClose}
+            icon={{ name: 'close' }}
+          />
+        ) : null}
         <View style={styles.navDots}>
           {dots}
         </View>
@@ -175,8 +179,12 @@ export default class MobileBrowserViewsContainer extends PureComponent {
   }
 
   _onClose = () => {
-    const { coverFlowIndex } = this.state
+    let { coverFlowIndex } = this.state
     const { views, onClose } = this.props
+
+    if (coverFlowIndex >= views.length) {
+      coverFlowIndex = views.length - 1
+    }
 
     onClose(views[coverFlowIndex].id)
   }

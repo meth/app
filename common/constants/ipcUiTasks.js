@@ -11,5 +11,6 @@ module.exports = {
   GOTO_NEXT_TAB: 'goto-next-tab',
   GOTO_PREVIOUS_TAB: 'goto-previous-tab',
   APP_ACTIVE: 'app-active',
-  APP_INACTIVE: 'app-inactive'
+  APP_INACTIVE: 'app-inactive',
+  TOGGLE_DRAWER: 'toggle-drawer'
 }

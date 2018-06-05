@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
-import { SafeAreaView, View, Text } from 'react-native'
+import { View, Text } from 'react-native'
 
 import { t } from '../../../../../common/strings'
 import { CachePureComponent } from '../../../helpers/components'
@@ -55,7 +55,7 @@ export default class MobileDrawer extends CachePureComponent {
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
       >
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
           <View style={styles.topItems}>
             {pages}
           </View>
@@ -64,7 +64,7 @@ export default class MobileDrawer extends CachePureComponent {
             {this._renderLogButton()}
             {this._renderLogoutButton()}
           </View>
-        </SafeAreaView>
+        </View>
       </ScrollView>
     )
   }

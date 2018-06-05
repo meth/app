@@ -4,7 +4,8 @@ import { Animated } from 'react-native'
 
 export default class FadingView extends PureComponent {
   static propTypes = {
-    duration: PropTypes.number
+    duration: PropTypes.number,
+    onPress: PropTypes.func
   }
 
   static defaultProps = {

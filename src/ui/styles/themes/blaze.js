@@ -215,7 +215,10 @@ export default {
     mobileMenu: {
       backgroundColor: colorWhite,
       shadowColor: colorGrayDarker,
-      optionBorderColor: colorGrayLighter
+      option: {
+        borderColor: colorGrayLighter,
+        textColor: colorGrayDarker
+      }
     }
   },
   alert: {

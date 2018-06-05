@@ -4,12 +4,17 @@ import { View } from 'react-native'
 import { Header } from 'react-navigation'
 
 import { t } from '../../../../../common/strings'
+import IPC_UI_TASKS from '../../../../../common/constants/ipcUiTasks'
+import { globalEvents } from '../../../../env'
 import IconButton from '../../IconButton'
+import ExpandingView from '../../ExpandingView'
 import TouchableView from '../../TouchableView'
 import Icon from '../../Icon'
 import IconText from '../../IconText'
 import { Popup } from '../../Popup'
 import styles from './styles'
+import { getWindowDimensions } from '../../../styles'
+
 
 
 export default class BrowserTabMenu extends PureComponent {
@@ -41,55 +46,70 @@ export default class BrowserTabMenu extends PureComponent {
         />
         {(!open) ? null : (
           <Popup style={popupStyle}>
-            <View style={styles.menuContainer}>
-              <View style={styles.option}>
-                <TouchableView onPress={this._refresh} style={styles.iconButton}>
-                  <Icon
-                    name='refresh'
-                    style={styles.iconButtonText}
+            <TouchableView style={styles.menuOverlay} onPress={this._onToggleMenu}>
+              <ExpandingView style={styles.menuContainer}>
+                <View style={styles.option}>
+                  <TouchableView onPress={this._refresh} style={styles.iconButton}>
+                    <Icon
+                      name='refresh'
+                      style={styles.iconButtonText}
+                    />
+                  </TouchableView>
+                  <TouchableView onPress={this._onEditBookmark} style={styles.iconButton}>
+                    <Icon
+                      name={hasBookmark ? 'star' : 'star-o'}
+                      style={styles.iconButtonText}
+                    />
+                  </TouchableView>
+                </View>
+                <TouchableView
+                  style={styles.option}
+                  hoverStyle={styles.optionHover}
+                  onPress={this._onNewWindow}
+                >
+                  <IconText
+                    icon={{ name: 'tab' }}
+                    text={t('button.browser.newTab')}
+                    textStyle={styles.optionText}
                   />
                 </TouchableView>
-                <TouchableView onPress={this._onEditBookmark} style={styles.iconButton}>
-                  <Icon
-                    name={hasBookmark ? 'star' : 'star-o'}
-                    style={styles.iconButtonText}
+                <TouchableView
+                  style={styles.option}
+                  hoverStyle={styles.optionHover}
+                  onPress={this._onShowBookmarks}
+                >
+                  <IconText
+                    icon={{ name: 'md-bookmarks' }}
+                    text={t('button.browser.bookmarks')}
+                    textStyle={styles.optionText}
                   />
                 </TouchableView>
-              </View>
-              <TouchableView
-                style={styles.option}
-                hoverStyle={styles.optionHover}
-                onPress={this._onNewWindow}
-              >
-                <IconText
-                  icon={{ name: 'tab' }}
-                  text={t('button.browser.newTab')}
-                  textStyle={styles.optionText}
-                />
-              </TouchableView>
-              <TouchableView
-                style={styles.option}
-                hoverStyle={styles.optionHover}
-                onPress={this._onShowBookmarks}
-              >
-                <IconText
-                  icon={{ name: 'md-bookmarks' }}
-                  text={t('button.browser.bookmarks')}
-                  textStyle={styles.optionText}
-                />
-              </TouchableView>
-            </View>
+              </ExpandingView>
+            </TouchableView>
           </Popup>
         )}
       </View>
     )
   }
 
-  _onLayout = ({ nativeEvent: { layout: { y, height } } }) => {
+  componentDidMount () {
+    globalEvents.on(IPC_UI_TASKS.TOGGLE_DRAWER, this._onCloseMenu)
+  }
+
+  componentWillUnmount () {
+    globalEvents.off(IPC_UI_TASKS.TOGGLE_DRAWER, this._onCloseMenu)
+  }
+
+  _onLayout = (/* { nativeEvent: { layout: { y, height } } } */) => {
+    const { width: devWidth, height: devHeight } = getWindowDimensions()
+    const top = Header.HEIGHT
+
     this.setState({
       popupStyle: {
-        top: y + height + Header.HEIGHT,
-        right: 0
+        top,
+        right: 0,
+        width: devWidth,
+        height: devHeight - top
       }
     })
   }
@@ -97,6 +117,12 @@ export default class BrowserTabMenu extends PureComponent {
   _onToggleMenu = () => {
     this.setState({
       open: !this.state.open
+    })
+  }
+
+  _onCloseMenu = () => {
+    this.setState({
+      open: false
     })
   }
 

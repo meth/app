@@ -1,4 +1,4 @@
-import { create, value, fontMaker, dropShadower } from '../../../styles'
+import { create, fontMaker } from '../../../styles'
 
 const text = {
   ...fontMaker(),
@@ -7,9 +7,15 @@ const text = {
 
 export default create({
   // $outline: 1,
+  menuOverlay: {
+    flex: 1,
+    backgroundColor: '$modal_overlay_backgroundColor',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end'
+  },
   menuContainer: {
-    backgroundColor: '$browser_mobileMenu_backgroundColor',
-    ...dropShadower(1, 0, 0, value('$browser_mobileMenu_shadowColor'))
+    backgroundColor: '$browser_mobileMenu_backgroundColor'
   },
   button: {
     paddingHorizontal: 3,
@@ -29,7 +35,7 @@ export default create({
     paddingVertical: 7,
     paddingHorizontal: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '$browser_mobileMenu_optionBorderColor',
+    borderBottomColor: '$browser_mobileMenu_option_borderColor',
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center'
@@ -37,6 +43,7 @@ export default create({
   optionText: {
     ...text,
     textAlign: 'left',
-    marginLeft: 10
+    marginLeft: 10,
+    color: '$browser_mobileMenu_option_textColor'
   }
 })
