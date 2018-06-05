@@ -31,7 +31,7 @@ export default class BrowserTabView extends PureComponent {
 
   render () {
     const { url } = this.state
-    const { onShowBookmarks, hasBookmark, renderAfterAddressInput } = this.props
+    const { onShowBookmarks, onOpenNewWindow, hasBookmark, renderAfterAddressInput } = this.props
 
     return (
       <View style={styles.container}>
@@ -47,6 +47,7 @@ export default class BrowserTabView extends PureComponent {
           onSubmit={this.onEnterUrl}
           onEditBookmark={this._onEditBookmark}
           onShowBookmarks={onShowBookmarks}
+          onOpenNewWindow={onOpenNewWindow}
           renderAfterAddressInput={renderAfterAddressInput}
         />
         <View style={styles.webView}>

@@ -6,6 +6,7 @@ import { Header } from 'react-navigation'
 import { t } from '../../../../../common/strings'
 import IconButton from '../../IconButton'
 import TouchableView from '../../TouchableView'
+import Icon from '../../Icon'
 import IconText from '../../IconText'
 import { Popup } from '../../Popup'
 import styles from './styles'
@@ -17,6 +18,7 @@ export default class BrowserTabMenu extends PureComponent {
     hasBookmark: PropTypes.bool,
     onRefresh: PropTypes.func.isRequired,
     onEditBookmark: PropTypes.func.isRequired,
+    onOpenNewWindow: PropTypes.func.isRequired,
     onShowBookmarks: PropTypes.func.isRequired
   }
 
@@ -40,25 +42,28 @@ export default class BrowserTabMenu extends PureComponent {
         {(!open) ? null : (
           <Popup style={popupStyle}>
             <View style={styles.menuContainer}>
+              <View style={styles.option}>
+                <TouchableView onPress={this._refresh} style={styles.iconButton}>
+                  <Icon
+                    name='refresh'
+                    style={styles.iconButtonText}
+                  />
+                </TouchableView>
+                <TouchableView onPress={this._onEditBookmark} style={styles.iconButton}>
+                  <Icon
+                    name={hasBookmark ? 'star' : 'star-o'}
+                    style={styles.iconButtonText}
+                  />
+                </TouchableView>
+              </View>
               <TouchableView
                 style={styles.option}
                 hoverStyle={styles.optionHover}
-                onPress={this._refresh}
+                onPress={this._onNewWindow}
               >
                 <IconText
-                  icon={{ name: 'refresh' }}
-                  text={t('button.browser.reload')}
-                  textStyle={styles.optionText}
-                />
-              </TouchableView>
-              <TouchableView
-                style={styles.option}
-                hoverStyle={styles.optionHover}
-                onPress={this._onEditBookmark}
-              >
-                <IconText
-                  icon={{ name: 'star' }}
-                  text={t(`button.browser.${hasBookmark ? 'editBookmark' : 'addBookmark'}`)}
+                  icon={{ name: 'tab' }}
+                  text={t('button.browser.newTab')}
                   textStyle={styles.optionText}
                 />
               </TouchableView>
@@ -69,7 +74,7 @@ export default class BrowserTabMenu extends PureComponent {
               >
                 <IconText
                   icon={{ name: 'md-bookmarks' }}
-                  text={t('button.browser.showBookmarks')}
+                  text={t('button.browser.bookmarks')}
                   textStyle={styles.optionText}
                 />
               </TouchableView>
@@ -122,6 +127,16 @@ export default class BrowserTabMenu extends PureComponent {
       const { onEditBookmark } = this.props
 
       onEditBookmark()
+    })
+  }
+
+  _onNewWindow = () => {
+    this.setState({
+      open: false
+    }, () => {
+      const { onOpenNewWindow } = this.props
+
+      onOpenNewWindow()
     })
   }
 }

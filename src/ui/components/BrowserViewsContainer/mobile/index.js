@@ -51,13 +51,14 @@ export default class MobileBrowserViewsContainer extends PureComponent {
     return (
       <View style={styles.container}>
         <CoverFlow
+          ref={this._onCoverFlowRef}
           style={styles.coverFlow}
           initialSelection={activeIndex}
-          wingSpan={38}
-          spacing={150}
-          rotation={70}
-          midRotation={50}
-          perspective={790}
+          wingSpan={coverFlowMode ? 38 : width}
+          spacing={coverFlowMode ? 150 : width}
+          rotation={coverFlowMode ? 70 : 0}
+          midRotation={coverFlowMode ? 50 : 0}
+          perspective={coverFlowMode ? 790 : 1}
           onChange={this._onChangeCard}
           onPress={this._onSelectCard}
           disableInteraction={!coverFlowMode}
@@ -87,6 +88,20 @@ export default class MobileBrowserViewsContainer extends PureComponent {
         {coverFlowMode ? this._renderCoverFlowNav() : null}
       </View>
     )
+  }
+
+  componentDidUpdate ({ activeIndex: oldActiveIndex }) {
+    const { activeIndex } = this.props
+    const { coverFlowIndex } = this.state
+
+    // if programmatically changed current tab
+    if (oldActiveIndex !== activeIndex && coverFlowIndex !== activeIndex) {
+      this.coverFlow.snapToPosition(activeIndex)
+    }
+  }
+
+  _onCoverFlowRef = ref => {
+    this.coverFlow = ref
   }
 
   _renderCoverFlowNav () {
@@ -123,7 +138,7 @@ export default class MobileBrowserViewsContainer extends PureComponent {
     return (
       <Button
         style={styles.tabsButton}
-        type='textWithBorder'
+        type='mobileBrowserTabs'
         title={`${views.length}`}
         onPress={this._showCoverFlow}
       />

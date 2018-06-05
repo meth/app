@@ -18,6 +18,7 @@ export default class NavBar extends PureComponent {
     onRefresh: PropTypes.func.isRequired,
     onEditBookmark: PropTypes.func.isRequired,
     onShowBookmarks: PropTypes.func.isRequired,
+    onOpenNewWindow: PropTypes.func.isRequired,
     renderAfterAddressInput: PropTypes.func
   }
 
@@ -32,7 +33,8 @@ export default class NavBar extends PureComponent {
       onRefresh,
       onEditBookmark,
       onShowBookmarks,
-      hasBookmark
+      hasBookmark,
+      onOpenNewWindow
     } = this.props
 
     return (
@@ -52,6 +54,7 @@ export default class NavBar extends PureComponent {
           hasBookmark={hasBookmark}
           onEditBookmark={onEditBookmark}
           onShowBookmarks={onShowBookmarks}
+          onOpenNewWindow={onOpenNewWindow}
         />
       </View>
     )

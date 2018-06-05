@@ -18,11 +18,21 @@ export default create({
   buttonIcon: {
     fontSize: '1.6rem'
   },
+  iconButton: {
+    marginRight: 20
+  },
+  iconButtonText: {
+    fontSize: '1.2rem',
+    paddingVertical: 5
+  },
   option: {
     paddingVertical: 7,
     paddingHorizontal: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '$browser_mobileMenu_optionBorderColor'
+    borderBottomColor: '$browser_mobileMenu_optionBorderColor',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
   optionText: {
     ...text,

@@ -138,11 +138,12 @@ module.exports = {
         back: 'Back',
         reload: 'Reload',
         editPermissions: 'Edit permissions',
-        newTab: 'Open new tab',
+        newTab: 'New tab',
         closeTab: 'Close tab',
         showBookmarks: 'Show bookmarks',
         editBookmark: 'Edit bookmark',
-        addBookmark: 'Add bookmark'
+        addBookmark: 'Add bookmark',
+        bookmarks: 'Bookmarks'
       }
     },
     title: {

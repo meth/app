@@ -215,7 +215,7 @@ export default {
     mobileMenu: {
       backgroundColor: colorWhite,
       shadowColor: colorGrayDarker,
-      optionBorderColor: colorGrayLight
+      optionBorderColor: colorGrayLighter
     }
   },
   alert: {
@@ -427,6 +427,18 @@ export default {
         borderColor: colorGrayLight,
         backgroundColor: colorWhite,
         textColor: colorGrayLight
+      }
+    }),
+    mobileBrowserTabs: generateButtonStyles({
+      default: {
+        borderColor: colorGrayDarker,
+        backgroundColor: colorTransparent,
+        textColor: colorGrayDarker
+      },
+      hover: {
+        borderColor: colorGrayDarker,
+        backgroundColor: colorTransparent,
+        textColor: colorGrayDarker
       }
     }),
     browserAddressInput: generateButtonStyles({
