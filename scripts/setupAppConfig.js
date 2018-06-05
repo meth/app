@@ -25,12 +25,10 @@ if (!config || config.mode !== mode) {
   config = { mode }
 
   if ('production' === mode) {
-    config.backend = 'https://meth.app/db'
+    config.backend = 'https://sync.meth.app/db'
+  } else {
+    config.backend = 'https://sync-dev.meth.app/db'
   }
 
   fs.writeFileSync(FP, JSON.stringify(config, null, 2))
-}
-
-if ('development' === mode && !config.backend) {
-  throw new Error('Please edit appConfig.json and enter a value for the "backend" key')
 }

@@ -74,16 +74,7 @@ $ "/path/to/meth-browser/node_modules/.bin/solidarity"
 
 **App config**
 
-Run `yarn setup:dev` to generate `appConfig.json`. Then edit the file and enter the
-
-URL for your dev deployment of the [Meth backend](https://github.com/meth-browser/server). For example:
-
-```js
-{
-  "mode": "development",
-  "backend": "https://meth-server-atyyzvgfve.now.sh/db"
-}
-```
+Run `yarn setup:dev` to generate `appConfig.json`.
 
 **Private Ethereum chain**
 

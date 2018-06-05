@@ -7,7 +7,7 @@
   "main": "electron/index.js",
   "scripts": {
     "web:electron": "electron -r babel-register ./electron",
-    "web:dev": "yarn setup:dev && webpack --env.development --env.vendor && webpack-dev-server --env.development",
+    "web:dev": "webpack --env.development --env.vendor && webpack-dev-server --env.development",
     "web:prod": "webpack --env.production --env.vendor && webpack --env.production --progress",
     "web:serve": "http-serve -p 3001 --gzip true ./build/web",
     "setup:dev": "node scripts/setupAppConfig.js development",
