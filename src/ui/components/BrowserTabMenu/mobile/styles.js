@@ -7,6 +7,9 @@ const text = {
 
 export default create({
   // $outline: 1,
+  menuFadeWrapper: {
+    flex: 1
+  },
   menuOverlay: {
     flex: 1,
     backgroundColor: '$modal_overlay_backgroundColor',

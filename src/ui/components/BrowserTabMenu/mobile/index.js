@@ -8,6 +8,7 @@ import IPC_UI_TASKS from '../../../../../common/constants/ipcUiTasks'
 import { globalEvents } from '../../../../env'
 import IconButton from '../../IconButton'
 import ExpandingView from '../../ExpandingView'
+import FadingView from '../../FadingView'
 import TouchableView from '../../TouchableView'
 import Icon from '../../Icon'
 import IconText from '../../IconText'
@@ -46,46 +47,48 @@ export default class BrowserTabMenu extends PureComponent {
         />
         {(!open) ? null : (
           <Popup style={popupStyle}>
-            <TouchableView style={styles.menuOverlay} onPress={this._onToggleMenu}>
-              <ExpandingView style={styles.menuContainer}>
-                <View style={styles.option}>
-                  <TouchableView onPress={this._refresh} style={styles.iconButton}>
-                    <Icon
-                      name='refresh'
-                      style={styles.iconButtonText}
+            <FadingView style={styles.menuFadeWrapper}>
+              <TouchableView style={styles.menuOverlay} onPress={this._onToggleMenu}>
+                <ExpandingView style={styles.menuContainer} duration={1000}>
+                  <View style={styles.option}>
+                    <TouchableView onPress={this._refresh} style={styles.iconButton}>
+                      <Icon
+                        name='refresh'
+                        style={styles.iconButtonText}
+                      />
+                    </TouchableView>
+                    <TouchableView onPress={this._onEditBookmark} style={styles.iconButton}>
+                      <Icon
+                        name={hasBookmark ? 'star' : 'star-o'}
+                        style={styles.iconButtonText}
+                      />
+                    </TouchableView>
+                  </View>
+                  <TouchableView
+                    style={styles.option}
+                    hoverStyle={styles.optionHover}
+                    onPress={this._onNewWindow}
+                  >
+                    <IconText
+                      icon={{ name: 'tab' }}
+                      text={t('button.browser.newTab')}
+                      textStyle={styles.optionText}
                     />
                   </TouchableView>
-                  <TouchableView onPress={this._onEditBookmark} style={styles.iconButton}>
-                    <Icon
-                      name={hasBookmark ? 'star' : 'star-o'}
-                      style={styles.iconButtonText}
+                  <TouchableView
+                    style={styles.option}
+                    hoverStyle={styles.optionHover}
+                    onPress={this._onShowBookmarks}
+                  >
+                    <IconText
+                      icon={{ name: 'md-bookmarks' }}
+                      text={t('button.browser.bookmarks')}
+                      textStyle={styles.optionText}
                     />
                   </TouchableView>
-                </View>
-                <TouchableView
-                  style={styles.option}
-                  hoverStyle={styles.optionHover}
-                  onPress={this._onNewWindow}
-                >
-                  <IconText
-                    icon={{ name: 'tab' }}
-                    text={t('button.browser.newTab')}
-                    textStyle={styles.optionText}
-                  />
-                </TouchableView>
-                <TouchableView
-                  style={styles.option}
-                  hoverStyle={styles.optionHover}
-                  onPress={this._onShowBookmarks}
-                >
-                  <IconText
-                    icon={{ name: 'md-bookmarks' }}
-                    text={t('button.browser.bookmarks')}
-                    textStyle={styles.optionText}
-                  />
-                </TouchableView>
-              </ExpandingView>
-            </TouchableView>
+                </ExpandingView>
+              </TouchableView>
+            </FadingView>
           </Popup>
         )}
       </View>
