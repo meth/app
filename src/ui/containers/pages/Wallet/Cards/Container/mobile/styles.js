@@ -30,7 +30,7 @@ export default create({
   card: {
     width: getWindowDimensions().width,
     height: '100%',
-    paddingVertical: 10,
+    paddingTop: 10,
     paddingBottom: 20,
     paddingHorizontal: '10%',
     flexDirection: 'row',

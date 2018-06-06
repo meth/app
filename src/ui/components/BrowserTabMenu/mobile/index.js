@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { View } from 'react-native'
-import { Header } from 'react-navigation'
 
 import { t } from '../../../../../common/strings'
 import IPC_UI_TASKS from '../../../../../common/constants/ipcUiTasks'
@@ -14,8 +13,17 @@ import Icon from '../../Icon'
 import IconText from '../../IconText'
 import { Popup } from '../../Popup'
 import styles from './styles'
-import { getWindowDimensions } from '../../../styles'
+import { getWindowDimensions, getHeaderHeight } from '../../../styles'
 
+const { width: devWidth, height: devHeight } = getWindowDimensions()
+const top = getHeaderHeight()
+
+const POPUP_STYLE = {
+  top,
+  right: 0,
+  width: devWidth,
+  height: devHeight - top
+}
 
 
 export default class BrowserTabMenu extends PureComponent {
@@ -29,12 +37,11 @@ export default class BrowserTabMenu extends PureComponent {
   }
 
   state = {
-    open: false,
-    popupStyle: {}
+    open: false
   }
 
   render () {
-    const { open, popupStyle } = this.state
+    const { open } = this.state
     const { style, hasBookmark } = this.props
 
     return (
@@ -46,7 +53,7 @@ export default class BrowserTabMenu extends PureComponent {
           onPress={this._onToggleMenu}
         />
         {(!open) ? null : (
-          <Popup style={popupStyle}>
+          <Popup style={POPUP_STYLE}>
             <FadingView style={styles.menuFadeWrapper}>
               <TouchableView style={styles.menuOverlay} onPress={this._onToggleMenu}>
                 <ExpandingView style={styles.menuContainer} duration={1000}>
@@ -101,20 +108,6 @@ export default class BrowserTabMenu extends PureComponent {
 
   componentWillUnmount () {
     globalEvents.off(IPC_UI_TASKS.TOGGLE_DRAWER, this._onCloseMenu)
-  }
-
-  _onLayout = (/* { nativeEvent: { layout: { y, height } } } */) => {
-    const { width: devWidth, height: devHeight } = getWindowDimensions()
-    const top = Header.HEIGHT
-
-    this.setState({
-      popupStyle: {
-        top,
-        right: 0,
-        width: devWidth,
-        height: devHeight - top
-      }
-    })
   }
 
   _onToggleMenu = () => {

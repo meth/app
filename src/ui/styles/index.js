@@ -2,7 +2,7 @@ import flatten from 'flat'
 import { Dimensions } from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
 
-import { isWeb, isAndroid, isIos } from '../../utils/deviceInfo'
+import { isWeb, isAndroid, isIos, isIphoneX } from '../../utils/deviceInfo'
 import defaultTheme from './themes'
 import { FONTS } from '../../fonts'
 
@@ -102,7 +102,7 @@ export const fontMaker = (options = {}) => {
 
 const SCREEN_WIDTH_SMALL = 700
 const SCREEN_WIDTH_VERY_SMALL = 400
-const SCREEN_HEIGHT_SMALL = 640
+const SCREEN_HEIGHT_SMALL = 800
 const SCREEN_HEIGHT_VERY_SMALL = 500
 
 export const isScreenHeightSmall = () =>
@@ -140,4 +140,28 @@ export const perWidth = (normal, small, verySmall) => {
   }
 
   return normal
+}
+
+export const perHeight = (normal, small, verySmall) => {
+  if (isScreenHeightVerySmall()) {
+    return _or(verySmall, small, normal)
+  } else if (isScreenHeightSmall()) {
+    return _or(small, normal)
+  }
+
+  return normal
+}
+
+export const getHeaderHeight = () => {
+  // from https://github.com/react-navigation/react-navigation/blob/8ec2466fefc7b0a22dde088bd982e20bdfb2c767/src/views/StackView/StackViewLayout.js#L474
+  if (isAndroid) {
+    return 56
+  }
+  else if (isIphoneX) {
+    return 88
+  }
+  // eslint-disable-next-line no-else-return
+  else {
+    return 64
+  }
 }
