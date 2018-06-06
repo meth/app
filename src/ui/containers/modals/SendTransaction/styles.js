@@ -1,8 +1,8 @@
-import { create } from '../../../styles'
+import { create, perWidth } from '../../../styles'
 
 export default create({
   content: {
-    height: '90%',
+    height: perWidth('height', '90%'),
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'stretch'

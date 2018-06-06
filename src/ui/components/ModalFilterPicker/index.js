@@ -171,7 +171,7 @@ export default class ModalFilterPicker extends CachePureComponent {
         childShouldInheritTextStyle={!renderOptionText}
       >
         {renderOptionText
-          ? renderOptionText()
+          ? renderOptionText(content)
           : <Text style={styles.tableRowText}>{label}</Text>
         }
       </Button>
