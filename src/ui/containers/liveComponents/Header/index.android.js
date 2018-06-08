@@ -1,1 +1,1 @@
-export Header from './index.ios'
+module.exports = require('./index.ios')

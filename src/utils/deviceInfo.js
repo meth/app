@@ -1,4 +1,5 @@
 import { Dimensions, Platform } from 'react-native'
+import DeviceInfo from 'react-native-device-info'
 
 export const isWeb = 'web' === Platform.OS
 export const isAndroid = 'android' === Platform.OS
@@ -11,3 +12,5 @@ export const isIphoneX =
   !Platform.isPad &&
   !Platform.isTVOS &&
   (WINDOW_HEIGHT === 812 || WINDOW_WIDTH === 812)
+
+export const isEmulator = DeviceInfo.isEmulator()

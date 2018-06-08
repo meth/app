@@ -48,6 +48,7 @@ export default class CustomTextInput extends PureComponent {
         onFocus={this._onFocus}
         onBlur={this._onBlur}
         onSubmitEditing={onSubmit}
+        underlineColorAndroid='rgba(0,0,0,0)'
         placeholderTextColor={placeholderTextColor}
       />
     )

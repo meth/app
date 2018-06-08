@@ -17,14 +17,14 @@ try {
 }
 
 const mode = process.argv[process.argv.length - 1]
-if (![ 'development', 'production' ].includes(mode)) {
+if (![ 'dev', 'qa', 'prod' ].includes(mode)) {
   throw new Error(`Unsupported mode: ${mode}`)
 }
 
 if (!config || config.mode !== mode) {
   config = { mode }
 
-  if ('production' === mode) {
+  if ('prod' === mode) {
     config.backend = 'https://sync.meth.app/db'
   } else {
     config.backend = 'https://sync-dev.meth.app/db'

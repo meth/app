@@ -160,8 +160,9 @@ export const getHeaderHeight = () => {
   else if (isIphoneX) {
     return 88
   }
-  // eslint-disable-next-line no-else-return
-  else {
+  else if (isIos) {
     return 64
   }
+
+  return 0 /* isWeb */
 }

@@ -1,3 +1,4 @@
+import { isAndroid, isEmulator } from '../../utils/deviceInfo'
 import { loadJSON } from '../../utils/fetch'
 import { Adapter } from './base'
 
@@ -49,11 +50,20 @@ const METHODS = {
   shh_getMessages: true
 }
 
+const LOCALHOST = 'http://127.0.0.1'
+
 export default class RpcAdapter extends Adapter {
   constructor (nodeConfig) {
     super(nodeConfig, 'rpc', METHODS)
 
     this._url = nodeConfig.url
+
+    // if URL points to localhost and we're running in the Android emulator then
+    // use 10.0.2.2 instead as per Android docs
+    if (this._url.startsWith(LOCALHOST) && isAndroid && isEmulator) {
+      this._log.debug('Android emulator, so using 10.0.2.2 instead of 127.0.0.1')
+      this._url = `http://10.0.2.2${this._url.substr(LOCALHOST.length)}`
+    }
   }
 
   async _doExecMethod (id, method, params = []) {

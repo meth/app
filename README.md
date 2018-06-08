@@ -1,41 +1,28 @@
-# Meth Browser
+# Meth
 
-[![Dev build Status](https://secure.travis-ci.org/meth-project/meth-browser.svg?branch=dev)](http://travis-ci.org/meth-project/meth-browser) (dev)
+[![Build Status](https://secure.travis-ci.org/meth-project/meth-browser.svg?branch=master)](http://travis-ci.org/meth-project/meth-browser)
 [![codecov](https://codecov.io/gh/meth-project/meth-browser/branch/dev/graph/badge.svg)](https://codecov.io/gh/meth-project/meth-browser)
 
-The Meth Dapp browser, for Ethereum addicts.
+Cross-platform wallet and dapp browser, for Ethereum addicts!
 
 **NOTE: This is unreleased, Alpha software, very much a work-in-progress**
 
 Features:
 
-* Cross-platform (Windows, Linux, Mac)
 * Mnemonic-based HD wallet ([BIP44/EIP85](https://github.com/ethereum/EIPs/issues/85))
-* Connects to local as well as remote Ethereum nodes
+* ERC-20 token support, with ability to add custom tokens
+* Multi-tab dapp browser with bookmarks
+* Interface for interacting with deployed contracts
+* Address book
+* Transactions view
+* Cross-platform (Windows, Linux, Mac, Android, iOS)
+* Automatically encrypts and backs up your data
+* Real-time sync across your devices
+* Connects to main network and all major test networks
+* Localhost RPC connection supported (run your own node!)
 
-## Architecture
 
-### Electron.js
 
-The [Electron](http://electron.atom.io) layer launches the main window, which is running a
-React.js app. All browser, connection and web3 logic is handled within this
-window.
-
-### Browser tabs
-
-Browser tabs are actually [`WebView`](https://electron.atom.io/docs/api/webview-tag/) instances, and communicate back and
-forth with the main browser window via asynchronous IPC.
-
-Each browser tab has the following Javascript globals made available (via the
-  [preload script](electron/preloader/browserTab.js)):
-
-  * `web3` - a [web3](https://github.com/ethereum/web3.js) connection to the Ethereum network. Every tab gets
- its own connection instance. _Note: due to the security architecture,
- synchronous web3 calls are not supported_.
-  * `Meth` - access to custom Meth APIs, e.g. creating a new account.
-
-The web3 connections available to browser tabs is always connected, since any
-node issues will be handled within the Browser app itself.
 
 ## Developer guide
 
@@ -209,6 +196,23 @@ The `out/` folder will contain the built output.
 _Note: To run the built Linux executable on Ubuntu you will first need to do
 `apt-get install libgconf-2-4`._
 
+### Android
+
+Requirements:
+
+* You will need the `METH_RELEASE_KEYSTORE_PASSWORD` variable set in `~/.grade/gradle.properties`
+
+## Architecture
+
+The app is written using [React Native](https://facebook.github.io/react-native), with the desktop port done using [react-native-web](https://github.com/necolas/react-native-web).
+
+### Web3 connection
+
+Each browser tab has the following global object made available upon page load:
+
+* `web3.currentProvider` - Dapps can [use this](https://github.com/MetaMask/faq/blob/master/detecting_metamask.md#deprecation-of-global-web3js) to initialise a connection that is able to communicate with the connected Ethereum node. 
+
+_Note: Synchronous web3 calls are not supported._
 
 
 ## License

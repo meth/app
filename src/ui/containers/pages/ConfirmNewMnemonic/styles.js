@@ -1,4 +1,4 @@
-import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
+import { create, fontMaker, perWidth, getHeaderHeight } from '../../../styles'
 
 const text = {
   ...fontMaker(),
@@ -10,7 +10,7 @@ const text = {
 
 export default create({
   layoutContent: {
-    paddingVertical: 50,
+    paddingVertical: Math.max(getHeaderHeight() + 10, 50),
     backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -20,10 +20,12 @@ export default create({
     ...text,
     ...fontMaker({ weight: 'Light' }),
     fontSize: '1.5rem',
-    marginBottom: 30
+    marginBottom: 30,
+    maxWidth: perWidth('100%', '100%', '90%')
   },
   intro2Text: {
-    ...text
+    ...text,
+    maxWidth: perWidth('100%', '100%', '90%')
   },
   confirmator: {
     marginTop: 30,
@@ -38,14 +40,5 @@ export default create({
   },
   goBackButtonText: {
     fontSize: '0.7rem'
-  },
-
-  ...whenWidthVerySmall({
-    intro1Text: {
-      maxWidth: '90%'
-    },
-    intro2Text: {
-      maxWidth: '90%'
-    }
-  })
+  }
 })

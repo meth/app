@@ -1,4 +1,4 @@
-import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
+import { create, fontMaker, getHeaderHeight, perWidth } from '../../../styles'
 
 const introText = {
   ...fontMaker(),
@@ -11,7 +11,7 @@ const introText = {
 
 export default create({
   layoutContent: {
-    paddingVertical: 50,
+    paddingVertical: Math.max(getHeaderHeight() + 10, 50),
     backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -20,14 +20,16 @@ export default create({
   intro1Text: {
     ...introText,
     ...fontMaker({ weight: 'Light' }),
-    fontSize: '1.5rem'
+    fontSize: '1.5rem',
+    maxWidth: perWidth('100%', '100%', '90%')
   },
   intro2Text: {
     ...introText,
     ...fontMaker({ weight: 'Bold' }),
     fontSize: '0.8rem',
     textDecorationLine: 'underline',
-    width: '60%'
+    width: '60%',
+    maxWidth: perWidth('100%', '100%', '90%')
   },
   mnemonic: {
     maxWidth: '90%'
@@ -43,14 +45,5 @@ export default create({
   },
   loginButtonText: {
     fontSize: '0.7rem'
-  },
-
-  ...whenWidthVerySmall({
-    intro1Text: {
-      maxWidth: '90%'
-    },
-    intro2Text: {
-      maxWidth: '90%'
-    }
-  })
+  }
 })
