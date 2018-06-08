@@ -161,8 +161,11 @@ class Storage {
     const json = await AsyncStorage.getItem(key)
 
     try {
-      return JSON.parse(json)
+      const ret = JSON.parse(json)
+      log.debug(`...${key} load ok`)
+      return ret
     } catch (err) {
+      log.debug(`...${key} load error`)
       return undefined
     }
   }
@@ -170,7 +173,12 @@ class Storage {
   async _save (key, value) {
     log.debug(`Save: ${key} ...`)
 
-    return AsyncStorage.setItem(key, JSON.stringify(value))
+    try {
+      await AsyncStorage.setItem(key, JSON.stringify(value))
+      log.debug(`...${key} save ok`)
+    } catch (err) {
+      log.debug(`...${key} save error`)
+    }
   }
 }
 

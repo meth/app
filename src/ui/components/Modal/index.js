@@ -6,6 +6,7 @@ import { globalEvents } from '../../../env'
 import IPC_UI_TASKS from '../../../../common/constants/ipcUiTasks'
 import { Popup } from '../Popup'
 import FadingView from '../FadingView'
+import ScrollView from '../ScrollView'
 import CloseButton from './CloseButton'
 import TouchableView from '../TouchableView'
 import styles from './styles'
@@ -28,6 +29,7 @@ export default class Modal extends PureComponent {
       onOverlayPress,
       overlayStyle,
       contentStyle,
+      contentScrollContainerStyle,
       onPressCloseButton,
       closeButtonStyle
     } = this.props
@@ -37,7 +39,13 @@ export default class Modal extends PureComponent {
         <FadingView style={styles.fadeWrapper}>
           <TouchableView onPress={onOverlayPress} style={[ styles.overlay ].concat(overlayStyle)}>
             <View style={[ styles.content ].concat(contentStyle)}>
-              {children}
+              <ScrollView
+                contentContainerStyle={
+                  [ styles.contentScrollContainer ].concat(contentScrollContainerStyle)
+                }
+              >
+                {children}
+              </ScrollView>
               {onPressCloseButton ? (
                 <CloseButton
                   style={[ styles.closeButton ].concat(closeButtonStyle)}

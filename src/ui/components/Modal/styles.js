@@ -22,6 +22,12 @@ export default create({
     borderRadius: 10,
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    alignItems: 'stretch'
+  },
+  contentScrollContainer: {
+    flex: 0,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   },
   closeButton: {

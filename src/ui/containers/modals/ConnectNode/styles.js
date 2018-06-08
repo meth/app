@@ -1,4 +1,4 @@
-import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
+import { create, fontMaker, perWidth } from '../../../styles'
 
 const titleText = {
   ...fontMaker({ weight: 'Light' }),
@@ -23,10 +23,11 @@ export default create({
     alignItems: 'center'
   },
   formWrapper: {
-    marginBottom: 10
+    marginBottom: 10,
+    width: perWidth(300, 300, '85%')
   },
   pickerButton: {
-    width: 300
+    width: '100%'
   },
   button: {
     marginTop: 25,
@@ -101,13 +102,6 @@ export default create({
     ...fontMaker(),
     color: '$form_picker_category_textColor',
     fontSize: '0.8rem'
-  },
+  }
 
-  /* responsive layouyt */
-
-  ...whenWidthVerySmall({
-    content: {
-      width: '90%'
-    }
-  })
 })

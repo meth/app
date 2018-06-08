@@ -150,6 +150,7 @@
     "react-native-device-info": "^0.21.5",
     "react-native-dropdown": "0.0.6",
     "react-native-extended-stylesheet": "^0.6.0",
+    "react-native-keyboard-aware-scroll-view": "^0.5.0",
     "react-native-qrcode-svg": "^5.0.6",
     "react-native-root-toast": "^3.0.1",
     "react-native-securerandom": "^0.1.1",

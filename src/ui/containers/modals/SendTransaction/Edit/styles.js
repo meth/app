@@ -75,7 +75,7 @@ export default create({
   },
   gasLimitField: {
     flex: 0,
-    width: 150,
+    width: 100,
     marginRight: 5
   },
   gasPriceField: {

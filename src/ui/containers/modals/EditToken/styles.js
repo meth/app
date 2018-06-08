@@ -9,7 +9,6 @@ export default create({
   // $outline: 1,
 
   content: {
-    width: 400,
     height: 'auto'
   },
 

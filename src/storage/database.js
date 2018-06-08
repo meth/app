@@ -52,7 +52,20 @@ export default class Database {
         this._sync = PouchDB.sync(this._dbName, backendUrl, {
           live: true,
           retry: true,
-          batch_size: 20
+          batch_size: 20,
+          back_off_function: delay => {
+            if (0 === delay) {
+              return 1000
+            }
+
+            /*
+            On Android we need to ensure we don't exceed React Native's max
+            timer delay, see https://github.com/facebook/react-native/issues/12981#issuecomment-292946311
+
+            So we'll limit to 60seconds max.
+             */
+            return parseInt(Math.min(delay * 2, 60000), 10)
+          }
         })
           .on('error', this._onReplicationError)
           .on('change', ({ direction }) => {

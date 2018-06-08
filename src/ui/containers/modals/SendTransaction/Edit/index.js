@@ -234,6 +234,12 @@ export default class Edit extends PureComponent {
     }
   }
 
+  _onScrollViewRef = ref => {
+    this.scrollView = ref
+  }
+
+  _getScrollView = () => this.scrollView
+
   _recalculateAmountBasedOnUpdatedMaxCost = () => {
     const { form, form: { gasLimit, gasPrice, unit, amount } } = this.state
 
