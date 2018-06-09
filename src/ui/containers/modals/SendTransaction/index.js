@@ -55,6 +55,7 @@ export default class SendTransaction extends PureComponent {
     return (
       <Modal
         contentStyle={styles.content}
+        contentScrollContainerStyle={styles.scrollContainerContent}
         onPressCloseButton={this._dismissModal}
       >
         <TitleText

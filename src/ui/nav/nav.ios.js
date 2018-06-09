@@ -51,7 +51,7 @@ export default routes => {
       AddressBook
     }, {
       contentComponent: MobileDrawer,
-      initialRouteName: Wallet.routeName
+      initialRouteName: Browser.routeName
     })
   }, {
     ...disableGesturesProps,

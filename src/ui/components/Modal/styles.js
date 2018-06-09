@@ -17,6 +17,7 @@ export default create({
     backgroundColor: '$modal_content_backgroundColor',
     width: perWidth(500, '90%'),
     height: 'auto',
+    maxHeight: '90%',
     flex: 0,
     padding: 20,
     borderRadius: 10,

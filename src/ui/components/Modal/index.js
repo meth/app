@@ -18,6 +18,7 @@ export default class Modal extends PureComponent {
   static propTypes = {
     overlayStyle: PropTypes.any,
     contentStyle: PropTypes.any,
+    contentScrollContainerStyle: PropTypes.any,
     closeButtonStyle: PropTypes.any,
     onOverlayPress: PropTypes.func,
     onPressCloseButton: PropTypes.func

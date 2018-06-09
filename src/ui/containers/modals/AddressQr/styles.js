@@ -1,4 +1,4 @@
-import { create, fontMaker, whenWidthSmall } from '../../../styles'
+import { create, perWidth, fontMaker, whenWidthSmall } from '../../../styles'
 
 const text = {
   ...fontMaker(),
@@ -9,11 +9,13 @@ export default create({
   // $outline: 1,
 
   content: {
-    width: 600,
-    height: 'auto',
+    width: perWidth(600, '90%'),
+    height: 'auto'
+  },
+  scrollContainerContent: {
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingVertical: 40
+    paddingVertical: perWidth(40, 20)
   },
 
   /* address text */

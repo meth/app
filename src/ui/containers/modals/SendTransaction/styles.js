@@ -2,7 +2,9 @@ import { create, perWidth } from '../../../styles'
 
 export default create({
   content: {
-    height: perWidth('height', '90%'),
+    height: perWidth('auto', '90%')
+  },
+  scrollContainerContent: {
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'stretch'

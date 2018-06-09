@@ -3,77 +3,74 @@ import { isAndroid } from '../../../../utils/deviceInfo'
 
 export default () => `
 (function () {
-  const pendingRequests = {}
+  var pendingRequests = {};
 
-  const sendIpc = (type, payload) => {
-    const id = Date.now() + '-' + Math.random()
+  var sendIpc = function (type, payload, callback) {
+    var id = Date.now() + '-' + Math.random();
 
-    const promise = new Promise((resolve, reject) => {
-      pendingRequests[id] = { resolve, reject }
-    })
+    pendingRequests[id] = callback;
 
     try {
-      const msg = JSON.stringify({ id, type, payload })
+      var msg = JSON.stringify({ id, type, payload });
 
       if (${isAndroid}) {
-        window.postMessage(msg, '*')
+        window.postMessage(msg, '*');
       } else {
-        window.webkit.messageHandlers.reactNative.postMessage(msg, '*')
+        window.webkit.messageHandlers.reactNative.postMessage(msg, '*');
       }
     } catch (err) {
-      alert(err)
+      console.error(err);
     }
+  };
 
-    return promise
-  }
-
-  window.receivedMessageFromReactNative = obj => {
+  window.receivedMessageFromReactNative = function (obj) {
     try {
-      const { id, error, response } = obj
+      var id = obj.id;
+      var error = obj.error;
+      var response = obj.response;
 
-      const req = pendingRequests[id]
+      var callback = pendingRequests[id];
 
-      if (req) {
-        pendingRequests[id] = null
+      if (callback) {
+        pendingRequests[id] = null;
 
         if (error) {
-          req.reject(error)
+          callback(error);
         } else {
-          req.resolve(response)
+          callback(null, response);
         }
       }
     } catch (err) {
-      alert(err)
-      console.error(err)
+      console.error(err);
     }
-  }
-
-  class Web3IpcProvider {
-    isConnected () {
-      return true
-    }
-
-    send () {
-      throw new Error('Synchronous web3 calls are not supported.')
-    }
-
-    sendAsync (payload, callback) {
-      sendIpc('${IPC.WEB3}', payload)
-        .catch(callback)
-        .then(response => {
-          const hasError = [].concat(response).find(r => !!r.error)
-
-          if (hasError) {
-            callback(response)
-          } else {
-            callback(null, response)
-          }
-        })
-    }
-  }
+  };
 
   window.web3 = {
-    currentProvider: new Web3IpcProvider()
-  }
-})()
+    currentProvider: {
+      isConnected: function () {
+        return true;
+      },
+      send: function () {
+        throw new Error('Synchronous web3 calls are not supported.');
+      },
+      sendAsync: function (payload, callback) {
+        sendIpc('${IPC.WEB3}', payload, function (err, response) {
+          if (err) {
+            callback(err);
+          } else {
+            var hasError = [].concat(response).find(function (r) {
+              return !!(r.error)
+            });
+
+            if (hasError) {
+              callback(response);
+            } else {
+              callback(null, response);
+            }
+          }
+        });
+      }
+    }
+  };
+})();
 `

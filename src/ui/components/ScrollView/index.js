@@ -15,6 +15,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const CustomScrollView = props => (
   <KeyboardAwareScrollView
     enableOnAndroid={true}
+    keyboardOpeningTime={150}
+    enableResetScrollToCoords={true}
     {...props}
   />
 )

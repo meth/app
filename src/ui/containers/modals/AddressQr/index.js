@@ -21,6 +21,7 @@ export default class EditAddress extends PureComponent {
     return (
       <Modal
         contentStyle={styles.content}
+        contentScrollContainerStyle={styles.scrollContainerContent}
         onPressCloseButton={this.close}
       >
         <CopyableText

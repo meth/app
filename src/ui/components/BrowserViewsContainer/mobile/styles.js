@@ -19,6 +19,7 @@ export default create({
   /* coverflow mode */
 
   coverFlow: {
+    flex: 1,
     backgroundColor: '$browser_coverFlow_backgroundColor'
   },
   cardBlockingOverlay: {
