@@ -103,7 +103,7 @@ export const fontMaker = (options = {}) => {
 const SCREEN_WIDTH_SMALL = 700
 const SCREEN_WIDTH_VERY_SMALL = 400
 const SCREEN_HEIGHT_SMALL = 800
-const SCREEN_HEIGHT_VERY_SMALL = 500
+const SCREEN_HEIGHT_VERY_SMALL = 600
 
 export const isScreenHeightSmall = () =>
   getWindowDimensions().height <= SCREEN_HEIGHT_SMALL
