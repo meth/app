@@ -24,6 +24,12 @@ export default class Modal extends PureComponent {
     onPressCloseButton: PropTypes.func
   }
 
+  state = {
+    closeButtonPosition: {
+      left: -1000, top: -1000
+    }
+  }
+
   render () {
     const {
       children,
@@ -39,7 +45,7 @@ export default class Modal extends PureComponent {
       <Popup style={styles.popupWrapper}>
         <FadingView style={styles.fadeWrapper}>
           <TouchableView onPress={onOverlayPress} style={[ styles.overlay ].concat(overlayStyle)}>
-            <View style={[ styles.content ].concat(contentStyle)}>
+            <View style={[ styles.content ].concat(contentStyle)} onLayout={this._onLayout}>
               <ScrollView
                 contentContainerStyle={
                   [ styles.contentScrollContainer ].concat(contentScrollContainerStyle)
@@ -47,17 +53,28 @@ export default class Modal extends PureComponent {
               >
                 {children}
               </ScrollView>
-              {onPressCloseButton ? (
-                <CloseButton
-                  style={[ styles.closeButton ].concat(closeButtonStyle)}
-                  onPress={onPressCloseButton}
-                />
-              ) : null}
             </View>
+            {onPressCloseButton ? (
+              <CloseButton
+                style={[ styles.closeButton ]
+                  .concat(this.state.closeButtonPosition, closeButtonStyle)
+                }
+                onPress={onPressCloseButton}
+              />
+            ) : null}
           </TouchableView>
         </FadingView>
       </Popup>
     )
+  }
+
+  _onLayout = ({ nativeEvent: { layout: { x, y, width } } }) => {
+    this.setState({
+      closeButtonPosition: {
+        left: x + width,
+        top: y
+      }
+    })
   }
 
   componentDidMount () {

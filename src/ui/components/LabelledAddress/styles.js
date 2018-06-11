@@ -14,12 +14,13 @@ export default create({
   },
   label: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   },
   labelText: {
     ...fontMaker(),
     fontSize: '0.7rem',
+    textAlign: 'left',
     color: '$addressBook_label_textColor',
     marginRight: 5
   }

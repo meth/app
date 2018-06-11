@@ -100,6 +100,8 @@ export const fontMaker = (options = {}) => {
   return null
 }
 
+/* S8: width=360, height=692 */
+
 const SCREEN_WIDTH_SMALL = 700
 const SCREEN_WIDTH_VERY_SMALL = 400
 const SCREEN_HEIGHT_SMALL = 800

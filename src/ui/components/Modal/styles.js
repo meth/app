@@ -33,8 +33,9 @@ export default create({
   },
   closeButton: {
     position: 'absolute',
-    top: -15,
-    right: -15,
-    borderRadius: 40
+    borderRadius: 40,
+    width: 40,
+    height: 40,
+    transform: [ { translateX: -20 }, { translateY: -20 } ]
   }
 })

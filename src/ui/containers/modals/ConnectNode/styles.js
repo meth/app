@@ -11,7 +11,7 @@ const text = {
 }
 
 export default create({
-  content: {
+  scrollContainerContent: {
     padding: 30,
     flexDirection: 'column',
     justifyContent: 'flex-start',
@@ -24,7 +24,7 @@ export default create({
   },
   formWrapper: {
     marginBottom: 10,
-    width: perWidth(300, 300, '85%')
+    width: perWidth(300, '90%')
   },
   pickerButton: {
     width: '100%'

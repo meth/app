@@ -127,6 +127,9 @@ Now, for Android do:
 $ yarn mobile:android
 ```
 
+_Note: If running on a real Android device that's connected via USB, you will need to run `adb reverse tcp:8545 tcp:8545` on your machine in order for the device to be able to connect to your locally running Ganache instance._
+
+
 For iOS you will need to update the certificates and provisioning profiles:
 
 ```shell
