@@ -17,7 +17,7 @@ export default create({
     backgroundColor: '$browser_navBar_backgroundColor',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'stretch',
+    alignItems: 'center',
     position: 'relative'
   },
   webView: {

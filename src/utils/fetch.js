@@ -63,7 +63,10 @@ export const loadJSON = async (
 
     // basic error parsing
     let err2 = err
-    if (errStr.indexOf('failed to fetch') || errStr.indexOf('network request failed')) {
+    if (
+      errStr.indexOf('failed to fetch') ||
+      errStr.indexOf('network request failed')
+    ) {
       err2 = new UnableToConnectError('Fetch failed')
     }
 

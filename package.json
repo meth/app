@@ -71,7 +71,7 @@
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.1",
-    "@meth/react-native-coverflow": "^0.1.7",
+    "@meth/react-native-coverflow": "^0.1.10",
     "@meth/react-navigation-redux-helpers": "^1.1.1",
     "@meth/sjcl": "^1.0.7",
     "add-asset-html-webpack-plugin": "^2.1.0",

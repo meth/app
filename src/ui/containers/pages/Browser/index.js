@@ -38,7 +38,7 @@ export default class Browser extends CachePureComponent {
         active: true,
         id: newTabId(),
         label: 'Test',
-        url: 'http://meth.github.io/testdapp'
+        url: 'https://maps.google.com'//'http://meth.github.io/testdapp'
       },
       {
         active: false,
@@ -54,7 +54,7 @@ export default class Browser extends CachePureComponent {
     const activeIndex = tabs.findIndex(tab => !!tab.active)
 
     return (
-      <Layout contentStyle={styles.layoutContent}>
+      <Layout contentStyle={styles.layoutContent} useKeyboardAvoidingScrollView={false}>
         <BrowserTabBar
           tabs={tabs}
           onSort={this.onSortTabs}

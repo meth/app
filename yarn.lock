@@ -592,9 +592,9 @@
     cross-spawn-promise "^0.10.1"
     fs-extra "^5.0.0"
 
-"@meth/react-native-coverflow@^0.1.7":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@meth/react-native-coverflow/-/react-native-coverflow-0.1.7.tgz#55fafccb3c043c6757c53d0f07a315825b818283"
+"@meth/react-native-coverflow@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@meth/react-native-coverflow/-/react-native-coverflow-0.1.10.tgz#1bc17fdc36f78530c288d53a515d18f879c5ba23"
   dependencies:
     prop-types "^15.6.0"
 
