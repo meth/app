@@ -10,6 +10,8 @@ import Table from '../../../components/Table'
 import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
 import LabelledAddress from '../../../components/LabelledAddress'
+import Loading from '../../../components/Loading'
+
 
 const RENDER_HEADER = () => null
 
@@ -24,6 +26,22 @@ export default class AddressBook extends CachePureComponent {
   }
 
   render () {
+    const { getAccounts } = this.props.selectors
+
+    const accounts = getAccounts()
+
+    return (
+      <Layout contentStyle={styles.layoutContent} useKeyboardAvoidingScrollView={false}>
+        {_.isEmpty(accounts) ? (
+          <Loading style={styles.topLevelLoading} />
+        ) : (
+          this._renderContent()
+        )}
+      </Layout>
+    )
+  }
+
+  _renderContent () {
     const { getAddressBook } = this.props.selectors
 
     const book = getAddressBook()
@@ -71,6 +89,7 @@ export default class AddressBook extends CachePureComponent {
         onPress={this.bind(this.onSelectEntry, address)}
         childShouldInheritTextStyle={true}
         childTextStylePropName='addressTextStyle'
+        textStyle={styles.tableRowButtonAddressText}
       >
         <LabelledAddress address={address} label={label} />
       </Button>

@@ -47,6 +47,7 @@ export default class Modal extends PureComponent {
           <TouchableView onPress={onOverlayPress} style={[ styles.overlay ].concat(overlayStyle)}>
             <View style={[ styles.content ].concat(contentStyle)} onLayout={this._onLayout}>
               <ScrollView
+                useKeyboardAvoidingScrollView={true}
                 contentContainerStyle={
                   [ styles.contentScrollContainer ].concat(contentScrollContainerStyle)
                 }

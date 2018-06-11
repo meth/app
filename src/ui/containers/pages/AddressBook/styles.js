@@ -14,6 +14,10 @@ export default create({
     paddingRight: perWidth(10, 0),
     paddingLeft: perWidth(10, 0)
   },
+  topLevelLoading: {
+    flex: 1,
+    alignSelf: 'center'
+  },
   table: {
     flex: 1,
     width: '100%'
@@ -35,5 +39,8 @@ export default create({
     alignItems: 'flex-start',
     padding: 20,
     borderRadius: 0
+  },
+  tableRowButtonAddressText: {
+    textAlign: 'left'
   }
 })

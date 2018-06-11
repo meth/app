@@ -12,7 +12,9 @@ export default _.memoize(state => {
     backgroundColor: `$form_textInput_${state}_backgroundColor`,
     color: `$form_textInput_${state}_textColor`,
     /* for mult-line inputs limit the height */
-    maxHeight: 250
+    maxHeight: 250,
+    /* for Android, to ensure placeholder is at top */
+    textAlignVertical: 'top'
   }
 
   return {

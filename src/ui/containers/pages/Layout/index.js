@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 
 import { t } from '../../../../../common/strings'
@@ -9,6 +10,14 @@ import styles from './styles'
 import logger from '../../../../logger'
 
 export default class Layout extends PureComponent {
+  static propTypes = {
+    useKeyboardAvoidingScrollView: PropTypes.bool
+  }
+
+  static defaultProps = {
+    useKeyboardAvoidingScrollView: true
+  }
+
   state = {
     uiError: null
   }
@@ -22,7 +31,7 @@ export default class Layout extends PureComponent {
   render () {
     const { uiError } = this.state
 
-    const { children, contentStyle } = this.props
+    const { children, contentStyle, useKeyboardAvoidingScrollView } = this.props
 
     if (uiError) {
       return (
@@ -38,6 +47,7 @@ export default class Layout extends PureComponent {
       <View style={styles.container}>
         <Header style={styles.header} />
         <ScrollView
+          useKeyboardAvoidingScrollView={useKeyboardAvoidingScrollView}
           alwaysBounceVertical={false}
           style={styles.scrollView}
           contentContainerStyle={[ styles.content, contentStyle ]}

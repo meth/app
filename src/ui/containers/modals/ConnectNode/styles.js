@@ -12,7 +12,8 @@ const text = {
 
 export default create({
   scrollContainerContent: {
-    padding: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center'

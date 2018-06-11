@@ -1,25 +1,36 @@
-import React from 'react'
-// import { ScrollView } from 'react-native'
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import { ScrollView } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+import { isWeb } from '../../../utils/deviceInfo'
 
-// const CustomScrollView = props => (
-//   <ScrollView
-//     showsVerticalScrollIndicator={true}
-//     showsHorizontalScrollIndicator={false}
-//     overScrollMode='never'
-//     {...props}
-//   />
-// )
+export default class CustomScrollView extends PureComponent {
+  static propTypes = {
+    useKeyboardAvoidingScrollView: PropTypes.bool
+  }
 
-const CustomScrollView = props => (
-  <KeyboardAwareScrollView
-    enableOnAndroid={true}
-    keyboardOpeningTime={150}
-    enableResetScrollToCoords={true}
-    {...props}
-  />
-)
+  static defaultProps = {
+    useKeyboardAvoidingScrollView: true
+  }
 
+  render () {
+    const { useKeyboardAvoidingScrollView, ...props } = this.props
 
-export default CustomScrollView
+    return (useKeyboardAvoidingScrollView && !isWeb) ? (
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        keyboardOpeningTime={150}
+        enableResetScrollToCoords={true}
+        {...props}
+      />
+    ) : (
+      <ScrollView
+        showsVerticalScrollIndicator={true}
+        showsHorizontalScrollIndicator={false}
+        overScrollMode='never'
+        {...props}
+      />
+    )
+  }
+}

@@ -42,7 +42,7 @@ export default ({ nodeConnector }) => () => next => async action => {
 
         await nodeConnected({ node, network })
       } catch (err) {
-        log.warn(err)
+        log.warn(err.message)
 
         await nodeConnectError(err)
 

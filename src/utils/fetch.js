@@ -59,11 +59,13 @@ export const loadJSON = async (
       }, TIMEOUT * 1000)
     })
   } catch (err) {
+    const errStr = err.toString().toLowerCase()
+
     // basic error parsing
-    const err2 =
-      0 <= err.toString().toLowerCase().indexOf('failed to fetch')
-        ? new UnableToConnectError('Fetch failed')
-        : err
+    let err2 = err
+    if (errStr.indexOf('failed to fetch') || errStr.indexOf('network request failed')) {
+      err2 = new UnableToConnectError('Fetch failed')
+    }
 
     logRequestDuration(startTime)
 
