@@ -13,6 +13,9 @@ module.exports = {
     flex: 1,
     alignSelf: 'center'
   },
+  tokenTableLoading: {
+
+  },
   pageTitleText: {
     margin: 10
   },

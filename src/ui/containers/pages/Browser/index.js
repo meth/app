@@ -38,7 +38,7 @@ export default class Browser extends CachePureComponent {
         active: true,
         id: newTabId(),
         label: 'Test',
-        url: 'https://maps.google.com'//'http://meth.github.io/testdapp'
+        url: 'https://maps.google.com'// 'http://meth.github.io/testdapp'
       },
       {
         active: false,

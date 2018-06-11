@@ -48,7 +48,7 @@ export const getAccounts = createSelector(
       ...m,
       [addr]: {
         balance: balances[addr],
-        ...(addressBook[addr] ? { label: addressBook[addr].label } : {}),
+        ...(addressBook.get(addr) ? { label: addressBook.get(addr).label } : {}),
         tokens: tokenBalances.get(addr).toObject()
       }
     }), {})
@@ -59,7 +59,7 @@ export const getAddressBook = createSelector(
   _getAccountBalances,
   _getAddressBook,
   (accounts, addressBook) => {
-    const addresses = Object.assign({}, addressBook)
+    const addresses = Object.assign({}, addressBook.toObject())
 
     Object.keys(accounts).forEach(addr => {
       addresses[addr] = Object.assign({}, addresses[addr], {

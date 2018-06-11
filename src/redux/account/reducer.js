@@ -2,6 +2,8 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
+import { NODE_DISCONNECTED } from '../node/actions'
+
 import {
   INJECT_ACCOUNT_BALANCES,
   INJECT_ADDRESS_BOOK,
@@ -29,24 +31,35 @@ import {
 } from './actions'
 
 export default () => {
-  const initialState = () => Immutable.Map({
+  const networkResetState = () => ({
     accountBalances: {},
     tokenBalances: Immutable.Map({}),
     customTokens: Immutable.Map({}),
+    addressBook: Immutable.Map({}),
+    transactionHistory: [],
+    currentTx: null,
+    currentTxDeferred: null
+  })
+
+  const initialState = () => Immutable.Map({
     appSettings: Immutable.Map({}),
     bookmarks: Immutable.Map({}),
+    dappPermissions: {},
     appSettingsLoaded: false,
     userAuthenticated: false,
-    addressBook: {},
-    dappPermissions: {},
-    currentTx: null,
-    currentTxDeferred: null,
-    transactionHistory: []
+    ...networkResetState()
   })
 
   return handleActions(
     {
       [CLOSE_WALLET]: () => initialState(),
+      [NODE_DISCONNECTED]: state => {
+        const newSubState = networkResetState()
+
+        return Object.keys(newSubState).reduce((s, key) => (
+          s.set(key, newSubState[key])
+        ), state)
+      },
       /* settings and pin */
       [INJECT_APP_SETTINGS]: (state, { payload }) => {
         // data is stored in db as a table/list, so conver to object first
@@ -116,25 +129,17 @@ export default () => {
         }),
       /* address book */
       [INJECT_ADDRESS_BOOK]: (state, { payload: book = [] }) => (
-        state.set('addressBook', book.reduce((m, v) => {
+        state.set('addressBook', Immutable.Map(book.reduce((m, v) => {
           // eslint-disable-next-line no-param-reassign
           m[v.address] = v
           return m
-        }, {}))
+        }, {})))
       ),
-      [SAVE_ADDRESS_BOOK_ENTRY]: (state, { payload: { address, data } }) =>
-        state.set('addressBook', {
-          ...state.get('addressBook'),
-          [address]: data
-        }),
+      [SAVE_ADDRESS_BOOK_ENTRY]: (state, { payload: { address, data } }) => (
+        state.set('addressBook', state.get('addressBook').set(address, data))
+      ),
       [DELETE_ADDRESS_BOOK_ENTRY]: (state, { payload: { address } }) => {
-        const addressBook = state.get('addressBook')
-
-        delete addressBook[address]
-
-        return state.set('addressBook', {
-          ...addressBook
-        })
+        state.set('addressBook', state.get('addressBook').delete(address))
       },
       /* custom tokens */
       [INJECT_CUSTOM_TOKENS]: (state, { payload = [] }) => (

@@ -6,8 +6,8 @@ import { CachePureComponent } from '../../../../helpers/components'
 import { connectStore } from '../../../../helpers/redux'
 import styles from './styles'
 import Container from './Container'
+import CardButton from './CardButton'
 import WalletCard from '../../../../components/WalletCard'
-import Button from '../../../../components/Button'
 import Icon from '../../../../components/Icon'
 
 
@@ -42,21 +42,14 @@ export default class Cards extends CachePureComponent {
     const isActive = index === activeCard
 
     return (
-      <Button
-        type='walletCard'
+      <CardButton
         key={key}
-        style={isActive
-          ? styles.cardButton_active
-          : styles.cardButton_inactive
-        }
-        {...(isActive ? {
-          stateOverride: { hovering: true }
-        } : null)}
+        isActive={isActive}
         onPress={this.bind(this._onPressSelectCard, index, key)}
-        {...extraProps}
+        extraProps={extraProps}
       >
         {renderCardContent(isActive)}
-      </Button>
+      </CardButton>
     )
   }
 

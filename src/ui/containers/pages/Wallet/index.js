@@ -63,14 +63,23 @@ export default class Wallet extends CachePureComponent {
             text={t('wallet.pressButtonAboveToAddAccount')}
           />
         ) : (
-          <TokenTable style={styles.tokenTable} account={selectedAccount} />
+          this._renderTokenTable(selectedAccount)
         )}
       </React.Fragment>
     )
   }
 
+  _renderTokenTable (selectedAccount) {
+    return (
+      <TokenTable style={styles.tokenTable} account={selectedAccount} />
+    )
+  }
+
   _onPressSelectCard = activeCard => {
-    this.setState({ activeCard })
+    this.setState({
+      activeCard,
+      shouldDeferTokenTableRendering: true
+    })
   }
 
   _getSelectedAccount () {
