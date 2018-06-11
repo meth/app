@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import { CachePureComponent } from '../../../../helpers/components'
 import { connectStore } from '../../../../helpers/redux'
+import { isWeb } from '../../../../../utils/deviceInfo'
 import styles from './styles'
 import Container from './Container'
 import CardButton from './CardButton'
@@ -56,7 +57,7 @@ export default class Cards extends CachePureComponent {
   _renderAccountCard = (accounts, address, index) => (
     this._renderCard(address, index, isActive => (
       <WalletCard
-        isActive={isActive}
+        isActive={isWeb ? isActive : true}
         style={styles.card}
         account={{
           address,
