@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 
 import Button from '../Button'
 import Icon from '../Icon'
@@ -22,9 +22,11 @@ const PickerButton = ({
     type={theme}
     onLayout={onLayout}
   >
-    {renderLabel ? renderLabel(label) : (
-      <Text style={[ styles.text ].concat(textStyle)}>{label}</Text>
-    )}
+    <View style={styles.labelContainer}>
+      {renderLabel ? renderLabel(label) : (
+        <Text style={[ styles.text ].concat(textStyle)}>{label}</Text>
+      )}
+    </View>
     {renderIcon ? renderIcon() : (
       <Icon style={styles.iconText} name="sort-desc" />
     )}

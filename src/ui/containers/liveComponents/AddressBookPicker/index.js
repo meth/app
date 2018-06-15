@@ -5,7 +5,6 @@ import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import ModalFilterPicker from '../../../components/ModalFilterPicker'
 import LabelledAddress from '../../../components/LabelledAddress'
-// import styles from './styles'
 
 @connectStore('account')
 export default class AddressBookPicker extends PureComponent {

@@ -56,5 +56,3 @@ const App = () => (
 )
 
 export default App
-
-store.actions.showLog()

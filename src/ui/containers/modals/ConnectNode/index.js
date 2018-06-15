@@ -131,7 +131,7 @@ export default class ConnectNode extends CachePureComponent {
     )
 
     return (
-      <View style={styles.form}>
+      <View style={styles.container}>
         {title}
         <FormWrapper style={styles.formWrapper}>
           <Picker

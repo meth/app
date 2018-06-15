@@ -5,6 +5,7 @@ export default create({
     height: perWidth('auto', '90%')
   },
   scrollContainerContent: {
+    height: '100%',
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'stretch'

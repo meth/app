@@ -234,7 +234,7 @@ module.exports = {
         tab: {
           edit: 'Edit',
           confirm: 'Confirm',
-          done: 'Done!'
+          done: 'Done'
         },
         transactionSent: 'Transaction sent!',
         maxCost: 'Max cost',

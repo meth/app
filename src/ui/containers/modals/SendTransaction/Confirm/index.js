@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 
@@ -43,7 +44,7 @@ export default class Confirm extends PureComponent {
           </Text>
           <Text style={formStyles.labelText}>{t('modal.sendTransaction.rawTransactionLabel')}</Text>
           <BlockOfText
-            text={rawTx.str}
+            text={_.get(rawTx, 'str', '')}
             style={styles.rawTransactionBlock}
             textStyle={styles.rawTransactionBlockText}
           />

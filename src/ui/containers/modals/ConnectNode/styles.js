@@ -1,4 +1,4 @@
-import { create, fontMaker, perWidth } from '../../../styles'
+import { create, fontMaker } from '../../../styles'
 
 const titleText = {
   ...fontMaker({ weight: 'Light' }),
@@ -11,24 +11,24 @@ const text = {
 }
 
 export default create({
-  scrollContainerContent: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+  container: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
-  form: {
+  scrollContainerContent: {
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
   formWrapper: {
-    marginBottom: 10,
-    width: perWidth(300, '90%')
+    flex: 0,
+    alignSelf: 'stretch',
+    marginBottom: 10
   },
   pickerButton: {
-    width: '100%'
   },
   button: {
     marginTop: 25,

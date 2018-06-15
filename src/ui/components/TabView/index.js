@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { TabViewAnimated, TabBar } from 'react-native-tab-view'
+import { TabView, TabBar } from 'react-native-tab-view'
 
 import styles from './styles'
 
-export default class TabView extends PureComponent {
+export default class TabViewAnimated extends PureComponent {
   static propTypes = {
     initialIndex: PropTypes.number,
     routes: PropTypes.arrayOf(PropTypes.shape({
@@ -27,13 +27,13 @@ export default class TabView extends PureComponent {
 
   render () {
     return (
-      <TabViewAnimated
+      <TabView
         swipeEnabled={false}
         animationEnabled={true}
         navigationState={this.state}
         onIndexChange={this._handleIndexChange}
         renderScene={this._renderScene}
-        renderHeader={this._renderHeader}
+        renderTabBar={this._renderTabBar}
         onIndexChange={this._handleIndexChange}
         canJumpToTab={this._canJumpToTab}
       />
@@ -50,7 +50,7 @@ export default class TabView extends PureComponent {
     })
   }
 
-  _renderHeader = headerProps => {
+  _renderTabBar = headerProps => {
     const { tabBarStyle, tabStyle, labelTextStyle, indicatorStyle } = this.props
 
     return (
@@ -64,13 +64,13 @@ export default class TabView extends PureComponent {
     )
   }
 
-  _renderScene = ({ route: { key }, jumpTo, focused }) => {
-    const { getScene } = this.props
-
-    // externally accessible
+  _renderScene = ({ route: { key }, navigationState: { index, routes }, jumpTo }) => {
+    // make function externally accessible
     this.jumpTo = jumpTo
 
-    return focused ? getScene(key) : null
+    const { getScene } = this.props
+
+    return getScene(key, (key === routes[index].key))
   }
 
   _canJumpToTab = ({ key }) => {

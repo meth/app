@@ -5,10 +5,10 @@ export default create({
     height: 500
   },
   contentScrollContainer: {
-    $outline: 1,
+    // $outline: 1,
     height: '100%',
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'stretch'
   }
 })

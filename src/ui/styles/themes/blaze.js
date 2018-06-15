@@ -50,7 +50,7 @@ export default {
   },
   tabView: {
     backgroundColor: colorBlack,
-    indicatorColor: colorGray,
+    indicatorColor: colorWhite,
     tab: {
       backgroundColor: colorGrayDark
     },
@@ -341,8 +341,8 @@ export default {
     },
     switch: {
       on: {
-        trackColor: colorViolet,
-        thumbColor: colorWhite,
+        trackColor: colorVioletLight,
+        thumbColor: colorViolet,
         label: {
           textColor: colorWhite
         }
