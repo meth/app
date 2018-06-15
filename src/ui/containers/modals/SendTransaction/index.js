@@ -64,6 +64,7 @@ export default class SendTransaction extends PureComponent {
         />
         <TabView
           ref={this._onTabViewRef}
+          key='sendTransaction'
           routes={TAB_ROUTES}
           initialIndex={indexOfTab(TAB.EDIT)}
           onIndexChange={this._onSelectedTabIndexChange}

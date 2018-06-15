@@ -20,26 +20,9 @@ export default class TabView extends PureComponent {
     canJumpToTab: () => true
   }
 
-  constructor (props, ctx) {
-    super(props, ctx)
-
-    const { initialIndex, routes } = this.props
-
-    this.state = {
-      index: initialIndex || 0,
-      routes
-    }
-  }
-
-  componentWillReceiveProps (props) {
-    const { routes } = props
-
-    if (routes !== this.state.routes) {
-      this.setState({
-        index: 0,
-        routes
-      })
-    }
+  state = {
+    index: this.props.initialIndex,
+    routes: this.props.routes
   }
 
   render () {

@@ -25,10 +25,12 @@ export default class Log extends PureComponent {
     return (
       <Modal
         contentStyle={styles.content}
+        contentScrollContainerStyle={styles.contentScrollContainer}
         onPressCloseButton={this.close}
         closeButtonStyle={styles.closeButton}
       >
         <TabView
+          key='log'
           routes={TAB_ROUTES}
           initialIndex={0}
           getScene={this._getTabScene}
