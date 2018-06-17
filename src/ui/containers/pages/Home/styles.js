@@ -12,7 +12,6 @@ const introText = {
 export default create({
   layoutContent: {
     flex: 1,
-    backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'

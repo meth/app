@@ -6,15 +6,20 @@ import { t } from '../../../../../common/strings'
 import Header from '../../liveComponents/Header'
 import ScrollView from '../../../components/ScrollView'
 import BlockOfText from '../../../components/BlockOfText'
+import Image from '../../../components/Image'
 import styles from './styles'
 import logger from '../../../../logger'
 
+
 export default class Layout extends PureComponent {
   static propTypes = {
+    contentStyle: PropTypes.any,
+    showSplashBackground: PropTypes.bool,
     useKeyboardAvoidingScrollView: PropTypes.bool
   }
 
   static defaultProps = {
+    showSplashBackground: false,
     useKeyboardAvoidingScrollView: true
   }
 
@@ -31,20 +36,27 @@ export default class Layout extends PureComponent {
   render () {
     const { uiError } = this.state
 
-    const { children, contentStyle, useKeyboardAvoidingScrollView } = this.props
+    const {
+      children,
+      contentStyle,
+      showSplashBackground,
+      useKeyboardAvoidingScrollView
+    } = this.props
+
+    let content
 
     if (uiError) {
-      return (
-        <View style={styles.container}>
+      content = (
+        <React.Fragment>
           <Text style={styles.uiErrorText}>{t('error.unexpectedPleaseRestart')}</Text>
           <BlockOfText text={uiError.error.stack} />
           <BlockOfText text={uiError.info.componentStack} />
-        </View>
+        </React.Fragment>
       )
     }
 
-    return (
-      <View style={styles.container}>
+    content = (
+      <React.Fragment>
         <Header style={styles.header} />
         <ScrollView
           useKeyboardAvoidingScrollView={useKeyboardAvoidingScrollView}
@@ -54,6 +66,15 @@ export default class Layout extends PureComponent {
         >
           {children}
         </ScrollView>
+      </React.Fragment>
+    )
+
+    return (
+      <View style={styles.container}>
+        {showSplashBackground ? (
+          <Image id='splash' style={styles.bgImage} resizeMode='cover'/>
+        ) : null}
+        {content}
       </View>
     )
   }

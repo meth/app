@@ -17,7 +17,7 @@ export default class Home extends PureComponent {
 
   render () {
     return (
-      <Layout contentStyle={styles.layoutContent}>
+      <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
         <Text style={styles.intro1Text}>
           {t('home.intro1')}
         </Text>
