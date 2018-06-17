@@ -1,7 +1,7 @@
 import { create, fontMaker, getHeaderHeight, perWidth } from '../../../styles'
 
 const introText = {
-  ...fontMaker(),
+  ...fontMaker({ weight: 'SemiBold' }),
   fontSize: '1rem',
   color: '$content_textColor',
   textAlign: 'center',
@@ -12,14 +12,12 @@ const introText = {
 export default create({
   layoutContent: {
     paddingVertical: Math.max(getHeaderHeight() + 10, 50),
-    backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
   },
   intro1Text: {
     ...introText,
-    ...fontMaker({ weight: 'Light' }),
     fontSize: '1.5rem',
     maxWidth: perWidth('100%', '100%', '90%')
   },

@@ -18,7 +18,7 @@ export default class EnterPinAfterLogin extends PureComponent {
 
   render () {
     return (
-      <Layout contentStyle={styles.layoutContent}>
+      <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
         <Text style={styles.intro1Text}>{t('setupPin.enterPin')}</Text>
         <PinEntry
           ref={this._onPinEntryRef}

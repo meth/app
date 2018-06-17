@@ -1,7 +1,7 @@
 import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
 
 const introText = {
-  ...fontMaker(),
+  ...fontMaker({ weight: 'SemiBold' }),
   fontSize: '1rem',
   textAlign: 'center',
   color: '$content_textColor',
@@ -18,7 +18,7 @@ export default create({
   },
   intro1Text: {
     ...introText,
-    ...fontMaker({ weight: 'Light' }),
+    ...fontMaker({ weight: 'ExtraBold' }),
     fontSize: '2.5rem',
     marginBottom: 30
   },

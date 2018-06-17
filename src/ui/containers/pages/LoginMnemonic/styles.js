@@ -1,7 +1,7 @@
 import { create, fontMaker, whenWidthSmall, whenWidthVerySmall } from '../../../styles'
 
-const text = {
-  ...fontMaker(),
+const introText = {
+  ...fontMaker({ weight: 'SemiBold' }),
   fontSize: '1.5rem',
   color: '$content_textColor',
   textAlign: 'center',
@@ -12,14 +12,12 @@ const text = {
 export default create({
   layoutContent: {
     flex: 1,
-    backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
   },
   introText: {
-    ...text,
-    ...fontMaker({ weight: 'Light' }),
+    ...introText,
     marginBottom: 40
   },
   formWrapper: {

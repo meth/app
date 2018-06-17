@@ -1,7 +1,7 @@
 import { create, fontMaker } from '../../../styles'
 
 const introText = {
-  ...fontMaker(),
+  ...fontMaker({ weight: 'SemiBold' }),
   fontSize: '1rem',
   color: '$content_textColor',
   textAlign: 'center',
@@ -12,14 +12,12 @@ const introText = {
 export default create({
   layoutContent: {
     flex: 1,
-    backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center'
   },
   intro1Text: {
     ...introText,
-    ...fontMaker({ weight: 'Light' }),
     fontSize: '1.5rem'
   },
   intro2Text: {

@@ -37,7 +37,7 @@ export default class GenerateMnemonic extends PureComponent {
     const { error, mnemonic, revealed } = this.state
 
     return (
-      <Layout contentStyle={styles.layoutContent}>
+      <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
         <Text style={styles.intro1Text}>{t('mnemonic.intro1')}</Text>
         <Text style={styles.intro2Text}>{t('mnemonic.intro2')}</Text>
         {(!mnemonic) ? <Loading /> : (
