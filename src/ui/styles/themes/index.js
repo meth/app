@@ -1,3 +1,3 @@
-import defaultTheme from './blaze'
+import defaultTheme from './crystal'
 
 export default defaultTheme

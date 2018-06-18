@@ -44,20 +44,22 @@ export default class PinEntry extends CachePureComponent {
     return (
       <View style={[ styles.container, style ]}>
         {this._renderPin()}
-        {ROWS.map((row, rowIndex) => (
-          <View key={rowIndex} style={styles.row}>
-            {row.map((number, nIndex) => (
-              <Button
-                type='pinEntry'
-                key={nIndex}
-                style={styles.numberButton}
-                textStyle={styles.numberButtonText}
-                onPress={this.bind(this._onPressNumber, number)}
-                title={`${number}`}
-              />
-            ))}
-          </View>
-        ))}
+        <View style={styles.entryPad}>
+          {ROWS.map((row, rowIndex) => (
+            <View key={rowIndex} style={styles.row}>
+              {row.map((number, nIndex) => (
+                <Button
+                  type='pinEntry'
+                  key={nIndex}
+                  style={styles.numberButton}
+                  textStyle={styles.numberButtonText}
+                  onPress={this.bind(this._onPressNumber, number)}
+                  title={`${number}`}
+                />
+              ))}
+            </View>
+          ))}
+        </View>
       </View>
     )
   }

@@ -19,7 +19,7 @@ export default create({
   intro1Text: {
     ...introText,
     ...fontMaker({ weight: 'ExtraBold' }),
-    fontSize: '2.5rem',
+    fontSize: '2.3rem',
     marginBottom: 30
   },
   intro2Text: {

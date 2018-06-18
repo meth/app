@@ -23,7 +23,9 @@ const colorHoneyDew = '#f0fff1'
 const colorTeaGreen = '#c2f8cb'
 const colorMagicMint = '#b3e9c7'
 
-const colorViolet = '#5603AD'
+export const colorButtonBlue = '#00C9F6'
+
+const colorViolet = colorButtonBlue
 const colorVioletLight = lighten(colorViolet, 0.5)
 // const colorUbe = '#8367C7'
 

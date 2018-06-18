@@ -5,6 +5,7 @@ import { Header } from 'react-navigation'
 import { routes } from '../../../nav'
 import { connectStore } from '../../../helpers/redux'
 import IconButton from '../../../components/IconButton'
+import Image from '../../../components/Image'
 import styles from './styles'
 
 @connectStore('nav')
@@ -18,7 +19,9 @@ export default class MobileHeader extends PureComponent {
       this.props.scene.descriptor.options, {
         headerLeft: this._renderMenuButton(),
         headerRight: this._renderHeaderRight(this.props.scene.descriptor),
-        headerTitle: _.get(routes, `${routeName}.screen.navigationOptions.title`, '')
+        headerTitle: _.get(routes, `${routeName}.screen.navigationOptions.title`, ''),
+        headerTransparent: true,
+        headerBackground: this._renderHeaderBackground()
       }
     )
 
@@ -32,6 +35,12 @@ export default class MobileHeader extends PureComponent {
         icon={{ name: 'md-menu', style: styles.menuButtonIcon }}
         onPress={this._onToggleMenu}
       />
+    )
+  }
+
+  _renderHeaderBackground () {
+    return (
+      <Image id='splash' resizeMode='cover'/>
     )
   }
 

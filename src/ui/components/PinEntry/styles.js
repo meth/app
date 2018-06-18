@@ -6,6 +6,11 @@ export default create({
     justifyContent: 'flex-start',
     alignItems: 'stretch'
   },
+  entryPad: {
+    backgroundColor: '$pin_entryPad_backgroundColor',
+    borderRadius: 15,
+    padding: 5
+  },
   pin: {
     marginBottom: 15,
     flexDirection: 'row',
