@@ -7,7 +7,7 @@ export default create({
     paddingVertical: 0
   },
   menuButtonImage: {
-    width: 32,
+    width: 48,
     height: 32
   }
 })

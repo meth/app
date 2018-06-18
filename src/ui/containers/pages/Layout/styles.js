@@ -1,4 +1,4 @@
-import { create, fontMaker, coverParent } from '../../../styles'
+import { create, fontMaker } from '../../../styles'
 
 export default create({
   container: {
@@ -7,12 +7,6 @@ export default create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch'
-  },
-
-  bgImage: {
-    ...coverParent,
-    width: '100%',
-    height: '100%'
   },
 
   /* header */

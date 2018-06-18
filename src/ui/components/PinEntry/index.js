@@ -3,10 +3,8 @@ import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
 
 import IPC_UI_TASKS from '../../../../common/constants/ipcUiTasks'
-import { t } from '../../../../common/strings'
 import { globalEvents } from '../../../env'
 import { CachePureComponent } from '../../helpers/components'
-import IconButton from '../IconButton'
 import Button from '../Button'
 import styles from './styles'
 
@@ -44,22 +42,20 @@ export default class PinEntry extends CachePureComponent {
     return (
       <View style={[ styles.container, style ]}>
         {this._renderPin()}
-        <View style={styles.entryPad}>
-          {ROWS.map((row, rowIndex) => (
-            <View key={rowIndex} style={styles.row}>
-              {row.map((number, nIndex) => (
-                <Button
-                  type='pinEntry'
-                  key={nIndex}
-                  style={styles.numberButton}
-                  textStyle={styles.numberButtonText}
-                  onPress={this.bind(this._onPressNumber, number)}
-                  title={`${number}`}
-                />
-              ))}
-            </View>
-          ))}
-        </View>
+        {ROWS.map((row, rowIndex) => (
+          <View key={rowIndex} style={styles.row}>
+            {row.map((number, nIndex) => (
+              <Button
+                type='pinEntry'
+                key={nIndex}
+                style={styles.numberButton}
+                textStyle={styles.numberButtonText}
+                onPress={this.bind(this._onPressNumber, number)}
+                title={`${number}`}
+              />
+            ))}
+          </View>
+        ))}
       </View>
     )
   }
@@ -67,31 +63,23 @@ export default class PinEntry extends CachePureComponent {
   _renderPin () {
     const { pin } = this.state
 
+    const sanitized = []
+    for (let i = 0; MAX_LENGTH > i; i += 1) {
+      sanitized.push(pin[i] || null)
+    }
+
     return (
       <View style={styles.pin}>
-        {pin.length ? (
-          pin.map((number, index) => (
-            <Text key={index} style={styles.pinNumber}>*</Text>
-          )).concat(
-            <IconButton
-              key='delete'
-              type='textWithBorder'
-              tooltip={t('button.delete')}
-              style={styles.clearButton}
-              icon={{ name: 'md-backspace', style: styles.clearButtonIconText }}
-              onPress={this._onPressDelete}
-            />
-          )
-        ) : (
-          /* to maintain the space we still outoupt something */
-          <Text style={styles.pinNumber}> </Text>
-        )}
+        {sanitized.map((number, index) => (
+          <Text
+            key={index}
+            style={null !== number ? styles.pinNumber : styles.pinNumberPlaceholder}
+          >
+            {null !== number ? '◆' : '_'}
+          </Text>
+        ))}
       </View>
     )
-  }
-
-  _onPressDelete = () => {
-    this.setState({ pin: [] })
   }
 
   _onPressNumber = number => {
@@ -107,11 +95,17 @@ export default class PinEntry extends CachePureComponent {
           const { onPinEntered } = this.props
 
           /* minor delay for UI updates to go through */
-          setTimeout(() => onPinEntered(pin.join('')), 200)
+          setTimeout(() => {
+            if (!onPinEntered(pin.join(''))) {
+              this.reset()
+            }
+          }, 200)
         }
       })
     }
   }
+
+  _onPressDelete = () => this.reset()
 
   reset () {
     this.setState({ pin: [] })

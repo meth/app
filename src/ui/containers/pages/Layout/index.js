@@ -6,7 +6,7 @@ import { t } from '../../../../../common/strings'
 import Header from '../../liveComponents/Header'
 import ScrollView from '../../../components/ScrollView'
 import BlockOfText from '../../../components/BlockOfText'
-import Image from '../../../components/Image'
+import SplashBackgroundImage from '../../../components/SplashBackgroundImage'
 import styles from './styles'
 import logger from '../../../../logger'
 
@@ -73,7 +73,7 @@ export default class Layout extends PureComponent {
     return (
       <View style={[ styles.container, containerStyle ]}>
         {showSplashBackground ? (
-          <Image id='splash' style={styles.bgImage} resizeMode='cover'/>
+          <SplashBackgroundImage />
         ) : null}
         {content}
       </View>

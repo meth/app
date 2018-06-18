@@ -46,6 +46,10 @@ export default class EnterPinAfterLogin extends PureComponent {
 
     if (getSecurityPin() === pin) {
       navPostPin()
+
+      return true
     }
+
+    return false
   }
 }

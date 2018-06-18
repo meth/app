@@ -1,28 +1,36 @@
 import { create, fontMaker } from '../../styles'
 
+const pinNumberText = {
+  ...fontMaker({ weight: 'Bold' }),
+  color: '$pin_hiddenChar_textColor',
+  textAlign: 'center',
+  marginHorizontal: 10,
+  lineHeight: 40
+}
+
 export default create({
   container: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
-    alignItems: 'stretch'
-  },
-  entryPad: {
+    alignItems: 'stretch',
     backgroundColor: '$pin_entryPad_backgroundColor',
     borderRadius: 15,
-    padding: 5
+    padding: 5,
+    paddingTop: 8
   },
   pin: {
-    marginBottom: 15,
+    marginBottom: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
   },
   pinNumber: {
-    ...fontMaker({ weight: 'Bold' }),
-    fontSize: '1.5rem',
-    color: '$pin_hiddenChar_textColor',
-    textAlign: 'center',
-    marginHorizontal: 10
+    ...pinNumberText,
+    fontSize: '1rem'
+  },
+  pinNumberPlaceholder: {
+    ...pinNumberText,
+    fontSize: '1.5rem'
   },
   clearButton: {
     marginTop: -6,
