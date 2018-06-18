@@ -5,5 +5,9 @@ export default create({
     fontSize: '1rem',
     paddingHorizontal: 0,
     paddingVertical: 0
+  },
+  menuButtonImage: {
+    width: 32,
+    height: 32
   }
 })

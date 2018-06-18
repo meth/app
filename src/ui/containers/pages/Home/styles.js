@@ -4,7 +4,7 @@ const introText = {
   ...fontMaker({ weight: 'SemiBold' }),
   fontSize: '1rem',
   textAlign: 'center',
-  color: '$content_textColor',
+  color: '$splashContent_textColor',
   maxWidth: '90%',
   marginBottom: 20
 }

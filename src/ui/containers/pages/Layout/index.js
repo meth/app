@@ -39,6 +39,7 @@ export default class Layout extends PureComponent {
     const {
       children,
       contentStyle,
+      containerStyle,
       showSplashBackground,
       useKeyboardAvoidingScrollView
     } = this.props
@@ -70,7 +71,7 @@ export default class Layout extends PureComponent {
     )
 
     return (
-      <View style={styles.container}>
+      <View style={[ styles.container, containerStyle ]}>
         {showSplashBackground ? (
           <Image id='splash' style={styles.bgImage} resizeMode='cover'/>
         ) : null}

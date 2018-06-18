@@ -3,7 +3,7 @@ import { create, fontMaker, whenWidthSmall, whenWidthVerySmall } from '../../../
 const introText = {
   ...fontMaker({ weight: 'SemiBold' }),
   fontSize: '1.5rem',
-  color: '$content_textColor',
+  color: '$splashContent_textColor',
   textAlign: 'center',
   maxWidth: '70%',
   marginBottom: 20
@@ -21,7 +21,7 @@ export default create({
     marginBottom: 40
   },
   formWrapper: {
-    width: '70%'
+    maxWidth: '80%'
   },
   nextButton: {
     marginTop: 40,

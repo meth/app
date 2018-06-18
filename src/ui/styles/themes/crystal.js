@@ -19,15 +19,13 @@ import {
   darken
 } from '../../../utils/colors'
 
-const colorHoneyDew = '#f0fff1'
 const colorTeaGreen = '#c2f8cb'
 const colorMagicMint = '#b3e9c7'
 
-export const colorButtonBlue = '#00C9F6'
+const colorFormWrapper = colorTransparent
 
-const colorViolet = colorButtonBlue
-const colorVioletLight = lighten(colorViolet, 0.5)
-// const colorUbe = '#8367C7'
+const colorButtonBlue = '#00b2d9'
+const colorButtonBlueLight = lighten(colorButtonBlue, 0.5)
 
 export const ROOT_FONT_SIZE = 18
 
@@ -38,7 +36,17 @@ export default {
     textColor: colorGrayDarker
   },
   loading: {
-    spinnerColor: colorViolet
+    spinnerColor: colorButtonBlue
+  },
+  splashContent: {
+    backgroundColor: colorTransparent,
+    textColor: colorWhite,
+    borderTop: {
+      color: colorGrayLight
+    },
+    title: {
+      textColor: colorWhite
+    }
   },
   content: {
     backgroundColor: colorWhite,
@@ -148,10 +156,10 @@ export default {
       item: {
         inactive: {
           backgroundColor: colorTransparent,
-          textColor: colorViolet
+          textColor: colorButtonBlue
         },
         active: {
-          backgroundColor: colorViolet,
+          backgroundColor: colorButtonBlue,
           textColor: colorWhite
         }
       }
@@ -302,7 +310,7 @@ export default {
   },
   form: {
     wrapper: {
-      backgroundColor: colorHoneyDew
+      backgroundColor: colorFormWrapper
     },
     label: {
       textColor: colorGrayDarker
@@ -346,8 +354,8 @@ export default {
     },
     switch: {
       on: {
-        trackColor: colorVioletLight,
-        thumbColor: colorViolet,
+        trackColor: colorButtonBlueLight,
+        thumbColor: colorButtonBlue,
         label: {
           textColor: colorWhite
         }
@@ -404,13 +412,13 @@ export default {
     }),
     mask: generateButtonStyles({
       default: {
-        borderColor: colorViolet,
-        backgroundColor: toRGBA(colorViolet, 0.97),
+        borderColor: colorButtonBlue,
+        backgroundColor: toRGBA(colorButtonBlue, 0.97),
         textColor: colorWhite
       },
       hover: {
-        borderColor: colorViolet,
-        backgroundColor: colorVioletLight,
+        borderColor: colorButtonBlue,
+        backgroundColor: colorButtonBlueLight,
         textColor: colorWhite
       }
     }),
@@ -421,9 +429,9 @@ export default {
         textColor: colorGrayLight
       },
       hover: {
-        borderColor: colorViolet,
+        borderColor: colorButtonBlue,
         backgroundColor: colorWhite,
-        textColor: colorViolet
+        textColor: colorButtonBlue
       }
     } : {
       default: {
@@ -458,7 +466,7 @@ export default {
       hover: {
         borderColor: colorTransparent,
         backgroundColor: colorTransparent,
-        textColor: colorViolet
+        textColor: colorButtonBlue
       }
     }),
     browserTab: generateButtonStyles({
@@ -469,7 +477,7 @@ export default {
       },
       hover: {
         borderColor: colorTransparent,
-        backgroundColor: colorViolet,
+        backgroundColor: colorButtonBlue,
         textColor: colorWhite
       }
     }),
@@ -481,7 +489,7 @@ export default {
       },
       hover: {
         borderColor: colorTransparent,
-        backgroundColor: colorViolet,
+        backgroundColor: colorButtonBlue,
         textColor: colorWhite
       }
     }),
@@ -492,21 +500,21 @@ export default {
         textColor: colorGrayDark
       },
       hover: {
-        borderColor: colorViolet,
-        backgroundColor: colorVioletLight,
+        borderColor: colorButtonBlue,
+        backgroundColor: colorButtonBlueLight,
         textColor: colorWhite
       }
     }),
     textWithBorder: generateButtonStyles({
-      spinnerColor: colorViolet,
+      spinnerColor: colorButtonBlue,
       default: {
-        borderColor: colorViolet,
+        borderColor: colorButtonBlue,
         backgroundColor: colorTransparent,
-        textColor: colorViolet
+        textColor: colorButtonBlue
       },
       hover: {
-        borderColor: colorViolet,
-        backgroundColor: colorVioletLight,
+        borderColor: colorButtonBlue,
+        backgroundColor: colorButtonBlueLight,
         textColor: colorWhite
       }
     }, {
@@ -522,15 +530,15 @@ export default {
       }
     }),
     mobileDrawer: generateButtonStyles({
-      spinnerColor: colorViolet,
+      spinnerColor: colorButtonBlue,
       default: {
         borderColor: colorTransparent,
         backgroundColor: colorTransparent,
-        textColor: colorViolet
+        textColor: colorButtonBlue
       },
       hover: {
         borderColor: colorTransparent,
-        backgroundColor: colorVioletLight,
+        backgroundColor: colorButtonBlueLight,
         textColor: colorWhite
       }
     }),
@@ -548,20 +556,20 @@ export default {
       }
     }),
     text: generateButtonStyles({
-      spinnerColor: colorViolet,
+      spinnerColor: colorButtonBlue,
       default: {
         borderColor: colorTransparent,
         backgroundColor: colorTransparent,
-        textColor: colorViolet
+        textColor: colorButtonBlue
       },
       hover: {
         borderColor: colorTransparent,
-        backgroundColor: colorVioletLight,
+        backgroundColor: colorButtonBlueLight,
         textColor: colorWhite
       },
       active: {
         borderColor: colorTransparent,
-        backgroundColor: colorViolet,
+        backgroundColor: colorButtonBlue,
         textColor: colorWhite
       }
     }),
@@ -572,21 +580,21 @@ export default {
         textColor: colorBlack
       },
       hover: {
-        borderColor: colorViolet,
-        backgroundColor: colorVioletLight,
+        borderColor: colorButtonBlue,
+        backgroundColor: colorButtonBlueLight,
         textColor: colorWhite
       }
     }),
     default: generateButtonStyles({
       spinnerColor: colorWhite,
       default: {
-        borderColor: colorViolet,
-        backgroundColor: colorViolet,
+        borderColor: colorButtonBlue,
+        backgroundColor: colorButtonBlue,
         textColor: colorWhite
       },
       hover: {
-        borderColor: colorViolet,
-        backgroundColor: colorVioletLight,
+        borderColor: colorButtonBlue,
+        backgroundColor: colorButtonBlueLight,
         textColor: colorWhite
       }
     })

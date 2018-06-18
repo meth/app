@@ -3,7 +3,7 @@ import { create, fontMaker, getHeaderHeight, perWidth } from '../../../styles'
 const introText = {
   ...fontMaker({ weight: 'SemiBold' }),
   fontSize: '1rem',
-  color: '$content_textColor',
+  color: '$splashContent_textColor',
   textAlign: 'center',
   maxWidth: '75%',
   marginBottom: 25
@@ -39,7 +39,8 @@ export default create({
     fontSize: '1rem'
   },
   loginButton: {
-    marginTop: 40
+    marginTop: 40,
+    marginBottom: 30
   },
   loginButtonText: {
     fontSize: '0.7rem'

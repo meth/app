@@ -2,7 +2,7 @@ import { create, fontMaker, perWidth, getHeaderHeight } from '../../../styles'
 
 const introText = {
   ...fontMaker({ weight: 'SemiBold' }),
-  color: '$content_textColor',
+  color: '$splashContent_textColor',
   textAlign: 'center',
   maxWidth: '70%',
   marginBottom: 20

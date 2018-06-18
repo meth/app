@@ -3,7 +3,7 @@ import { create, fontMaker } from '../../../styles'
 const introText = {
   ...fontMaker({ weight: 'SemiBold' }),
   fontSize: '1rem',
-  color: '$content_textColor',
+  color: '$splashContent_textColor',
   textAlign: 'center',
   maxWidth: '90%',
   marginBottom: 25

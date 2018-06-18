@@ -6,5 +6,10 @@ export default create({
     backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    height: 'auto'
   }
 })

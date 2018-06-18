@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Image as NativeImage, View } from 'react-native'
+import { Image as NativeImage } from 'react-native'
 
 import Loading from '../Loading'
+import TouchableView from '../TouchableView'
 import styles from './styles'
 import hardCoded from './hardCoded'
 
@@ -10,7 +11,9 @@ import hardCoded from './hardCoded'
 export default class Image extends PureComponent {
   static propTypes = {
     ...NativeImage.propTypes,
-    id: PropTypes.string
+    id: PropTypes.string,
+    style: PropTypes.any,
+    onPress: PropTypes.func
   }
 
   state = {
@@ -18,31 +21,33 @@ export default class Image extends PureComponent {
   }
 
   render () {
-    const { source, id, style, ...props } = this.props
+    const { source, id, style, onPress, ...props } = this.props
 
     const { loading } = this.state
 
     if (source && source.uri) {
       return (
-        <View style={style}>
+        <TouchableView style={style} onPress={onPress}>
           <NativeImage
             {...props}
-            style={[ styles.image, style ]}
+            style={styles.image}
             source={source}
             onLoadStart={this._onLoadStart}
             onLoad={this._onLoadEnd}
           />
           {loading ? <Loading style={styles.loading} /> : null}
-        </View>
+        </TouchableView>
       )
     }
 
     return (
-      <NativeImage
-        source={hardCoded[id]}
-        style={style}
-        {...props}
-      />
+      <TouchableView style={style} onPress={onPress}>
+        <NativeImage
+          source={hardCoded[id]}
+          style={styles.image}
+          {...props}
+        />
+      </TouchableView>
     )
   }
 
