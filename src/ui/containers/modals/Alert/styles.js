@@ -6,7 +6,9 @@ export default ({ type }) => create({
   },
   content: {
     padding: 30,
-    backgroundColor: `$alert_${type}_backgroundColor`,
+    backgroundColor: `$alert_${type}_backgroundColor`
+  },
+  scrollContainerContent: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center'

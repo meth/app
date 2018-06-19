@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 
 import IPC_UI_TASKS from '../../../../common/constants/ipcUiTasks'
 import { globalEvents } from '../../../env'
@@ -40,7 +41,7 @@ export default class PinEntry extends CachePureComponent {
     const { style } = this.props
 
     return (
-      <View style={[ styles.container, style ]}>
+      <Animatable.View style={[ styles.container, style ]} ref={this._onViewRef}>
         {this._renderPin()}
         {ROWS.map((row, rowIndex) => (
           <View key={rowIndex} style={styles.row}>
@@ -56,8 +57,12 @@ export default class PinEntry extends CachePureComponent {
             ))}
           </View>
         ))}
-      </View>
+      </Animatable.View>
     )
+  }
+
+  _onViewRef = r => {
+    this.view = r
   }
 
   _renderPin () {
@@ -97,7 +102,7 @@ export default class PinEntry extends CachePureComponent {
           /* minor delay for UI updates to go through */
           setTimeout(() => {
             if (!onPinEntered(pin.join(''))) {
-              this.reset()
+              this.view.shake(300).then(() => this.reset())
             }
           }, 200)
         }

@@ -26,6 +26,7 @@ export default class Alert extends PureComponent {
         onOverlayPress={this.onClose}
         overlayStyle={styles.overlay}
         contentStyle={styles.content}
+        contentScrollContainerStyle={styles.scrollContainerContent}
       >
         {this.renderIcon(styles, type)}
         <Text style={styles.text}>{msg}</Text>

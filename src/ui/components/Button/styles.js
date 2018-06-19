@@ -9,7 +9,7 @@ const box = {
 }
 
 const text = {
-  ...fontMaker(),
+  ...fontMaker({ weight: 'SemiBold' }),
   fontSize: '0.8rem',
   textAlign: 'center'
 }

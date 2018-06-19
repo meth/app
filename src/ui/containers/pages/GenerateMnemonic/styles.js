@@ -21,13 +21,10 @@ export default create({
     fontSize: '1.5rem',
     maxWidth: perWidth('100%', '100%', '90%')
   },
-  intro2Text: {
-    ...introText,
-    ...fontMaker({ weight: 'Bold' }),
-    fontSize: '0.8rem',
-    textDecorationLine: 'underline',
-    width: '60%',
-    maxWidth: perWidth('100%', '100%', '90%')
+  introAlertBox: {
+    width: '80%',
+    maxWidth: perWidth('100%', '100%', '90%'),
+    marginBottom: 20
   },
   mnemonic: {
     maxWidth: '90%'

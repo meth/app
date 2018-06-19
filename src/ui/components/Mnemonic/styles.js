@@ -63,6 +63,7 @@ export default create({
   },
   maskButtonText: {
     ...maskText,
+    ...fontMaker({ weight: 'SemiBold' }),
     fontSize: '1.2rem'
   },
   wordColumns: {

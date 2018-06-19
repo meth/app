@@ -22,10 +22,11 @@ import {
 const colorTeaGreen = '#c2f8cb'
 const colorMagicMint = '#b3e9c7'
 
-const colorFormWrapper = colorTransparent
-
+const colorInfo = '#ffb100'
 const colorButtonBlue = '#00b2d9'
 const colorButtonBlueLight = lighten(colorButtonBlue, 0.5)
+
+const colorBlueFormBg = toRGBA('#04cfff', 0.1)
 
 export const ROOT_FONT_SIZE = 18
 
@@ -240,8 +241,8 @@ export default {
       textColor: colorWhite
     },
     info: {
-      backgroundColor: colorMagicMint,
-      textColor: colorGrayDarker
+      backgroundColor: colorInfo,
+      textColor: colorWhite
     }
   },
   blockOfText: {
@@ -310,7 +311,7 @@ export default {
   },
   form: {
     wrapper: {
-      backgroundColor: colorFormWrapper
+      backgroundColor: colorBlueFormBg
     },
     label: {
       textColor: colorGrayDarker

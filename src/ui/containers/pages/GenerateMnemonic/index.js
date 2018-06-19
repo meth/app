@@ -6,6 +6,7 @@ import { t } from '../../../../../common/strings'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import ErrorBox from '../../../components/ErrorBox'
+import AlertBox from '../../../components/AlertBox'
 import Button from '../../../components/Button'
 import Loading from '../../../components/Loading'
 import { MnemonicDisplay } from '../../../components/Mnemonic'
@@ -39,7 +40,11 @@ export default class GenerateMnemonic extends PureComponent {
     return (
       <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
         <Text style={styles.intro1Text}>{t('mnemonic.intro1')}</Text>
-        <Text style={styles.intro2Text}>{t('mnemonic.intro2')}</Text>
+        <AlertBox
+          type='info'
+          text={t('mnemonic.intro2')}
+          style={styles.introAlertBox}
+        />
         {(!mnemonic) ? <Loading /> : (
           <MnemonicDisplay
             mnemonic={mnemonic}
