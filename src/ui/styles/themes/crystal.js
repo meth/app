@@ -601,10 +601,10 @@ export default {
   },
   mnemonic: {
     confirmationBox: {
-      topBorderColor: colorGrayDarker
+      topBorderColor: colorWhite
     },
-    backgroundColor: colorMagicMint,
-    textColor: colorBlack
+    backgroundColor: colorBlack,
+    textColor: colorWhite
   },
   table: {
     default: {

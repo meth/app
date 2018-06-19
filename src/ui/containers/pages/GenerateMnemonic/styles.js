@@ -33,6 +33,7 @@ export default create({
     maxWidth: '90%'
   },
   nextButton: {
+    maxWidth: '90%',
     marginTop: 40
   },
   nextButtonText: {

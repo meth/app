@@ -33,7 +33,7 @@ export default create({
   },
   getStartedButton: {
     marginTop: 20,
-    marginBottom: 100
+    marginBottom: 80
   },
   getStartedButtonText: {
     fontSize: '1rem'

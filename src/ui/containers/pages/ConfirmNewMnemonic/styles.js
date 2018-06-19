@@ -30,6 +30,7 @@ export default create({
     maxWidth: '80%'
   },
   nextButton: {
+    maxWidth: '90%',
     marginTop: 40,
     marginBottom: 30
   },

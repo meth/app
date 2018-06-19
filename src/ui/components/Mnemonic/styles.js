@@ -1,4 +1,4 @@
-import { create, fontMaker, coverParent, whenWidthSmall } from '../../styles'
+import { create, fontMaker, coverParent, perWidth } from '../../styles'
 
 const maskText = {
   ...fontMaker(),
@@ -20,8 +20,8 @@ export default create({
     alignItems: 'center'
   },
   wordText: {
-    ...fontMaker(),
-    fontSize: '1rem',
+    ...fontMaker({ weight: 'SemiBold' }),
+    fontSize: perWidth('1rem', '0.85rem'),
     textAlign: 'center',
     color: '$mnemonic_textColor',
     backgroundColor: '$mnemonic_backgroundColor',
@@ -42,8 +42,8 @@ export default create({
     marginTop: 10,
     padding: 10
   },
-  unselectedWordText: {
-    opacity: 0.4
+  selectedWordText: {
+    opacity: 0.5
   },
   wordWrapperButton: {
     backgroundColor: 'transparent',
@@ -84,19 +84,10 @@ export default create({
     alignItems: 'center'
   },
   wordIndexText: {
-    ...fontMaker(),
-    fontSize: '1rem',
+    ...fontMaker({ weight: 'SemiBold' }),
+    fontSize: perWidth('1rem', '0.8rem'),
     textAlign: 'center',
     color: '$mnemonic_textColor',
     width: '2rem'
-  },
-
-  ...whenWidthSmall({
-    wordText: {
-      fontSize: '0.7rem'
-    },
-    wordIndexText: {
-      fontSize: '0.8rem'
-    }
-  })
+  }
 })

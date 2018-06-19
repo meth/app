@@ -83,7 +83,7 @@ export class MnemonicConfirmator extends CachePureComponent {
                   style={styles.wordWrapperButton}
                   textStyle={[
                     styles.wordText,
-                    selected.includes(word) ? null : styles.unselectedWordText
+                    selected.includes(word) ? styles.selectedWordText : null
                   ]}
                 />
               ))}
