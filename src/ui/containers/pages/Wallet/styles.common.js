@@ -26,17 +26,20 @@ module.exports = {
     width: '100%',
     marginTop: perWidth(10, 0)
   },
+  addAccountAlertBoxContainer: {
+    justifyContent: 'flex-start',
+    alignItems: 'stretch'
+  },
   addAccountAlertBox: {
-    marginTop: 10,
-    alignSelf: 'center'
+    width: '100%'
   },
 
   /* tokens */
 
   tokenTable: {
+    backgroundColor: '$content_backgroundColor',
     marginTop: 10,
     width: '100%',
-    alignItems: 'stretch',
-    paddingBottom: 10
+    alignItems: 'stretch'
   }
 }

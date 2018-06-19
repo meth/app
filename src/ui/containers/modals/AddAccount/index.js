@@ -19,10 +19,7 @@ export default class AddAccount extends PureComponent {
     const { submitting, error } = this.state
 
     return (
-      <Modal
-        contentStyle={styles.content}
-        onPressCloseButton={this.close}
-      >
+      <Modal onPressCloseButton={this.close}>
         <Text style={styles.text}>{t('modal.addAccount.cta')}</Text>
         <ProgressButton
           style={styles.button}

@@ -46,10 +46,10 @@ export default create({
     flexWrap: 'wrap'
   },
   navDot: {
-    width: 5,
-    height: 5,
+    width: 10,
+    height: 10,
     margin: 5,
-    borderRadius: 5,
+    borderRadius: 10,
     backgroundColor: '$browser_coverFlow_navDot_default_backgroundColor'
   },
   activeNavDot: {

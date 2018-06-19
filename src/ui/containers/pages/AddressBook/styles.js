@@ -1,4 +1,4 @@
-import { create, perWidth } from '../../../styles'
+import { create, fontMaker, perWidth } from '../../../styles'
 
 export default create({
   // $outline: 1,
@@ -41,6 +41,7 @@ export default create({
     borderRadius: 0
   },
   tableRowButtonAddressText: {
+    ...fontMaker({ weight: 'Normal' }),
     textAlign: 'left'
   }
 })

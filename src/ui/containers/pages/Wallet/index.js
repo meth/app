@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
+import { View } from 'react-native'
 
 import { CachePureComponent } from '../../../helpers/components'
 import { connectStore } from '../../../helpers/redux'
@@ -57,11 +58,13 @@ export default class Wallet extends CachePureComponent {
           onSelectCard={this._onPressSelectCard}
         />
         {numAccounts <= activeCard ? (
-          <AlertBox
-            style={styles.addAccountAlertBox}
-            type='info'
-            text={t('wallet.pressButtonAboveToAddAccount')}
-          />
+          <View style={styles.addAccountAlertBoxContainer}>
+            <AlertBox
+              style={styles.addAccountAlertBox}
+              type='info'
+              text={t('wallet.pressButtonAboveToAddAccount')}
+            />
+          </View>
         ) : (
           this._renderTokenTable(selectedAccount)
         )}

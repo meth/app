@@ -1,4 +1,4 @@
-import { create } from '../../../styles'
+import { create, fontMaker } from '../../../styles'
 
 export default create({
   scrollView: {
@@ -30,6 +30,7 @@ export default create({
     alignItems: 'center'
   },
   buttonText: {
+    ...fontMaker({ weight: 'Normal' }),
     textAlign: 'left'
   },
   networkButtonLoadingSpinner: {

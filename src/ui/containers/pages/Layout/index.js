@@ -19,7 +19,7 @@ export default class Layout extends PureComponent {
   }
 
   static defaultProps = {
-    showSplashBackground: false,
+    showSplashBackground: true,
     useKeyboardAvoidingScrollView: true
   }
 

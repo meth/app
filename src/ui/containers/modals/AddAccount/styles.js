@@ -6,14 +6,6 @@ const text = {
 }
 
 export default create({
-  // $outline: 1,
-
-  content: {
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 40
-  },
-
   /* text */
 
   text: {
@@ -22,6 +14,6 @@ export default create({
     textAlign: 'center',
     fontSize: '1rem',
     marginBottom: 20,
-    maxWidth: '90%'
+    maxWidth: '95%'
   }
 })

@@ -180,13 +180,13 @@ export default {
       }
     },
     swiper: {
-      backgroundColor: colorWhite,
+      backgroundColor: colorTransparent,
       navDot: {
         inactive: {
           backgroundColor: colorGray
         },
         active: {
-          backgroundColor: colorGrayDarkest
+          backgroundColor: colorWhite
         }
       }
     }
@@ -213,16 +213,16 @@ export default {
     },
     navBar: {
       borderBottomColor: colorGrayLight,
-      backgroundColor: colorGrayLighter
+      backgroundColor: colorBlueFormBg
     },
     coverFlow: {
-      backgroundColor: colorGrayDark,
+      backgroundColor: colorTransparent,
       navDot: {
         default: {
-          backgroundColor: colorGrayLight
+          backgroundColor: colorGray
         },
         active: {
-          backgroundColor: colorGrayDarkest
+          backgroundColor: colorWhite
         }
       }
     },
