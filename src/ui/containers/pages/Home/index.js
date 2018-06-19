@@ -7,6 +7,7 @@ import { getAppName } from '../../../../config'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Button from '../../../components/Button'
+import Image from '../../../components/Image'
 import Layout from '../Layout'
 
 @connectStore()
@@ -18,9 +19,7 @@ export default class Home extends PureComponent {
   render () {
     return (
       <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
-        <Text style={styles.intro1Text}>
-          {t('home.intro1')}
-        </Text>
+        <Image id='logo' style={styles.logo} resizeMode='contain' />
         <Text style={styles.intro2Text}>
           {t('home.intro2')}
         </Text>

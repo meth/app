@@ -16,11 +16,10 @@ export default create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  intro1Text: {
-    ...introText,
-    ...fontMaker({ weight: 'ExtraBold' }),
-    fontSize: '2.3rem',
-    marginBottom: 30
+  logo: {
+    width: 140,
+    height: 140,
+    marginBottom: 20
   },
   intro2Text: {
     ...introText,
