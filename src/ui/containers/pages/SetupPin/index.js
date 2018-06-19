@@ -29,7 +29,7 @@ export default class SetupPin extends PureComponent {
     const { error, saving } = this.state
 
     return (
-      <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
+      <Layout contentStyle={styles.layoutContent}>
         <Text style={styles.intro1Text}>{t('setupPin.intro1')}</Text>
         <Text style={styles.intro2Text}>{t('setupPin.intro2')}</Text>
         <PinEntry

@@ -14,12 +14,10 @@ import logger from '../../../../logger'
 export default class Layout extends PureComponent {
   static propTypes = {
     contentStyle: PropTypes.any,
-    showSplashBackground: PropTypes.bool,
     useKeyboardAvoidingScrollView: PropTypes.bool
   }
 
   static defaultProps = {
-    showSplashBackground: true,
     useKeyboardAvoidingScrollView: true
   }
 
@@ -40,7 +38,6 @@ export default class Layout extends PureComponent {
       children,
       contentStyle,
       containerStyle,
-      showSplashBackground,
       useKeyboardAvoidingScrollView
     } = this.props
 
@@ -72,9 +69,7 @@ export default class Layout extends PureComponent {
 
     return (
       <View style={[ styles.container, containerStyle ]}>
-        {showSplashBackground ? (
-          <SplashBackgroundImage />
-        ) : null}
+        <SplashBackgroundImage />
         {content}
       </View>
     )

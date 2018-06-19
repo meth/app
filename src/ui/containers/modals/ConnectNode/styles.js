@@ -62,7 +62,7 @@ export default create({
   block: {
     marginTop: 10,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center'
   },
   blockText: {

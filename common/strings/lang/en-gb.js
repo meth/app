@@ -167,7 +167,7 @@ module.exports = {
       browser: 'Browser',
       bookmarks: 'Bookmarks',
       mobileMenu: {
-        network: 'Network ({network})',
+        network: 'Network: {network}',
         log: 'Log ({numAlerts} alerts)',
         logout: 'Logout'
       }

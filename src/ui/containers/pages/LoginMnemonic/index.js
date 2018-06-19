@@ -33,7 +33,7 @@ export default class LoginMnemonic extends PureComponent {
     const { error, submitting } = this.state
 
     return (
-      <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
+      <Layout contentStyle={styles.layoutContent}>
         <Text style={styles.introText}>{t('mnemonic.enterYourMnemonic')}</Text>
         <FormWrapper style={styles.formWrapper}>
           <TextInput

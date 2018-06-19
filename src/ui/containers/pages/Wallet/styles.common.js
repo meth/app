@@ -28,7 +28,8 @@ module.exports = {
   },
   addAccountAlertBoxContainer: {
     justifyContent: 'flex-start',
-    alignItems: 'stretch'
+    alignItems: 'stretch',
+    padding: 10
   },
   addAccountAlertBox: {
     width: '100%'

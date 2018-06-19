@@ -19,7 +19,7 @@ export default class Home extends PureComponent {
 
   render () {
     return (
-      <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
+      <Layout contentStyle={styles.layoutContent}>
         <Animatable.View
           animation='bounceInDown'
           easing='ease-out'

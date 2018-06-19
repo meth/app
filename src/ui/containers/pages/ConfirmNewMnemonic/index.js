@@ -36,7 +36,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
     )
 
     return (
-      <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
+      <Layout contentStyle={styles.layoutContent}>
         <Text style={styles.intro1Text}>{t('mnemonic.pleaseConfirmYourMnemonic')}</Text>
         <Text style={styles.intro2Text}>{t('mnemonic.putWordsInRightOrder')}</Text>
         <MnemonicConfirmator
