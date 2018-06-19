@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Text } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 
 import { routes } from '../../../nav'
 import { t } from '../../../../../common/strings'
@@ -19,7 +20,14 @@ export default class Home extends PureComponent {
   render () {
     return (
       <Layout contentStyle={styles.layoutContent} showSplashBackground={true}>
-        <Image id='logo' style={styles.logo} resizeMode='contain' />
+        <Animatable.View
+          animation='bounceInDown'
+          easing='ease-out'
+          duration={1500}
+          style={styles.logoView}
+        >
+          <Image id='logo' resizeMode='contain' style={styles.logoImage} />
+        </Animatable.View>
         <Text style={styles.intro2Text}>
           {t('home.intro2')}
         </Text>

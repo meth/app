@@ -16,10 +16,16 @@ export default create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  logo: {
+  logoView: {
     width: 140,
     height: 140,
-    marginBottom: 20
+    marginBottom: 20,
+    justifyContent: 'center',
+    alignItems: 'stretch'
+  },
+  logoImage: {
+    width: 140,
+    height: 140
   },
   intro2Text: {
     ...introText,
