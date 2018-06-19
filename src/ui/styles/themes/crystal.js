@@ -20,7 +20,6 @@ import {
 } from '../../../utils/colors'
 
 const colorTeaGreen = '#c2f8cb'
-const colorMagicMint = '#b3e9c7'
 
 const colorInfo = '#ffb100'
 const colorButtonBlue = '#00b2d9'
@@ -98,7 +97,7 @@ export default {
     },
     status: {
       accepted: {
-        textColor: darken(colorMagicMint, 0.5)
+        textColor: darken(colorButtonBlueLight, 0.5)
       },
       rejected: {
         textColor: colorRed
@@ -194,7 +193,7 @@ export default {
   contracts: {
     params: {
       borderColor: colorGrayDark,
-      backgroundColor: colorMagicMint
+      backgroundColor: colorButtonBlueLight
     }
   },
   browser: {
@@ -246,12 +245,12 @@ export default {
     }
   },
   blockOfText: {
-    backgroundColor: colorMagicMint,
+    backgroundColor: colorGrayLightest,
     textColor: colorGrayDarkest
   },
   log: {
     unseenAlert: {
-      backgroundColor: colorMagicMint,
+      backgroundColor: colorButtonBlueLight,
       textColor: colorGrayDarkest,
       metaTextColor: colorGray
     },
