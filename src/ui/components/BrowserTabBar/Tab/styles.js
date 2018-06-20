@@ -1,10 +1,12 @@
-import { create, coverParent, getWindowDimensions } from '../../../styles'
+import { create, value, coverParent, getWindowDimensions } from '../../../styles'
 
 export const MAX_TAB_WIDTH = 150
 export const TAB_HEIGHT = 45
 export const CLOSE_BUTTON_SIZE = 30
 
-export default ({ totalTabs }) => {
+export const getSpinnerColor = () => value('$browser_tabBar_tab_spinnerColor')
+
+export const createStyles = ({ totalTabs }) => {
   const { width } = getWindowDimensions()
 
   const tabWidth = Math.min(MAX_TAB_WIDTH, (width - (MAX_TAB_WIDTH / 2)) / totalTabs)

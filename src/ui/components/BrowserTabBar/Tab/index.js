@@ -5,7 +5,7 @@ import { SortableElement } from 'react-sortable-hoc'
 
 import { t } from '../../../../../common/strings'
 import STATE from '../../../../../common/constants/states'
-import createStyles from './styles'
+import { getSpinnerColor, createStyles } from './styles'
 import TouchableView from '../../TouchableView'
 import IconButton from '../../IconButton'
 import Loading from '../../Loading'
@@ -21,7 +21,7 @@ const Tab = SortableElement(tab => {
   let label = defaultLabel
   switch (status) {
     case STATE.LOADING:
-      statusIcon = <Loading />
+      statusIcon = <Loading color={getSpinnerColor()} />
       label = url
       break
     // case STATE.ERROR:

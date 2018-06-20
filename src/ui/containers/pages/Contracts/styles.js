@@ -13,17 +13,19 @@ const fieldRow = {
 export default create({
   layoutContent: {
     flex: 0,
-    padding: 10,
-    backgroundColor: '$content_backgroundColor',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     maxWidth: perWidth(700, '100%')
   },
   topLevelLoading: {
-    flex: 1
+    flex: 1,
+    alignSelf: 'center'
   },
   container: {
+    marginTop: perWidth(0, 5),
+    padding: 10,
+    backgroundColor: '$content_backgroundColor',
     paddingBottom: 20,
     alignItems: 'flex-start',
     width: '100%'

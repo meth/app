@@ -23,6 +23,7 @@ const colorButtonBlue = '#00b2d9'
 const colorButtonBlueLight = lighten(colorButtonBlue, 0.5)
 
 const colorBlueFormBg = toRGBA('#04cfff', 0.1)
+const colorBlueActivePanel = lighten('#04cfff', 0.9)
 
 export const ROOT_FONT_SIZE = 18
 
@@ -195,21 +196,22 @@ export default {
   },
   browser: {
     tabBar: {
-      backgroundColor: colorGray,
+      backgroundColor: colorTransparent,
       tab: {
+        spinnerColor: colorBlack,
         inactive: {
           borderColor: colorGray,
           backgroundColor: colorGrayLight
         },
         active: {
           borderColor: colorGrayDark,
-          backgroundColor: colorGrayLighter
+          backgroundColor: colorBlueActivePanel
         }
       }
     },
     navBar: {
       borderBottomColor: colorGrayLight,
-      backgroundColor: colorBlueFormBg
+      backgroundColor: colorBlueActivePanel
     },
     coverFlow: {
       backgroundColor: colorTransparent,
@@ -419,7 +421,7 @@ export default {
       },
       hover: {
         borderColor: colorButtonBlue,
-        backgroundColor: colorWhite,
+        backgroundColor: colorBlueActivePanel,
         textColor: colorButtonBlue
       }
     } : {

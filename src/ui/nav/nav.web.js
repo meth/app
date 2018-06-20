@@ -26,7 +26,7 @@ export default routes => {
     })
   })
 
-  Navigator.onceAuthenticatedRouteName = routes.Wallet.routeName
+  Navigator.onceAuthenticatedRouteName = routes.Contracts.routeName
 
   return Navigator
 }

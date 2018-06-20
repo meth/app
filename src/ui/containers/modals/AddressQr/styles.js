@@ -22,7 +22,7 @@ export default create({
 
   address: {
     marginBottom: 30,
-    maxWidth: '90%'
+    maxWidth: '80%'
   },
   addressText: {
     ...text,

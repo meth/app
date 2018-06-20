@@ -1,5 +1,3 @@
-import { perWidth } from '../../../styles'
-
 module.exports = {
   // $outline: 1,
 
@@ -14,7 +12,6 @@ module.exports = {
     alignSelf: 'center'
   },
   tokenTableLoading: {
-
   },
   pageTitleText: {
     margin: 10
@@ -23,8 +20,7 @@ module.exports = {
   /* cards */
 
   cards: {
-    width: '100%',
-    marginTop: perWidth(10, 0)
+    width: '100%'
   },
   addAccountAlertBoxContainer: {
     justifyContent: 'flex-start',
