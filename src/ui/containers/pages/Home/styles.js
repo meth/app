@@ -1,4 +1,4 @@
-import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
+import { create, fontMaker, perWidth, perHeight } from '../../../styles'
 
 const introText = {
   ...fontMaker({ weight: 'SemiBold' }),
@@ -9,6 +9,9 @@ const introText = {
   marginBottom: 20
 }
 
+const LOGO_WIDTH = perWidth(250, 180)
+const LOGO_HEIGHT = perHeight(250, 180, 150)
+
 export default create({
   layoutContent: {
     flex: 1,
@@ -17,19 +20,19 @@ export default create({
     alignItems: 'center'
   },
   logoView: {
-    width: 140,
-    height: 140,
+    width: LOGO_WIDTH,
+    height: LOGO_HEIGHT,
     marginBottom: 20,
     justifyContent: 'center',
     alignItems: 'stretch'
   },
   logoImage: {
-    width: 140,
-    height: 140
+    width: LOGO_WIDTH,
+    height: LOGO_HEIGHT
   },
   intro2Text: {
     ...introText,
-    maxWidth: '50%'
+    maxWidth: perWidth('50%', '90%')
   },
   getStartedButton: {
     marginTop: 20,
@@ -40,11 +43,5 @@ export default create({
   },
   loginButtonText: {
     fontSize: '0.7rem'
-  },
-
-  ...whenWidthVerySmall({
-    intro2Text: {
-      maxWidth: '90%'
-    }
-  })
+  }
 })

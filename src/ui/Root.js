@@ -18,7 +18,6 @@ import EditAddressModal from './containers/modals/EditAddress'
 import EditBookmarkModal from './containers/modals/EditBookmark'
 import AddressQrModal from './containers/modals/AddressQr'
 import EditTokenModal from './containers/modals/EditToken'
-import AddAccountModal from './containers/modals/AddAccount'
 
 // modals - in order of importance
 const MODAL_COMPONENTS = {
@@ -30,8 +29,7 @@ const MODAL_COMPONENTS = {
   [MODALS.EDIT_ADDRESS]: EditAddressModal,
   [MODALS.EDIT_BOOKMARK]: EditBookmarkModal,
   [MODALS.ADDRESS_QR]: AddressQrModal,
-  [MODALS.EDIT_TOKEN]: EditTokenModal,
-  [MODALS.ADD_ACCOUNT]: AddAccountModal
+  [MODALS.EDIT_TOKEN]: EditTokenModal
 }
 
 @connectStore('modals', 'account')

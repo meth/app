@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { View, Animated } from 'react-native'
 import CoverFlow from '@meth/react-native-coverflow'
-import { Header } from 'react-navigation'
 
 import { getWindowDimensions } from '../../../styles'
 import Button from '../../Button'
@@ -10,14 +9,12 @@ import IconButton from '../../IconButton'
 import styles from './styles'
 
 
-const { width, height } = getWindowDimensions()
-
 const ANIMATION_CONFIG = {
   duration: 100,
   useNativeDriver: true
 }
-const CARD_WIDTH = width
-const CARD_HEIGHT = height - Header.HEIGHT
+
+const { width: CARD_WIDTH } = getWindowDimensions()
 
 
 export default class MobileBrowserViewsContainer extends PureComponent {
@@ -39,7 +36,7 @@ export default class MobileBrowserViewsContainer extends PureComponent {
   }
 
   render () {
-    const { views, activeIndex } = this.props
+    const { views, activeIndex, style } = this.props
     const { coverFlowMode, cardScale, cardTranslateY } = this.state
 
     /*
@@ -49,7 +46,7 @@ export default class MobileBrowserViewsContainer extends PureComponent {
     */
 
     return (
-      <View style={styles.container}>
+      <View style={[ styles.container ].concat(style)}>
         <CoverFlow
           ref={this._onCoverFlowRef}
           style={styles.coverFlow}
@@ -57,7 +54,7 @@ export default class MobileBrowserViewsContainer extends PureComponent {
           wingSpan={38}
           /* When adding a new tab and programmatically showing it we will see other cards
           - to avoid this we increase spacing in non-coverflow mode */
-          spacing={coverFlowMode ? 150 : width}
+          spacing={coverFlowMode ? 150 : CARD_WIDTH}
           rotation={70}
           midRotation={50}
           perspective={790}
@@ -71,7 +68,7 @@ export default class MobileBrowserViewsContainer extends PureComponent {
               style={{
                 position: 'relative',
                 width: CARD_WIDTH,
-                height: CARD_HEIGHT,
+                height: '100%',
                 transform: [
                   { scale: cardScale },
                   { translateY: cardTranslateY }

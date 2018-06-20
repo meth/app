@@ -54,6 +54,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
           title={t('button.iHaveConfirmedMyMnemonic')}
         />
         <Button
+          style={styles.goBackButton}
           textStyle={styles.goBackButtonText}
           onPress={this.onPressGoBack}
           title={t('linkButton.goBackAndGenerateAnotherMnemonic')} />
@@ -66,9 +67,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
   }
 
   onCantProceed = () => {
-    const {
-      actions: { showErrorAlert }
-    } = this.props
+    const { showErrorAlert } = this.props.actions
 
     return showErrorAlert(t('mnemonic.wordOrderStillIncorrect'))
   }

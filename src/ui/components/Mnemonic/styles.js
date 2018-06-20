@@ -43,7 +43,7 @@ export default create({
     padding: 10
   },
   selectedWordText: {
-    opacity: 0.5
+    opacity: 0.4
   },
   wordWrapperButton: {
     backgroundColor: 'transparent',

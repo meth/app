@@ -8,6 +8,6 @@ export default create({
   },
   menuButtonImage: {
     width: 48,
-    height: 32
+    height: 24
   }
 })

@@ -2,6 +2,8 @@ import React from 'react'
 import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
+import { t } from '../../../../../../common/strings'
+import { toast } from '../../../../../env'
 import { CachePureComponent } from '../../../../helpers/components'
 import { connectStore } from '../../../../helpers/redux'
 import { isWeb } from '../../../../../utils/deviceInfo'
@@ -103,9 +105,17 @@ export default class Cards extends CachePureComponent {
   }
 
   _onPressAddAccount = () => {
-    const { showAddAccountModal } = this.props.actions
+    const { generateAccount } = this.props.actions
 
-    showAddAccountModal()
+    generateAccount()
+      .then(() => {
+        toast(t('toast.newAccountGenerated'))
+      })
+      .catch(error => {
+        const { showErrorAlert } = this.props.actions
+
+        return showErrorAlert(`${error}`)
+      })
   }
 
   _onPressSelectCard = index => {

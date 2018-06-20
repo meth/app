@@ -19,8 +19,7 @@ import {
   darken
 } from '../../../utils/colors'
 
-const colorTeaGreen = '#c2f8cb'
-
+const colorAlert = '#c2f8cb'
 const colorInfo = '#ffb100'
 const colorButtonBlue = '#00b2d9'
 const colorButtonBlueLight = lighten(colorButtonBlue, 0.5)
@@ -36,7 +35,7 @@ export default {
     textColor: colorGrayDarker
   },
   loading: {
-    spinnerColor: colorWhite
+    spinnerColor: colorButtonBlueLight
   },
   splashContent: {
     backgroundColor: colorTransparent,
@@ -250,7 +249,7 @@ export default {
   },
   log: {
     unseenAlert: {
-      backgroundColor: colorButtonBlueLight,
+      backgroundColor: colorAlert,
       textColor: colorGrayDarkest,
       metaTextColor: colorGray
     },
@@ -260,7 +259,7 @@ export default {
       metaTextColor: colorGrayDark,
       warnColor: colorOrange,
       errorColor: colorRed,
-      alertColor: colorTeaGreen
+      alertColor: colorAlert
     }
   },
   modal: {

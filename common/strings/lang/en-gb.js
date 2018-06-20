@@ -94,7 +94,8 @@ module.exports = {
     },
     toast: {
       copiedToClipboard: 'Copied to clipboard',
-      pinSetupSuccessfully: 'Code setup successfully'
+      pinSetupSuccessfully: 'Code setup successfully',
+      newAccountGenerated: 'New account generated'
     },
     button: {
       copyToClipboard: 'Copy to clipboard',
@@ -168,7 +169,7 @@ module.exports = {
       bookmarks: 'Bookmarks',
       mobileMenu: {
         network: 'Network: {network}',
-        log: 'Log ({numAlerts} alerts)',
+        log: 'Log: {numAlerts} alerts',
         logout: 'Logout'
       }
     },
@@ -284,7 +285,7 @@ module.exports = {
       }
     },
     wallet: {
-      pressButtonAboveToAddAccount: 'Press button above to add a new account!',
+      pressButtonAboveToAddAccount: 'Press button above to generate a new account!',
       tokens: {
         noneConfigured: 'No tokens current configured',
         filterPlaceholder: 'Filter tokens...',

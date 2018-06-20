@@ -6,7 +6,6 @@ export default create({
 
   container: {
     flex: 1,
-    position: 'relative',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',

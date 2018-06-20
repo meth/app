@@ -40,6 +40,10 @@ export default create({
     alignItems: 'center'
   },
   addAccountButtonIcon: {
-    fontSize: '3rem'
+    fontSize: '3rem',
+    backgroundColor: '$button_default_enabled_default_backgroundColor',
+    borderRadius: 10,
+    color: '$button_default_enabled_default_textColor',
+    padding: 20
   }
 })

@@ -8,15 +8,6 @@ export default create({
     alignItems: 'stretch'
   },
   browserViews: {
-    position: 'relative',
     flex: 1
-  },
-  activeView: {
-    flex: 1
-  },
-  inactiveView: {
-    height: 0,
-    width: 0,
-    transform: [ { translateX: -5000 }, { translateY: -5000 } ]
   }
 })
