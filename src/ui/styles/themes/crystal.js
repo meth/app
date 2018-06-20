@@ -36,7 +36,7 @@ export default {
     textColor: colorGrayDarker
   },
   loading: {
-    spinnerColor: colorButtonBlue
+    spinnerColor: colorWhite
   },
   splashContent: {
     backgroundColor: colorTransparent,
