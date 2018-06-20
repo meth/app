@@ -11,9 +11,9 @@ const getInfoFrombuildConfigRepo = config => {
 
   const buildConfigDir = path.join(tmpDir, 'meth-mobile-build-config')
 
-  Git.clone('git@github.com:meth-browser/build-config.git', buildConfigDir)
+  Git.clone('git@github.com:meth/build-config.git', buildConfigDir)
 
-  const cfgFilePath = path.join(buildConfigDir, `mobile.json`)
+  const cfgFilePath = path.join(buildConfigDir, `buildConfig.json`)
 
   const cfg = JSON.parse(readFile(cfgFilePath))
 
@@ -38,7 +38,7 @@ module.exports = config => {
   doInfoStep('Writing buildConfig.json', () => {
     const { BUILD_MODE, INSTABUG, ANALYTICS } = config
 
-    const { buildNumber, appVersion } = { buildNumber: 1, appVersion: '1.0.0' }//getInfoFrombuildConfigRepo(config)
+    const { buildNumber, appVersion } = getInfoFrombuildConfigRepo(config)
 
     const baseMode = require(appAssetPath('buildConfig.js'))
     const buildMode = require(appAssetPath('buildConfig.js', BUILD_MODE))

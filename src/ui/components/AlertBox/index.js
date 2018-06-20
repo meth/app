@@ -23,7 +23,7 @@ const AlertBox = ({ animate, type, text, style, children }) => {
     </React.Fragment>
   )
 
-  const box = <View style={[ styles.container, style ]}>{content}</View>
+  const box = <View style={[ styles.container ].concat(style)}>{content}</View>
 
   return (!animate) ? box : (
     <ExpandingView {...animate}>{box}</ExpandingView>

@@ -59,9 +59,9 @@ $ "/path/to/meth-browser/node_modules/.bin/solidarity"
 ✨  Done in 3.29s.
 ```
 
-**App config**
+**App build config**
 
-Run `yarn setup:dev` to generate `appConfig.json`.
+Run `yarn setup:dev` to generate `build-tools/deploy/data/buildConfig.json`.
 
 **Private Ethereum chain**
 
@@ -105,12 +105,6 @@ $ brew install watchman
 $ xcode-select --install
 $ gem install bundler
 $ bundle update
-```
-
-Ensure you run the mobile setup script (dev mode):
-
-```shell
-$ yarn mobile:setup-dev
 ```
 
 Run the react native packager in one terminal:
@@ -213,7 +207,7 @@ The app is written using [React Native](https://facebook.github.io/react-native)
 
 Each browser tab has the following global object made available upon page load:
 
-* `web3.currentProvider` - Dapps can [use this](https://github.com/MetaMask/faq/blob/master/detecting_metamask.md#deprecation-of-global-web3js) to initialise a connection that is able to communicate with the connected Ethereum node. 
+* `web3.currentProvider` - Dapps can [use this](https://github.com/MetaMask/faq/blob/master/detecting_metamask.md#deprecation-of-global-web3js) to initialise a connection that is able to communicate with the connected Ethereum node.
 
 _Note: Synchronous web3 calls are not supported._
 

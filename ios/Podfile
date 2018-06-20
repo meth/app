@@ -8,8 +8,22 @@
     # pod 'Mixpanel', '~> 3.1'
     # pod 'Instabug'
 
+    pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+    pod 'React', :path => '../node_modules/react-native', :subspecs => [
+      'Core',
+      'RCTActionSheet',
+      'RCTAnimation',
+      'RCTGeolocation',
+      'RCTImage',
+      'RCTLinkingIOS',
+      'RCTNetwork',
+      'RCTSettings',
+      'RCTText',
+      'RCTVibration',
+      'RCTWebSocket',
+      'DevSupport'
+    ]
     pod 'RNSVG', :path => '../node_modules/react-native-svg'
-
     pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
     target 'methTests' do
