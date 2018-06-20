@@ -11,7 +11,8 @@ export default create({
 
   table: {
     flex: 1,
-    width: '100%'
+    width: '100%',
+    height: 'auto'
   },
   tableFilterRow: {
     flexDirection: 'row',

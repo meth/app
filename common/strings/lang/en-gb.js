@@ -87,7 +87,7 @@ module.exports = {
     },
     tooltip: {
       setMaximumAmount: 'Set maximum amount',
-      logAlerts: 'Log and alerts',
+      logAlerts: 'Alerts',
       showConnectionInfo: 'Show connection info',
       logout: 'Logout'
     },

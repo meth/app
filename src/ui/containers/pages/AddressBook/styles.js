@@ -40,7 +40,7 @@ export default create({
     borderRadius: 0
   },
   tableRowButtonAddressText: {
-    ...fontMaker({ weight: 'Normal' }),
+    ...fontMaker(),
     textAlign: 'left'
   }
 })

@@ -1,4 +1,4 @@
-import { create, fontMaker, perHeight } from '../../../styles'
+import { create, fontMaker, perHeight, perWidth } from '../../../styles'
 
 const text = {
   ...fontMaker()
@@ -6,6 +6,7 @@ const text = {
 
 export default create({
   content: {
+    width: perWidth(500, '90%'),
     height: perHeight(500, 500, '90%')
   },
   contentScrollContainer: {

@@ -9,7 +9,7 @@ export default create({
   // $outline: 1,
 
   content: {
-    width: perWidth(600, '90%'),
+    width: perWidth(500, '90%'),
     height: 'auto'
   },
   scrollContainerContent: {

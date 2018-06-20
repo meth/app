@@ -55,20 +55,18 @@ export default class AddressBook extends CachePureComponent {
     }))
 
     return (
-      <Layout contentStyle={styles.layoutContent}>
-        <Table
-          style={styles.table}
-          listStyle={styles.tableList}
-          rowStyle={styles.tableRow}
-          renderFilter={this._renderFilter}
-          filterPlaceholderText={t('addressBook.filterPlaceholder')}
-          showFilter={true}
-          renderHeader={RENDER_HEADER}
-          renderRowData={this._renderRowData}
-          columns={COLUMNS}
-          rows={rows}
-        />
-      </Layout>
+      <Table
+        style={styles.table}
+        listStyle={styles.tableList}
+        rowStyle={styles.tableRow}
+        renderFilter={this._renderFilter}
+        filterPlaceholderText={t('addressBook.filterPlaceholder')}
+        showFilter={true}
+        renderHeader={RENDER_HEADER}
+        renderRowData={this._renderRowData}
+        columns={COLUMNS}
+        rows={rows}
+      />
     )
   }
 

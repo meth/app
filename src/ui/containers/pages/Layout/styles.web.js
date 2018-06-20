@@ -14,8 +14,7 @@ export default () => create({
   scrollView: {
     flex: 1,
     width: '100%',
-    height: 'auto',
-    minHeight: getWindowDimensions().height - HEADER_HEIGHT
+    height: getWindowDimensions().height - HEADER_HEIGHT
   },
   content: {
     width: '100%',

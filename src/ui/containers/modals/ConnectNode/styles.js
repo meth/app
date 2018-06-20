@@ -1,4 +1,4 @@
-import { create, fontMaker } from '../../../styles'
+import { create, fontMaker, perWidth } from '../../../styles'
 
 const titleText = {
   ...fontMaker({ weight: 'Light' }),
@@ -25,10 +25,12 @@ export default create({
   },
   formWrapper: {
     flex: 0,
-    alignSelf: 'stretch',
-    marginBottom: 10
+    alignSelf: 'center',
+    marginBottom: 10,
+    width: perWidth(300, '95%')
   },
   pickerButton: {
+    minWidth: 140
   },
   button: {
     marginTop: 25,
