@@ -11,11 +11,6 @@ export const getAlerts = createSelector(
   events => events.filter(e => e.level === ALERT)
 )
 
-export const getLogWithoutAlerts = createSelector(
-  getRawLog,
-  events => events.filter(e => e.level !== ALERT)
-)
-
 export const getUnseenAlertsCount = createSelector(
   getAlerts,
   alerts => alerts.filter(a => !a.seen).length

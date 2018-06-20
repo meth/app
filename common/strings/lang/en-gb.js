@@ -169,7 +169,7 @@ module.exports = {
       bookmarks: 'Bookmarks',
       mobileMenu: {
         network: 'Network: {network}',
-        log: 'Log: {numAlerts} alerts',
+        alerts: 'Alerts ({numAlerts} new)',
         logout: 'Logout'
       }
     },

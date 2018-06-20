@@ -1,23 +1,12 @@
 import React, { PureComponent } from 'react'
+import { View, Text } from 'react-native'
 
 import { connectStore } from '../../../helpers/redux'
-import TabView from '../../../components/TabView'
-import AlertsTab from './Alerts'
-import LogsTab from './Logs'
-import Modal from '../../../components/Modal'
+import { formatDate } from '../../../../utils/datetime'
 import { t } from '../../../../../common/strings'
+import Modal from '../../../components/Modal'
+import AlertBox from '../../../components/AlertBox'
 import styles from './styles'
-
-const TAB = {
-  ALERTS: 'ALERTS',
-  LOG: 'LOG'
-}
-
-const TAB_ROUTES = [
-  { key: TAB.ALERTS, title: t('log.tab.alerts') },
-  { key: TAB.LOG, title: t('log.tab.log') }
-]
-
 
 @connectStore('log')
 export default class Log extends PureComponent {
@@ -29,29 +18,40 @@ export default class Log extends PureComponent {
         onPressCloseButton={this.close}
         closeButtonStyle={styles.closeButton}
       >
-        <TabView
-          key='log'
-          routes={TAB_ROUTES}
-          initialIndex={0}
-          getScene={this._getTabScene}
-        />
+        {this._renderContent()}
       </Modal>
     )
   }
 
-  _getTabScene = key => {
-    switch (key) {
-      case TAB.ALERTS:
-        return <AlertsTab />
-      case TAB.LOG:
-        return <LogsTab />
-      default:
-        return null
+  _renderContent () {
+    const { getAlerts } = this.props.selectors
+
+    const events = [ ...getAlerts() ]
+    events.reverse()
+
+    if (!events.length) {
+      return (
+        <AlertBox
+          type='info'
+          text={t(`log.noAlertsYet`)}
+        />
+      )
     }
+
+    return events.map(({ msg, ts }, index) => (
+      <View style={styles.alert} key={index}>
+        <Text style={styles.alertText}>
+          {msg}
+        </Text>
+        <Text style={styles.alertMetaText}>
+          {formatDate(ts)}
+        </Text>
+      </View>
+    ))
   }
 
   close = () => {
-    const { actions: { seenAlerts, hideLog } } = this.props
+    const { seenAlerts, hideLog } = this.props.actions
 
     seenAlerts()
     hideLog()

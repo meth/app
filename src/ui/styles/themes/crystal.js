@@ -3,7 +3,6 @@ import { isWeb } from '../../../utils/deviceInfo'
 import {
   colorTransparent,
   colorRed,
-  colorOrange,
   colorYellowLight,
   colorBlack,
   colorWhite,
@@ -19,7 +18,6 @@ import {
   darken
 } from '../../../utils/colors'
 
-const colorAlert = '#c2f8cb'
 const colorInfo = '#ffb100'
 const colorButtonBlue = '#00b2d9'
 const colorButtonBlueLight = lighten(colorButtonBlue, 0.5)
@@ -248,18 +246,10 @@ export default {
     textColor: colorGrayDarkest
   },
   log: {
-    unseenAlert: {
-      backgroundColor: colorAlert,
+    alert: {
+      backgroundColor: colorTransparent,
       textColor: colorGrayDarkest,
       metaTextColor: colorGray
-    },
-    event: {
-      backgroundColor: colorWhite,
-      textColor: colorGrayDarkest,
-      metaTextColor: colorGrayDark,
-      warnColor: colorOrange,
-      errorColor: colorRed,
-      alertColor: colorAlert
     }
   },
   modal: {

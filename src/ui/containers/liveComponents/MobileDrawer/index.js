@@ -61,7 +61,7 @@ export default class MobileDrawer extends CachePureComponent {
           </View>
           <View style={styles.bottomItems}>
             {this._renderNetworkButton()}
-            {this._renderLogButton()}
+            {this._renderAlertsButon()}
             {this._renderLogoutButton()}
           </View>
         </View>
@@ -69,7 +69,7 @@ export default class MobileDrawer extends CachePureComponent {
     )
   }
 
-  _renderLogButton () {
+  _renderAlertsButon () {
     const { getUnseenAlertsCount } = this.props.selectors
 
     return (
@@ -77,8 +77,8 @@ export default class MobileDrawer extends CachePureComponent {
         style={styles.button}
         textStyle={styles.buttonText}
         type='mobileDrawer'
-        title={t('title.mobileMenu.log', { numAlerts: getUnseenAlertsCount })}
-        onPress={this._onPressLog}
+        title={t('title.mobileMenu.alerts', { numAlerts: getUnseenAlertsCount })}
+        onPress={this._onPressAlerts}
       />
     )
   }
@@ -145,7 +145,7 @@ export default class MobileDrawer extends CachePureComponent {
     showConnectionModal()
   }
 
-  _onPressLog = () => {
+  _onPressAlerts = () => {
     const { showLog } = this.props.actions
 
     showLog()
