@@ -29,8 +29,8 @@ export const ROOT_FONT_SIZE = 18
 export default {
   rem: ROOT_FONT_SIZE,
   header: {
-    backgroundColor: colorGrayLightest,
-    textColor: colorGrayDarker
+    backgroundColor: colorTransparent,
+    textColor: colorWhite
   },
   loading: {
     spinnerColor: colorButtonBlueLight

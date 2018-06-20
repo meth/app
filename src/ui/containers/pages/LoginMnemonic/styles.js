@@ -1,4 +1,4 @@
-import { create, fontMaker, whenWidthSmall, whenWidthVerySmall } from '../../../styles'
+import { create, fontMaker, perWidth } from '../../../styles'
 
 const introText = {
   ...fontMaker({ weight: 'SemiBold' }),
@@ -18,10 +18,11 @@ export default create({
   },
   introText: {
     ...introText,
+    width: perWidth('auto', 'auto', '90%'),
     marginBottom: 40
   },
   formWrapper: {
-    maxWidth: '80%'
+    width: perWidth(400, '95%')
   },
   nextButton: {
     marginTop: 40,
@@ -32,17 +33,5 @@ export default create({
   },
   createPasswordButtonText: {
     fontSize: '0.7rem'
-  },
-
-  ...whenWidthSmall({
-    formWrapper: {
-      width: '95%'
-    }
-  }),
-
-  ...whenWidthVerySmall({
-    introText: {
-      width: '90%'
-    }
-  })
+  }
 })

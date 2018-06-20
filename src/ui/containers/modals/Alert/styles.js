@@ -1,4 +1,4 @@
-import { create, fontMaker, whenWidthVerySmall } from '../../../styles'
+import { create, fontMaker, perWidth } from '../../../styles'
 
 export default ({ type }) => create({
   overlay: {
@@ -15,22 +15,13 @@ export default ({ type }) => create({
   },
   text: {
     ...fontMaker(),
-    fontSize: '1.5rem',
+    fontSize: perWidth('1.5rem', '1.5rem', '1.2rem'),
     textAlign: 'left',
     color: `$alert_${type}_textColor`,
     marginLeft: 30
   },
   icon: {
-    fontSize: '2rem',
+    fontSize: perWidth('2rem', '2rem', '1.5rem'),
     color: `$alert_${type}_textColor`
-  },
-
-  ...whenWidthVerySmall({
-    text: {
-      fontSize: '1.2rem'
-    },
-    icon: {
-      fontSize: '1.5rem'
-    }
-  })
+  }
 })

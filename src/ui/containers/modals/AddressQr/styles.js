@@ -1,4 +1,4 @@
-import { create, perWidth, fontMaker, whenWidthSmall } from '../../../styles'
+import { create, perWidth, fontMaker } from '../../../styles'
 
 const text = {
   ...fontMaker(),
@@ -29,13 +29,6 @@ export default create({
     ...fontMaker({ weight: 'SemiBold' }),
     textAlign: 'center',
     fontSize: '1rem'
-  },
+  }
 
-  /* responsive layout */
-
-  ...whenWidthSmall({
-    content: {
-      width: '90%'
-    }
-  })
 })

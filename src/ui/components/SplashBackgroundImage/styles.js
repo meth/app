@@ -1,9 +1,12 @@
-import { create, coverParent } from '../../styles'
+import { create, coverParent, perPlatform } from '../../styles'
 
-export default create({
+export const styles = create({
   bgImage: {
     ...coverParent,
     width: '100%',
-    height: '100%'
+    height: perPlatform('100vh', '100%'),
+    opacity: 1
   }
 })
+
+export const resizeMode = 'cover'

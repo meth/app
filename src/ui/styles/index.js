@@ -12,8 +12,6 @@ export const theme = defaultTheme
 
 export const getWindowDimensions = () => Dimensions.get('window')
 
-export const create = EStyleSheet.create.bind(EStyleSheet)
-
 export const value = (id, fallback) => {
   try {
     return EStyleSheet.value(id)
@@ -116,42 +114,46 @@ export const isScreenWidthSmall = () =>
 export const isScreenWidthVerySmall = () =>
   getWindowDimensions().width <= SCREEN_WIDTH_VERY_SMALL
 
-export const whenHeightSmall = props => ({
+const whenHeightSmall = props => ({
   [`@media (max-height: ${SCREEN_HEIGHT_SMALL}px)`]: props
 })
 
-export const whenHeightVerySmall = props => ({
+const whenHeightVerySmall = props => ({
   [`@media (max-height: ${SCREEN_HEIGHT_VERY_SMALL}px)`]: props
 })
 
-export const whenWidthSmall = props => ({
+const whenWidthSmall = props => ({
   [`@media (max-width: ${SCREEN_WIDTH_SMALL}px)`]: props
 })
 
-export const whenWidthVerySmall = props => ({
+const whenWidthVerySmall = props => ({
   [`@media (max-width: ${SCREEN_WIDTH_VERY_SMALL}px)`]: props
 })
 
 const _or = (a, ...b) => (a !== undefined ? a : _or(...b))
 
-export const perWidth = (normal, small, verySmall) => {
-  if (isScreenWidthVerySmall()) {
-    return _or(verySmall, small, normal)
-  } else if (isScreenWidthSmall()) {
-    return _or(small, normal)
+export const perWidth = (normal, small, verySmall) => ({
+  perWidth: {
+    normal,
+    small: _or(small, normal),
+    extraSmall: _or(verySmall, small, normal)
+  }
+})
+
+export const perHeight = (normal, small, verySmall) => ({
+  perHeight: {
+    normal,
+    small: _or(small, normal),
+    extraSmall: _or(verySmall, small, normal)
+  }
+})
+
+export const perPlatform = (web, mobile) => {
+  if (isWeb) {
+    return web
   }
 
-  return normal
-}
-
-export const perHeight = (normal, small, verySmall) => {
-  if (isScreenHeightVerySmall()) {
-    return _or(verySmall, small, normal)
-  } else if (isScreenHeightSmall()) {
-    return _or(small, normal)
-  }
-
-  return normal
+  return _or(mobile, web)
 }
 
 export const getHeaderHeight = () => {
@@ -167,4 +169,61 @@ export const getHeaderHeight = () => {
   }
 
   return 0 /* isWeb */
+}
+
+const _appendToKey = (obj, key, data) => {
+  // eslint-disable-next-line no-param-reassign
+  obj[key] = Object.assign({}, obj[key], data)
+}
+
+export const create = defs => {
+  const normal = {}
+
+  const smallWidth = {}
+  const extraSmallWidth = {}
+
+  const smallHeight = {}
+  const extraSmallHeight = {}
+
+  Object.entries(defs).forEach(([ id, def ]) => {
+    Object.entries(def).forEach(([ fieldName, fieldVal ]) => {
+      if (fieldVal && fieldVal.perWidth) {
+        _appendToKey(normal, id, {
+          [fieldName]: fieldVal.perWidth.normal
+        })
+        _appendToKey(smallWidth, id, {
+          [fieldName]: fieldVal.perWidth.small
+        })
+        _appendToKey(extraSmallWidth, id, {
+          [fieldName]: fieldVal.perWidth.extraSmall
+        })
+      }
+      else if (fieldVal && fieldVal.perHeight) {
+        _appendToKey(normal, id, {
+          [fieldName]: fieldVal.perHeight.normal
+        })
+        _appendToKey(smallHeight, id, {
+          [fieldName]: fieldVal.perHeight.small
+        })
+        _appendToKey(extraSmallHeight, id, {
+          [fieldName]: fieldVal.perHeight.extraSmall
+        })
+      }
+      else {
+        _appendToKey(normal, id, {
+          [fieldName]: fieldVal
+        })
+      }
+    })
+  })
+
+  const final = {
+    ...normal,
+    ...whenWidthSmall(smallWidth),
+    ...whenWidthVerySmall(extraSmallWidth),
+    ...whenHeightSmall(smallHeight),
+    ...whenHeightVerySmall(extraSmallHeight)
+  }
+
+  return EStyleSheet.create(final)
 }

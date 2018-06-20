@@ -7,7 +7,7 @@ import Header from '../../liveComponents/Header'
 import ScrollView from '../../../components/ScrollView'
 import BlockOfText from '../../../components/BlockOfText'
 import SplashBackgroundImage from '../../../components/SplashBackgroundImage'
-import styles from './styles'
+import createStyles from './styles'
 import logger from '../../../../logger'
 
 
@@ -40,6 +40,8 @@ export default class Layout extends PureComponent {
       containerStyle,
       useKeyboardAvoidingScrollView
     } = this.props
+
+    const styles = createStyles()
 
     let content
 

@@ -1,4 +1,4 @@
-import { create, fontMaker, whenWidthSmall } from '../../../styles'
+import { create, fontMaker, perWidth } from '../../../styles'
 
 const text = {
   ...fontMaker(),
@@ -15,7 +15,7 @@ export default create({
   // $outline: 1,
 
   content: {
-    width: 500,
+    width: perWidth(500, '90%'),
     height: 'auto'
   },
 
@@ -71,13 +71,5 @@ export default create({
   },
   button: {
     marginHorizontal: 5
-  },
-
-  /* responsive layout */
-
-  ...whenWidthSmall({
-    content: {
-      width: '90%'
-    }
-  })
+  }
 })

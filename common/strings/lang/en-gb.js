@@ -60,8 +60,7 @@ module.exports = {
       unableToGenerateRawTx: 'Unable to generate raw transaction'
     },
     home: {
-      intro1: `Welcome to ${productName}!`,
-      intro2: 'Let\'s get your wallet setup so that you can start using Ethereum Dapps.'
+      intro2: 'Let\'s get your wallet setup so that you can start using Ethereum.'
     },
     mnemonic: {
       intro1: 'We have generated a passphrase for you.',
