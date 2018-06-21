@@ -9057,6 +9057,10 @@ react-native-dropdown@0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/react-native-dropdown/-/react-native-dropdown-0.0.6.tgz#f4b899b4082c4823340c7377fbe73bc01399148d"
 
+react-native-extended-stylesheet-breakpoints@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-extended-stylesheet-breakpoints/-/react-native-extended-stylesheet-breakpoints-1.0.1.tgz#3bd6c6941c0ca880d7c61eb85351dc85dc050bb0"
+
 react-native-extended-stylesheet@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/react-native-extended-stylesheet/-/react-native-extended-stylesheet-0.6.0.tgz#ac3ca17f6857576b5382e8b9f2a457c7ee5d37af"

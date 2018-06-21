@@ -49,7 +49,7 @@ export const createStyles = _.memoize(state => create({
   },
   amountText: {
     textAlign: 'center',
-    fontSize: perWidth('1.7rem', '1.4rem'),
+    fontSize: perWidth('1.7rem', '1.7rem', '1.4rem'),
     maxWidth: '90%',
     color: `$wallet_card_${state}_amount_textColor`
   },

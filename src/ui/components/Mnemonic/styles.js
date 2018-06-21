@@ -21,7 +21,7 @@ export default create({
   },
   wordText: {
     ...fontMaker({ weight: 'SemiBold' }),
-    fontSize: perWidth('1rem', '0.85rem'),
+    fontSize: perWidth('1rem', '1rem', '0.85rem'),
     textAlign: 'center',
     color: '$mnemonic_textColor',
     backgroundColor: '$mnemonic_backgroundColor',
@@ -86,7 +86,7 @@ export default create({
   },
   wordIndexText: {
     ...fontMaker({ weight: 'SemiBold' }),
-    fontSize: perWidth('1rem', '0.8rem'),
+    fontSize: perWidth('1rem', '1rem', '0.8rem'),
     textAlign: 'center',
     color: '$mnemonic_textColor',
     width: '2rem'
