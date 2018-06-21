@@ -23,7 +23,7 @@ export default create({
     alignSelf: 'center'
   },
   container: {
-    marginTop: perWidth(0, 5),
+    marginTop: 5,
     padding: 10,
     backgroundColor: '$content_backgroundColor',
     paddingBottom: 20,

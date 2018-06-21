@@ -7,6 +7,7 @@ import { isAddress } from 'web3-utils'
 
 import { toFloat } from '../../../../utils/number'
 import { t } from '../../../../../common/strings'
+import { toast } from '../../../../env'
 import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
 import ErrorBox from '../../../components/ErrorBox'
@@ -211,7 +212,11 @@ export default class EditToken extends PureComponent {
       error: null
     }, () => {
       addCustomToken(symbol, values)
-        .then(() => this.close())
+      .then(() => {
+        toast(t('toast.customTokenSaved'))
+
+        this.close()
+      })
         .catch(error => {
           this.setState({
             submitting: false,
@@ -269,7 +274,11 @@ export default class EditToken extends PureComponent {
       error: null
     }, () => {
       removeCustomToken(symbol)
-        .then(() => this.close())
+        .then(() => {
+          toast(t('toast.customTokenDeleted'))
+
+          this.close()
+        })
         .catch(error => {
           this.setState({
             submitting: false,

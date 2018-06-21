@@ -5,6 +5,7 @@ import { View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
 import { t } from '../../../../../common/strings'
+import { toast } from '../../../../env'
 import ADDRESS_TYPES from '../../../../../common/constants/addressTypes'
 import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
@@ -188,7 +189,11 @@ export default class EditAddress extends PureComponent {
       error: null
     }, () => {
       saveAddressBookEntry(address, { label, type })
-        .then(() => this.close())
+        .then(() => {
+          toast(t('toast.addressSaved'))
+
+          this.close()
+        })
         .catch(error => {
           this.setState({
             submitting: false,
@@ -229,7 +234,11 @@ export default class EditAddress extends PureComponent {
       error: null
     }, () => {
       deleteAddressBookEntry(address)
-        .then(() => this.close())
+        .then(() => {
+          toast(t('toast.addressDeleted'))
+
+          this.close()
+        })
         .catch(error => {
           this.setState({
             submitting: false,

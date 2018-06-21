@@ -88,7 +88,11 @@ module.exports = {
     toast: {
       copiedToClipboard: 'Copied to clipboard',
       pinSetupSuccessfully: 'Code setup successfully',
-      newAccountGenerated: 'New account generated'
+      newAccountGenerated: 'New account generated',
+      addressSaved: 'Address saved',
+      addressDeleted: 'Address deleted',
+      customTokenSaved: 'Custom token saved',
+      customTokenDeleted: 'Custom token deleted'
     },
     button: {
       copyToClipboard: 'Copy to clipboard',
