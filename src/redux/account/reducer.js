@@ -138,9 +138,9 @@ export default () => {
       [SAVE_ADDRESS_BOOK_ENTRY]: (state, { payload: { address, data } }) => (
         state.set('addressBook', state.get('addressBook').set(address, data))
       ),
-      [DELETE_ADDRESS_BOOK_ENTRY]: (state, { payload: { address } }) => {
+      [DELETE_ADDRESS_BOOK_ENTRY]: (state, { payload: { address } }) => (
         state.set('addressBook', state.get('addressBook').delete(address))
-      },
+      ),
       /* custom tokens */
       [INJECT_CUSTOM_TOKENS]: (state, { payload = [] }) => (
         state.set('customTokens', Immutable.Map(payload.reduce((m, v) => {

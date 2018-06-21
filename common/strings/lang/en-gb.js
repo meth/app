@@ -89,9 +89,12 @@ module.exports = {
       copiedToClipboard: 'Copied to clipboard',
       pinSetupSuccessfully: 'Code setup successfully',
       newAccountGenerated: 'New account generated',
-      addressSaved: 'Address saved',
-      addressDeleted: 'Address deleted',
-      customTokenSaved: 'Custom token saved',
+      addressSaved: 'Entry saved',
+      addressDeleted: 'Entry deleted',
+      bookmarkSaved: 'Bookmark saved',
+      bookmarkDeleted: 'Bookmark deleted',
+      customTokenAdded: 'Custom token added',
+      customTokenUpdated: 'Custom token updated',
       customTokenDeleted: 'Custom token deleted'
     },
     button: {

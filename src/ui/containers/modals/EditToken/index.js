@@ -193,7 +193,11 @@ export default class EditToken extends PureComponent {
       error: null
     }, () => {
       updateCustomToken(updatingSymbol, values)
-        .then(() => this.close())
+        .then(() => {
+          toast(t('toast.customTokenUpdated'))
+
+          this.close()
+        })
         .catch(error => {
           this.setState({
             submitting: false,
@@ -212,11 +216,11 @@ export default class EditToken extends PureComponent {
       error: null
     }, () => {
       addCustomToken(symbol, values)
-      .then(() => {
-        toast(t('toast.customTokenSaved'))
+        .then(() => {
+          toast(t('toast.customTokenAdded'))
 
-        this.close()
-      })
+          this.close()
+        })
         .catch(error => {
           this.setState({
             submitting: false,

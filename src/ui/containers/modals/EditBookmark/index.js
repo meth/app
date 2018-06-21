@@ -5,6 +5,7 @@ import { View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
 import { t } from '../../../../../common/strings'
+import { toast } from '../../../../env'
 import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
 import ErrorBox from '../../../components/ErrorBox'
@@ -142,7 +143,11 @@ export default class EditBookmark extends PureComponent {
       error: null
     }, () => {
       saveBookmark(url, label)
-        .then(() => this.close())
+        .then(() => {
+          toast(t('toast.bookmarkSaved'))
+
+          this.close()
+        })
         .catch(error => {
           this.setState({
             submitting: false,
@@ -183,7 +188,11 @@ export default class EditBookmark extends PureComponent {
       error: null
     }, () => {
       deleteBookmark(url)
-        .then(() => this.close())
+        .then(() => {
+          toast(t('toast.bookmarkDeleted'))
+
+          this.close()
+        })
         .catch(error => {
           this.setState({
             submitting: false,
