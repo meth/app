@@ -22,6 +22,7 @@ export default create({
     textAlign: 'center'
   },
   txConfirmationId: {
+    flex: 0,
     justifyContent: 'center',
     marginBottom: 20
   },

@@ -45,8 +45,8 @@ export default class Confirm extends PureComponent {
           <Text style={formStyles.labelText}>{t('modal.sendTransaction.rawTransactionLabel')}</Text>
           <BlockOfText
             text={_.get(rawTx, 'str', '')}
-            style={styles.rawTransactionBlock}
-            textStyle={styles.rawTransactionBlockText}
+            blockStyle={styles.rawTransactionBlock}
+            blockTextStyle={styles.rawTransactionBlockText}
           />
           <ProgressButton
             showInProgress={submitting}

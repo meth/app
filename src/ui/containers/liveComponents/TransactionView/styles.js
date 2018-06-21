@@ -24,7 +24,6 @@ export default create({
     alignItems: 'flex-start'
   },
   txFromTo: {
-    marginLeft: 10
   },
   txDetails: {
     marginTop: 10

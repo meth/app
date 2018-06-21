@@ -16,8 +16,10 @@ export default create({
   container: {
     ...flexRow
   },
+  idTextContainer: {
+    flex: 1
+  },
   idText: {
-    flex: 1,
     ...text,
     color: '$transactionBlock_id_textColor',
     fontSize: '0.9rem'

@@ -3,6 +3,7 @@ import { create, fontMaker } from '../../styles'
 export default create({
   scrollView: {
     padding: 5,
+    marginRight: 5,
     backgroundColor: '$blockOfText_backgroundColor'
   },
   text: {

@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 
 import styles from './styles'
+import CopyableText from '../../../../components/CopyableText'
 import ChainExplorerIconButton from '../../ChainExplorerIconButton'
 
 const TransactionId = ({ tx, style, textStyle }) => {
@@ -9,7 +10,11 @@ const TransactionId = ({ tx, style, textStyle }) => {
 
   return (
     <View style={[ styles.container ].concat(style)}>
-      <Text style={[ styles.idText ].concat(textStyle)}>{id}</Text>
+      <CopyableText
+        style={styles.idTextContainer}
+        textStyle={[ styles.idText ].concat(textStyle)}
+        text={id}
+       />
       <ChainExplorerIconButton
         linkType='transaction'
         txHash={id}
