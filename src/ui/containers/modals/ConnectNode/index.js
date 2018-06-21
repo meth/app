@@ -8,6 +8,7 @@ import { CachePureComponent } from '../../../helpers/components'
 import { t } from '../../../../../common/strings'
 import ProgressButton from '../../../components/ProgressButton'
 import AlertBox from '../../../components/AlertBox'
+import TextInput from '../../../components/TextInput'
 import ChainExplorerIconButton from '../../liveComponents/ChainExplorerIconButton'
 import ErrorBox from '../../../components/ErrorBox'
 import FormWrapper from '../../../components/FormWrapper'
@@ -18,10 +19,20 @@ import styles from './styles'
 
 @connectStore('config', 'node')
 export default class ConnectNode extends CachePureComponent {
-  state = {
-    disconnecting: false,
-    connecting: false,
-    error: null
+  constructor (props) {
+    super(props)
+
+    const { getLastConnectedNode } = this.props.selectors
+
+    const lastConnected = getLastConnectedNode()
+
+    this.state = {
+      disconnecting: false,
+      connecting: false,
+      error: null,
+      selectedId: _.get(lastConnected, 'id', null),
+      editedUrl: _.get(lastConnected, 'url', null)
+    }
   }
 
   render () {
@@ -61,7 +72,7 @@ export default class ConnectNode extends CachePureComponent {
     } = this.props.selectors
 
     const {
-      node: { type },
+      node: { type, url },
       network: { description: network, chainId }
     } = getNodeConnection()
 
@@ -74,8 +85,9 @@ export default class ConnectNode extends CachePureComponent {
 
     return (
       <View style={styles.form}>
-        <Text style={styles.networkText}>{t('connector.network', { network })}</Text>
-        <Text style={styles.typeText}>{t(`connector.type`)}: {type}</Text>
+        <Text style={styles.networkText}>{t('modal.connectNode.network', { network })}</Text>
+        <Text style={styles.typeText}>{t(`modal.connectNode.url`)}: {url}</Text>
+        <Text style={styles.typeText}>{t(`modal.connectNode.type`)}: {type}</Text>
         <Text style={styles.chainIdText}>{t('network.chainId')}: {chainId}</Text>
         {latestBlock ? (
           <View style={styles.block}>
@@ -105,7 +117,7 @@ export default class ConnectNode extends CachePureComponent {
 
   renderLoading () {
     const title = (
-      <Text style={styles.title}>{t('connector.pleaseChooseNode')}</Text>
+      <Text style={styles.title}>{t('modal.connectNode.pleaseChooseNode')}</Text>
     )
 
     return (
@@ -117,7 +129,7 @@ export default class ConnectNode extends CachePureComponent {
   }
 
   renderForm () {
-    const { connecting } = this.state
+    const { connecting, editedUrl } = this.state
 
     const { getDisconnectReason } = this.props.selectors
 
@@ -127,8 +139,10 @@ export default class ConnectNode extends CachePureComponent {
     const selected = options.find(o => o.selected)
 
     const title = (
-      <Text style={styles.title}>{t('connector.pleaseChooseNode')}</Text>
+      <Text style={styles.title}>{t('modal.connectNode.pleaseChooseNode')}</Text>
     )
+
+    const onConnect = this.bind(this.onConnect, selected.value)
 
     return (
       <View style={styles.container}>
@@ -141,6 +155,15 @@ export default class ConnectNode extends CachePureComponent {
             onChange={this.onChange}
             renderOptionText={this._renderPickerOptionText}
           />
+          {selected.canEditUrl ? (
+            <TextInput
+              value={editedUrl}
+              style={styles.urlInput}
+              placeholder={t('modal.connectNode.urlInputPlaceholder')}
+              onChange={this._onChangeUrl}
+              onSubmit={onConnect}
+            />
+          ) : null}
         </FormWrapper>
         <AlertBox
           style={styles.desc}
@@ -151,7 +174,7 @@ export default class ConnectNode extends CachePureComponent {
         <ProgressButton
           style={styles.button}
           showInProgress={connecting}
-          onPress={this.bind(this.onConnect, selected.value)}
+          onPress={onConnect}
           title={t('button.connectToNode')} />
         {this.renderError(reason)}
       </View>
@@ -171,6 +194,12 @@ export default class ConnectNode extends CachePureComponent {
     ]} />
   }
 
+  _onChangeUrl = editedUrl => {
+    this.setState({
+      editedUrl: editedUrl.trim()
+    })
+  }
+
   _renderPickerOptionText = ({ label, type }) => (
     <View style={styles.pickerOption}>
       <Text style={styles.pickerOptionLabelText}>{label}</Text>
@@ -179,48 +208,53 @@ export default class ConnectNode extends CachePureComponent {
   )
 
   getOptions () {
-    const { getNodesAsFlatList, getLastConnectedNodeId } = this.props.selectors
+    const { getNodesAsFlatList } = this.props.selectors
 
     const nodes = getNodesAsFlatList()
-    let { selected } = this.state
+    const { selectedId } = this.state
 
-    if (!selected) {
-      selected = getLastConnectedNodeId()
+    const options = nodes.map(({ id, name, type, category, canEditUrl }) => ({
+      value: id,
+      label: name || category,
+      type,
+      category,
+      selected: selectedId === id,
+      canEditUrl
+    }))
+
+    // select first by default
+    if (!options.find(o => !!o.selected)) {
+      options[0].selected = true
     }
-
-    const options = nodes.map(({ id, name, type, category }) => {
-      // select first by default
-      if (!selected) {
-        selected = id
-      }
-
-      return {
-        value: id,
-        label: name || category,
-        type,
-        category,
-        selected: selected === id
-      }
-    })
 
     return options
   }
 
-  onChange = selected => {
+  onChange = selectedId => {
+    const { getNodesAsFlatList } = this.props.selectors
+
+    const selectedOption = getNodesAsFlatList().find(o => o.id === selectedId)
+
     this.setState({
-      selected,
+      selectedId,
+      editedUrl: _.get(selectedOption, 'url', null),
       error: null
     })
   }
 
-  onConnect = selected => {
+  onConnect = selectedId => {
     const { connectNode, hideConnectionModal } = this.props.actions
+    const { editedUrl } = this.state
+
+    if (!editedUrl) {
+      return
+    }
 
     this.setState({
       connecting: true,
       error: null
     }, () => {
-      connectNode(selected)
+      connectNode(selectedId, editedUrl)
         .then(() => hideConnectionModal())
         .catch(err => {
           this.setState({

@@ -39,12 +39,6 @@ module.exports = {
         percent: '{percent}%'
       }
     },
-    connector: {
-      connectToNode: 'Connect to node',
-      pleaseChooseNode: 'Connect to Ethereum',
-      network: '{network} network',
-      type: 'Type'
-    },
     error: {
       userCancelledTransaction: 'User cancelled transaction',
       unableToConnect: 'Unable to connect',
@@ -127,6 +121,7 @@ module.exports = {
       disconnectFromNode: 'Disconnect',
       generateRawTransaction: 'Generate raw transaction',
       wallet: 'Wallet',
+      pickAddress: 'Pick address',
       addressBook: 'Address book',
       dappBrowser: 'Browser',
       contracts: 'Contracts',
@@ -196,6 +191,14 @@ module.exports = {
       contractLabel: 'Contract'
     },
     modal: {
+      connectNode: {
+        connectToNode: 'Connect to node',
+        pleaseChooseNode: 'Connect to Ethereum',
+        network: '{network} network',
+        type: 'Type',
+        url: 'URL',
+        urlInputPlaceholder: 'Custom URL ...'
+      },
       confirmPin: {
         pleaseConfirmYourPin: 'Please confirm your code',
         pleaseEnterPinToConfirmTransaction: 'Please enter your security code to confirm the transaction',

@@ -27,10 +27,13 @@ export default create({
     flex: 0,
     alignSelf: 'center',
     marginBottom: 10,
-    width: perWidth(300, '95%')
+    width: perWidth(300, '90%')
   },
   pickerButton: {
-    minWidth: 140
+    width: perWidth('100%', 200)
+  },
+  urlInput: {
+    marginTop: 10
   },
   button: {
     marginTop: 25,

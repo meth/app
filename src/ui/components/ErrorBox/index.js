@@ -81,7 +81,7 @@ export default class ErrorBox extends PureComponent {
           duration: 1500
         } : null}
         type="error"
-        style={[ style.alertBox ].concat(style)}
+        style={[ styles.alertBox ].concat(style)}
       >
         {validErrors}
       </AlertBox>

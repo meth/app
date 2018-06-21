@@ -31,11 +31,18 @@ export default ({ nodeConnector }) => () => next => async action => {
 
       await nodeConnecting()
 
-      try {
-        const node = getNodesAsFlatList().find(({ id }) => id === action.payload)
+      const { id, url } = action.payload
 
-        if (!node) {
+      try {
+        const originalNode = getNodesAsFlatList().find(n => n.id === id)
+
+        if (!originalNode) {
           throw new Error('Node not found')
+        }
+
+        const node = {
+          ...originalNode,
+          url
         }
 
         const network = await nodeConnector.connect(node)

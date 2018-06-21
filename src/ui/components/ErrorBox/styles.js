@@ -3,7 +3,7 @@ import { create } from '../../styles'
 export default create({
   alertBox: {
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center'
   },
   errorText: {

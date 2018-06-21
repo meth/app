@@ -35,7 +35,7 @@ AlertBox.propTypes = {
   animate: PropTypes.shape(ExpandingView.propTypes),
   text: PropTypes.string,
   children: PropTypes.oneOfType([ PropTypes.element, PropTypes.array ]),
-  style: PropTypes.oneOfType([ PropTypes.number, PropTypes.object ])
+  style: PropTypes.any
 }
 
 AlertBox.defaultProps = {

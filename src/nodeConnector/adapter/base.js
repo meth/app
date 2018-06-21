@@ -375,7 +375,7 @@ class Adapter extends EventEmitter {
 
     if (this._pollEnabled) {
       // every 10 seconds
-      setTimeout(() => this._doPoll(), 5000)
+      setTimeout(() => this._doPoll(), 10000)
     }
   }
 

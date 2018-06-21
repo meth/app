@@ -9,14 +9,14 @@ import {
   NODE_DISCONNECTED,
   NEW_BLOCK,
   SYNCING,
-  INJECT_LAST_CONNECTED_NODE_ID
+  INJECT_LAST_CONNECTED_NODE
 } from './actions'
 
-export const injectLastConnectedNodeId = createActionCreator(INJECT_LAST_CONNECTED_NODE_ID)
+export const injectLastConnectedNode = createActionCreator(INJECT_LAST_CONNECTED_NODE)
 
 export const disconnectNode = createActionCreator(DISCONNECT_NODE)
 
-export const connectNode = createActionCreator(CONNECT_NODE)
+export const connectNode = createActionCreator(CONNECT_NODE, (id, url) => ({ id, url }))
 
 export const nodeConnectError = createActionCreator(NODE_CONNECT_ERROR)
 

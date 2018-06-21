@@ -12,11 +12,16 @@ export default class AddressBookPicker extends PureComponent {
   static propTypes = _.omit(ModalFilterPicker.propTypes, 'options')
 
   render () {
+    const buttonProps = Object.assign({
+      tooltip: t('button.pickAddress')
+    }, this.props.button)
+
     return (
       <ModalFilterPicker
         ref={this._onPickerRef}
         title={t('modal.addressBookPicker.title')}
         {...this.props}
+        button={buttonProps}
         options={this._getOptions()}
         renderOptionText={this._renderPickerOptionText}
       />

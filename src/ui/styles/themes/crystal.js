@@ -191,7 +191,7 @@ export default {
   contracts: {
     params: {
       borderColor: colorGrayDark,
-      backgroundColor: colorButtonBlueLight
+      backgroundColor: colorGrayLight
     }
   },
   browser: {

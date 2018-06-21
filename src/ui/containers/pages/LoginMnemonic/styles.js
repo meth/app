@@ -22,7 +22,7 @@ export default create({
     marginBottom: 40
   },
   formWrapper: {
-    width: perWidth(400, '95%')
+    width: perWidth(400, '90%')
   },
   nextButton: {
     marginTop: 40,

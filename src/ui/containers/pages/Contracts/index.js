@@ -342,6 +342,16 @@ export default class AddressBook extends PureComponent {
           )
           break
         }
+        case FIELD_TYPES.ADDRESS: {
+          field = (
+            <AddressTextInput
+              value={params[name]}
+              style={styles.textInput}
+              placeholder={placeholder}
+            />
+          )
+          break
+        }
         case FIELD_TYPES.BOOLEAN: {
           field = (
             <Switch

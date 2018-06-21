@@ -136,23 +136,23 @@ class Storage {
    * Load app data (call this when app starts)
    */
   loadAppData () {
-    this._loadlastConnectedNodeId()
+    this._loadlastConnectedNode()
   }
 
-  async _loadlastConnectedNodeId () {
-    log.info('Load last connected node id ...')
+  async _loadlastConnectedNode () {
+    log.info('Load last connected node ...')
 
-    const data = await this._load('lastConnectedNodeId')
+    const data = await this._load('lastConnectedNode')
 
     if (data) {
-      this._store.actions.injectLastConnectedNodeId(data)
+      this._store.actions.injectLastConnectedNode(data)
     }
   }
 
-  async saveLastConnectedNodeId (id) {
-    log.debug('Save last connected node id ...', id)
+  async saveLastConnectedNode (node) {
+    log.debug('Save last connected node ...', node)
 
-    await this._save('lastConnectedNodeId', id)
+    await this._save('lastConnectedNode', node)
   }
 
   async _load (key) {

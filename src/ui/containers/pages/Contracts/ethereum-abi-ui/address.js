@@ -1,8 +1,8 @@
 import { isAddress } from 'web3-utils'
-import { TEXT } from './fieldTypes'
+import { ADDRESS } from './fieldTypes'
 
 export default class Address {
-  fieldType = () => TEXT
+  fieldType = () => ADDRESS
   placeholderText = () => '0x...'
   isValid = addr => addr && isAddress(addr)
   sanitize = addr => {

@@ -31,12 +31,13 @@
       }
     ]
   },
-  "Local": {
+  "Custom": {
     "connections": [
       {
-        "name": "Localhost (8545)",
+        "name": "Custom RPC",
         "url": "http://127.0.0.1:8545",
-        "type": "rpc"
+        "type": "rpc",
+        "canEditUrl": true
       }
     ]
   }

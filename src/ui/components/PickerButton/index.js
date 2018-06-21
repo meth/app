@@ -10,6 +10,7 @@ const PickerButton = ({
   label,
   style,
   textStyle,
+  tooltip,
   onPress,
   onLayout,
   renderLabel,
@@ -21,10 +22,13 @@ const PickerButton = ({
     style={[ styles.content ].concat(style)}
     type={theme}
     onLayout={onLayout}
+    tooltip={tooltip}
   >
     <View style={styles.labelContainer}>
       {renderLabel ? renderLabel(label) : (
-        <Text style={[ styles.text ].concat(textStyle)}>{label}</Text>
+        <Text style={[ styles.text ].concat(textStyle)} numberOfLines={1} ellipsizeMode='tail'>
+          {label}
+        </Text>
       )}
     </View>
     {renderIcon ? renderIcon() : (
