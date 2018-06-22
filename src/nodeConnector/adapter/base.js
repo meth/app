@@ -321,7 +321,7 @@ class Adapter extends EventEmitter {
   _startPoll = () => {
     this._log.info(`Start polling for blocks`)
 
-    this._poll = scheduler.addJob('block poll', 15, () => this._doPoll())
+    this._poll = scheduler.addJob('block_poll', 15, () => this._doPoll())
   }
 
   /**
@@ -332,10 +332,10 @@ class Adapter extends EventEmitter {
   _stopPoll = () => {
     this._log.info(`Stop polling for blocks`)
 
-    if (undefined !== this._poll) {
+    if (this._poll) {
       scheduler.removeJob(this._poll)
 
-      this._poll = undefined
+      delete this._poll
     }
   }
 

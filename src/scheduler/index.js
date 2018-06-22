@@ -4,14 +4,17 @@ import logger from '../logger'
 import { globalEvents } from '../env'
 import UI_TASKS from '../../common/constants/ipcUiTasks'
 import { isMobile } from '../utils/deviceInfo'
+import { randStr } from '../utils/string'
 
 const log = logger.create('Scheduler')
+
+const _idn = (id, name) => `${name} (${id})`
 
 class Scheduler extends EventEmitter {
   constructor () {
     super()
 
-    this._jobs = []
+    this._jobs = {}
     this._running = false
 
     // on mobile we pause the scheduler when app is inactive
@@ -22,26 +25,28 @@ class Scheduler extends EventEmitter {
   }
 
   addJob (name, interval, callback) {
-    log.info(`Add job ${name} to run every ${interval} seconds`)
+    const id = randStr(5)
 
-    this._jobs.push({
+    log.info(`Add job ${_idn(id, name)} to run every ${interval} seconds`)
+
+    this._jobs[id] = {
       name,
       callback,
       intervalMs: interval * 1000,
       lastRun: 0
-    })
+    }
 
     this.start()
 
-    return this._jobs.length - 1
+    return id
   }
 
   removeJob (id) {
     const { name } = this._jobs[id]
 
-    log.info(`Remove job ${name}`)
+    log.info(`Remove job ${_idn(id, name)}`)
 
-    this._jobs.splice(id, 0)
+    delete this._jobs[id]
   }
 
   start = () => {
@@ -67,23 +72,19 @@ class Scheduler extends EventEmitter {
       return
     }
 
-    let i = 0
-
-    while (this._jobs.length > i) {
-      const job = this._jobs[i]
+    Object.keys(this._jobs).forEach(id => {
+      const job = this._jobs[id]
       const { name, lastRun, intervalMs, callback } = job
       const now = Date.now()
 
       if (now - lastRun >= intervalMs) {
-        log.debug(`Running job ${name} ...`)
+        log.debug(`Running job ${_idn(id, name)} ...`)
 
         job.lastRun = now
 
         callback()
       }
-
-      i += 1
-    }
+    })
 
     // check every second
     this._timer = setTimeout(this._processJobs, 1000)
