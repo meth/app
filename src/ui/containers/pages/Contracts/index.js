@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react'
 import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
-
 import {
-  getSupportedParamTypes,
+  PARAM_TYPES,
   canRenderMethodParams,
   renderMethodParams,
   canRenderMethodOutputs,
   renderMethodOutputs,
   FIELD_TYPES
-} from './ethereum-abi-ui'
+} from 'ethereum-abi-ui'
+
 import { t } from '../../../../../common/strings'
 import { isAddress, prefixedWith0x, prefixWith0x } from '../../../../utils/string'
 import { toNumberStr } from '../../../../utils/number'
@@ -248,27 +248,27 @@ export default class AddressBook extends PureComponent {
         <AlertBox
           type='info'
           text={t('contracts.cannotCallMethodDueToParams', {
-            types: getSupportedParamTypes().join(', ')
+            types: PARAM_TYPES.join(', ')
           })}
         />
       )
     } else {
       const uiContainer = []
-      const helpers = {}
+      const instances = {}
 
       renderMethodParams(
         abi,
         method,
-        this._buildRenderFieldMethod(uiContainer, helpers)
+        this._buildRenderFieldMethod(uiContainer, instances)
       )
 
       content = uiContainer.length ? (
         <Form
           ref={this._onParamsFormRef}
           style={styles.paramsForm}
-          onChange={this._buildParamsChangeHandler(helpers)}
+          onChange={this._buildParamsChangeHandler(instances)}
           onSubmit={this._onPressSubmit}
-          validate={this._buildParamsValidationHandler(helpers)}
+          validate={this._buildParamsValidationHandler(instances)}
           submitOnReturn={false}
         >
           {uiContainer}
@@ -300,10 +300,10 @@ export default class AddressBook extends PureComponent {
     this.paramsForm = ref
   }
 
-  _buildRenderOutputMethod = uiContainer => (name, index, fieldType, value) => {
+  _buildRenderOutputMethod = uiContainer => (name, index, instance, value) => {
     let finalValue
 
-    switch (fieldType) {
+    switch (instance.fieldType()) {
       case FIELD_TYPES.NUMBER:
         finalValue = toNumberStr(value)
         break
@@ -324,20 +324,20 @@ export default class AddressBook extends PureComponent {
     )
   }
 
-  _buildRenderFieldMethod = (uiContainer, helpers) =>
-    (name, fieldType, { placeholder, isValid, sanitize }) => {
+  _buildRenderFieldMethod = (uiContainer, instances) =>
+    (name, instance) => {
       const { params } = this.state
 
       let field
 
-      switch (fieldType) {
+      switch (instance.fieldType()) {
         case FIELD_TYPES.NUMBER:
         case FIELD_TYPES.TEXT: {
           field = (
             <TextInput
               value={params[name]}
               style={styles.textInput}
-              placeholder={placeholder}
+              placeholder={instance.placeholderText()}
             />
           )
           break
@@ -347,7 +347,7 @@ export default class AddressBook extends PureComponent {
             <AddressTextInput
               value={params[name]}
               style={styles.textInput}
-              placeholder={placeholder}
+              placeholder={instance.placeholderText()}
             />
           )
           break
@@ -368,7 +368,7 @@ export default class AddressBook extends PureComponent {
 
       if (field) {
         // eslint-disable-next-line no-param-reassign
-        helpers[name] = { isValid, sanitize }
+        instances[name] = instance
 
         uiContainer.push(
           <Form.Field
@@ -385,14 +385,12 @@ export default class AddressBook extends PureComponent {
       }
     }
 
-  _buildParamsChangeHandler = helpers => newValues => {
+  _buildParamsChangeHandler = instances => newValues => {
     const params = newValues
 
     Object.keys(params).forEach(key => {
-      const { sanitize } = helpers[key]
-
-      if (sanitize && params[key]) {
-        params[key] = sanitize(params[key])
+      if (params[key]) {
+        params[key] = instances[key].sanitize(params[key])
       }
     })
 
@@ -403,13 +401,13 @@ export default class AddressBook extends PureComponent {
     })
   }
 
-  _buildParamsValidationHandler = helpers => params => {
+  _buildParamsValidationHandler = instances => params => {
     const ret = {}
 
     Object.keys(params).forEach(key => {
       if (!params[key]) {
         ret[key] = Form.VALIDATION_RESULT.MISSING
-      } else if (!helpers[key].isValid(params[key])) {
+      } else if (!instances[key].isValid(params[key])) {
         ret[key] = Form.VALIDATION_RESULT.INCORRECT
       }
     })

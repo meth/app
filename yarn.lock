@@ -4257,6 +4257,12 @@ eth-lib@0.1.27:
     ws "^3.0.0"
     xhr-request-promise "^0.1.2"
 
+ethereum-abi-ui@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ethereum-abi-ui/-/ethereum-abi-ui-1.0.0.tgz#5868fa81615f4dffd9f16198e4531006cb2c66dd"
+  dependencies:
+    web3-utils "^1.0.0-beta.34"
+
 ethereum-common@^0.0.18:
   version "0.0.18"
   resolved "https://registry.yarnpkg.com/ethereum-common/-/ethereum-common-0.0.18.tgz#2fdc3576f232903358976eb39da783213ff9523f"
@@ -11248,7 +11254,7 @@ wcwidth@^1.0.1:
   dependencies:
     defaults "^1.0.3"
 
-web3-utils@^1.0.0-beta.17:
+web3-utils@^1.0.0-beta.17, web3-utils@^1.0.0-beta.34:
   version "1.0.0-beta.34"
   resolved "https://registry.yarnpkg.com/web3-utils/-/web3-utils-1.0.0-beta.34.tgz#9411fc39aaef39ca4e06169f762297d9ff020970"
   dependencies:
