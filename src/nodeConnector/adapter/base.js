@@ -1,9 +1,7 @@
 import EventEmitter from 'eventemitter3'
 
-import { globalEvents } from '../../env'
 import { hexToNumber } from '../../utils/number'
-import { isMobile } from '../../utils/deviceInfo'
-import UI_TASKS from '../../../common/constants/ipcUiTasks'
+import scheduler from '../../scheduler'
 import EVENT from '../../../common/constants/events'
 import STATE from '../../../common/constants/states'
 import logger from '../../logger'
@@ -85,17 +83,6 @@ class Adapter extends EventEmitter {
   _updateState (state) {
     if (this._state !== state) {
       this._state = state
-
-      // on mobile platforms let's only poll when app is active
-      if (isMobile) {
-        if (STATE.CONNECTED === this._state) {
-          globalEvents.on(UI_TASKS.APP_ACTIVE, this._startPoll)
-          globalEvents.on(UI_TASKS.APP_INACTIVE, this._stopPoll)
-        } else {
-          globalEvents.off(UI_TASKS.APP_ACTIVE, this._startPoll)
-          globalEvents.off(UI_TASKS.APP_INACTIVE, this._stopPoll)
-        }
-      }
 
       this.emit(EVENT.STATE_CHANGE, state)
     }
@@ -334,8 +321,7 @@ class Adapter extends EventEmitter {
   _startPoll = () => {
     this._log.info(`Start polling for blocks`)
 
-    this._pollEnabled = true
-    this._doPoll()
+    this._poll = scheduler.addJob('block poll', 15, () => this._doPoll())
   }
 
   /**
@@ -346,7 +332,11 @@ class Adapter extends EventEmitter {
   _stopPoll = () => {
     this._log.info(`Stop polling for blocks`)
 
-    this._pollEnabled = false
+    if (undefined !== this._poll) {
+      scheduler.removeJob(this._poll)
+
+      this._poll = undefined
+    }
   }
 
   /**
@@ -355,7 +345,10 @@ class Adapter extends EventEmitter {
    * Subclasses may override this.
    */
   async _doPoll () {
-    if (!this._pollEnabled || STATE.CONNECTED !== this.state) {
+    if (STATE.CONNECTED !== this.state) {
+      // definitely stop it!
+      this._stopPoll()
+
       return
     }
 
@@ -385,11 +378,6 @@ class Adapter extends EventEmitter {
       this._lastSyncing = syncing
 
       this.emit(EVENT.SYNCING, syncing)
-    }
-
-    if (this._pollEnabled) {
-      // every 15 seconds
-      setTimeout(() => this._doPoll(), 15000)
     }
   }
 

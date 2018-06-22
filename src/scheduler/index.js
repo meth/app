@@ -85,8 +85,8 @@ class Scheduler extends EventEmitter {
       i += 1
     }
 
-    // check every 15 seconds
-    this._timer = setTimeout(this._processJobs, 15000)
+    // check every second
+    this._timer = setTimeout(this._processJobs, 1000)
   }
 }
 
