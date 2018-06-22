@@ -1,6 +1,9 @@
 import EventEmitter from 'eventemitter3'
 
+import { globalEvents } from '../../env'
 import { hexToNumber } from '../../utils/number'
+import { isMobile } from '../../utils/deviceInfo'
+import UI_TASKS from '../../../common/constants/ipcUiTasks'
 import EVENT from '../../../common/constants/events'
 import STATE from '../../../common/constants/states'
 import logger from '../../logger'
@@ -82,6 +85,17 @@ class Adapter extends EventEmitter {
   _updateState (state) {
     if (this._state !== state) {
       this._state = state
+
+      // on mobile platforms let's only poll when app is active
+      if (isMobile) {
+        if (STATE.CONNECTED === this._state) {
+          globalEvents.on(UI_TASKS.APP_ACTIVE, this._startPoll)
+          globalEvents.on(UI_TASKS.APP_INACTIVE, this._stopPoll)
+        } else {
+          globalEvents.off(UI_TASKS.APP_ACTIVE, this._startPoll)
+          globalEvents.off(UI_TASKS.APP_INACTIVE, this._stopPoll)
+        }
+      }
 
       this.emit(EVENT.STATE_CHANGE, state)
     }
@@ -317,7 +331,7 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  _startPoll () {
+  _startPoll = () => {
     this._log.info(`Start polling for blocks`)
 
     this._pollEnabled = true
@@ -329,7 +343,7 @@ class Adapter extends EventEmitter {
    *
    * Subclasses may override this.
    */
-  _stopPoll () {
+  _stopPoll = () => {
     this._log.info(`Stop polling for blocks`)
 
     this._pollEnabled = false
@@ -374,8 +388,8 @@ class Adapter extends EventEmitter {
     }
 
     if (this._pollEnabled) {
-      // every 10 seconds
-      setTimeout(() => this._doPoll(), 10000)
+      // every 15 seconds
+      setTimeout(() => this._doPoll(), 15000)
     }
   }
 

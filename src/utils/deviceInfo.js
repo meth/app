@@ -4,6 +4,7 @@ import DeviceInfo from 'react-native-device-info'
 export const isWeb = 'web' === Platform.OS
 export const isAndroid = 'android' === Platform.OS
 export const isIos = 'ios' === Platform.OS
+export const isMobile = isAndroid || isIos
 
 const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('window')
 

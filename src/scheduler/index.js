@@ -1,6 +1,9 @@
 import EventEmitter from 'eventemitter3'
 
 import logger from '../logger'
+import { globalEvents } from '../env'
+import UI_TASKS from '../../common/constants/ipcUiTasks'
+import { isMobile } from '../utils/deviceInfo'
 
 const log = logger.create('Scheduler')
 
@@ -10,6 +13,12 @@ class Scheduler extends EventEmitter {
 
     this._jobs = []
     this._running = false
+
+    // on mobile we pause the scheduler when app is inactive
+    if (isMobile) {
+      globalEvents.on(UI_TASKS.APP_ACTIVE, this.start)
+      globalEvents.on(UI_TASKS.APP_INACTIVE, this.stop)
+    }
   }
 
   addJob (name, interval, callback) {
@@ -35,7 +44,7 @@ class Scheduler extends EventEmitter {
     this._jobs.splice(id, 0)
   }
 
-  start () {
+  start = () => {
     if (!this._running) {
       log.info('Start scheduler ...')
 
@@ -44,7 +53,7 @@ class Scheduler extends EventEmitter {
     }
   }
 
-  stop () {
+  stop = () => {
     if (this._running) {
       log.info('Stop scheduler ...')
 
@@ -76,7 +85,8 @@ class Scheduler extends EventEmitter {
       i += 1
     }
 
-    this._timer = setTimeout(this._processJobs, 1000)
+    // check every 15 seconds
+    this._timer = setTimeout(this._processJobs, 15000)
   }
 }
 

@@ -4,7 +4,7 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import {
   setWidthBreakpoints,
   setHeightBreakpoints,
-  createResponsive
+  parse
 } from 'react-native-extended-stylesheet-breakpoints'
 
 import { isWeb, isAndroid, isIos, isIphoneX } from '../../utils/deviceInfo'
@@ -121,7 +121,7 @@ export const isScreenWidthVerySmall = () =>
 
 export const perWidth = setWidthBreakpoints(SCREEN_WIDTH_SMALL, SCREEN_WIDTH_VERY_SMALL)
 export const perHeight = setHeightBreakpoints(SCREEN_HEIGHT_SMALL, SCREEN_HEIGHT_VERY_SMALL)
-export const create = createResponsive
+export const create = def => EStyleSheet.create(parse(def))
 
 export const perPlatform = (web, mobile) => {
   if (isWeb) {
