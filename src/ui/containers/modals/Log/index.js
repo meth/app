@@ -11,6 +11,12 @@ import styles from './styles'
 @connectStore('log')
 export default class Log extends PureComponent {
   render () {
+    const { getAlerts, getUnseenAlertsCount } = this.props.selectors
+
+    const numUnseenAlerts = getUnseenAlertsCount()
+    const alerts = [ ...getAlerts() ]
+    alerts.reverse()
+
     return (
       <Modal
         contentStyle={styles.content}
@@ -18,18 +24,19 @@ export default class Log extends PureComponent {
         onPressCloseButton={this.close}
         closeButtonStyle={styles.closeButton}
       >
-        {this._renderContent()}
+        {numUnseenAlerts ? (
+          <AlertBox
+            type='info'
+            text={t(`log.numUnseenAlerts`, { num: numUnseenAlerts })}
+          />
+        ) : null}
+        {this._renderContent(alerts, numUnseenAlerts)}
       </Modal>
     )
   }
 
-  _renderContent () {
-    const { getAlerts } = this.props.selectors
-
-    const events = [ ...getAlerts() ]
-    events.reverse()
-
-    if (!events.length) {
+  _renderContent (alerts, numUnseenAlerts) {
+    if (!alerts.length) {
       return (
         <AlertBox
           type='info'
@@ -38,12 +45,12 @@ export default class Log extends PureComponent {
       )
     }
 
-    return events.map(({ msg, ts }, index) => (
+    return alerts.map(({ msg, ts }, index) => (
       <View style={styles.alert} key={index}>
-        <Text style={styles.alertText}>
+        <Text style={index < numUnseenAlerts ? styles.newAlertText : styles.alertText}>
           {msg}
         </Text>
-        <Text style={styles.alertMetaText}>
+        <Text style={index < numUnseenAlerts ? styles.newAlertMetaText : styles.alertMetaText}>
           {formatDate(ts)}
         </Text>
       </View>

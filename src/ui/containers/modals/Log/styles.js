@@ -1,8 +1,16 @@
 import { create, fontMaker, perHeight, perWidth } from '../../../styles'
 
-const text = {
-  ...fontMaker()
+const alertText = {
+  ...fontMaker(),
+  color: '$log_alert_textColor'
 }
+
+const alertMetaText = {
+  ...fontMaker(),
+  marginTop: 5,
+  color: '$log_alert_metaTextColor'
+}
+
 
 export default create({
   content: {
@@ -23,14 +31,19 @@ export default create({
     borderRadius: 5
   },
   alertText: {
-    ...text,
-    color: '$log_alert_textColor',
+    ...alertText,
     fontSize: '1.2rem'
   },
   alertMetaText: {
-    ...text,
-    marginTop: 5,
-    color: '$log_alert_metaTextColor',
+    ...alertMetaText,
     fontSize: '0.8rem'
+  },
+  newAlertText: {
+    ...alertText,
+    fontSize: '1.5rem'
+  },
+  newAlertMetaText: {
+    ...alertMetaText,
+    fontSize: '1.1rem'
   }
 })

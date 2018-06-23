@@ -78,7 +78,8 @@ module.exports = {
         alerts: 'Alerts',
         log: 'Log'
       },
-      noAlertsYet: 'No alerts yet!'
+      noAlertsYet: 'No alerts yet!',
+      numUnseenAlerts: 'There are {num} new alerts'
     },
     tooltip: {
       setMaximumAmount: 'Set maximum amount',

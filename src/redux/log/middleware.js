@@ -1,6 +1,9 @@
 import logger from '../../logger'
 import { LOAD_ALERTS } from './actions'
 import { createAction } from '../utils'
+import { LEVELS } from '../../../common/constants/log'
+
+const { ALERT } = LEVELS
 
 const log = logger.create('LogMiddleware')
 
@@ -9,7 +12,13 @@ export default ({ config }) => () => next => async action => {
   switch (action.type) {
     case LOAD_ALERTS:
       try {
-        return next(createAction(action.type, await config.load('alerts')))
+        const alerts = await config.load('alerts')
+
+        alerts.forEach(a => {
+          a.level = ALERT // eslint-disable-line no-param-reassign
+        })
+
+        return next(createAction(action.type, alerts))
       } catch (err) {
         log.warn('Error loading alerts config', err)
       }
