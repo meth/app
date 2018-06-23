@@ -66,8 +66,11 @@ export const toIntStr = num => {
 
 const powerOfTenBigNum = _.memoize(power => toBigNum(10).pow(power))
 
-export const toTokenBalanceBigNum = (balance, decimals) =>
-  toBigNum(balance).div(powerOfTenBigNum(decimals))
+export const toTokenRawBalanceBigNum = (amount, decimals) =>
+  toBigNum(amount).times(powerOfTenBigNum(decimals))
+
+export const toTokenFriendlyBalanceBigNum = (amount, decimals) =>
+  toBigNum(amount).div(powerOfTenBigNum(decimals))
 
 export const weiToEthBigNum = balance =>
   toBigNum(balance).div(powerOfTenBigNum(18))

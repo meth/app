@@ -13,6 +13,7 @@ import {
 import { t } from '../../../../../common/strings'
 import { isAddress, prefixedWith0x, prefixWith0x } from '../../../../utils/string'
 import { toDecStr } from '../../../../utils/number'
+import { isWeb } from '../../../../utils/deviceInfo'
 import { getAbiFunctionNames, isAbiFunctionReadOnly, methodHasOutputs } from '../../../../utils/contracts'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -97,7 +98,7 @@ export default class AddressBook extends PureComponent {
               style={styles.textInput}
               placeholder={t('contracts.field.abiPlaceholder')}
               multiline={true}
-              numberOfLines={5}
+              numberOfLines={isWeb ? 15 : 5}
               onChange={this._onAbiChange}
             />
           </View>
@@ -111,6 +112,7 @@ export default class AddressBook extends PureComponent {
                   options={methodPickerOptions}
                   selected={selectedMethod}
                   onChange={this._onSelectMethod}
+                  renderOptionText={this._renderMethodPickerOptionText}
                 />
               </View>
               {paramsForm}
@@ -188,6 +190,9 @@ export default class AddressBook extends PureComponent {
     }
   }
 
+  _renderMethodPickerOptionText = ({ label }) => (
+    <Text style={styles.methodPickerOptionText}>{label}</Text>
+  )
 
   _renderResults () {
     const { submitting, abi, selectedMethod, results } = this.state

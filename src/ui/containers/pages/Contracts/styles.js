@@ -49,6 +49,10 @@ export default create({
   pickerButton: {
     width: '100%'
   },
+  methodPickerOptionText: {
+    ...fontMaker(),
+    textAlign: 'left'
+  },
   submitButton: {
     marginTop: 20
   },

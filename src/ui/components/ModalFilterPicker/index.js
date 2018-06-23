@@ -31,6 +31,7 @@ export default class ModalFilterPicker extends CachePureComponent {
     onChange: PropTypes.func,
     onCancel: PropTypes.func,
     renderOption: PropTypes.func,
+    renderOptionText: PropTypes.func,
     renderButton: PropTypes.func
   }
 
