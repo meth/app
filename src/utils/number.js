@@ -18,17 +18,20 @@ export const toBigNum = (num, base = 10) => new BigNumber(num, base)
 
 export const hexStrToNumber = num => toBigNum(num, 16).toNumber()
 export const hexStrToBigNum = num => toBigNum(num, 16)
-export const toHexStr = num => toBigNum(num).toString(16)
+export const toHexStr = num => `0x${toBigNum(num).toString(16)}`
 export const toDecStr = num => toBigNum(num).toString(10)
 export const toFormattedDecStr = (
   num,
   decimals = undefined,
   { showCommas = true } = {}
 ) => {
-  let str = showCommas ? toBigNum(num).toFormat(decimals) : toBigNum.toFixed(decimals)
+  let str = showCommas
+    ? toBigNum(num).toFormat(decimals)
+    : toBigNum.toFixed(decimals)
 
   // remove excess 0's from the end
-  while (0 <= str.indexOf('.') &&
+  while (
+    0 <= str.indexOf('.') &&
     ('0' === str.charAt(str.length - 1) || '.' === str.charAt(str.length - 1))
   ) {
     str = str.substr(0, str.length - 1)

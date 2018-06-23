@@ -1,5 +1,5 @@
 import { ETH, TRANSACTION_TYPE } from '../../../common/constants/protocol'
-import { ethToWeiBigNum, gweiToWeiBigNum, toInt, toTokenBalanceBigNum } from '../../utils/number'
+import { ethToWeiBigNum, gweiToWeiBigNum, toInt, toTokenBalanceBigNum, toHexStr } from '../../utils/number'
 import { getStore } from '../'
 
 const { CONTRACT_CALL, CONTRACT_CREATION, TOKEN_TRANSFER, ETH_TRANSFER } = TRANSACTION_TYPE
@@ -31,7 +31,8 @@ export default ({ nodeConnector }) => async tx => {
     const contract = await nodeConnector.getTokenContractAt(contractAddress)
     const tokenWeiAmountBigNum = toTokenBalanceBigNum(amount || '0', decimals, { hex: true })
 
-    data = contract.contract.transfer.getData(to, tokenWeiAmountBigNum.toNumber())
+    data = contract.contract.transfer.getData(to, toHexStr(tokenWeiAmountBigNum))
+    console.warn(toHexStr(tokenWeiAmountBigNum), data)
     to = contractAddress
   }
 
@@ -52,8 +53,6 @@ export default ({ nodeConnector }) => async tx => {
   if (gasPrice) {
     ret.gasPrice = gweiToWeiBigNum(gasPrice).toNumber()
   }
-
-  console.warn(ret)
 
   return ret
 }
