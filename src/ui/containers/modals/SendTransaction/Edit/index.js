@@ -4,7 +4,7 @@ import { Text, View } from 'react-native'
 import Form from 'react-native-advanced-forms'
 
 import { ETH } from '../../../../../../common/constants/protocol'
-import { toInt, toFloat, toFloatStr, toIntStr, weiToEthStr, toTokenBalanceStr } from '../../../../../utils/number'
+import { toInt, toFloat, toFloatStr, toIntStr, weiToEthBigNum, toDecStr, toTokenBalanceBigNum } from '../../../../../utils/number'
 import { isAddress, isHexStrict, prefixedWith0x, prefixWith0x } from '../../../../../utils/string'
 import { connectStore } from '../../../../helpers/redux'
 import { t } from '../../../../../../common/strings'
@@ -339,13 +339,13 @@ export default class Edit extends PureComponent {
       const { balance } = _.get(getAccounts(), from, {})
 
       if (balance) {
-        amountStr = weiToEthStr(balance)
+        amountStr = toDecStr(weiToEthBigNum(balance))
       }
     } else {
       const { tokens } = _.get(getAccounts(), from, {})
       const allTokens = getTokenList()
 
-      amountStr = toTokenBalanceStr(tokens[unit], allTokens[unit].decimals)
+      amountStr = toDecStr(toTokenBalanceBigNum(tokens[unit], allTokens[unit].decimals))
     }
 
     return amountStr

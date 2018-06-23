@@ -240,9 +240,9 @@ export default class EditToken extends PureComponent {
     if (!values.decimals) {
       ret.decimals = Form.VALIDATION_RESULT.MISSING
     } else {
-      const decInt = toFloat(values.decimals)
+      const decNum = toFloat(values.decimals)
 
-      if (null === decInt || `${decInt}` !== values.decimals) {
+      if (null === decNum || `${decNum}` !== values.decimals) {
         ret.decimals = Form.VALIDATION_RESULT.INCORRECT
       }
     }

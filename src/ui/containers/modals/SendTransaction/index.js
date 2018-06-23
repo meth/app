@@ -120,6 +120,10 @@ export default class SendTransaction extends PureComponent {
   }
 
   _onGeneratedRawTransaction = (params, rawTx) => {
+    if (!params.amount) {
+      params.amount = 0 // eslint-disable-line no-param-reassign
+    }
+
     this.setState({ params, rawTx }, () => {
       this.tabView.jumpTo(TAB.CONFIRM)
     })

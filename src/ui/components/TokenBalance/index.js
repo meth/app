@@ -4,7 +4,7 @@ import { Text } from 'react-native'
 
 import TouchableView from '../TouchableView'
 import styles from './styles'
-import { toDecimalPlaces, toTokenBalanceStr } from '../../../utils/number'
+import { toFormattedDecStr, toTokenBalanceBigNum, toDecStr } from '../../../utils/number'
 
 export default class TokenBalance extends PureComponent {
   static propTypes = {
@@ -31,9 +31,9 @@ export default class TokenBalance extends PureComponent {
 
     let amount
     if (showRaw) {
-      amount = balance.toString(10)
+      amount = toDecStr(balance)
     } else {
-      amount = toDecimalPlaces(toTokenBalanceStr(balance, decimals), 18)
+      amount = toFormattedDecStr(toTokenBalanceBigNum(balance, decimals), 18)
     }
 
     return (

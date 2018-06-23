@@ -1,6 +1,6 @@
 import EventEmitter from 'eventemitter3'
 
-import { hexToNumber } from '../../utils/number'
+import { hexStrToNumber, toDecStr } from '../../utils/number'
 import scheduler from '../../scheduler'
 import EVENT from '../../../common/constants/events'
 import STATE from '../../../common/constants/states'
@@ -365,7 +365,7 @@ class Adapter extends EventEmitter {
     const newBlockHash = block.hash
 
     if (newBlockHash !== this._lastBlockHash) {
-      this._log.debug(`Got new block: ${hexToNumber(block.number)}`)
+      this._log.debug(`Got new block: ${toDecStr(hexStrToNumber(block.number))}`)
 
       this._lastBlockHash = newBlockHash
 

@@ -5,7 +5,7 @@ import { t } from '../../../../../../common/strings'
 import styles from './styles'
 import Icon from '../../../../components/Icon'
 import { TRANSACTION_TYPE } from '../../../../../../common/constants/protocol'
-import { weiToEthStr } from '../../../../../utils/number'
+import { weiToEthBigNum, toDecStr } from '../../../../../utils/number'
 
 
 const { CONTRACT_CALL, CONTRACT_CREATION, TOKEN_TRANSFER, ETH_TRANSFER } = TRANSACTION_TYPE
@@ -21,7 +21,7 @@ const TransactionDetails = ({ tx, style }) => {
     case CONTRACT_CALL: {
       content = (
         <Text style={styles.detailsText}>
-          {t('transaction.ethSent', { amount: weiToEthStr(value) })}
+          {t('transaction.ethSent', { amount: toDecStr(weiToEthBigNum(value)) })}
         </Text>
       )
       break

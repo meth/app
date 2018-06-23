@@ -22,7 +22,7 @@ import { getStore } from '../'
 import createTransactionPreprocessor from './transactionPreprocessor'
 import { createAction } from '../utils'
 import { SendTransactionError } from '../../utils/errors'
-import { hexToNumber } from '../../utils/number'
+import { hexStrToNumber } from '../../utils/number'
 import { getOrderedMethodParams } from '../../utils/contracts'
 import logger from '../../logger'
 
@@ -115,7 +115,7 @@ export default ({ storage, nodeConnector, walletManager }) => {
           const preTx = await preprocessTransaction(tx)
 
           // estimate gas limit
-          const estimate = hexToNumber(await nodeConnector.estimateGas(preTx))
+          const estimate = hexStrToNumber(await nodeConnector.estimateGas(preTx))
           if (estimate > preTx.gasLimit) {
             preTx.gasLimit = estimate
           }
@@ -217,7 +217,7 @@ export default ({ storage, nodeConnector, walletManager }) => {
 
           const estimate = await nodeConnector.estimateGas(preTx)
 
-          const estimateNum = hexToNumber(estimate)
+          const estimateNum = hexStrToNumber(estimate)
 
           log.debug(`Gas estimate: ${estimateNum}`)
 
@@ -257,10 +257,10 @@ export default ({ storage, nodeConnector, walletManager }) => {
 
             tx.receipt = {
               blockHash,
-              blockNumber: hexToNumber(blockNumber),
-              gasUsed: hexToNumber(gasUsed),
+              blockNumber: hexStrToNumber(blockNumber),
+              gasUsed: hexStrToNumber(gasUsed),
               contractAddress,
-              status: (hexToNumber(status) === 1
+              status: (hexStrToNumber(status) === 1
                 ? TRANSACTION_STATUS.ACCEPTED
                 : TRANSACTION_STATUS.REJECTED
               )

@@ -3,7 +3,7 @@ import { EthHdWallet } from 'eth-hd-wallet'
 import EventEmitter from 'eventemitter3'
 
 import logger from '../logger'
-import { hexToBN, toHex, toInt } from '../utils/number'
+import { hexStrToBigNum, toHexStr, toInt } from '../utils/number'
 import { WalletNotLoadedError } from '../utils/errors'
 import EVENT from '../../common/constants/events'
 import STATE from '../../common/constants/states'
@@ -118,10 +118,10 @@ class Wallet extends EventEmitter {
       nonce,
       from,
       to,
-      value: toHex(value),
+      value: toHexStr(value),
       data,
-      gasLimit: toHex(gasLimit),
-      gasPrice: toHex(gasPrice),
+      gasLimit: toHexStr(gasLimit),
+      gasPrice: toHexStr(gasPrice),
       chainId: toInt(chainId)
     }
 
@@ -196,7 +196,7 @@ class Wallet extends EventEmitter {
   }
 
   async _setBalancesAndNotifyStore (balances) {
-    this._balances = balances.map(hexToBN)
+    this._balances = balances.map(hexStrToBigNum)
 
     await this._store.actions.injectAccountBalances(this.getAddressBalances())
   }

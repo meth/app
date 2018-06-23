@@ -21,6 +21,15 @@ export default class Confirm extends PureComponent {
     submitting: false
   }
 
+  componentDidUpdate (oldProps) {
+    // clear the error if a new raw tx has been generated
+    if (this.props.rawTx !== oldProps.rawTx) {
+      this.setState({
+        error: null
+      })
+    }
+  }
+
   render () {
     const {
       rawTx,

@@ -1,69 +1,40 @@
 import _ from 'lodash'
 import BigNumber from 'bignumber.js'
-import { hexToNumber, toHex, toBN, fromWei } from 'web3-utils'
 
-export { hexToNumber, toHex }
-
-export const toBigNum = num => new BigNumber(num)
+BigNumber.config({
+  FORMAT: {
+    decimalSeparator: '.',
+    groupSeparator: ',',
+    groupSize: 3,
+    secondaryGroupSize: 0,
+    fractionGroupSeparator: ' ',
+    fractionGroupSize: 0
+  }
+})
 
 export const isNumber = val => 'number' === typeof val && `${val}` !== 'NaN'
 
-export const addCommas = value => {
-  if (null === value) {
-    return null
-  }
+export const toBigNum = (num, base = 10) => new BigNumber(num, base)
 
-  const strValue = String(value)
-  const fracStartPos = strValue.indexOf('.')
-  const fraction = 0 <= fracStartPos ? strValue.substr(fracStartPos + 1) : ''
-  const sig = 0 <= fracStartPos ? strValue.substr(0, fracStartPos) : strValue
-
-  let str = ''
-  let numbersAdded = 0
-
-  for (let i = sig.length - 1; 0 <= i; i -= 1) {
-    if (numbersAdded && numbersAdded % 3 === 0) {
-      str = `,${str}`
-    }
-    str = sig.charAt(i) + str
-    numbersAdded += 1
-  }
-
-  str += fraction.length && Number(fraction) ? `.${fraction}` : ''
-
-  return str
-}
-
-export const toDecimalPlaces = (
-  value,
+export const hexStrToNumber = num => toBigNum(num, 16).toNumber()
+export const hexStrToBigNum = num => toBigNum(num, 16)
+export const toHexStr = num => toBigNum(num).toString(16)
+export const toDecStr = num => toBigNum(num).toString(10)
+export const toFormattedDecStr = (
+  num,
   decimals = undefined,
   { showCommas = true } = {}
 ) => {
-  if (null === value) {
-    return null
+  let str = showCommas ? toBigNum(num).toFormat(decimals) : toBigNum.toFixed(decimals)
+
+  // remove excess 0's from the end
+  while (0 <= str.indexOf('.') &&
+    ('0' === str.charAt(str.length - 1) || '.' === str.charAt(str.length - 1))
+  ) {
+    str = str.substr(0, str.length - 1)
   }
 
-  let finalValue = Number(value)
-
-  if (null !== decimals && 0 <= decimals) {
-    // only want to show as many decimal places as are needed
-    let curValue = finalValue
-    for (let i = 0; i <= decimals; i += 1) {
-      if (0 < i) {
-        curValue *= 10
-      }
-
-      if (curValue % 1 === 0 || decimals === i) {
-        finalValue = finalValue.toFixed(i)
-
-        break
-      }
-    }
-  } else {
-    finalValue = `${finalValue}`
-  }
-
-  return showCommas ? addCommas(finalValue) : finalValue
+  return str
 }
 
 export const toFloat = num => {
@@ -90,51 +61,28 @@ export const toIntStr = num => {
   return null === n ? '' : `${n}`
 }
 
-export const hexToBN = hex => toBN(hex)
-export const numToBN = num => toBN(num)
+const powerOfTenBigNum = _.memoize(power => toBigNum(10).pow(power))
 
-const getPowerOfTenBN = _.memoize(power => numToBN(10).pow(numToBN(power)))
+export const toTokenBalanceBigNum = (balance, decimals) =>
+  toBigNum(balance).div(powerOfTenBigNum(decimals))
 
-const _format = (num, { hex } = {}) => (hex ? toHex(num) : num.toString(10))
+export const weiToEthBigNum = balance =>
+  toBigNum(balance).div(powerOfTenBigNum(18))
 
-export const toNumberStr = num => _format(toBN(num))
+export const ethToWeiBigNum = balance =>
+  toBigNum(balance).times(powerOfTenBigNum(18))
 
-export const toTokenBalanceStr = (balance, decimals, options) =>
-  _format(numToBN(balance).div(getPowerOfTenBN(decimals)), options)
+export const gweiToWeiBigNum = balance =>
+  toBigNum(balance).times(powerOfTenBigNum(9))
 
-export const tokenBalanceToWeiStr = (balance, decimals, options) =>
-  _format(numToBN(balance).mul(getPowerOfTenBN(decimals)), options)
-
-export const weiToEthStr = balance => fromWei(balance, 'ether')
-
-export const ethToWeiBN = balance => {
-  // since BN.js does not support decimals we manually convert from ETH to WEI
-  const str = `${balance}`
-  let dotPos = str.indexOf('.')
-  if (0 > dotPos) {
-    dotPos = str.length - 1
-  }
-  return numToBN(
-    str.replace('.', '') + '0'.repeat(18 - (str.length - dotPos - 1))
-  )
-}
-
-export const ethToWeiStr = (balance, options) =>
-  _format(ethToWeiBN(balance), options)
-
-export const gweiToWeiStr = balance =>
-  numToBN(balance).toString(10) + '0'.repeat(9)
-
-export const calculateTotalGasBN = (gasLimit, gasPriceInGwei) =>
-  numToBN(gasPriceInGwei).mul(getPowerOfTenBN(9)).mul(numToBN(gasLimit))
+export const calculateGasCostInWeiBigNum = (gasLimit, gasPriceInGwei) =>
+  toBigNum(gasPriceInGwei).times(powerOfTenBigNum(9)).times(gasLimit)
 
 export const getTotalAccountsBalanceAsStr = accounts => {
-  const totalWei = Object.values(accounts).reduce(
-    (m, { balance }) => m.add(balance),
-    numToBN(0)
+  const totalWeiBigNum = Object.values(accounts).reduce(
+    (m, { balance }) => m.plus(balance),
+    toBigNum(0)
   )
 
-  const totalEther = weiToEthStr(totalWei, 'ether')
-
-  return `Ξ ${toDecimalPlaces(totalEther, 1)}`
+  return `Ξ ${toFormattedDecStr(weiToEthBigNum(totalWeiBigNum), 1)}`
 }

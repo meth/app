@@ -2,7 +2,7 @@ import { create, perWidth } from '../../../styles'
 
 export default create({
   content: {
-    height: perWidth(500, '90%')
+    height: perWidth(550, '90%')
   },
   scrollContainerContent: {
     height: '100%',

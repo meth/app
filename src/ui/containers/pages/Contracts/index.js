@@ -12,7 +12,7 @@ import {
 
 import { t } from '../../../../../common/strings'
 import { isAddress, prefixedWith0x, prefixWith0x } from '../../../../utils/string'
-import { toNumberStr } from '../../../../utils/number'
+import { toDecStr } from '../../../../utils/number'
 import { getAbiFunctionNames, isAbiFunctionReadOnly, methodHasOutputs } from '../../../../utils/contracts'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
@@ -305,7 +305,7 @@ export default class AddressBook extends PureComponent {
 
     switch (instance.fieldType()) {
       case FIELD_TYPES.NUMBER:
-        finalValue = toNumberStr(value)
+        finalValue = toDecStr(value)
         break
       case FIELD_TYPES.BOOLEAN:
         finalValue = !!value
