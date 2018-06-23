@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, Clipboard } from 'react-native'
+import { View, Text } from 'react-native'
 
-import { t } from '../../../../common/strings'
-import { toast } from '../../../env'
-import IconButton from '../IconButton'
+import CopyToClipboardButton from '../CopyToClipboardButton'
 import styles from './styles'
 
 export default class CopyableText extends PureComponent {
@@ -24,21 +22,8 @@ export default class CopyableText extends PureComponent {
         {renderText ? renderText() : (
           <Text style={[ styles.text, textStyle ]}>{text}</Text>
         )}
-        <IconButton
-          style={[ styles.button ].concat(buttonStyle)}
-          icon={{ name: 'md-copy' }}
-          onPress={this._onPressCopy}
-          tooltip={t('button.copyToClipboard')}
-        />
+        <CopyToClipboardButton text={text} style={buttonStyle} />
       </View>
     )
-  }
-
-  _onPressCopy = () => {
-    const { text } = this.props
-
-    Clipboard.setString(text)
-
-    toast(t('toast.copiedToClipboard'))
   }
 }

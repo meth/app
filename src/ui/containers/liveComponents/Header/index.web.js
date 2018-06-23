@@ -83,6 +83,14 @@ export default class Header extends PureComponent {
                 onPress={this.showAddressBook}
                 stateOverride={this._getButtonStateOverride(currentRoute, routes.AddressBook)}
               />
+              <IconButton
+                type='text'
+                tooltip={t('button.convertUnits')}
+                icon={{ name: 'md-calculator', style: styles.buttonIcon }}
+                style={styles.button}
+                onPress={this.showUnitConverter}
+                stateOverride={this._getButtonStateOverride(currentRoute, routes.UnitConverter)}
+              />
             </React.Fragment>
           ) : null}
         </View>
@@ -205,6 +213,12 @@ export default class Header extends PureComponent {
     const { navGo } = this.props.actions
 
     navGo(routes.Contracts.routeName)
+  }
+
+  showUnitConverter = () => {
+    const { navGo } = this.props.actions
+
+    navGo(routes.UnitConverter.routeName)
   }
 
   logout = () => {

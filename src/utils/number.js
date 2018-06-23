@@ -1,7 +1,10 @@
 import _ from 'lodash'
+import BigNumber from 'bignumber.js'
 import { hexToNumber, toHex, toBN, fromWei } from 'web3-utils'
 
 export { hexToNumber, toHex }
+
+export const toBigNum = num => new BigNumber(num)
 
 export const isNumber = val => 'number' === typeof val && `${val}` !== 'NaN'
 

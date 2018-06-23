@@ -98,6 +98,7 @@ module.exports = {
       customTokenDeleted: 'Custom token deleted'
     },
     button: {
+      convertUnits: 'Convert units',
       copyToClipboard: 'Copy to clipboard',
       setMax: 'Set max',
       executeLocalContractCall: 'Execute (via local call)',
@@ -149,6 +150,7 @@ module.exports = {
       }
     },
     title: {
+      convertUnits: 'Convert units',
       setupPin: 'Setup pin',
       confirmPin: 'Confirm pin',
       enterPin: 'Enter pin',

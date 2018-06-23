@@ -25,7 +25,8 @@ export default routes => {
     Contracts,
     Transactions,
     Wallet,
-    Browser
+    Browser,
+    UnitConverter
   } = routes
 
   const LoggedOutStack = createStackNavigator({
@@ -48,7 +49,8 @@ export default routes => {
       Browser,
       Contracts,
       Transactions,
-      AddressBook
+      AddressBook,
+      UnitConverter
     }, {
       contentComponent: MobileDrawer,
       initialRouteName: Wallet.routeName

@@ -18,6 +18,7 @@ import Contracts from '../containers/pages/Contracts'
 import Wallet from '../containers/pages/Wallet'
 import Browser from '../containers/pages/Browser'
 import Transactions from '../containers/pages/Transactions'
+import UnitConverter from '../containers/pages/UnitConverter'
 
 export const routes = {
   Home: { screen: Home },
@@ -31,7 +32,8 @@ export const routes = {
   AddressBook: { screen: AddressBook },
   Contracts: { screen: Contracts },
   Browser: { screen: Browser },
-  Transactions: { screen: Transactions }
+  Transactions: { screen: Transactions },
+  UnitConverter: { screen: UnitConverter }
 }
 
 // add route name to object
