@@ -33,6 +33,7 @@ export default ({ nodeConnector }) => async tx => {
 
     data = contract.contract.transfer.getData(to, toHexStr(tokenRawAmountBigNum))
     to = contractAddress
+    value = 0
   }
 
   const ret = { meta, from, value }
