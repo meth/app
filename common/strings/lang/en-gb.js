@@ -37,7 +37,8 @@ module.exports = {
       block: 'Block',
       sync: {
         percent: '{percent}%'
-      }
+      },
+      ethWarning: 'Reminder: you are currently NOT connected to the main Ethereum network, please be careful!'
     },
     error: {
       userCancelledTransaction: 'User cancelled transaction',

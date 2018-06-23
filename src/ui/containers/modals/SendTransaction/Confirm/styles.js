@@ -21,14 +21,18 @@ export default create({
   rawTransactionBlock: {
     height: 50,
     borderRadius: 5,
-    marginBottom: 20
+    marginBottom: 10
   },
   rawTransactionBlockText: {
     fontSize: '0.8rem',
     textAlign: 'left'
   },
-  rawTransactionButton: {
-    alignSelf: 'center'
+  showEthWarning: {
+    marginVertical: 20
+  },
+  confirmButton: {
+    alignSelf: 'center',
+    marginTop: 20
   },
   /* error box */
   errorBox: {

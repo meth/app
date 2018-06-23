@@ -18,7 +18,8 @@ import {
   darken
 } from '../../../utils/colors'
 
-const colorInfo = '#ffb100'
+const colorWarn = '#ffb100'
+const colorInfo = colorWarn
 const colorButtonBlue = '#00b2d9'
 const colorButtonBlueLight = lighten(colorButtonBlue, 0.5)
 
@@ -236,6 +237,10 @@ export default {
   alert: {
     error: {
       backgroundColor: colorRed,
+      textColor: colorWhite
+    },
+    warn: {
+      backgroundColor: colorWarn,
       textColor: colorWhite
     },
     info: {

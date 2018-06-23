@@ -9,7 +9,8 @@ import ExpandingView from '../ExpandingView'
 
 const ICON = {
   info: 'info-circle',
-  error: 'exclamation-triangle'
+  warn: 'exclamation-triangle',
+  error: 'error-outline'
 }
 
 

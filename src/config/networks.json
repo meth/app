@@ -13,7 +13,8 @@
     "blockUrl": "https://ropsten.etherscan.io/block/{blockHash}",
     "txUrl": "https://ropsten.etherscan.io/tx/{txHash}",
     "addressUrl": "https://ropsten.etherscan.io/address/{address}",
-    "chainId": 3
+    "chainId": 3,
+    "showEthWarning": true
   },
   "kovan": {
     "description": "Kovan (test)",
@@ -21,7 +22,8 @@
     "blockUrl": "https://kovan.etherscan.io/block/{blockHash}",
     "txUrl": "https://kovan.etherscan.io/tx/{txHash}",
     "addressUrl": "https://kovan.etherscan.io/address/{address}",
-    "chainId": 42
+    "chainId": 42,
+    "showEthWarning": true
   },
   "rinkeby": {
     "description": "Rinkeby (test)",
@@ -29,10 +31,12 @@
     "blockUrl": "https://rinkeby.etherscan.io/block/{blockHash}",
     "txUrl": "https://rinkeby.etherscan.io/tx/{txHash}",
     "addressUrl": "https://rinkeby.etherscan.io/address/{address}",
-    "chainId": 4
+    "chainId": 4,
+    "showEthWarning": true
   },
   "private": {
     "description": "Private",
-    "chainId": 1337
+    "chainId": 1337,
+    "showEthWarning": true
   }
 }

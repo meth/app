@@ -169,8 +169,7 @@ export default class ConnectNode extends CachePureComponent {
           style={styles.desc}
           type='info'
           text={t(`config.node.${selected.type}`, { network: selected.category })}
-        >
-        </AlertBox>
+        />
         <ProgressButton
           style={styles.button}
           showInProgress={connecting}

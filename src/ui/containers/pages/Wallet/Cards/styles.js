@@ -3,7 +3,7 @@ import { isIos, isAndroid, isWeb } from '../../../../../utils/deviceInfo'
 
 const card = {
   width: 250,
-  height: perHeight(230, 230, 190)
+  height: perHeight(230, 190, 150)
 }
 
 const cardButton = {

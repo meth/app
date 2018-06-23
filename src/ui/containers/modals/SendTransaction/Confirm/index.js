@@ -10,11 +10,12 @@ import ErrorBox from '../../../../components/ErrorBox'
 import ProgressButton from '../../../../components/ProgressButton'
 import ScrollView from '../../../../components/ScrollView'
 import BlockOfText from '../../../../components/BlockOfText'
+import AlertBox from '../../../../components/AlertBox'
 import ConfirmPinModal from '../../../../components/ConfirmPinModal'
 import { getMaxCostEthWithSuffixStr } from '../utils'
 
 
-@connectStore('account', 'config')
+@connectStore('account', 'config', 'node')
 export default class Confirm extends PureComponent {
   state = {
     error: null,
@@ -35,6 +36,9 @@ export default class Confirm extends PureComponent {
       rawTx,
       params: { from, to, amount, unit, gasLimit, gasPrice }
     } = this.props
+
+    const { getNodeConnection } = this.props.selectors
+    const { network: { showEthWarning } } = getNodeConnection()
 
     const { error, submitting } = this.state
 
@@ -57,11 +61,18 @@ export default class Confirm extends PureComponent {
             blockStyle={styles.rawTransactionBlock}
             blockTextStyle={styles.rawTransactionBlockText}
           />
+          {showEthWarning ? (
+            <AlertBox
+              style={styles.ethWarning}
+              type='warn'
+              text={t(`network.ethWarning`)}
+            />
+          ) : null}
           <ProgressButton
             showInProgress={submitting}
             title={t('button.confirmAndSendTransaction')}
             onPress={this._confirm}
-            style={styles.rawTransactionButton}
+            style={styles.confirmButton}
           />
           <ErrorBox error={error} style={styles.errorBox} />
         </View>
