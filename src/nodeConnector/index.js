@@ -164,36 +164,12 @@ class NodeConnector extends EventEmitter {
     const isBatch = payload instanceof Array
 
     const finalPayload = !isBatch ? [ payload ] : payload
+    const results = []
 
-    // we will serially process the requests (as expected with batch requests)
-    const result = []
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const { id, method, params } of finalPayload) {
-      log.trace('Request', { id, method, params })
-
-      try {
-        this._ensureConnected()
-
-        result.push({
-          id,
-          // eslint-disable-next-line no-await-in-loop
-          result: await this._methodFactory
-            .getHandler(method)
-            .run(params, context)
-        })
-      } catch (err) {
-        err.method = method
-
-        result.push({
-          id,
-          error: err
-        })
-      }
-    }
+    await this._processRequestsInSequence(finalPayload, results, context)
 
     // process results
-    const responses = result.map(this._wrapResponse)
+    const responses = results.map(this._wrapResponse)
 
     const ret = isBatch ? responses : responses[0]
 
@@ -252,6 +228,36 @@ class NodeConnector extends EventEmitter {
 
       throw new UnableToConnectError('Adapter not connected')
     }
+  }
+
+  async _processRequestsInSequence (requests, results, context) {
+    const nextRequest = requests.shift()
+
+    if (!nextRequest) {
+      return
+    }
+
+    const { id, method, params } = nextRequest
+
+    log.trace('Request', { id, method, params })
+
+    try {
+      this._ensureConnected()
+
+      results.push({
+        id,
+        result: await this._methodFactory.getHandler(method).run(params, context)
+      })
+    } catch (err) {
+      err.method = method
+
+      results.push({
+        id,
+        error: err
+      })
+    }
+
+    await this._processRequestsInSequence(requests, results, context)
   }
 
   _wrapResponse ({ id, result, error }) {

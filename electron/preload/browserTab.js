@@ -65,7 +65,7 @@ class Web3IpcProvider {
         const hasError = [].concat(response).find(r => !!r.error)
 
         if (hasError) {
-          callback(response)
+          callback(new Error(response.error))
         } else {
           callback(null, response)
         }

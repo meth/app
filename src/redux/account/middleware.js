@@ -24,7 +24,7 @@ import { TRANSACTION_STATUS } from '../../../common/constants/protocol'
 import { getStore } from '../'
 import createTransactionPreprocessor from './transactionPreprocessor'
 import { createAction } from '../utils'
-import { SendTransactionError } from '../../utils/errors'
+import { SendTransactionError, SignDataError } from '../../utils/errors'
 import { hexStrToNumber } from '../../utils/number'
 import { getOrderedMethodParams } from '../../utils/contracts'
 import logger from '../../logger'
@@ -85,7 +85,7 @@ export default ({ storage, nodeConnector, walletManager }) => {
 
         if (existingDeferred) {
           return Promise.reject(
-            new SendTransactionError(t('error.signingAlreadyInProgress'))
+            new SignDataError(t('error.signingAlreadyInProgress'))
           )
         }
 

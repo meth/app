@@ -75,7 +75,7 @@ export default class Edit extends PureComponent {
         <ProgressButton
           showInProgress={generating}
           title={t('button.generateSignature')}
-          onPress={this.submit}
+          onPress={this._onPressSubmit}
           style={styles.formButton}
         />
         <ErrorBox error={error} style={styles.errorBox} />
@@ -83,17 +83,15 @@ export default class Edit extends PureComponent {
     )
   }
 
-  submit = () => {
+  _onPressSubmit = () => {
     if (this.form) {
       this.form.validateAndSubmit()
     }
   }
 
-  _onScrollViewRef = ref => {
-    this.scrollView = ref
+  _onFormRef = ref => {
+    this.form = ref
   }
-
-  _getScrollView = () => this.scrollView
 
 
   _onChange = values => {

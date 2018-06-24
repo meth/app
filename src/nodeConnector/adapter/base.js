@@ -278,7 +278,6 @@ class Adapter extends EventEmitter {
         .then(() => this._doExecMethod(id, method, params))
         .then(data => {
           delete this._callPromises[sig]
-
           return data
         })
         .catch(err => {
@@ -287,7 +286,7 @@ class Adapter extends EventEmitter {
         })
 
     if (SHAREABLE_METHOD_CALLS[method]) {
-      this._callPromises[sig] = { promise, id }
+      this._callPromises[sig] = promise
     }
 
     return promise

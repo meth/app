@@ -44,10 +44,10 @@ export default class SignData extends PureComponent {
   }
 
   _onGeneratedSignature = (__, signature) => {
-    this._dismissModal(signature)
+    this._dismissModal({ signature })
   }
 
-  _dismissModal = signature => {
+  _dismissModal = ({ signature } = {}) => {
     const { cancelSignData, hideSignDataModal } = this.props.actions
 
     // only cancel if not succeeded
