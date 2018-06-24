@@ -20,7 +20,8 @@ export default class NavBar extends PureComponent {
     onChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
     onEditBookmark: PropTypes.func.isRequired,
-    onShowBookmarks: PropTypes.func.isRequired
+    onShowBookmarks: PropTypes.func.isRequired,
+    onShowDevTools: PropTypes.func.isRequired
   }
 
   render () {
@@ -35,7 +36,8 @@ export default class NavBar extends PureComponent {
       onChange,
       onSubmit,
       onEditBookmark,
-      onShowBookmarks
+      onShowBookmarks,
+      onShowDevTools
     } = this.props
 
     return (
@@ -87,6 +89,13 @@ export default class NavBar extends PureComponent {
           icon={{ name: 'bookmark' }}
           style={styles.navIconButton}
           onPress={onShowBookmarks}
+        />
+        <IconButton
+          type='browserTab'
+          tooltip={t('button.browser.showDevTools')}
+          icon={{ name: 'gear' }}
+          style={styles.navIconButton}
+          onPress={onShowDevTools}
         />
       </View>
     )

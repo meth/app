@@ -48,6 +48,7 @@ export default class BrowserTabView extends PureComponent {
           onEditBookmark={this._onEditBookmark}
           onShowBookmarks={onShowBookmarks}
           onOpenNewWindow={onOpenNewWindow}
+          onShowDevTools={this._onShowDevTools}
           renderAfterAddressInput={renderAfterAddressInput}
         />
         <View style={styles.webView}>
@@ -75,6 +76,12 @@ export default class BrowserTabView extends PureComponent {
     const { onEditBookmark } = this.props
 
     onEditBookmark(url)
+  }
+
+  _onShowDevTools = () => {
+    if (this.webView) {
+      this.webView.openDevTools()
+    }
   }
 
   onChangeUrl = url => {

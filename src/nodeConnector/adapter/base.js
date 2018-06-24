@@ -283,7 +283,6 @@ class Adapter extends EventEmitter {
         })
         .catch(err => {
           delete this._callPromises[sig]
-
           throw err
         })
 

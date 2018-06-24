@@ -152,7 +152,8 @@ module.exports = {
         showBookmarks: 'Show bookmarks',
         editBookmark: 'Edit bookmark',
         addBookmark: 'Add bookmark',
-        bookmarks: 'Bookmarks'
+        bookmarks: 'Bookmarks',
+        showDevTools: 'Show dev tools'
       }
     },
     title: {

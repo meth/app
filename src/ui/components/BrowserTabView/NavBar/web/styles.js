@@ -6,6 +6,6 @@ export default create({
   },
   bookmarkButton: {
     position: 'absolute',
-    right: 40
+    right: 80
   }
 })
