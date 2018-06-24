@@ -1,6 +1,9 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
+import { toInt } from '../../utils/number'
+
+import { SEND_RAW_TX } from '../account/actions'
 import {
   LOAD_CONFIG
 } from './actions'
@@ -15,6 +18,9 @@ export default () => {
 
   return handleActions(
     {
+      [SEND_RAW_TX]: (state, { payload: { gasPrice } }) => (
+        state.set('lastGasPrice', toInt(gasPrice))
+      ),
       [LOAD_CONFIG]: (state, { payload: { nodes, networks, tokens } }) => {
         const finalNodes = {}
 

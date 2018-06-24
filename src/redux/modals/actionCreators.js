@@ -4,6 +4,7 @@ import { SHOW, HIDE } from './actions'
 import {
   CONNECT_NODE,
   SEND_TRANSACTION,
+  SIGN_DATA,
   ALERT,
   LOG,
   DAPP_PERMISSIONS,
@@ -48,6 +49,10 @@ export const hideDappPermissionsModal = modalActionCreator(HIDE, DAPP_PERMISSION
 
 export const showSendTransactionModal = modalActionCreator(SHOW, SEND_TRANSACTION)
 export const hideSendTransactionModal = modalActionCreator(HIDE, SEND_TRANSACTION)
+
+export const showSignDataModal = modalActionCreator(SHOW, SIGN_DATA)
+export const hideSignDataModal = modalActionCreator(HIDE, SIGN_DATA)
+
 
 export const showEditAddressModal = modalActionCreator(SHOW, EDIT_ADDRESS, (address, type) => ({
   address, type

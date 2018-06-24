@@ -41,6 +41,7 @@ module.exports = {
       ethWarning: 'Reminder: you are currently NOT connected to the main Ethereum network, please be careful!'
     },
     error: {
+      userCancelledDataSigning: 'User cancelled data signing',
       userCancelledTransaction: 'User cancelled transaction',
       unableToConnect: 'Unable to connect',
       requestTimeout: 'Request timed out',
@@ -54,7 +55,7 @@ module.exports = {
       tokenContractNotFound: 'Valid token contract not found',
       unableToEstimateGas: 'Unable to estimate gas',
       unableToGenerateRawTx: 'Unable to generate raw transaction',
-      unableToGenerateSignedData: 'Unable to generate signed data'
+      unableToGenerateSignedData: 'Unable to sign data'
     },
     home: {
       intro2: 'Let\'s get your wallet setup so that you can start using Ethereum.'
@@ -131,6 +132,7 @@ module.exports = {
       confirmAndSendTransaction: 'Confirm and send',
       connectToNode: 'Connect',
       disconnectFromNode: 'Disconnect',
+      generateSignature: 'Generate signature',
       generateRawTransaction: 'Generate raw transaction',
       wallet: 'Wallet',
       pickAddress: 'Pick address',
@@ -170,6 +172,7 @@ module.exports = {
       wallet: 'Wallet',
       addToken: 'Add token',
       editToken: 'Edit token',
+      signData: 'Sign data',
       sendTransaction: 'Send transaction',
       transactions: 'Transactions',
       browser: 'Browser',
@@ -245,6 +248,13 @@ module.exports = {
         addressFieldLabel: 'Contract address',
         addressInputPlaceholder: '0x...',
         areYouSureYouWantToDelete: 'Are you sure you want to remove this custom token?'
+      },
+      signData: {
+        field: {
+          addressLabel: 'Address',
+          dataLabel: 'Data',
+          dataPlaceholder: '...'
+        }
       },
       sendTransaction: {
         tab: {
