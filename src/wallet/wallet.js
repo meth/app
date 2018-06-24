@@ -113,7 +113,7 @@ class Wallet extends EventEmitter {
    *
    * @return {String} Raw transaction string.
    */
-  async sign ({ nonce, from, to, value, data, gasLimit, gasPrice, chainId }) {
+  async signTransaction ({ nonce, from, to, value, data, gasLimit, gasPrice, chainId }) {
     const payload = {
       nonce,
       from,
@@ -133,8 +133,42 @@ class Wallet extends EventEmitter {
       data: data ? `0x...(${data.length} chars)` : data
     })
 
+    return this._hdWallet.signTransaction(payload)
+  }
+
+  /**
+   * Generate signed data.
+   *
+   * @param  {String} from From address
+   * @param  {String} data Data
+   *
+   * @return {String} Signed data
+   */
+  async signData ({ address, data }) {
+    const payload = { address, data }
+
+    log.info('Sign data', payload)
+
     return this._hdWallet.sign(payload)
   }
+
+
+  /**
+   * Recover public key of data signer.
+   *
+   * @param  {String} signature Signature.
+   * @param  {String} data Original input data
+   *
+   * @return {String} Public key
+   */
+  async recoverSignerPublicKey ({ signature, data }) {
+    const payload = { signature, data }
+
+    log.info('Recover public key of signed data', payload)
+
+    return this._hdWallet.recoverSignerPublicKey(payload)
+  }
+
 
   /**
    * Get balance of address

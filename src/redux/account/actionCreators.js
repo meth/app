@@ -18,6 +18,9 @@ import {
   GENERATE_MNEMONIC,
   SEND_TX,
   CANCEL_TX,
+  SIGN_DATA,
+  CANCEL_SIGN_DATA,
+  GENERATE_SIGNED_DATA,
   CHECK_PENDING_TRANSACTIONS,
   FETCH_TOKEN_BALANCE,
   SAVE_PIN,
@@ -69,6 +72,12 @@ export const cancelTransaction = createActionCreator(CANCEL_TX)
 export const generateRawTransaction = createActionCreator(GENERATE_RAW_TX, tx => ({ tx }))
 export const sendRawTransaction = createActionCreator(SEND_RAW_TX)
 export const checkPendingTransactions = createActionCreator(CHECK_PENDING_TRANSACTIONS)
+
+/* data */
+export const signData = createActionCreator(SIGN_DATA, (address, data) => ({ address, data }))
+export const cancelSignData = createActionCreator(CANCEL_SIGN_DATA)
+export const generateSignedData =
+  createActionCreator(GENERATE_SIGNED_DATA, (address, data) => ({ address, data }))
 
 /* tokens */
 export const fetchTokenBalance =

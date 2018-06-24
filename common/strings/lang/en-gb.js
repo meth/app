@@ -48,11 +48,13 @@ module.exports = {
       unexpected: 'Unexpected error!',
       unexpectedPleaseRestart: 'Unexpected error. Please restart the app!',
       transactionAlreadyInProgress: 'A transaction is already in progress',
+      signingAlreadyInProgress: 'Data signing is already in progress',
       connectionError: 'There was a connection error',
       tokenAlreadyExists: 'Token already exists',
       tokenContractNotFound: 'Valid token contract not found',
       unableToEstimateGas: 'Unable to estimate gas',
-      unableToGenerateRawTx: 'Unable to generate raw transaction'
+      unableToGenerateRawTx: 'Unable to generate raw transaction',
+      unableToGenerateSignedData: 'Unable to generate signed data'
     },
     home: {
       intro2: 'Let\'s get your wallet setup so that you can start using Ethereum.'

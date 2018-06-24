@@ -274,7 +274,8 @@ class Adapter extends EventEmitter {
     }
 
     const promise =
-      this._doExecMethod(id, method, params)
+      this._checkMethodAllowed(method, params)
+        .then(() => this._doExecMethod(id, method, params))
         .then(data => {
           delete this._callPromises[sig]
 

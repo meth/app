@@ -3,6 +3,8 @@ import { put, takeLatest } from 'redux-saga/effects'
 
 import {
   SAVE_PIN,
+  GENERATE_SIGNED_DATA,
+  SIGN_DATA_FLOW_COMPLETED,
   SEND_RAW_TX,
   TX_FLOW_COMPLETED,
   CHECK_PENDING_TRANSACTIONS,
@@ -31,6 +33,20 @@ function* onTransactionSent (__, { payload: { id, params } }) {
   yield put(createAction(TX_FLOW_COMPLETED, {
     id,
     params: _.omit(params, 'data') // remove heavy params
+  }))
+}
+
+function* onDataSigned (__, { payload: { signature } }) {
+  const { selectors: { getSigningDeferred } } = getStore()
+
+  // resolve the promise so that the original caller gets notified
+  const deferred = getSigningDeferred()
+  if (deferred) {
+    deferred.resolve(signature)
+  }
+
+  yield put(createAction(SIGN_DATA_FLOW_COMPLETED, {
+    signature
   }))
 }
 
@@ -110,6 +126,7 @@ function* onSavePin ({ storage }) {
 
 
 export default app => function* saga () {
+  yield takeLatest(GENERATE_SIGNED_DATA, onDataSigned, app)
   yield takeLatest(SEND_RAW_TX, onTransactionSent, app)
   yield takeLatest(TX_FLOW_COMPLETED, onTransactionFlowCompleted, app)
   yield takeLatest(CHECK_PENDING_TRANSACTIONS, onCheckedPendingTransactions, app)

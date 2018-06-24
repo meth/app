@@ -18,6 +18,9 @@ import {
   SAVE_ADDRESS_BOOK_ENTRY,
   DELETE_ADDRESS_BOOK_ENTRY,
   CLOSE_WALLET,
+  SIGN_DATA,
+  CANCEL_SIGN_DATA,
+  SIGN_DATA_FLOW_COMPLETED,
   SEND_TX,
   CANCEL_TX,
   TX_FLOW_COMPLETED,
@@ -38,7 +41,9 @@ export default () => {
     addressBook: Immutable.Map({}),
     transactionHistory: [],
     currentTx: null,
-    currentTxDeferred: null
+    currentTxDeferred: null,
+    currentSigning: null,
+    currentSigningDeferred: null
   })
 
   const initialState = () => Immutable.Map({
@@ -169,6 +174,22 @@ export default () => {
 
         return state.set('customTokens', customTokens.delete(symbol))
       },
+      /* data signing */
+      [SIGN_DATA]: (state, { payload: { signing, deferred } }) => (
+        state
+          .set('currentSigning', signing)
+          .set('currentSigningDeferred', deferred)
+      ),
+      [CANCEL_SIGN_DATA]: state => (
+        state
+          .set('currentSigning', null)
+          .set('currentSigningDeferred', null)
+      ),
+      [SIGN_DATA_FLOW_COMPLETED]: state => (
+        state
+          .set('currentSigning', null)
+          .set('currentSigningDeferred', null)
+      ),
       /* transactions */
       [INJECT_TRANSACTION_HISTORY]: (state, { payload = [] }) => (
         state.set('transactionHistory', payload)

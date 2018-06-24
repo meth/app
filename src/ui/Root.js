@@ -13,6 +13,7 @@ import LogModal from './containers/modals/Log'
 import AlertModal from './containers/modals/Alert'
 import ConnectNodeModal from './containers/modals/ConnectNode'
 import SendTransactionModal from './containers/modals/SendTransaction'
+import SignDataModal from './containers/modals/SignData'
 import DappPermissionsModal from './containers/modals/DappPermissions'
 import EditAddressModal from './containers/modals/EditAddress'
 import EditBookmarkModal from './containers/modals/EditBookmark'
@@ -25,6 +26,7 @@ const MODAL_COMPONENTS = {
   [MODALS.ALERT]: AlertModal,
   [MODALS.CONNECT_NODE]: ConnectNodeModal,
   [MODALS.SEND_TRANSACTION]: SendTransactionModal,
+  [MODALS.SIGN_DATA]: SignDataModal,
   [MODALS.DAPP_PERMISSIONS]: DappPermissionsModal,
   [MODALS.EDIT_ADDRESS]: EditAddressModal,
   [MODALS.EDIT_BOOKMARK]: EditBookmarkModal,

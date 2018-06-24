@@ -1,6 +1,9 @@
 import _ from 'lodash'
 
 import {
+  SIGN_DATA,
+  CANCEL_SIGN_DATA,
+  GENERATE_SIGNED_DATA,
   SEND_TX,
   CANCEL_TX,
   SEND_RAW_TX,
@@ -37,6 +40,7 @@ export default ({ storage, nodeConnector, walletManager }) => {
       selectors: {
         getMainAccountAddress,
         getTxDeferred,
+        getSigningDeferred,
         getNodeConnection,
         getTokenList,
         getTransactionHistory
@@ -73,6 +77,65 @@ export default ({ storage, nodeConnector, walletManager }) => {
 
         return next(action)
       }
+
+      /* data signing */
+
+      case SIGN_DATA: {
+        const existingDeferred = getSigningDeferred()
+
+        if (existingDeferred) {
+          return Promise.reject(
+            new SendTransactionError(t('error.signingAlreadyInProgress'))
+          )
+        }
+
+        let deferred = null
+
+        const promise = new Promise((resolve, reject) => {
+          deferred = { resolve, reject }
+        })
+
+        await next(createAction(SIGN_DATA, {
+          signing: action.payload,
+          deferred
+        }))
+
+        // we return a promise which the caller can wait on to know if/when the
+        // signing passes/fails
+        return promise
+      }
+      case CANCEL_SIGN_DATA: {
+        const deferred = getSigningDeferred()
+
+        if (deferred) {
+          deferred.reject(action.payload)
+        }
+
+        return next(action)
+      }
+      case GENERATE_SIGNED_DATA: {
+        log.debug('Generate signed data ...')
+
+        const { address, data } = action.payload
+
+        try {
+          const signature = await walletManager.wallet().signData({
+            address,
+            data
+          })
+
+          log.info(`Signed data: ${signature})`)
+
+          return next(createAction(action.type, { signature }))
+        } catch (err) {
+          log.warn('Error generating signed data', err)
+
+          throw new Error(t('error.unableToGenerateSignedData'))
+        }
+      }
+
+      /* transactions */
+
       case SEND_TX: {
         const existingDeferred = getTxDeferred()
 
@@ -128,7 +191,7 @@ export default ({ storage, nodeConnector, walletManager }) => {
           const nonce = await nodeConnector.rawCall('eth_getTransactionCount', [ from, 'latest' ])
           log.debug(`nonce: ${nonce}`)
 
-          const rawTx = await walletManager.wallet().sign({
+          const rawTx = await walletManager.wallet().signTransaction({
             ...preTx,
             nonce,
             chainId
@@ -155,6 +218,9 @@ export default ({ storage, nodeConnector, walletManager }) => {
 
         return id
       }
+
+      /* fetching */
+
       case FETCH_TOKEN_BALANCE: {
         const { symbol, accountAddress } = action.payload
 

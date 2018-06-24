@@ -79,6 +79,10 @@ export const getTx = state => state.account.get('currentTx')
 
 export const getTxDeferred = state => state.account.get('currentTxDeferred')
 
+export const getSigning = state => state.account.get('currentSigning')
+
+export const getSigningDeferred = state => state.account.get('currentSigningDeferred')
+
 export const getTransactionHistory = createSelector(
   state => state.account.get('transactionHistory'),
   history => {
