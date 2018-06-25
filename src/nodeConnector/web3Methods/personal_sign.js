@@ -9,7 +9,7 @@ export default class PersonalSign extends GenericMethod {
   async run (params) {
     this._log.trace('Sign data', params)
 
-    const [ address, data ] = params
+    const [ data, address ] = params
 
     if (!address || !data) {
       throw new InvalidParamsError('address and data must be set')
