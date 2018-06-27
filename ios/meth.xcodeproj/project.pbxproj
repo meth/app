@@ -51,6 +51,7 @@
 		F3099A2A92DA4E8A8718DA69 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E08BCF627964D66A9957DF1 /* FontAwesome.ttf */; };
 		F35172F755A64D468803D7DF /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8C4B554E9A94A82A06970EE /* OpenSans-Bold.ttf */; };
 		FBF8E0FCE50E4DE3A755B362 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 743764C8E9CA4A3B9042F26F /* OpenSans-Italic.ttf */; };
+		A34B1119D56C4846BC8DE749 /* meth.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EC47FA4506F469B949B632F /* meth.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -417,6 +418,7 @@
 		E3B963E1022D44EA804C0BA5 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-BoldItalic.ttf"; path = "../src/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		F246522BCE744CD7A791D834 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		FDF53E5A7584497599075FBF /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		8EC47FA4506F469B949B632F /* meth.ttf */ = {isa = PBXFileReference; name = "meth.ttf"; path = "../src/fonts/meth.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -745,6 +747,7 @@
 				DF63F7CCE2EB4537BE3E74FA /* OpenSans-SemiBold.ttf */,
 				B578482F9F5F436A92572590 /* OpenSans-SemiBoldItalic.ttf */,
 				493B22E3F6F245DA8200FBBB /* OpenSans.ttf */,
+				8EC47FA4506F469B949B632F /* meth.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1230,6 +1233,7 @@
 				DC8CC2A3036B4D5BAD592592 /* OpenSans-SemiBold.ttf in Resources */,
 				D33F99DB0F5644FE9406E926 /* OpenSans-SemiBoldItalic.ttf in Resources */,
 				603F554D387B48778DB1E301 /* OpenSans.ttf in Resources */,
+				A34B1119D56C4846BC8DE749 /* meth.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

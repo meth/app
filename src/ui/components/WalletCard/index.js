@@ -70,7 +70,7 @@ export default class WalletCard extends PureComponent {
             disabled={!isActive}
             tooltip={t('button.sendCrypto')}
             style={styles.transButton}
-            icon={{ name: 'send' }}
+            icon={{ name: 'pay' }}
             onPress={this._onPressSend}
           />
           <IconButton

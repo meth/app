@@ -8,6 +8,7 @@ import OpenSansLight from './OpenSans-Light.ttf'
 import OpenSansLightItalic from './OpenSans-LightItalic.ttf'
 import OpenSansSemiBold from './OpenSans-SemiBold.ttf'
 import OpenSansSemiBoldItalic from './OpenSans-SemiBoldItalic.ttf'
+import Meth from './meth.ttf'
 
 export const addWebFont = (url, name, { weight = null, style = null } = {}) => {
   // Generate required css
@@ -52,4 +53,5 @@ export const initialSetup = () => {
     weight: 'SemiBold',
     style: 'Italic'
   })
+  addWebFont(Meth, 'meth')
 }

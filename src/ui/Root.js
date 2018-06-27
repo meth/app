@@ -21,7 +21,6 @@ import AddressQrModal from './containers/modals/AddressQr'
 import EditTokenModal from './containers/modals/EditToken'
 import UpdateAvailableModal from './containers/modals/UpdateAvailable'
 
-
 // modals - in order of importance
 const MODAL_COMPONENTS = [
   [ MODALS.LOG, LogModal ],

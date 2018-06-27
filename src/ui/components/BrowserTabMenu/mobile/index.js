@@ -88,7 +88,7 @@ export default class BrowserTabMenu extends PureComponent {
                     onPress={this._onShowBookmarks}
                   >
                     <IconText
-                      icon={{ name: 'md-bookmarks' }}
+                      icon={{ name: 'bookmark' }}
                       text={t('button.browser.bookmarks')}
                       textStyle={styles.optionText}
                     />

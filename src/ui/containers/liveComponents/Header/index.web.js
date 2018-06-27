@@ -54,7 +54,7 @@ export default class Header extends PureComponent {
               <IconButton
                 type='text'
                 tooltip={t('button.dappBrowser')}
-                icon={{ name: 'globe', style: styles.buttonIcon }}
+                icon={{ name: 'application', style: styles.buttonIcon }}
                 style={styles.button}
                 onPress={this.showBrowser}
                 stateOverride={this._getButtonStateOverride(currentRoute, routes.Browser)}
@@ -70,7 +70,7 @@ export default class Header extends PureComponent {
               <IconButton
                 type='text'
                 tooltip={t('button.transactionHistory')}
-                icon={{ name: 'md-swap', style: styles.buttonIcon }}
+                icon={{ name: 'clock', style: styles.buttonIcon }}
                 style={styles.button}
                 onPress={this.showTransactions}
                 stateOverride={this._getButtonStateOverride(currentRoute, routes.Transactions)}
@@ -78,7 +78,7 @@ export default class Header extends PureComponent {
               <IconButton
                 type='text'
                 tooltip={t('button.addressBook')}
-                icon={{ name: 'address-book-o', style: styles.buttonIcon }}
+                icon={{ name: 'md-contact', style: styles.buttonIcon }}
                 style={styles.button}
                 onPress={this.showAddressBook}
                 stateOverride={this._getButtonStateOverride(currentRoute, routes.AddressBook)}
@@ -86,7 +86,7 @@ export default class Header extends PureComponent {
               <IconButton
                 type='text'
                 tooltip={t('button.convertUnits')}
-                icon={{ name: 'md-calculator', style: styles.buttonIcon }}
+                icon={{ name: 'ios-calculator', style: styles.buttonIcon }}
                 style={styles.button}
                 onPress={this.showUnitConverter}
                 stateOverride={this._getButtonStateOverride(currentRoute, routes.UnitConverter)}

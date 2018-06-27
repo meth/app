@@ -41,16 +41,16 @@ export default class TransactionView extends PureComponent {
 
     switch (type) {
       case CONTRACT_CALL: {
-        return <Icon name='md-build' style={styles.typeIcon} />
+        return <Icon name='call-contract' style={styles.typeIcon} />
       }
       case CONTRACT_CREATION: {
-        return <Icon name='md-create' style={styles.typeIcon} />
+        return <Icon name='create-contract' style={styles.typeIcon} />
       }
       case ETH_TRANSFER: {
-        return <Icon name='dollar' style={styles.typeIcon} />
+        return <Icon name='ether' style={styles.typeIcon} />
       }
       case TOKEN_TRANSFER: {
-        return <Icon name='coins' style={styles.typeIcon} />
+        return <Icon name='erc20-token' style={styles.typeIcon} />
       }
       default:
         return null

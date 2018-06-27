@@ -93,7 +93,7 @@ export default class NavBar extends PureComponent {
         <IconButton
           type='browserTab'
           tooltip={t('button.browser.showDevTools')}
-          icon={{ name: 'gear' }}
+          icon={{ name: 'gears' }}
           style={styles.navIconButton}
           onPress={onShowDevTools}
         />
