@@ -23,8 +23,6 @@ releaseNotes = File.read("#{projectFolder}/build-tools/deploy/data/releaseNotes.
 platform :ios do
   desc "Submit a new Beta Build to Apple TestFlight"
   lane :beta do
-    ensure_git_branch(branch: "qa")
-
     match(type: "appstore", readonly: true, shallow_clone: true)
 
     increment_build_number(
@@ -101,8 +99,6 @@ platform :android do
 
   desc "Submit a new Beta Build to TestFairy"
   lane :beta do
-    ensure_git_branch(branch: "qa")
-
     gradle(
       project_dir: "./android",
       task: "assemble",
@@ -113,7 +109,7 @@ platform :android do
       }
     )
 
-    sh "#{nodeExec} #{projectFolder}/build-tools/deploy/testfairy-apk-upload.js '#{projectFolder}/#{pathToReleaseApk}'"
+    # sh "#{nodeExec} #{projectFolder}/build-tools/deploy/testfairy-apk-upload.js '#{projectFolder}/#{pathToReleaseApk}'"
   end
 
   desc "Submit a new Production Build to Google Play"
