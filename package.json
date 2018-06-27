@@ -1,5 +1,5 @@
 {
-  "name": "meth-browser",
+  "name": "meth",
   "version": "1.0.0",
   "productName": "Meth",
   "author": "Ramesh Nair <ram@hiddentao.com>",
@@ -172,6 +172,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.6",
     "reselect": "^3.0.1",
+    "semver": "^5.5.0",
     "shelljs": "^0.8.2",
     "solidarity": "^1.0.0",
     "solidarity-react-native": "^1.0.0",

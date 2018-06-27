@@ -12,7 +12,8 @@ import {
   EDIT_BOOKMARK,
   ADDRESS_QR,
   EDIT_TOKEN,
-  ADD_ACCOUNT
+  ADD_ACCOUNT,
+  UPDATE_AVAILABLE
 } from '../../../common/constants/modals'
 
 
@@ -76,3 +77,9 @@ export const hideEditTokenModal = modalActionCreator(HIDE, EDIT_TOKEN)
 
 export const showAddAccountModal = modalActionCreator(SHOW, ADD_ACCOUNT)
 export const hideAddAccountModal = modalActionCreator(HIDE, ADD_ACCOUNT)
+
+export const showUpdateAvailableModal =
+  modalActionCreator(SHOW, UPDATE_AVAILABLE, (version, updateUrl) => ({
+    version, updateUrl
+  }))
+export const hideUpdateAvailableModal = modalActionCreator(HIDE, UPDATE_AVAILABLE)

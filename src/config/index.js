@@ -61,3 +61,4 @@ const LOCAL_CONFIG = Object.assign(
 
 export const getBackendUrl = () => LOCAL_CONFIG.backend
 export const getAppName = () => LOCAL_CONFIG.appName
+export const getAppVersion = () => LOCAL_CONFIG.appVersion

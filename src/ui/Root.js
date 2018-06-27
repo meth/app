@@ -19,20 +19,23 @@ import EditAddressModal from './containers/modals/EditAddress'
 import EditBookmarkModal from './containers/modals/EditBookmark'
 import AddressQrModal from './containers/modals/AddressQr'
 import EditTokenModal from './containers/modals/EditToken'
+import UpdateAvailableModal from './containers/modals/UpdateAvailable'
+
 
 // modals - in order of importance
-const MODAL_COMPONENTS = {
-  [MODALS.LOG]: LogModal,
-  [MODALS.ALERT]: AlertModal,
-  [MODALS.CONNECT_NODE]: ConnectNodeModal,
-  [MODALS.SEND_TRANSACTION]: SendTransactionModal,
-  [MODALS.SIGN_DATA]: SignDataModal,
-  [MODALS.DAPP_PERMISSIONS]: DappPermissionsModal,
-  [MODALS.EDIT_ADDRESS]: EditAddressModal,
-  [MODALS.EDIT_BOOKMARK]: EditBookmarkModal,
-  [MODALS.ADDRESS_QR]: AddressQrModal,
-  [MODALS.EDIT_TOKEN]: EditTokenModal
-}
+const MODAL_COMPONENTS = [
+  [ MODALS.LOG, LogModal ],
+  [ MODALS.ADDRESS_QR, AddressQrModal ],
+  [ MODALS.SEND_TRANSACTION, SendTransactionModal ],
+  [ MODALS.SIGN_DATA, SignDataModal ],
+  [ MODALS.EDIT_ADDRESS, EditAddressModal ],
+  [ MODALS.EDIT_BOOKMARK, EditBookmarkModal ],
+  [ MODALS.EDIT_TOKEN, EditTokenModal ],
+  [ MODALS.DAPP_PERMISSIONS, DappPermissionsModal ],
+  [ MODALS.ALERT, AlertModal ],
+  [ MODALS.CONNECT_NODE, ConnectNodeModal ],
+  [ MODALS.UPDATE_AVAILABLE, UpdateAvailableModal ]
+]
 
 @connectStore('modals', 'account')
 export default class Root extends PureComponent {
@@ -65,17 +68,13 @@ export default class Root extends PureComponent {
     const components = []
 
     // connect modal overrides all others
-    if (modals[MODALS.CONNECT_NODE]) {
-      const Component = MODAL_COMPONENTS[MODALS.CONNECT_NODE]
-      components.push(<Component key={MODALS.CONNECT_NODE} />)
-    } else {
-      Object.keys(modals).forEach(key => {
-        if (false !== modals[key]) {
-          const Component = MODAL_COMPONENTS[key]
-          components.push(<Component key={key} data={modals[key]} />)
-        }
-      })
-    }
+    Object.keys(modals).forEach(key => {
+      if (false !== modals[key]) {
+        const c = MODAL_COMPONENTS.find(([ k ]) => k === key)
+        const Component = c[1]
+        components.push(<Component key={key} data={modals[key]} />)
+      }
+    })
 
     return components.length ? components : null
   }

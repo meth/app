@@ -3,6 +3,7 @@ const path = require('path')
 
 const _ = require('./lodash')
 const packageJson = require('../package.json')
+const buildConfig = require('../build-tools/deploy/data/buildConfig.json')
 
 
 const CONFIG = {
@@ -82,7 +83,20 @@ class Settings {
   }
 
   get appName () {
-    return 'Meth'
+    return buildConfig.appName
+  }
+
+  get osName () {
+    switch (process.platform) {
+      case 'darwin':
+        return 'mac'
+      case 'linux':
+        return 'linux'
+      case 'win32':
+        return 'win'
+      default:
+        return 'unknown'
+    }
   }
 
   get appConfig () {

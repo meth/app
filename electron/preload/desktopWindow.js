@@ -40,4 +40,5 @@ webFrame.executeJavaScript(`
   delete window.module;
   window.preloadBasePath = "${Settings.preloadBasePath}";
   window.isElectron = true;
+  window.osName = '${Settings.osName}';
 `)

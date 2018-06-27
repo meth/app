@@ -103,6 +103,7 @@ module.exports = {
       customTokenDeleted: 'Custom token deleted'
     },
     button: {
+      getUpdate: 'Get update',
       convertUnits: 'Convert units',
       copyToClipboard: 'Copy to clipboard',
       setMax: 'Set max',
@@ -208,6 +209,9 @@ module.exports = {
       contractLabel: 'Contract'
     },
     modal: {
+      updateAvailable: {
+        updateIsAvailable: 'A newer version of Meth ({version}) is now available. Please update now.'
+      },
       connectNode: {
         connectToNode: 'Connect to node',
         pleaseChooseNode: 'Connect to Ethereum',

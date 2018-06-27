@@ -43,7 +43,7 @@ export default class Database {
 
     this._log.info('Start sync ...')
 
-    const backendUrl = `${getBackendUrl()}/${this._dbName}`
+    const backendUrl = `${getBackendUrl()}/db/${this._dbName}`
 
     this._db.replicate
       .from(backendUrl)

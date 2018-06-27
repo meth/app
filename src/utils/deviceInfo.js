@@ -6,6 +6,16 @@ export const isAndroid = 'android' === Platform.OS
 export const isIos = 'ios' === Platform.OS
 export const isMobile = isAndroid || isIos
 
+export const getOsName = () => {
+  if (isAndroid) {
+    return 'android'
+  } else if (isIos) {
+    return 'ios'
+  }
+
+  return window.osName || 'unknown'
+}
+
 const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('window')
 
 export const isIphoneX =

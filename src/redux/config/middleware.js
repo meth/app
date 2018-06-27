@@ -1,11 +1,19 @@
+import _ from 'lodash'
+import semver from 'semver'
+
 import { openExternalUrl } from '../../env'
 import {
   LOAD_CONFIG,
   OPEN_EXTERNAL_URL,
-  FETCH_SAFE_GAS_PRICE
+  FETCH_SAFE_GAS_PRICE,
+  CHECK_FOR_UPDATE
 } from './actions'
 import { loadJSON } from '../../utils/fetch'
 import { getStore } from '../'
+import logger from '../../logger'
+import { getBackendUrl, getAppVersion } from '../../config'
+import { getOsName } from '../../utils/deviceInfo'
+import { showUpdateAvailableModal } from '../modals/actionCreators'
 
 // eslint-disable-next-line consistent-return
 export default ({ config }) => () => next => async action => {
@@ -48,6 +56,28 @@ export default ({ config }) => () => next => async action => {
       } catch (err) {
         throw new Error(`Error fetching safe gas price: ${err}`)
       }
+    }
+    case CHECK_FOR_UPDATE: {
+      try {
+        const data = await loadJSON(`${getBackendUrl()}/appUpdates`)
+
+        const osName = getOsName()
+
+        const newVersion = _.get(data, `${osName}.version`)
+        const updateUrl = _.get(data, `${osName}.updateUrl`)
+
+        if (newVersion && updateUrl) {
+          if (semver.gt(newVersion, getAppVersion())) {
+            return next(showUpdateAvailableModal(newVersion, updateUrl))
+          }
+        } else {
+          logger.warn('Unable to extract app update info')
+        }
+      } catch (err) {
+        logger.error('Error fetching app update info', err)
+      }
+
+      return null
     }
     default:
       return next(action)
