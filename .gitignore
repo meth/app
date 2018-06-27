@@ -42,3 +42,4 @@ fastlane/report.xml
 *.apk
 build-tools/deploy/data
 google-play-service-account.json
+testFairy.json

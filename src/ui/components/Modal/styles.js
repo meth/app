@@ -36,6 +36,6 @@ export default create({
     borderRadius: 40,
     width: 40,
     height: 40,
-    transform: [ { translateX: -20 }, { translateY: -20 } ]
+    transform: [ { translateX: -30 }, { translateY: -20 } ]
   }
 })

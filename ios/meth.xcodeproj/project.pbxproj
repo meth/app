@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -37,6 +38,7 @@
 		6681027363CD3E5535D55978 /* libPods-meth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1643E41416BB344A4DCDFC /* libPods-meth.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		87382EE814354F929EB11CFA /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78F3839C52CF4C02BF96E5B3 /* EvilIcons.ttf */; };
+		A34B1119D56C4846BC8DE749 /* meth.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EC47FA4506F469B949B632F /* meth.ttf */; };
 		A9460C6BFBE6451196876B68 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 114FC2864F93460EB1181ECF /* OpenSans-ExtraBold.ttf */; };
 		AC6B9F8AB1FE4254A84EE339 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD8C272C06449B680EFC2FB /* MaterialCommunityIcons.ttf */; };
 		B02D6052D37E4CC2A58652BA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 289EE85785014BA19A4610AD /* Entypo.ttf */; };
@@ -51,7 +53,6 @@
 		F3099A2A92DA4E8A8718DA69 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E08BCF627964D66A9957DF1 /* FontAwesome.ttf */; };
 		F35172F755A64D468803D7DF /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8C4B554E9A94A82A06970EE /* OpenSans-Bold.ttf */; };
 		FBF8E0FCE50E4DE3A755B362 /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 743764C8E9CA4A3B9042F26F /* OpenSans-Italic.ttf */; };
-		A34B1119D56C4846BC8DE749 /* meth.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EC47FA4506F469B949B632F /* meth.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -387,6 +388,7 @@
 		2130BDDF20B452C0008B0A49 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
 		2130BE6620C54EEA008B0A49 /* RCTWKWebView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWKWebView.xcodeproj; path = "../node_modules/react-native-wkwebview-reborn/ios/RCTWKWebView.xcodeproj"; sourceTree = "<group>"; };
 		2130BEA320CAD7E2008B0A49 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
+		2130C01F20E44415008B0A49 /* meth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = meth.entitlements; path = meth/meth.entitlements; sourceTree = "<group>"; };
 		21A253F41FF7FFA7001CE3C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = meth/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		21EF82F61EDB48DC00FA3413 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = meth/config.h; sourceTree = "<group>"; };
 		289EE85785014BA19A4610AD /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 		817B1B343980472794B42AE7 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8AF85CFB01C147909C9F03EE /* RNSecureRandom.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSecureRandom.xcodeproj; path = "../node_modules/react-native-securerandom/ios/RNSecureRandom.xcodeproj"; sourceTree = "<group>"; };
+		8EC47FA4506F469B949B632F /* meth.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = meth.ttf; path = ../src/fonts/meth.ttf; sourceTree = "<group>"; };
 		9AA0D6D9CB5569FB856ED1AE /* Pods-methTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-methTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-methTests/Pods-methTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9EA993AB4D8332CAF150FBDF /* Pods-meth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meth.release.xcconfig"; path = "Pods/Target Support Files/Pods-meth/Pods-meth.release.xcconfig"; sourceTree = "<group>"; };
 		A70499631A9B41ED91C6B0D2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -418,7 +421,6 @@
 		E3B963E1022D44EA804C0BA5 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-BoldItalic.ttf"; path = "../src/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
 		F246522BCE744CD7A791D834 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		FDF53E5A7584497599075FBF /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		8EC47FA4506F469B949B632F /* meth.ttf */ = {isa = PBXFileReference; name = "meth.ttf"; path = "../src/fonts/meth.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -540,6 +542,7 @@
 		13B07FAE1A68108700A75B9A /* meth */ = {
 			isa = PBXGroup;
 			children = (
+				2130C01F20E44415008B0A49 /* meth.entitlements */,
 				21A253F31FF7FFA7001CE3C2 /* LaunchScreen.xib */,
 				21EF82F61EDB48DC00FA3413 /* config.h */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -813,6 +816,14 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 7YJQA645M2;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1459,6 +1470,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = meth/meth.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hiddentao DevBot (UPAV376HR5)";
 				CURRENT_PROJECT_VERSION = 27;
 				DEAD_CODE_STRIPPING = NO;
@@ -1493,6 +1505,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = meth/meth.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 7YJQA645M2;

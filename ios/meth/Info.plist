@@ -22,17 +22,27 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>27</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>App requires access to bluetooth for bug reporting</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>App requires access to calendars for bug reporting</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>App requires access to the microphone for bug reporting</string>
+	<key>NSMotionUsageDescription</key>
+	<string>App requires access to motion for bug reporting</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App requires access to photo library for bug reporting</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>FontAwesome.ttf</string>
@@ -58,18 +68,12 @@
 		<string>Feather.ttf</string>
 		<string>meth.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>App requires access to the microphone for bug reporting</string>
-	<key>NSMotionUsageDescription</key>
-	<string>App requires access to motion for bug reporting</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>App requires access to photo library for bug reporting</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>App requires access to bluetooth for bug reporting</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>App requires access to calendars for bug reporting</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

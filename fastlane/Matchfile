@@ -1,7 +1,7 @@
-git_url "git@bitbucket.org:hiddentao_projects/match-ios-certs.git"
+git_url "git@github.com:meth/match-ios-certs.git"
 
 type "development" # The default type, can be: appstore, adhoc or development
 
-app_identifier ["com.hiddentao.coinstocks.mobile.app"]
+app_identifier ["com.hiddentao.meth.mobile.app"]
 
 username "dev-bot@hiddentao.com"
