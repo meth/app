@@ -163,7 +163,7 @@ _Note: not all issues are automatically fixable_.
 It's worth installing the `prettier-atom` and `linter-eslint` plugins for Atom if
 that's your editor - it will make your life easier.
 
-## Packaging and publishing
+## Production builds
 
 These instructions are for running on OS X - this is currently the only supported dev platform.
 
@@ -197,7 +197,70 @@ _Note: To run the built Linux executable on Ubuntu you will first need to do
 
 Requirements:
 
-* You will need the `METH_RELEASE_KEYSTORE_PASSWORD` variable set in `~/.grade/gradle.properties`
+* You will need to have the `METH_RELEASE_KEYSTORE_PASSWORD` variable set in `~/.grade/gradle.properties`
+
+Run setup:
+
+```shell
+$ yarn setup-prod
+```
+
+Decrypt the Play API key:
+
+```shell
+$ openssl aes-256-cbc -d -in build-tools/deploy/google-play-service-account.json.aes256 -out build-tools/deploy/google-play-service-account.json -pass pass:$PLAY_API_ENC_KEY
+```
+
+_Note: `PLAY_API_ENC_KEY` environment variable must be set for the above to work_.
+
+To build and upload Android beta app to Google Play:
+
+```shell
+$ bundle exec fastlane android production
+```
+
+_Note: you be prompted for the fastlane match certificate encryption password. Get this from another developer_
+
+The build will create a new commit with the build number updated. Remember to
+push this commit back up to remote:
+
+```shell
+$ git push origin master
+```
+
+**QA builds**
+
+For QA builds use the `dev`, the instructions are similar:
+
+```shell
+$ yarn setup-qa
+$ bundle exec fastlane android beta
+```
+
+### iOS
+
+Same as for Android, first run setup:
+
+```shell
+$ yarn setup-prod
+```
+
+To build and upload iOS production app to iTunes:
+
+```shell
+$ bundle exec fastlane ios production
+```
+
+_Note: you be prompted for the fastlane match certificate encryption password. Get this from another developer_
+
+**QA builds**
+
+For QA builds use the `dev`, the instructions are similar:
+
+```shell
+$ yarn setup-qa
+$ bundle exec fastlane ios beta
+```
 
 ## Architecture
 

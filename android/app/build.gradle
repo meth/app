@@ -90,7 +90,7 @@ android {
         applicationId "com.hiddentao.meth.mobile.app"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 2
+        versionCode 3
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

@@ -39,7 +39,7 @@ platform :ios do
       clean: true,
       export_method: 'app-store',
       workspace: "./ios/meth.xcworkspace",
-      scheme: "coindex",
+      scheme: "meth",
       output_directory: "./build-tools/deploy/data"
     )
 
@@ -69,7 +69,7 @@ platform :ios do
       clean: true,
       export_method: 'app-store',
       workspace: "./ios/meth.xcworkspace",
-      scheme: "coindex",
+      scheme: "meth",
       output_directory: "./build-tools/deploy/data"
     )
 
