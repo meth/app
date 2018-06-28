@@ -9,10 +9,12 @@ const log = require('./logger').create('BackendIpc')
 
 class BackendIpc {
   constructor () {
-    ipc.on(IPC.BACKEND_TASK, this._receiveIpcFromUi.bind(this))
+    ipc.on(IPC.BACKEND_TASK, this._onBackendTask.bind(this))
   }
 
-  _receiveIpcFromUi ({ sender }, task, params) {
+  _onBackendTask ({ sender }, details) {
+    const { task, params } = details
+
     switch (task) {
       case BACKEND_TASKS.SET_WINDOW_ID: {
         log.info(`Task: Set window id: ${sender.id}`)

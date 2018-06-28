@@ -139,10 +139,11 @@ export default class Header extends PureComponent {
         style={styles.networkButton}
         type='text'
         tooltip={t('tooltip.showConnectionInfo')}
-        childShouldInheritTextStyle={true}
+        childShouldInheritTextStyle={!syncIcon}
       >
-        <Text style={styles.networkButtonText}>{network.description}</Text>
-        {syncIcon}
+        {syncIcon || (
+          <Text style={styles.networkButtonText}>{network.description}</Text>
+        )}
       </Button>
     )
   }

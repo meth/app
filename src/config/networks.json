@@ -2,7 +2,7 @@
   "mainnet": {
     "description": "Main (live)",
     "genesisBlock": "0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3",
-    "blockUrl": "https://etherscan.io/block/{blockHash}",
+    "blockUrl": "https://etherscan.io/block/{blockNum}",
     "txUrl": "https://etherscan.io/tx/{txHash}",
     "addressUrl": "https://etherscan.io/address/{address}",
     "chainId": 1
@@ -10,7 +10,7 @@
   "ropsten": {
     "description": "Ropsten (test)",
     "genesisBlock": "0x41941023680923e0fe4d74a34bdac8141f2540e3ae90623718e47d66d1ca4a2d",
-    "blockUrl": "https://ropsten.etherscan.io/block/{blockHash}",
+    "blockUrl": "https://ropsten.etherscan.io/block/{blockNum}",
     "txUrl": "https://ropsten.etherscan.io/tx/{txHash}",
     "addressUrl": "https://ropsten.etherscan.io/address/{address}",
     "chainId": 3,
@@ -19,7 +19,7 @@
   "kovan": {
     "description": "Kovan (test)",
     "genesisBlock": "0xa3c565fc15c7478862d50ccd6561e3c06b24cc509bf388941c25ea985ce32cb9",
-    "blockUrl": "https://kovan.etherscan.io/block/{blockHash}",
+    "blockUrl": "https://kovan.etherscan.io/block/{blockNum}",
     "txUrl": "https://kovan.etherscan.io/tx/{txHash}",
     "addressUrl": "https://kovan.etherscan.io/address/{address}",
     "chainId": 42,
@@ -28,7 +28,7 @@
   "rinkeby": {
     "description": "Rinkeby (test)",
     "genesisBlock": "0x6341fd3daf94b748c72ced5a5b26028f2474f5f00d824504e4fa37a75767e177",
-    "blockUrl": "https://rinkeby.etherscan.io/block/{blockHash}",
+    "blockUrl": "https://rinkeby.etherscan.io/block/{blockNum}",
     "txUrl": "https://rinkeby.etherscan.io/tx/{txHash}",
     "addressUrl": "https://rinkeby.etherscan.io/address/{address}",
     "chainId": 4,

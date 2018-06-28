@@ -418,6 +418,18 @@ export default {
         textColor: colorWhite
       }
     }),
+    walletCardAddButton: generateButtonStyles({
+      default: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorGrayLight
+      },
+      hover: {
+        borderColor: colorButtonBlue,
+        backgroundColor: colorTransparent,
+        textColor: colorButtonBlue
+      }
+    }),
     walletCard: generateButtonStyles(isWeb ? {
       default: {
         borderColor: colorGrayLight,

@@ -15,7 +15,6 @@ import AddressText from '../../AddressText'
 const TransactionReceipt = ({ tx, style }) => {
   const status = _.get(tx, 'receipt.status')
   const blockNum = _.get(tx, 'receipt.blockNumber')
-  const blockHash = _.get(tx, 'receipt.blockHash')
   const contractAddress = _.get(tx, 'receipt.contractAddress')
 
   let statusContent
@@ -41,7 +40,7 @@ const TransactionReceipt = ({ tx, style }) => {
           <Text style={styles.blockNumText}>{t('transaction.blockNum', { blockNum })}</Text>
           <ChainExplorerIconButton
             linkType='block'
-            blockHash={blockHash}
+            blockNum={blockNum}
             style={styles.receiptLinkButton}
             textStyle={styles.receiptLinkButtonText}
           />

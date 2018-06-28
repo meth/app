@@ -84,7 +84,7 @@ export default class ConnectNode extends CachePureComponent {
     ) : 100
 
     return (
-      <View style={styles.form}>
+      <View style={styles.connectedInfo}>
         <Text style={styles.networkText}>{t('modal.connectNode.network', { network })}</Text>
         <Text style={styles.typeText}>{t(`modal.connectNode.url`)}: {url}</Text>
         <Text style={styles.typeText}>{t(`modal.connectNode.type`)}: {type}</Text>
@@ -95,7 +95,7 @@ export default class ConnectNode extends CachePureComponent {
             {latestBlock ? (
               <ChainExplorerIconButton
                 linkType='block'
-                blockHash={latestBlock.hash}
+                blockNum={hexToNumber(latestBlock.number)}
                 style={styles.blockLinkButton}
                 textStyle={styles.blockLinkButtonText}
               />

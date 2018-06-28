@@ -39,7 +39,7 @@ export default class Cards extends CachePureComponent {
     )
   }
 
-  _renderCard = (key, index, renderCardContent, extraProps = {}) => {
+  _renderCard = (key, index, renderCardContent, propsOverride = {}) => {
     const { activeCard } = this.props
 
     const isActive = index === activeCard
@@ -49,7 +49,7 @@ export default class Cards extends CachePureComponent {
         key={key}
         isActive={isActive}
         onPress={this.bind(this._onPressSelectCard, index, key)}
-        extraProps={extraProps}
+        propsOverride={propsOverride}
       >
         {renderCardContent(isActive)}
       </CardButton>
@@ -82,7 +82,8 @@ export default class Cards extends CachePureComponent {
         <Icon name='plus' style={styles.addAccountButtonIcon} />
       </View>
     ), {
-      onPress: this._onPressAddAccount
+      onPress: this._onPressAddAccount,
+      type: 'walletCardAddButton'
     })
   }
 

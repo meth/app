@@ -6,7 +6,7 @@ import Button from '../../../../../components/Button'
 
 export default class CardButton extends PureComponent {
   render () {
-    const { onPress, children, extraProps } = this.props
+    const { onPress, children, propsOverride } = this.props
 
     return (
       <Button
@@ -14,7 +14,7 @@ export default class CardButton extends PureComponent {
         style={styles.cardButton}
         stateOverride={{ hovering: true }}
         onPress={onPress}
-        {...extraProps}
+        {...propsOverride}
       >
         {children}
       </Button>

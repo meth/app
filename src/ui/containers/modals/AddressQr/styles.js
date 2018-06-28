@@ -21,6 +21,8 @@ export default create({
   /* address text */
 
   address: {
+    flex: 0,
+    alignSelf: 'stretch',
     marginBottom: 30,
     maxWidth: '80%'
   },

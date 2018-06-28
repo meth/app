@@ -12,25 +12,21 @@ const IPC = require('../../common/constants/ipc')
 const BACKEND_TASKS = require('../../common/constants/ipcBackendTasks')
 const Settings = require('../settings')
 
-// fn: send IPC to backend
-const sendIpcToBackend = (task, params) => {
-  ipcRenderer.send(IPC.BACKEND_TASK, task, params)
-}
 
-// handle frontend message
+// handle frontend messages
 window.addEventListener('message', ({ data = {} }) => {
-  const { ipc, task, params } = data
+  const { ipc, details } = data
 
   // send IPC to backend
   if (IPC.BACKEND_TASK === ipc) {
-    sendIpcToBackend(task, params)
+    ipcRenderer.send(IPC.BACKEND_TASK, details)
   } else {
     // do nothing, it's likely something to do with tools, e.g. webpack
   }
 })
 
 // tell backend we have initialized
-sendIpcToBackend(BACKEND_TASKS.SET_WINDOW_ID)
+ipcRenderer.send(BACKEND_TASKS.SET_WINDOW_ID)
 
 // Nullify globals inserted by node integration
 // see https://electron.atom.io/docs/faq/#i-can-not-use-jqueryrequirejsmeteorangularjs-in-electron

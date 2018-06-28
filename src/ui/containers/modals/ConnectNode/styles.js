@@ -23,6 +23,10 @@ export default create({
     justifyContent: 'flex-start',
     alignItems: 'center'
   },
+  connectedInfo: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   formWrapper: {
     flex: 0,
     alignSelf: 'center',

@@ -12,7 +12,7 @@ import styles from './styles'
 export default class ChainExplorerIconButton extends CachePureComponent {
   static propTypes = {
     linkType: PropTypes.oneOf([ 'block', 'transaction', 'address' ]).isRequired,
-    blockHash: PropTypes.string,
+    blockNum: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
     address: PropTypes.string,
     txHash: PropTypes.string,
     style: PropTypes.any,
@@ -20,7 +20,7 @@ export default class ChainExplorerIconButton extends CachePureComponent {
   }
 
   render () {
-    const { style, textStyle, linkType, blockHash, txHash, address } = this.props
+    const { style, textStyle, linkType, blockNum, txHash, address } = this.props
     const { getNodeConnection } = this.props.selectors
     const { network: { blockUrl, txUrl, addressUrl } } = getNodeConnection()
 
@@ -28,8 +28,8 @@ export default class ChainExplorerIconButton extends CachePureComponent {
 
     switch (linkType) {
       case 'block': {
-        if (blockUrl && blockHash) {
-          url = tSub(blockUrl, { blockHash })
+        if (blockUrl && blockNum) {
+          url = tSub(blockUrl, { blockNum })
         }
         break
       }
