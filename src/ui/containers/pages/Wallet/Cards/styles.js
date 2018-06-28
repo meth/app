@@ -1,9 +1,10 @@
-import { create, dropShadower, perHeight } from '../../../../styles'
+import { create, dropShadower } from '../../../../styles'
+import { getWalletCardHeight } from '../../../../styles/cards'
 import { isIos, isAndroid, isWeb } from '../../../../../utils/deviceInfo'
 
 const card = {
   width: 250,
-  height: perHeight(230, 190, 150)
+  height: getWalletCardHeight()
 }
 
 const cardButton = {

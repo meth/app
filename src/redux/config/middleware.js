@@ -74,7 +74,7 @@ export default ({ config }) => () => next => async action => {
           logger.warn('Unable to extract app update info')
         }
       } catch (err) {
-        logger.error('Error fetching app update info', err)
+        logger.warn('Error fetching app update info', err.toString())
       }
 
       return null

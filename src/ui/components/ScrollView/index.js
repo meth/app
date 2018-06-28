@@ -19,7 +19,7 @@ export default class CustomScrollView extends PureComponent {
 
     return (useKeyboardAvoidingScrollView && !isWeb) ? (
       <KeyboardAwareScrollView
-        enableOnAndroid={true}
+        enableOnAndroid={false}
         keyboardOpeningTime={150}
         enableResetScrollToCoords={true}
         {...props}
