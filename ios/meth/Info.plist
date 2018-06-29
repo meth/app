@@ -36,7 +36,7 @@
 	<key>NSCalendarsUsageDescription</key>
 	<string>App requires access to calendars for bug reporting</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>App requires access to the microphone for bug reporting</string>
 	<key>NSMotionUsageDescription</key>

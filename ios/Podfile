@@ -25,6 +25,7 @@
     ]
     pod 'RNSVG', :path => '../node_modules/react-native-svg'
     pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+    pod 'Instabug'
 
     target 'methTests' do
       inherit! :search_paths

@@ -5,10 +5,10 @@ module.exports = {
   iosPkg: 'com.hiddentao.meth.mobile.app',
   instabug: {
     ios: {
-      token: '###'
+      token: 'ad484aedc9ef019f3909d205be13fca2'
     },
     android: {
-      token: '###'
+      token: 'ad484aedc9ef019f3909d205be13fca2'
     }
   }
 }

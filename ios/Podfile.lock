@@ -1,4 +1,5 @@
 PODS:
+  - Instabug (7.0.3)
   - React (0.55.4):
     - React/Core (= 0.55.4)
   - React/Core (0.55.4):
@@ -39,6 +40,7 @@ PODS:
   - yoga (0.55.4.React)
 
 DEPENDENCIES:
+  - Instabug
   - React/Core (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
   - React/RCTActionSheet (from `../node_modules/react-native`)
@@ -66,11 +68,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Instabug: dae04de1dfaad6479f78025df497005bb25c1e5b
   React: 755b16d9a9387e856d4dce6528130c51e4d409b8
   RNDeviceInfo: e7c5fcde13d40e161d8a27f6c5dc69c638936002
   RNSVG: 7fdf22f11089f3842539c4081f9d3be364d91f55
   yoga: c3ce6137f85f60c93a834235d7f08e2b44a42eed
 
-PODFILE CHECKSUM: b2ff3d1713e909149498b676c093c8aeabe7f313
+PODFILE CHECKSUM: e7d06c7877a4ae65cdd8990e6ea2bb791ffa840c
 
 COCOAPODS: 1.2.1

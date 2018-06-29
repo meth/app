@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -27,6 +26,7 @@
 		2130BE9320C54EF2008B0A49 /* libRCTWKWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BE7E20C54EEA008B0A49 /* libRCTWKWebView.a */; };
 		2130BED420CAD7F0008B0A49 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BECD20CAD7E2008B0A49 /* libRNDeviceInfo.a */; };
 		21A253F51FF7FFA7001CE3C2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A253F31FF7FFA7001CE3C2 /* LaunchScreen.xib */; };
+		289EB5A6DDF5046C7020B200 /* Instabug.framework in Embed Instabug Framework */ = {isa = PBXBuildFile; fileRef = CC0BDD9F4140799EB128B482 /* Instabug.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2B4B4F3AC20A4C82A27816D6 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1C600F317E2450186877F5F /* OpenSans-LightItalic.ttf */; };
 		303DD582C9594C98807DE327 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C1A0CA5A5B47669CA05385 /* Ionicons.ttf */; };
 		38501B7A7ACC408B8DDCB956 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 817B1B343980472794B42AE7 /* Octicons.ttf */; };
@@ -36,6 +36,7 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		603F554D387B48778DB1E301 /* OpenSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 493B22E3F6F245DA8200FBBB /* OpenSans.ttf */; };
 		6681027363CD3E5535D55978 /* libPods-meth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1643E41416BB344A4DCDFC /* libPods-meth.a */; };
+		68ECD5BBFB1BB82420B94B0D /* InstabugCore.framework in Embed Instabug Framework */ = {isa = PBXBuildFile; fileRef = 55AE57F31021FDD255498AA3 /* InstabugCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		87382EE814354F929EB11CFA /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78F3839C52CF4C02BF96E5B3 /* EvilIcons.ttf */; };
 		A34B1119D56C4846BC8DE749 /* meth.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EC47FA4506F469B949B632F /* meth.ttf */; };
@@ -396,6 +397,7 @@
 		39A4C1C36B38492397AC9B78 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		493B22E3F6F245DA8200FBBB /* OpenSans.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = OpenSans.ttf; path = ../src/fonts/OpenSans.ttf; sourceTree = "<group>"; };
 		543F31BAF9A241299D490FA7 /* libRNMixpanel.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMixpanel.a; sourceTree = "<group>"; };
+		55AE57F31021FDD255498AA3 /* InstabugCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InstabugCore.framework; path = "../node_modules/instabug-reactnative/ios/InstabugCore.framework"; sourceTree = "<group>"; };
 		5E08BCF627964D66A9957DF1 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		5FD8C272C06449B680EFC2FB /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
@@ -416,6 +418,7 @@
 		B16829B1E631438EB863AA4A /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		B578482F9F5F436A92572590 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBoldItalic.ttf"; path = "../src/fonts/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		B8C4B554E9A94A82A06970EE /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../src/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		CC0BDD9F4140799EB128B482 /* Instabug.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Instabug.framework; path = "../node_modules/instabug-reactnative/ios/Instabug.framework"; sourceTree = "<group>"; };
 		D1C600F317E2450186877F5F /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-LightItalic.ttf"; path = "../src/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		DF63F7CCE2EB4537BE3E74FA /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../src/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		E3B963E1022D44EA804C0BA5 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-BoldItalic.ttf"; path = "../src/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -638,6 +641,7 @@
 				605BF6BC44224F4EAF5BC251 /* libRNVectorIcons.a */,
 				543F31BAF9A241299D490FA7 /* libRNMixpanel.a */,
 				07355362F8A34EBB8316512C /* libRNSecureRandom.a */,
+				634DDF64384E45058E76F48C /* libRNInstabug.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1418,9 +1422,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1450,9 +1451,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1475,6 +1473,7 @@
 				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7YJQA645M2;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
@@ -1509,6 +1508,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 7YJQA645M2;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
