@@ -26,6 +26,13 @@ Features:
 
 ## Developer guide
 
+**Encrypted files**
+
+The following files are encrypted with `openssl aes-256-cbc -e -in <input> -out <input.aes256>`:
+
+* `build-tools/deploy/google-play-service-account.json`
+* `build-tools/deploy/testFairy.json`
+
 **Branches**
 
  * `dev` - Dev branch (default). Bleeding-edge code.
