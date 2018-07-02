@@ -6,11 +6,6 @@ projectFolder = ENV['PWD']
 pathToReleaseApk = "android/app/build/outputs/apk/release/app-release.apk"
 pathToPlayApiPrivateKeyJson = "build-tools/deploy/google-play-service-account.json"
 
-
-# codePushAccessKey = ENV['CODEPUSH_ACCESS_KEY']
-# sh "cd #{projectFolder} && node_modules/.bin/code-push logout || true"
-# sh "cd #{projectFolder} && node_modules/.bin/code-push login --accessKey #{codePushAccessKey}"
-#
 nodeExec = "#{projectFolder}/node_modules/.bin/babel-node"
 
 # app config
