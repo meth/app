@@ -2,7 +2,7 @@ import path from 'path'
 import got from 'got'
 import moment from 'moment'
 import authToken from 'basic-auth-token'
-import { email, apiKey, projectId } from './data/testFairy.json'
+import { email, apiKey, projectId } from './testFairy.json'
 import { deployDataDir, writeFile, rootDir, Git } from '../utils'
 
 // fetch latest testfairy build
