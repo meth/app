@@ -63,10 +63,15 @@ export default ({ config }) => () => next => async action => {
 
         const osName = getOsName()
 
-        const newVersion = _.get(data, `${osName}.version`)
+        let newVersion = _.get(data, `${osName}.version`)
         const updateUrl = _.get(data, `${osName}.updateUrl`)
 
         if (newVersion && updateUrl) {
+          // sometimes it's in the form: v1.0.1
+          if (newVersion.startsWith('v')) {
+            newVersion = newVersion.substr(1)
+          }
+
           if (semver.gt(newVersion, getAppVersion())) {
             return next(showUpdateAvailableModal(newVersion, updateUrl))
           }
