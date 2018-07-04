@@ -38,7 +38,7 @@ module.exports = {
       sync: {
         percent: '{percent}%'
       },
-      ethWarning: 'Reminder: you are currently NOT connected to the main Ethereum network, please be careful!'
+      ethWarning: 'Reminder: you are NOT connected to the main Ethereum network, please do not use real ETH!'
     },
     error: {
       userCancelledDataSigning: 'User cancelled data signing',
@@ -72,7 +72,7 @@ module.exports = {
       inputPlaceholderText: 'separate each word by a space ...'
     },
     linkButton: {
-      alreadyHavePasswordLogin: 'I already have a wallet',
+      alreadyHavePasswordLogin: 'I already have a passphrase',
       dontHavePasswordCreateOne: 'Don\'t have a wallet yet? Create one here',
       goBackAndGenerateAnotherMnemonic: 'Go back and start again'
     },
@@ -140,7 +140,7 @@ module.exports = {
       addressBook: 'Address book',
       dappBrowser: 'Browser',
       contracts: 'Contracts',
-      iHaveWrittenDownMnemonic: 'I have written down my passphrase carefully',
+      iHaveWrittenDownMnemonic: 'I have written down the passphrase carefully',
       iHaveConfirmedMyMnemonic: 'I have successfully confirmed my passphrase',
       pressToRevealMnemonic: 'Press to reveal',
       browser: {

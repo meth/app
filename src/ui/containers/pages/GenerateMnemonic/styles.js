@@ -22,7 +22,7 @@ export default create({
     maxWidth: perWidth('100%', '100%', '90%')
   },
   introAlertBox: {
-    width: '80%',
+    width: perWidth('60%', '60%', '80%'),
     maxWidth: perWidth('100%', '100%', '90%'),
     marginBottom: 20
   },

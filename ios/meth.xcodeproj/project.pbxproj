@@ -24,6 +24,48 @@
 		2130BE9320C54EF2008B0A49 /* libRCTWKWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BE7E20C54EEA008B0A49 /* libRCTWKWebView.a */; };
 		2130BED420CAD7F0008B0A49 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BECD20CAD7E2008B0A49 /* libRNDeviceInfo.a */; };
 		21A253F51FF7FFA7001CE3C2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A253F31FF7FFA7001CE3C2 /* LaunchScreen.xib */; };
+		21C68A8620EBA5600071C80C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		21C68A8720EBA5600071C80C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		21C68A8920EBA5600071C80C /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BECD20CAD7E2008B0A49 /* libRNDeviceInfo.a */; };
+		21C68A8A20EBA5600071C80C /* libRCTWKWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BE7E20C54EEA008B0A49 /* libRCTWKWebView.a */; };
+		21C68A8B20EBA5600071C80C /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BE0920B452C1008B0A49 /* libRNSVG.a */; };
+		21C68A8C20EBA5600071C80C /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
+		21C68A8D20EBA5600071C80C /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
+		21C68A8E20EBA5600071C80C /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302C01ABCB91800DB3ED1 /* libRCTImage.a */; };
+		21C68A8F20EBA5600071C80C /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
+		21C68A9020EBA5600071C80C /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
+		21C68A9120EBA5600071C80C /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
+		21C68A9220EBA5600071C80C /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605BF6BC44224F4EAF5BC251 /* libRNVectorIcons.a */; };
+		21C68A9320EBA5600071C80C /* libPods-meth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1643E41416BB344A4DCDFC /* libPods-meth.a */; };
+		21C68A9420EBA5600071C80C /* libRNSecureRandom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07355362F8A34EBB8316512C /* libRNSecureRandom.a */; };
+		21C68A9620EBA5600071C80C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		21C68A9720EBA5600071C80C /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E08BCF627964D66A9957DF1 /* FontAwesome.ttf */; };
+		21C68A9820EBA5600071C80C /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 289EE85785014BA19A4610AD /* Entypo.ttf */; };
+		21C68A9920EBA5600071C80C /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78F3839C52CF4C02BF96E5B3 /* EvilIcons.ttf */; };
+		21C68A9A20EBA5600071C80C /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F246522BCE744CD7A791D834 /* Foundation.ttf */; };
+		21C68A9B20EBA5600071C80C /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C1A0CA5A5B47669CA05385 /* Ionicons.ttf */; };
+		21C68A9C20EBA5600071C80C /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FD8C272C06449B680EFC2FB /* MaterialCommunityIcons.ttf */; };
+		21C68A9D20EBA5600071C80C /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A70499631A9B41ED91C6B0D2 /* MaterialIcons.ttf */; };
+		21C68A9E20EBA5600071C80C /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 817B1B343980472794B42AE7 /* Octicons.ttf */; };
+		21C68A9F20EBA5600071C80C /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDF53E5A7584497599075FBF /* SimpleLineIcons.ttf */; };
+		21C68AA020EBA5600071C80C /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B7C9EDEBF124C0E9740C564 /* Zocial.ttf */; };
+		21C68AA120EBA5600071C80C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 21A253F31FF7FFA7001CE3C2 /* LaunchScreen.xib */; };
+		21C68AA220EBA5600071C80C /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BA94FA1E6EC4C4A906A0FAC /* Feather.ttf */; };
+		21C68AA320EBA5600071C80C /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8C4B554E9A94A82A06970EE /* OpenSans-Bold.ttf */; };
+		21C68AA420EBA5600071C80C /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E3B963E1022D44EA804C0BA5 /* OpenSans-BoldItalic.ttf */; };
+		21C68AA520EBA5600071C80C /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 114FC2864F93460EB1181ECF /* OpenSans-ExtraBold.ttf */; };
+		21C68AA620EBA5600071C80C /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 133BA72043A248FF910D112F /* OpenSans-ExtraBoldItalic.ttf */; };
+		21C68AA720EBA5600071C80C /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 743764C8E9CA4A3B9042F26F /* OpenSans-Italic.ttf */; };
+		21C68AA820EBA5600071C80C /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 805C5166655748E4BFC5A137 /* OpenSans-Light.ttf */; };
+		21C68AA920EBA5600071C80C /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1C600F317E2450186877F5F /* OpenSans-LightItalic.ttf */; };
+		21C68AAA20EBA5600071C80C /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF63F7CCE2EB4537BE3E74FA /* OpenSans-SemiBold.ttf */; };
+		21C68AAB20EBA5600071C80C /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B578482F9F5F436A92572590 /* OpenSans-SemiBoldItalic.ttf */; };
+		21C68AAC20EBA5600071C80C /* OpenSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 493B22E3F6F245DA8200FBBB /* OpenSans.ttf */; };
+		21C68AAD20EBA5600071C80C /* meth.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8EC47FA4506F469B949B632F /* meth.ttf */; };
+		21C68AE020EBA5960071C80C /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		21C68AE120EBA5960071C80C /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302DC1ABCB9D200DB3ED1 /* libRCTNetwork.a */; };
+		21C68AE220EBA5960071C80C /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		21C68AE320EBA5960071C80C /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
 		2B4B4F3AC20A4C82A27816D6 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1C600F317E2450186877F5F /* OpenSans-LightItalic.ttf */; };
 		303DD582C9594C98807DE327 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14C1A0CA5A5B47669CA05385 /* Ionicons.ttf */; };
 		38501B7A7ACC408B8DDCB956 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 817B1B343980472794B42AE7 /* Octicons.ttf */; };
@@ -385,6 +427,8 @@
 		2130BEA320CAD7E2008B0A49 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		2130C01F20E44415008B0A49 /* meth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = meth.entitlements; path = meth/meth.entitlements; sourceTree = "<group>"; };
 		21A253F41FF7FFA7001CE3C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = meth/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		21C68AB420EBA5600071C80C /* meth-sim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meth-sim.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21C68AB520EBA5610071C80C /* meth copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "meth copy-Info.plist"; path = "/Users/ram/dev/cryptocurrency/meth/app/ios/meth copy-Info.plist"; sourceTree = "<absolute>"; };
 		21EF82F61EDB48DC00FA3413 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = meth/config.h; sourceTree = "<group>"; };
 		289EE85785014BA19A4610AD /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		3968DD167F990C4944C26E2F /* Pods-meth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meth/Pods-meth.debug.xcconfig"; sourceTree = "<group>"; };
@@ -444,6 +488,29 @@
 				B9FB9529B38347BF9ADE56E7 /* libRNVectorIcons.a in Frameworks */,
 				6681027363CD3E5535D55978 /* libPods-meth.a in Frameworks */,
 				55DDCD816D774AB2807DE4BA /* libRNSecureRandom.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21C68A8820EBA5600071C80C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C68AE020EBA5960071C80C /* libRCTAnimation.a in Frameworks */,
+				21C68AE120EBA5960071C80C /* libRCTNetwork.a in Frameworks */,
+				21C68AE220EBA5960071C80C /* libRCTText.a in Frameworks */,
+				21C68AE320EBA5960071C80C /* libRCTWebSocket.a in Frameworks */,
+				21C68A8920EBA5600071C80C /* libRNDeviceInfo.a in Frameworks */,
+				21C68A8A20EBA5600071C80C /* libRCTWKWebView.a in Frameworks */,
+				21C68A8B20EBA5600071C80C /* libRNSVG.a in Frameworks */,
+				21C68A8C20EBA5600071C80C /* libRCTActionSheet.a in Frameworks */,
+				21C68A8D20EBA5600071C80C /* libRCTGeolocation.a in Frameworks */,
+				21C68A8E20EBA5600071C80C /* libRCTImage.a in Frameworks */,
+				21C68A8F20EBA5600071C80C /* libRCTLinking.a in Frameworks */,
+				21C68A9020EBA5600071C80C /* libRCTSettings.a in Frameworks */,
+				21C68A9120EBA5600071C80C /* libRCTVibration.a in Frameworks */,
+				21C68A9220EBA5600071C80C /* libRNVectorIcons.a in Frameworks */,
+				21C68A9320EBA5600071C80C /* libPods-meth.a in Frameworks */,
+				21C68A9420EBA5600071C80C /* libRNSecureRandom.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -702,6 +769,7 @@
 				1CC525D044C983AF3FB0C288 /* Pods */,
 				6E785A143EB1906123CE9ACB /* Frameworks */,
 				2192BDF11FD4643D003DB158 /* Recovered References */,
+				21C68AB520EBA5610071C80C /* meth copy-Info.plist */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -712,6 +780,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* meth.app */,
 				00E356EE1AD99517003FC87E /* methTests.xctest */,
+				21C68AB420EBA5600071C80C /* meth-sim.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -790,6 +859,27 @@
 			productReference = 13B07F961A680F5B00A75B9A /* meth.app */;
 			productType = "com.apple.product-type.application";
 		};
+		21C68A8320EBA5600071C80C /* meth-sim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 21C68AB120EBA5600071C80C /* Build configuration list for PBXNativeTarget "meth-sim" */;
+			buildPhases = (
+				21C68A8420EBA5600071C80C /* [CP] Check Pods Manifest.lock */,
+				21C68A8520EBA5600071C80C /* Sources */,
+				21C68A8820EBA5600071C80C /* Frameworks */,
+				21C68A9520EBA5600071C80C /* Resources */,
+				21C68AAE20EBA5600071C80C /* Bundle React Native code and images */,
+				21C68AAF20EBA5600071C80C /* [CP] Embed Pods Frameworks */,
+				21C68AB020EBA5600071C80C /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "meth-sim";
+			productName = "Hello World";
+			productReference = 21C68AB420EBA5600071C80C /* meth-sim.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -814,6 +904,9 @@
 								enabled = 1;
 							};
 						};
+					};
+					21C68A8320EBA5600071C80C = {
+						DevelopmentTeam = 7YJQA645M2;
 					};
 				};
 			};
@@ -898,6 +991,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* meth */,
 				00E356ED1AD99517003FC87E /* methTests */,
+				21C68A8320EBA5600071C80C /* meth-sim */,
 			);
 		};
 /* End PBXProject section */
@@ -1238,6 +1332,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		21C68A9520EBA5600071C80C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C68A9620EBA5600071C80C /* Images.xcassets in Resources */,
+				21C68A9720EBA5600071C80C /* FontAwesome.ttf in Resources */,
+				21C68A9820EBA5600071C80C /* Entypo.ttf in Resources */,
+				21C68A9920EBA5600071C80C /* EvilIcons.ttf in Resources */,
+				21C68A9A20EBA5600071C80C /* Foundation.ttf in Resources */,
+				21C68A9B20EBA5600071C80C /* Ionicons.ttf in Resources */,
+				21C68A9C20EBA5600071C80C /* MaterialCommunityIcons.ttf in Resources */,
+				21C68A9D20EBA5600071C80C /* MaterialIcons.ttf in Resources */,
+				21C68A9E20EBA5600071C80C /* Octicons.ttf in Resources */,
+				21C68A9F20EBA5600071C80C /* SimpleLineIcons.ttf in Resources */,
+				21C68AA020EBA5600071C80C /* Zocial.ttf in Resources */,
+				21C68AA120EBA5600071C80C /* LaunchScreen.xib in Resources */,
+				21C68AA220EBA5600071C80C /* Feather.ttf in Resources */,
+				21C68AA320EBA5600071C80C /* OpenSans-Bold.ttf in Resources */,
+				21C68AA420EBA5600071C80C /* OpenSans-BoldItalic.ttf in Resources */,
+				21C68AA520EBA5600071C80C /* OpenSans-ExtraBold.ttf in Resources */,
+				21C68AA620EBA5600071C80C /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				21C68AA720EBA5600071C80C /* OpenSans-Italic.ttf in Resources */,
+				21C68AA820EBA5600071C80C /* OpenSans-Light.ttf in Resources */,
+				21C68AA920EBA5600071C80C /* OpenSans-LightItalic.ttf in Resources */,
+				21C68AAA20EBA5600071C80C /* OpenSans-SemiBold.ttf in Resources */,
+				21C68AAB20EBA5600071C80C /* OpenSans-SemiBoldItalic.ttf in Resources */,
+				21C68AAC20EBA5600071C80C /* OpenSans.ttf in Resources */,
+				21C68AAD20EBA5600071C80C /* meth.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1268,6 +1393,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		21C68A8420EBA5600071C80C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		21C68AAE20EBA5600071C80C /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		21C68AAF20EBA5600071C80C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meth/Pods-meth-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		21C68AB020EBA5600071C80C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meth/Pods-meth-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		34B388C06AF1E459CD61BDF8 /* [CP] Copy Pods Resources */ = {
@@ -1362,6 +1546,15 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		21C68A8520EBA5600071C80C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21C68A8620EBA5600071C80C /* AppDelegate.m in Sources */,
+				21C68A8720EBA5600071C80C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1515,6 +1708,77 @@
 			};
 			name = Release;
 		};
+		21C68AB220EBA5600071C80C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3968DD167F990C4944C26E2F /* Pods-meth.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = meth/meth.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Hiddentao DevBot (UPAV376HR5)";
+				CURRENT_PROJECT_VERSION = 8;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 7YJQA645M2;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-mixpanel/RNMixpanel",
+					"$(SRCROOT)/../node_modules/react-native-securerandom/ios",
+				);
+				INFOPLIST_FILE = "meth copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hiddentao.meth.mobile.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "83c78bbe-e62d-4a90-8261-4fa3c6bc506f";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.hiddentao.meth.mobile.app";
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		21C68AB320EBA5600071C80C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9EA993AB4D8332CAF150FBDF /* Pods-meth.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = meth/meth.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = 7YJQA645M2;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-mixpanel/RNMixpanel",
+					"$(SRCROOT)/../node_modules/react-native-securerandom/ios",
+				);
+				INFOPLIST_FILE = "meth copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hiddentao.meth.mobile.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7f4bec4f-f4c9-4986-a141-647a1747a446";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.hiddentao.meth.mobile.app";
+				TARGETED_DEVICE_FAMILY = 1;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1615,6 +1879,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		21C68AB120EBA5600071C80C /* Build configuration list for PBXNativeTarget "meth-sim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				21C68AB220EBA5600071C80C /* Debug */,
+				21C68AB320EBA5600071C80C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
