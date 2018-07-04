@@ -26,11 +26,11 @@
     "web:package-mac": "electron-forge package --arch=x64 --platform=darwin",
     "web:package-win": "electron-forge package --arch=x64 --platform=win32",
     "web:package-linux": "electron-forge package --arch=x64 --platform=linux",
-    "build": "yarn lint:js && yarn test && yarn package",
     "react-native": "react-native",
     "mobile:dev": "yarn web:package-clean && yarn react-native start",
     "mobile:ios": "build-tools/run-scripts/run-ios",
-    "mobile:android": "build-tools/run-scripts/run-android"
+    "mobile:android": "build-tools/run-scripts/run-android",
+    "gh-release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -171,6 +171,7 @@
     "redux-actions": "^2.2.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.6",
+    "release-it": "^7.4.7",
     "reselect": "^3.0.1",
     "semver": "^5.5.0",
     "shelljs": "^0.8.2",
