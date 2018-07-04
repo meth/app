@@ -1,4 +1,5 @@
 {
+  "requireCleanWorkingDir": false,
   "src": {
     "tagName": "%s"
   },
