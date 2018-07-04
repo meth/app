@@ -20,6 +20,8 @@ platform :ios do
   lane :beta do
     match(type: "appstore", readonly: true, shallow_clone: true)
 
+    ensure_git_branch(branch: "qa")
+
     increment_build_number(
       xcodeproj: "./ios/meth.xcodeproj",
       build_number: buildConfig["appBuildNumber"]
@@ -94,6 +96,8 @@ platform :android do
 
   desc "Submit a new Beta Build to TestFairy"
   lane :beta do
+    ensure_git_branch(branch: "qa")
+
     gradle(
       project_dir: "./android",
       task: "assemble",
