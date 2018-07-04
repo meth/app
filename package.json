@@ -1,6 +1,6 @@
 {
   "name": "meth",
-  "version": "1.0.1-beta.1",
+  "version": "1.0.0",
   "productName": "Meth",
   "author": "Ramesh Nair <ram@hiddentao.com>",
   "description": "Cross-platform Ethereum wallet and DApp browser with sync",
