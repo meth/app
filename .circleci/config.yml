@@ -1,18 +1,8 @@
-# To be enabled once mobile builds are needed
-# version: 2
-# jobs:
-#   build-and-test:
-#     macos:
-#       xcode: "9.0"
-#     steps:
-#       - checkout
-#       - restore_cache:
-#           key: dependency-cache-{{ checksum "package.json" }}
-#       - run:
-#           name: Install dependencies
-#           command: yarn
-#       - save_cache:
-#           key: dependency-cache-{{ checksum "package.json" }}
-#       - run:
-#           name: Run tests
-#           command: yarn test
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.4.1-jessie
+    steps:
+      - checkout
+      - run: echo "A first hello"
