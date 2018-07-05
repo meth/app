@@ -13,7 +13,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-homebrew
-            - v1-dependencies-
 
       - run: brew install node@8
       - run: brew install yarn
@@ -29,7 +28,6 @@ jobs:
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
 
       - run: yarn
 
