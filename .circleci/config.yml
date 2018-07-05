@@ -24,9 +24,9 @@ jobs:
           key: v1-dependencies-homebrew
 
       # Setup and build app
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+      # - restore_cache:
+      #     keys:
+      #     - v1-dependencies-{{ checksum "package.json" }}
 
       - run: echo $CIRCLE_BRANCH
       - run: mkdir -p ~/.gradle
