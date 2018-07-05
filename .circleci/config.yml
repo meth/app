@@ -3,7 +3,6 @@ jobs:
   build:
     environment:
       ANDROID_HOME: "/usr/local/opt/android-sdk"
-      PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
     macos:
       xcode: "9.4.0"
     working_directory: ~/repo
