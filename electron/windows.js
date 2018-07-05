@@ -33,7 +33,7 @@ class Window extends EventEmitter {
       height: 720,
       center: true,
       resizable: true,
-      // icon: global.icon,
+      icon: Settings.appIconPath,
       // titleBarStyle: 'hidden-inset', //hidden-inset: more space
       backgroundColor: '#000',
       acceptFirstMouse: true,
@@ -97,10 +97,10 @@ class Window extends EventEmitter {
       this.emit('hide', e)
     })
 
-    if (Settings.inProductionMode) {
-      this.loadFile('index.html')
-    } else {
+    if (Settings.inDevMode) {
       this.loadUrl(config.url || `http://localhost:3000/#${type}`)
+    } else {
+      this.loadFile('index.html')
     }
   }
 

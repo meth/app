@@ -44,7 +44,7 @@ const createMainWindow = () => {
 app.on('ready', () => {
   log.info('App ready')
 
-  if (!Settings.inProductionMode) {
+  if (Settings.inDevMode) {
     BrowserTools.installDefaultExtensions()
       .then(createMainWindow)
       .catch(createMainWindow)

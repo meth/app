@@ -1,34 +1,19 @@
 const { app } = require('electron')
 const path = require('path')
 
-const _ = require('./lodash')
 const packageJson = require('../package.json')
-const buildConfig = require('../build-tools/deploy/data/buildConfig.json')
+const buildConfig = require('../buildConfig.json')
 
 
-const CONFIG = {
-  mode: 'development'
-}
-
-try {
-  /* eslint-disable global-require */
-  /* eslint-disable import/no-unresolved */
-  _.extend(CONFIG, require('../appConfig.json'))
-  /* eslint-enable global-require */
-  /* eslint-enable import/no-unresolved */
-} catch (err) {
-  // do nothing!
-}
-
-const MODE_IS_PRODUCTION = ('production' === CONFIG.mode)
+const MODE_IS_PRODUCTION = ('prod' === buildConfig.appMode)
 
 const argv = require('yargs')
   .usage('Usage: $0 [Meth options]')
   .option({
     mode: {
       demand: false,
-      default: CONFIG.mode,
-      describe: 'Runtime mode: development, production',
+      default: buildConfig.appMode,
+      describe: 'Runtime mode: dev, qa, prod',
       requiresArg: true,
       nargs: 1,
       type: 'string',
@@ -60,9 +45,8 @@ const argv = require('yargs')
 
 
 class Settings {
-  constructor () {
-    // the only globals permitted (for use in preload scripts)
-    global.appConfig = this.appConfig
+  get appIconPath () {
+    return path.join(__dirname, 'images', 'logo.png')
   }
 
   get userDataDir () {
@@ -100,11 +84,15 @@ class Settings {
   }
 
   get appConfig () {
-    return CONFIG
+    return buildConfig
   }
 
   get inProductionMode () {
-    return MODE_IS_PRODUCTION
+    return buildConfig.appMode === 'prod'
+  }
+
+  get inDevMode () {
+    return buildConfig.appMode === 'dev'
   }
 
   get preloadBasePath () {

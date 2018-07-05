@@ -10,6 +10,7 @@ const PATHS_TO_INCLUDE = [
   buildPath('electron'),
   buildPath('common'),
   buildPath('node_modules'),
+  buildPath('buildConfig.json'),
   buildPath('package.json'),
   buildPath('LICENSE.md'),
 ]
@@ -51,6 +52,7 @@ module.exports = {
     appCopyright: 'Copyright (c) HiddenTao Ltd 2018',
     appCategoryType: 'public.app-category.finance',
     prune: true,
+    icon: path.join(__dirname, 'build-tools', 'packaging', 'logo'),
     ignore: filePath => {
       let f = buildPath(filePath)
       let ret

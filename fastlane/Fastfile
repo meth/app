@@ -9,7 +9,7 @@ pathToPlayApiPrivateKeyJson = "build-tools/deploy/google-play-service-account.js
 nodeExec = "#{projectFolder}/node_modules/.bin/babel-node"
 
 # app config
-buildConfig = JSON.parse(File.read("#{projectFolder}/build-tools/deploy/data/buildConfig.json"))
+buildConfig = JSON.parse(File.read("#{projectFolder}/buildConfig.json"))
 
 # release notes
 sh "#{nodeExec} #{projectFolder}/build-tools/deploy/create-release-notes.js"

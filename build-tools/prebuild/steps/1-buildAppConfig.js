@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import path from 'path'
 import tmp from 'tmp'
-import { doInfoStep, Git, rootDir, deployDataDir, rmPath, appAssetPath, readFile, writeFile } from '../../utils'
+import { doInfoStep, Git, rootDir, rmPath, appAssetPath, readFile, writeFile } from '../../utils'
 import { version } from '../../../package.json'
 
 const getInfoFrombuildConfigRepo = config => {
@@ -52,7 +52,7 @@ module.exports = config => {
       analyticsEnabled: ANALYTICS
     }, baseMode, buildMode)
 
-    writeFile(path.join(deployDataDir(), 'buildConfig.json'), jsonConfig)
+    writeFile(path.join(rootDir(), 'buildConfig.json'), jsonConfig)
 
     _.extend(config, jsonConfig)
   })

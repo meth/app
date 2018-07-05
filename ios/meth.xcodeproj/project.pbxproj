@@ -20,6 +20,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		1E984D8B4BC946098B536295 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BA94FA1E6EC4C4A906A0FAC /* Feather.ttf */; };
+		1F729F20CC053DDFC78FFBC2 /* libPods-meth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1643E41416BB344A4DCDFC /* libPods-meth.a */; };
 		2130BE0D20B452D2008B0A49 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BE0920B452C1008B0A49 /* libRNSVG.a */; };
 		2130BE9320C54EF2008B0A49 /* libRCTWKWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BE7E20C54EEA008B0A49 /* libRCTWKWebView.a */; };
 		2130BED420CAD7F0008B0A49 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2130BECD20CAD7E2008B0A49 /* libRNDeviceInfo.a */; };
@@ -36,7 +37,6 @@
 		21C68A9020EBA5600071C80C /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		21C68A9120EBA5600071C80C /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		21C68A9220EBA5600071C80C /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 605BF6BC44224F4EAF5BC251 /* libRNVectorIcons.a */; };
-		21C68A9320EBA5600071C80C /* libPods-meth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1643E41416BB344A4DCDFC /* libPods-meth.a */; };
 		21C68A9420EBA5600071C80C /* libRNSecureRandom.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07355362F8A34EBB8316512C /* libRNSecureRandom.a */; };
 		21C68A9620EBA5600071C80C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		21C68A9720EBA5600071C80C /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E08BCF627964D66A9957DF1 /* FontAwesome.ttf */; };
@@ -431,7 +431,6 @@
 		21C68AB520EBA5610071C80C /* meth copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "meth copy-Info.plist"; path = "/Users/ram/dev/cryptocurrency/meth/app/ios/meth copy-Info.plist"; sourceTree = "<absolute>"; };
 		21EF82F61EDB48DC00FA3413 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = meth/config.h; sourceTree = "<group>"; };
 		289EE85785014BA19A4610AD /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		3968DD167F990C4944C26E2F /* Pods-meth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meth/Pods-meth.debug.xcconfig"; sourceTree = "<group>"; };
 		39A4C1C36B38492397AC9B78 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		493B22E3F6F245DA8200FBBB /* OpenSans.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = OpenSans.ttf; path = ../src/fonts/OpenSans.ttf; sourceTree = "<group>"; };
 		543F31BAF9A241299D490FA7 /* libRNMixpanel.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMixpanel.a; sourceTree = "<group>"; };
@@ -448,13 +447,14 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8AF85CFB01C147909C9F03EE /* RNSecureRandom.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSecureRandom.xcodeproj; path = "../node_modules/react-native-securerandom/ios/RNSecureRandom.xcodeproj"; sourceTree = "<group>"; };
 		8EC47FA4506F469B949B632F /* meth.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = meth.ttf; path = ../src/fonts/meth.ttf; sourceTree = "<group>"; };
+		997E31A375D5220247A9B16F /* Pods-meth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meth.debug.xcconfig"; path = "Pods/Target Support Files/Pods-meth/Pods-meth.debug.xcconfig"; sourceTree = "<group>"; };
 		9AA0D6D9CB5569FB856ED1AE /* Pods-methTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-methTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-methTests/Pods-methTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9EA993AB4D8332CAF150FBDF /* Pods-meth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meth.release.xcconfig"; path = "Pods/Target Support Files/Pods-meth/Pods-meth.release.xcconfig"; sourceTree = "<group>"; };
 		A70499631A9B41ED91C6B0D2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		AEE5F27B1B13B4F0565FD763 /* libPods-methTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-methTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B16829B1E631438EB863AA4A /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		B578482F9F5F436A92572590 /* OpenSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBoldItalic.ttf"; path = "../src/fonts/OpenSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		B8C4B554E9A94A82A06970EE /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-Bold.ttf"; path = "../src/fonts/OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		C0E1B98E3D83241D8004AAB7 /* Pods-meth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-meth.release.xcconfig"; path = "Pods/Target Support Files/Pods-meth/Pods-meth.release.xcconfig"; sourceTree = "<group>"; };
 		D1C600F317E2450186877F5F /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-LightItalic.ttf"; path = "../src/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		DF63F7CCE2EB4537BE3E74FA /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-SemiBold.ttf"; path = "../src/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		E3B963E1022D44EA804C0BA5 /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "OpenSans-BoldItalic.ttf"; path = "../src/fonts/OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -488,6 +488,7 @@
 				B9FB9529B38347BF9ADE56E7 /* libRNVectorIcons.a in Frameworks */,
 				6681027363CD3E5535D55978 /* libPods-meth.a in Frameworks */,
 				55DDCD816D774AB2807DE4BA /* libRNSecureRandom.a in Frameworks */,
+				1F729F20CC053DDFC78FFBC2 /* libPods-meth.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,7 +510,6 @@
 				21C68A9020EBA5600071C80C /* libRCTSettings.a in Frameworks */,
 				21C68A9120EBA5600071C80C /* libRCTVibration.a in Frameworks */,
 				21C68A9220EBA5600071C80C /* libRNVectorIcons.a in Frameworks */,
-				21C68A9320EBA5600071C80C /* libPods-meth.a in Frameworks */,
 				21C68A9420EBA5600071C80C /* libRNSecureRandom.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -638,10 +638,10 @@
 		1CC525D044C983AF3FB0C288 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3968DD167F990C4944C26E2F /* Pods-meth.debug.xcconfig */,
-				9EA993AB4D8332CAF150FBDF /* Pods-meth.release.xcconfig */,
 				9AA0D6D9CB5569FB856ED1AE /* Pods-methTests.debug.xcconfig */,
 				087A70C6322248ADA6E15B68 /* Pods-methTests.release.xcconfig */,
+				997E31A375D5220247A9B16F /* Pods-meth.debug.xcconfig */,
+				C0E1B98E3D83241D8004AAB7 /* Pods-meth.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -863,13 +863,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21C68AB120EBA5600071C80C /* Build configuration list for PBXNativeTarget "meth-sim" */;
 			buildPhases = (
-				21C68A8420EBA5600071C80C /* [CP] Check Pods Manifest.lock */,
 				21C68A8520EBA5600071C80C /* Sources */,
 				21C68A8820EBA5600071C80C /* Frameworks */,
 				21C68A9520EBA5600071C80C /* Resources */,
 				21C68AAE20EBA5600071C80C /* Bundle React Native code and images */,
-				21C68AAF20EBA5600071C80C /* [CP] Embed Pods Frameworks */,
-				21C68AB020EBA5600071C80C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1395,21 +1392,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		21C68A8420EBA5600071C80C /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		21C68AAE20EBA5600071C80C /* Bundle React Native code and images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1423,36 +1405,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		21C68AAF20EBA5600071C80C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meth/Pods-meth-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		21C68AB020EBA5600071C80C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-meth/Pods-meth-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		34B388C06AF1E459CD61BDF8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1639,7 +1591,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3968DD167F990C4944C26E2F /* Pods-meth.debug.xcconfig */;
+			baseConfigurationReference = 997E31A375D5220247A9B16F /* Pods-meth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1675,7 +1627,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EA993AB4D8332CAF150FBDF /* Pods-meth.release.xcconfig */;
+			baseConfigurationReference = C0E1B98E3D83241D8004AAB7 /* Pods-meth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1710,7 +1662,6 @@
 		};
 		21C68AB220EBA5600071C80C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3968DD167F990C4944C26E2F /* Pods-meth.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1746,7 +1697,6 @@
 		};
 		21C68AB320EBA5600071C80C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EA993AB4D8332CAF150FBDF /* Pods-meth.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

@@ -68,7 +68,7 @@ $ "/path/to/meth-browser/node_modules/.bin/solidarity"
 
 **App build config**
 
-Run `yarn setup:dev` to generate `build-tools/deploy/data/buildConfig.json`.
+Run `yarn setup:dev` to generate `buildConfig.json`.
 
 **Private Ethereum chain**
 
