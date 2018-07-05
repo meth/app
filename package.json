@@ -8,7 +8,7 @@
   "scripts": {
     "web:electron": "electron -r babel-register ./electron",
     "web:dev": "webpack --env.development --env.vendor && webpack-dev-server --env.development",
-    "web:prod": "webpack --env.production --env.vendor && webpack --env.production --progress",
+    "web:build": "webpack --env.production --env.vendor && webpack --env.production --progress",
     "web:serve": "http-serve -p 3001 --gzip true ./build/web",
     "precommit": "yarn prettier && yarn lint:js:fix",
     "prettier": "prettier --config ./.prettierrc --write src/**/*.js",
@@ -20,7 +20,7 @@
     "setup:dev": "INSTABUG=false ANALYTICS=false node_modules/.bin/babel-node build-tools/prebuild/setup.js",
     "setup:qa": "INSTABUG=true ANALYTICS=true BUILD_MODE=qa INC_BUILD_NUMBER=true node_modules/.bin/babel-node build-tools/prebuild/setup.js",
     "setup:prod": "INSTABUG=true ANALYTICS=true BUILD_MODE=prod INC_BUILD_NUMBER=true node_modules/.bin/babel-node build-tools/prebuild/setup.js",
-    "web:package": "yarn web:prod && yarn web:package-clean && yarn web:package:all",
+    "web:package": "yarn web:build && yarn web:package-clean && yarn web:package:all",
     "web:package:all": "yarn web:package-mac && yarn web:package-win && yarn web:package-linux",
     "web:package-clean": "rm -rf ./out",
     "web:package-mac": "electron-forge make --arch=x64 --platform=darwin",
@@ -30,8 +30,8 @@
     "mobile:dev": "yarn web:package-clean && yarn react-native start",
     "mobile:ios": "build-tools/run-scripts/run-ios",
     "mobile:android": "build-tools/run-scripts/run-android",
-    "gh-release": "release-it",
-    "babel-node": "babel-node"
+    "babel-node": "babel-node",
+    "deploy:qa": "yarn babel-node build-tools/deploy/deployNewQaBuild.js"
   },
   "repository": {
     "type": "git",
