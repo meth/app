@@ -10,15 +10,25 @@ jobs:
       - checkout
 
       # Install basic deps
+      - restore_cache:
+          keys:
+            - v1-dependencies-homebrew
+            - v1-dependencies-
+
       - run: brew install node@8
       - run: brew install yarn
+      - run: brew install ruby
       - run: gem install bundler
 
-      # Download and cache dependencies
+      - save_cache:
+          paths:
+            - /usr/local/Cellar
+          key: v1-dependencies-homebrew
+
+      # Setup and build app
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run: yarn
@@ -30,6 +40,7 @@ jobs:
             - vendor/bundle
             - node_modules
             - ~/Library/Caches/CocoaPods
+            - /usr/local/Cellar
           key: v1-dependencies-{{ checksum "package.json" }}
 
       # run tests!
