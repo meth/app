@@ -30,7 +30,7 @@ const build = async () => {
 
   console.log('Building desktop apps...')
 
-  // exec('yarn web:package')
+  exec('yarn web:package')
 
   const gh = new GitHub({
     token: GITHUB_TOKEN
@@ -40,13 +40,15 @@ const build = async () => {
 
   const tag = `v${version}-beta`
 
-  const { data: release } = await repo.createRelease({
+  const newReleaseDetails = {
     tag_name: tag,
     target_commitish: 'dev',
     name: tag,
     draft: true,
     prerelease: true
-  })
+  }
+
+  const { data: release } = await repo.createRelease(newReleaseDetails)
 
   console.log(`Release ID: ${release.id}`)
 
@@ -57,13 +59,20 @@ const build = async () => {
 
   console.log(`Asset upload URL: ${uploadUrl}`)
 
-  fs.readdirSync(DESKTOP_PKG_DIR).map(file => {
+  fs.readdirSync(DESKTOP_PKG_DIR).forEach(file => {
     const filePath = path.join(DESKTOP_PKG_DIR, file)
 
     console.log(`Uploading ${filePath} ...`)
 
     exec(`curl --data-binary @"${filePath}" -H "Authorization: token ${GITHUB_TOKEN}" -H "Content-Type: application/octet-stream" ${uploadUrl}?name=${encodeURIComponent(file)}`)
   })
+
+  // public the release
+  console.log(`Publishing pre-release ...`)
+
+  await repo.updateRelease(release.id, Object.assign({}, newReleaseDetails, {
+    draft: false
+  }))
 }
 
 build().catch(err => {

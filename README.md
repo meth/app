@@ -36,6 +36,7 @@ The following files are encrypted with `openssl aes-256-cbc -e -in <input> -out 
 **Branches**
 
  * `dev` - Dev branch (default). Bleeding-edge code.
+ * `qa` - Beta branch. All beta builds get built from this. Clean code, only approved pull requests allowed.
  * `master` - Production branch. Clean code, only approved pull requests allowed.
 
 **Setup and installation**

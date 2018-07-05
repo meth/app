@@ -2,7 +2,7 @@
   "name": "meth",
   "version": "1.0.0",
   "productName": "Meth",
-  "author": "Ramesh Nair <ram@hiddentao.com>",
+  "author": "Ramesh Nair",
   "description": "Cross-platform Ethereum wallet and DApp browser with sync",
   "main": "electron/index.js",
   "scripts": {
@@ -70,6 +70,7 @@
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.22",
     "@electron-forge/maker-dmg": "^6.0.0-beta.22",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.22",
     "@electron-forge/maker-zip": "^6.0.0-beta.22",
     "@meth/react-native-coverflow": "^0.1.10",
     "@meth/react-navigation-redux-helpers": "^1.1.1",

@@ -75,8 +75,7 @@ app.on('web-contents-created', (event, contents) => {
     webPreferences.nodeIntegration = false
     // only allow our custom preload script - disable all others
     if (0 > webPreferences.preloadURL.indexOf(Settings.preloadBasePath)) {
-      log.error(`WebView started with disallowed preload script: ${webPreferences.preloadURL}`)
-
+      log.error(`WebView started with disallowed preload script: ${webPreferences.preloadURL} as it is not in our allowed path: ${Settings.preloadBasePath}`)
       event.preventDefault()
     }
   })

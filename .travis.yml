@@ -1,10 +1,10 @@
 language: node_js
 
 branches:
-  only:
-    - master
+  except:
+    # qa and master will be built on CircleCI
     - qa
-    #- dev
+    - master
 
 git:
   depth: 1

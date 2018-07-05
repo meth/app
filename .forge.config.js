@@ -25,7 +25,7 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-zip',
-      platforms: ['linux']
+      platforms: ['linux', 'win32']
     },
     {
       name: '@electron-forge/maker-dmg',
@@ -35,19 +35,19 @@ module.exports = {
         icon: path.join(__dirname, 'build-tools', 'packaging', 'logo.png'),
         background: path.join(__dirname, 'build-tools', 'packaging', 'dmg', 'background.png'),
       }
-    }
+    },
+    // {
+    //   name: '@electron-forge/maker-squirrel',
+    //   platforms: ['win32'],
+    //   config: {
+    //     authors: 'Ramesh Nair',
+    //     name: productName,
+    //     setupExe: `${productName} Setup`,
+    //     setupMsi: `${productName} Installer`,
+    //     setupIcon: path.join(__dirname, 'build-tools', 'packaging', 'logo.ico'),
+    //   }
+    // }
   ],
-  // make_targets: {
-  //   "win32": ["squirrel"],
-  //   "darwin": ["dmg"], // An array of darwin make targets
-  //   "linux": ["deb", "rpm", "flatpak", "snap"] // An array of linux make targets
-  // },
-  // electronWinstallerConfig: {
-  //   name: productName,
-  //   setupExe: `${productName} Setup`,
-  //   setupMsi: `${productName} Installer`,
-  //   setupIcon: path.join(__dirname, 'build-tools', 'packaging', 'logo.ico'),
-  // },
   packagerConfig: {
     appCopyright: 'Copyright (c) HiddenTao Ltd 2018',
     appCategoryType: 'public.app-category.finance',
