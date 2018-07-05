@@ -1,5 +1,4 @@
 import fs from 'fs'
-import got from 'got'
 import path from 'path'
 import GitHub from 'github-api'
 import shell from 'shelljs'
@@ -9,7 +8,15 @@ const { GITHUB_TOKEN } = process.env
 const DIR = path.resolve(path.join(__dirname, '..', '..'))
 const DESKTOP_PKG_DIR = path.join(DIR, 'out', 'make')
 
-const exec = cmd => shell.exec(cmd, { cwd: DIR })
+const exec = cmd => {
+  const { code, stdout, stderr } = shell.exec(cmd, { cwd: DIR })
+
+  if (0 !== code) {
+    console.error(stdout)
+    console.error(stderr)
+    throw new Error(`Error executing command (exit code: ${code}): ${cmd}`)
+  }
+}
 
 const build = async () => {
   // exec('yarn setup:qa')
@@ -50,48 +57,13 @@ const build = async () => {
 
   console.log(`Asset upload URL: ${uploadUrl}`)
 
-  await Promise.all(fs.readdirSync(DESKTOP_PKG_DIR).map(file => {
+  fs.readdirSync(DESKTOP_PKG_DIR).map(file => {
     const filePath = path.join(DESKTOP_PKG_DIR, file)
 
-    let mime
-    switch (path.extname(file)) {
-      case '.dmg':
-        mime = 'application/x-apple-diskimage'
-        break
-      default:
-        return Promise.reject(new Error(`Unable to determine file type: ${filePath}`))
-    }
+    console.log(`Uploading ${filePath} ...`)
 
-    console.log(`Uploading ${filePath} of type ${mime} ...`)
-
-    return new Promise((resolve, reject) => {
-      const stream = fs.createReadStream(filePath)
-        .pipe(got.stream.post(`${uploadUrl}?name=${encodeURIComponent(file)}`, {
-          headers: {
-            'Content-Type': mime,
-            Authorization: `token ${GITHUB_TOKEN}`
-          }
-        }))
-
-      stream.on('close', () => {
-        console.log('...done :)')
-        resolve()
-      })
-
-      stream.on('error', err => {
-        console.error('...failed :/')
-
-        reject(err)
-      })
-    })
-    // return got.post(`${uploadUrl}?name=${encodeURIComponent(file)}`, {
-    //   body: fs.createReadStream(filePath),
-    //   headers: {
-    //     'Content-Type': mime,
-    //     Authorization: `token ${GITHUB_TOKEN}`
-    //   }
-    // }).then(() => { console.log(`...done!`) })
-  }))
+    exec(`curl --data-binary @"${filePath}" -H "Authorization: token ${GITHUB_TOKEN}" -H "Content-Type: application/octet-stream" ${uploadUrl}?name=${encodeURIComponent(file)}`)
+  })
 }
 
 build().catch(err => {
