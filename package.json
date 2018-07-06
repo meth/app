@@ -177,7 +177,6 @@
     "redux-actions": "^2.2.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.6",
-    "release-it": "^7.4.7",
     "reselect": "^3.0.1",
     "semver": "^5.5.0",
     "shelljs": "^0.8.2",

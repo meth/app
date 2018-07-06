@@ -51,7 +51,7 @@ const build = async () => {
 
     console.log(`Uploading ${filePath} ...`)
 
-    // exec(`curl --data-binary @"${filePath}" -H "Authorization: token ${GITHUB_TOKEN}" -H "Content-Type: application/octet-stream" ${uploadUrl}?name=${encodeURIComponent(file)}`)
+    exec(`curl --data-binary @"${filePath}" -H "Authorization: token ${GITHUB_TOKEN}" -H "Content-Type: application/octet-stream" ${uploadUrl}?name=${encodeURIComponent(file)}`)
   })
 
   // public the release
