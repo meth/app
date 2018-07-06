@@ -16,6 +16,10 @@ sh "#{nodeExec} #{projectFolder}/build-tools/scripts/create-release-notes.js"
 releaseNotes = File.read("#{projectFolder}/build-tools/data/releaseNotes.txt")
 
 platform :ios do
+  before_all do
+    setup_circle_ci
+  end
+
   desc "Submit a new Beta Build to Apple TestFlight"
   lane :beta do
     match(type: "appstore", readonly: true, shallow_clone: true)

@@ -1,8 +1,6 @@
 build_environment: &build_environment
   environment:
     ANDROID_HOME: /usr/local/share/android-sdk
-    MATCH_KEYCHAIN_NAME: circle
-    MATCH_KEYCHAIN_PASSWORD: circle
   macos:
     xcode: "9.4.0"
   working_directory: ~/repo
