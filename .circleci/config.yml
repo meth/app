@@ -1,6 +1,6 @@
 build_environment: &build_environment
   environment:
-    ANDROID_HOME: "/usr/local/opt/android-sdk"
+    ANDROID_SDK_ROOT: "/usr/local/share/android-sdk"
   macos:
     xcode: "9.4.0"
   working_directory: ~/repo
