@@ -47,21 +47,26 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-build
+            - v1-android-{{ checksum "android/app/build.gradle" }}
+            - v1-ios-{{ checksum "ios/Podfile" }}
 
       # passswords/keys/etc
       - run: echo -e "METH_RELEASE_KEYSTORE_PASSWORD=$ENCRYPTION_KEY" >> ~/.gradle/gradle.properties
       - run: mkdir -p ~/.gradle
       - run: openssl aes-256-cbc -d -in build-tools/.config/testFairy.json.aes256 -out build-tools/.config/testFairy.json -pass pass:$ENCRYPTION_KEY
 
-      # - run: yarn lint:js
       - run: /bin/sh -c 'if [ \"$CIRCLE_BRANCH\" = \"qa\" ]; then yarn setup:qa; else echo "Skipping QA build"; fi'
       - run: yarn publish:ios-beta
       - run: yarn publish:android-beta
-      - run: yarn publish:desktop-beta
 
       - save_cache:
-          key: v1-build
+          key: v1-android-{{ checksum "android/app/build.gradle" }}
           paths:
             - ~/.gradle
+
+      - save_cache:
+          key: v1-ios-{{ checksum "ios/Podfile" }}
+          paths:
             - ~/Library/Caches/CocoaPods
+
+      - run: yarn publish:desktop-beta
