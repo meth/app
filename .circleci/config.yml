@@ -42,19 +42,20 @@ jobs:
           paths:
             - ~/.yarn
             - ~/.cache/yarn
+            - node_modules
+            - vendor/bundle
             - ~/Library/Caches/CocoaPods
           key: v2-dependencies-npm-{{ checksum "package.json" }}
 
       - persist_to_workspace:
-          root: ~
-          paths:
-            - repo
+          root: .
+          paths: .
 
   setup_qa:
     <<: *build_environment
     steps:
       - attach_workspace:
-          at: ~
+          at: ~/repo
       - run: yarn setup:qa
 
 
