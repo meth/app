@@ -25,7 +25,7 @@ const build = async () => {
 
   console.log('Building mobile apps...')
 
-  // exec('bundle exec fastlane ios beta')
+  exec('bundle exec fastlane ios beta')
   // exec('bundle exec fastlane android beta')
 
   console.log('Building desktop apps...')
