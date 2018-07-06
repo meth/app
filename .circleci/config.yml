@@ -56,7 +56,13 @@ jobs:
       - run: openssl aes-256-cbc -d -in build-tools/.config/testFairy.json.aes256 -out build-tools/.config/testFairy.json -pass pass:$ENCRYPTION_KEY
 
       - run: /bin/sh -c 'if [ \"$CIRCLE_BRANCH\" = \"qa\" ]; then yarn setup:qa; else echo "Skipping QA build"; fi'
-      - run: yarn publish:ios-beta
+
+      - save_cache:
+          key: v1-ios-{{ checksum "ios/Podfile" }}
+          paths:
+            - ~/Library/Caches/CocoaPods
+            - ios/Pods
+
       - run: yarn publish:android-beta
 
       - save_cache:
@@ -64,10 +70,6 @@ jobs:
           paths:
             - ~/.gradle
 
-      - save_cache:
-          key: v1-ios-{{ checksum "ios/Podfile" }}
-          paths:
-            - ~/Library/Caches/CocoaPods
-            - ios/Pods
+      - run: yarn publish:ios-beta
 
       - run: yarn publish:desktop-beta
