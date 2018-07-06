@@ -50,16 +50,8 @@ jobs:
     macos:
       xcode: "9.4.0"
     working_directory: ~/repo
+    branches:
+      only:
+        - qa
     steps:
       - run: yarn setup:qa
-
-workflows:
-  version: 2
-  build_qa:
-    filters:
-      branches:
-        only:
-          - qa
-    jobs:
-      - prepare
-      - setup_qa
