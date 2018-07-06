@@ -60,4 +60,6 @@ workflows:
   qa:
     jobs:
       - prepare
-      - setup_qa
+      - setup_qa:
+          requires:
+            - prepare
