@@ -70,9 +70,7 @@ jobs:
           paths:
             - ~/.gradle
 
-      # See https://discuss.circleci.com/t/running-script-cp-embed-pods-frameworks-not-running-and-time-out/11791/7
       - run: yarn fastlane match --readonly appstore
-      - run: "security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k circle circle.keychain"
 
       - run: yarn publish:ios-beta
 
