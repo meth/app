@@ -1,7 +1,6 @@
 build_environment: &build_environment
   environment:
     ANDROID_HOME: /usr/local/share/android-sdk
-    MATCH_PASSWORD: $ENCRYPTION_KEY
   macos:
     xcode: "9.4.0"
   working_directory: ~/repo
@@ -14,6 +13,8 @@ jobs:
       only:
         - qa
     steps:
+      - run: echo $CIRCLE_BRANCH
+
       - checkout
 
       - restore_cache:
@@ -30,30 +31,37 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-yarn-{{ checksum "package.json" }}
-
-      - run: echo $CIRCLE_BRANCH
-
-      # Setup passwords and keys
-      - run: mkdir -p ~/.gradle
-      - run: echo -e "METH_RELEASE_KEYSTORE_PASSWORD=$ENCRYPTION_KEY" >> ~/.gradle/gradle.properties
-      - run: openssl aes-256-cbc -d -in build-tools/.config/testFairy.json.aes256 -out build-tools/.config/testFairy.json -pass pass:$ENCRYPTION_KEY
+          - v1-dependencies-yarn-{{ checksum "package.json" }}-{{ checksum "Gemfile" }}
 
       # Install deps
       - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3 --without development
       - run: yarn
 
       - save_cache:
-          key: v1-dependencies-yarn-{{ checksum "package.json" }}
+          key: v1-dependencies-yarn-{{ checksum "package.json" }}-{{ checksum "Gemfile" }}
           paths:
             - ~/.yarn
             - ~/.cache/yarn
             - node_modules
             - vendor/bundle
-            - ~/Library/Caches/CocoaPods
+
+      - restore_cache:
+          keys:
+          - v1-build
+
+      # passswords/keys/etc
+      - run: echo -e "METH_RELEASE_KEYSTORE_PASSWORD=$ENCRYPTION_KEY" >> ~/.gradle/gradle.properties
+      - run: mkdir -p ~/.gradle
+      - run: openssl aes-256-cbc -d -in build-tools/.config/testFairy.json.aes256 -out build-tools/.config/testFairy.json -pass pass:$ENCRYPTION_KEY
 
       # - run: yarn lint:js
       - run: /bin/sh -c 'if [ \"$CIRCLE_BRANCH\" = \"qa\" ]; then yarn setup:qa; else echo "Skipping QA build"; fi'
       - run: yarn publish:ios-beta
       - run: yarn publish:android-beta
       - run: yarn publish:desktop-beta
+
+      - save_cache:
+          key: v1-build
+          paths:
+            - ~/.gradle
+            - ~/Library/Caches/CocoaPods
