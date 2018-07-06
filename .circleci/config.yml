@@ -30,7 +30,7 @@ jobs:
       # Setup and build app
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-npm-{{ checksum "package.json" }}
 
       - run: echo $CIRCLE_BRANCH
       - run: mkdir -p ~/.gradle
@@ -46,7 +46,7 @@ jobs:
             - node_modules
             - ~/Library/Caches/CocoaPods
             - /usr/local/Cellar
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-npm-{{ checksum "package.json" }}
 
   setup_qa:
     <<: *build_environment
