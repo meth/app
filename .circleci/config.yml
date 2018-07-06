@@ -1,8 +1,8 @@
 build_environment: &build_environment
   environment:
     ANDROID_HOME: /usr/local/share/android-sdk
-    MATCH_KEYCHAIN_NAME: "circle"
-    MATCH_KEYCHAIN_PASSWORD: "circle"
+    MATCH_KEYCHAIN_NAME: circle
+    MATCH_KEYCHAIN_PASSWORD: circle
   macos:
     xcode: "9.4.0"
   working_directory: ~/repo
@@ -74,7 +74,7 @@ jobs:
 
       # See https://discuss.circleci.com/t/running-script-cp-embed-pods-frameworks-not-running-and-time-out/11791/7
       - run: yarn fastlane match --readonly appstore
-      - run: security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k circle circle.keychain
+      - run: "security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k circle circle.keychain"
 
       - run: yarn publish:ios-beta
 
