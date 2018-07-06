@@ -1,7 +1,7 @@
 #/bin/sh
 set -e
 brew cask install homebrew/cask-versions/java8
-brew cask install ant maven gradle android-sdk
+brew cask install android-sdk
 brew link android-sdk
 export PATH=$PATH:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/platform-tools
 echo y | android update sdk --no-ui --all --filter "android-23"
