@@ -2,13 +2,13 @@ import path from 'path'
 import got from 'got'
 import moment from 'moment'
 import authToken from 'basic-auth-token'
-import { email, apiKey, projectId } from './testFairy.json'
+import { email, apiKey, projectId } from '../.config/testFairy.json'
 import { deployDataDir, writeFile, rootDir, Git } from '../utils'
 
 // fetch latest testfairy build
 got(`https://app.testfairy.com/api/1/projects/${projectId}/builds/`, {
   headers: {
-    'Authorization': `Basic ${authToken(email, apiKey)}`
+    Authorization: `Basic ${authToken(email, apiKey)}`
   }
 })
   .then(res => {

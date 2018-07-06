@@ -13,18 +13,20 @@ jobs:
       only:
         - qa
     steps:
+      - checkout
+
       - restore_cache:
           keys:
             - v1-dependencies-homebrew
       - run: brew install node@8
       - run: brew install yarn
       - run: brew install ruby
+      - run: build-tools/scripts/ci-install-android-sdk
+      - run: brew install android-sdk
       - save_cache:
           paths:
             - /usr/local/Cellar
           key: v1-dependencies-homebrew
-
-      - checkout
 
       # Setup and build app
       - restore_cache:
@@ -32,8 +34,14 @@ jobs:
           - v1-dependencies-yarn-{{ checksum "package.json" }}
 
       - run: echo $CIRCLE_BRANCH
+
+      # Setup passwords and keys
       - run: mkdir -p ~/.gradle
-      - run: echo -e "METH_RELEASE_KEYSTORE_PASSWORD=$ANDROID_KEYSTORE_PASSWORD" >> ~/.gradle/gradle.properties
+      - run: export MATCH_PASSWORD=$ENCRYPTION_KEY
+      - run: echo -e "METH_RELEASE_KEYSTORE_PASSWORD=$ENCRYPTION_KEY" >> ~/.gradle/gradle.properties
+      - run: openssl aes-256-cbc -d -in build-tools/.config/testFairy.json.aes256 -out build-tools/.config/testFairy.json -pass pass:$ENCRYPTION_KEY
+
+      # Install deps
       - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3 --without development
       - run: yarn
 

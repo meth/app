@@ -8,7 +8,7 @@ import childProcess from 'child_process'
 
 export const toolsDir = () => __dirname
 export const rootDir = () => path.join(toolsDir(), '..')
-export const deployDataDir = () => path.join(toolsDir(), 'deploy', 'data')
+export const deployDataDir = () => path.join(toolsDir(), 'data')
 export const iosDir = () => path.join(rootDir(), 'ios')
 export const androidDir = () => path.join(rootDir(), 'android')
 

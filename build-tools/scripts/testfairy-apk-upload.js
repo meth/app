@@ -4,7 +4,7 @@ import fs from 'fs'
 import FormData from 'form-data'
 
 import { appName, appId, appVersion, appBuildNumber } from '../../buildConfig.json'
-import { apiKey } from './testFairy.json'
+import { apiKey } from '../.config/testFairy.json'
 import { readFile, deployDataDir, fileExists, copyFile } from '../utils'
 
 const renameApkFile = apkPath => {

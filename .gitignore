@@ -40,6 +40,5 @@ buildConfig.json
 fastlane/report.xml
 *.ipa
 *.apk
-build-tools/deploy/data
-google-play-service-account.json
-testFairy.json
+build-tools/data
+build-tools/.config/*.json

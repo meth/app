@@ -4,7 +4,7 @@ default_platform :ios
 
 projectFolder = ENV['PWD']
 pathToReleaseApk = "android/app/build/outputs/apk/release/app-release.apk"
-pathToPlayApiPrivateKeyJson = "build-tools/deploy/google-play-service-account.json"
+pathToPlayApiPrivateKeyJson = "build-tools/publish/google-play-service-account.json"
 
 nodeExec = "#{projectFolder}/node_modules/.bin/babel-node"
 
@@ -12,8 +12,8 @@ nodeExec = "#{projectFolder}/node_modules/.bin/babel-node"
 buildConfig = JSON.parse(File.read("#{projectFolder}/buildConfig.json"))
 
 # release notes
-sh "#{nodeExec} #{projectFolder}/build-tools/deploy/create-release-notes.js"
-releaseNotes = File.read("#{projectFolder}/build-tools/deploy/data/releaseNotes.txt")
+sh "#{nodeExec} #{projectFolder}/build-tools/scripts/create-release-notes.js"
+releaseNotes = File.read("#{projectFolder}/build-tools/data/releaseNotes.txt")
 
 platform :ios do
   desc "Submit a new Beta Build to Apple TestFlight"
@@ -37,7 +37,7 @@ platform :ios do
       export_method: 'app-store',
       workspace: "./ios/meth.xcworkspace",
       scheme: "meth",
-      output_directory: "./build-tools/deploy/data"
+      output_directory: "./build-tools/data"
     )
 
     testflight(
@@ -67,14 +67,14 @@ platform :ios do
       export_method: 'app-store',
       workspace: "./ios/meth.xcworkspace",
       scheme: "meth",
-      output_directory: "./build-tools/deploy/data"
+      output_directory: "./build-tools/data"
     )
 
     deliver(
       submit_for_review: false,
       automatic_release: false,
       force: true,
-      ipa: "./build-tools/deploy/data/meth.ipa",
+      ipa: "./build-tools/data/meth.ipa",
       skip_metadata: true,
       skip_screenshots: true,
       app_rating_config_path: "./fastlane/deliver/rating_config.json"
@@ -108,7 +108,7 @@ platform :android do
       }
     )
 
-    sh "#{nodeExec} #{projectFolder}/build-tools/deploy/testfairy-apk-upload.js '#{projectFolder}/#{pathToReleaseApk}'"
+    sh "#{nodeExec} #{projectFolder}/build-tools/scripts/testfairy-apk-upload.js '#{projectFolder}/#{pathToReleaseApk}'"
   end
 
   desc "Submit a new Production Build to Google Play"
