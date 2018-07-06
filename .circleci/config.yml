@@ -58,10 +58,6 @@ jobs:
 workflows:
   version: 2
   qa:
-    filters:
-      branches:
-        only:
-          - qa
     jobs:
       - prepare
       - setup_qa
