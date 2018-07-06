@@ -36,6 +36,8 @@ basic_build_steps: &basic_build_steps
         - /usr/local/Cellar
       key: v1-dependencies-{{ checksum "package.json" }}
 
+
+
 version: 2
 jobs:
   build_qa:
@@ -48,12 +50,14 @@ jobs:
       <<: *basic_build_steps
       - run: yarn setup:qa
 
+
+
 workflows:
   version: 2
-  qa:
+  jobs:
+    qa:
     # filters:
     #   branches:
     #     only:
     #       - qa
-    jobs:
       - build_qa
