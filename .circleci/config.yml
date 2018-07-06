@@ -67,6 +67,7 @@ jobs:
       - save_cache:
           key: v1-ios-{{ checksum "ios/Podfile" }}
           paths:
+            - ~/Library/Caches/CocoaPods
             - ios/Pods
 
       - run: yarn publish:desktop-beta
