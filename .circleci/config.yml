@@ -29,7 +29,7 @@ jobs:
       # Setup and build app
       - restore_cache:
           keys:
-          - v2-dependencies-npm-{{ checksum "package.json" }}
+          - v1-dependencies-yarn-{{ checksum "package.json" }}
 
       - run: echo $CIRCLE_BRANCH
       - run: mkdir -p ~/.gradle
@@ -44,7 +44,7 @@ jobs:
             - node_modules
             - vendor/bundle
             - ~/Library/Caches/CocoaPods
-          key: v2-dependencies-npm-{{ checksum "package.json" }}
+          key: v1-dependencies-yarn-{{ checksum "package.json" }}
 
       # - run: yarn lint:js
       - run: /bin/sh -c 'if [ \"$CIRCLE_BRANCH\" = \"qa\" ]; then yarn setup:qa; else echo "Skipping QA build"; fi'
