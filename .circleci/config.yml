@@ -22,7 +22,6 @@ jobs:
       - run: brew install yarn
       - run: brew install ruby
       - run: build-tools/scripts/ci-install-android-sdk
-      - run: brew install android-sdk
       - save_cache:
           paths:
             - /usr/local/Cellar
