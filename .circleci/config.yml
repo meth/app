@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  prepare:
     environment:
       ANDROID_HOME: "/usr/local/opt/android-sdk"
     macos:
@@ -24,9 +24,9 @@ jobs:
           key: v1-dependencies-homebrew
 
       # Setup and build app
-      # - restore_cache:
-      #     keys:
-      #     - v1-dependencies-{{ checksum "package.json" }}
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
 
       - run: echo $CIRCLE_BRANCH
       - run: mkdir -p ~/.gradle
@@ -43,3 +43,11 @@ jobs:
             - ~/Library/Caches/CocoaPods
             - /usr/local/Cellar
           key: v1-dependencies-{{ checksum "package.json" }}
+
+  build:
+    filters:
+      branches:
+        only:
+          - qa
+    steps:
+      - run: yarn setup:qa
