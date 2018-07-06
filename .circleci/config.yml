@@ -1,55 +1,65 @@
+version: 2
+jobs:
+  prepare:
+    environment:
+      ANDROID_HOME: "/usr/local/opt/android-sdk"
+    macos:
+      xcode: "9.4.0"
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      # Install basic deps
+      - restore_cache:
+          keys:
+            - v1-dependencies-homebrew
+
+      - run: brew install node@8
+      - run: brew install yarn
+      - run: brew install ruby
+
+      - save_cache:
+          paths:
+            - /usr/local/Cellar
+          key: v1-dependencies-homebrew
+
+      # Setup and build app
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+
+      - run: echo $CIRCLE_BRANCH
+      - run: mkdir -p ~/.gradle
+      - run: echo -e "METH_RELEASE_KEYSTORE_PASSWORD=$ANDROID_KEYSTORE_PASSWORD" >> ~/.gradle/gradle.properties
+      - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3 --without development
+      - run: yarn
+
+      - save_cache:
+          paths:
+            - ~/.yarn
+            - ~/.cache/yarn
+            - vendor/bundle
+            - node_modules
+            - ~/Library/Caches/CocoaPods
+            - /usr/local/Cellar
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+  setup_qa:
+    environment:
+      ANDROID_HOME: "/usr/local/opt/android-sdk"
+    macos:
+      xcode: "9.4.0"
+    working_directory: ~/repo
+    steps:
+      - run: yarn setup:qa
+
 workflows:
   version: 2
-  build:
+  build_qa:
+    filters:
+      branches:
+        only:
+          - qa
     jobs:
-      prepare_dependencies:
-        environment:
-          ANDROID_HOME: "/usr/local/opt/android-sdk"
-        macos:
-          xcode: "9.4.0"
-        working_directory: ~/repo
-        steps:
-          - checkout
-
-          # Install basic deps
-          - restore_cache:
-              keys:
-                - v1-dependencies-homebrew
-
-          - run: brew install node@8
-          - run: brew install yarn
-          - run: brew install ruby
-
-          - save_cache:
-              paths:
-                - /usr/local/Cellar
-              key: v1-dependencies-homebrew
-
-          # Setup and build app
-          - restore_cache:
-              keys:
-              - v1-dependencies-{{ checksum "package.json" }}
-
-          - run: echo $CIRCLE_BRANCH
-          - run: mkdir -p ~/.gradle
-          - run: echo -e "METH_RELEASE_KEYSTORE_PASSWORD=$ANDROID_KEYSTORE_PASSWORD" >> ~/.gradle/gradle.properties
-          - run: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3 --without development
-          - run: yarn
-
-          - save_cache:
-              paths:
-                - ~/.yarn
-                - ~/.cache/yarn
-                - vendor/bundle
-                - node_modules
-                - ~/Library/Caches/CocoaPods
-                - /usr/local/Cellar
-              key: v1-dependencies-{{ checksum "package.json" }}
-
-      build_app:
-        filters:
-          branches:
-            only:
-              - qa
-        steps:
-          - run: yarn setup:qa
+      - prepare
+      - setup_qa
