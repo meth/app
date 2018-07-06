@@ -1,6 +1,7 @@
 build_environment: &build_environment
   environment:
     ANDROID_HOME: /usr/local/share/android-sdk
+    MATCH_PASSWORD: $ENCRYPTION_KEY
   macos:
     xcode: "9.4.0"
   working_directory: ~/repo
@@ -27,7 +28,6 @@ jobs:
             - /usr/local/Cellar
           key: v1-dependencies-homebrew
 
-      # Setup and build app
       - restore_cache:
           keys:
           - v1-dependencies-yarn-{{ checksum "package.json" }}
@@ -36,7 +36,6 @@ jobs:
 
       # Setup passwords and keys
       - run: mkdir -p ~/.gradle
-      - run: export MATCH_PASSWORD=$ENCRYPTION_KEY
       - run: echo -e "METH_RELEASE_KEYSTORE_PASSWORD=$ENCRYPTION_KEY" >> ~/.gradle/gradle.properties
       - run: openssl aes-256-cbc -d -in build-tools/.config/testFairy.json.aes256 -out build-tools/.config/testFairy.json -pass pass:$ENCRYPTION_KEY
 
@@ -45,16 +44,16 @@ jobs:
       - run: yarn
 
       - save_cache:
+          key: v1-dependencies-yarn-{{ checksum "package.json" }}
           paths:
             - ~/.yarn
             - ~/.cache/yarn
             - node_modules
             - vendor/bundle
             - ~/Library/Caches/CocoaPods
-          key: v1-dependencies-yarn-{{ checksum "package.json" }}
 
       # - run: yarn lint:js
       - run: /bin/sh -c 'if [ \"$CIRCLE_BRANCH\" = \"qa\" ]; then yarn setup:qa; else echo "Skipping QA build"; fi'
-      - run: yarn publish:android-beta
       - run: yarn publish:ios-beta
+      - run: yarn publish:android-beta
       - run: yarn publish:desktop-beta
