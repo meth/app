@@ -19,19 +19,6 @@ const exec = cmd => {
 }
 
 const build = async () => {
-  exec('yarn setup:qa')
-  exec('yarn lint:js')
-  // exec('yarn test')
-
-  console.log('Building mobile apps...')
-
-  exec('bundle exec fastlane ios beta')
-  // exec('bundle exec fastlane android beta')
-
-  console.log('Building desktop apps...')
-
-  exec('yarn web:package')
-
   const gh = new GitHub({
     token: GITHUB_TOKEN
   })

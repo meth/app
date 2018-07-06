@@ -31,7 +31,8 @@
     "mobile:ios": "build-tools/run-scripts/run-ios",
     "mobile:android": "build-tools/run-scripts/run-android",
     "babel-node": "babel-node",
-    "deploy:qa": "yarn babel-node build-tools/deploy/deployNewQaBuild.js"
+    "publish:ios-beta": "bundle exec fastlane ios beta",
+    "publish:desktop-beta": "yarn web:package && yarn babel-node build-tools/deploy/github-release-upload-beta.js"
   },
   "repository": {
     "type": "git",

@@ -46,4 +46,7 @@ jobs:
             - ~/Library/Caches/CocoaPods
           key: v2-dependencies-npm-{{ checksum "package.json" }}
 
-      - run: /bin/sh -c 'if [ \"$CIRCLE_BRANCH\" = \"qa\" ]; then yarn deploy:qa; else echo "Skipping QA build"; fi'
+      # - run: yarn lint:js
+      - run: /bin/sh -c 'if [ \"$CIRCLE_BRANCH\" = \"qa\" ]; then yarn setup:qa; else echo "Skipping QA build"; fi'
+      - run: yarn publish:ios-beta
+      - run: yarn publish:desktop-beta
