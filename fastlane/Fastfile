@@ -81,6 +81,7 @@ platform :ios do
       ipa: "./build-tools/data/meth.ipa",
       skip_metadata: true,
       skip_screenshots: true,
+      skip_waiting_for_build_processing: true,
       app_rating_config_path: "./fastlane/deliver/rating_config.json"
     )
   end
