@@ -22,11 +22,11 @@ const build = async () => {
   const tagPrefix = `v${version}-beta`
 
   // work out beta number
-  const { data: existing } = await repo.listReleases()
+  const { data: existing } = await repo.listTags()
   let betaNumber = 1
-  existing.forEach(({ tag_name: rTagName }) => {
-    if (rTagName.startsWith(tagPrefix)) {
-      const n = parseInt(rTagName.substr(tagPrefix.length), 10)
+  existing.forEach(({ name }) => {
+    if (name.startsWith(tagPrefix)) {
+      const n = parseInt(name.substr(tagPrefix.length), 10)
       if (!Number.isNaN(n)) {
         betaNumber = parseInt(Math.max(betaNumber, n + 1), 10)
       }
