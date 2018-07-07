@@ -24,9 +24,12 @@ const build = async () => {
   // work out beta number
   const { data: existing } = await repo.listReleases()
   let betaNumber = 1
-  existing.forEach(r => {
-    if (r.tag_name.startsWith(tagPrefix)) {
-      betaNumber += 1
+  existing.forEach(({ tag_name: rTagName }) => {
+    if (rTagName.startsWith(tagPrefix)) {
+      const n = parseInt(rTagName.substr(tagPrefix.length), 10)
+      if (!Number.isNaN(n)) {
+        betaNumber = parseInt(Math.max(betaNumber, n + 1), 10)
+      }
     }
   })
 
@@ -34,7 +37,7 @@ const build = async () => {
 
   const newReleaseDetails = {
     tag_name: tag,
-    target_commitish: 'dev',
+    target_commitish: process.env.CIRCLE_SHA1 || 'qa',
     name: tag,
     draft: true,
     prerelease: true
