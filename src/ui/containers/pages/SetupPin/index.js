@@ -90,5 +90,7 @@ export default class SetupPin extends PureComponent {
 
   _onPinEntered = pin => {
     this.confirmModal.show(pin)
+
+    return true
   }
 }

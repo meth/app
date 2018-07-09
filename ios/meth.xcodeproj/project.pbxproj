@@ -83,6 +83,7 @@
 		BF1F475FC8A847EBABC3D8BA /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDF53E5A7584497599075FBF /* SimpleLineIcons.ttf */; };
 		C139EEE18701426AA79C41A7 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 805C5166655748E4BFC5A137 /* OpenSans-Light.ttf */; };
 		C2022814FEE049628070565D /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A70499631A9B41ED91C6B0D2 /* MaterialIcons.ttf */; };
+		C31257FD1FA5FB40FE5E1DFC /* libPods-meth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C68B3520F185790071C80C /* libPods-meth.a */; };
 		D33F99DB0F5644FE9406E926 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B578482F9F5F436A92572590 /* OpenSans-SemiBoldItalic.ttf */; };
 		DC8CC2A3036B4D5BAD592592 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DF63F7CCE2EB4537BE3E74FA /* OpenSans-SemiBold.ttf */; };
 		DED73038651242288D1F6E3A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B7C9EDEBF124C0E9740C564 /* Zocial.ttf */; };
@@ -429,6 +430,7 @@
 		21A253F41FF7FFA7001CE3C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = meth/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		21C68AB420EBA5600071C80C /* meth-sim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "meth-sim.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21C68AB520EBA5610071C80C /* meth copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "meth copy-Info.plist"; path = "/Users/ram/dev/cryptocurrency/meth/app/ios/meth copy-Info.plist"; sourceTree = "<absolute>"; };
+		21C68B3520F185790071C80C /* libPods-meth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-meth.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21EF82F61EDB48DC00FA3413 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = meth/config.h; sourceTree = "<group>"; };
 		289EE85785014BA19A4610AD /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		39A4C1C36B38492397AC9B78 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				6681027363CD3E5535D55978 /* libPods-meth.a in Frameworks */,
 				55DDCD816D774AB2807DE4BA /* libRNSecureRandom.a in Frameworks */,
 				1F729F20CC053DDFC78FFBC2 /* libPods-meth.a in Frameworks */,
+				C31257FD1FA5FB40FE5E1DFC /* libPods-meth.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +714,7 @@
 		6E785A143EB1906123CE9ACB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				21C68B3520F185790071C80C /* libPods-meth.a */,
 				1C1643E41416BB344A4DCDFC /* libPods-meth.a */,
 				AEE5F27B1B13B4F0565FD763 /* libPods-methTests.a */,
 			);

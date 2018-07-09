@@ -37,7 +37,7 @@ export default class Alert extends PureComponent {
   renderIcon (styles, type) {
     switch (type) {
       case 'error': {
-        return <Icon name='error-outline' style={styles.icon} />
+        return <Icon name='hand-stop-o' style={styles.icon} />
       }
       case 'info': {
         return <Icon name='info-circle' style={styles.icon} />

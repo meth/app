@@ -2,11 +2,11 @@ import React, { PureComponent } from 'react'
 
 import { connectStore } from '../../../helpers/redux'
 import { t } from '../../../../../common/strings'
-import { ETH, DEFAULT_GAS_LIMIT } from '../../../../../common/constants/protocol'
 import Modal from '../../../components/Modal'
 import Edit from './Edit'
 import Confirm from './Confirm'
 import Done from './Done'
+import { getInitialParams } from './utils'
 
 import TitleText from '../../../components/TitleText'
 import TabView from '../../../components/TabView'
@@ -33,19 +33,9 @@ export default class SendTransaction extends PureComponent {
     super(props, ctx)
 
     const { getTx, getLastGasPrice } = props.selectors
-    const { from, to, value, gas: gasLimit, data } = getTx()
 
     this.state = {
-      params: {
-        from,
-        to,
-        amount: value,
-        data,
-        unit: ETH,
-        gasLimit: `${gasLimit || DEFAULT_GAS_LIMIT}`,
-        gasPrice: `${getLastGasPrice()}`,
-        isContractCreation: (!to && !!data)
-      },
+      params: getInitialParams(getTx(), getLastGasPrice()),
       rawTx: null,
       txId: null
     }

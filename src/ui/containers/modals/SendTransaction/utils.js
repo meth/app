@@ -1,5 +1,5 @@
-import { ETH } from '../../../../../common/constants/protocol'
-import { toInt, toFloat, weiToEthBigNum, toDecStr, calculateGasCostInWeiBigNum, ethToWeiBigNum } from '../../../../utils/number'
+import { ETH, DEFAULT_GAS_LIMIT } from '../../../../../common/constants/protocol'
+import { toInt, toFloat, weiToEthBigNum, weiToGweiBigNum, hexStrToBigNum, hexStrToNumber, toDecStr, calculateGasCostInWeiBigNum, ethToWeiBigNum } from '../../../../utils/number'
 
 const _getMaxCostInWeiBigNum = ({ gasLimit, gasPrice, unit, amount }) => {
   const parsedGasLimit = toInt(gasLimit)
@@ -56,4 +56,56 @@ export const getMaxCostEthWithSuffixStr = ({ gasLimit, gasPrice, unit, amount })
   )
 
   return ('NaN' === cost ? '-' : `${cost} ${ETH}`)
+}
+
+
+const _sanitizedAmount = value => {
+  if (!value) {
+    return 0
+  }
+
+  try {
+    return weiToEthBigNum(hexStrToBigNum(value))
+  } catch (err) {
+    return 0
+  }
+}
+
+const _sanitizedGasLimit = value => {
+  if (!value) {
+    return DEFAULT_GAS_LIMIT
+  }
+
+  try {
+    return hexStrToNumber(value)
+  } catch (err) {
+    return DEFAULT_GAS_LIMIT
+  }
+}
+
+const _sanitizedGasPrice = (value, lastGasPrice) => {
+  if (!value) {
+    return lastGasPrice
+  }
+
+  try {
+    return weiToGweiBigNum(hexStrToBigNum(value)).toNumber()
+  } catch (err) {
+    return lastGasPrice
+  }
+}
+
+export const getInitialParams = (tx, lastGasPrice) => {
+  const { from, to, value, gas: gasLimit, gasPrice, data } = tx
+
+  return {
+    from,
+    to,
+    amount: toDecStr(_sanitizedAmount(value)),
+    data,
+    unit: ETH,
+    gasLimit: toDecStr(_sanitizedGasLimit(gasLimit)),
+    gasPrice: toDecStr(_sanitizedGasPrice(gasPrice, lastGasPrice)),
+    isContractCreation: (!to && !!data)
+  }
 }

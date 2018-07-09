@@ -1,5 +1,5 @@
 import { ETH, TRANSACTION_TYPE } from '../../../common/constants/protocol'
-import { ethToWeiBigNum, gweiToWeiBigNum, toInt, toTokenRawBalanceBigNum, toHexStr } from '../../utils/number'
+import { ethToWeiBigNum, gweiToWeiBigNum, toTokenRawBalanceBigNum, toHexStr } from '../../utils/number'
 import { getStore } from '../'
 
 const { CONTRACT_CALL, CONTRACT_CREATION, TOKEN_TRANSFER, ETH_TRANSFER } = TRANSACTION_TYPE
@@ -16,12 +16,12 @@ export default ({ nodeConnector }) => async tx => {
   if (isContractCreation) {
     meta.type = CONTRACT_CREATION
 
-    value = 0
+    value = toHexStr(0)
     to = null
   } else if (ETH === unit) {
     meta.type = data ? CONTRACT_CALL : ETH_TRANSFER
 
-    value = ethToWeiBigNum(amount || '0').toNumber()
+    value = toHexStr(ethToWeiBigNum(amount || '0'))
   } else {
     meta.type = TOKEN_TRANSFER
     meta.recipient = to
@@ -33,10 +33,10 @@ export default ({ nodeConnector }) => async tx => {
 
     data = contract.contract.transfer.getData(to, toHexStr(tokenRawAmountBigNum))
     to = contractAddress
-    value = 0
+    value = toHexStr(0)
   }
 
-  const ret = { meta, from, value }
+  const ret = { from, value, meta }
 
   if (!isContractCreation) {
     ret.to = to
@@ -47,11 +47,11 @@ export default ({ nodeConnector }) => async tx => {
   }
 
   if (gasLimit) {
-    ret.gasLimit = toInt(gasLimit)
+    ret.gasLimit = toHexStr(gasLimit)
   }
 
   if (gasPrice) {
-    ret.gasPrice = gweiToWeiBigNum(gasPrice).toNumber()
+    ret.gasPrice = toHexStr(gweiToWeiBigNum(gasPrice))
   }
 
   return ret

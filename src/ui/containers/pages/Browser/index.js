@@ -43,8 +43,8 @@ export default class Browser extends CachePureComponent {
       {
         active: false,
         id: newTabId(),
-        label: 'Maps',
-        url: 'https://maps.google.com'
+        label: 'Blockparty',
+        url: 'http://ethldn201807.noblockno.party/'
       }
     ]
   }

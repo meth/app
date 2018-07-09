@@ -81,6 +81,9 @@ export const ethToWeiBigNum = balance =>
 export const gweiToWeiBigNum = balance =>
   toBigNum(balance).times(powerOfTenBigNum(9))
 
+export const weiToGweiBigNum = balance =>
+  toBigNum(balance).div(powerOfTenBigNum(9))
+
 export const calculateGasCostInWeiBigNum = (gasLimit, gasPriceInGwei) =>
   toBigNum(gasPriceInGwei).times(powerOfTenBigNum(9)).times(gasLimit)
 
