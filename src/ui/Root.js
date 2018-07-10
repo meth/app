@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import { t } from '../../common/strings'
+import { isMobile } from '../utils/deviceInfo'
 import MODALS from '../../common/constants/modals'
 import UI_TASKS from '../../common/constants/ipcUiTasks'
 import { globalEvents } from '../env'
@@ -85,7 +86,7 @@ export default class Root extends PureComponent {
   _onAppActive = () => {
     const { isUserAuthenticated, getSecurityPin } = this.props.selectors
 
-    if (isUserAuthenticated()) {
+    if (isUserAuthenticated() && isMobile) {
       this.confirmPinModal.show(getSecurityPin())
     }
   }
