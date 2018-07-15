@@ -124,6 +124,7 @@ module.exports = {
       viewInChainExplorer: 'View in chain explorer',
       onlyShowTokensWithBalance: 'Only show tokens with balances',
       showAllTokens: 'Show all tokens',
+      send: 'Send',
       sendCrypto: 'Send crypto',
       showQrCode: 'Show QR code',
       yes: 'Yes',

@@ -1,12 +1,14 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 import { t } from '../../../../common/strings'
 import { createStyles } from './styles'
 import LabelledAddress from '../LabelledAddress'
 import EtherBalance from '../EtherBalance'
 import IconButton from '../IconButton'
+import Icon from '../Icon'
+import Button from '../Button'
 
 
 export default class WalletCard extends PureComponent {
@@ -65,14 +67,17 @@ export default class WalletCard extends PureComponent {
           unitTextStyle={styles.unitText}
         />
         <View style={styles.transButtons}>
-          <IconButton
+          <Button
             type='textWithBorder'
             disabled={!isActive}
             tooltip={t('button.sendCrypto')}
             style={styles.transButton}
-            icon={{ name: 'pay' }}
             onPress={this._onPressSend}
-          />
+            childShouldInheritTextStyle={true}
+          >
+            <Text style={styles.transButtonText}>{t('button.send')}</Text>
+            <Icon name='transfer' />
+          </Button>
           <IconButton
             type='textWithBorder'
             disabled={!isActive}

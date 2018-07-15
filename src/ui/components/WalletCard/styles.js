@@ -69,5 +69,11 @@ export const createStyles = _.memoize(state => create({
     width: '90%'
   },
   transButton: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  transButtonText: {
+    marginRight: 3
   }
 }))
