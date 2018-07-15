@@ -446,12 +446,14 @@ export default {
       default: {
         borderColor: colorGrayLight,
         backgroundColor: colorWhite,
-        textColor: colorGrayLight
+        textColor: colorGrayLight,
+        borderBottomColor: colorButtonBlue
       },
       hover: {
         borderColor: colorButtonBlue,
         backgroundColor: colorBlueActivePanel,
-        textColor: colorButtonBlue
+        textColor: colorButtonBlue,
+        borderBottomColor: colorTransparent
       }
     } : {
       default: {

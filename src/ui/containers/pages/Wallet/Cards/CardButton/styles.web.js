@@ -10,10 +10,10 @@ export default create({
     ...cardButton,
     backgroundColor: '$button_walletCard_enabled_hover_backgroundColor',
     borderColor: '$button_walletCard_enabled_hover_borderColor',
-    borderBottomWidth: 0
+    borderBottomColor: '$button_walletCard_enabled_hover_borderBottomColor'
   },
   cardButton_inactive: {
     ...cardButton,
-    borderBottomColor: '$button_walletCard_enabled_hover_borderColor'
+    borderBottomColor: '$button_walletCard_enabled_default_borderBottomColor'
   }
 })
