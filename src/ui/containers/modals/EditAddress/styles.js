@@ -56,7 +56,9 @@ export default create({
     marginTop: 10,
     width: '90%'
   },
-  field: {},
+  field: {
+    marginBottom: 10
+  },
   errorBox: {
     marginTop: 20
   },

@@ -21,8 +21,21 @@ export default create({
     flex: 1,
     width: '100%'
   },
-  tableFilter: {
+  tableFilterRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 5
+  },
+  tableFilterInput: {
+    flex: 1,
+    fontSize: '0.7rem',
+    paddingVertical: 7
+  },
+  tableFilterButton: {
+    paddingVertical: 5,
+    paddingHorizontal: 5,
+    marginLeft: 5
   },
   tableRow: {
     paddingVertical: 0,

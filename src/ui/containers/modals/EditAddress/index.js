@@ -6,6 +6,7 @@ import Form from 'react-native-advanced-forms'
 
 import { t } from '../../../../../common/strings'
 import { toast } from '../../../../env'
+import { isAddress } from '../../../../utils/string'
 import ADDRESS_TYPES from '../../../../../common/constants/addressTypes'
 import { connectStore } from '../../../helpers/redux'
 import Modal from '../../../components/Modal'
@@ -32,31 +33,31 @@ export default class EditAddress extends PureComponent {
         ADDRESS_TYPES.OWN_ACCOUNT,
         ADDRESS_TYPES.CONTRACT
       ])
-    }).isRequired
+    })
   }
 
   constructor (props, ctx) {
     super(props, ctx)
 
-    const { data: { address, type } } = this.props
+    const { data: { address: addressOriginal, type } } = this.props
 
     const { getAddressBook } = this.props.selectors
 
     const addressBook = getAddressBook()
 
     this.state = {
-      alreadyExists: !!_.get(addressBook[address], 'label'),
-      label: _.get(addressBook[address], 'label', ''),
-      type: _.get(addressBook[address], 'type', type),
+      alreadyExists: !!_.get(addressBook[addressOriginal], 'label'),
+      label: _.get(addressBook[addressOriginal], 'label', ''),
+      type: _.get(addressBook[addressOriginal], 'type', type),
       submitting: false,
       error: null
     }
   }
 
   render () {
-    const { data: { address } } = this.props
+    const { data: { address: addressOriginal } } = this.props
 
-    const { error, label, type, submitting, alreadyExists } = this.state
+    const { error, address, label, type, submitting, alreadyExists } = this.state
 
     return (
       <Modal
@@ -67,18 +68,20 @@ export default class EditAddress extends PureComponent {
           style={styles.titleText}
           text={t(alreadyExists ? 'title.editAddressLabel' : 'title.addAddressLabel')}
         />
-        <View style={styles.addressBlock}>
-          <CopyableText
-            style={styles.address}
-            textStyle={styles.addressText}
-            text={address}
-          />
-          <ChainExplorerIconButton
-            linkType='address'
-            address={address}
-            style={styles.chainLinkButton}
-          />
-        </View>
+        {addressOriginal ? (
+          <View style={styles.addressBlock}>
+            <CopyableText
+              style={styles.address}
+              textStyle={styles.addressText}
+              text={addressOriginal}
+            />
+            <ChainExplorerIconButton
+              linkType='address'
+              address={addressOriginal}
+              style={styles.chainLinkButton}
+            />
+          </View>
+        ) : null}
         {this._renderMeta({ type })}
         <FormWrapper style={styles.formWrapper}>
           <Form
@@ -87,6 +90,21 @@ export default class EditAddress extends PureComponent {
             onSubmit={this.onSubmit}
             validate={this.validate}
           >
+            {addressOriginal ? null : (
+              <Form.Field
+                name='address'
+                label={t('modal.editAddress.addressFieldLabel')}
+                style={styles.field}
+                labelStyle={formStyles.label}
+                labelTextStyle={formStyles.labelText}
+              >
+                <TextInput
+                  value={address}
+                  style={styles.addressInput}
+                  placeholder={t('modal.editAddress.addressInputPlaceholder')}
+                />
+              </Form.Field>
+            )}
             <Form.Field
               name='label'
               label={t('modal.editAddress.labelFieldLabel')}
@@ -172,23 +190,24 @@ export default class EditAddress extends PureComponent {
     )
   }
 
-  onChange = values => {
+  onChange = ({ label, address }) => {
     this.setState({
-      label: values.label,
+      address,
+      label,
       error: null
     })
   }
 
   onSubmit = () => {
-    const { data: { address } } = this.props
+    const { data: { address: addressOriginal } } = this.props
     const { saveAddressBookEntry } = this.props.actions
-    const { label, type } = this.state
+    const { address, label, type } = this.state
 
     this.setState({
       submitting: true,
       error: null
     }, () => {
-      saveAddressBookEntry(address, { label, type })
+      saveAddressBookEntry(address || addressOriginal, { label, type })
         .then(() => {
           toast(t('toast.addressSaved'))
 
@@ -204,10 +223,22 @@ export default class EditAddress extends PureComponent {
   }
 
   validate = values => {
+    const { data: { address: addressOriginal } } = this.props
     const ret = {}
 
     if (!_.get(values, 'label')) {
       ret.label = Form.VALIDATION_RESULT.MISSING
+    }
+
+    // if adding a new address where user has to input the address
+    if (!addressOriginal) {
+      const addr = _.get(values, 'address')
+
+      if (!addr) {
+        ret.address = Form.VALIDATION_RESULT.MISSING
+      } else if (!isAddress(addr)) {
+        ret.address = Form.VALIDATION_RESULT.INCORRECT
+      }
     }
 
     return ret

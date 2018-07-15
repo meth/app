@@ -9,6 +9,7 @@ import Layout from '../Layout'
 import Table from '../../../components/Table'
 import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
+import IconButton from '../../../components/IconButton'
 import LabelledAddress from '../../../components/LabelledAddress'
 import Loading from '../../../components/Loading'
 
@@ -59,6 +60,7 @@ export default class AddressBook extends CachePureComponent {
         style={styles.table}
         listStyle={styles.tableList}
         rowStyle={styles.tableRow}
+        filterInputStyle={styles.tableFilterInput}
         renderFilter={this._renderFilter}
         filterPlaceholderText={t('addressBook.filterPlaceholder')}
         showFilter={true}
@@ -71,8 +73,14 @@ export default class AddressBook extends CachePureComponent {
   }
 
   _renderFilter = defaultRenderFunc => (
-    <FormWrapper style={styles.tableFilter}>
+    <FormWrapper style={styles.tableFilterRow}>
       {defaultRenderFunc()}
+      <IconButton
+        icon={{ name: 'plus' }}
+        style={styles.tableFilterButton}
+        tooltip={t(`button.addAddress`)}
+        onPress={this._onPressAddAddress}
+      />
     </FormWrapper>
   )
 
@@ -92,6 +100,12 @@ export default class AddressBook extends CachePureComponent {
         <LabelledAddress address={address} label={label} />
       </Button>
     )
+  }
+
+  _onPressAddAddress = () => {
+    const { showEditAddressModal } = this.props.actions
+
+    showEditAddressModal()
   }
 
   onSelectEntry = address => {

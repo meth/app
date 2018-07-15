@@ -113,10 +113,11 @@ module.exports = {
       executeTransactionContractCall: 'Execute (via transaction)',
       viewTransactions: 'View transactions',
       transactionHistory: 'Transaction history',
-      addToAddressBook: 'Add to address book',
+      addToAddressBook: 'Add new address',
       addAccount: 'Add account',
       generateAccount: 'Generate account',
       addToken: 'Add token',
+      addAddress: 'Add address',
       addCustomToken: 'Add custom token',
       editCustomToken: 'Edit custom token',
       editLabel: 'Edit label',
@@ -236,6 +237,8 @@ module.exports = {
         cta: 'To generate an additional account from your passphrase press the button below.'
       },
       editAddress: {
+        addressInputPlaceholder: '0x...',
+        addressFieldLabel: 'Address',
         labelInputPlaceholder: 'Enter label...',
         labelFieldLabel: 'Label',
         areYouSureYouWantToDelete: 'Are you sure you want to remove this label?'
