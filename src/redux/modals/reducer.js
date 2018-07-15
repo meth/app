@@ -1,6 +1,7 @@
 import Immutable from 'immutable'
 import { handleActions } from 'redux-actions'
 
+import { CLOSE_WALLET } from '../account/actions'
 import { SHOW, HIDE } from './actions'
 import MODALS from '../../../common/constants/modals'
 
@@ -18,7 +19,9 @@ export default () => {
   return handleActions(
     {
       [SHOW]: (state, { payload: { type, data = {} } }) => state.set(type, data),
-      [HIDE]: (state, { payload: { type } }) => state.set(type, false)
+      [HIDE]: (state, { payload: { type } }) => state.set(type, false),
+      /* when user logs out, close all pending modals */
+      [CLOSE_WALLET]: () => InitialState
     },
     InitialState
   )
