@@ -1,8 +1,8 @@
-import { create, fontMaker } from '../../../styles'
+import { create, fontMaker, getHeaderHeight } from '../../../styles'
 
 const button = {
-  paddingVertical: 10,
-  borderRadius: 0
+  borderRadius: 0,
+  height: getHeaderHeight()
 }
 
 const flexRow = {

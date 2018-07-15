@@ -1,7 +1,7 @@
-import { create, getWindowDimensions } from '../../../styles'
+import { create, getWindowDimensions, getHeaderHeight } from '../../../styles'
 import commonStyles from './styles.common'
 
-const HEADER_HEIGHT = 36
+const HEADER_HEIGHT = getHeaderHeight()
 
 export default () => create({
   ...commonStyles,

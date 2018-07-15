@@ -36,12 +36,15 @@ export default create({
   },
   getStartedButton: {
     marginTop: 20,
-    marginBottom: 80
+    marginBottom: 20
   },
   getStartedButtonText: {
-    fontSize: '1rem'
+    fontSize: '1.5rem'
   },
   loginButtonText: {
     fontSize: '0.7rem'
+  },
+  linkButton: {
+    marginTop: 80
   }
 })

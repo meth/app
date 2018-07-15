@@ -8,6 +8,7 @@ import { getAppName } from '../../../../config'
 import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Button from '../../../components/Button'
+import LinkButton from '../../../components/LinkButton'
 import Image from '../../../components/Image'
 import Layout from '../Layout'
 
@@ -40,6 +41,10 @@ export default class Home extends PureComponent {
           textStyle={styles.loginButtonText}
           onPress={this.onPressLogin}
           title={t('linkButton.alreadyHavePasswordLogin')} />
+        <LinkButton
+          style={styles.linkButton}
+          onPress={this._onPressKeystoreFileNano}
+          title={t('linkButton.haveKeystoreFileLedgerNano')} />
       </Layout>
     )
   }
@@ -54,5 +59,11 @@ export default class Home extends PureComponent {
     const { navGo } = this.props.actions
 
     navGo(routes.LoginMnemonic.routeName)
+  }
+
+  _onPressKeystoreFileNano = () => {
+    const { showAlert } = this.props.actions
+
+    showAlert(t('home.doesNotSupportWalletTypes'))
   }
 }

@@ -143,5 +143,5 @@ export const getHeaderHeight = () => {
     return 64
   }
 
-  return 0 /* isWeb */
+  return 36 /* isWeb */
 }

@@ -406,6 +406,18 @@ export default {
         textColor: colorGrayDarker
       }
     }),
+    link: generateButtonStyles({
+      default: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorButtonBlue
+      },
+      hover: {
+        borderColor: colorTransparent,
+        backgroundColor: colorTransparent,
+        textColor: colorButtonBlueLight
+      }
+    }),
     mask: generateButtonStyles({
       default: {
         borderColor: colorButtonBlue,

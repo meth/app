@@ -1,7 +1,7 @@
 const { ALL_ADDRESSES } = require('../../constants/dappPermissions')
 const ADDRESS_TYPES = require('../../constants/addressTypes')
 const { TRANSACTION_TYPE } = require('../../constants/protocol')
-const { productName } = require('../../../package.json')
+const { appName } = require('../../../buildConfig.json')
 
 module.exports = {
   label: 'English',
@@ -58,7 +58,8 @@ module.exports = {
       unableToGenerateSignedData: 'Unable to sign data'
     },
     home: {
-      intro2: 'Let\'s get your wallet setup so that you can start using Ethereum.'
+      intro2: 'Let\'s get your wallet setup so that you can start using Ethereum.',
+      doesNotSupportWalletTypes: `${appName} does not currently support Keystore files, Ledger Nano, etc but will soon, stay tuned!`
     },
     mnemonic: {
       intro1: 'We have generated a passphrase for you.',
@@ -72,9 +73,10 @@ module.exports = {
       inputPlaceholderText: 'separate each word by a space ...'
     },
     linkButton: {
-      alreadyHavePasswordLogin: 'I already have a passphrase',
+      alreadyHavePasswordLogin: 'I already have a wallet passphrase',
       dontHavePasswordCreateOne: 'Don\'t have a wallet yet? Create one here',
-      goBackAndGenerateAnotherMnemonic: 'Go back and start again'
+      goBackAndGenerateAnotherMnemonic: 'Go back and start again',
+      haveKeystoreFileLedgerNano: 'I want to use a keystore file, Ledger nano, etc.'
     },
     log: {
       tab: {
