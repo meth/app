@@ -9,11 +9,11 @@ import { t } from '../../../../../../common/strings'
 import styles from './styles'
 import TokenBalance from '../../../../components/TokenBalance'
 import IconButton from '../../../../components/IconButton'
-import FormWrapper from '../../../../components/FormWrapper'
 import ProgressButton from '../../../../components/ProgressButton'
 import Icon from '../../../../components/Icon'
 import ErrorBox from '../../../../components/ErrorBox'
 import Table from '../../../../components/Table'
+import TableFilterRow from '../../../../components/TableFilterRow'
 
 const RENDER_NULL = () => null
 const TOKEN_COLUMNS = [ { id: 'address' } ]
@@ -26,31 +26,43 @@ export default class TokenTable extends CachePureComponent {
 
   state = {
     checkingBalance: {},
-    showAllTokens: true
+    showTokensWithBalancesFirst: false
   }
 
   render () {
     const { account, style } = this.props
-    const { showAllTokens } = this.state
+    const { showTokensWithBalancesFirst } = this.state
     const { getTokenList } = this.props.selectors
 
     const tokens = getTokenList()
     const tokenSymbols = Object.keys(tokens)
 
-    const rows = []
+    let haveBalances = false
 
-    tokenSymbols.forEach(token => {
+    const rows = tokenSymbols.map(token => {
       const { name, decimals, isCustom } = (tokens[token] || {})
       const balance = _.get(account.tokens, token)
 
-      if (showAllTokens || balance) {
-        rows.push({
-          symbol: { value: token },
-          meta: { name, balance, decimals, isCustom },
-          _filterKey: `${token} ${name || ''}`
-        })
+      haveBalances = haveBalances || (!!balance)
+
+      return {
+        symbol: { value: token },
+        meta: { name, balance, decimals, isCustom },
+        _filterKey: `${token} ${name || ''}`
       }
     })
+
+    if (showTokensWithBalancesFirst && haveBalances) {
+      rows.sort(({ meta: { balance: balance1 } }, { meta: { balance: balance2 } }) => {
+        if (balance1 && balance2) {
+          return balance1.gt(balance2) ? 1 : -1
+        } else if (balance2) {
+          return 1
+        }
+
+        return -1
+      })
+    }
 
     return (
       <View style={style}>
@@ -72,18 +84,21 @@ export default class TokenTable extends CachePureComponent {
   }
 
   _renderTokenFilter = defaultRenderFunc => {
-    const { showAllTokens } = this.state
-
-    const renderedFilter = defaultRenderFunc()
+    const { showTokensWithBalancesFirst } = this.state
 
     return (
-      <FormWrapper style={styles.tableFilterRow}>
-        {renderedFilter}
+      <TableFilterRow
+        style={styles.tableFilterRow}
+        renderFilter={defaultRenderFunc}
+      >
         <IconButton
-          icon={{ name: showAllTokens ? 'ios-funnel-outline' : 'ios-funnel' }}
+          icon={{ name: 'sort-variant' }}
           style={styles.tableFilterButton}
-          tooltip={t(`button.${showAllTokens ? 'onlyShowTokensWithBalance' : 'showAllTokens'}`)}
-          onPress={this._onPressToggleShowAllTokens}
+          tooltip={t(`button.showTokensWithBalancesFirst`)}
+          onPress={this._onPressShowTokensWithBalancesFirst}
+          stateOverride={showTokensWithBalancesFirst ? {
+            buttonState: 'hover'
+          } : null}
         />
         <IconButton
           icon={{ name: 'plus' }}
@@ -91,7 +106,7 @@ export default class TokenTable extends CachePureComponent {
           tooltip={t('button.addCustomToken')}
           onPress={this._onPressAddToken}
         />
-      </FormWrapper>
+      </TableFilterRow>
     )
   }
 
@@ -158,8 +173,10 @@ export default class TokenTable extends CachePureComponent {
     )
   }
 
-  _onPressToggleShowAllTokens = () => (
-    this.setState({ showAllTokens: !this.state.showAllTokens })
+  _onPressShowTokensWithBalancesFirst = () => (
+    this.setState({
+      showTokensWithBalancesFirst: !this.state.showTokensWithBalancesFirst
+    })
   )
 
   _onPressAddToken = () => {

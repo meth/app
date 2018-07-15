@@ -7,11 +7,11 @@ import { connectStore } from '../../../helpers/redux'
 import styles from './styles'
 import Layout from '../Layout'
 import Table from '../../../components/Table'
-import FormWrapper from '../../../components/FormWrapper'
 import Button from '../../../components/Button'
 import IconButton from '../../../components/IconButton'
 import LabelledAddress from '../../../components/LabelledAddress'
 import Loading from '../../../components/Loading'
+import TableFilterRow from '../../../components/TableFilterRow'
 
 
 const RENDER_HEADER = () => null
@@ -73,15 +73,17 @@ export default class AddressBook extends CachePureComponent {
   }
 
   _renderFilter = defaultRenderFunc => (
-    <FormWrapper style={styles.tableFilterRow}>
-      {defaultRenderFunc()}
+    <TableFilterRow
+      style={styles.tableFilterRow}
+      renderFilter={defaultRenderFunc}
+    >
       <IconButton
         icon={{ name: 'plus' }}
         style={styles.tableFilterButton}
         tooltip={t(`button.addAddress`)}
         onPress={this._onPressAddAddress}
       />
-    </FormWrapper>
+    </TableFilterRow>
   )
 
   _renderRowData = row => {

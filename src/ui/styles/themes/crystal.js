@@ -67,6 +67,9 @@ export default {
       textColor: colorWhite
     }
   },
+  verticalBar: {
+    color: colorGrayDark
+  },
   addressBook: {
     address: {
       textColor: colorGrayDarkest

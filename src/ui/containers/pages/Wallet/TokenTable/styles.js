@@ -15,9 +15,6 @@ export default create({
     height: 'auto'
   },
   tableFilterRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     marginBottom: 5
   },
   tableFilterInput: {

@@ -22,9 +22,6 @@ export default create({
     width: '100%'
   },
   tableFilterRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     marginBottom: 5
   },
   tableFilterInput: {
