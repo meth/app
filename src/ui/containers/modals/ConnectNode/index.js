@@ -55,8 +55,8 @@ export default class ConnectNode extends CachePureComponent {
 
     return (
       <Modal
-        onOverlayPress={isConnected ? this.dismissModal : null}
         contentScrollContainerStyle={styles.scrollContainerContent}
+        {...(isConnected ? { onPressCloseButton: this.dismissModal } : null)}
       >
         {content}
       </Modal>
