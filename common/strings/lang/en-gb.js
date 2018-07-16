@@ -72,12 +72,6 @@ module.exports = {
       wordOrderStillIncorrect: 'Please put the words in the correct order!',
       inputPlaceholderText: 'separate each word by a space ...'
     },
-    linkButton: {
-      alreadyHavePasswordLogin: 'I already have a wallet passphrase',
-      dontHavePasswordCreateOne: 'Don\'t have a wallet yet? Create one here',
-      goBackAndGenerateAnotherMnemonic: 'Go back and start again',
-      haveKeystoreFileLedgerNano: 'I want to use a keystore file, Ledger nano, etc.'
-    },
     log: {
       tab: {
         alerts: 'Alerts',
@@ -105,6 +99,9 @@ module.exports = {
       customTokenDeleted: 'Custom token deleted'
     },
     button: {
+      haveKeystoreFileLedgerNano: 'I want to use a keystore file, Ledger nano, etc.',
+      alreadyHavePasswordLogin: 'I already have a wallet passphrase',
+      goBack: 'Go back',
       getUpdate: 'Get update',
       convertUnits: 'Convert units',
       copyToClipboard: 'Copy to clipboard',

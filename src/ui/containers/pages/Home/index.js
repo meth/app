@@ -40,11 +40,11 @@ export default class Home extends PureComponent {
         <Button
           textStyle={styles.loginButtonText}
           onPress={this.onPressLogin}
-          title={t('linkButton.alreadyHavePasswordLogin')} />
+          title={t('button.alreadyHavePasswordLogin')} />
         <LinkButton
           style={styles.linkButton}
           onPress={this._onPressKeystoreFileNano}
-          title={t('linkButton.haveKeystoreFileLedgerNano')} />
+          title={t('button.haveKeystoreFileLedgerNano')} />
       </Layout>
     )
   }

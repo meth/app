@@ -36,11 +36,11 @@ export default create({
   nextButtonText: {
     fontSize: '1rem'
   },
-  loginButton: {
+  goBackButton: {
     marginTop: 40,
     marginBottom: 30
   },
-  loginButtonText: {
+  goBackButtonText: {
     fontSize: '0.7rem'
   }
 })

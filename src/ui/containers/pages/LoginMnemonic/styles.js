@@ -31,7 +31,7 @@ export default create({
   nextButtonText: {
     fontSize: '1rem'
   },
-  createPasswordButtonText: {
+  goBackButtonText: {
     fontSize: '0.7rem'
   }
 })

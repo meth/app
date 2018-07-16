@@ -53,9 +53,9 @@ export default class LoginMnemonic extends PureComponent {
           title={t('button.login')}
         />
         <Button
-          textStyle={styles.createPasswordButtonText}
-          onPress={this.onPressSignUp}
-          title={t('linkButton.dontHavePasswordCreateOne')}
+          textStyle={styles.goBackButtonText}
+          onPress={this.onPressGoBack}
+          title={t('button.goBack')}
         />
       </Layout>
     )
@@ -67,10 +67,10 @@ export default class LoginMnemonic extends PureComponent {
     })
   }
 
-  onPressSignUp = () => {
+  onPressGoBack = () => {
     const { navGo } = this.props.actions
 
-    navGo(routes.GenerateMnemonic.routeName)
+    navGo(routes.Home.routeName)
   }
 
   onPressLogin = () => {

@@ -57,7 +57,7 @@ export default class ConfirmNewMnemonic extends PureComponent {
           style={styles.goBackButton}
           textStyle={styles.goBackButtonText}
           onPress={this.onPressGoBack}
-          title={t('linkButton.goBackAndGenerateAnotherMnemonic')} />
+          title={t('button.goBack')} />
       </Layout>
     )
   }

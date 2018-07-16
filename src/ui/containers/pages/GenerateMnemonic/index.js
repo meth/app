@@ -24,6 +24,8 @@ export default class GenerateMnemonic extends PureComponent {
   }
 
   componentDidMount () {
+    this._generateMnemonic()
+
     // whenever we hit this screen we want to re-generate the mnemonic
     this._routeListener = addRouteListener('GenerateMnemonic', this._generateMnemonic)
   }
@@ -62,18 +64,18 @@ export default class GenerateMnemonic extends PureComponent {
           />
         )}
         <Button
-          style={styles.loginButton}
-          textStyle={styles.loginButtonText}
-          onPress={this.onPressLogin}
-          title={t('linkButton.alreadyHavePasswordLogin')} />
+          style={styles.goBackButton}
+          textStyle={styles.goBackButtonText}
+          onPress={this.onPressGoBack}
+          title={t('button.goBack')} />
       </Layout>
     )
   }
 
-  onPressLogin = () => {
+  onPressGoBack = () => {
     const { navGo } = this.props.actions
 
-    navGo(routes.LoginMnemonic.routeName)
+    navGo(routes.Home.routeName)
   }
 
   onPressConfirm = () => {

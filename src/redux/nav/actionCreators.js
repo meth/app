@@ -5,8 +5,6 @@ import { NAV_POST_LOGIN, NAV_POST_PIN } from './actions'
 import { createActionCreator } from '../utils'
 
 
-export const navBack = ({ key, immediate }) => NavigationActions.back({ key, immediate })
-
 export const navGo = (routeName, params) => NavigationActions.navigate({ routeName, params })
 
 export const navReset = (routeName, params) => ({

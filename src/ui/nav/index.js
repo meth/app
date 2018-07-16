@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { StackActions } from 'react-navigation'
+import { NavigationActions } from 'react-navigation'
 
 import { connectStore } from '../helpers/redux'
 import { getStore } from '../../redux'
@@ -65,7 +65,7 @@ export class Navigator extends PureComponent {
 
 export const addRouteListener = (screenName, cb) => (
   addListener('action', ({ action: { type } }) => {
-    if (StackActions.COMPLETE_TRANSITION === type) {
+    if (NavigationActions.NAVIGATE === type) {
       const { routeName } = getStore().selectors.getCurrentRoute()
 
       if (routeName === screenName) {
