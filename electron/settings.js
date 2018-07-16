@@ -96,7 +96,8 @@ class Settings {
   }
 
   get preloadBasePath () {
-    return path.resolve(path.join(__dirname, 'preload'))
+    // take into account that win32 uses backslash
+    return path.join(__dirname, 'preload').replace(/\\/igm, '/')
   }
 }
 

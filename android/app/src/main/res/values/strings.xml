@@ -1,4 +1,4 @@
 <resources>
     <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">key</string>
-    <string name="app_name">Meth (DEV)</string>
+    <string name="app_name">Meth (QA)</string>
 </resources>
