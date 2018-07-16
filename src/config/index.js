@@ -54,7 +54,7 @@ export const load = async (fileName, skipCache = false) => {
   return CACHE[fileName]
 }
 
-const LOCAL_CONFIG = Object.assign({}, require('../../buildConfig.json'))
+const LOCAL_CONFIG = require('../../buildConfig.json')
 
 export const getBackendUrl = () => LOCAL_CONFIG.backend
 export const getAppName = () => LOCAL_CONFIG.appName
