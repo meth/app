@@ -1,4 +1,4 @@
-import { setSpy as setToastSpy } from 'react-native-root-toast'
+import Toast from 'react-native-root-toast'
 import { AppState } from 'react-native'
 
 import {
@@ -10,10 +10,14 @@ import {
   toast
 } from './'
 
-jest.mock('./platform', () => () => ({
-  openExternalUrl: 100,
-  alert: 200
-}), { virtual: true })
+jest.mock(
+  './platform',
+  () => () => ({
+    openExternalUrl: 100,
+    alert: 200
+  }),
+  { virtual: true }
+)
 
 jest.mock('react-native', () => {
   // eslint-disable-next-line global-require
@@ -24,20 +28,16 @@ jest.mock('react-native', () => {
   return { AppState: appState }
 })
 
-jest.mock('react-native-root-toast', () => {
-  let mySpy
-
-  return {
+jest.mock('react-native-root-toast', () => (
+  require('method-mocks').setupMethodMocks({
     durations: {
       SHORT: 'short'
     },
     positions: {
       BOTTOM: 'bottom'
-    },
-    setSpy: s => { mySpy = s },
-    show: (...args) => mySpy(...args)
-  }
-})
+    }
+  })
+))
 
 describe('platform-specific defaults', () => {
   it('are set', () => {
@@ -51,7 +51,12 @@ describe('.toast()', () => {
 
   beforeEach(() => {
     spy = jest.fn()
-    setToastSpy(spy)
+
+    Toast.setMethodMock('show', spy)
+  })
+
+  afterEach(() => {
+    Toast.clearAllMethodMocks()
   })
 
   it('calls through to toast module', () => {

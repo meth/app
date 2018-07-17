@@ -1,6 +1,6 @@
 import { Alert, Linking } from 'react-native'
 
-const alertUser = msg => Alert.alert(msg)
+const alert = msg => Alert.alert(msg)
 
 const openExternalUrl = (url, log) => {
   Linking.canOpenURL(url)
@@ -15,6 +15,6 @@ const openExternalUrl = (url, log) => {
 }
 
 export default ({ log }) => ({
-  alertUser,
+  alert,
   openExternalUrl: url => openExternalUrl(url, log)
 })

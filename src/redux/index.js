@@ -35,7 +35,6 @@ export const setupStore = app => {
   if (__DEV__) {
     if (module.hot) {
       module.hot.accept('./reducers', () =>
-        // eslint-disable-next-line global-require
         store.replaceReducer(require('./reducers').createReducers(app)))
     }
   }
