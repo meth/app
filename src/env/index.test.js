@@ -28,7 +28,7 @@ jest.mock('react-native', () => {
   return { AppState: appState }
 })
 
-jest.mock('react-native-root-toast', () => (
+jest.mock('react-native-root-toast', () =>
   require('method-mocks').setupMethodMocks({
     durations: {
       SHORT: 'short'
@@ -36,8 +36,7 @@ jest.mock('react-native-root-toast', () => (
     positions: {
       BOTTOM: 'bottom'
     }
-  })
-))
+  }))
 
 describe('platform-specific defaults', () => {
   it('are set', () => {
