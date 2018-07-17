@@ -26,7 +26,6 @@ jest.mock('../utils/fetch', () => {
   }
 })
 
-
 describe('.getBackendUrl()', () => {
   it('returns correct value', () => {
     expect(getBackendUrl()).toEqual('https://test1.com')
@@ -48,21 +47,24 @@ describe('.getAppVersion()', () => {
 describe('.load()', () => {
   it('tries to load from remote', async () => {
     expect(load('test')).resolves.toEqual({
-      file: 'https://raw.githubusercontent.com/meth-project/meth-browser/master/src/config/test.json',
+      file:
+        'https://raw.githubusercontent.com/meth-project/meth-browser/master/src/config/test.json',
       count: 1
     })
   })
 
   it('loads from cached version the second time round even if remote available', async () => {
     expect(load('test')).resolves.toEqual({
-      file: 'https://raw.githubusercontent.com/meth-project/meth-browser/master/src/config/test.json',
+      file:
+        'https://raw.githubusercontent.com/meth-project/meth-browser/master/src/config/test.json',
       count: 1
     })
   })
 
   it('reloads from remote if explicitly told to skip cached version', async () => {
     expect(load('test', true)).resolves.toEqual({
-      file: 'https://raw.githubusercontent.com/meth-project/meth-browser/master/src/config/test.json',
+      file:
+        'https://raw.githubusercontent.com/meth-project/meth-browser/master/src/config/test.json',
       count: 2
     })
   })
