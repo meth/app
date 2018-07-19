@@ -1,7 +1,9 @@
 import { setupFonts, addFontForWeb, FONTS } from './'
 import setupMethods from './setup'
 
-jest.mock('./setup', () => require('method-mocks').setupMethodMocks({}), { virtual: true })
+jest.mock('./setup', () => require('method-mocks').setupMethodMocks({}), {
+  virtual: true
+})
 
 describe('.setupFonts()', () => {
   let spy
