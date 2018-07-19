@@ -1,4 +1,4 @@
-export { isAddress, isHexStrict } from 'web3-utils'
+export { isAddress, isHexStrict, toChecksumAddress } from 'web3-utils'
 
 export const prefixWith0x = str => `0x${str}`
 

@@ -23,8 +23,7 @@ export default class LoginMnemonic extends PureComponent {
   }
 
   state = {
-    mnemonic: 'siren light unknown alien opinion hunt dilemma token weird sail push session tornado silk gift stadium spike mirror vital february ride square fluid fee',
-    // mnemonic: null,
+    mnemonic: null,
     error: null,
     submitting: false
   }

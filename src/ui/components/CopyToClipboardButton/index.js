@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Clipboard } from 'react-native'
 
+import { toChecksumAddress, isAddress } from '../../../utils/string'
 import { t } from '../../../../common/strings'
 import { toast } from '../../../env'
 import IconButton from '../IconButton'
@@ -29,7 +30,7 @@ export default class CopyToClipboardButton extends PureComponent {
   _onPressCopy = () => {
     const { text } = this.props
 
-    Clipboard.setString(text)
+    Clipboard.setString(isAddress(text) ? toChecksumAddress(text) : text)
 
     toast(t('toast.copiedToClipboard'))
   }

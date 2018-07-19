@@ -8,20 +8,24 @@ const alert = msg => {
   /* eslint-disable no-console */
   console.error(msg)
   /* eslint-disable no-alert */
-  window.alert(msg)
+  if (typeof window !== 'undefined') {
+    window.alert(msg)
+  }
 }
 
-const openExternalUrl = url => {
-  window.postMessage(
-    {
-      ipc: IPC.BACKEND_TASK,
-      details: {
-        task: BACKEND_TASKS.OPEN_EXTERNAL_URL,
-        params: { url }
-      }
-    },
-    '*'
-  )
+const openExternalUrl = async url => {
+  if (typeof window !== 'undefined') {
+    window.postMessage(
+      {
+        ipc: IPC.BACKEND_TASK,
+        details: {
+          task: BACKEND_TASKS.OPEN_EXTERNAL_URL,
+          params: { url }
+        }
+      },
+      '*'
+    )
+  }
 }
 
 export default ({ globalEvents }) => {
