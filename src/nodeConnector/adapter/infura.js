@@ -1,8 +1,6 @@
 import { loadJSON } from '../../utils/fetch'
 import { Adapter } from './base'
-import availableMethods from './availableMethods'
-
-const METHODS = availableMethods
+import METHODS from './availableMethods'
 
 export default class InfuraAdapter extends Adapter {
   constructor (nodeConfig) {

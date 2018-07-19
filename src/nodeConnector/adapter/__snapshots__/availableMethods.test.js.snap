@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`available methods are correct 1`] = `
+Object {
+  "eth_blockNumber": Object {
+    "shareable": true,
+  },
+  "eth_call": Object {},
+  "eth_estimateGas": Object {},
+  "eth_gasPrice": Object {
+    "shareable": true,
+  },
+  "eth_getBalance": Object {
+    "shareable": true,
+  },
+  "eth_getBlockByHash": Object {
+    "shareable": true,
+  },
+  "eth_getBlockByNumber": Object {
+    "shareable": true,
+  },
+  "eth_getBlockTransactionCountByHash": Object {
+    "shareable": true,
+  },
+  "eth_getBlockTransactionCountByNumber": Object {
+    "shareable": true,
+  },
+  "eth_getCode": Object {
+    "shareable": true,
+  },
+  "eth_getCompilers": Object {
+    "shareable": true,
+  },
+  "eth_getLogs": Object {
+    "shareable": true,
+  },
+  "eth_getStorageAt": Object {
+    "shareable": true,
+  },
+  "eth_getTransactionByBlockHashAndIndex": Object {
+    "shareable": true,
+  },
+  "eth_getTransactionByBlockNumberAndIndex": Object {
+    "shareable": true,
+  },
+  "eth_getTransactionByHash": Object {
+    "shareable": true,
+  },
+  "eth_getTransactionCount": Object {
+    "shareable": true,
+  },
+  "eth_getTransactionReceipt": Object {
+    "shareable": true,
+  },
+  "eth_getUncleByBlockHashAndIndex": Object {
+    "shareable": true,
+  },
+  "eth_getUncleByBlockNumberAndIndex": Object {
+    "shareable": true,
+  },
+  "eth_getUncleCountByBlockHash": Object {
+    "shareable": true,
+  },
+  "eth_getUncleCountByBlockNumber": Object {
+    "shareable": true,
+  },
+  "eth_getWork": Object {
+    "shareable": true,
+  },
+  "eth_hashrate": Object {
+    "shareable": true,
+  },
+  "eth_mining": Object {
+    "shareable": true,
+  },
+  "eth_protocolVersion": Object {
+    "shareable": true,
+  },
+  "eth_sendRawTransaction": Object {},
+  "eth_submitHashrate": Object {},
+  "eth_submitWork": Object {},
+  "eth_syncing": Object {
+    "shareable": true,
+  },
+  "net_listening": Object {
+    "shareable": true,
+  },
+  "net_peerCount": Object {
+    "shareable": true,
+  },
+  "net_version": Object {
+    "shareable": true,
+  },
+}
+`;

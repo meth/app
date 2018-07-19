@@ -1,14 +1,16 @@
 import { loadJSON } from '../../utils/fetch'
 import { Adapter } from './base'
-import availableMethods from './availableMethods'
+import METHODS from './availableMethods'
 
-const METHODS = availableMethods
-METHODS.eth_coinbase = true
+const RPC_METHODS = {
+  ...METHODS,
+  eth_coinbase: { shareable: true }
+}
 
 
 export default class RpcAdapter extends Adapter {
   constructor (nodeConfig) {
-    super(nodeConfig, 'rpc', METHODS)
+    super(nodeConfig, 'rpc', RPC_METHODS)
 
     this._url = nodeConfig.url
   }

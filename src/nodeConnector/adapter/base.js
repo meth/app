@@ -16,36 +16,6 @@ import {
 const log = logger.create('Adapter')
 
 
-const SHAREABLE_METHOD_CALLS = {
-  net_version: true,
-  net_listening: true,
-  net_peerCount: true,
-  eth_protocolVersion: true,
-  eth_syncing: true,
-  eth_coinbase: true,
-  eth_mining: true,
-  eth_gasPrice: true,
-  eth_hashrate: true,
-  eth_blockNumber: true,
-  eth_getBalance: true,
-  eth_getStorageAt: true,
-  eth_getTransactionCount: true,
-  eth_getBlockTransactionCountByHash: true,
-  eth_getBlockTransactionCountByNumber: true,
-  eth_getUncleCountByBlockHash: true,
-  eth_getUncleCountByBlockNumber: true,
-  eth_getCode: true,
-  eth_getBlockByHash: true,
-  eth_getBlockByNumber: true,
-  eth_getTransactionByHash: true,
-  eth_getTransactionByBlockHashAndIndex: true,
-  eth_getTransactionByBlockNumberAndIndex: true,
-  eth_getTransactionReceipt: true,
-  eth_getUncleByBlockHashAndIndex: true,
-  eth_getUncleByBlockNumberAndIndex: true,
-  eth_getLogs: true
-}
-
 
 /**
  * Base node connection adapter
@@ -267,7 +237,7 @@ class Adapter extends EventEmitter {
 
     const existing = this._callPromises[sig]
 
-    if (SHAREABLE_METHOD_CALLS[method] && existing) {
+    if (this._methods[method].shareable && existing) {
       this._log.debug(`Call ${id} will piggyback on call ${existing.id} which is in-progress`)
 
       return existing
@@ -285,7 +255,7 @@ class Adapter extends EventEmitter {
           throw err
         })
 
-    if (SHAREABLE_METHOD_CALLS[method]) {
+    if (this._methods[method].shareable) {
       this._callPromises[sig] = promise
     }
 
@@ -307,7 +277,7 @@ class Adapter extends EventEmitter {
    * @return {Promise}
    */
   async _checkMethodAllowed (method) {
-    if (true !== this._methods[method]) {
+    if (!this._methods[method]) {
       throw new MethodNotAllowedError(method)
     }
   }
