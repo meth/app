@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.FONTS is correct 1`] = `
+Object {
+  "OpenSans": Object {
+    "styles": Object {
+      "Italic": "italic",
+    },
+    "weights": Object {
+      "Bold": "700",
+      "ExtraBold": "800",
+      "Light": "300",
+      "Normal": "400",
+      "SemiBold": "600",
+    },
+  },
+}
+`;

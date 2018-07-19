@@ -2,7 +2,7 @@ import { initialSetup, addWebFont } from './setup'
 
 export const setupFonts = () => initialSetup()
 
-export const addFontForWeb = addWebFont
+export const addFontForWeb = (...args) => addWebFont(...args)
 
 export const FONTS = {
   OpenSans: {

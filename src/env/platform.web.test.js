@@ -3,7 +3,6 @@ import setup from './platform.web'
 import IPC from '../../common/constants/ipc'
 import BACKEND_TASKS from '../../common/constants/ipcBackendTasks'
 
-
 describe('.alert()', () => {
   let consoleSpy
   let alertSpy
