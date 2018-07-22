@@ -86,7 +86,7 @@ export default class Root extends PureComponent {
   _onAppActive = () => {
     const { isUserAuthenticated, getSecurityPin } = this.props.selectors
 
-    if (isUserAuthenticated() && isMobile) {
+    if (isUserAuthenticated() && isMobile()) {
       this.confirmPinModal.show(getSecurityPin())
     }
   }

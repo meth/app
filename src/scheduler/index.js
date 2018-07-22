@@ -18,7 +18,7 @@ class Scheduler extends EventEmitter {
     this._running = false
 
     // on mobile we pause the scheduler when app is inactive
-    if (isMobile) {
+    if (isMobile()) {
       globalEvents.on(UI_TASKS.APP_ACTIVE, this.start)
       globalEvents.on(UI_TASKS.APP_INACTIVE, this.stop)
     }

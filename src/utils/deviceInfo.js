@@ -4,7 +4,7 @@ import DeviceInfo from 'react-native-device-info'
 export const isWeb = 'web' === Platform.OS
 export const isAndroid = 'android' === Platform.OS
 export const isIos = 'ios' === Platform.OS
-export const isMobile = isAndroid || isIos
+export const isMobile = () => isAndroid || isIos
 
 export const getOsName = () => {
   if (isAndroid) {

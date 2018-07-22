@@ -38,6 +38,7 @@
     }
   },
   "globals": {
+    "sleepAsync": true,
     "__DEV__": true,
     "window": true,
     "document": true,
