@@ -1,8 +1,9 @@
 import scheduler from './'
 
-jest.mock('../utils/deviceInfo', () => require('method-mocks').setupMethodMocks({
-  isMobile: () => false
-}))
+jest.mock('../utils/deviceInfo', () =>
+  require('method-mocks').setupMethodMocks({
+    isMobile: () => false
+  }))
 
 jest.mock('../env', () => ({ globalEvents: new (require('eventemitter3'))() }))
 

@@ -2,9 +2,10 @@ import scheduler from './'
 import { globalEvents } from '../env'
 import UI_TASKS from '../../common/constants/ipcUiTasks'
 
-jest.mock('../utils/deviceInfo', () => require('method-mocks').setupMethodMocks({
-  isMobile: () => true
-}))
+jest.mock('../utils/deviceInfo', () =>
+  require('method-mocks').setupMethodMocks({
+    isMobile: () => true
+  }))
 
 jest.mock('../env', () => ({ globalEvents: new (require('eventemitter3'))() }))
 
