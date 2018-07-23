@@ -1,6 +1,13 @@
 import web3utils from 'web3-utils'
 
-import { isAddress, isHexStrict, toChecksumAddress, prefixWith0x, prefixedWith0x, randStr } from './string'
+import {
+  isAddress,
+  isHexStrict,
+  toChecksumAddress,
+  prefixWith0x,
+  prefixedWith0x,
+  randStr
+} from './string'
 
 describe('.isAddress()', () => {
   it('same as from web3 utils', () => {

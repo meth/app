@@ -9,7 +9,7 @@ const card = {
 
 const cardButton = {
   borderRadius: 0,
-  ...((isIos || isAndroid) ? {
+  ...((isIos() || isAndroid()) ? {
     ...dropShadower(2)
   } : {})
 }
@@ -23,11 +23,11 @@ export default create({
   cardButton_active: {
     ...cardButton,
     borderColor: '$button_walletCard_enabled_hover_borderColor',
-    ...(isWeb ? { borderBottomWidth: 0 } : {})
+    ...(isWeb() ? { borderBottomWidth: 0 } : {})
   },
   cardButton_inactive: {
     ...cardButton,
-    ...(isWeb ? {
+    ...(isWeb() ? {
       borderBottomColor: '$button_walletCard_enabled_hover_borderColor'
     } : {})
   },

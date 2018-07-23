@@ -26,6 +26,7 @@ import createTransactionPreprocessor from './transactionPreprocessor'
 import { createAction } from '../utils'
 import { SendTransactionError, SignDataError } from '../../utils/errors'
 import { hexStrToNumber } from '../../utils/number'
+import { sanitizeMnemonic } from '../../utils/mnemonic'
 import { getOrderedMethodParams } from '../../utils/contracts'
 import logger from '../../logger'
 
@@ -69,7 +70,7 @@ export default ({ storage, nodeConnector, walletManager }) => {
       case LOAD_WALLET: {
         log.debug('Load wallet ...')
 
-        const mnemonic = action.payload
+        const mnemonic = sanitizeMnemonic(action.payload)
         log.debug(`Mnemonic: ${mnemonic}`)
 
         await walletManager.load(mnemonic)

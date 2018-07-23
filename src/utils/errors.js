@@ -9,19 +9,19 @@ const define = ClassName => {
 
       this.name = ClassName
       this.type = ClassName
-    }
 
-    toJSON () {
-      const ret = {
-        name: this.name,
-        message: this.message
+      this.toJSON = () => {
+        const ret = {
+          name: this.name,
+          message: this.message
+        }
+
+        if (this.method) {
+          ret.method = this.method
+        }
+
+        return ret
       }
-
-      if (this.method) {
-        ret.method = this.method
-      }
-
-      return ret
     }
   }
 

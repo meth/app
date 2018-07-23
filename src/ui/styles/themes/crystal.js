@@ -445,7 +445,7 @@ export default {
         textColor: colorButtonBlue
       }
     }),
-    walletCard: generateButtonStyles(isWeb ? {
+    walletCard: generateButtonStyles(isWeb() ? {
       default: {
         borderColor: colorGrayLight,
         backgroundColor: colorWhite,

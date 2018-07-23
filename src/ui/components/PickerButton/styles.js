@@ -22,7 +22,7 @@ export default create({
   text: {
     ...text,
     fontSize: '1rem',
-    ...(isAndroid ? { paddingVertical: 5 } : null)
+    ...(isAndroid() ? { paddingVertical: 5 } : null)
   },
   iconText: {
     ...text,

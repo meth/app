@@ -59,7 +59,7 @@ export default class Cards extends CachePureComponent {
   _renderAccountCard = (accounts, address, index) => (
     this._renderCard(address, index, isActive => (
       <WalletCard
-        isActive={isWeb ? isActive : true}
+        isActive={isWeb() ? isActive : true}
         style={styles.card}
         account={{
           address,

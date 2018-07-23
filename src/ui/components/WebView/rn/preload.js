@@ -13,7 +13,7 @@ export default () => `
     try {
       var msg = JSON.stringify({ id, type, payload });
 
-      if (${isAndroid}) {
+      if (${isAndroid()}) {
         window.postMessage(msg, '*');
       } else {
         window.webkit.messageHandlers.reactNative.postMessage(msg, '*');

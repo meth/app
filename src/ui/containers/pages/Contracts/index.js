@@ -98,7 +98,7 @@ export default class AddressBook extends PureComponent {
               style={styles.textInput}
               placeholder={t('contracts.field.abiPlaceholder')}
               multiline={true}
-              numberOfLines={isWeb ? 15 : 5}
+              numberOfLines={isWeb() ? 15 : 5}
               onChange={this._onAbiChange}
             />
           </View>

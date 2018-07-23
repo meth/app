@@ -17,7 +17,7 @@ export default class CustomScrollView extends PureComponent {
   render () {
     const { useKeyboardAvoidingScrollView, ...props } = this.props
 
-    return (useKeyboardAvoidingScrollView && !isWeb) ? (
+    return (useKeyboardAvoidingScrollView && !isWeb()) ? (
       <KeyboardAwareScrollView
         enableOnAndroid={false}
         keyboardOpeningTime={150}

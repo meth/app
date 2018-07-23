@@ -70,14 +70,14 @@ export const fontMaker = (options = {}) => {
   const { name } = params
   let { weight, style } = params
 
-  if (isWeb) {
+  if (isWeb()) {
     return {
       fontFamily: `${name}${weight || ''}${style || ''}`,
       ...transparentBg
     }
   }
 
-  if (isAndroid) {
+  if (isAndroid()) {
     weight = FONTS[name].weights[weight] ? weight : ''
     style = FONTS[name].styles[style] ? style : ''
 
@@ -88,7 +88,7 @@ export const fontMaker = (options = {}) => {
     }
   }
 
-  if (isIos) {
+  if (isIos()) {
     weight = FONTS[name].weights[weight] || FONTS[name].weights.Normal
     style = FONTS[name].styles[style] || 'normal'
 
@@ -124,7 +124,7 @@ export const perHeight = setHeightBreakpoints(SCREEN_HEIGHT_SMALL, SCREEN_HEIGHT
 export const create = def => EStyleSheet.create(parse(def))
 
 export const perPlatform = (web, mobile) => {
-  if (isWeb) {
+  if (isWeb()) {
     return web
   }
 
@@ -133,13 +133,13 @@ export const perPlatform = (web, mobile) => {
 
 export const getHeaderHeight = () => {
   // from https://github.com/react-navigation/react-navigation/blob/8ec2466fefc7b0a22dde088bd982e20bdfb2c767/src/views/StackView/StackViewLayout.js#L474
-  if (isAndroid) {
+  if (isAndroid()) {
     return 56
   }
-  else if (isIphoneX) {
+  else if (isIphoneX()) {
     return 88
   }
-  else if (isIos) {
+  else if (isIos()) {
     return 64
   }
 

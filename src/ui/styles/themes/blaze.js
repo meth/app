@@ -412,7 +412,7 @@ export default {
         textColor: colorWhite
       }
     }),
-    walletCard: generateButtonStyles(isWeb ? {
+    walletCard: generateButtonStyles(isWeb() ? {
       default: {
         borderColor: colorGrayLight,
         backgroundColor: colorWhite,

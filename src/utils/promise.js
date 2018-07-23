@@ -5,14 +5,14 @@ export const waitUntil = (callback, value, timeoutMs) =>
     const timeoutTimer = setTimeout(() => {
       clearInterval(intervalTimer)
 
-      resolve()
+      resolve(false)
     }, timeoutMs)
 
     intervalTimer = setInterval(() => {
       if (callback() === value) {
         clearTimeout(timeoutTimer)
         clearInterval(intervalTimer)
-        resolve()
+        resolve(true)
       }
     }, 10 /* check every 10 ms */)
   })
