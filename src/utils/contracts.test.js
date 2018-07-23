@@ -1,5 +1,10 @@
 import ABI from '../../testdata/tokenContract.abi.json'
-import { getAbiFunctionNames, isAbiFunctionReadOnly, getOrderedMethodParams, methodHasOutputs } from './contracts'
+import {
+  getAbiFunctionNames,
+  isAbiFunctionReadOnly,
+  getOrderedMethodParams,
+  methodHasOutputs
+} from './contracts'
 
 describe('.getAbiFunctionNames()', () => {
   it('returns null if invalid', () => {
@@ -36,9 +41,7 @@ describe('.getOrderedMethodParams()', () => {
       spender: 2
     }
 
-    expect(getOrderedMethodParams(ABI, 'approve', params)).toEqual([
-      2, 1
-    ])
+    expect(getOrderedMethodParams(ABI, 'approve', params)).toEqual([ 2, 1 ])
   })
 })
 
