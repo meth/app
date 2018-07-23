@@ -10,7 +10,7 @@ import {
 
 const log = logger.create('fetch')
 
-const TIMEOUT = 10
+const DEFAULT_TIMEOUT_MS = 10000 /* 10 seconds */
 
 const logRequestDuration = startTime => {
   log.debug(`Request took: ${Date.now() - startTime}ms`)
@@ -21,7 +21,8 @@ export const loadJSON = async (
   method = 'GET',
   query = {},
   body = {},
-  headers = {}
+  headers = {},
+  timeoutMs = DEFAULT_TIMEOUT_MS
 ) => {
   log.debug(
     `${method.toUpperCase()} [${url}] headers=${JSON.stringify(headers)}`
@@ -52,20 +53,22 @@ export const loadJSON = async (
 
   try {
     res = await new Promise((resolve, reject) => {
-      fetch(myUrl, req).then(resolve, reject)
-
-      setTimeout(() => {
+      const timeoutTimer = setTimeout(() => {
         reject(new RequestTimeoutError('Fetch timed out'))
-      }, TIMEOUT * 1000)
+      }, timeoutMs)
+
+      fetch(myUrl, req).then((...result) => {
+        clearTimeout(timeoutTimer)
+        resolve(...result)
+      }, reject)
     })
   } catch (err) {
-    const errStr = err.toString().toLowerCase()
-
     // basic error parsing
     let err2 = err
+    const errStr = err.toString().toLowerCase()
     if (
-      errStr.indexOf('failed to fetch') ||
-      errStr.indexOf('network request failed')
+      errStr.includes('failed to fetch') ||
+      errStr.includes('network request failed')
     ) {
       err2 = new UnableToConnectError('Fetch failed')
     }
