@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`colors are as expected 1`] = `
+Object {
+  "colorBlack": "#000",
+  "colorGray": "#9a9a9a",
+  "colorGrayDark": "#777",
+  "colorGrayDarker": "#444",
+  "colorGrayDarkest": "#222",
+  "colorGrayLight": "#ccc",
+  "colorGrayLighter": "#eee",
+  "colorGrayLightest": "#f2f2f2",
+  "colorGreen": "#5CB22B",
+  "colorOrange": "#fd7400",
+  "colorPurple": "#b008b2",
+  "colorPurpleDark": "#650566",
+  "colorPurpleDarker": "#4B004C",
+  "colorPurpleLight": "#FC0BFF",
+  "colorRed": "#fd4100",
+  "colorTransparent": "transparent",
+  "colorWhite": "#fff",
+  "colorYellowLight": "#ffffaa",
+  "darken": [Function],
+  "lighten": [Function],
+  "toRGBA": [Function],
+}
+`;

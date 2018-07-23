@@ -13,7 +13,9 @@ describe('.mnemonicToList()', () => {
 
 describe('.listToMnemonic()', () => {
   it('returns string from list', () => {
-    expect(listToMnemonic([ '  abc ', 'def', '', '  ghi', 'j ' ])).toEqual('abc def ghi j')
+    expect(listToMnemonic([ '  abc ', 'def', '', '  ghi', 'j ' ])).toEqual(
+      'abc def ghi j'
+    )
   })
 })
 

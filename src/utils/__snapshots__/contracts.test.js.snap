@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`.getAbiFunctionNames() returns results if valid 1`] = `
+Array [
+  "name",
+  "approve",
+  "hasTokensNonConstant",
+  "totalSupply",
+  "transferFrom",
+  "decimals",
+  "hasTokens",
+  "_totalSupply",
+  "balanceOf",
+  "acceptOwnership",
+  "owner",
+  "symbol",
+  "safeSub",
+  "transfer",
+  "safeDiv",
+  "approveAndCall",
+  "safeMul",
+  "newOwner",
+  "transferAnyERC20Token",
+  "allowance",
+  "safeAdd",
+  "transferOwnership",
+]
+`;

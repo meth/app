@@ -29,7 +29,6 @@ describe('web', () => {
   })
 })
 
-
 describe('android', () => {
   let deviceInfo
 
@@ -61,7 +60,6 @@ describe('android', () => {
   })
 })
 
-
 describe('ios (not iphonex)', () => {
   let deviceInfo
 
@@ -92,7 +90,6 @@ describe('ios (not iphonex)', () => {
     expect(deviceInfo.getOsName()).toEqual('ios')
   })
 })
-
 
 describe('ios (+ iphonex)', () => {
   let deviceInfo

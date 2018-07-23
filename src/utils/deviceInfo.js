@@ -18,9 +18,8 @@ export const getOsName = () => {
 
 const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('window')
 
-export const isIphoneX = () => (
+export const isIphoneX = () =>
   Platform.OS === 'ios' &&
   !Platform.isPad &&
   !Platform.isTVOS &&
   (WINDOW_HEIGHT === 812 || WINDOW_WIDTH === 812)
-)

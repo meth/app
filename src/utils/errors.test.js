@@ -25,10 +25,12 @@ describe('errors', () => {
       expect(e.name).toEqual(className)
       expect(e.type).toEqual(className)
       expect(e).toBeInstanceOf(Error)
-      expect(JSON.stringify(e)).toEqual(JSON.stringify({
-        name: className,
-        message: 'test'
-      }))
+      expect(JSON.stringify(e)).toEqual(
+        JSON.stringify({
+          name: className,
+          message: 'test'
+        })
+      )
     })
   })
 
@@ -37,14 +39,20 @@ describe('errors', () => {
       const e = new errors.SignDataError('test')
 
       expect(errors.instanceOfError(e, Error)).toBe(false)
+      expect(errors.instanceOfError(e, errors.SignDataError)).toBe(true)
       expect(
-        errors.instanceOfError(e, errors.SignDataError)
+        errors.instanceOfError(
+          e,
+          errors.SignDataError,
+          errors.SendTransactionError
+        )
       ).toBe(true)
       expect(
-        errors.instanceOfError(e, errors.SignDataError, errors.SendTransactionError)
-      ).toBe(true)
-      expect(
-        errors.instanceOfError(e, errors.RequestTimeoutError, errors.SendTransactionError)
+        errors.instanceOfError(
+          e,
+          errors.RequestTimeoutError,
+          errors.SendTransactionError
+        )
       ).toBe(false)
     })
   })
