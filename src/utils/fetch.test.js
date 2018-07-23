@@ -21,11 +21,18 @@ describe('.loadJSON()', () => {
   })
 
   it('loads from remote', async () => {
-    fetchHandler = () => Promise.resolve({
-      json: () => Promise.resolve({ success: true })
-    })
+    fetchHandler = () =>
+      Promise.resolve({
+        json: () => Promise.resolve({ success: true })
+      })
 
-    const result = await loadJSON('http://google.com', 'GET', { a: 1 }, { b: 2 }, { c: 3 })
+    const result = await loadJSON(
+      'http://google.com',
+      'GET',
+      { a: 1 },
+      { b: 2 },
+      { c: 3 }
+    )
 
     expect(result).toEqual({
       success: true
@@ -42,11 +49,18 @@ describe('.loadJSON()', () => {
   })
 
   it('can POST to remote', async () => {
-    fetchHandler = () => Promise.resolve({
-      json: () => Promise.resolve({ success: true })
-    })
+    fetchHandler = () =>
+      Promise.resolve({
+        json: () => Promise.resolve({ success: true })
+      })
 
-    const result = await loadJSON('http://google.com', 'POST', { a: 1 }, { b: 2 }, { c: 3 })
+    const result = await loadJSON(
+      'http://google.com',
+      'POST',
+      { a: 1 },
+      { b: 2 },
+      { c: 3 }
+    )
 
     expect(result).toEqual({
       success: true
@@ -92,9 +106,10 @@ describe('.loadJSON()', () => {
   })
 
   it('can handle result parsing failures', async () => {
-    fetchHandler = () => Promise.resolve({
-      json: () => Promise.reject(new Error('fail'))
-    })
+    fetchHandler = () =>
+      Promise.resolve({
+        json: () => Promise.reject(new Error('fail'))
+      })
 
     try {
       await loadJSON('http://google.com')

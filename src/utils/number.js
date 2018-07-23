@@ -12,12 +12,10 @@ BigNumber.config({
   }
 })
 
-export const isNumber = val => 'number' === typeof val && `${val}` !== 'NaN'
-
 export const toBigNum = (num, base = 10) => new BigNumber(num, base)
 
-export const hexStrToNumber = num => toBigNum(num, 16).toNumber()
 export const hexStrToBigNum = num => toBigNum(num, 16)
+export const hexStrToNumber = num => hexStrToBigNum(num).toNumber()
 export const toHexStr = num => `0x${toBigNum(num).toString(16)}`
 export const toDecStr = num => toBigNum(num).toString(10)
 export const toFormattedDecStr = (
@@ -27,7 +25,7 @@ export const toFormattedDecStr = (
 ) => {
   let str = showCommas
     ? toBigNum(num).toFormat(decimals)
-    : toBigNum.toFixed(decimals)
+    : toBigNum(num).toFixed(decimals)
 
   // remove excess 0's from the end
   while (
