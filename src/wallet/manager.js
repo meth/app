@@ -22,7 +22,7 @@ export const init = ({ store, nodeConnector }) => {
  */
 export const generateMnemonic = async () => {
   // we need to pass-in a custom RNG otherwise it will error, see https://github.com/bitcoinjs/bip39/blob/master/index.js#L115
-  const randomBytes = await getRandomBytes(64) // 32 words (32-bits each)
+  const randomBytes = await getRandomBytes(64)
   const str = Bip39.generateMnemonic(256, numBytes =>
     Buffer.from(randomBytes.slice(0, numBytes)))
 
