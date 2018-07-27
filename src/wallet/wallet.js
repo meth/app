@@ -218,7 +218,7 @@ class Wallet extends EventEmitter {
   }
 
   /**
-   * Update account balances\
+   * Update account balances
    */
   async _updateBalances () {
     log.debug('Update address balances ...')

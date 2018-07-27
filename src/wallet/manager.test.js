@@ -6,7 +6,9 @@ import Wallet from './wallet'
 
 jest.mock('bip39', () => require('method-mocks').setupMethodMocks())
 
-jest.mock('../utils/crypto/random', () => numBytes => [ numBytes ], { virtual: true })
+jest.mock('../utils/crypto/random', () => numBytes => [ numBytes ], {
+  virtual: true
+})
 
 jest.mock('./wallet', () => {
   class MockWallet {
@@ -29,8 +31,6 @@ jest.mock('./wallet', () => {
 
   return MockWallet
 })
-
-
 
 describe('generateMnemonic', () => {
   let generateSpy
@@ -60,7 +60,8 @@ describe('generateMnemonic', () => {
   })
 
   it('ensures there are no duplicates a menmonic', async () => {
-    generateSpy = jest.fn()
+    generateSpy = jest
+      .fn()
       .mockImplementationOnce(() => 'abc abc')
       .mockImplementationOnce(() => 'abc def')
 
@@ -71,7 +72,6 @@ describe('generateMnemonic', () => {
     expect(generateSpy).toHaveBeenCalledTimes(2)
   })
 })
-
 
 describe('.load()', () => {
   let store
