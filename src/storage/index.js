@@ -47,7 +47,9 @@ export class Storage {
       this.shutdownDatabases([ ...PER_MNEMONIC_DBS, ...PER_NETWORK_DBS ])
     } else {
       // if network is connected setup the network dbs too
-      this.setupDatabases(PER_MNEMONIC_DBS.concat(this._network ? PER_NETWORK_DBS : []))
+      this.setupDatabases(
+        PER_MNEMONIC_DBS.concat(this._network ? PER_NETWORK_DBS : [])
+      )
     }
   }
 

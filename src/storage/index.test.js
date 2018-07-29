@@ -43,7 +43,9 @@ describe('Storage', () => {
     it('shuts down all dbs if mnemonic is cleared', async () => {
       await s.setMnemonic()
 
-      expect(s.shutdownDatabases).toHaveBeenCalledWith(PER_MNEMONIC_DBS.concat(PER_NETWORK_DBS))
+      expect(s.shutdownDatabases).toHaveBeenCalledWith(
+        PER_MNEMONIC_DBS.concat(PER_NETWORK_DBS)
+      )
       expect(s.setupDatabases).not.toHaveBeenCalled()
     })
 
@@ -59,7 +61,9 @@ describe('Storage', () => {
 
       await s.setMnemonic('password')
 
-      expect(s.setupDatabases).toHaveBeenCalledWith(PER_MNEMONIC_DBS.concat(PER_NETWORK_DBS))
+      expect(s.setupDatabases).toHaveBeenCalledWith(
+        PER_MNEMONIC_DBS.concat(PER_NETWORK_DBS)
+      )
       expect(s.shutdownDatabases).not.toHaveBeenCalled()
     })
   })
@@ -82,6 +86,25 @@ describe('Storage', () => {
 
       expect(s.setupDatabases).toHaveBeenCalledWith(PER_NETWORK_DBS)
       expect(s.shutdownDatabases).not.toHaveBeenCalled()
+    })
+  })
+
+
+  describe('db getters', () => {
+    it('work', () => {
+      s._db = {
+        transactions: 1,
+        addressBook: 2,
+        customTokens: 3,
+        appSettings: 4,
+        bookmarks: 5
+      }
+
+      expect(s.transactions).toEqual(1)
+      expect(s.addressBook).toEqual(2)
+      expect(s.customTokens).toEqual(3)
+      expect(s.appSettings).toEqual(4)
+      expect(s.bookmarks).toEqual(5)
     })
   })
 })
