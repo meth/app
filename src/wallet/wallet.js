@@ -283,6 +283,8 @@ class Wallet extends EventEmitter {
 
       let checked = 0
 
+      const zeroBalance = hexStrToBigNum('0x0')
+
       // eslint-disable-next-line consistent-return
       const _scanAddresses = async () => {
         const [ nextAddress ] = wallet.generateAddresses(1)
@@ -290,7 +292,7 @@ class Wallet extends EventEmitter {
         // eslint-disable-next-line no-await-in-loop
         const balance = await this._getBalance(nextAddress)
 
-        if (0 < balance) {
+        if (zeroBalance.isLessThan(hexStrToBigNum(balance))) {
           checked = 0
         } else {
           checked += 1

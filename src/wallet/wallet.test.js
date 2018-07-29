@@ -1,10 +1,17 @@
 import BigNumber from 'bignumber.js'
 import EventEmitter from 'eventemitter3'
+import { EthHdWallet } from 'eth-hd-wallet'
 
 import { toHexStr } from '../utils/number'
 import Wallet from './wallet'
 import EVENT from '../../common/constants/events'
 import STATE from '../../common/constants/states'
+
+
+jest.mock('eth-hd-wallet', () => ({
+  EthHdWallet: require('method-mocks').setupMethodMocks()
+}))
+
 
 describe('.init()', () => {
   let store
@@ -340,5 +347,95 @@ describe('._setBalancesAndNotifyStore', () => {
     await w._setBalancesAndNotifyStore([ '0xdeadbeef', '0xf00dba11' ])
 
     expect(store.actions.injectAccountBalances).toHaveBeenCalledWith(123)
+  })
+})
+
+
+describe('._ensureLoaded', () => {
+  let w
+
+  beforeEach(() => {
+    w = new Wallet({}, 'password')
+  })
+
+  it('throws if not loaded', () => {
+    expect(() => w._ensureLoaded()).toThrow()
+  })
+
+  it('does not throw if loaded', () => {
+    w._hdWallet = 123
+
+    expect(() => w._ensureLoaded()).not.toThrow()
+  })
+})
+
+
+describe('._reload', () => {
+  let w
+  let hdWallet
+
+  beforeEach(() => {
+    let addressCount = 0
+
+    hdWallet = {
+      generateAddresses: jest.fn(num => {
+        const ret = []
+
+        for (let i = 0; num > i; i += 1) {
+          addressCount += 1
+          ret.push(`addr${addressCount}`)
+        }
+
+        return ret
+      }),
+      getAddressCount: () => addressCount,
+      discardAddresses: jest.fn()
+    }
+
+    EthHdWallet.setMethodMock('fromMnemonic', () => hdWallet)
+
+    w = new Wallet({}, 'password')
+
+    w._setBalancesAndNotifyStore = jest.fn()
+  })
+
+  it('will follow the BIP44 spec and check upto 20 addresses after the last one found with a balance before concluding search', async () => {
+    let balanceCall = 0
+    w._getBalance = jest.fn(() => {
+      balanceCall += 1
+
+      if (balanceCall === 20 || balanceCall === 40) {
+        return '0x1'
+      }
+
+      return '0x0'
+    })
+
+    await w._reload()
+
+    expect(hdWallet.generateAddresses).toHaveBeenCalledTimes(60)
+    expect(hdWallet.getAddressCount()).toEqual(60)
+    expect(hdWallet.discardAddresses).toHaveBeenCalledWith(20)
+    expect(w._setBalancesAndNotifyStore).toHaveBeenCalledWith([
+      /* eslint-disable quotes */
+      "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x1",
+      "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x1"
+      /* eslint-enable quotes */
+    ])
+  })
+
+  it('will atleast end up with one address if no balances found', async () => {
+    w._getBalance = jest.fn(() => '0x0')
+
+    await w._reload()
+
+    expect(hdWallet.generateAddresses).toHaveBeenCalledTimes(20)
+    expect(hdWallet.getAddressCount()).toEqual(20)
+    expect(hdWallet.discardAddresses).toHaveBeenCalledWith(19)
+    expect(w._setBalancesAndNotifyStore).toHaveBeenCalledWith([
+      /* eslint-disable quotes */
+      "0x0"
+      /* eslint-enable quotes */
+    ])
   })
 })
