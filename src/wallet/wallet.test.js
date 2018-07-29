@@ -1,5 +1,7 @@
+import BigNumber from 'bignumber.js'
 import EventEmitter from 'eventemitter3'
 
+import { toHexStr } from '../utils/number'
 import Wallet from './wallet'
 import EVENT from '../../common/constants/events'
 import STATE from '../../common/constants/states'
@@ -61,7 +63,6 @@ describe('.init()', () => {
   })
 })
 
-
 describe('.getAddresses', () => {
   let w
 
@@ -92,7 +93,9 @@ describe('.getAddressBalances', () => {
     w._balances = [ 123, 456, 789 ]
 
     expect(w.getAddressBalances()).toEqual({
-      a: 123, b: 456, c: 789
+      a: 123,
+      b: 456,
+      c: 789
     })
   })
 })
@@ -218,7 +221,10 @@ describe('._getBalance', () => {
     }
 
     expect(await w._getBalance('addr1')).toEqual(123)
-    expect(w._nodeConnector.rawCall).toHaveBeenCalledWith('eth_getBalance', [ 'addr1', 'latest' ])
+    expect(w._nodeConnector.rawCall).toHaveBeenCalledWith('eth_getBalance', [
+      'addr1',
+      'latest'
+    ])
   })
 })
 
@@ -256,5 +262,83 @@ describe('._onNewBlock', () => {
     w._onNewBlock()
 
     expect(w._updateBalances).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('._updateBalances', () => {
+  let w
+  let setBalanceResult
+
+  beforeEach(() => {
+    w = new Wallet({}, 'password')
+
+    w._hdWallet = {
+      getAddresses: jest.fn(() => [ 'abc', 'def' ])
+    }
+
+    let balance = 1
+    w._getBalance = jest.fn(() => {
+      balance += 1
+      return balance
+    })
+
+    w._setBalancesAndNotifyStore = jest.fn(() => setBalanceResult)
+  })
+
+  it('updates balances', async () => {
+    setBalanceResult = Promise.resolve()
+
+    await w._updateBalances()
+
+    expect(w._setBalancesAndNotifyStore).toHaveBeenCalledWith([ 2, 3 ])
+    expect(w._getBalance).toHaveBeenCalledWith('abc')
+    expect(w._getBalance).toHaveBeenCalledWith('def')
+  })
+
+  it('handles errors', async () => {
+    setBalanceResult = Promise.reject(new Error('test'))
+
+    await w._updateBalances()
+
+    expect(w._setBalancesAndNotifyStore).toHaveBeenCalledWith([ 2, 3 ])
+  })
+})
+
+describe('._setBalancesAndNotifyStore', () => {
+  let w
+  let store
+
+  beforeEach(() => {
+    store = {
+      actions: {
+        injectAccountBalances: jest.fn()
+      }
+    }
+
+    w = new Wallet({ store }, 'password')
+
+    w.getAddressBalances = jest.fn(() => 123)
+  })
+
+  it('sets new balances', async () => {
+    expect.assertions(4)
+
+    w._balances = 1
+
+    await w._setBalancesAndNotifyStore([ '0xdeadbeef', '0xf00dba11' ])
+
+    expect(w._balances).not.toEqual(1)
+
+    w._balances.forEach(b => {
+      expect(b).toBeInstanceOf(BigNumber)
+    })
+
+    expect(w._balances.map(toHexStr)).toEqual([ '0xdeadbeef', '0xf00dba11' ])
+  })
+
+  it('injects balances into store', async () => {
+    await w._setBalancesAndNotifyStore([ '0xdeadbeef', '0xf00dba11' ])
+
+    expect(store.actions.injectAccountBalances).toHaveBeenCalledWith(123)
   })
 })
