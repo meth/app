@@ -7,11 +7,9 @@ import Wallet from './wallet'
 import EVENT from '../../common/constants/events'
 import STATE from '../../common/constants/states'
 
-
 jest.mock('eth-hd-wallet', () => ({
   EthHdWallet: require('method-mocks').setupMethodMocks()
 }))
-
 
 describe('.init()', () => {
   let store
@@ -350,7 +348,6 @@ describe('._setBalancesAndNotifyStore', () => {
   })
 })
 
-
 describe('._ensureLoaded', () => {
   let w
 
@@ -368,7 +365,6 @@ describe('._ensureLoaded', () => {
     expect(() => w._ensureLoaded()).not.toThrow()
   })
 })
-
 
 describe('._reload', () => {
   let w
@@ -418,8 +414,46 @@ describe('._reload', () => {
     expect(hdWallet.discardAddresses).toHaveBeenCalledWith(20)
     expect(w._setBalancesAndNotifyStore).toHaveBeenCalledWith([
       /* eslint-disable quotes */
-      "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x1",
-      "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x0", "0x1"
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x1',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x0',
+      '0x1'
       /* eslint-enable quotes */
     ])
   })
@@ -434,7 +468,7 @@ describe('._reload', () => {
     expect(hdWallet.discardAddresses).toHaveBeenCalledWith(19)
     expect(w._setBalancesAndNotifyStore).toHaveBeenCalledWith([
       /* eslint-disable quotes */
-      "0x0"
+      '0x0'
       /* eslint-enable quotes */
     ])
   })

@@ -29,7 +29,7 @@ const PER_MNEMONIC_DBS = [ 'appSettings', 'bookmarks' ]
  * Writing to storage should be considered volatile, and storage calls should
  * be expected to fail at any time.
  */
-class Storage {
+export class Storage {
   init ({ config, store }) {
     log.debug('Initializing ...')
 
@@ -44,19 +44,10 @@ class Storage {
     this._mnemonic = mnemonic
 
     if (!this._mnemonic) {
-      this.shutdownDatabases(...PER_MNEMONIC_DBS)
-
-      // if network is connected shutdown the network dbs
-      if (this._network) {
-        this.shutdownDatabases(...PER_NETWORK_DBS)
-      }
+      this.shutdownDatabases([ ...PER_MNEMONIC_DBS, ...PER_NETWORK_DBS ])
     } else {
-      this.setupDatabases(...PER_MNEMONIC_DBS)
-
-      // if network is connected setup the network dbs
-      if (this._network) {
-        this.setupDatabases(...PER_NETWORK_DBS)
-      }
+      // if network is connected setup the network dbs too
+      this.setupDatabases(PER_MNEMONIC_DBS.concat(this._network ? PER_NETWORK_DBS : []))
     }
   }
 
@@ -64,13 +55,13 @@ class Storage {
     if (!genesisBlock) {
       log.info('Clear storage network key')
 
-      this.shutdownDatabases(...PER_NETWORK_DBS)
+      this.shutdownDatabases(PER_NETWORK_DBS)
     } else {
       log.info(`Set storage network key: ${description} - ${genesisBlock} ...`)
 
       this._network = genesisBlock
 
-      this.setupDatabases(...PER_NETWORK_DBS)
+      this.setupDatabases(PER_NETWORK_DBS)
     }
   }
 
@@ -94,7 +85,7 @@ class Storage {
     return this._db.bookmarks
   }
 
-  shutdownDatabases (...dbKeys) {
+  shutdownDatabases (dbKeys) {
     dbKeys.forEach(dbKey => {
       if (this._db[dbKey]) {
         log.info(`Shutdown database: ${dbKey} ...`)
@@ -109,7 +100,7 @@ class Storage {
   /**
    * Setup per-mnemonic databases
    */
-  setupDatabases (...dbKeys) {
+  setupDatabases (dbKeys) {
     if (!this._mnemonic) {
       return
     }
