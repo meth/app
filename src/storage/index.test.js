@@ -1,10 +1,29 @@
 import storage, { Storage } from './'
+import Crypto from '../utils/crypto'
+import AddressBook from './addressBook'
+import CustomTokens from './customTokens'
+import Transactions from './transactions'
+import AppSettings from './appSettings'
+import Bookmarks from './bookmarks'
+
 
 const PER_NETWORK_DBS = [ 'transactions', 'addressBook', 'customTokens' ]
 const PER_MNEMONIC_DBS = [ 'appSettings', 'bookmarks' ]
 
 jest.mock('pouchdb-adapter-asyncstorage', () => () => {})
-jest.mock('../utils/crypto', () => require('method-mocks').setupMethodMocks())
+jest.mock('../utils/crypto', () => {
+  const Krypto = require('method-mocks').setupMethodMocks({
+    sha512: (...args) => Krypto._sha512(...args)
+  })
+
+  return Krypto
+})
+jest.mock('./addressBook', () => class Klass { constructor (...args) { Klass.last = args } })
+jest.mock('./customTokens', () => class Klass { constructor (...args) { Klass.last = args } })
+jest.mock('./transactions', () => class Klass { constructor (...args) { Klass.last = args } })
+jest.mock('./appSettings', () => class Klass { constructor (...args) { Klass.last = args } })
+jest.mock('./bookmarks', () => class Klass { constructor (...args) { Klass.last = args } })
+
 
 describe('default export', () => {
   it('is an instance of Storage', () => {
@@ -89,7 +108,6 @@ describe('Storage', () => {
     })
   })
 
-
   describe('db getters', () => {
     it('work', () => {
       s._db = {
@@ -105,6 +123,102 @@ describe('Storage', () => {
       expect(s.customTokens).toEqual(3)
       expect(s.appSettings).toEqual(4)
       expect(s.bookmarks).toEqual(5)
+    })
+  })
+
+  describe('.shutdownDatabases', () => {
+    it('shuts down dbs which are set', () => {
+      const dummy = { shutdown: jest.fn() }
+
+      s._db = { dummy }
+
+      s.shutdownDatabases([ 'test', 'dummy' ])
+
+      expect(dummy.shutdown).toHaveBeenCalled()
+      expect(s._db).toEqual({})
+    })
+  })
+
+  describe('.setupDatabases', () => {
+    let sha512spy
+    let hash
+
+    beforeEach(() => {
+      s._store = 'store'
+      s._network = 'network'
+      s._db = {}
+      s._mnemonic = 'abc def'
+
+      s.shutdownDatabases = jest.fn()
+
+      hash = ''
+      for (let i = 0; 128 > i; i += 1) {
+        hash += '123456789abcdef'.charAt(parseInt(Math.random() * 15, 10))
+      }
+
+      sha512spy = Crypto.setMethodMock('_sha512', jest.fn(() => hash))
+    })
+
+    it('does nothing if mnemonic not set', () => {
+      delete s._mnemonic
+
+      s.setupDatabases([ 'transactions', 'customTokens' ])
+
+      expect(s._db).toEqual({})
+      expect(s.shutdownDatabases).not.toHaveBeenCalled()
+    })
+
+    it('sets up dbs', () => {
+      const dbs = [
+        'addressBook',
+        'customTokens',
+        'transactions',
+        'appSettings',
+        'bookmarks'
+      ]
+
+      s.setupDatabases(dbs)
+
+      expect(sha512spy).toHaveBeenCalledWith('abc def')
+
+      expect(s.shutdownDatabases).toHaveBeenCalledWith(dbs)
+
+      expect(s._db.addressBook).toBeInstanceOf(AddressBook)
+      expect(AddressBook.last).toEqual([
+        'store', 'network', hash.substr(0, 64), hash.substr(64)
+      ])
+
+      expect(s._db.customTokens).toBeInstanceOf(CustomTokens)
+      expect(CustomTokens.last).toEqual([
+        'store', 'network', hash.substr(0, 64), hash.substr(64)
+      ])
+
+      expect(s._db.transactions).toBeInstanceOf(Transactions)
+      expect(Transactions.last).toEqual([
+        'store', 'network', hash.substr(0, 64), hash.substr(64)
+      ])
+
+      expect(s._db.appSettings).toBeInstanceOf(AppSettings)
+      expect(AppSettings.last).toEqual([
+        'store', 'network', hash.substr(0, 64), hash.substr(64)
+      ])
+
+      expect(s._db.bookmarks).toBeInstanceOf(Bookmarks)
+      expect(Bookmarks.last).toEqual([
+        'store', 'network', hash.substr(0, 64), hash.substr(64)
+      ])
+    })
+  })
+
+  describe('.loadAppData', () => {
+    beforeEach(() => {
+      s._loadlastConnectedNode = jest.fn()
+    })
+
+    it('loads app data', () => {
+      s.loadAppData()
+
+      expect(s._loadlastConnectedNode).toHaveBeenCalled()
     })
   })
 })

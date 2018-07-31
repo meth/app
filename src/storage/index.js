@@ -100,29 +100,31 @@ export class Storage {
   }
 
   /**
-   * Setup per-mnemonic databases
+   * Setup databases
    */
   setupDatabases (dbKeys) {
     if (!this._mnemonic) {
       return
     }
 
-    const key = sha512(this._mnemonic)
-    const authKey = key.substr(0, 64)
-    const encryptionKey = key.substr(64)
+    if (dbKeys.length) {
+      const key = sha512(this._mnemonic)
+      const authKey = key.substr(0, 64)
+      const encryptionKey = key.substr(64)
 
-    dbKeys.forEach(dbKey => {
-      log.info(`Setup database: ${dbKey} ...`)
+      this.shutdownDatabases(dbKeys)
 
-      this.shutdownDatabases(dbKey)
+      dbKeys.forEach(dbKey => {
+        log.info(`Setup database: ${dbKey} ...`)
 
-      this._db[dbKey] = new DBCLASS[dbKey](
-        this._store,
-        this._network,
-        authKey,
-        encryptionKey
-      )
-    })
+        this._db[dbKey] = new DBCLASS[dbKey](
+          this._store,
+          this._network,
+          authKey,
+          encryptionKey
+        )
+      })
+    }
   }
 
   /**
