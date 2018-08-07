@@ -153,9 +153,8 @@ export class Storage {
   async _load (key) {
     log.debug(`Load: ${key} ...`)
 
-    const json = await AsyncStorage.getItem(key)
-
     try {
+      const json = await AsyncStorage.getItem(key)
       const ret = JSON.parse(json)
       log.debug(`...${key} load ok`)
       return ret

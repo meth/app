@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native'
+
 import storage, { Storage } from './'
 import Crypto from '../utils/crypto'
 import AddressBook from './addressBook'
@@ -6,10 +8,12 @@ import Transactions from './transactions'
 import AppSettings from './appSettings'
 import Bookmarks from './bookmarks'
 
-
 const PER_NETWORK_DBS = [ 'transactions', 'addressBook', 'customTokens' ]
 const PER_MNEMONIC_DBS = [ 'appSettings', 'bookmarks' ]
 
+jest.mock('react-native', () => ({
+  AsyncStorage: require('method-mocks').setupMethodMocks()
+}))
 jest.mock('pouchdb-adapter-asyncstorage', () => () => {})
 jest.mock('../utils/crypto', () => {
   const Krypto = require('method-mocks').setupMethodMocks({
@@ -18,12 +22,51 @@ jest.mock('../utils/crypto', () => {
 
   return Krypto
 })
-jest.mock('./addressBook', () => class Klass { constructor (...args) { Klass.last = args } })
-jest.mock('./customTokens', () => class Klass { constructor (...args) { Klass.last = args } })
-jest.mock('./transactions', () => class Klass { constructor (...args) { Klass.last = args } })
-jest.mock('./appSettings', () => class Klass { constructor (...args) { Klass.last = args } })
-jest.mock('./bookmarks', () => class Klass { constructor (...args) { Klass.last = args } })
-
+jest.mock(
+  './addressBook',
+  () =>
+    class Klass {
+      constructor (...args) {
+        Klass.last = args
+      }
+    }
+)
+jest.mock(
+  './customTokens',
+  () =>
+    class Klass {
+      constructor (...args) {
+        Klass.last = args
+      }
+    }
+)
+jest.mock(
+  './transactions',
+  () =>
+    class Klass {
+      constructor (...args) {
+        Klass.last = args
+      }
+    }
+)
+jest.mock(
+  './appSettings',
+  () =>
+    class Klass {
+      constructor (...args) {
+        Klass.last = args
+      }
+    }
+)
+jest.mock(
+  './bookmarks',
+  () =>
+    class Klass {
+      constructor (...args) {
+        Klass.last = args
+      }
+    }
+)
 
 describe('default export', () => {
   it('is an instance of Storage', () => {
@@ -185,27 +228,42 @@ describe('Storage', () => {
 
       expect(s._db.addressBook).toBeInstanceOf(AddressBook)
       expect(AddressBook.last).toEqual([
-        'store', 'network', hash.substr(0, 64), hash.substr(64)
+        'store',
+        'network',
+        hash.substr(0, 64),
+        hash.substr(64)
       ])
 
       expect(s._db.customTokens).toBeInstanceOf(CustomTokens)
       expect(CustomTokens.last).toEqual([
-        'store', 'network', hash.substr(0, 64), hash.substr(64)
+        'store',
+        'network',
+        hash.substr(0, 64),
+        hash.substr(64)
       ])
 
       expect(s._db.transactions).toBeInstanceOf(Transactions)
       expect(Transactions.last).toEqual([
-        'store', 'network', hash.substr(0, 64), hash.substr(64)
+        'store',
+        'network',
+        hash.substr(0, 64),
+        hash.substr(64)
       ])
 
       expect(s._db.appSettings).toBeInstanceOf(AppSettings)
       expect(AppSettings.last).toEqual([
-        'store', 'network', hash.substr(0, 64), hash.substr(64)
+        'store',
+        'network',
+        hash.substr(0, 64),
+        hash.substr(64)
       ])
 
       expect(s._db.bookmarks).toBeInstanceOf(Bookmarks)
       expect(Bookmarks.last).toEqual([
-        'store', 'network', hash.substr(0, 64), hash.substr(64)
+        'store',
+        'network',
+        hash.substr(0, 64),
+        hash.substr(64)
       ])
     })
   })
@@ -219,6 +277,114 @@ describe('Storage', () => {
       s.loadAppData()
 
       expect(s._loadlastConnectedNode).toHaveBeenCalled()
+    })
+  })
+
+  describe('._loadlastConnectedNode', () => {
+    let loadResult
+
+    beforeEach(() => {
+      s._load = () => loadResult
+      s._store = {
+        actions: {
+          injectLastConnectedNode: jest.fn()
+        }
+      }
+    })
+
+    it('does not inject into store if data unavailable', async () => {
+      loadResult = Promise.resolve()
+
+      await s._loadlastConnectedNode()
+
+      expect(s._store.actions.injectLastConnectedNode).not.toHaveBeenCalled()
+    })
+
+    it('injects into store if data available', async () => {
+      loadResult = Promise.resolve(123)
+
+      await s._loadlastConnectedNode()
+
+      expect(s._store.actions.injectLastConnectedNode).toHaveBeenCalledWith(123)
+    })
+  })
+
+  describe('.saveLastConnectedNode', () => {
+    it('saves the data', async () => {
+      s._save = jest.fn(() => Promise.resolve())
+
+      await s.saveLastConnectedNode(123)
+
+      expect(s._save).toHaveBeenCalledWith('lastConnectedNode', 123)
+    })
+  })
+
+  describe('._load', () => {
+    let getItemSpy
+    let getItemResult
+
+    beforeEach(() => {
+      getItemSpy = AsyncStorage.setMethodMock('getItem', jest.fn(() => getItemResult))
+    })
+
+    afterEach(() => {
+      AsyncStorage.clearAllMethodMocks()
+    })
+
+    it('returns undefined if failed to load', async () => {
+      getItemResult = Promise.reject(new Error('test'))
+
+      const result = await s._load('key')
+
+      expect(getItemSpy).toHaveBeenCalledWith('key')
+      expect(result).toBeUndefined()
+    })
+
+    it('returns undefined if failed to parse JSON', async () => {
+      getItemResult = Promise.resolve([])
+
+      const result = await s._load('key')
+
+      expect(getItemSpy).toHaveBeenCalledWith('key')
+      expect(result).toBeUndefined()
+    })
+
+    it('returns result if valid', async () => {
+      getItemResult = Promise.resolve(JSON.stringify({ a: 1 }))
+
+      const result = await s._load('key')
+
+      expect(getItemSpy).toHaveBeenCalledWith('key')
+      expect(result).toEqual({ a: 1 })
+    })
+  })
+
+  describe('._save', () => {
+    let setItemSpy
+    let setItemResult
+
+    beforeEach(() => {
+      setItemSpy = AsyncStorage.setMethodMock('setItem', jest.fn(() => setItemResult))
+    })
+
+    afterEach(() => {
+      AsyncStorage.clearAllMethodMocks()
+    })
+
+    it('handles failed saves by catching errors', async () => {
+      setItemResult = Promise.reject(new Error('test'))
+
+      await s._save('key', 123)
+
+      expect(setItemSpy).toHaveBeenCalledWith('key', JSON.stringify(123))
+    })
+
+    it('handles successful saves', async () => {
+      setItemResult = Promise.resolve()
+
+      await s._save('key', 123)
+
+      expect(setItemSpy).toHaveBeenCalledWith('key', JSON.stringify(123))
     })
   })
 })
