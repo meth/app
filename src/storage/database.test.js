@@ -1,6 +1,7 @@
+import EventEmitter from 'eventemitter3'
 import PouchDB from 'pouchdb-core'
-import Crypto from '../utils/crypto'
 
+import Crypto from '../utils/crypto'
 import Database from './database'
 
 jest.mock('pouchdb-core', () => {
@@ -10,6 +11,11 @@ jest.mock('pouchdb-core', () => {
     }
   }
   DummyPouchDB.plugin = () => {}
+  DummyPouchDB.sync = (...syncArgs) => {
+    DummyPouchDB.syncArgs = syncArgs
+
+    return new (require('eventemitter3'))()
+  }
   return DummyPouchDB
 })
 jest.mock('pouchdb-adapter-asyncstorage', () => () => {})
@@ -23,6 +29,8 @@ jest.mock('../utils/crypto', () => {
   return Krypto
 })
 jest.mock('../config', () => ({ getBackendUrl: () => 'https://example.com' }))
+
+
 
 describe('Database constructor', () => {
   let origReload
@@ -119,6 +127,122 @@ describe('Database', () => {
       d.stopSync()
 
       expect(sync.cancel).toHaveBeenCalled()
+    })
+  })
+
+  describe('.startSync', () => {
+    let emitter
+
+    beforeEach(() => {
+      emitter = new EventEmitter()
+
+      d._db = {
+        replicate: {
+          from: jest.fn(() => emitter)
+        }
+      }
+
+      d._onReplicationError = jest.fn()
+
+      d.stopSync = jest.fn()
+    })
+
+    it('calls stopSync() first', () => {
+      d.startSync()
+
+      expect(d.stopSync).toHaveBeenCalled()
+    })
+
+    it('replicates from backend URL', () => {
+      d.startSync()
+
+      expect(d._db.replicate.from).toHaveBeenCalledWith('https://example.com/db/authkey-test')
+    })
+
+    it('handles replication errors', () => {
+      d.startSync()
+
+      emitter.emit('error', 'abc')
+
+      expect(d._onReplicationError).toHaveBeenCalledWith('abc')
+    })
+
+    it('sets up syncer once replication completes', () => {
+      d.startSync()
+
+      d._sync = null
+      emitter.emit('complete')
+
+      expect(d._sync).toBeDefined()
+    })
+
+    describe('sets up syncer', () => {
+      beforeEach(() => {
+        d.startSync()
+        emitter.emit('complete')
+      })
+
+      it('which is configured properly', () => {
+        expect(PouchDB.syncArgs.length).toEqual(3)
+        expect(PouchDB.syncArgs[0]).toEqual('authkey-test')
+        expect(PouchDB.syncArgs[1]).toEqual('https://example.com/db/authkey-test')
+        expect(PouchDB.syncArgs[2]).toMatchObject({
+          live: true,
+          retry: true,
+          batch_size: 20
+        })
+      })
+
+      it('with backOff delay limited to 60seconds', () => {
+        const fn = PouchDB.syncArgs[2].back_off_function
+
+        expect(fn(0)).toEqual(1000)
+        expect(fn(20000)).toEqual(40000)
+        expect(fn(30001)).toEqual(60000)
+        expect(fn(60000)).toEqual(60000)
+      })
+
+      it('which handles sync errors', () => {
+        d._sync.emit('error', 123)
+
+        expect(d._onReplicationError).toHaveBeenCalledWith(123)
+      })
+
+      it('which handles sync pulls', () => {
+        d._reload = jest.fn()
+
+        d._sync.emit('change', { direction: 'pull' })
+
+        expect(d._reload).toHaveBeenCalled()
+      })
+
+      it('which handles sync pushes', () => {
+        d._reload = jest.fn()
+
+        d._sync.emit('change', { direction: 'push' })
+
+        expect(d._reload).not.toHaveBeenCalled()
+      })
+
+      it('which handles sync status changes', () => {
+        d._log = {
+          trace: jest.fn(),
+          debug: jest.fn(),
+          warn: jest.fn()
+        }
+
+        d._sync.emit('paused')
+        expect(d._log.trace).toHaveBeenCalledWith('Replication paused')
+
+        d._sync.emit('active')
+        expect(d._log.trace).toHaveBeenCalledWith('Replication resumed')
+
+        d._sync.emit('denied', 123)
+        expect(d._log.warn).toHaveBeenCalledWith('Replication denied', 123)
+
+        d._sync.emit('complete')
+        expect(d._log.debug).toHaveBeenCalledWith('Replication complete')
+      })
     })
   })
 

@@ -54,6 +54,7 @@ export default class Database {
           retry: true,
           batch_size: 20,
           back_off_function: delay => {
+            // initial delay is 1 second
             if (0 === delay) {
               return 1000
             }
