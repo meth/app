@@ -66,4 +66,60 @@ describe('Base adapter', () => {
       expect(spy).toHaveBeenCalledWith(STATE.CONNECTED)
     })
   })
+
+  describe('.connect', () => {
+    let connectPromise
+
+    beforeEach(() => {
+      b._updateState = jest.fn()
+      b._connect = jest.fn(() => connectPromise)
+      b._startPoll = jest.fn()
+    })
+
+    it('does nothing if already connected', async () => {
+      b._state = STATE.CONNECTED
+
+      await b.connect()
+
+      expect(b._state).toEqual(STATE.CONNECTED)
+      expect(b._connect).not.toHaveBeenCalled()
+    })
+
+    it('does nothing and returns existing connecting promise if already connecting', async () => {
+      b._state = STATE.CONNECTING
+      b._connectPromise = 123
+
+      expect(await b.connect()).toEqual(123)
+
+      expect(b._state).toEqual(STATE.CONNECTING)
+      expect(b._connect).not.toHaveBeenCalled()
+    })
+
+    it('handles connection errors', async () => {
+      connectPromise = Promise.reject(new Error('test'))
+
+      try {
+        await b.connect()
+      } catch (_) {
+        expect(b._connect).toHaveBeenCalled()
+        expect(b._connectPromise).toEqual(connectPromise)
+        expect(b._updateState).toHaveBeenCalledTimes(2)
+        expect(b._updateState).toHaveBeenCalledWith(STATE.CONNECTING)
+        expect(b._updateState).toHaveBeenCalledWith(STATE.CONNECT_ERROR)
+      }
+    })
+
+    it('handles connection succes', async () => {
+      connectPromise = Promise.resolve(123)
+
+      expect(await b.connect()).toEqual(true)
+
+      expect(b._connect).toHaveBeenCalled()
+      expect(b._connectPromise).toEqual(null)
+      expect(b._updateState).toHaveBeenCalledTimes(2)
+      expect(b._updateState).toHaveBeenCalledWith(STATE.CONNECTING)
+      expect(b._updateState).toHaveBeenCalledWith(STATE.CONNECTED)
+      expect(b._startPoll).toHaveBeenCalled()
+    })
+  })
 })

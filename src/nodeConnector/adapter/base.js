@@ -76,7 +76,7 @@ class Adapter extends EventEmitter {
     }
 
     this._log.trace('Connecting...')
-    this._updateState(STATE.CONNECTING, 'Connecting...')
+    this._updateState(STATE.CONNECTING)
 
     this._connectPromise = this._connect()
 
