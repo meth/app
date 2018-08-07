@@ -30,8 +30,6 @@ jest.mock('../utils/crypto', () => {
 })
 jest.mock('../config', () => ({ getBackendUrl: () => 'https://example.com' }))
 
-
-
 describe('Database constructor', () => {
   let origReload
   let origStartSync
@@ -156,7 +154,9 @@ describe('Database', () => {
     it('replicates from backend URL', () => {
       d.startSync()
 
-      expect(d._db.replicate.from).toHaveBeenCalledWith('https://example.com/db/authkey-test')
+      expect(d._db.replicate.from).toHaveBeenCalledWith(
+        'https://example.com/db/authkey-test'
+      )
     })
 
     it('handles replication errors', () => {
@@ -185,7 +185,9 @@ describe('Database', () => {
       it('which is configured properly', () => {
         expect(PouchDB.syncArgs.length).toEqual(3)
         expect(PouchDB.syncArgs[0]).toEqual('authkey-test')
-        expect(PouchDB.syncArgs[1]).toEqual('https://example.com/db/authkey-test')
+        expect(PouchDB.syncArgs[1]).toEqual(
+          'https://example.com/db/authkey-test'
+        )
         expect(PouchDB.syncArgs[2]).toMatchObject({
           live: true,
           retry: true,
