@@ -14,7 +14,6 @@ const PER_MNEMONIC_DBS = [ 'appSettings', 'bookmarks' ]
 jest.mock('react-native', () => ({
   AsyncStorage: require('method-mocks').setupMethodMocks()
 }))
-jest.mock('pouchdb-adapter-asyncstorage', () => () => {})
 jest.mock('../utils/crypto', () => {
   const Krypto = require('method-mocks').setupMethodMocks({
     sha512: (...args) => Krypto._sha512(...args)
@@ -324,7 +323,10 @@ describe('Storage', () => {
     let getItemResult
 
     beforeEach(() => {
-      getItemSpy = AsyncStorage.setMethodMock('getItem', jest.fn(() => getItemResult))
+      getItemSpy = AsyncStorage.setMethodMock(
+        'getItem',
+        jest.fn(() => getItemResult)
+      )
     })
 
     afterEach(() => {
@@ -364,7 +366,10 @@ describe('Storage', () => {
     let setItemResult
 
     beforeEach(() => {
-      setItemSpy = AsyncStorage.setMethodMock('setItem', jest.fn(() => setItemResult))
+      setItemSpy = AsyncStorage.setMethodMock(
+        'setItem',
+        jest.fn(() => setItemResult)
+      )
     })
 
     afterEach(() => {

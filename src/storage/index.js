@@ -1,6 +1,4 @@
 import { AsyncStorage } from 'react-native'
-import PouchDB from 'pouchdb-core'
-import PouchDBAsyncStorageAdapter from 'pouchdb-adapter-asyncstorage'
 
 import logger from '../logger'
 import { sha512 } from '../utils/crypto'
@@ -9,8 +7,6 @@ import CustomTokens from './customTokens'
 import Transactions from './transactions'
 import AppSettings from './appSettings'
 import Bookmarks from './bookmarks'
-
-PouchDBAsyncStorageAdapter(PouchDB)
 
 const log = logger.create('Storage')
 
