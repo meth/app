@@ -2,7 +2,6 @@ import AppSettings from './appSettings'
 
 jest.mock('./database', () => require('./__mocks__/database'))
 
-
 describe('AppSettings', () => {
   let d
   let store

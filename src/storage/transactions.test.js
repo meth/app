@@ -2,7 +2,6 @@ import Transactions from './transactions'
 
 jest.mock('./database', () => require('./__mocks__/database'))
 
-
 describe('Transactions', () => {
   let d
   let store

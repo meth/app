@@ -2,7 +2,6 @@ import CustomTokens from './customTokens'
 
 jest.mock('./database', () => require('./__mocks__/database'))
 
-
 describe('CustomTokens', () => {
   let d
   let store

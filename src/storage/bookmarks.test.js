@@ -2,7 +2,6 @@ import Bookmarks from './bookmarks'
 
 jest.mock('./database', () => require('./__mocks__/database'))
 
-
 describe('Bookmarks', () => {
   let d
   let store

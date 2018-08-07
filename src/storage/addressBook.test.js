@@ -2,7 +2,6 @@ import AddressBook from './addressBook'
 
 jest.mock('./database', () => require('./__mocks__/database'))
 
-
 describe('AddressBook', () => {
   let d
   let store
