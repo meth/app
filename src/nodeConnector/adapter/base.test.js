@@ -487,4 +487,112 @@ describe('Base adapter', () => {
       expect(b._poll).toBeUndefined()
     })
   })
+
+  describe('_doPoll', () => {
+    beforeEach(() => {
+      b._state = STATE.CONNECTED
+      b._stopPoll = jest.fn()
+      b.execMethod = null
+    })
+
+    it('stops polling if not connected', async () => {
+      b._state = STATE.DISCONNECTED
+
+      await b._doPoll()
+
+      expect(b._stopPoll).toHaveBeenCalled()
+    })
+
+    it('polls block and sync state', async () => {
+      b.execMethod = jest.fn()
+        .mockImplementationOnce(() => Promise.resolve({
+          hash: '0xdeadbeef',
+          number: '0x1'
+        }))
+        .mockImplementationOnce(() => Promise.resolve(true))
+
+      await b._doPoll()
+
+      expect(b.execMethod).toHaveBeenCalledWith('eth_getBlockByNumber', [ 'latest', false ])
+      expect(b.execMethod).toHaveBeenCalledWith('eth_syncing')
+    })
+
+    it('emits new block event', async () => {
+      const block = {
+        hash: '0xdeadbeef',
+        number: '0x1'
+      }
+
+      b.execMethod = jest.fn()
+        .mockImplementationOnce(() => Promise.resolve(block))
+        .mockImplementationOnce(() => Promise.resolve(true))
+        .mockImplementationOnce(() => Promise.resolve(block))
+        .mockImplementationOnce(() => Promise.resolve(true))
+
+      const eventSpy = jest.fn()
+
+      b.on(EVENT.NEW_BLOCK, eventSpy)
+
+      await b._doPoll()
+
+      expect(b._lastBlockHash).toEqual('0xdeadbeef')
+      expect(eventSpy).toHaveBeenCalled()
+      expect(eventSpy).toHaveBeenCalledWith(block)
+
+      eventSpy.mockClear()
+      await b._doPoll()
+
+      // no new event emitted
+      expect(eventSpy).not.toHaveBeenCalled()
+    })
+
+    it('emits new sync event', async () => {
+      const block = {
+        hash: '0xdeadbeef',
+        number: '0x1'
+      }
+
+      b.execMethod = jest.fn()
+        .mockImplementationOnce(() => Promise.resolve(block))
+        .mockImplementationOnce(() => Promise.resolve(true))
+        .mockImplementationOnce(() => Promise.resolve(block))
+        .mockImplementationOnce(() => Promise.resolve(true))
+        .mockImplementationOnce(() => Promise.resolve(block))
+        .mockImplementationOnce(() => Promise.resolve(false))
+
+      const eventSpy = jest.fn()
+
+      b.on(EVENT.SYNCING, eventSpy)
+
+      await b._doPoll()
+
+      // new event emitted
+      expect(b._lastSyncing).toEqual(true)
+      expect(eventSpy).toHaveBeenCalled()
+      expect(eventSpy).toHaveBeenCalledWith(true)
+
+      eventSpy.mockClear()
+      await b._doPoll()
+
+      expect(eventSpy).not.toHaveBeenCalled()
+
+      eventSpy.mockClear()
+      await b._doPoll()
+
+      expect(b._lastSyncing).toEqual(false)
+      expect(eventSpy).toHaveBeenCalled()
+      expect(eventSpy).toHaveBeenCalledWith(false)
+    })
+  })
+
+  describe('._throwError', () => {
+    it('constructs and throws an error', () => {
+      try {
+        b._throwError('msg', 'details')
+      } catch (err) {
+        expect(err.message).toEqual('msg')
+        expect(err.details).toEqual('details')
+      }
+    })
+  })
 })
