@@ -1,26 +1,33 @@
 import Generic from './generic'
 
-jest.mock('../../logger', () => ({
-  create: tag => ({ logger: tag })
-}))
-
-
 describe('generic method', () => {
-  const nodeConnector = {}
-  const walletManager = {}
-  const store = {}
+  let methodHandler
+  let nodeConnector
 
-  it('stores config instances', () => {
-    const generic = new Generic({ nodeConnector, walletManager, store }, 'blah')
+  beforeEach(() => {
+    nodeConnector = {
+      rawCall: jest.fn()
+    }
 
-    expect(generic._nodeConnector).toEqual(nodeConnector)
-    expect(generic._walletManager).toEqual(walletManager)
-    expect(generic._store).toEqual(store)
+    methodHandler = new Generic({
+      nodeConnector,
+      walletManager: 'wm',
+      store: 'st'
+    }, 'blah')
   })
 
-  it('sets up logging', () => {
-    const generic = new Generic({ nodeConnector, walletManager, store }, 'blah')
+  it('.constructor', () => {
+    expect(methodHandler._nodeConnector).toEqual(nodeConnector)
+    expect(methodHandler._walletManager).toEqual('wm')
+    expect(methodHandler._store).toEqual('st')
+    expect(methodHandler._method).toEqual('blah')
+  })
 
-    expect(generic._log).toEqual({ logger: 'method[blah]' })
+  describe('.run', () => {
+    it('raw calls the method', async () => {
+      await methodHandler.run(123)
+
+      expect(nodeConnector.rawCall).toHaveBeenCalledWith('blah', 123)
+    })
   })
 })
