@@ -16,11 +16,7 @@ describe('web3 method factory', () => {
   let factory
 
   beforeEach(() => {
-    factory = new Web3MethodFactory({
-      nodeConnector: 'nc',
-      walletManager: 'wm',
-      store: 'st'
-    })
+    factory = new Web3MethodFactory({})
   })
 
   describe('.getHandler', () => {
