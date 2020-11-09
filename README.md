@@ -5,7 +5,7 @@
 
 Cross-platform wallet and dapp browser, for Ethereum addicts!
 
-**NOTE: This is unreleased, Alpha software, very much a work-in-progress**
+**NOTE: This software is no longer under development and is left here for references purposes only.**
 
 Features:
 
